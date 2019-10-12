@@ -11,7 +11,7 @@
 </context-menu>
 
 <div class="track" *ngIf="track" [contextMenu]="trackMenu" [contextMenuSubject]="track">
-	<div class="header">
+	<div class="header" [appBackgroundImage]="track.id">
 		<div class="info">
 			<div class="img">
 				<app-coverart-image [coverArtObj]="track" [size]="150" [fill]="true" [alt]="track.tag?.title" [allowEnlarge]="true"></app-coverart-image>
