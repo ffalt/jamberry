@@ -1,0 +1,30 @@
+<app-background-text-list [list]="tracks" name="Tracks"></app-background-text-list>
+<div *ngIf="tracks && tracks.length>0" class="tracks">
+	<div class="heading">
+		<div class="handle"></div>
+		<div class="fav" title="Favorite Track"><i class="icon-heart-empty"></i></div>
+		<div *ngIf="showRating" class="rating" title="Rating"><i class="icon-checkmark"></i></div>
+		<div *ngIf="showPlayCount" class="play-count" title="Play Counter"><i class="icon-headphones"></i></div>
+		<div *ngIf="showPlayDate" class="play-date" title="Last Played"><i class="icon-clock"></i></div>
+		<div class="number" title="Track Number">#</div>
+		<div class="title" title="Title">Track</div>
+		<div class="length" title="Duration"><i class="icon-stopwatch"></i></div>
+	</div>
+	<div cdkDropList (cdkDropListDropped)="onDrop($event)">
+		<div class="track" *ngFor="let track of tracks" (tap)="tapTrack($event, track)" cdkDrag>
+			<div class="handle">
+				<span class="grippy"></span>
+			</div>
+			<div class="fav"><a (click)="actions.toggleTrackFav(track)">
+				<app-fav-icon [state]="track.state"></app-fav-icon>
+			</a></div>
+			<div *ngIf="showRating" class="rating">{{track.state?.rated}}</div>
+			<div *ngIf="showPlayCount" class="play-count">{{track.state?.played}}</div>
+			<div *ngIf="showPlayDate" class="play-date" title="{{track.state?.lastplayed | date:'long'}}">{{track.state?.lastplayed | date}}</div>
+			<div class="number">{{track.tag.trackNr}}</div>
+			<div class="title"><p>{{track.tag.title}}</p><a *ngIf="showArtist" title="Artist" (click)="navig.toArtistID(track.artistID,track.tag.artist)">{{track.tag.artist}}</a></div>
+			<div class="length">{{track.duration|duration}}</div>
+		</div>
+	</div>
+</div>
+

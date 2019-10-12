@@ -1,0 +1,11 @@
+@import "globals.scss";
+
+:host {
+	.albums {
+		@include view();
+
+		.content {
+			padding: $padding;
+		}
+	}
+}

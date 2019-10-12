@@ -1,0 +1,48 @@
+<div class="sessions">
+	<div class="header slim">
+		<div class="info">
+			<div class="meta">
+				<div class="type">Jam</div>
+				<div class="name">Session Logins</div>
+				<div class="actions"></div>
+			</div>
+		</div>
+	</div>
+	<div class="content" *ngIf="sessions">
+		<div class="subsonic">
+			<div class="section-title">Subsonic Token</div>
+
+			<ng-container *ngIf="isUnlocked">
+				<div *ngIf="subsonicToken">
+					<ng-container *ngIf="subsonicToken.token">{{subsonicToken.token}}</ng-container>
+					<ng-container *ngIf="!subsonicToken.token">[No Token]</ng-container>
+				</div>
+				<button class="button-primary" (click)="generateSubsonicToken()">Generate Subsonic Token</button>
+			</ng-container>
+
+			<div *ngIf="!isUnlocked">
+				<div>Enter your password to view/generate your Subsonic Token.</div>
+				<button class="button-primary" (click)="unlockSubsonicToken()">Enter Password</button>
+			</div>
+
+		</div>
+		<div class="session-list">
+			<div class="section-title">Sessions</div>
+			<div class="session" *ngFor="let session of sessions">
+				<div class="agent">
+					{{session.agent}}<br/>
+					{{session.os}}
+				</div>
+				<div class="title">
+					{{session.client}}<br/>
+					<span>{{session.mode}}</span>
+				</div>
+				<div class="expires">
+					<span class="label">valid until:</span><br/>
+					{{session.expires | date:'long'}}
+				</div>
+				<div class="remove"><a title="Remove this login" (click)="remove(session)"><i class="icon-remove"></i></a></div>
+			</div>
+		</div>
+	</div>
+</div>

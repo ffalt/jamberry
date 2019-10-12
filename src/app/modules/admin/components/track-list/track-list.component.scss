@@ -1,0 +1,13 @@
+@import "globals.scss";
+
+:host {
+	@include cdk-table();
+
+	.duration, .number, .format {
+		max-width: 100px;
+	}
+
+	.more {
+		max-width: 80px;
+	}
+}

@@ -1,0 +1,206 @@
+@mixin cdk-table {
+	$breakpoint: 750px;
+	$cdk-header-row-height: 36px;
+	$cdk-row-height: 48px;
+	$cdk-row-horizontal-padding: 16px;
+
+	/**
+   * Flex-based table structure
+   */
+	cdk-table {
+		display: block;
+		user-select: none;
+	}
+
+	cdk-header-row {
+		font-weight: bold;
+		font-size: 0.7em;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		min-height: $cdk-header-row-height;
+		hyphens: auto;
+		border-color: var(--background-border);
+		color: var(--on-background-active);
+	}
+
+	cdk-row, cdk-footer-row {
+		min-height: $cdk-row-height;
+		border-color: var(--background-border);
+
+		&:hover {
+			background-color: var(--background-hover);
+		}
+	}
+
+	cdk-row {
+		&.selected {
+			background-color: var(--background-active);
+		}
+	}
+
+	cdk-row, cdk-header-row, cdk-footer-row {
+		display: flex;
+		// Define a border style, but then widths default to 3px. Reset them to 0px except the bottom
+		// which should be 1px;
+		border-width: 0;
+		border-bottom-width: 1px;
+		border-style: solid;
+		align-items: center;
+		box-sizing: border-box;
+	}
+
+	// Note: we use `first-of-type`/`last-of-type` here in order to prevent extra
+	// elements like ripples or badges from throwing off the layout (see #11165).
+	cdk-cell:first-of-type, cdk-header-cell:first-of-type, cdk-footer-cell:first-of-type {
+		padding-left: $cdk-row-horizontal-padding;
+
+		[dir='rtl'] & {
+			padding-left: 0;
+			padding-right: $cdk-row-horizontal-padding;
+		}
+	}
+
+	cdk-cell:last-of-type, cdk-header-cell:last-of-type, cdk-footer-cell:last-of-type {
+		padding-right: $cdk-row-horizontal-padding;
+
+		[dir='rtl'] & {
+			padding-right: 0;
+			padding-left: $cdk-row-horizontal-padding;
+		}
+	}
+
+	cdk-cell, cdk-header-cell, cdk-footer-cell {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+		word-wrap: break-word;
+		min-height: inherit;
+	}
+
+	@media screen and (max-width: $breakpoint) {
+		.cdk-table {
+			border: 0;
+			vertical-align: middle;
+
+			caption {
+				font-size: 1em;
+			}
+
+			.cdk-row {
+				border-width: 1px;
+				margin: 4px 4px 8px;
+				padding-top: 6px;
+				padding-bottom: 6px;
+				display: block;
+				min-height: 20px;
+				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+			}
+
+			.cdk-row[hidden] {
+				display: none !important;
+			}
+
+			.cdk-header-row {
+				display: none;
+			}
+
+			.cdk-cell {
+				border-bottom: 1px solid var(--background-border);
+				display: block;
+				font-size: 0.8em;
+				text-align: right;
+				font-weight: bold;
+				max-width: inherit !important;
+				padding: 4px $cdk-row-horizontal-padding;
+			}
+
+			.cdk-cell:before {
+				/*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+				content: attr(data-label);
+				float: left;
+				text-transform: uppercase;
+				font-weight: normal;
+				padding-top: 2px;
+				font-size: .85em;
+			}
+
+			.cdk-cell:last-child {
+				border-bottom: 0;
+			}
+
+			//.cdk-cell:first-child {
+			//padding-left: 0;
+			//margin-top: 4%;
+			//}
+		}
+	}
+
+	/**
+   * Native HTML table structure
+   */
+	table.cdk-table {
+		border-spacing: 0;
+	}
+
+	tr.cdk-header-row {
+		height: $cdk-header-row-height;
+	}
+
+	tr.cdk-row, tr.cdk-footer-row {
+		height: $cdk-row-height;
+	}
+
+	tr.cdk-row {
+		&.selected {
+			background-color: var(--background-active);
+		}
+	}
+
+	th.cdk-header-cell {
+		text-align: left;
+
+		[dir='rtl'] & {
+			text-align: right;
+		}
+	}
+
+	th.cdk-header-cell, td.cdk-cell, td.cdk-footer-cell {
+		padding: 0;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+	}
+
+	// Note: we use `first-of-type`/`last-of-type` here in order to prevent extra
+	// elements like ripples or badges from throwing off the layout (see #11165).
+	th.cdk-header-cell:first-of-type, td.cdk-cell:first-of-type, td.cdk-footer-cell:first-of-type {
+		padding-left: $cdk-row-horizontal-padding;
+
+		[dir='rtl'] & {
+			padding-left: 0;
+			padding-right: $cdk-row-horizontal-padding;
+		}
+	}
+
+	th.cdk-header-cell:last-of-type, td.cdk-cell:last-of-type, td.cdk-footer-cell:last-of-type {
+		padding-right: $cdk-row-horizontal-padding;
+
+		[dir='rtl'] & {
+			padding-right: 0;
+			padding-left: $cdk-row-horizontal-padding;
+		}
+	}
+
+
+	//.cdk-table.striped .cdk-row:nth-child(even) {
+	//	background-color: var(--background-hover);
+	//
+	//	&:hover {
+	//		background-color: var(--background-box);
+	//	}
+	//}
+
+}

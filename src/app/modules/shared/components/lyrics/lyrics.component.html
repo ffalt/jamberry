@@ -1,0 +1,14 @@
+<div class="info" *ngIf="lyrics">
+
+	<div class="description">
+		<div class="note">
+			<div *ngFor="let note of lyrics">
+				<div [innerHTML]="note"></div>
+			</div>
+			<div class="info-footnote" *ngIf="lyricsSource">
+				<a [href]="lyricsSource">Source</a>
+			</div>
+		</div>
+	</div>
+</div>
+

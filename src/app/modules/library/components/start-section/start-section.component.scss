@@ -1,0 +1,66 @@
+@import "globals.scss";
+
+:host {
+
+	.start-items {
+	}
+
+	.none {
+		color: var(--on-background);
+		opacity: 0.7;
+		font-size: 0.8em;
+	}
+
+	.start-section {
+		text-transform: uppercase;
+		letter-spacing: 1.25px;
+		font-size: $x-small;
+		padding-top: $padding;
+		padding-bottom: $padding;
+	}
+
+	.start-item {
+		border-top-width: 1px;
+		border-top-style: solid;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		padding-top: $padding-xs;
+		padding-bottom: $padding-xs;
+		color: var(--on-control-ambient);
+		border-bottom-color: var(--control-border);
+		border-top-color: var(--control-border);
+		cursor: pointer;
+
+		&:last-of-type {
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
+		}
+
+		&:hover {
+			background-color: var(--background-hover);
+		}
+
+		.title {
+			//width: 100%;
+			color: var(--on-background-active);
+			padding-left: $padding;
+			text-overflow: ellipsis;
+			font-weight: 200;
+			font-size: $small;
+			line-height: 1.1em;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		.image {
+			height: 32px;
+			width: 32px;
+
+			app-coverart-image {
+				height: 32px;
+				width: 32px;
+			}
+		}
+	}
+}

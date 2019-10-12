@@ -1,0 +1,33 @@
+<div class="genres">
+	<div class="admin-actions">
+		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
+	</div>
+	<div class="content">
+		<div class="left-content">
+			<cdk-table *ngIf="dataSource" [dataSource]="dataSource">
+				<ng-container cdkColumnDef="name">
+					<cdk-header-cell *cdkHeaderCellDef>Name</cdk-header-cell>
+					<cdk-cell *cdkCellDef="let genre" data-label="Name">{{genre.name}}</cdk-cell>
+				</ng-container>
+				<ng-container cdkColumnDef="tracks">
+					<cdk-header-cell [ngClass]="'count'" *cdkHeaderCellDef>Tracks</cdk-header-cell>
+					<cdk-cell [ngClass]="'count'" *cdkCellDef="let genre" data-label="Tracks">{{genre.trackCount}}</cdk-cell>
+				</ng-container>
+				<ng-container cdkColumnDef="artists">
+					<cdk-header-cell [ngClass]="'count'" *cdkHeaderCellDef>Artists</cdk-header-cell>
+					<cdk-cell [ngClass]="'count'" *cdkCellDef="let genre" data-label="Artists">{{genre.artistCount}}</cdk-cell>
+				</ng-container>
+				<ng-container cdkColumnDef="albums">
+					<cdk-header-cell [ngClass]="'count'" *cdkHeaderCellDef>Albums</cdk-header-cell>
+					<cdk-cell [ngClass]="'count'" *cdkCellDef="let genre" data-label="Albums">{{genre.albumCount}}</cdk-cell>
+				</ng-container>
+				<cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+				<cdk-row cdk-row *cdkRowDef="let row; columns: displayedColumns;" [hidden]="row.hidden" (click)="displayGenre(row)"></cdk-row>
+			</cdk-table>
+		</div>
+		<app-splitter></app-splitter>
+		<div class="right-content">
+			<app-admin-track-list [tracks]="tracks"></app-admin-track-list>
+		</div>
+	</div>
+</div>

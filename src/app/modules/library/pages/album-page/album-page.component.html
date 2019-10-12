@@ -1,0 +1,66 @@
+<app-loading *ngIf="!album"></app-loading>
+<context-menu #albumMenu>
+	<ng-template contextMenuItem let-album>
+		<app-context-entry-fav [base]="album" baseType="album"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-album>
+		<app-context-entry-rate [base]="album" baseType="album"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="player.addAlbumToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+</context-menu>
+
+<div class="album" *ngIf="album" [contextMenu]="albumMenu" [contextMenuSubject]="album">
+	<div class="header" [appBackgroundImage]="album.id">
+
+		<div class="info">
+			<div class="img">
+				<app-coverart-image [coverArtObj]="album" [size]="150" [fill]="true" [alt]="album.name" [allowEnlarge]="true"></app-coverart-image>
+			</div>
+			<div class="meta">
+				<div class="type">{{album.albumType}}</div>
+				<div class="name">{{album.name}}</div>
+				<div class="actions">
+					<button class="button-primary" (click)="player.startAlbum(album)"><i class="icon-play"></i> Play</button>
+				</div>
+			</div>
+			<div class="listeners">
+				<div class="label">Artist</div>
+				<div class="count"><a (click)="navig.toArtistID(album.artistID,album.artist)">{{album.artist}}</a></div>
+				<ng-container *ngIf="album.tag.year">
+					<div class="label">Year</div>
+					<div class="count">{{album.tag.year}}</div>
+				</ng-container>
+				<div class="label">Played</div>
+				<div class="count">{{album.state.played || 0}}</div>
+				<a class="more" [contextMenu]="albumMenu" [contextMenuSubject]="album" [contextMenuTriggerLeft]="true">…</a>
+			</div>
+		</div>
+
+		<div class="navigation">
+		</div>
+
+	</div>
+
+	<div class="content">
+
+		<div class="overview">
+
+			<div class="info" *ngIf="album.info">
+				<div class="section-title">Description</div>
+				<div class="description">
+					<app-info-note [info]="album.info"></app-info-note>
+				</div>
+			</div>
+
+			<div class="album-tracks">
+				<div class="head">
+					<span class="section-title">Tracks</span>
+				</div>
+				<app-tracks [tracks]="tracks" [showArtist]="isCompilation"></app-tracks>
+			</div>
+		</div>
+
+	</div>
+
+</div>

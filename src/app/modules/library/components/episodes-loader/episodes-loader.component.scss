@@ -1,0 +1,75 @@
+@import "globals.scss";
+
+:host {
+	width: 100%;
+
+	.episodes {
+		@include track-table();
+
+		.heading, .episode {
+			@include track-table-row();
+
+			.date {
+				width: 100px;
+				min-width: 100px;
+				margin-left: $margin;
+			}
+
+			.state {
+				width: 80px;
+				min-width: 80px;
+				margin-left: $margin;
+				text-align: center;
+			}
+		}
+
+		.heading {
+			@include track-table-header-row();
+		}
+
+		.episode {
+			@include track-table-data-row();
+		}
+
+	}
+
+	@media (max-width: $break-mobile) {
+		.episodes {
+			.episode {
+
+				.date {
+					order: 1;
+					padding-left: 0;
+					margin-left: 60px;
+					min-width: inherit;
+					font-size: 0.8em;
+					flex-grow: 1;
+					width: calc(59% - 60px);
+				}
+
+				.length {
+					order: 2;
+					width: 30%;
+					flex-grow: 1;
+				}
+
+				.state {
+					order: 3;
+					width: 60px;
+					min-width: 60px;
+					padding-left: 0;
+					margin-left: 0;
+					margin-top: -16px;
+					text-align: left;
+				}
+
+				.title {
+					order: 4;
+					display: flex;
+					align-items: center;
+					width: calc(99% - 60px);
+				}
+			}
+		}
+	}
+}

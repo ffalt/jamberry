@@ -1,0 +1,11 @@
+@import "globals.scss";
+
+:host {
+	.podcast {
+		@include media-plate();
+
+		.episodes {
+			width: 100%;
+		}
+	}
+}

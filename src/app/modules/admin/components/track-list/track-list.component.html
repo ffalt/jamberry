@@ -1,0 +1,42 @@
+<context-menu #trackMenu>
+	<ng-template contextMenuItem (execute)="toTrackFolder($event.item)"><i class="icon-track"></i> Go to Parent Folder</ng-template>
+</context-menu>
+
+<cdk-table *ngIf="dataSource" [dataSource]="dataSource">
+	<ng-container cdkColumnDef="name">
+		<cdk-header-cell *cdkHeaderCellDef>Title</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let trackItem" data-label="Title">{{trackItem.track.tag.title}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="artist">
+		<cdk-header-cell *cdkHeaderCellDef>Artist</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let trackItem" data-label="Artist">
+			<a [routerLink]="['/admin/artist/'+trackItem.track.artistID]">{{trackItem.track.tag.artist}}</a>
+		</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="album">
+		<cdk-header-cell *cdkHeaderCellDef>Album</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let trackItem" data-label="Album">
+			<a [routerLink]="['/admin/album/'+trackItem.track.albumID]">{{trackItem.track.tag.album}}</a>
+		</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="number">
+		<cdk-header-cell [ngClass]="'number'" *cdkHeaderCellDef>Track Nr.</cdk-header-cell>
+		<cdk-cell [ngClass]="'number'" *cdkCellDef="let trackItem" data-label="Track Nr.">{{trackItem.track.tag.trackNr}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="format">
+		<cdk-header-cell [ngClass]="'format'" *cdkHeaderCellDef>Format</cdk-header-cell>
+		<cdk-cell [ngClass]="'format'" *cdkCellDef="let trackItem" data-label="Format">{{trackItem.track.media.format}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="duration">
+		<cdk-header-cell [ngClass]="'duration'" *cdkHeaderCellDef>Duration</cdk-header-cell>
+		<cdk-cell [ngClass]="'duration'" *cdkCellDef="let trackItem" data-label="Duration">{{trackItem.track.duration | duration}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="more">
+		<cdk-header-cell [ngClass]="'more'" *cdkHeaderCellDef>More</cdk-header-cell>
+		<cdk-cell [ngClass]="'more'" *cdkCellDef="let trackItem" data-label="More">
+			<button class="button-on-background" [contextMenu]="trackMenu" [contextMenuSubject]="trackItem.track" [contextMenuTriggerLeft]="true">…</button>
+		</cdk-cell>
+	</ng-container>
+	<cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+	<cdk-row cdk-row *cdkRowDef="let row; columns: displayedColumns;" [ngClass]="{'selected': row.selected}" (click)="selection.toggle(row)"></cdk-row>
+</cdk-table>

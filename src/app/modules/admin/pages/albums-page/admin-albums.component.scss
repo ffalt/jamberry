@@ -1,0 +1,13 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: auto;
+	display: block;
+
+	.albums {
+		@include view();
+	}
+}

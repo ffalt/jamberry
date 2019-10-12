@@ -1,0 +1,25 @@
+<section class="playing" *ngIf="player.currentTrack && !player.currentEpisode">
+	<div class="art">
+		<app-coverart-image [coverArtObj]="player.currentTrack" [size]="50" alt="Album Art"></app-coverart-image>
+	</div>
+	<div class="song">
+		<a title="Track" (click)="navig.toTrackID(player.currentTrack.id,player.currentTrack.tag.title)">{{player.currentTrack.tag?.title|limit:60}}</a>
+		<a title="Album" (click)="navig.toAlbumID(player.currentTrack.albumID, player.currentTrack.tag.album)">{{player.currentTrack.tag?.album|limit:40}}</a>
+		<a title="Artist" (click)="navig.toArtistID(player.currentTrack.artistID, player.currentTrack.tag.artist)">{{player.currentTrack.tag?.artist|limit:40}}</a>
+	</div>
+	<div class="fav">
+		<a title="Toggle Track as Favorite" (click)="actions.toggleTrackFav(player.currentTrack)"><i [class]="player.currentTrack.state?.faved?'icon-heart-full':'icon-heart-empty'"></i></a>
+	</div>
+</section>
+<section class="playing" *ngIf="player.currentTrack && player.currentEpisode">
+	<div class="art">
+		<app-coverart-image [coverArtObj]="player.currentEpisode" [size]="50" alt="Album Art"></app-coverart-image>
+	</div>
+	<div class="song">
+		<a title="Episode" (click)="navig.toPodcastEpisodeID(player.currentEpisode.id,player.currentEpisode.tag.title)">{{player.currentEpisode.tag?.title|limit:60}}</a>
+		<a title="Podcast" (click)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcast)">{{player.currentEpisode.podcast|limit:40}}</a>
+	</div>
+	<div class="fav">
+		<a title="Toggle Track as Favorite" (click)="actions.toggleEpisodeFav(player.currentEpisode)"><i [class]="player.currentEpisode.state?.faved?'icon-heart-full':'icon-heart-empty'"></i></a>
+	</div>
+</section>

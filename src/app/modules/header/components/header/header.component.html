@@ -1,0 +1,18 @@
+<div class="sandwich" (click)="toggleMobileNavig()" title="Navigation Menu"><i class="icon-menu"></i></div>
+<div class="back" (click)="back()" *ngIf="app.standalone" title="Go back"><i class="icon-left-bold"></i></div>
+<div class="logo" title="Go to Start"><a [routerLink]="['/library']">
+	<app-logo-icon></app-logo-icon>
+	{{app.name}}</a></div>
+<app-search-box class="search"></app-search-box>
+<context-menu #userMenu>
+	<ng-template contextMenuItem (execute)="navig.toLibraryStart()"><i class="icon-browse"></i> Library</ng-template>
+	<ng-template contextMenuItem (execute)="navig.toUser()"><i class="icon-user"></i> User</ng-template>
+	<ng-template contextMenuItem (execute)="navig.toUserSettings()"><i class="icon-settings"></i> Settings</ng-template>
+	<ng-template contextMenuItem (execute)="navig.toAdmin()" [visible]="auth.user?.roles?.admin"><i class="icon-admin"></i> Administration</ng-template>
+	<ng-template contextMenuItem (execute)="navig.toAbout()"><i class="icon-help"></i> About</ng-template>
+	<ng-template contextMenuItem (execute)="navig.toLogout()"><i class="icon-logout"></i> Logout</ng-template>
+</context-menu>
+<div class="user" title="User Menu" *ngIf="auth.user && auth.user.name" [contextMenu]="userMenu" [contextMenuTriggerLeft]="true">
+	<app-coverart-image [coverArtObj]="auth.user" [size]="28" [round]="true"></app-coverart-image>
+</div>
+

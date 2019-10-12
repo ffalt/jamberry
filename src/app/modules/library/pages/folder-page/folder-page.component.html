@@ -1,0 +1,73 @@
+<app-loading *ngIf="!folder"></app-loading>
+
+<context-menu #folderMenu>
+	<ng-template contextMenuItem let-folder>
+		<app-context-entry-fav [base]="folder" baseType="folder"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-folder>
+		<app-context-entry-rate [base]="folder" baseType="folder"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="player.addFolderToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+</context-menu>
+
+<div class="folder" *ngIf="folder">
+	<div class="header" [appBackgroundImage]="folder.id" [contextMenu]="folderMenu" [contextMenuSubject]="folder">
+		<div class="info">
+			<div class="img">
+				<app-coverart-image [coverArtObj]="folder" [size]="150" [fill]="true" [alt]="folder.name" [allowEnlarge]="true"></app-coverart-image>
+			</div>
+			<div class="meta">
+				<div class="type" *ngIf="headline.type">{{headline.type}}</div>
+				<div class="name" *ngIf="headline.name">{{headline.name}}</div>
+				<div class="actions">
+					<button class="button-primary" (click)="player.startFolder(folder)"><i class="icon-play"></i> Play</button>
+				</div>
+			</div>
+			<div class="listeners">
+				<ng-container *ngIf="isAlbum">
+					<div class="label">Artist</div>
+					<div class="count">{{folder.tag.artist}}</div>
+					<div class="label">Year</div>
+					<div class="count">{{folder.tag.year}}</div>
+				</ng-container>
+				<div class="label">Played</div>
+				<div class="count">{{folder.state.played || 0}}</div>
+				<a class="more" [contextMenu]="folderMenu" [contextMenuSubject]="folder" [contextMenuTriggerLeft]="true">…</a>
+			</div>
+		</div>
+		<app-tabs class="navigation" *ngIf="hasArtistID" [tabs]="tabs" [current]="currentTab" (tabChange)="setTab($event)"></app-tabs>
+	</div>
+
+	<div class="content">
+		<div class="section-title">Navigation</div>
+		<ul class="breadcrumb" *ngIf="folder.parents && folder.parents.length>0">
+			<li *ngFor="let p of folder.parents"><a (click)="navig.toFolderID(p.id,p.name)">{{p.name}}</a></li>
+			<li>{{folder.name}}</li>
+		</ul>
+
+		<div class="tab-content" [ngSwitch]="currentTab.id">
+
+			<div class="tab-pane" *ngSwitchCase="'overview'">
+				<div class="info" *ngIf="folder.info">
+					<div class="section-title">Description</div>
+					<div class="description">
+						<app-info-note [info]="folder.info"></app-info-note>
+					</div>
+				</div>
+				<app-folders *ngIf="folder.folders && folder.folders.length>0" [folders]="folder.folders"></app-folders>
+				<app-tracks *ngIf="folder.tracks && folder.tracks.length>0" [tracks]="folder.tracks"></app-tracks>
+			</div>
+
+			<div class="tab-pane" *ngSwitchCase="'similar'">
+				<app-folders *ngIf="folder.similar" [folders]="folder.similar"></app-folders>
+			</div>
+
+			<div class="tab-pane" *ngSwitchCase="'musicbrainz'">
+				<app-mb-artist [mbArtistID]="folder.tag.musicbrainz.artistID"></app-mb-artist>
+			</div>
+
+		</div>
+
+	</div>
+</div>

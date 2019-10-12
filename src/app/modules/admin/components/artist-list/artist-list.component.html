@@ -1,0 +1,20 @@
+<cdk-table *ngIf="dataSource" [dataSource]="dataSource">
+	<ng-container cdkColumnDef="name">
+		<cdk-header-cell [ngClass]="'name'" *cdkHeaderCellDef>Name</cdk-header-cell>
+		<cdk-cell [ngClass]="'name'" *cdkCellDef="let artist" data-label="Name">{{artist.name}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="albums">
+		<cdk-header-cell [ngClass]="'albums'" *cdkHeaderCellDef>Album Count</cdk-header-cell>
+		<cdk-cell [ngClass]="'albums'" *cdkCellDef="let artist" data-label="Album Count">{{artist.albumCount}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="albumTypes">
+		<cdk-header-cell [ngClass]="'albumTypes'" *cdkHeaderCellDef>Album Types</cdk-header-cell>
+		<cdk-cell [ngClass]="'albumTypes'" *cdkCellDef="let artist" data-label="Album Types">{{artist.albumTypes}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="tracks">
+		<cdk-header-cell [ngClass]="'tracks'" *cdkHeaderCellDef>Track Count</cdk-header-cell>
+		<cdk-cell [ngClass]="'tracks'" *cdkCellDef="let artist" data-label="Track Count">{{artist.trackCount}}</cdk-cell>
+	</ng-container>
+	<cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+	<cdk-row cdk-row (dblclick)="toArtist(row)" *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>
+</cdk-table>

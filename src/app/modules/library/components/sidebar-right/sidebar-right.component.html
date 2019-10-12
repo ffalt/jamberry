@@ -1,0 +1,10 @@
+<div class="navigation">
+	<ul class="tabs">
+		<li [class.active]="currentTab==='queue'" (click)="currentTab='queue'"><a>Queue</a></li>
+		<li [class.active]="currentTab==='chat'" (click)="currentTab='chat'"><a>Chat</a></li>
+	</ul>
+</div>
+<div class="content">
+	<app-queue *ngIf="currentTab==='queue'"></app-queue>
+	<app-chat *ngIf="currentTab==='chat'"></app-chat>
+</div>

@@ -1,0 +1,77 @@
+<app-loading *ngIf="!folder"></app-loading>
+
+<context-menu #actionMenu>
+	<ng-template contextMenuItem (execute)="chooseColumns()"><i class="icon-list-add"></i> Choose Columns</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setAudiobookFrames()"><i class="icon-edit"></i> Set Fixed Audiobook Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setAudiodramaFrames()"><i class="icon-edit"></i> Set Fixed Audio Drama Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setSoundtrackFrames()"><i class="icon-edit"></i> Set Fixed Soundtrack Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setBootlegFrames()"><i class="icon-edit"></i> Set Fixed Bootleg Frames</ng-template>
+</context-menu>
+
+<ng-container *ngIf="folder">
+	<div *ngIf="canLoadRecursive" class="load-recursive">
+		This folder does not contain any tracks with tags.<br/>Do you want to load all tracks from subfolders?<br/>
+		<button class="button-on-control" title="Load all Tracks" (click)="loadRecursive()"><i class="icon-reload"></i> Load recursive</button>
+	</div>
+
+	<div class="actions" *ngIf="tracks && tracks.length>0 && editor.edits">
+		<button class="button-on-control" title="Refresh" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
+		<button class="button-on-control" title="Match with MusicBrainz" (click)="brainz()">
+			<app-mb-icon [size]="12"></app-mb-icon>&nbsp;Match
+		</button>
+		<button class="button-on-control" *ngIf="!isSaving" title="Save" (click)="save()"><i class="icon-floppy"></i> Save</button>
+		<button class="button-on-control" *ngIf="isSaving" title="Save"><i class="icon-spin icon-spnner"></i></button>
+		<button class="button-on-control" title="More" [contextMenu]="actionMenu" [contextMenuTriggerLeft]="true">…</button>
+	</div>
+	<app-loading *ngIf="!tracks"></app-loading>
+	<div class="editor" *ngIf="tracks && tracks.length>0 && editor.edits">
+		<cdk-virtual-scroll-viewport style="height: 100%" itemSize="34">
+			<table>
+				<thead>
+				<tr class="header-row">
+					<th></th>
+					<th class="header-row-title" *ngFor="let column of editor.columns; trackBy: trackByColumnFn">
+						<context-menu #columnMenu>
+							<ng-template contextMenuItem let-column="column" *ngFor="let action of column.actions" (execute)="action.click()"><i [class]="action.icon"></i> {{action.title}}</ng-template>
+						</context-menu>
+						<div [contextMenu]="columnMenu" [contextMenuTriggerLeft]="true" [contextMenuSubject]="column">
+							<span [title]="column.def.id">{{column.def.name}}</span>
+						</div>
+					</th>
+				</tr>
+				<tr class="header-row-sub">
+					<th class="col-state">
+					</th>
+					<th *ngFor="let column of editor.columns; trackBy: trackByColumnFn">
+						<div *ngIf="column.multi" class="cell-editor">
+							<div class="input-group">
+								<app-tag-editor-autocomplete [(value)]="column.multiStr" [getList]="column.getAutoCompleteList"></app-tag-editor-autocomplete>
+								<button class="button-on-background button-small" (click)="editor.setColumnText(column)" title="Fill all Cells in this Column"><i class="icon-down-thin"></i></button>
+							</div>
+						</div>
+					</th>
+				</tr>
+				</thead>
+				<colgroup>
+					<col [style.min-width]="'30px'">
+					<col *ngFor="let column of editor.columns; trackBy: trackByColumnFn" [style.min-width.px]="column.def.width">
+				</colgroup>
+				<tbody>
+				<tr *cdkVirtualFor="let edit of editor.edits; trackBy: trackByEditFn">
+					<td class="col-state">
+						<div class="cell-editor">
+							<ng-container *ngIf="edit.changed">
+								<i class="icon-floppy" *ngIf="!edit.saving" (click)="saveEdit(edit)"></i>
+								<i class="icon-spin icon-spinner" *ngIf="edit.saving"></i>
+							</ng-container>
+						</div>
+					</td>
+					<td *ngFor="let cell of edit.cells">
+						<app-cell-editor class="cell-editor" [class.changed]="cell.changed" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</cdk-virtual-scroll-viewport>
+	</div>
+</ng-container>

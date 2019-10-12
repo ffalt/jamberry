@@ -1,0 +1,16 @@
+.inline-edit {
+	cursor: pointer;
+
+	i {
+		font-size: 0.7em;
+	}
+}
+
+.inline-edit-edit {
+	width: 100%;
+	display: block;
+
+	input {
+		width: 100%;
+	}
+}

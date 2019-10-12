@@ -1,0 +1,19 @@
+@mixin note {
+
+	.note {
+		display: block;
+		padding: $padding;
+		border-radius: 4px;
+		font-weight: 200;
+		font-size: 13px;
+		letter-spacing: 1px;
+		line-height: 1.5em;
+		background-color: var(--background-box);
+		color: var(--on-background-active);
+	}
+
+	.info-footnote {
+		margin-top: $margin;
+	}
+
+}

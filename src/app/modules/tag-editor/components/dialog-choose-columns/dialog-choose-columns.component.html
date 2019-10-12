@@ -1,0 +1,22 @@
+<form class="choose-version">
+	<fieldset>
+		<span>ID3v2 Tag Version</span>
+		<label class="select"><input type="radio" name="release" [checked]="version==4" (click)="setVersion(4)"> 2.4</label>
+		<label class="select"><input type="radio" name="release" [checked]="version==3" (click)="setVersion(3)"> 2.3</label>
+		<label class="select"><input type="radio" name="release" [checked]="version==2" (click)="setVersion(2)"> 2.2</label><br/>
+		<a [href]="urls[version]" target="_blank" rel="noopener"><i class="icon-info"></i> {{urls[version]}}</a>
+	</fieldset>
+</form>
+<div class="columns">
+	<div class="column" *ngFor="let col of filteredColumns">
+		<div class="title">
+			<label>
+				<input type="checkbox" [(ngModel)]="col.checked" [checked]="col.checked" (change)="checkChange(col)">
+				{{col.name || col.frameDef.title}}
+			</label>
+		</div>
+		<div class="id">
+			{{col.id}}
+		</div>
+	</div>
+</div>

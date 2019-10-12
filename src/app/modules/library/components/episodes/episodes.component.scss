@@ -1,0 +1,114 @@
+@import "globals.scss";
+
+:host {
+	width: 100%;
+
+	.episodes {
+		@include track-table();
+
+		.heading, .episode {
+			@include track-table-row();
+
+			.date {
+				width: 100px;
+				min-width: 100px;
+				margin-left: $margin;
+			}
+
+			.state {
+				width: 60px;
+				min-width: 60px;
+				text-align: center;
+			}
+		}
+
+		.heading {
+			@include track-table-header-row();
+		}
+
+		.episode {
+			@include track-table-data-row();
+		}
+
+	}
+
+	@media (max-width: $break-pad) {
+		.episodes {
+			.episode {
+				.state {
+					margin-left: 0;
+				}
+
+				.date {
+					width: 80px;
+					min-width: 80px;
+					font-size: 0.8em;
+				}
+
+				.length {
+					width: 60px;
+					min-width: 60px;
+					font-size: 0.8em;
+				}
+			}
+		}
+	}
+
+	@media (max-width: $break-phone) {
+		.episodes {
+			.episode {
+				flex-flow: row wrap;
+				align-items: inherit;
+				width: 100%;
+				font-size: 0.9em;
+
+				.date {
+					order: 1;
+					padding-left: 0;
+					min-width: inherit;
+					flex-grow: 1;
+					text-align: left;
+					width: 30%;
+					margin-left: 10px;
+				}
+
+				.length {
+					order: 2;
+					width: 30%;
+					flex-grow: 1;
+				}
+
+				.title {
+					order: 3;
+					margin-top: -10px;
+					margin-left: 70px;
+				}
+			}
+		}
+	}
+
+	@media (max-width: $break-watch) {
+		.episodes {
+			.episode {
+
+				.date, .length {
+					text-align: right;
+					width: 100%;
+				}
+
+				.date {
+					margin-top: -30px;
+				}
+
+				.length {
+					margin-top: -10px;
+				}
+
+				.title {
+					margin-top: 0;
+					margin-left: 0;
+				}
+			}
+		}
+	}
+}

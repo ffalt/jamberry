@@ -1,0 +1,26 @@
+@import "globals.scss";
+
+:host {
+	.about {
+		@include view();
+
+		.header {
+			padding-left: $padding-xl;
+			padding-right: $padding-xl;
+		}
+
+		.content {
+			padding-left: $padding-xl;
+			padding-right: $padding-xl;
+			padding-bottom: $padding-xl;
+			@include key-value-list();
+
+
+			@media (max-width: $break-phone) {
+				padding-left: $padding;
+				padding-right: $padding;
+			}
+		}
+	}
+
+}

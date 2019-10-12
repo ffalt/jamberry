@@ -1,0 +1,115 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex: 0 1 100%;
+	overflow: hidden;
+	padding-top: $padding-xs;
+
+	.index-list-content {
+		display: flex;
+		flex-flow: column nowrap;
+		flex-grow: 1;
+		overflow: hidden;
+
+		.index-groups {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+
+			.index-group {
+				cursor: pointer;
+				line-height: 1.2em;
+				border-bottom-width: 3px;
+				border-bottom-style: solid;
+				border-bottom-color: transparent;
+				transition: all .1s ease-in-out;
+				transform-origin: center center;
+				text-align: center;
+				padding: 0 $padding-xs;
+
+				&:hover {
+					color: var(--on-control-hover);
+					border-bottom-color: var(--primary);
+				}
+
+				&.active {
+					color: var(--on-control-hover);
+					transform: scale(1.1);
+				}
+
+			}
+		}
+
+		.index-entries {
+			border-top-width: 1px;
+			border-top-style: solid;
+			border-top-color: var(--control-border);
+			padding: $padding-xs;
+			flex-grow: 1;
+			height: 100%;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
+
+	}
+
+	.header {
+		color: var(--on-control-ambient);
+		font-size: $x-small;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-bottom: $margin-xs;
+		cursor: pointer;
+
+		&:hover {
+			color: var(--on-control-ambient-hover);
+			border-right-color: var(--primary);
+		}
+
+		&:after {
+			font-family: $icon-font-family;
+			content: $icon-font-chevron-down-char;
+			padding-left: 4px;
+		}
+
+		border-right-width: 3px;
+		border-right-style: solid;
+		border-right-color: transparent;
+	}
+
+	.item {
+		color: var(--on-control);
+		padding: $padding-xs 0;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		border-right-width: 3px;
+		border-right-style: solid;
+		border-right-color: transparent;
+		transition: all .1s ease-in-out;
+		transform-origin: left center;
+
+		app-coverart-image {
+			margin-right: 6px;
+		}
+
+		i {
+			width: 25px;
+			display: block;
+		}
+
+		&:hover {
+			color: var(--on-control-hover);
+			border-right-color: var(--primary);
+		}
+
+		&.active {
+			color: var(--on-control-hover);
+			transform: scale(1.1);
+		}
+	}
+
+}

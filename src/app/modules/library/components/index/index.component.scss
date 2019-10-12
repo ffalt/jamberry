@@ -1,0 +1,29 @@
+@import "globals.scss";
+
+:host {
+	@include media-cards();
+
+	.index-entries {
+		@include flex-table();
+
+		.index-entry {
+			@include flex-table-row();
+			@include flex-table-data-row();
+		}
+	}
+
+	.index-group-name {
+		@include flex-table-row();
+		user-select: none;
+
+		&:after {
+			font-family: $icon-font-family;
+			content: $icon-font-chevron-down-char;
+			padding-left: 4px;
+		}
+
+		&:hover {
+			background-color: var(--background-hover);
+		}
+	}
+}

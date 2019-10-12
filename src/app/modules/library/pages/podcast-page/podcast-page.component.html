@@ -1,0 +1,42 @@
+<app-loading *ngIf="!podcast"></app-loading>
+<context-menu #podcastMenu>
+	<ng-template contextMenuItem let-podcast>
+		<app-context-entry-fav [base]="podcast" baseType="podcast"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-podcast>
+		<app-context-entry-rate [base]="podcast" baseType="podcast"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+	<ng-template contextMenuItem (execute)="podcastService.checkPodcast($event.item)" *ngIf="jam.auth.user?.roles?.podcast"><i class="icon-rescan"></i> Refresh Podcast Feed</ng-template>
+	<ng-template contextMenuItem (execute)="podcastService.removePodcast($event.item)" *ngIf="jam.auth.user?.roles?.podcast"><i class="icon-remove"></i> Remove Podcast</ng-template>
+</context-menu>
+<div class="podcast" *ngIf="podcast">
+	<div class="header" [appBackgroundImage]="podcast.id" [contextMenu]="podcastMenu" [contextMenuSubject]="podcast">
+		<div class="info">
+			<div class="img">
+				<app-coverart-image [coverArtObj]="podcast" [size]="150" [fill]="true" [alt]="podcast.name" [allowEnlarge]="true"></app-coverart-image>
+			</div>
+			<div class="meta">
+				<div class="type">Podcast</div>
+				<div class="name">{{podcast.name}}</div>
+				<div class="actions">
+					<!--					<button class="button-primary" (click)="player.startPodcast(podcast)"><i class="icon-play"></i> Play</button>-->
+				</div>
+			</div>
+			<div class="listeners">
+				<a class="more" [contextMenu]="podcastMenu" [contextMenuSubject]="podcast" [contextMenuTriggerLeft]="true">…</a>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="overview" *ngIf="podcast.description">
+			<div class="info">
+				<div class="section-title">Description</div>
+				<div class="description">
+					<div class="note">{{podcast.description}}</div>
+				</div>
+			</div>
+		</div>
+		<app-episodes [episodes]="podcast.episodes"></app-episodes>
+	</div>
+</div>

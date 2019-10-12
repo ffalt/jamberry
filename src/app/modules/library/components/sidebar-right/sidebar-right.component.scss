@@ -1,0 +1,35 @@
+@import "globals.scss";
+
+:host {
+	position: relative;
+	flex: 0 1 100%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background-color: var(--control);
+	color: var(--on-control);
+
+	.navigation {
+		width: 100%;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom-color: var(--control-border);
+
+		.tabs {
+			@include tabs();
+		}
+	}
+
+	.content {
+		flex: 1 1 auto;
+		position: relative;
+		overflow: hidden;
+		height: 100%;
+	}
+
+}

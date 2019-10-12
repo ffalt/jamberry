@@ -1,0 +1,64 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: auto;
+	display: block;
+
+	.radar {
+		@include view();
+
+		.content {
+			padding: $padding;
+		}
+
+		.action {
+		}
+
+		.buttons {
+			min-width: 130px;
+			display: inline-block;
+
+			> button {
+				margin-right: $margin-xs;
+			}
+		}
+
+		.current {
+			padding-top: $padding;
+			padding-bottom: $padding;
+			border-bottom: 1px solid var(--background-border);
+
+			span {
+				padding-right: $padding;
+			}
+		}
+
+		.track {
+			border-bottom: 1px solid var(--background-border);
+
+			.meta {
+				padding-top: $padding;
+				padding-bottom: $padding;
+			}
+
+			.track-health {
+				padding-left: $padding;
+			}
+		}
+
+		@media (max-width: $break-pad) {
+			.current span {
+				display: block;
+			}
+			.track {
+				.track-health {
+					padding-left: 0;
+				}
+			}
+
+		}
+	}
+}

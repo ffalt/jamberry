@@ -1,0 +1,3 @@
+<div *ngIf="cell" class="input-group" [class.changed]="cell.changed">
+	<textarea #memo name="cell" [(ngModel)]="val" (ngModelChange)="onValueChange()"></textarea>
+</div>

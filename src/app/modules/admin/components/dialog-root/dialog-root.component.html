@@ -1,0 +1,19 @@
+<form *ngIf="edit">
+	<div class="root-form-control">
+		<label for="root-name">Root name</label>
+		<input id="root-name" type="text" [(ngModel)]="edit.name" [ngModelOptions]="{standalone: true}"/>
+	</div>
+	<div class="root-form-control">
+		<label for="root-path">Path</label>
+		<input id="root-path" type="text" [(ngModel)]="edit.path" [ngModelOptions]="{standalone: true}"/>
+	</div>
+	<div class="root-form-control">
+		<label>Scan Strategy</label>
+		<fieldset>
+			<label class="select"><input type="radio" name="strategy" [(ngModel)]="edit.strategy" [value]="RootScanStrategy.auto"> Auto</label>
+			<label class="select"><input type="radio" name="strategy" [(ngModel)]="edit.strategy" [value]="RootScanStrategy.artistalbum"> Artist/Album</label>
+			<label class="select"><input type="radio" name="strategy" [(ngModel)]="edit.strategy" [value]="RootScanStrategy.compilation"> Compilations</label>
+			<label class="select"><input type="radio" name="strategy" [(ngModel)]="edit.strategy" [value]="RootScanStrategy.audiobook"> Audiobook</label>
+		</fieldset>
+	</div>
+</form>

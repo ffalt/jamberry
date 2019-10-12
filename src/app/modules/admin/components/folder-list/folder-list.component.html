@@ -1,0 +1,24 @@
+<cdk-table *ngIf="dataSource" [dataSource]="dataSource">
+	<ng-container cdkColumnDef="name">
+		<cdk-header-cell *cdkHeaderCellDef>Title</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let folder" data-label="Title"><a [routerLink]="['/admin/folder/'+folder.id+'/overview']">{{folder.name}}</a></cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="artist">
+		<cdk-header-cell *cdkHeaderCellDef>Artist</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let folder" data-label="Artist">{{folder.tag.artist}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="album">
+		<cdk-header-cell *cdkHeaderCellDef>Album</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let folder" data-label="Album">{{folder.tag.album}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="year">
+		<cdk-header-cell *cdkHeaderCellDef>Year</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let folder" data-label="Year">{{folder.tag.year}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="type">
+		<cdk-header-cell *cdkHeaderCellDef>Type</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let folder" data-label="Type">{{folder.type}} {{folder.tag.albumType ? '/ ' + folder.tag.albumType : ''}}</cdk-cell>
+	</ng-container>
+	<cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+	<cdk-row cdk-row *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>
+</cdk-table>

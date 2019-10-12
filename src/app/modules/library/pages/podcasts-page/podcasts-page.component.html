@@ -1,0 +1,33 @@
+<context-menu #podcastsMenu>
+	<ng-template *ngIf="jam.auth.user?.roles?.podcast" contextMenuItem (execute)="navig.toPodcastSearch()"><i class="icon-list-add"></i>Add Podcast</ng-template>
+	<ng-template contextMenuItem (execute)="refreshPodcastFeeds()"><i class="icon-rescan"></i>Refresh Podcast Feeds</ng-template>
+</context-menu>
+
+<div class="podcasts">
+	<div class="header" [contextMenu]="podcastsMenu">
+		<div class="info">
+			<div class="img">
+				<app-iconart-image icon="icon-podcasts"></app-iconart-image>
+			</div>
+			<div class="meta">
+				<div class="type"></div>
+				<div class="name">Podcasts</div>
+				<div class="actions">
+				</div>
+			</div>
+			<div class="listeners">
+				<a class="more" [contextMenu]="podcastsMenu" [contextMenuTriggerLeft]="true">…</a>
+			</div>
+		</div>
+		<div class="navigation">
+			<ul class="tabs">
+				<li [routerLink]="['/library/podcasts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a>Index</a></li>
+				<li [routerLink]="['/library/podcasts/latest']" routerLinkActive="active"><a>Latest Episodes</a></li>
+				<li *ngFor="let list of lists" [routerLink]="['/library/podcasts/'+list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="content">
+		<router-outlet></router-outlet>
+	</div>
+</div>

@@ -1,0 +1,167 @@
+@import "globals.scss";
+
+$header-height: 60px;
+$footer-height: 60px;
+$content-margins: $header-height+$footer-height;
+
+:host {
+	background-color: var(--background);
+	color: var(--on-background);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 100%;
+
+	.header {
+		flex: 0 0 auto;
+	}
+
+	.app-content {
+		flex: 1 1 auto;
+		position: relative;
+		overflow: hidden;
+		height: 100%;
+	}
+
+	.mini-player {
+		display: none;
+		text-align: center;
+		width: 100%;
+		min-height: $footer-height;
+		height: $footer-height;
+		max-height: $footer-height;
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 10;
+		border-top-width: 1px;
+		border-top-style: solid;
+		border-top-color: var(--control-border);
+		background-color: var(--control);
+
+		@keyframes dash {
+			0% {
+				stroke-dashoffset: 0;
+			}
+			25% {
+				stroke-dashoffset: 100;
+			}
+			50% {
+				stroke-dashoffset: 0;
+			}
+			75% {
+				stroke-dashoffset: 100;
+			}
+			100% {
+				stroke-dashoffset: 0;
+			}
+		}
+		@keyframes grow {
+			0% {
+				transform: scaleY(1);
+			}
+			15% {
+				transform: scaleY(1.5);
+			}
+			15% {
+				transform: scaleY(1.5);
+			}
+			30% {
+				transform: scaleY(1);
+			}
+			100% {
+				transform: scaleY(1);
+			}
+		}
+
+		svg {
+			vertical-align: middle;
+			padding-bottom: 1px;
+
+			.waveform > rect {
+				fill: var(--on-background);
+			}
+
+			.waveform > rect:nth-child(2) {
+				animation-delay: 250ms;
+			}
+
+			.waveform > rect:nth-child(3) {
+				animation-delay: 500ms;
+			}
+
+			.waveform > rect:nth-child(4) {
+				animation-delay: 750ms;
+			}
+
+			.waveform > rect:nth-child(5) {
+				animation-delay: 1000ms;
+			}
+
+			.waveform > rect:nth-child(6) {
+				animation-delay: 1250ms;
+			}
+
+			.waveform > rect:nth-child(7) {
+				animation-delay: 1500ms;
+			}
+		}
+
+		.playing {
+			svg .waveform > rect {
+				fill: #1ed760;
+				transform-box: fill-box;
+				transform-origin: 50% 50%;
+				animation-name: grow;
+				animation-duration: 1850ms;
+				animation-iteration-count: infinite;
+				animation-timing-function: linear;
+			}
+		}
+
+		button {
+			@include button();
+			background-color: var(--control);
+			border-color: var(--control);
+			color: var(--on-control);
+			flex: 1;
+		}
+
+		.active {
+			border-color: var(--control-active);
+		}
+
+	}
+
+	app-player-current-playing {
+		flex-grow: 1;
+	}
+
+	@media (max-width: $break-phone) {
+		&.expand {
+			height: auto;
+			overflow-y: auto;
+		}
+		.header {
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
+			z-index: 10;
+		}
+		.app-content {
+			margin-top: $header-height;
+			margin-bottom: $footer-height;
+			height: auto;
+			min-height: calc(100% - #{$content-margins});
+		}
+		.mini-player {
+			display: flex;
+		}
+
+		.footer {
+			display: none;
+		}
+	}
+}

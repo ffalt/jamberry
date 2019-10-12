@@ -1,0 +1,13 @@
+<app-loading *ngIf="!folder"></app-loading>
+<div class="folders" *ngIf="folder && folder.folders">
+	<context-menu #folderActionMenu>
+		<ng-template contextMenuItem (execute)="newFolder()" title="New Folder"><i class="icon-list-add"></i> New Folder…</ng-template>
+		<ng-template contextMenuItem let-folder [visible]="folder.folders && folder.folders.length>0" (execute)="moveSubfolders()" title="Move Subfolders to another Folder"><i class="icon-right-bold"></i> Move Subfolders…</ng-template>
+	</context-menu>
+	<div class="actions">
+		<button class="button-on-control" title="Refresh Folder" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
+		<button class="button-on-control" [contextMenu]="folderActionMenu" [contextMenuSubject]="folder" [contextMenuTriggerLeft]="true">…</button>
+	</div>
+	<app-background-text-list [list]="folder.folders" name="Folders"></app-background-text-list>
+	<app-admin-folder-list *ngIf="folder.folders.length>0" [folders]="folder.folders"></app-admin-folder-list>
+</div>

@@ -1,0 +1,16 @@
+<!--<ng-container #cellContainer></ng-container>-->
+<ng-container [ngSwitch]="cell?.column.def.impl">
+	<app-cell-editor-txt *ngSwitchCase="FrameType.Text" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-txt>
+	<app-cell-editor-txt *ngSwitchCase="FrameType.IdText" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-txt>
+	<app-cell-editor-txt *ngSwitchCase="FrameType.LangDescText" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-txt>
+	<app-cell-editor-txt *ngSwitchCase="FrameType.Filename" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-txt>
+	<app-cell-editor-txt-list *ngSwitchCase="FrameType.TextList" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-txt-list>
+	<app-cell-editor-bool *ngSwitchCase="FrameType.Bool" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-bool>
+	<app-cell-editor-bin tabindex="0" *ngSwitchCase="FrameType.IdBin" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-bin>
+	<app-cell-editor-bin tabindex="0" *ngSwitchCase="FrameType.GEOB" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-bin>
+	<app-cell-editor-pic tabindex="0" *ngSwitchCase="FrameType.Pic" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-pic>
+	<app-cell-editor-popm tabindex="0" *ngSwitchCase="FrameType.Popularimeter" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-popm>
+	<div *ngSwitchDefault class="blink">
+		TODO CELL EDITOR {{cell?.column.def.impl}}
+	</div>
+</ng-container>

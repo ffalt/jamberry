@@ -1,0 +1,11 @@
+@import "globals.scss";
+
+:host {
+	display: block;
+	padding: $padding-xs;
+	font-size: $x-small;
+	background-color: var(--control-box);
+	color: var(--on-control);
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}

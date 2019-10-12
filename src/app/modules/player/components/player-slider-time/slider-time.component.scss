@@ -1,0 +1,26 @@
+@import "globals.scss";
+
+:host {
+	width: 100%;
+	@include slider(32px, 4px);
+	vertical-align: center;
+
+	.waveform {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 2;
+		color: #1ed760;
+
+		svg {
+			width: 100%;
+			height: 32px;
+		}
+
+	}
+
+}

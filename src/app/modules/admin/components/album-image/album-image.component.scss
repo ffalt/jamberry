@@ -1,0 +1,67 @@
+@import "globals.scss";
+
+:host {
+
+	.image-selector {
+		display: flex;
+		flex-flow: column wrap;
+		height: calc(100% - 40px);
+	}
+
+	.image-buttons {
+		height: 40px;
+	}
+
+	.artwork {
+		overflow-y: auto;
+		width: 50%;
+		height: 100%;
+		padding-left: $padding;
+	}
+
+	.art-source {
+		padding-right: $padding;
+		overflow-y: auto;
+		width: 50%;
+		height: 100%;
+		border-right: 1px solid var(--background-border);
+
+		.images {
+			> div {
+				display: inline-block;
+
+				.image {
+					display: inline-block;
+					padding-top: 15px;
+					padding-right: 15px;
+					font-size: 0.8em;
+
+					img {
+						width: 128px;
+						min-width: 128px;
+						min-height: 128px;
+						height: auto;
+					}
+				}
+			}
+		}
+	}
+
+	.section {
+		border-bottom: 1px solid var(--background-border);
+		padding-bottom: $padding-xs;
+
+		//app-mb-icon::ng-deep svg {
+		//	vertical-align: middle;
+		//}
+
+		a {
+			color: var(--on-background-active);
+
+			&:hover {
+				color: var(--on-background);
+			}
+		}
+	}
+
+}

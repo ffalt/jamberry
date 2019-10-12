@@ -1,0 +1,18 @@
+@import "globals.scss";
+
+:host {
+	.track {
+		@include view();
+
+		.content {
+			padding: $padding;
+			@include key-value-list();
+
+			.svg {
+				height: 100px;
+				min-height: 100px;
+			}
+
+		}
+	}
+}

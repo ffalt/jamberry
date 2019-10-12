@@ -1,0 +1,31 @@
+@import "globals.scss";
+
+:host {
+	.settings {
+		@include view();
+
+		.content {
+			padding: $padding $padding $padding-xl;
+
+			.chat-max-age {
+				display: inline-block;
+			}
+
+			.section-entry {
+				padding-bottom: $padding;
+			}
+
+			label {
+				display: block;
+				font-size: 12px;
+				padding-bottom: 3px;
+
+				input[type="checkbox"] {
+					margin-top: -1px;
+					display: inline-block;
+					vertical-align: middle;
+				}
+			}
+		}
+	}
+}

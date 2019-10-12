@@ -1,0 +1,13 @@
+@import "globals.scss";
+
+:host {
+	.star-rating {
+		cursor: pointer;
+		padding: 0 3px;
+
+		i {
+			font-size: 1.3em;
+			color: orange;
+		}
+	}
+}

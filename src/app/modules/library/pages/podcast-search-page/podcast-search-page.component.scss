@@ -1,0 +1,47 @@
+@import "globals.scss";
+
+:host {
+	.search-podcasts {
+		@include view();
+
+		@include input-box-large();
+
+		.content {
+			padding: $padding;
+			width: 100%;
+
+			.podcasts {
+				width: 100%;
+				margin-top: $margin-lg;
+
+				@include media-plates();
+
+				select {
+					margin-top: $margin;
+					margin-bottom: $margin;
+					display: block;
+				}
+
+				.media-plates {
+					.media-plate {
+						.meta {
+							width: calc(100% - 120px);
+						}
+
+						.art {
+							min-width: 100px;
+							min-height: 100px;
+
+							img {
+								min-width: 100px;
+								min-height: 100px;
+								width: 100px;
+								height: auto;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

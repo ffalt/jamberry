@@ -1,0 +1,90 @@
+@import "globals.scss";
+
+:host {
+	width: 100%;
+	height: 100%;
+	flex: 1;
+	display: flex;
+	flex-flow: row nowrap;
+	overflow: hidden;
+	align-items: flex-start;
+	align-content: flex-start;
+
+	.left {
+		width: 15%;
+		height: 100%;
+	}
+
+	.middle {
+		width: 60%;
+		flex-grow: 1;
+		height: 100%;
+	}
+
+	.right {
+		width: 25%;
+		height: 100%;
+	}
+
+	@media (max-width: $break-desktop-huge) {
+
+		.left {
+			width: 20%;
+		}
+
+		.middle {
+			width: 55%;
+			flex-grow: 1;
+			height: 100%;
+		}
+
+		.right {
+			width: 25%;
+			height: 100%;
+		}
+
+
+	}
+
+	@media (max-width: $break-desktop-large) {
+
+		.left {
+			width: 25%;
+		}
+
+		.right, .split-pane-divider-right {
+			display: none;
+		}
+
+	}
+
+	@media (max-width: $break-pad) {
+		overflow: auto;
+		flex-flow: row wrap;
+
+		app-splitter {
+			display: none;
+		}
+
+		.left {
+			width: 100% !important;
+			height: auto;
+		}
+
+		.middle {
+			height: auto;
+		}
+		.right {
+			width: 100% !important;
+			height: auto;
+		}
+
+	}
+
+	@media (max-width: $break-phone) {
+		overflow: hidden;
+		height: auto;
+	}
+
+}
+

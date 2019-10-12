@@ -1,0 +1,16 @@
+<ng-container *ngIf="artist">
+	<div class="overview">
+		<div class="info" *ngIf="artist.info">
+			<div class="section-title">Description</div>
+			<div class="description">
+				<app-info-note [info]="artist.info"></app-info-note>
+			</div>
+		</div>
+	</div>
+	<div class="artist-albums" *ngIf="albums && !tracksQuery">
+		<app-albums [albums]="albums" [viewTypeList]="true" [limitArtist]="artist"></app-albums>
+	</div>
+	<div class="artist-tracks" *ngIf="tracksQuery">
+		<app-tracks-loader [queryCmd]="tracksQuery"></app-tracks-loader>
+	</div>
+</ng-container>

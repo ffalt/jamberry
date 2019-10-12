@@ -1,0 +1,28 @@
+<context-menu #folderMenu>
+	<ng-template contextMenuItem let-folder>
+		<app-context-entry-fav [base]="folder" baseType="folder"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-folder>
+		<app-context-entry-rate [base]="folder" baseType="folder"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="player.addFolderToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+</context-menu>
+<div class="folder" *ngIf="folder" (click)="toggleFolderTracks()">
+	<div class="art">
+		<app-coverart-image [coverArtObj]="folder" [size]="135" [alt]="folder.name"></app-coverart-image>
+	</div>
+	<div class="meta">
+		<div class="type" *ngIf="headline.type">{{headline.type}}</div>
+		<div class="name" *ngIf="headline.name"><a (click)="navig.toFolder(folder)" appClickStop>{{headline.name}}</a></div>
+		<div class="year" *ngIf="headline.year">{{headline.year}}</div>
+		<div class="actions">
+			<button class="button-primary" (click)="player.startFolder(folder)" appClickStop><i class="icon-play"></i> Play</button>
+			<a [contextMenu]="folderMenu" [contextMenuSubject]="folder" [contextMenuTriggerLeft]="true">…</a>
+		</div>
+	</div>
+</div>
+<div *ngIf="showTracks && tracksExpanded" class="tracks">
+	<app-loading *ngIf="!tracks" [time]="500"></app-loading>
+	<app-tracks [tracks]="tracks" [showArtist]="showArtist"></app-tracks>
+</div>

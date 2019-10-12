@@ -1,0 +1,89 @@
+@import "globals.scss";
+
+:host {
+	display: flex;
+	flex-flow: column wrap;
+	margin-bottom: $margin;
+
+	.header {
+		color: var(--on-control-ambient);
+		font-size: $x-small;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		margin-bottom: $margin-xs;
+		cursor: pointer;
+
+		&:hover {
+			color: var(--on-control-ambient-hover);
+			border-right-color: var(--primary);
+		}
+
+		&:after {
+			font-family: $icon-font-family;
+			content: $icon-font-chevron-down-char;
+			padding-left: 4px;
+		}
+
+		border-right-width: 3px;
+		border-right-style: solid;
+		border-right-color: transparent;
+	}
+
+	.item {
+		color: var(--on-control);
+		padding: $padding-xs 0;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		border-right-width: 3px;
+		border-right-style: solid;
+		border-right-color: transparent;
+		transition: all .1s ease-in-out;
+		transform-origin: left center;
+
+		app-coverart-image {
+			margin-right: 6px;
+		}
+
+		i {
+			width: 25px;
+			display: block;
+		}
+
+		&:hover {
+			color: var(--on-control-hover);
+			border-right-color: var(--primary);
+		}
+
+		&.active {
+			color: var(--on-control-hover);
+			transform: scale(1.1);
+		}
+	}
+
+	.active {
+		.header {
+			&:after {
+				content: $icon-font-chevron-up-char;
+			}
+		}
+	}
+
+	@media (max-width: $break-pad) {
+		flex: 1;
+		.header {
+			border-right-width: 0;
+
+			&:after {
+				content: '';
+			}
+		}
+		.item {
+			line-height: 1.5em;
+
+			&:hover {
+				border-right-width: 0;
+			}
+		}
+	}
+}

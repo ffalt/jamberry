@@ -1,0 +1,13 @@
+:host {
+	width: 100%;
+	text-align: center;
+	display: block;
+
+	.loader {
+		margin-top: 100px;
+
+		rect {
+			fill: #903c29;
+		}
+	}
+}

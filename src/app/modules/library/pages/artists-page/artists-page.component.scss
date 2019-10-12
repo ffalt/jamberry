@@ -1,0 +1,11 @@
+@import "globals.scss";
+
+:host {
+	.artists {
+		@include view();
+
+		.content {
+			padding: $padding;
+		}
+	}
+}

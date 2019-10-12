@@ -1,0 +1,20 @@
+@import "globals.scss";
+
+:host {
+	.drop-zone {
+		margin: 10px 20px;
+		border-width: 2px;
+		border-style: dotted;
+		border-color: var(--secondary);
+	}
+
+	input[type="text"] {
+		width: 100%;
+	}
+
+	.root-form-control {
+		margin-bottom: 8px;
+		display: block;
+		text-align: center;
+	}
+}

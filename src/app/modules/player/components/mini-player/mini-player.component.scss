@@ -1,0 +1,65 @@
+@import "globals.scss";
+
+:host {
+	flex-direction: column;
+
+	a {
+		font-size: $x-large;
+		color: var(--on-control-ambient);
+		border-radius: 5px;
+		padding: $padding-xs;
+
+		&.play {
+			font-size: $xx-large;
+			padding: 0;
+		}
+
+		&:hover {
+			color: var(--on-control-ambient-hover);
+		}
+
+		&.active {
+			color: var(--on-control-active);
+			background-color: var(--control-active);
+		}
+	}
+
+	app-mini-time-slider {
+		margin-top: 1px;
+		&.hidden {
+			visibility: hidden;
+		}
+	}
+
+	.buttons {
+		display: flex;
+		flex-direction: row;
+		padding-top: 4px;
+		padding-left: $padding;
+		padding-right: $padding;
+
+		> div {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-around;
+			align-items: center;
+		}
+
+		.actions {
+			flex: 1;
+		}
+
+		.art {
+			width: 45px;
+			min-width: 45px;
+
+			app-coverart-image {
+				display: block;
+				min-height: 35px;
+				max-height: 35px;
+				min-width: 35px;
+				max-width: 35px;
+			}
+		}
+	}
+}

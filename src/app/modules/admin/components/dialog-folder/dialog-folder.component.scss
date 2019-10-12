@@ -1,0 +1,20 @@
+:host {
+	> div {
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+
+	input[type="text"] {
+		width: 100%;
+	}
+
+	input {
+		font-size: 1.3em;
+		line-height: 1.3em;
+	}
+
+	.user-form-control {
+		margin-bottom: 8px;
+		display: block;
+	}
+}

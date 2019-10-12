@@ -1,0 +1,15 @@
+@import "globals.scss";
+
+:host {
+	cursor: pointer;
+	@include media-card();
+
+	img {
+		width: 100%
+	}
+
+	.footer-buttons {
+		font-size: 0.8em;
+	}
+}
+

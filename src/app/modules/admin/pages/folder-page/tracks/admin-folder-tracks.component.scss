@@ -1,0 +1,26 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+	display: block;
+	overflow: hidden;
+
+	.tracks {
+		display: flex;
+		flex-direction: column;
+		@include view();
+
+		.actions {
+			padding: $padding-sm $padding;
+		}
+
+		.content {
+			flex: 1 1 auto;
+			position: relative;
+			overflow: auto;
+
+			height: 100%;
+		}
+	}
+}

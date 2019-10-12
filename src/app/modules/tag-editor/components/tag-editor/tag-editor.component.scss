@@ -1,0 +1,157 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+
+
+	.actions {
+		padding: $padding-sm $padding;
+	}
+
+	.load-recursive {
+		text-align: center;
+		margin-top: $margin-lg;
+
+		button {
+			margin-top: $margin-sm;
+		}
+	}
+
+	.editor {
+		width: 100%;
+		height: 100%;
+		display: block;
+		position: relative;
+		overflow: hidden;
+
+		table {
+			table-layout: fixed;
+			border-width: 0;
+			height: 100%;
+			width: auto;
+
+			.cell-editor {
+				width: 100%;
+				display: block;
+				height: 34px;
+				border-top-width: 1px;
+				border-top-style: solid;
+				border-left-width: 1px;
+				border-left-style: solid;
+				text-align: center;
+				padding-bottom: 1px;
+				padding-top: 1px;
+				font-size: $x-small;
+				color: var(--on-background);
+				border-color: var(--background-border);
+
+				&.changed {
+					padding-bottom: 0;
+					padding-top: 0;
+					border-width: 1px;
+					border-style: solid;
+					border-left-width: 2px;
+					border-top-width: 2px;
+					border-color: var(--background-box);
+				}
+
+				&:focus-within {
+					padding-bottom: 0;
+					padding-top: 0;
+					border-width: 1px;
+					border-style: solid;
+					border-left-width: 2px;
+					border-top-width: 2px;
+					color: var(--on-background-active);
+				}
+			}
+
+			th {
+				border-right-width: 1px;
+				border-right-style: solid;
+				border-right-color: var(--background-border);
+
+				.input-group {
+					display: flex;
+					align-items: center;
+
+					app-autocomplete {
+						flex: 1;
+						min-height: 20px;
+					}
+
+					button {
+						margin-top: 6px;
+						margin-right: 2px;
+					}
+				}
+			}
+
+			tr.header-row {
+				border-top-width: 1px;
+				border-top-style: solid;
+				border-top-color: var(--background-border);
+
+				th {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					font-size: 0.8em;
+					padding-left: 4px;
+					padding-right: 4px;
+					border-top: none;
+					border-bottom: none;
+					color: var(--on-background-active);
+
+					.actions {
+						padding: 0;
+						visibility: hidden;
+					}
+
+					&:hover {
+						.actions {
+							visibility: inherit;
+						}
+					}
+				}
+			}
+
+			th.header-row-title {
+				cursor: pointer;
+				user-select: none;
+			}
+
+			tr {
+				height: 34px;
+				min-height: 34px;
+				max-height: 34px;
+
+				td {
+					border: none;
+
+					&.col-state {
+						text-align: center;
+
+						.cell-editor {
+							padding-top: 6px;
+							font-size: 18px;
+						}
+					}
+				}
+
+				&:last-of-type {
+					.cell-editor {
+						border-bottom-width: 1px;
+						border-bottom-style: solid;
+						border-bottom-color: var(--background-border);
+					}
+				}
+			}
+
+		}
+	}
+
+}

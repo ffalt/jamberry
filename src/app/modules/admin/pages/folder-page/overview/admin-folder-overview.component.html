@@ -1,0 +1,76 @@
+<app-loading *ngIf="!folder"></app-loading>
+<div class="folder" *ngIf="folder">
+	<div class="actions">
+		<button class="button-on-control" title="Refresh Folder" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
+		<context-menu #folderActionMenu>
+			<ng-template contextMenuItem (execute)="moveFolder()" title="Move Folder to another Folder"><i class="icon-right-bold"></i> Move Folder…</ng-template>
+			<ng-template contextMenuItem (execute)="removeFolder()" title="Remove Folder"><i class="icon-trash"></i> Remove Folder…</ng-template>
+		</context-menu>
+		<button class="button-on-control" [contextMenu]="folderActionMenu" [contextMenuSubject]="folder" [contextMenuTriggerLeft]="true">…</button>
+	</div>
+	<div class="content">
+		<div class="info-content" *ngIf="folder.info && folder.info.description">
+			<app-info-note *ngIf="folder.info" [info]="folder.info"></app-info-note>
+		</div>
+		<div class="properties">
+			<div>
+				<div>
+					<div class="label">Name:</div>
+					<div>
+						<app-inline-edit [(ngModel)]="name" (endEditRequest)="editFolderName()" type="text"></app-inline-edit>
+					</div>
+				</div>
+				<div>
+					<div class="label">Type:</div>
+					<div>{{folder.type}} {{isAlbum ? '/ ' + folder.tag.albumType : ''}}</div>
+				</div>
+				<div>
+					<div class="label">Tracks:</div>
+					<div>{{folder.trackCount}}</div>
+				</div>
+				<div>
+					<div class="label">Folders:</div>
+					<div> {{folder.folderCount}}</div>
+				</div>
+				<div *ngIf="folder.tag.artist">
+					<div class="label">Artist:</div>
+					<div> {{folder.tag.artist}}</div>
+				</div>
+				<div *ngIf="folder.tag.album">
+					<div class="label">Album:</div>
+					<div> {{folder.tag.album}}</div>
+				</div>
+			</div>
+			<div>
+				<div *ngIf="folder.tag.year">
+					<div class="label">Year:</div>
+					<div> {{folder.tag.year}}</div>
+				</div>
+				<div *ngIf="folder.tag.genre">
+					<div class="label">Genre:</div>
+					<div> {{folder.tag.genre}}</div>
+				</div>
+				<div *ngIf="folder.tag.musicbrainz && folder.tag.musicbrainz.releaseID">
+					<div class="label">MB Release ID:</div>
+					<div><a [href]="'https://musicbrainz.org/release/'+folder.tag.musicbrainz.releaseID" target="_blank" rel="noopener">{{folder.tag.musicbrainz.releaseID}}</a></div>
+				</div>
+				<div *ngIf="folder.tag.musicbrainz && folder.tag.musicbrainz.artistID">
+					<div class="label">MB Artist ID:</div>
+					<div><a [href]="'https://musicbrainz.org/artist/'+folder.tag.musicbrainz.artistID" target="_blank" rel="noopener">{{folder.tag.musicbrainz.artistID}}</a></div>
+				</div>
+				<div *ngIf="folder.parentID">
+					<div class="label">Parent Id:</div>
+					<div><a [routerLink]="['/admin/folder/'+folder.parentID]">{{folder.parentID}}</a></div>
+				</div>
+			</div>
+		</div>
+		<div class="artworks">
+			<div class="section-title">Artworks</div>
+			<button class="button-on-control" *ngIf="isAlbum && folder.tag && folder.tag.musicbrainz && (folder.tag.musicbrainz.releaseID || folder.tag.musicbrainz.releaseGroupID)" (click)="searchAlbumImages(folder)" title="Album Images"><i class="icon-picture"></i> Search Art</button>
+			<button class="button-on-control" *ngIf="isArtist && folder.tag && folder.tag.musicbrainz && folder.tag.musicbrainz.artistID" (click)="searchArtistImages(folder)" title="Artist Images"><i class="icon-picture"></i> Search Art</button>
+			<div *ngIf="folder.artworks && folder.artworks.length>0">
+				<app-admin-artwork-list [folderID]="folder.id" [artworks]="folder.artworks"></app-admin-artwork-list>
+			</div>
+		</div>
+	</div>
+</div>

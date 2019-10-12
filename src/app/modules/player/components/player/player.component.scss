@@ -1,0 +1,287 @@
+@import "globals.scss";
+
+:host {
+	background-color: var(--background);
+	color: var(--on-background);
+
+	.player {
+		width: 100%;
+		border-top-width: 1px;
+		border-top-style: solid;
+		border-top-color: var(--control-border);
+
+		padding: $padding $padding $padding-sm;
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+
+		background-color: var(--control);
+		color: var(--on-control-ambient);
+
+		.actions {
+
+			width: 8%;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			align-items: center;
+
+			a {
+				font-size: $x-large;
+				color: var(--on-control-ambient);
+
+				&:hover {
+					color: var(--on-control-ambient-hover);
+				}
+			}
+
+			.play {
+				font-size: $xx-large;
+			}
+		}
+
+		.progress {
+			width: 68%;
+			padding: 0 $padding-lg;
+			font-size: $x-small;
+
+			display: flex;
+			flex-flow: row;
+			justify-content: space-between;
+			align-items: center;
+			color: var(--on-control-ambient);
+
+			.start, .finish {
+				min-width: 30px;
+			}
+
+			.bar {
+				width: 100%;
+				padding-left: 12px;
+				padding-right: 12px;
+			}
+		}
+
+		.options {
+
+			width: 24%;
+
+			padding-right: $padding;
+			display: flex;
+
+			.player-controls {
+				width: auto;
+				margin-right: $margin;
+				text-align: right;
+				flex: 1;
+				white-space: nowrap;
+
+				.player-control {
+					margin-right: $padding-xs;
+					font-size: 1.5em;
+					border-radius: 2px;
+					border: 1px solid transparent;
+					line-height: 1.5em;
+
+					&.active {
+						color: var(--on-background-active);
+						border: 1px solid var(--background-border);
+					}
+
+					&.button-queue {
+						display: none;
+					}
+				}
+			}
+
+			.volume {
+				flex: 1 1 auto;
+				display: flex;
+				flex-flow: column wrap;
+				align-items: center;
+				max-width: 200px;
+				margin-top: 2px;
+
+				> div {
+					display: flex;
+					flex-flow: row wrap;
+					align-items: center;
+					width: 100%;
+				}
+
+				i {
+					color: var(--on-control-ambient);
+					font-size: 1.5em;
+					display: block;
+
+					&:hover {
+						color: var(--on-control-ambient-hover);
+					}
+				}
+
+				app-volume-slider, app-speed-slider {
+					display: block;
+					width: calc(100% - 58px);
+					margin-left: 10px;
+					margin-right: 10px;
+				}
+
+			}
+
+		}
+
+		@media (max-width: $break-desktop-large) {
+
+			.actions {
+				width: 15%;
+			}
+
+			.progress {
+				width: 55%;
+			}
+
+			.options {
+				width: 30%;
+
+				.player-controls {
+					.player-control.button-queue {
+						display: inline;
+					}
+				}
+			}
+
+		}
+
+		@media (max-width: $break-notebook) {
+
+			.actions {
+				width: 15%;
+			}
+
+			.progress {
+				width: 45%;
+			}
+
+			.options {
+				width: 40%;
+				padding-left: $padding;
+			}
+
+		}
+
+		@media (max-width: $break-pad) {
+
+			.actions {
+				width: 25%;
+			}
+
+			.progress {
+				width: 75%;
+			}
+
+			.options {
+				width: 100%;
+				padding-left: 0;
+				flex: none;
+
+				.volume {
+					width: 25%;
+				}
+			}
+
+			.action {
+				padding-top: $padding;
+			}
+
+		}
+
+		@media (max-width: $break-phone) {
+
+			.actions {
+				width: 100%;
+				justify-content: space-around;
+				padding: $padding-xs 0;
+			}
+
+			.progress {
+				width: 100%;
+				padding: $padding-xs 0;
+			}
+
+			.options {
+				padding: $padding-xs 0;
+			}
+
+		}
+
+	}
+
+	app-queue {
+		border-top: 1px solid var(--control-box-border);
+		width: 100%;
+		height: 600px;
+		overflow-y: auto;
+		display: none;
+
+		@media (max-width: $break-desktop-large) {
+			display: flex;
+		}
+		@media (max-height: 1200px) {
+			height: 500px;
+		}
+		@media (max-height: 800px) {
+			height: 300px;
+		}
+		@media (max-height: 400px) {
+			height: 200px;
+		}
+	}
+
+	app-current-playing {
+		display: none;
+	}
+
+	@media (max-width: $break-pad) {
+		app-current-playing {
+			display: block;
+		}
+	}
+
+	@media (max-width: $break-phone) {
+		border-top: 1px solid var(--background-border);
+
+		.player {
+			border-top: 1px solid var(--control-box-border);
+
+			.progress {
+				margin-top: $margin-sm;
+			}
+
+			.options {
+				.volume {
+
+					.player-speed {
+						margin-top: $margin;
+					}
+				}
+
+				.player-controls {
+					.player-control.button-queue, .player-control.button-info {
+						display: none;
+					}
+				}
+			}
+
+		}
+
+		app-current-playing {
+			&::ng-deep .playing {
+				border-top: 1px solid var(--control-box-border);
+			}
+
+			display: none;
+		}
+
+	}
+
+}

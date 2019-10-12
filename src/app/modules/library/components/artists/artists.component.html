@@ -1,0 +1,40 @@
+<app-view-type-toggle #viewType [viewTypeList]="viewTypeList"></app-view-type-toggle>
+
+<app-background-text-list [list]="artists" name="Artists"></app-background-text-list>
+
+<context-menu #artistMenu>
+	<ng-template contextMenuItem let-artist>
+		<app-context-entry-fav [base]="artist" baseType="artist"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-artist>
+		<app-context-entry-rate [base]="artist" baseType="artist"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="player.addArtistToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+</context-menu>
+
+<div *ngIf="!viewType.viewTypeList" class="media-cards">
+	<div class="media-card" *ngFor="let artist of artists" [contextMenu]="artistMenu" [contextMenuSubject]="artist">
+		<div class="image" (click)="navig.toArtist(artist)">
+			<app-coverart-image [coverArtObj]="artist" [size]="300" [alt]="artist.name" [fill]="true"></app-coverart-image>
+		</div>
+		<div class="fav" (click)="actions.toggleArtistFav(artist)">
+			<app-fav-icon [state]="artist.state"></app-fav-icon>
+		</div>
+		<div class="footer">
+			<a class="footer-content" (click)="navig.toArtist(artist)">
+				{{artist.name | limit:90}}
+			</a>
+			<div class="footer-buttons">
+				<button class="button-primary" (click)="player.startArtist(artist)"><i class="icon-play"></i> Play</button>
+				<a [contextMenu]="artistMenu" [contextMenuSubject]="artist" [contextMenuTriggerLeft]="true">…</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="albums" *ngIf="viewType.viewTypeList">
+	<ng-container *ngFor="let artist of artists">
+		<app-artist [artist]="artist"></app-artist>
+	</ng-container>
+</div>

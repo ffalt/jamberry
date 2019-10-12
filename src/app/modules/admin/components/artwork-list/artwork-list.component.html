@@ -1,0 +1,9 @@
+<div class="artwork" *ngFor="let art of nodes; trackBy: trackByFn">
+	<img [src]="art.thumbnail" (click)="editArtwork(art.artwork)">
+	<div class="artwork-types">
+		<app-inline-edit [(ngModel)]="art.name" (endEditRequest)="editArtworkName(art)" type="text"></app-inline-edit>
+		.{{art.type}}
+		{{art.artwork.types}} - {{art.artwork.format}} - {{art.artwork.width}}x{{art.artwork.height}} - {{art.artwork.size | filesize }}
+		<a class="delete-button" (click)="removeArtwork(art)" title="Delete Image"><i class="icon-trash"></i></a>
+	</div>
+</div>

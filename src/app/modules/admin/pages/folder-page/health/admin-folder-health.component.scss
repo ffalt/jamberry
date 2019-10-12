@@ -1,0 +1,38 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+
+	.health {
+		@include view();
+
+		.actions {
+			padding: $padding-sm $padding;
+			border-bottom-color: var(--background-border);
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
+		}
+
+		.content {
+			padding: $padding;
+			overflow-y: auto;
+			overflow-x: auto;
+		}
+
+		.folder {
+			@include media-plate();
+			flex-flow: row nowrap;
+
+			.meta {
+				width: 30%;
+				padding-right: $padding;
+			}
+
+			.folder-health {
+				display: flex;
+				width: 70%;
+			}
+		}
+	}
+}

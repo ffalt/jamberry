@@ -1,0 +1,50 @@
+<app-view-type-toggle #viewType [viewTypeList]="viewTypeList" [headline]="headline"></app-view-type-toggle>
+
+<app-background-text-list [list]="albums" [name]="typeName||'Albums'"></app-background-text-list>
+
+<context-menu #albumMenu>
+	<ng-template contextMenuItem let-album>
+		<app-context-entry-fav [base]="album" baseType="album"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-album>
+		<app-context-entry-rate [base]="album" baseType="album"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="player.addAlbumToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+</context-menu>
+
+<ng-container *ngFor="let group of groups">
+	<div class="group">
+		<ng-container>{{group.type}}</ng-container>
+	</div>
+
+	<div *ngIf="!viewType.viewTypeList" class="media-cards">
+		<div class="media-card" *ngFor="let album of group.albums" [contextMenu]="albumMenu" [contextMenuSubject]="album">
+			<div class="image" (click)="navig.toAlbum(album)">
+				<app-coverart-image [coverArtObj]="album" [size]="300" [alt]="album.name" [fill]="true"></app-coverart-image>
+			</div>
+			<div class="date" *ngIf="album.tag.year">
+				<span class="year">{{album.tag.year}}</span>
+			</div>
+			<div class="fav" (click)="actions.toggleAlbumFav(album)">
+				<app-fav-icon [state]="album.state"></app-fav-icon>
+			</div>
+			<div class="footer">
+				<a class="footer-content" (click)="navig.toAlbum(album)">
+					{{album.name | limit:50}}
+					<div class="footer-subline">{{album.artist | limit:50}}</div>
+				</a>
+				<div class="footer-buttons">
+					<button class="button-primary" (click)="player.startAlbum(album)"><i class="icon-play"></i> Play</button>
+					<a [contextMenu]="albumMenu" [contextMenuSubject]="album" [contextMenuTriggerLeft]="true">…</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="albums" *ngIf="viewType.viewTypeList">
+		<ng-container *ngFor="let album of group.albums">
+			<app-album [album]="album" [showArtist]="showArtist" [limitArtist]="limitArtist"></app-album>
+		</ng-container>
+	</div>
+</ng-container>

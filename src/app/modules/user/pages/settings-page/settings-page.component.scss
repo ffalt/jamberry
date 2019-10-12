@@ -1,0 +1,39 @@
+@import "globals.scss";
+
+:host {
+	.settings {
+		@include view();
+
+		.content {
+			padding: $padding $padding $padding-xl;
+
+			label {
+				display: block;
+				padding-bottom: $padding;
+				color: var(--on-background-active);
+
+				input[type="checkbox"] {
+					margin-top: -1px;
+					display: inline-block;
+					vertical-align: middle;
+				}
+			}
+
+			fieldset {
+				margin-bottom: $margin;
+				width: auto;
+				display: inline;
+			}
+
+			label.select {
+				width: auto;
+				padding-bottom: 0;
+
+				input {
+					margin-right: $margin-sm;
+				}
+			}
+
+		}
+	}
+}

@@ -1,0 +1,30 @@
+@import "globals.scss";
+
+
+:host {
+	width: 100%;
+
+	.tracks {
+		@include track-table();
+
+		.heading, .track {
+			@include track-table-row();
+		}
+
+		.heading {
+			@include track-table-header-row();
+		}
+
+		.track {
+			@include track-table-data-row();
+		}
+
+	}
+
+}
+
+.cdk-drag-preview {
+	color: #fff;
+	@include track-table-row();
+	@include track-table-data-row();
+}

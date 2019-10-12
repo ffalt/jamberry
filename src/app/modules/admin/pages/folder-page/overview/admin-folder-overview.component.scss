@@ -1,0 +1,80 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	display: block;
+
+	.folder {
+		@include view();
+		width: 100%;
+
+		.actions {
+			padding: $padding-sm $padding;
+			border-bottom-color: var(--background-border);
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
+		}
+
+		.content {
+			overflow-y: auto;
+			padding: $padding;
+			display: flex;
+			flex-direction: column;
+
+			.properties {
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+				flex-direction: row;
+
+				& > div {
+					flex: 0 0 50%;
+
+					@media (max-width: $break-phone) {
+						flex: 0 0 100%;
+					}
+
+					& > div {
+						display: flex;
+						flex-wrap: wrap;
+						flex-direction: row;
+						padding-top: $padding-xs;
+						padding-bottom: $padding-xs;
+
+						> div {
+							flex: 0 0 60%;
+							color: var(--on-background-active);
+
+							a {
+								color: var(--on-background-active);
+
+								&:hover {
+									color: var(--on-background);
+								}
+							}
+						}
+
+						.label {
+							flex: 0 0 40%;
+							color: var(--on-background);
+							max-width: 80px;
+							font-size: 0.8em;
+							text-transform: uppercase;
+							padding-right: 8px;
+						}
+
+
+					}
+				}
+			}
+
+			.folders, .tracks, .artworks {
+				border-top: 1px solid var(--background-border);
+				padding-top: $padding-sm;
+				padding-bottom: $padding-sm;
+			}
+		}
+	}
+}

@@ -1,0 +1,43 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: auto;
+	display: block;
+
+	.icon-warning {
+		color: var(--accent);
+	}
+
+	.details {
+		padding-left: 28px;
+		font-size: 0.8em;
+		display: block;
+		padding-top: $padding-xs;
+	}
+
+	.hint {
+		padding-bottom: $padding;
+	}
+
+	.solutions {
+		padding-bottom: $padding;
+
+		button {
+			margin-right: $margin-xs;
+		}
+	}
+
+	.detail {
+		span {
+			text-transform: uppercase;
+			letter-spacing: 1.25px;
+			font-size: $x-small;
+			min-width: 80px;
+			margin-right: $margin-sm;
+			display: inline-block;
+		}
+	}
+}

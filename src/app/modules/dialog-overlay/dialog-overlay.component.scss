@@ -1,0 +1,232 @@
+@import "globals.scss";
+
+$base-duration: 0.25s;
+
+$cdk-z-index-overlay-backdrop: 1000;
+$cdk-z-index-overlay: 1000;
+
+// Default backdrop animation is based on the Material Design swift-ease-out.
+$backdrop-animation-duration: 400ms !default;
+$backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+
+:host {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.overlay-content {
+	padding: 2em;
+	display: block;
+	position: relative;
+	border-radius: 0.3125rem;
+	background-color: var(--control);
+	color: var(--on-control);
+	max-height: 100%;
+	overflow-y: auto;
+
+	.overlay-title {
+		text-align: center;
+		padding: 0 0.5em 0.5em;
+		margin: 0;
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: var(--on-control-hover);
+	}
+
+	.overlay-buttons {
+		display: flex;
+
+		> a {
+			position: relative;
+			display: inline-block;
+			padding: 8px 30px;
+			border-radius: 3px;
+			font-size: 14px;
+			font-weight: 400;
+			text-transform: uppercase;
+			overflow: hidden;
+			cursor: pointer;
+			margin-top: 1em;
+			flex-grow: 1;
+			flex-basis: 0;
+			text-align: center;
+			color: var(--on-control-hover);
+
+			&:before {
+				position: absolute;
+				content: '';
+				top: 0;
+				left: 0;
+				width: 0;
+				height: 100%;
+				transition: width 250ms ease;
+				z-index: 0;
+				background-color: rgba(white, 0.2);
+			}
+
+			&:hover {
+				&:before {
+					width: 100%;
+				}
+			}
+
+			&.ok {
+				background-color: var(--primary);
+				color: var(--on-primary);
+				margin-right: 5px;
+			}
+
+			&.cancel {
+				background-color: var(--accent);
+				color: var(--on-accent);
+			}
+		}
+
+		&.disabled {
+			> a {
+				background-color: var(--on-control-ambient-disabled);
+			}
+		}
+	}
+
+	.close-panel {
+		position: absolute;
+		top: 0;
+		right: 0;
+		overflow: hidden;
+		width: 2.5rem;
+		height: 2.5rem;
+		max-width: 2.5rem;
+		max-height: 2.5rem;
+
+		.close {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 2.5rem;
+			height: 2.5rem;
+			border: none;
+			background-color: transparent;
+			font-size: 1.5rem;
+			transition: $base-duration linear;
+
+			&:before, &:after {
+				position: absolute;
+				content: '';
+				width: 0.75rem;
+				height: 0.125rem;
+				background-color: var(--on-control-hover);
+				overflow: hidden;
+			}
+
+			&:before {
+				transform: rotate(-45deg);
+			}
+
+			&:after {
+				transform: rotate(45deg);
+			}
+
+			&:hover {
+				transform: rotate(360deg);
+
+				&:before, &:after {
+					background-color: var(--accent);
+				}
+			}
+		}
+	}
+}
+
+.cdk-overlay-pane {
+	position: absolute;
+	pointer-events: auto;
+	box-sizing: border-box;
+	z-index: $cdk-z-index-overlay;
+}
+
+.cdk-overlay-backdrop {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: $cdk-z-index-overlay-backdrop;
+	pointer-events: auto;
+	-webkit-tap-highlight-color: transparent;
+	transition: opacity $backdrop-animation-duration $backdrop-animation-timing-function;
+	opacity: 0;
+	background-color: #000;
+
+	&.cdk-overlay-backdrop-showing {
+		opacity: 0.48;
+	}
+}
+
+.cdk-overlay-dark-backdrop {
+	background-color: var(--dialog-backdrop);
+}
+
+.cdk-global-scrollblock {
+	position: fixed;
+	width: 100%;
+	overflow-y: scroll;
+}
+
+.cdk-overlay-transparent-backdrop {
+	background-color: unset;
+}
+
+.overlay-panel-large {
+	width: 80%;
+	min-width: 80%;
+	height: 80%;
+	min-height: 80%;
+
+	app-dialog-overlay, .overlay-body, .overlay-content {
+		width: 100%;
+		height: 100%;
+	}
+
+	.overlay-content {
+		overflow-y: hidden;
+	}
+}
+
+.overlay-panel-large-buttons {
+	width: 80%;
+	min-width: 80%;
+	height: 80%;
+	min-height: 80%;
+
+	.overlay-body {
+		overflow: auto;
+		flex-grow: 1;
+	}
+
+	app-dialog-overlay, .overlay-content {
+		width: 100%;
+		height: 100%;
+		max-height: 100%;
+	}
+
+	.overlay-content {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+@media (max-width: $break-pad) {
+	.overlay-content {
+		.overlay-title {
+			font-size: 1.2rem;
+		}
+	}
+}
+
+@media (max-width: $break-phone) {
+	.overlay-content {
+		padding: 1em;
+	}
+}

@@ -1,0 +1,12 @@
+<app-loading *ngIf="!folder"></app-loading>
+<div class="tracks" *ngIf="folder && folder.tracks && folder.tracks.length>0">
+	<div class="actions">
+		<button class="button-on-control" title="Refresh Folder" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
+		<context-menu #tracksActionMenu>
+			<ng-template contextMenuItem (execute)="moveTracks()" title="Move Tracks to another Folder"><i class="icon-right-bold"></i> Move Tracks…</ng-template>
+			<ng-template contextMenuItem (execute)="deleteTracks()" title="Delete Tracks"><i class="icon-trash"></i> Delete Tracks…</ng-template>
+		</context-menu>
+		<button class="button-on-control" [contextMenu]="tracksActionMenu" [contextMenuTriggerLeft]="true">…</button>
+	</div>
+	<app-admin-track-list class="content" [tracks]="folder.tracks"></app-admin-track-list>
+</div>

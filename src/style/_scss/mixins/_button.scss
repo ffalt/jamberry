@@ -1,0 +1,32 @@
+@mixin button {
+	border-radius: 10px;
+	border-width: 1px;
+	border-style: solid;
+	padding: $padding-xs $padding;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: $x-small;
+	outline: none;
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
+	user-select: none;
+
+	&:before {
+		position: absolute;
+		content: '';
+		top: 0;
+		left: 0;
+		width: 0;
+		height: 100%;
+		transition: width 20ms ease;
+		z-index: 0;
+		background-color: rgba(white, 0.2);
+	}
+
+	&:hover {
+		&:before {
+			width: 100%;
+		}
+	}
+}

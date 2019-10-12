@@ -1,0 +1,4 @@
+<ng-container *ngIf="mbArtistID">
+	<app-mb-artist [mbArtistID]="mbArtistID"></app-mb-artist>
+</ng-container>
+<app-background-text *ngIf="artist && !mbArtistID" text="No data available"></app-background-text>

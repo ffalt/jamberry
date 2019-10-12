@@ -1,0 +1,105 @@
+@import "globals.scss";
+
+:host {
+	background-color: var(--control);
+	color: var(--on-control-ambient);
+	padding: $padding-sm;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: var(--control-border);
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+
+	.logo {
+		padding-left: $padding-xs;
+		padding-right: $padding-lg;
+
+		a {
+			color: var(--on-control);
+			font-size: 20px;
+			height: 42px;
+			padding-top: 2px;
+
+			&:hover {
+				color: var(--on-control-hover);
+			}
+		}
+
+		app-logo-icon {
+			padding-top: 2px;
+			height: 30px;
+			width: 30px;
+		}
+	}
+
+	.user {
+		margin-left: auto;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: center;
+		cursor: pointer;
+		user-select: none;
+
+		app-coverart-image {
+			vertical-align: middle;
+		}
+
+		span {
+			padding-left: $padding-sm;
+		}
+
+	}
+
+	.sandwich, .back {
+		background-color: var(--control);
+		color: var(--on-control);
+		padding: $padding-sm;
+		border-radius: 50%;
+		user-select: none;
+
+		&.active, &:hover {
+			background-color: var(--control-hover);
+			color: var(--on-control-hover);
+		}
+	}
+
+	.sandwich {
+		display: none;
+	}
+
+
+	@media (max-width: $break-pad) {
+		.sandwich {
+			display: inline-block;
+		}
+		.search {
+			min-width: 0;
+			display: flex;
+			margin-right: $margin;
+			overflow: hidden;
+		}
+	}
+
+	@media (max-width: $break-phone) {
+		.search {
+			flex: 1;
+			margin-right: $margin-xs;
+		}
+	}
+
+	@media (max-width: $break-mobile) {
+		.logo {
+			padding-right: $padding-sm;
+		}
+	}
+
+	@media (max-width: $break-watch) {
+		.search {
+			display: none;
+		}
+	}
+
+}

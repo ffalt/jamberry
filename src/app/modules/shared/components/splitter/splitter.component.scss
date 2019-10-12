@@ -1,0 +1,15 @@
+@import "globals.scss";
+
+:host {
+	border-width: 1px;
+	border-style: solid;
+	cursor: move;
+	width: 1px;
+	height: 100%;
+	background-color: var(--control-border);
+	border-color: var(--control-border);
+
+	&:hover, &.dragging {
+		border-color: var(--control-ambient);
+	}
+}

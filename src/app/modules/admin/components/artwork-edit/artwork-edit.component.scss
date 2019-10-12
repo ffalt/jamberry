@@ -1,0 +1,35 @@
+@import "globals.scss";
+
+:host {
+	text-align: center;
+	width: 100%;
+	display: block;
+
+	image-cropper {
+		width: 300px;
+		display: inline-block;
+		margin-right: $margin-sm;
+	}
+
+	.image-preview {
+		margin-left: $margin-sm;
+		display: inline-block;
+
+		img {
+			width: 300px;
+		}
+	}
+
+	//.artwork {
+	//	display: inline-block;
+	//	padding-top: $padding;
+	//	padding-right: $padding;
+	//	font-size: 0.8em;
+	//	text-align: center;
+	//}
+	//.artwork-types {
+	//}
+	//.delete-button {
+	//	user-select: none;
+	//}
+}

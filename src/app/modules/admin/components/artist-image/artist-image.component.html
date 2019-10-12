@@ -1,0 +1,37 @@
+<div class="image-selector">
+	<div class="art-source">
+		<div class="section">
+			<a href="https://commons.wikimedia.org" rel="noopener" target="_blank">Wiki Commons</a>
+		</div>
+		<app-loading *ngIf="!nodes"></app-loading>
+		<div *ngIf="nodes">
+			<app-background-text-list [list]="nodes" name="Images"></app-background-text-list>
+			<div class="images">
+				<div *ngFor="let node of nodes; trackBy: trackByFn">
+					<div class="image">
+						<img [src]="node.image"><br/>
+					</div>
+					<div class="footer">
+						<div class="footer-content">
+							<label>
+								<input type="checkbox" [(ngModel)]="node.checked" [checked]="node.checked"> {{node.name}}
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="artwork">
+		<div class="current" *ngIf="data && data.folder.artworks">
+			<div class="section">Current Images</div>
+			<app-admin-artwork-list *ngIf="!isArtRefreshing" [folderID]="data.folder.id" [artworks]="data.folder.artworks"></app-admin-artwork-list>
+		</div>
+	</div>
+</div>
+<div class="buttons">
+	<div *ngIf="nodes && nodes.length>0">
+		<button class="button-on-control" *ngIf="isWorking"><i class="icon-spin icon-spinner"></i></button>
+		<button class="button-on-control" *ngIf="!isWorking" (click)="use()">Use Checked Artwork</button>
+	</div>
+</div>

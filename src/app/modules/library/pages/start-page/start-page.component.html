@@ -1,0 +1,32 @@
+<div class="start">
+	<div class="header slim">
+		<div class="info">
+			<div class="img">
+				<app-logo-icon></app-logo-icon>
+			</div>
+			<div class="meta">
+				<div class="name">Welcome, {{jam.auth.user?.name}}</div>
+				<div class="actions"></div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="section">Library Stats</div>
+		<div class="section-content" *ngIf="stats">
+			<div class="stats">
+				<div class="stat" *ngFor="let stat of stats" [routerLink]="[stat.link]">
+					<div class="stat-title">{{stat.text}}</div>
+					<div class="stat-value">{{stat.value}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="section-content">
+			<app-start-section [list]="data.artist_faved" name="Favorite Artists"></app-start-section>
+			<app-start-section [list]="data.album_faved" name="Favorite Albums"></app-start-section>
+		</div>
+		<div class="section-content">
+			<app-start-section [list]="data.artist_recent" name="Recently Played Artists"></app-start-section>
+			<app-start-section [list]="data.album_recent" name="Recently Played Albums"></app-start-section>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,59 @@
+<div class="settings">
+	<div class="header slim">
+		<div class="info">
+			<div class="meta">
+				<div class="type">JamServe</div>
+				<div class="name">Admin Settings</div>
+				<div class="actions">
+					<button class="button-on-control" title="Save" (click)="save()"><i class="icon-floppy"></i> Save Settings</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<app-loading *ngIf="!settings"></app-loading>
+		<ng-container *ngIf="settings">
+			<div>
+				<div class="section-title">Chat</div>
+				<div class="section-entry">
+					<label for="max_messages">Maximum Number of Messages</label>
+					<input id="max_messages" type="number" [(ngModel)]="settings.chat.maxMessages" (ngModelChange)="onChange()"/>
+				</div>
+				<div class="section-entry">
+					<div class="chat-max-age">
+						<label for="max_age">Maximum Age of Message</label>
+						<input id="max_age" type="number" [(ngModel)]="settings.chat.maxAge.value" (ngModelChange)="onChange()"/>
+					</div>
+					<select [(ngModel)]="settings.chat.maxAge.unit" placeholder="Unit of Age" (ngModelChange)="onChange()">
+						<option [value]="'year'">year</option>
+						<option [value]="'years'">years</option>
+						<option [value]="'month'">month</option>
+						<option [value]="'months'">months</option>
+						<option [value]="'day'">day</option>
+						<option [value]="'days'">days</option>
+						<option [value]="'minute'">minute</option>
+						<option [value]="'minutes'">minutes</option>
+						<option [value]="'second'">second</option>
+						<option [value]="'seconds'">seconds</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<div class="section-title">Artist Index</div>
+				<div class="section-entry">
+					<label for="ignore_articles">Ignored Articles in Artist Names</label>
+					<textarea id="ignore_articles" [(ngModel)]="ignoreArticles" rows="10" cols="20" (ngModelChange)="onChange()"></textarea>
+				</div>
+			</div>
+			<div>
+				<div class="section-title">Server</div>
+				<div class="section-entry">
+					<label>
+						<input type="checkbox" title="Scan all Roots on Server Start" [(ngModel)]="settings.library.scanAtStart" (ngModelChange)="onChange()"/>
+						Scan all Roots on Server Start
+					</label>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+</div>

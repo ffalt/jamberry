@@ -1,0 +1,12 @@
+<app-autocomplete #autocomplete="appAutocomplete">
+	<ng-template appAutocompleteContent let-control>
+		<ng-container *ngFor="let option of control.options">
+			<app-autocomplete-option-header *ngIf="option.header">{{option.header}}</app-autocomplete-option-header>
+			<app-autocomplete-option [option]="option" [control]="control">
+				<span [innerHTML]="option.data.name | highlight: control.query"></span>
+			</app-autocomplete-option>
+		</ng-container>
+	</ng-template>
+</app-autocomplete>
+<input autocomplete="off" type="text" name="query" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this">
+<i class="icon-search"></i>

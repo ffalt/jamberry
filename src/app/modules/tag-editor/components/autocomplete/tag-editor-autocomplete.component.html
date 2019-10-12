@@ -1,0 +1,14 @@
+<app-autocomplete #autocomplete="appAutocomplete">
+	<ng-template appAutocompleteContent let-control>
+		<ng-container *ngFor="let option of control.options">
+			<app-autocomplete-option-header *ngIf="option.header">{{option.header}}</app-autocomplete-option-header>
+			<app-autocomplete-option [option]="option" [control]="control">{{option.data.text}}</app-autocomplete-option>
+		</ng-container>
+	</ng-template>
+</app-autocomplete>
+
+<div class="input-group" [class.focused]="focused" [class.cell]="!standalone">
+	<input type="text" name="auto" autocomplete="off" [(ngModel)]="edit" [value]="edit" (change)="onValueChange()"
+				 (focus)="onFocus()" (blur)="onBlur()" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this"
+				 [appAutocompleteSettings]="{allowEmpty:true}">
+</div>

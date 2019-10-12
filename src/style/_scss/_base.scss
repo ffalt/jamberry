@@ -1,0 +1,235 @@
+@import "./mixins/button";
+
+* {
+	box-sizing: border-box;
+}
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: $default-font-family, "Helvetica Neue", sans-serif;
+	margin: 0;
+}
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+body {
+	--background: #282828;
+	--background-active: #20211c;
+	--background-hover: #303030;
+	--background-border: #000;
+	--background-box: #1e1e1e;
+	--background-transparent: rgba(24, 24, 24, .7);
+	--on-background: #C8C8C8;
+	--on-background-active: #fff;
+	--on-background-hover: #fff;
+
+	--control: #282828;
+	--control-box: #1e1e1e;
+	--control-hover: #575757;
+	--control-active: #58594f;
+	--on-control-active: #fff;
+	--control-box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+	--control-box-border: #AAAAAA;
+	--control-border: #1a1a1a;
+	--on-control: #C8C8C8;
+	--on-control-hover: #fff;
+	--on-control-ambient: #AAAAAA;
+	--on-control-ambient-hover: #fff;
+	--on-control-ambient-disabled: #575757;
+
+	--input: #fff;
+	--input-border: #fff;
+	--on-input: #000;
+	--on-input-hover: #C8C8C8;
+
+	--primary: #008300;
+	--on-primary: #fff;
+
+	--secondary: #4688d7;
+
+	--accent: #FF6347;
+	--on-accent: #fff;
+
+	--scrollbar: #858585;
+	--dialog-backdrop: rgba(0, 0, 0, 0.6);
+}
+
+a {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	background-color: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+	background-color: var(--scrollbar);
+}
+
+@keyframes anim-rotate {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.icon-spin {
+	display: inline-block;
+	animation: anim-rotate 2s infinite linear;
+}
+
+@keyframes anim-pulsate {
+	0% {
+		transform: scale(1.0);
+		-webkit-transform: scale(1.0);
+	}
+
+	100% {
+		transform: scale(2.0);
+		-webkit-transform: scale(2.0);
+	}
+}
+
+.icon-pulsate {
+	//animation: pulsate 2s infinite linear;
+	//display: inline-block;
+	//transform-origin: center;
+
+	animation: anim-pulsate 1s infinite linear;
+	display: inline-block;
+}
+
+.button-primary {
+	@include button();
+	background-color: var(--primary);
+	color: var(--on-primary);
+	border-color: var(--primary);
+}
+
+.button-accent {
+	@include button();
+	background-color: var(--accent);
+	color: var(--on-accent);
+	border-color: var(--accent);
+}
+
+.button-on-background {
+	@include button();
+	background-color: var(--control);
+	color: var(--on-control);
+	border-color: var(--on-control);
+
+	&.active {
+		background-color: var(--control-active);
+		color: var(--on-control-active);
+	}
+}
+
+.button-on-control {
+	@include button();
+	background-color: var(--control);
+	color: var(--on-control);
+	border-color: var(--on-control);
+
+	&.active {
+		background-color: var(--control-active);
+		color: var(--on-control-active);
+	}
+}
+
+.button-with-add-on {
+	margin-right: 0 !important;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.button-add-on {
+	margin-left: 0 !important;
+	border-left-width: 0;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	padding-left: $padding-xs;
+	padding-right: $padding-xs;
+}
+
+.button-small {
+	padding: 0;
+}
+
+.button-medium {
+	padding: $padding-xs;
+}
+
+input[type="text"], input[type="number"], input[type="password"], input[type="email"], textarea {
+	border-radius: $border-radius;
+	border: 1px solid var(--input-border);
+	background-color: var(--input);
+	color: var(--on-input);
+}
+
+a {
+	color: var(--on-background);
+
+	&:hover {
+		color: var(--on-background-hover);
+	}
+}
+
+select {
+	border-radius: $border-radius;
+	background-color: var(--control);
+	color: var(--on-control);
+	min-width: 64px;
+	border-color: var(--control-box-border);
+	border-width: 1px;
+}
+
+$cdk-z-index-overlay: 1000;
+.cdk-overlay-container {
+	position: fixed;
+	z-index: $cdk-z-index-overlay;
+	pointer-events: none;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+.cdk-overlay-pane {
+	max-height: 100%;
+	overflow: auto;
+}
+
+.ngx-autocomplete {
+	position: absolute;
+}
+
+.cdk-global-overlay-wrapper {
+	pointer-events: none;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	position: absolute;
+	z-index: $cdk-z-index-overlay;
+}

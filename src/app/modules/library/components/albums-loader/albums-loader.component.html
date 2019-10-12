@@ -1,0 +1,3 @@
+<app-loading *ngIf="!albums"></app-loading>
+<app-albums [albums]="albums" [showArtist]="true" [typeName]="typeName" [grouping]="grouping"></app-albums>
+<app-load-more-button (requestLoad)="load()"></app-load-more-button>

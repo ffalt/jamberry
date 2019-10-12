@@ -1,0 +1,15 @@
+@import "globals.scss";
+
+:host {
+	.index {
+		@include view();
+
+		.header {
+			.navigation {
+				padding-left: $padding;
+				padding-right: $padding;
+			}
+		}
+
+	}
+}

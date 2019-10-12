@@ -1,0 +1,51 @@
+@mixin key-value-list {
+	.section-title {
+		padding-top: $padding-lg;
+		padding-bottom: $padding;
+	}
+	.key-value-row {
+		border-top-width: 1px;
+		border-top-style: solid;
+		border-top-color: var(--background-border);
+		display: flex;
+		flex-flow: row nowrap;
+		flex-wrap: nowrap;
+		align-items: center;
+
+		&:last-of-type {
+			border-bottom-color: var(--background-border);
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
+		}
+
+		> div:first-of-type {
+			width: 30%;
+			min-width: 100px;
+		}
+
+		> div:last-of-type {
+			padding-left: $padding;
+			width: 60%;
+			color: var(--on-background-active);
+
+			a {
+				color: var(--on-background-active);
+
+				&:hover {
+					color: var(--on-background);
+				}
+			}
+		}
+
+		div {
+			padding-top: $padding-sm;
+			padding-bottom: $padding-sm;
+
+			span {
+				display: inline-block;
+				padding-right: $padding;
+			}
+		}
+	}
+
+}

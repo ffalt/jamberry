@@ -1,0 +1,18 @@
+@import "globals.scss";
+
+:host {
+	.artwork {
+		display: inline-block;
+		padding-top: $padding;
+		padding-right: $padding;
+		font-size: 0.8em;
+		text-align: center;
+	}
+
+	.artwork-types {
+	}
+
+	.delete-button {
+		user-select: none;
+	}
+}

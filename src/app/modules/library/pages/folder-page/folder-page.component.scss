@@ -1,0 +1,40 @@
+@import "globals.scss";
+
+:host {
+	.folder {
+		@include view();
+
+		.content {
+			padding: $padding;
+
+			.breadcrumb {
+				list-style: none;
+				padding: 0;
+
+				li {
+					display: inline;
+					font-size: $small;
+				}
+
+				li + li:before {
+					padding: 8px;
+					color: var(--on-background);
+					content: "/\00a0";
+				}
+
+				a {
+					color: var(--on-background);
+
+					&:hover {
+						color: var(--on-background-hover);
+					}
+				}
+			}
+
+			.info {
+				width: 100%;
+			}
+		}
+
+	}
+}

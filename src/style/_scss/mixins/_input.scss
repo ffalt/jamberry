@@ -1,0 +1,75 @@
+@mixin input-box-content {
+	border-radius: $border-radius;
+	padding-left: $border-radius-padding;
+	padding-right: $border-radius-padding;
+	//display: flex;
+	align-items: center;
+	background-color: var(--input);
+	border: 1px solid var(--input-border);
+
+	input {
+		flex: 1;
+		border: none;
+		outline: none;
+		min-height: 20px;
+		min-width: 50px;
+		background-color: var(--input);
+		color: var(--on-input);
+	}
+
+	i {
+		color: var(--on-input);
+		font-size: $small;
+		cursor: pointer;
+
+		&:hover {
+			color: var(--on-input-hover);
+		}
+	}
+}
+
+@mixin input-box {
+	.input-box {
+		border-radius: $border-radius;
+		padding-left: $border-radius-padding;
+		padding-right: $border-radius-padding;
+		//display: flex;
+		align-items: center;
+		background-color: var(--input);
+		border: 1px solid var(--input-border);
+
+		input {
+			flex: 1;
+			border: none;
+			outline: none;
+			min-height: 20px;
+			background-color: var(--input);
+			color: var(--on-input);
+		}
+
+		i {
+			color: var(--on-input);
+			font-size: $small;
+			cursor: pointer;
+
+			&:hover {
+				color: var(--on-input-hover);
+			}
+		}
+	}
+
+}
+
+@mixin input-box-large {
+	@include input-box();
+
+	.input-box {
+		width: 100%;
+		display: flex;
+		min-height: 30px;
+
+		input {
+			max-width: calc(100% - 24px);
+		}
+	}
+}

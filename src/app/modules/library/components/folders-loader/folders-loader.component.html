@@ -1,0 +1,3 @@
+<app-loading *ngIf="!folders"></app-loading>
+<app-folders [folders]="folders"></app-folders>
+<app-load-more-button (requestLoad)="load()"></app-load-more-button>

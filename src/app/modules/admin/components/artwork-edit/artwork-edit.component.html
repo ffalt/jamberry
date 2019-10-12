@@ -1,0 +1,14 @@
+<image-cropper *ngIf="imageBase64"
+							 [imageBase64]="imageBase64"
+							 (imageCropped)="imageCropped($event)"
+							 (imageLoaded)="imageLoaded()"
+							 (cropperReady)="cropperReady()"
+							 (loadImageFailed)="loadImageFailed()"
+></image-cropper>
+<div class="image-preview" *ngIf="croppedImage">
+	<img [src]="croppedImage">
+</div>
+<div class="buttons">
+	<!--		<button class="button-on-control" *ngIf="isWorking"><i class="icon-spin icon-spinner"></i></button>-->
+	<button class="button-on-control" (click)="upload()">Use Cropped Artwork</button>
+</div>

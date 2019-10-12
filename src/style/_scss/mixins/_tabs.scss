@@ -1,0 +1,125 @@
+@mixin tabs {
+	padding-left: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	list-style: none;
+	border: none;
+	display: flex;
+	flex-flow: row wrap;
+	width: 100%;
+
+	> li {
+		position: relative;
+		display: flex;
+		padding: $padding-sm $padding;
+		margin-bottom: -1px;
+		cursor: pointer;
+		flex: 1;
+		align-self: stretch;
+		text-align: center;
+		border-top-width: 4px;
+		border-top-style: solid;
+		border-top-color: transparent;
+		border-bottom-width: 4px;
+		border-bottom-style: solid;
+		border-bottom-color: transparent;
+		align-items: center;
+		align-content: center;
+		justify-content: center;
+
+		&:hover {
+			background-color: var(--control-hover);
+			transition: all 0.4s ease;
+			border-bottom-width: 4px;
+			border-bottom-style: solid;
+			border-bottom-color: transparent;
+		}
+
+		> div {
+			padding-bottom: $padding;
+		}
+
+		> a {
+			margin-right: 2px;
+			line-height: 1.42857143;
+			border-radius: 4px 4px 0 0;
+			position: relative;
+			display: block;
+			cursor: pointer;
+			padding: 2px 0;
+			border: none;
+			font-size: $small;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+
+			color: var(--on-control);
+			user-select: none;
+
+			&:focus, &:hover {
+				background-color: unset;
+				border: none;
+				color: var(--on-control-hover);
+			}
+		}
+
+		&.active {
+			cursor: default;
+			border-bottom-color: var(--primary) !important;
+
+			a {
+				cursor: default;
+				background-color: unset;
+				color: var(--on-control-hover);
+			}
+
+			&:focus, &:hover {
+				border-bottom-color: var(--primary);
+			}
+		}
+
+		&.disabled > a {
+			color: var(--on-control-ambient-disabled);
+
+			&:focus, &:hover {
+				color: var(--on-control-ambient-disabled);
+				text-decoration: none;
+				cursor: not-allowed;
+				background-color: transparent;
+			}
+		}
+
+		&.mini {
+			flex: 0;
+		}
+
+	}
+
+	@media (max-width: $break-pad) {
+		align-items: center;
+		align-content: center;
+		justify-content: center;
+		> li {
+			padding: $padding-xs;
+			min-width: 33%;
+
+			&.mini {
+				min-width: 20px;
+			}
+
+			> a {
+				font-size: 0.8em;
+			}
+		}
+	}
+
+	@media (max-width: $break-mobile) {
+		> li {
+			padding: 0 $padding-xs;
+
+			> a {
+				font-size: 0.8em;
+			}
+		}
+	}
+
+}

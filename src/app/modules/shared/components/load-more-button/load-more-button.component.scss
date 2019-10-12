@@ -1,0 +1,20 @@
+@import "globals.scss";
+
+:host {
+	.more {
+		width: 100%;
+		text-align: center;
+		padding: $padding;
+		margin-top: $margin;
+		margin-bottom: $margin;
+		cursor: pointer;
+		user-select: none;
+		font-size: 0.9em;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+
+		&:hover {
+			background-color: var(--background-hover);
+		}
+	}
+}

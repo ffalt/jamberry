@@ -1,0 +1,22 @@
+@import "globals.scss";
+
+:host {
+	display: block;
+	padding: $padding-xs;
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--control-hover);
+		color: var(--on-control-hover);
+	}
+
+	&.active {
+		background-color: var(--control-active);
+		color: var(--on-control-active);
+	}
+
+	::ng-deep b {
+		color: var(--on-control-active);
+	}
+
+}

@@ -1,0 +1,26 @@
+@import "globals.scss";
+
+:host {
+	@include media-cards();
+
+	.title {
+		padding: $padding-sm;
+		min-height: 48px;
+		line-height: 1.25em;
+		font-size: 0.9em;
+		align-items: center;
+		align-content: space-evenly;
+		display: flex;
+
+		&:after {
+			font-family: $icon-font-family;
+			content: $icon-font-chevron-down-char;
+			padding-left: 4px;
+		}
+
+		&:hover {
+			background-color: var(--background-hover);
+		}
+	}
+}
+

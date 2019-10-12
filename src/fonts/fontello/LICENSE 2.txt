@@ -1,0 +1,22 @@
+icon-audiobook
+<div>Icon made from <a href="http://www.onlinewebfonts.com/icon">Icon Fonts</a> is licensed by CC BY 3.0</div>
+
+icon-wave
+http://endlessicons.com/free-icons/sound-wave-icon/
+http://endlessicons.com/terms-of-use/
+
+icon-soundtrack
+https://www.onlinewebfonts.com/icon/309930
+<div>Icon made from <a href="http://www.onlinewebfonts.com/icon">Icon Fonts</a> is licensed by CC BY 3.0</div>
+
+icon-bootleg
+Icon made from <a href="https://www.svgrepo.com/svg/165683/sound-recorder">Sound Recorder SVG Vector</a> is licensed by CC BY 4.0
+
+icon-live
+<div>Icon made by <a href="https://www.flaticon.com/free-icon/stage_931324" title="Freepik">Freepik</a></div>
+
+icon-ep
+https://www.svgrepo.com/svg/98711/music-disc
+
+icon-single
+https://svgsilh.com/image/3259403.html

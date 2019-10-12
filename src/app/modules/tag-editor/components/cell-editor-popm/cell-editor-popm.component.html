@@ -1,0 +1,5 @@
+<div *ngFor="let rate of ratings">
+	{{rate.value.email}}
+	<span *ngIf="rate.value.count>0"> - PlayCount: {{rate.value.count}}</span>
+	<span *ngIf="rate.value.rating>0"> - Rating: {{rate.value.rating}}</span>
+</div>

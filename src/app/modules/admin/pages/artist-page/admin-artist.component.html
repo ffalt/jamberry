@@ -1,0 +1,29 @@
+<div class="artist" *ngIf="artist">
+	<div class="header slim">
+		<div class="info">
+			<div class="img">
+				<app-coverart-image [coverArtObj]="artist" [size]="150" [fill]="true" [alt]="artist.name"></app-coverart-image>
+			</div>
+			<div class="meta">
+				<div class="type">Artist</div>
+				<div class="name">{{artist.name}}</div>
+				<div class="actions">
+					<button class="button-on-control" title="Refresh Artist" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
+				</div>
+			</div>
+			<div class="listeners">
+				<div *ngIf="artist.albumCount"><span class="label">Albums:</span> {{artist.albumCount}}</div>
+				<div *ngIf="artist.trackCount"><span class="label">Tracks:</span> {{artist.trackCount}}</div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="info" *ngIf="artist.info">
+			<div class="section-title">Info</div>
+			<div class="description">
+				<app-info-note [info]="artist.info"></app-info-note>
+			</div>
+		</div>
+		<app-admin-album-list [albums]="artist.albums"></app-admin-album-list>
+	</div>
+</div>

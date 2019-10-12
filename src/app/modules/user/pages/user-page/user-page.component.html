@@ -1,0 +1,47 @@
+<div class="user">
+	<div class="header slim">
+		<div class="info">
+			<div class="meta">
+				<div class="type">Jamberry</div>
+				<div class="name">User</div>
+				<div class="actions"></div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div *ngIf="auth.user">
+			<div class="section">
+				<div class="section-title">Name</div>
+				<div>{{auth.user.name}}</div>
+			</div>
+			<div class="section">
+				<div class="section-title">Avatar</div>
+				<div class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)">
+					<div class="placeholder">
+						Drag an Image File here
+					</div>
+					<app-coverart-image [coverArtObj]="auth.user" [size]="100" [round]="true" [refreshRandom]="refreshRandom"></app-coverart-image>
+					<button class="button-primary" (click)="randomAvatar()">
+						<i *ngIf="refreshing" class="icon-spin icon-spinner"></i>
+						<span *ngIf="!refreshing">Random Image</span>
+					</button>
+					<form>
+						<input id="file" class="inputfile" type="file" (change)="selectFile($event)" placeholder="Upload image" accept=".png,.jpeg,.jpg">
+						<label class="button-primary" for="file">Choose a file</label>
+					</form>
+				</div>
+			</div>
+			<div>
+				<div class="section-title">Permissions:</div>
+				<div class="roles">
+					<div *ngIf="auth.user.roles.stream"><i class="icon-checkmark"></i> Stream Audio</div>
+					<div *ngIf="auth.user.roles.podcast"><i class="icon-checkmark"></i> Manage Podcasts</div>
+					<div *ngIf="auth.user.roles.upload"><i class="icon-checkmark"></i> Upload Audio</div>
+					<div *ngIf="auth.user.roles.admin"><i class="icon-checkmark"></i> Server Administration</div>
+				</div>
+			</div>
+		</div>
+		<div>
+		</div>
+	</div>
+</div>

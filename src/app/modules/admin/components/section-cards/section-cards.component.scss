@@ -1,0 +1,14 @@
+@import "globals.scss";
+
+:host {
+	@include media-cards();
+
+	.image {
+		min-height: 135px;
+		min-width: 135px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+	}
+}

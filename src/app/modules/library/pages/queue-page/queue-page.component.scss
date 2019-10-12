@@ -1,0 +1,9 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+
+	.queue {
+		@include view();
+	}
+}

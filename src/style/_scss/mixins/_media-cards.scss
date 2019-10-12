@@ -1,0 +1,137 @@
+@mixin media-card {
+
+	margin: $margin;
+	width: calc((100% / 4) - 30px);
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	//@Input() @HostBinding('class.border') border: boolean = true;
+
+	&:before {
+		content: "";
+		display: block;
+		margin-top: 100%;
+	}
+
+	.image {
+		width: 100%;
+	}
+
+	.fav, .date {
+		position: absolute;
+		top: 1px;
+		padding: $padding-xs;
+		transform: translateY(-31px);
+		transition: transform 0.3s;
+	}
+
+	.fav {
+		right: 1px;
+		border-bottom-left-radius: 3px;
+		cursor: pointer;
+		user-select: none;
+	}
+
+	.date {
+		left: 1px;
+		font-size: 0.8em;
+		border-bottom-right-radius: 3px;
+	}
+
+	.footer {
+		padding: $padding-xs;
+		position: absolute;
+		bottom: 1px;
+		left: 1px;
+		right: 1px;
+		background-color: #008CBA;
+		overflow: hidden;
+		height: auto;
+
+		.footer-buttons {
+			display: none;
+		}
+	}
+	&:hover {
+		.footer {
+			.footer-buttons {
+				display: block;
+			}
+		}
+	}
+
+	.date, .footer, .fav {
+		background-color: var(--background-transparent);
+		color: var(--on-background-active);
+
+		a {
+			color: var(--on-background-active);
+
+			&:hover {
+				color: var(--on-background);
+			}
+		}
+	}
+
+	.footer-subline {
+		display: block;
+		font-size: 0.8em;
+	}
+
+	.footer-buttons {
+		height: 40px;
+		padding-top: $padding-sm;
+		white-space: nowrap;
+
+		button {
+			margin-bottom: $margin-xs;
+			margin-right: $margin-xs;
+		}
+
+		a {
+			float: right;
+			margin-right: $margin-xs;
+		}
+	}
+
+	//&:hover, &.no-hover {
+	//	.footer, .date, .fav {
+	//		transform: translateY(0);
+	//	}
+	//}
+
+	@media (max-width: $break-desktop-huge) {
+		width: calc((100% / 4) - 30px);
+	}
+
+	@media (max-width: $break-desktop) {
+		width: calc((100% / 3) - 30px);
+	}
+
+	@media (max-width: $break-phone) {
+		width: calc((100% / 2) - 30px);
+	}
+	@media (max-width: $break-mobile) {
+		margin: $margin-sm;
+		.footer {
+			font-size: 0.8em;
+		}
+	}
+}
+
+@mixin media-cards {
+
+	.media-cards {
+		display: flex;
+		flex-flow: row wrap;
+
+		.media-card {
+			@include media-card();
+		}
+
+		@media (max-width: $break-pad) {
+			justify-content: space-around;
+		}
+	}
+
+}

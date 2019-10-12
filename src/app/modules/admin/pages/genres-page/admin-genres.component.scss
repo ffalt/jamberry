@@ -1,0 +1,56 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: auto;
+	display: block;
+
+	.genres {
+		@include view();
+		overflow-y: hidden;
+		overflow-x: hidden;
+
+		.content {
+			width: 100%;
+			height: 100%;
+			flex: 1;
+			display: flex;
+			flex-flow: row nowrap;
+			overflow: hidden;
+			align-items: flex-start;
+			align-content: flex-start;
+
+			.left-content {
+				@include cdk-table();
+				flex-grow: 1;
+				height: 100%;
+				width: 25%;
+				display: block;
+				border-right: 1px solid var(--background-border);
+				font-size: 0.8em;
+				min-width: 140px;
+				overflow-y: auto;
+				overflow-x: auto;
+
+				.count {
+					max-width: 40px;
+				}
+			}
+
+			.right-content {
+				width: 75%;
+				height: 100%;
+
+				app-admin-track-list {
+					height: 100%;
+					width: 100%;
+					overflow-y: auto;
+					overflow-x: auto;
+					display: block;
+				}
+			}
+		}
+	}
+}

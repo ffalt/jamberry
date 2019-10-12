@@ -1,0 +1,6 @@
+this is a fork of https://github.com/scttcper/ngx-toastr
+
+Differences:
+* stripped all http & query code
+* baked with jamberry styling
+* add group headers

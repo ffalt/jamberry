@@ -1,0 +1,65 @@
+@import "globals.scss";
+
+:host {
+
+	.choose-version {
+		input {
+			margin-left: $margin;
+		}
+
+		a {
+			font-size: 0.8em;
+		}
+	}
+
+	.columns {
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+	.column {
+		width: 33%;
+		border-top-width: 1px;
+		border-top-style: solid;
+		border-bottom-width: 0;
+		border-bottom-style: solid;
+		border-color: var(--control-border);
+		padding-top: $padding-xs;
+		padding-bottom: $padding-xs;
+		padding-right: $padding;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		font-size: 0.8em;
+
+		.title {
+			color: var(--on-control-hover);
+
+			span {
+				font-size: 0.8em;
+				color: var(--on-control);
+			}
+		}
+
+		.id {
+			margin-left: auto;
+			width: 80px;
+			padding-right: $padding;
+			text-align: right;
+			font-size: 0.8em;
+		}
+
+		&:last-child {
+			border-bottom-width: 1px;
+		}
+
+		@media (max-width: $break-desktop-large) {
+			width: 50%;
+		}
+		@media (max-width: $break-pad) {
+			width: 100%;
+		}
+	}
+
+
+}

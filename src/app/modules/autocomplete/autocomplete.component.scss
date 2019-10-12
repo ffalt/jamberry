@@ -1,0 +1,17 @@
+@import "globals.scss";
+
+.ac-content {
+	width: 100%;
+	display: block;
+	overflow-y: auto;
+
+	background-color: var(--control);
+	color: var(--on-control);
+	box-shadow: var(--control-box-shadow);
+	border-color: var(--control-box-border);
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 0;
+	font-size: $small;
+
+}

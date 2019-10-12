@@ -1,0 +1,76 @@
+@import "globals.scss";
+
+:host {
+	.sessions {
+		@include view();
+
+		.content {
+			padding: $padding $padding $padding-xl;
+
+			.subsonic {
+				padding-top: $padding-lg;
+				padding-bottom: $padding-lg;
+
+				button {
+					margin-top: $margin;
+				}
+			}
+
+			.session-list {
+				@include flex-table();
+
+				.session {
+					@include flex-table-row();
+					@include flex-table-data-row();
+
+					.agent {
+						width: 140px;
+						font-size: 0.8em;
+						padding-right: $padding-sm;
+					}
+
+					.expires {
+						width: 260px;
+						font-size: 0.8em;
+						padding-right: $padding-sm;
+					}
+
+					.title {
+						flex-grow: 1;
+						padding-right: $padding-sm;
+
+						span {
+							font-size: 0.7em;
+							text-transform: uppercase;
+						}
+					}
+
+					@media (max-width: $break-mobile) {
+						.agent, .expires {
+							width: 100%;
+						}
+
+						.title {
+							order: 0;
+							width: calc(100% - 30px);;
+						}
+
+						.remove {
+							order: 1;
+						}
+
+						.agent {
+							order: 2;
+						}
+
+						.expires {
+							order: 3;
+						}
+
+					}
+				}
+			}
+
+		}
+	}
+}

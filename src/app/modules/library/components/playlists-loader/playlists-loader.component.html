@@ -1,0 +1,3 @@
+<app-loading *ngIf="!playlists"></app-loading>
+<app-playlists [playlists]="playlists"></app-playlists>
+<app-load-more-button (requestLoad)="load()"></app-load-more-button>

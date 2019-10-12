@@ -1,0 +1,24 @@
+<div class="health">
+	<div class="actions">
+		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
+		<!--		<select [(ngModel)]="filter" placeholder="Type of Hints" (ngModelChange)="onFilterChange()">-->
+		<!--			<option *ngFor="let m of modes" [value]="m">{{m}}</option>-->
+		<!--		</select>-->
+		<label>
+			<input type="checkbox" [(ngModel)]="mediaCheck" [checked]="mediaCheck" (change)="checkChange()">
+			Check Media
+		</label>
+	</div>
+	<div class="content">
+		<app-loading *ngIf="!hints"></app-loading>
+		<app-background-text-list [list]="hints" name="Track Health Issues"></app-background-text-list>
+		<div *ngFor="let trackHealth of hints" class="track">
+			<div class="meta">
+				{{trackHealth.track.name}}
+			</div>
+			<div class="track-health">
+				<app-track-health [trackHealth]="trackHealth" (resolvedEvent)="trackHealthResolved(trackHealth)"></app-track-health>
+			</div>
+		</div>
+	</div>
+</div>

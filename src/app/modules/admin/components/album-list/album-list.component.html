@@ -1,0 +1,30 @@
+<cdk-table *ngIf="dataSource" [dataSource]="dataSource">
+	<ng-container cdkColumnDef="name">
+		<cdk-header-cell *cdkHeaderCellDef>Title</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let album" data-label="Title"><a [routerLink]="['/admin/album/'+album.id,{name:album.name}]">{{album.name}}</a></cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="artist">
+		<cdk-header-cell *cdkHeaderCellDef>Artist</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let album" data-label="Artist">
+			<a [routerLink]="['/admin/artist/'+album.artistID,{name:album.artist}]">{{album.artist}}</a>
+		</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="year">
+		<cdk-header-cell *cdkHeaderCellDef>Year</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let album" data-label="Year">{{album.tag.year}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="albumType">
+		<cdk-header-cell *cdkHeaderCellDef>Album Type</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let album" data-label="Year">{{album.albumType}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="tracks">
+		<cdk-header-cell *cdkHeaderCellDef>Tracks</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let album" data-label="Tracks">{{album.trackCount}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="duration">
+		<cdk-header-cell *cdkHeaderCellDef>Duration</cdk-header-cell>
+		<cdk-cell *cdkCellDef="let album" data-label="Duration">{{album.tag.duration | duration}}</cdk-cell>
+	</ng-container>
+	<cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+	<cdk-row cdk-row *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>
+</cdk-table>

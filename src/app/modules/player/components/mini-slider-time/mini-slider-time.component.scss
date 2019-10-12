@@ -1,0 +1,16 @@
+@import "globals.scss";
+
+:host {
+	width: 100%;
+	@include slider(3px, 3px);
+
+	.slider {
+		.back {
+			background-color: var(--primary)
+		}
+		.scrubber.line {
+			top: -1px;
+			background-color: var(--control-border)
+		}
+	}
+}

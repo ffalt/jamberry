@@ -1,0 +1,30 @@
+<div class="playlist-form" *ngIf="playlistEdit">
+	<form>
+		<div class="playlist-form-control">
+			<label for="playlist-name">Playlist name</label>
+			<input #playlistNameInput id="playlist-name" type="text" [(ngModel)]="playlistEdit.name" [ngModelOptions]="{standalone: true}"/>
+		</div>
+		<div class="playlist-form-control">
+			<label for="playlist-comment">Comment</label>
+			<input id="playlist-comment" type="text" [(ngModel)]="playlistEdit.comment" [ngModelOptions]="{standalone: true}"/>
+		</div>
+		<div class="playlist-form-control">
+			<label for="playlist-public">
+				<input id="playlist-public" type="checkbox" [(ngModel)]="playlistEdit.isPublic" [ngModelOptions]="{standalone: true}"/>
+				Playlist is public</label>
+		</div>
+	</form>
+</div>
+<div class="tracks-preview" *ngIf="playlistEdit && playlistEdit.tracks.length>0">
+	<a class="preview" (click)="showTrackPreview=!showTrackPreview">
+		<app-expand-collapse-icon [expanded]="showTrackPreview"></app-expand-collapse-icon>
+		{{showTrackPreview ? 'Hide' : 'Show'}} Tracks
+	</a>
+	<div class="tracks" *ngIf="showTrackPreview">
+		<div class="track" *ngFor="let track of playlistEdit.tracks">
+			<div class="title"><p>{{track.tag.title}}</p><span title="Artist">{{track.tag.artist}}</span></div>
+			<div class="length">{{track.duration|duration}}</div>
+			<div class="remove"><a title="Remove From Playlist" (click)="remove(track)"><i class="icon-remove"></i></a></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+@import "globals.scss";
+
+:host {
+	display: inline-block;
+	vertical-align: middle;
+
+	svg {
+		vertical-align: middle;
+		margin-top: -6px;
+		cursor: pointer;
+		height: 100%;
+		width: 100%;
+
+		.leaf {
+			fill: #008300;
+		}
+
+		.berry {
+			fill: #ab0025;
+		}
+
+		&:hover {
+			transform: scale(1.1);
+		}
+	}
+}

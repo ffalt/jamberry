@@ -1,0 +1,40 @@
+<context-menu #podcastMenu>
+	<ng-template contextMenuItem let-podcast>
+		<app-context-entry-fav [base]="podcast" baseType="podcast"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-podcast>
+		<app-context-entry-rate [base]="podcast" baseType="podcast"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="player.addPodcastToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+	<ng-template contextMenuItem (execute)="podcastService.checkPodcast($event.item)" *ngIf="jam.auth.user?.roles?.podcast"><i class="icon-rescan"></i> Refresh Podcast Feed</ng-template>
+	<ng-template contextMenuItem (execute)="podcastService.removePodcast($event.item)" *ngIf="jam.auth.user?.roles?.podcast"><i class="icon-remove"></i> Remove Podcast</ng-template>
+</context-menu>
+<div *ngIf="podcast" class="podcast" (click)="togglePodcastEpisodes()" [contextMenu]="podcastMenu" [contextMenuSubject]="podcast">
+	<div class="art" (click)="navig.toPodcast(podcast)">
+		<app-coverart-image [coverArtObj]="podcast" [size]="135" [alt]="podcast.name"></app-coverart-image>
+	</div>
+	<div class="meta">
+		<div class="type">Podcast</div>
+		<div class="name" (click)="navig.toPodcast(podcast)"><a>{{podcast.name}}</a></div>
+		<div class="state">
+			<ng-container [ngSwitch]="podcast.status">
+				<ng-container *ngSwitchCase="PodcastStatus.completed">
+					Last Check: {{podcast.lastCheck | date:'short'}}
+				</ng-container>
+				<ng-container *ngSwitchDefault>
+					{{podcast.status}}
+				</ng-container>
+			</ng-container>
+		</div>
+		<div class="actions">
+			<button class="button-primary" (click)="player.startPodcast(podcast)"><i class="icon-play"></i> Play</button>
+			<a [contextMenu]="podcastMenu" [contextMenuSubject]="podcast" [contextMenuTriggerLeft]="true">…</a>
+		</div>
+	</div>
+</div>
+<div *ngIf="episodesExpanded" class="tracks">
+	<app-loading *ngIf="!episodes" [time]="100"></app-loading>
+	<app-episodes [episodes]="episodes"></app-episodes>
+</div>
+

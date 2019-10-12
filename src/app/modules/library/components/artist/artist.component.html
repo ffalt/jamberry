@@ -1,0 +1,25 @@
+<context-menu #artistMenu>
+	<ng-template contextMenuItem let-artist>
+		<app-context-entry-fav [base]="artist" baseType="artist"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-artist>
+		<app-context-entry-rate [base]="artist" baseType="artist"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="player.addArtistToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+</context-menu>
+<div *ngIf="artist" class="artist" [contextMenu]="artistMenu" [contextMenuSubject]="artist">
+	<div class="art">
+		<app-coverart-image [coverArtObj]="artist" [size]="135" [alt]="artist.name"></app-coverart-image>
+	</div>
+	<div class="meta">
+		<app-fav-icon [state]="artist.state" (click)="actions.toggleArtistFav(artist)" appClickStop></app-fav-icon>
+		<div class="type">Artist</div>
+		<div class="name" (click)="navig.toArtist(artist)">{{artist.name}}</div>
+		<div class="actions">
+			<button class="button-primary" (click)="player.startArtist(artist)" appClickStop><i class="icon-play"></i> Play</button>
+			<a [contextMenu]="artistMenu" [contextMenuSubject]="artist" [contextMenuTriggerLeft]="true" appClickStop>…</a>
+		</div>
+	</div>
+</div>
+

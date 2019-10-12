@@ -1,0 +1,16 @@
+<div *ngIf="notes.length>0">
+	<div *ngIf="!longInfo && notes.length>1" [innerHTML]="notes[0]"></div>
+	<ng-container *ngIf="longInfo || notes.length===1">
+		<div *ngFor="let note of notes">
+			<div [innerHTML]="note"></div>
+		</div>
+		<div class="info-footnote">
+			<span *ngIf="info.url">Read more on <a target="_blank" rel="noopener" [href]="info.url">{{info.source}}</a><br/></span>
+			<a [href]="info.licenseUrl">User-contributed text is available under the {{info.license}}; additional terms may apply.</a>
+		</div>
+	</ng-container>
+	<ng-container *ngIf="notes.length>1">
+		<button (click)="longInfo=!longInfo" class="button-on-background" *ngIf="!longInfo">Show More</button>
+		<button (click)="longInfo=!longInfo" class="button-on-background" *ngIf="longInfo">Show Less</button>
+	</ng-container>
+</div>

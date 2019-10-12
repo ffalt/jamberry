@@ -1,0 +1,12 @@
+@import "globals.scss";
+
+:host {
+	.playlists {
+		@include view();
+
+		.content {
+			padding: $padding;
+		}
+	}
+
+}

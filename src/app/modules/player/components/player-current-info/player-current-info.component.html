@@ -1,0 +1,51 @@
+<context-menu #trackMenu>
+	<ng-template contextMenuItem let-track>
+		<app-context-entry-fav [base]="track" baseType="track"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-track>
+		<app-context-entry-rate [base]="track" baseType="track"></app-context-entry-rate>
+	</ng-template>
+	<!--		<ng-template context–MenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>-->
+	<ng-template contextMenuItem (execute)="navig.toTrack($event.item)"><i class="icon-track"></i> Show Track Details</ng-template>
+</context-menu>
+
+<div class="player-top-view" *ngIf="player.currentTrack && !player.currentEpisode" [contextMenu]="trackMenu" [contextMenuSubject]="player.currentTrack">
+	<div class="track-plate">
+		<div class="art">
+			<app-coverart-image [coverArtObj]="player.currentTrack" [size]="135" [alt]="player.currentTrack.name"></app-coverart-image>
+		</div>
+		<div class="meta">
+			<app-fav-icon (click)="actions.toggleTrackFav(player.currentTrack)" [state]="player.currentTrack.state"></app-fav-icon>
+			<div class="year">{{player.currentTrack.tag.year}}</div>
+			<div class="name" (click)="navig.toTrackID(player.currentTrack.id,player.currentTrack.tag.title)"><a>{{player.currentTrack.tag.title}}</a></div>
+			<div class="album" (click)="navig.toAlbumID(player.currentTrack.albumID, player.currentTrack.tag.album)"><a>{{player.currentTrack.tag.album}}</a></div>
+			<div class="artist" (click)="navig.toArtistID(player.currentTrack.artistID, player.currentTrack.tag.artist)"><a>{{player.currentTrack.tag.artist}}</a></div>
+			<div class="actions">
+				<a class="more" [contextMenu]="trackMenu" [contextMenuSubject]="player.currentTrack" [contextMenuTriggerLeft]="true">…</a>
+			</div>
+		</div>
+	</div>
+	<app-lyrics [trackID]="player.currentTrack.id"></app-lyrics>
+</div>
+<div class="player-top-view" *ngIf="player.currentEpisode">
+	<div class="track-plate">
+		<div class="art">
+			<app-coverart-image [coverArtObj]="player.currentEpisode" [size]="135" [alt]="player.currentEpisode.name"></app-coverart-image>
+		</div>
+		<div class="meta">
+			<app-fav-icon [state]="player.currentEpisode.state"></app-fav-icon>
+			<div class="year">{{player.currentEpisode.date | date}}</div>
+			<div class="name" (click)="navig.toPodcastEpisode(player.currentEpisode)"><a>{{player.currentEpisode.tag ? player.currentEpisode.tag.title : player.currentEpisode.name}}</a></div>
+			<div class="album" (click)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcast)"><a>{{player.currentEpisode.podcast}}</a></div>
+			<div class="artist"><a>{{player.currentEpisode.author}}</a></div>
+			<div class="actions">
+				<!--						<button class="button-primary" (click)="player.startAlbum(album)" appClickStop><i class="icon-play"></i> Play</button>-->
+				<!--						<a [contextMenu]="albumMenu" [contextMenuSubject]="album" [contextMenuTriggerLeft]="true" appClickStop>…</a>-->
+			</div>
+		</div>
+	</div>
+	<div class="description" *ngIf="player.currentEpisode.summary">
+		<div class="note">{{player.currentEpisode.summary}}</div>
+	</div>
+	<app-chapters *ngIf="player.currentEpisode && player.currentEpisode.chapters" [episode]="player.currentEpisode"></app-chapters>
+</div>

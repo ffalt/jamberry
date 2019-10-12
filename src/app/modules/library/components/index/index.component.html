@@ -1,0 +1,18 @@
+<app-loading *ngIf="!index"></app-loading>
+<ng-container *ngIf="index">
+	<app-view-type-toggle #viewType [viewTypeList]="viewTypeList"></app-view-type-toggle>
+	<app-background-text-list [list]="index.groups" [name]="index.name"></app-background-text-list>
+	<div *ngIf="viewType.viewTypeList">
+		<div class="index-group" *ngFor="let group of index.groups; let j=index; trackBy: trackByGroupFn">
+			<div class="index-group-name" id="index-{{j}}" (click)="group.expanded=!group.expanded">{{group.name}}</div>
+			<div class="index-entries" *ngIf="group.expanded">
+				<div class="index-entry" *ngFor="let entry of group.entries; trackBy: trackByEntryFn" (click)="navigTo(entry)">
+					<div class="title"><p><a class="title-link">{{entry.name}}</a></p> <a *ngIf="entry.extraID" (click)="navigToExtra(entry)">{{entry.extra}}</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="!viewType.viewTypeList">
+		<app-index-group id="index-{{i}}" *ngFor="let group of index.groups; let i=index; trackBy: trackByGroupFn" [group]="group" [indexType]="index.type"></app-index-group>
+	</div>
+</ng-container>

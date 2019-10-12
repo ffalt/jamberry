@@ -1,0 +1,12 @@
+@import "globals.scss";
+
+:host {
+	.podcasts {
+		@include view();
+
+		.content {
+			padding: $padding;
+		}
+	}
+
+}

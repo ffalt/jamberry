@@ -1,0 +1,24 @@
+<div class="tracks">
+	<div class="header">
+		<div class="info">
+			<div class="img">
+				<app-iconart-image icon="icon-track"></app-iconart-image>
+			</div>
+			<div class="meta">
+				<div class="type"></div>
+				<div class="name">Tracks</div>
+				<div class="actions">
+					<!--					<button class="button-primary" (click)="playTracks(tracks)"><i class="icon-play"></i> Play</button>-->
+				</div>
+			</div>
+		</div>
+		<div class="navigation">
+			<ul class="tabs">
+				<li *ngFor="let list of JamLists" [routerLink]="['/library/tracks/'+list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="content">
+		<router-outlet></router-outlet>
+	</div>
+</div>

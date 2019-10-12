@@ -1,0 +1,12 @@
+@import "globals.scss";
+
+:host {
+	.folder {
+		@include media-plate();
+
+		.tracks {
+			width: 100%;
+		}
+	}
+
+}

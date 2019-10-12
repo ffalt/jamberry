@@ -1,0 +1,35 @@
+<div class="settings">
+	<div class="header slim">
+		<div class="info">
+			<div class="meta">
+				<div class="type">Jam</div>
+				<div class="name">Settings</div>
+				<div class="actions"></div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="section-title">Design</div>
+		<div>
+			<fieldset>
+				<label class="select"><input type="radio" name="theme" [(ngModel)]="app.settings.theme" [value]="'dark'" (ngModelChange)="onChange()">Dark</label>
+				<label class="select"><input type="radio" name="theme" [(ngModel)]="app.settings.theme" [value]="'light'" (ngModelChange)="onChange()">Light</label>
+			</fieldset>
+		</div>
+		<div class="section-title">Player</div>
+		<label>
+			<input type="checkbox" title="Show Waveform of Current Track" [(ngModel)]="app.settings.showWaveform" (ngModelChange)="onChange()"/>
+			Show Waveform of Current Track
+		</label>
+		<div class="section-title">Playing</div>
+		<label>
+			<input type="checkbox" value="1" [(ngModel)]="app.settings.playingTrackInTitle" (ngModelChange)="onChange()"/>
+			Show Playing Track Name in Window Title
+		</label>
+		<label>
+			<input type="checkbox" value="1" title="Show Notifications On Tracks Change" [(ngModel)]="app.settings.notificationSong" (ngModelChange)="onChange()"/>
+			Show Notification Popup On Track Change
+		</label>
+
+	</div>
+</div>

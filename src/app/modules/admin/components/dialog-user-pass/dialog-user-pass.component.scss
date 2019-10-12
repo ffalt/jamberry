@@ -1,0 +1,24 @@
+@import "globals.scss";
+
+:host {
+	label {
+		display: block;
+		margin-bottom: $margin-sm;
+
+		span {
+			font-weight: bold;
+		}
+	}
+
+	.dummy {
+		display: none;
+	}
+
+	input {
+		line-height: 1.3em;
+		padding: $padding-xs;
+		width: 100%;
+		margin-bottom: $margin;
+	}
+
+}

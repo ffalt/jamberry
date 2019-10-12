@@ -1,0 +1,3 @@
+<app-loading *ngIf="!artists"></app-loading>
+<app-artists [artists]="artists"></app-artists>
+<app-load-more-button (requestLoad)="load()"></app-load-more-button>

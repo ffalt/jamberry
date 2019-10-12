@@ -1,0 +1,20 @@
+<app-mini-time-slider [class.hidden]="tabService.playerTab.active || !player.currentTrack"></app-mini-time-slider>
+<div class="buttons">
+	<div>
+		<a class="art" (click)="tabService.clickPlayer()" [class.active]="tabService.playerTab.active">
+			<div>
+				<app-coverart-image *ngIf="player.currentTrack" [coverArtObj]="player.currentTrack" [size]="50" alt="Album Art" [fill]="true"></app-coverart-image>
+			</div>
+			<i class="icon-info" *ngIf="!player.currentTrack"></i>
+		</a>
+	</div>
+	<div class="actions">
+		<a (click)="player.previous()" title="Previous Track"><i class="icon-fast-backward"></i></a>
+		<a *ngIf="!player.isPlaying" class="play" (click)="defaultPlay()" title="Play"><i class="icon-play"></i></a>
+		<a *ngIf="player.isPlaying" class="play" (click)="player.togglePlayPause()" title="Pause"><i class="icon-pause"></i></a>
+		<a (click)="player.next()" title="Next Track"><i class="icon-fast-forward"></i></a>
+	</div>
+	<div>
+		<a (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active"><i class="icon-queue"></i></a>
+	</div>
+</div>

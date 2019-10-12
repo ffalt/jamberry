@@ -1,0 +1,7 @@
+<div class="header" (click)="collapsed=!collapsed">{{listName}}</div>
+<div class="index-list-content" *ngIf="!collapsed">
+	<a *ngFor="let entry of entries; trackBy:trackByFn" [routerLink]="entry.link" routerLinkActive="active" class="item" (click)="clickEntry(entry)">
+		<i [class]="entry.icon"></i>
+		<span>{{entry.name}}</span>
+	</a>
+</div>

@@ -1,0 +1,135 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+	@include view();
+	min-height: 100%;
+	flex: 1 1 auto;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+
+	.toggle {
+		display: none;
+	}
+
+	.navigation {
+		width: 100%;
+		z-index: 1;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: center;
+		background-color: rgba(24, 24, 24, .6);
+		color: var(--on-control-ambient);
+
+		.tabs {
+			@include tabs();
+		}
+	}
+
+	.content {
+		width: 100%;
+		height: 100%;
+		flex: 1;
+		display: flex;
+		flex-flow: row nowrap;
+		overflow: hidden;
+		align-items: flex-start;
+		align-content: flex-start;
+		padding: 0;
+		min-height: 100%;
+
+		.left-content {
+			height: 100%;
+			width: 25%;
+			display: block;
+			border-right: 1px solid var(--background-border);
+
+			.toogle-left {
+				display: none;
+			}
+		}
+
+		.right-content {
+			width: 75%;
+			flex-shrink: 1;
+			flex-grow: 1;
+			height: 100%;
+			display: flex;
+			flex-flow: column nowrap;
+			position: relative;
+			overflow: hidden;
+
+			.toogle-right {
+				display: none;
+			}
+
+			.router-content {
+				width: 100%;
+				height: 100%;
+				display: block;
+				overflow: hidden;
+			}
+		}
+
+	}
+
+	@media (max-width: $break-phone) {
+		height: 100%;
+		width: 100%;
+		min-height: 100%;
+		overflow: hidden;
+
+		.toggle {
+			display: block;
+			position: relative;
+			width: 100%;
+			height: 33px;
+			text-align: center;
+			padding-top: $padding-xs;
+			border-bottom: 1px solid var(--background-border);
+		}
+
+		.content {
+			width: 100%;
+			height: calc(100% - 33px);
+			min-height: calc(100% - 33px);
+			overflow: hidden;
+			display: block;
+			flex: none;
+			position: relative;
+
+			app-splitter {
+				display: none;
+			}
+
+			.left-content {
+				display: flex;
+				height: 100%;
+				width: 100%;
+			}
+
+			.right-content {
+				display: none;
+				height: 100%;
+				width: 100%;
+			}
+
+		}
+		&.right-active {
+			.content {
+				.left-content {
+					display: none;
+				}
+
+				.right-content {
+					display: flex;
+				}
+			}
+		}
+
+	}
+}

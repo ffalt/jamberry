@@ -1,0 +1,22 @@
+@import "globals.scss";
+
+:host {
+	text-align: center;
+	display: block;
+	min-width: 160px;
+
+	i {
+		font-size: 110px;
+		color: var(--on-control-hover);
+	}
+
+	@media (max-width: $break-phone) {
+		min-width: inherit;
+		text-align: center;
+		i {
+			min-width: 60px;
+			font-size: 60px;
+		}
+	}
+
+}

@@ -1,0 +1,22 @@
+<app-loading *ngIf="!index"></app-loading>
+<div *ngIf="index" class="index" appDeferLoadScrollHost>
+	<div id="folder-index-top" class="header">
+		<div class="info">
+			<div class="img">
+				<app-iconart-image icon="icon-browse"></app-iconart-image>
+			</div>
+			<div class="meta">
+				<div class="type">Artist Folders</div>
+				<div class="name">Index</div>
+			</div>
+		</div>
+		<div class="navigation">
+			<ul class="tabs">
+				<li class="mini" *ngFor="let group of index.groups; let index=index" (click)="scrollToGroup(index)" [title]="group.name"><a>{{group.name}}</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="content">
+		<app-index [index]="index"></app-index>
+	</div>
+</div>

@@ -1,0 +1,41 @@
+@import "globals.scss";
+
+:host {
+	.chapters {
+		width: 100%;
+		columns: 2;
+		margin-top: 0;
+		margin-bottom: 0;
+		list-style: none;
+		padding: 0;
+
+		.chapter {
+			cursor: pointer;
+			padding-left: 50px;
+		}
+
+		.chapter-start {
+			margin-left: -50px;
+			font-size: $x-small;
+			display: inline-block;
+			text-align: right;
+			width: 50px;
+			padding-right: $padding-sm;
+			letter-spacing: 1px;
+			color: var(--on-background-active)
+		}
+
+		.chapter-title {
+			font-size: $small;
+		}
+
+		@media (max-width: $break-phone) {
+			columns: 1;
+		}
+
+		@media (max-width: $break-watch) {
+
+		}
+
+	}
+}

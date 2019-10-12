@@ -1,0 +1,38 @@
+<div *ngIf="edit">
+	<form>
+		<div class="user-form-control">
+			<label>Name</label>
+			<input type="text" name="username" [(ngModel)]="edit.edit.name" [ngModelOptions]="{standalone: true}"/>
+		</div>
+		<div class="user-form-control">
+			<label>Email</label>
+			<input type="email" name="mail" [(ngModel)]="edit.edit.email" [ngModelOptions]="{standalone: true}"/>
+		</div>
+		<div class="user-form-section">Roles</div>
+		<div class="user-form-roles">
+			<label>
+				<input type="checkbox" title="Allow User to administrate" [(ngModel)]="edit.edit.roleAdmin" [ngModelOptions]="{standalone: true}"/>
+				Administrator
+			</label><br/>
+			<label>
+				<input type="checkbox" title="Allow User to manage podcasts" [(ngModel)]="edit.edit.rolePodcast" [ngModelOptions]="{standalone: true}"/>
+				Manage Podcasts
+			</label><br/>
+			<label>
+				<input type="checkbox" title="Allow User to manage podcasts" [(ngModel)]="edit.edit.roleStream" [ngModelOptions]="{standalone: true}"/>
+				Can Stream/Download
+			</label><br/>
+			<label>
+				<input type="checkbox" title="Allow User to upload files" [(ngModel)]="edit.edit.roleUpload" [ngModelOptions]="{standalone: true}"/>
+				Can Upload
+			</label>
+		</div>
+		<hr>
+		<div class="user-form-control">
+			<!-- dummy input, so password managers dont fill user name in random text inputs above-->
+			<input class="dummy" #name type="text" name="user" autocomplete="username"/>
+			<label class="label-pass">Your Admin Password</label>
+			<input name="pass" type="password" [(ngModel)]="edit.edit.password" [ngModelOptions]="{standalone: true}" autocomplete="password"/>
+		</div>
+	</form>
+</div>

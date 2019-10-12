@@ -1,0 +1,71 @@
+@import "globals.scss";
+
+:host {
+	width: 100%;
+	position: relative;
+	flex: 0 1 100%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+
+	.messages {
+		padding: $padding;
+		flex-grow: 1;
+		width: 100%;
+		display: flex;
+		overflow-y: auto;
+		flex-flow: column wrap;
+		margin-bottom: $margin;
+		user-select: none;
+
+		.message {
+			display: flex;
+			flex-flow: row wrap;
+
+			> div {
+				margin-left: $margin-sm;
+			}
+
+			.time, .username {
+				font-size: $x-small;
+			}
+
+			.text {
+				color: var(--on-control-ambient-hover);
+			}
+
+			&.grouped {
+				.username, .avatar {
+					display: none;
+				}
+
+				.time {
+					padding-top: $padding-xs;
+				}
+			}
+		}
+
+	}
+
+	.chat-input {
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		padding: $padding;
+		background-color: var(--control);
+		border-bottom-color: transparent; //var(--control-border);
+
+		@include input-box();
+
+		.input-box {
+			width: 100%;
+		}
+
+		a {
+			margin-left: $margin-sm;
+		}
+	}
+
+}
