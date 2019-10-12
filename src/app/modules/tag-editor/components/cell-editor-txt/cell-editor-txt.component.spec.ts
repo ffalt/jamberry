@@ -1,7 +1,7 @@
-import {TagEditorInlineAutocompleteComponent} from '@app/modules/tag-editor/components/inline-autocomplete/tag-editor-inline-autocomplete.component';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {AutocompleteModule} from '@app/modules/autocomplete';
+import {TagEditorInlineAutocompleteComponent} from '@app/modules/tag-editor/components/inline-autocomplete/tag-editor-inline-autocomplete.component';
 import {TagEditorAutocompleteComponent} from '../autocomplete/tag-editor-autocomplete.component';
 import {CellEditorTxtComponent} from './cell-editor-txt.component';
 

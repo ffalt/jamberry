@@ -1,6 +1,6 @@
-import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
+import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {isEnterKey} from '@app/utils/keys';
 import {RawTagEditCell} from '../../model/tag-editor.types';
 import {DialogPicComponent, PicEdit, PicFrame} from '../dialog-pic/dialog-pic.component';

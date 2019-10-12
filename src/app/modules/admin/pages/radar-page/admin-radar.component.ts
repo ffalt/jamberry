@@ -21,8 +21,8 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	protected unsubscribe = new Subject();
 
 	constructor(
-        private app: AppService, private jam: JamService, private notify: NotifyService, private uiState: UiStateService, private folderService: FolderService,
-        private userStorage: UserStorageService
+		private app: AppService, private jam: JamService, private notify: NotifyService, private uiState: UiStateService, private folderService: FolderService,
+		private userStorage: UserStorageService
 	) {
 		userStorage.userChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(user => {

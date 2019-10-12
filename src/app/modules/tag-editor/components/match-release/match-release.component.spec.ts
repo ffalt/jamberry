@@ -1,3 +1,4 @@
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {
 	ImageBase64Component,
 	MatchReleaseComponent,
@@ -5,7 +6,6 @@ import {
 	TagEditorAutocompleteComponent
 } from '@app/modules/tag-editor/components';
 import {TEST_TAGEDITOR_MODULE_IMPORTS, TEST_TAGEDITOR_MODULE_PROVIDERS} from '@app/modules/tag-editor/tag-editor.module.mock';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MockComponent} from 'ng-mocks';
 
 describe('MatchReleaseComponent', () => {
@@ -20,7 +20,7 @@ describe('MatchReleaseComponent', () => {
 				MatchReleaseComponent,
 				MockComponent(ImageBase64Component),
 				MockComponent(ScoreBoxComponent),
-				MockComponent(TagEditorAutocompleteComponent),
+				MockComponent(TagEditorAutocompleteComponent)
 			]
 		}).compileComponents()
 	);

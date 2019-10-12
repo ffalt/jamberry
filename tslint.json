@@ -207,7 +207,8 @@
 				"@shared",
 				"@admin",
 				"@core",
-				"@jam"
+				"@jam",
+				"ng-mocks"
 			]
 		],
 		"no-import-side-effect": [

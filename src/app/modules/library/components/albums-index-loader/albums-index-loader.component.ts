@@ -1,9 +1,9 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamParameters, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@jam';
 import {Index, IndexService} from '@library/services';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-albums-index-loader',

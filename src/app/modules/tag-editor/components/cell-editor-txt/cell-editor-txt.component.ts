@@ -1,5 +1,5 @@
-import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {Component, EventEmitter, forwardRef, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {RawTagEditCell} from '../../model/tag-editor.types';
 import {TagEditorInlineAutocompleteComponent} from '../inline-autocomplete/tag-editor-inline-autocomplete.component';
 

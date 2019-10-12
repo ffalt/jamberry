@@ -1,4 +1,3 @@
-import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {
 	Component,
 	ElementRef,
@@ -11,6 +10,7 @@ import {
 	SimpleChanges,
 	ViewChild
 } from '@angular/core';
+import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {isEnterKey} from '@app/utils/keys';
 import {RawTagEditCell} from '../../model/tag-editor.types';
 

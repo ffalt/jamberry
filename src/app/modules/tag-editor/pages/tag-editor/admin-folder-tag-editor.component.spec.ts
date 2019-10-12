@@ -1,6 +1,6 @@
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {TagEditorComponent} from '@app/modules/tag-editor/components/tag-editor/tag-editor.component';
 import {TEST_TAGEDITOR_MODULE_IMPORTS, TEST_TAGEDITOR_MODULE_PROVIDERS} from '@app/modules/tag-editor/tag-editor.module.mock';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MockComponent} from 'ng-mocks';
 import {AdminFolderTagEditorComponent} from './admin-folder-tag-editor.component';
 

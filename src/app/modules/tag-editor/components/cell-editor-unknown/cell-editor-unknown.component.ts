@@ -1,5 +1,5 @@
-import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {Component, ElementRef, EventEmitter, forwardRef, Input, Output} from '@angular/core';
+import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({

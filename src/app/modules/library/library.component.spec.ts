@@ -8,8 +8,8 @@ describe('LibraryComponent', () => {
 	let component: LibraryComponent;
 	let fixture: ComponentFixture<LibraryComponent>;
 
-	beforeEach(async () => {
-			return TestBed.configureTestingModule({
+	beforeEach(async () =>
+			TestBed.configureTestingModule({
 				imports: [...TEST_LIBRARY_IMPORTS],
 				providers: [...TEST_LIBRARY_PROVIDERS],
 				declarations: [
@@ -17,8 +17,7 @@ describe('LibraryComponent', () => {
 					MockComponent(SidebarComponent),
 					MockComponent(SidebarRightComponent)
 				]
-			}).compileComponents();
-		}
+			}).compileComponents()
 	);
 
 	beforeEach(() => {

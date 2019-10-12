@@ -1,5 +1,5 @@
-import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {isEnterKey} from '@app/utils/keys';
 import {ID3v2Frames} from '@jam';
 import {RawTagEditCell} from '../../model/tag-editor.types';

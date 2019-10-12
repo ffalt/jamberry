@@ -1,8 +1,8 @@
-import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {FolderService} from '@admin/services/folder.service';
 import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChildren} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
+import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {isDownArrowKey, isLeftRightArrowKeys, isRightArrowKey, isUpDownArrowKeys} from '@app/utils/keys';
 import {AppService, NotifyService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
