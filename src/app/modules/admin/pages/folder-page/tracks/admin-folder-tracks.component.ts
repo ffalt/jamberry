@@ -1,7 +1,7 @@
 import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-parent-view-id/admin-base-parent-view-id.component';
 import {DialogChooseFolderComponent, SelectFolder} from '@admin/components/dialog-choose-folder/dialog-choose-folder.component';
 import {TrackListComponent} from '@admin/components/track-list/track-list.component';
-import {FolderService} from '@admin/services/folder.service';
+import {FolderService} from '@app/modules/admin-core/services';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';

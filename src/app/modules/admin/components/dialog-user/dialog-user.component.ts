@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
+import {UserEdit} from '@app/modules/admin-core/services';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
-import {UserEdit} from '../../admin.interface';
 
 @Component({
 	selector: 'app-dialog-user',

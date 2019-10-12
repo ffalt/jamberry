@@ -1,11 +1,11 @@
 import {Component, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {UiStateService} from '@app/modules/admin-core/services';
 import {Jam} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {folderSubSections} from '../../admin.types';
 import {FolderTreeComponent} from '../../components/folder-tree/folder-tree.component';
-import {UiStateService} from '../../services/ui-state.service';
 
 @Component({
 	selector: 'app-admin-folder',

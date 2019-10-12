@@ -1,12 +1,18 @@
-import {FolderService} from '@admin/services/folder.service';
 import {EventEmitter, Injectable, OnDestroy} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {Poller} from '@app/utils/poller';
 import {NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {Jam, JamService, RootScanStrategy} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {RootEdit} from '../admin.interface';
+import {FolderService} from './folder.service';
+
+export interface RootEdit {
+	root?: Jam.Root;
+	name: string;
+	path: string;
+	strategy: RootScanStrategy;
+}
 
 @Injectable()
 export class RootService implements OnDestroy {

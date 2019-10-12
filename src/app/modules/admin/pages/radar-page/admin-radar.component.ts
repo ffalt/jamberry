@@ -1,6 +1,6 @@
 import {TrackHealthComponent} from '@admin/components/track-health/track-health.component';
-import {FolderService, UiStateService} from '@admin/services';
 import {Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {FolderService, UiStateService} from '@app/modules/admin-core/services';
 import {AppService, NotifyService, UserStorageService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';

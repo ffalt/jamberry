@@ -2,7 +2,7 @@ import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-paren
 import {DialogAlbumImageComponent} from '@admin/components/dialog-album-image/dialog-album-image-component';
 import {DialogArtistImageComponent} from '@admin/components/dialog-artist-image/dialog-artist-image-component';
 import {DialogChooseFolderComponent, SelectFolder} from '@admin/components/dialog-choose-folder/dialog-choose-folder.component';
-import {FolderService} from '@admin/services/folder.service';
+import {FolderService} from '@app/modules/admin-core/services';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';

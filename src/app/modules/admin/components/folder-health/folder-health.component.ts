@@ -4,7 +4,7 @@ import {DialogOverlayService} from '@app/modules/dialog-overlay';
 
 import {AppService, NotifyService} from '@core/services';
 import {FolderHealthID, Jam, JamService} from '@jam';
-import {FolderService} from '../../services/folder.service';
+import {FolderService} from '@app/modules/admin-core/services';
 import {DialogAlbumImageComponent} from '../dialog-album-image/dialog-album-image-component';
 import {DialogArtistImageComponent} from '../dialog-artist-image/dialog-artist-image-component';
 

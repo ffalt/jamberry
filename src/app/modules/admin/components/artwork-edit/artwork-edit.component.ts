@@ -1,4 +1,4 @@
-import {FolderService} from '@admin/services/folder.service';
+import {FolderService} from '@app/modules/admin-core/services';
 import {HttpEventType} from '@angular/common/http';
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
 import {base64ArrayBuffer} from '@app/utils/base64';

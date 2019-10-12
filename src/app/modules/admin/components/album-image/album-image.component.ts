@@ -1,9 +1,9 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {FolderService, FolderServiceNotifyMode} from '@app/modules/admin-core/services';
 import {NotifyService} from '@core/services';
 import {ArtworkImageType, CoverArtArchive, CoverArtArchiveLookupType, Jam, JamService, LastFMLookupType} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {FolderService, FolderServiceNotifyMode} from '../../services/folder.service';
 
 export interface AlbumImageSearch {
 	folder: Jam.Folder;

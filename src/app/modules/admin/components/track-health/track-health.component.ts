@@ -5,7 +5,7 @@ import {AppService, NotifyService} from '@core/services';
 import {Jam, JamService, TrackHealthID} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {FolderService} from '../../services/folder.service';
+import {FolderService} from '@app/modules/admin-core/services';
 
 export interface TrackHealthHintSolution {
 	name: string;

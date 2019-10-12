@@ -1,14 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {RootEdit, RootService} from '@app/modules/admin-core/services';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AppService, DialogsService, NotifyService} from '@core/services';
 import {Jam, RootScanStrategy} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {RootEdit} from '../../admin.interface';
 import {DialogRootComponent} from '../../components/dialog-root/dialog-root.component';
 import {JamDataSource} from '../../model/data-source';
-import {RootService} from '../../services/root.service';
 
 @Component({
 	selector: 'app-admin-root',

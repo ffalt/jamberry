@@ -2,7 +2,11 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService} from '@jam';
-import {UserEdit} from '../admin.interface';
+
+export interface UserEdit {
+	user?: Jam.User;
+	edit: JamParameters.UserUpdate;
+}
 
 @Injectable()
 export class UserService {

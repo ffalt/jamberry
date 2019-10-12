@@ -1,5 +1,5 @@
 import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-parent-view-id/admin-base-parent-view-id.component';
-import {FolderService} from '@admin/services/folder.service';
+import {FolderService} from '@app/modules/admin-core/services';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AppService, NotifyService} from '@core/services';

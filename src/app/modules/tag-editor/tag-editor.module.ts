@@ -2,6 +2,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {AdminCoreModule} from '@app/modules/admin-core/admin-core.module';
 import {AutocompleteModule} from '@app/modules/autocomplete';
 import {ContextMenuModule} from '@app/modules/context-menu';
 import {SharedModule} from '@shared/shared.module';
@@ -10,7 +11,9 @@ import {pages} from './pages';
 import {routing} from './tag-editor.routing';
 
 @NgModule({
-	imports: [CommonModule, SharedModule, FormsModule, ContextMenuModule, ScrollingModule, AutocompleteModule, routing],
+	imports: [
+		AdminCoreModule, CommonModule, SharedModule, FormsModule, ContextMenuModule, ScrollingModule, AutocompleteModule, routing
+	],
 	entryComponents: [...entryComponents],
 	declarations: [...components, ...pages],
 	providers: []

@@ -4,7 +4,7 @@ import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '@shared/components/image-overlay-content/image-overlay-content.component';
-import {FolderService} from '../../services/folder.service';
+import {FolderService} from '@app/modules/admin-core/services';
 
 export interface ArtworkImageNode {
 	artwork: Jam.ArtworkImage;

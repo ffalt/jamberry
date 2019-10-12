@@ -1,16 +1,4 @@
-import {Jam, JamParameters, RootScanStrategy} from '@jam';
-
-export interface RootEdit {
-	root?: Jam.Root;
-	name: string;
-	path: string;
-	strategy: RootScanStrategy;
-}
-
-export interface UserEdit {
-	user?: Jam.User;
-	edit: JamParameters.UserUpdate;
-}
+import {Jam, JamParameters} from '@jam';
 
 export interface FolderEdit {
 	folder?: Jam.Folder;

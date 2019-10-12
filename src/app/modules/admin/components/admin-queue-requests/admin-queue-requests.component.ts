@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FolderService} from '../../services/folder.service';
+import {FolderService} from '@app/modules/admin-core/services';
 
 @Component({
 	selector: 'app-admin-queue-requests',

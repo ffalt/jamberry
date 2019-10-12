@@ -1,4 +1,4 @@
-import {FolderService} from '@admin/services/folder.service';
+import {FolderService} from '@app/modules/admin-core/services';
 import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChildren} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';

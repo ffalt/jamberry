@@ -1,11 +1,10 @@
-import {UserService} from '@admin/services';
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {UserEdit, UserService} from '@app/modules/admin-core/services';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AppService, DialogsService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {UserEdit} from '../../admin.interface';
 import {DialogAvatarComponent} from '../../components/dialog-avatar/dialog-avatar.component';
 import {DialogUserPassComponent, UserPasswordEdit} from '../../components/dialog-user-pass/dialog-user-pass.component';
 import {DialogUserComponent} from '../../components/dialog-user/dialog-user.component';

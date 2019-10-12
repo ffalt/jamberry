@@ -3,7 +3,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {hasFileExtension} from '@app/modules/tag-editor/model/utils';
 import {NotifyService} from '@core/services';
 import {ArtworkImageType, Jam, JamService, MusicBrainzLookupType} from '@jam';
-import {FolderService, FolderServiceNotifyMode} from '../../services/folder.service';
+import {FolderService, FolderServiceNotifyMode} from '@app/modules/admin-core/services';
 
 export interface ArtistImageSearch {
 	folder: Jam.Folder;

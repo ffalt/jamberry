@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
+import {RootEdit} from '@app/modules/admin-core/services';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {RootScanStrategy} from '@jam';
-import {RootEdit} from '../../admin.interface';
 
 @Component({
 	selector: 'app-dialog-root',
