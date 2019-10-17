@@ -1,7 +1,7 @@
 <app-background-text *ngIf="!tracks || tracks.length===0" text="No Tracks in Queue"></app-background-text>
 <div class="tracks-wrapper">
 	<ng-container *ngIf="tracks && tracks.length>0">
-		<cdk-virtual-scroll-viewport style="height: 100%; width:100%;" itemSize="60">
+		<cdk-virtual-scroll-viewport style="height: 100%; width:100%;" [itemSize]="60">
 			<div class="tracks" cdkDropList [cdkDropListData]="tracks" (cdkDropListDropped)="onDrop($event)">
 				<div class="track" *cdkVirtualFor="let track of tracks; let index = index"
 						 (tap)="tapPlayQueuePos($event, index)"

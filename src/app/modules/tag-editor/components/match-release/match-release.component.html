@@ -179,10 +179,10 @@
 	<div *ngIf="manual" class="match-actions">
 		<div class="match-search">
 			Album Name
-			<app-tag-editor-autocomplete [(value)]="manualSearchData.releaseGroup" [getList]="manualSearchData.getAutoCompleteAlbumList" standalone="true"></app-tag-editor-autocomplete>
+			<app-tag-editor-autocomplete [(value)]="manualSearchData.releaseGroup" [getList]="manualSearchData.getAutoCompleteAlbumList" [standalone]="true"></app-tag-editor-autocomplete>
 
 			Artist
-			<app-tag-editor-autocomplete [(value)]="manualSearchData.artist" [getList]="manualSearchData.getAutoCompleteArtistList" standalone="true"></app-tag-editor-autocomplete>
+			<app-tag-editor-autocomplete [(value)]="manualSearchData.artist" [getList]="manualSearchData.getAutoCompleteArtistList" [standalone]="true"></app-tag-editor-autocomplete>
 		</div>
 		<div *ngIf="!isRunning">
 			<button (click)="manualSearch()" class="button-primary">Search</button>

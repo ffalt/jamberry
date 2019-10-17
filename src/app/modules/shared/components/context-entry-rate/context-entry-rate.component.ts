@@ -9,7 +9,7 @@ import {Jam, JamObjectType, JamService} from '@jam';
 })
 export class ContextEntryRateComponent implements OnChanges {
 	@Input() base: Jam.Base;
-	@Input() baseType: JamObjectType;
+	@Input() baseType: string | JamObjectType;
 	rating: number = 0;
 
 	constructor(private notify: NotifyService, private jam: JamService) {

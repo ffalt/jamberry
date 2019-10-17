@@ -25,7 +25,7 @@
 	</div>
 	<app-loading *ngIf="!tracks"></app-loading>
 	<div class="editor" *ngIf="tracks && tracks.length>0 && editor.edits">
-		<cdk-virtual-scroll-viewport style="height: 100%" itemSize="34">
+		<cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="34">
 			<table>
 				<thead>
 				<tr class="header-row">

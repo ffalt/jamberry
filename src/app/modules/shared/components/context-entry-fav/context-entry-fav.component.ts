@@ -9,7 +9,7 @@ import {Jam, JamObjectType, JamService} from '@jam';
 })
 export class ContextEntryFavComponent {
 	@Input() base: Jam.Base;
-	@Input() baseType: JamObjectType;
+	@Input() baseType: string | JamObjectType;
 
 	constructor(private notify: NotifyService, private jam: JamService) {
 	}
