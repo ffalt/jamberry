@@ -28,7 +28,6 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 	isCollection: boolean;
 	isElse: boolean;
 	id: string;
-	@ViewChild(ContextMenuFolderComponent, {static: true}) folderMenu: ContextMenuFolderComponent;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -53,9 +52,7 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Folder): void {
-		this.contextMenuService.show.next({contextMenu: this.folderMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuFolderComponent, item, $event);
 	}
 
 	refresh(): void {

@@ -1,3 +1,4 @@
+import {ContextMenuQueueTrackComponent} from './context-menu-queue-track/context-menu-queue-track.component';
 import {MiniPlayerComponent} from './mini-player/mini-player.component';
 import {MiniSliderTimeComponent} from './mini-slider-time/mini-slider-time.component';
 import {PlayerCurrentInfoComponent} from './player-current-info/player-current-info.component';
@@ -7,7 +8,9 @@ import {SliderVolumeComponent} from './player-slider-volume/slider-volume.compon
 import {PlayerComponent} from './player/player.component';
 import {QueueComponent} from './queue/queue.component';
 
-export const entryComponents: Array<any> = [];
+export const entryComponents: Array<any> = [
+	ContextMenuQueueTrackComponent
+];
 
 export const components: Array<any> = [
 	...entryComponents,
@@ -21,6 +24,7 @@ export const components: Array<any> = [
 	QueueComponent
 ];
 
+export * from './context-menu-queue-track/context-menu-queue-track.component';
 export * from './player-current-info/player-current-info.component';
 export * from './player-slider-speed/slider-speed.component';
 export * from './player-slider-time/slider-time.component';

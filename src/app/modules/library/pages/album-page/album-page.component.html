@@ -1,5 +1,4 @@
 <app-loading *ngIf="!album"></app-loading>
-<app-context-menu-album></app-context-menu-album>
 <div class="album" *ngIf="album">
 	<div class="header" [appBackgroundImage]="album.id" (contextmenu)="onContextMenu($event, album)">
 		<div class="info">

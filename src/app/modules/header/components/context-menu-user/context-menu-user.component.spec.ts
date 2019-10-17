@@ -1,8 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
-import {ContextMenuTrackComponent} from './context-menu-track.component';
+import {ContextMenuTrackComponent} from './context-menu-artist.component';
 
-describe('ContextMenuTrackComponent', () => {
+describe('ContextMenuAlbumComponent', () => {
 	let component: ContextMenuTrackComponent;
 	let fixture: ComponentFixture<ContextMenuTrackComponent>;
 

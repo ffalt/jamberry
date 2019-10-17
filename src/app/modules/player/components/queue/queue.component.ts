@@ -1,10 +1,12 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService, QueueService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/context-menu-queue-track.component';
 
 @Component({
 	selector: 'app-queue',
@@ -17,7 +19,9 @@ export class QueueComponent implements OnInit, OnDestroy {
 	protected unsubscribe = new Subject();
 	private currentSwipeElement: HTMLElement;
 
-	constructor(public queue: QueueService, public player: PlayerService, public navig: NavigService, public actions: ActionsService) {
+	constructor(
+		public queue: QueueService, public player: PlayerService, public navig: NavigService, public actions: ActionsService,
+		private contextMenuService: ContextMenuService) {
 	}
 
 	ngOnInit(): void {
@@ -31,6 +35,10 @@ export class QueueComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
+	}
+
+	onContextMenu($event: MouseEvent, item: Jam.Track): void {
+		this.contextMenuService.open(ContextMenuQueueTrackComponent, item, $event);
 	}
 
 	onDrop(event: CdkDragDrop<Array<Jam.Track>>): void {

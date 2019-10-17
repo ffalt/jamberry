@@ -1,5 +1,4 @@
 <app-loading *ngIf="!playlist"></app-loading>
-<app-context-menu-playlist [canEdit]="jam.auth.user && playlist && playlist.userID === jam.auth.user.id"></app-context-menu-playlist>
 <div class="playlist" *ngIf="playlist">
 	<div class="header" (contextmenu)="onContextMenu($event, playlist)">
 		<div class="info">

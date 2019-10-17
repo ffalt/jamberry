@@ -1,9 +1,9 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
-import {ContextMenuTrackComponent} from '../context-menu-track/context-menu-track.component';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
+import {ContextMenuTrackComponent} from '../context-menu-track/context-menu-track.component';
 
 @Component({
 	selector: 'app-tracks',
@@ -16,7 +16,6 @@ export class TracksComponent {
 	@Input() showRating: boolean = false;
 	@Input() showPlayCount: boolean = false;
 	@Input() showPlayDate: boolean = false;
-	@ViewChild(ContextMenuTrackComponent, {static: true}) trackMenu: ContextMenuTrackComponent;
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
@@ -24,10 +23,8 @@ export class TracksComponent {
 	) {
 	}
 
-	onContextMenu($event: MouseEvent, track: Jam.Track): void {
-		this.contextMenuService.show.next({contextMenu: this.trackMenu.contextMenu, event: $event, item: track});
-		$event.preventDefault();
-		$event.stopPropagation();
+	onContextMenu($event: MouseEvent, item: Jam.Track): void {
+		this.contextMenuService.open(ContextMenuTrackComponent, item, $event);
 	}
 
 	tapTrack(event, track: Jam.Track): void {

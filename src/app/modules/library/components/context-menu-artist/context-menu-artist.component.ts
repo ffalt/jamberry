@@ -1,15 +1,15 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {ContextMenuHostComponentInterface} from '@app/modules/context-menu';
 import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.component';
 import {NavigService, PlayerService} from '@core/services';
-import {PlaylistService} from '@shared/services';
-import {ActionsService} from '@shared/services';
+import {ActionsService, PlaylistService} from '@shared/services';
 
 @Component({
 	selector: 'app-context-menu-artist',
 	templateUrl: 'context-menu-artist.component.html',
 	styleUrls: ['context-menu-artist.component.scss']
 })
-export class ContextMenuArtistComponent {
+export class ContextMenuArtistComponent implements ContextMenuHostComponentInterface {
 	@ViewChild('artistMenu') contextMenu: ContextMenuComponent;
 
 	constructor(

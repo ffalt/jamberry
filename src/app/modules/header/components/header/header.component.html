@@ -4,15 +4,7 @@
 	<app-logo-icon></app-logo-icon>
 	{{app.name}}</a></div>
 <app-search-box class="search"></app-search-box>
-<context-menu #userMenu>
-	<ng-template contextMenuItem (execute)="navig.toLibraryStart()"><i class="icon-browse"></i> Library</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toUser()"><i class="icon-user"></i> User</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toUserSettings()"><i class="icon-settings"></i> Settings</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toAdmin()" [visible]="auth.user?.roles?.admin"><i class="icon-admin"></i> Administration</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toAbout()"><i class="icon-help"></i> About</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toLogout()"><i class="icon-logout"></i> Logout</ng-template>
-</context-menu>
-<div class="user" title="User Menu" *ngIf="auth.user && auth.user.name" [contextMenu]="userMenu" [contextMenuTriggerLeft]="true">
+<div class="user" title="User Menu" *ngIf="auth.user && auth.user.name" (click)="onUserContextMenu($event)">
 	<app-coverart-image [coverArtObj]="auth.user" [size]="28" [round]="true"></app-coverart-image>
 </div>
 

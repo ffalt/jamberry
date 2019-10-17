@@ -18,7 +18,6 @@ export class AlbumPageComponent implements OnInit, OnDestroy {
 	tracks: Array<Jam.Track> = [];
 	isCompilation: boolean = false;
 	id: string;
-	@ViewChild(ContextMenuAlbumComponent, {static: true}) albumMenu: ContextMenuAlbumComponent;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -44,9 +43,7 @@ export class AlbumPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Album): void {
-		this.contextMenuService.show.next({contextMenu: this.albumMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuAlbumComponent, item, $event);
 	}
 
 	refresh(): void {

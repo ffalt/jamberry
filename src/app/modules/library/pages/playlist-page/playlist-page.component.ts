@@ -1,13 +1,12 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {ContextMenuPlaylistComponent} from '@library/components';
-import {PlaylistService} from '@shared/services';
-import {ActionsService} from '@shared/services';
+import {ActionsService, PlaylistService} from '@shared/services';
 import {Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {ContextMenuPlaylistComponent} from '../../components/context-menu-playlist/context-menu-playlist.component';
 
 @Component({
 	selector: 'app-page-playlist',
@@ -17,7 +16,6 @@ import {takeUntil} from 'rxjs/operators';
 export class PlaylistPageComponent implements OnInit, OnDestroy {
 	playlist: Jam.Playlist;
 	id: string;
-	@ViewChild(ContextMenuPlaylistComponent, {static: true}) playlistMenu: ContextMenuPlaylistComponent;
 	protected unsubscribe = new Subject();
 	private playlistID: string;
 	private subList: Subscription;
@@ -50,9 +48,9 @@ export class PlaylistPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Playlist): void {
-		this.contextMenuService.show.next({contextMenu: this.playlistMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuPlaylistComponent, item, $event, {
+			canEdit: this.jam.auth.user && this.playlist && this.playlist.userID === this.jam.auth.user.id
+		});
 	}
 
 	recheck(): void {
@@ -71,6 +69,7 @@ export class PlaylistPageComponent implements OnInit, OnDestroy {
 					}
 					this.playlist = playlist;
 				});
+			this.refresh();
 		}
 	}
 

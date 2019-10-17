@@ -1,5 +1,5 @@
 <app-loading *ngIf="!episode"></app-loading>
-<app-context-menu-episode [showGoTo]="false"></app-context-menu-episode>
+<!--<app-context-menu-episode [showGoTo]="false"></app-context-menu-episode>-->
 <div class="episode" *ngIf="episode">
 	<div class="header" [appBackgroundImage]="episode.id" (contextmenu)="onContextMenu($event, episode)">
 		<div class="info">

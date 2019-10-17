@@ -1,5 +1,4 @@
 <app-loading *ngIf="!podcast"></app-loading>
-<app-context-menu-podcast></app-context-menu-podcast>
 <div class="podcast" *ngIf="podcast">
 	<div class="header" [appBackgroundImage]="podcast.id" (contextmenu)="onContextMenu($event, podcast)">
 		<div class="info">

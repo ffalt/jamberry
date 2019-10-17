@@ -1,16 +1,16 @@
 import {Component, ViewChild} from '@angular/core';
+import {ContextMenuHostComponentInterface} from '@app/modules/context-menu';
 import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.component';
 import {NavigService, PlayerService} from '@core/services';
 import {JamService} from '@jam';
-import {PlaylistService, PodcastService} from '@shared/services';
-import {ActionsService} from '@shared/services';
+import {ActionsService, PlaylistService, PodcastService} from '@shared/services';
 
 @Component({
 	selector: 'app-context-menu-podcast',
 	templateUrl: 'context-menu-podcast.component.html',
 	styleUrls: ['context-menu-podcast.component.scss']
 })
-export class ContextMenuPodcastComponent {
+export class ContextMenuPodcastComponent implements ContextMenuHostComponentInterface {
 	@ViewChild('podcastMenu') contextMenu: ContextMenuComponent;
 
 	constructor(

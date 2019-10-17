@@ -46,7 +46,6 @@ export class FolderComponent implements OnChanges {
 	showArtist: boolean = false;
 	headline: { type?: string; name?: string; year?: string } = {};
 	@Input() folder: Jam.Folder;
-	@ViewChild(ContextMenuFolderComponent, {static: true}) folderMenu: ContextMenuFolderComponent;
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, private jam: JamService, private notify: NotifyService,
@@ -54,9 +53,7 @@ export class FolderComponent implements OnChanges {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Folder): void {
-		this.contextMenuService.show.next({contextMenu: this.folderMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuFolderComponent, item, $event);
 	}
 
 	toggleFolderTracks(): void {

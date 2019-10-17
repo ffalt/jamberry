@@ -1,4 +1,3 @@
-<app-context-menu-folder></app-context-menu-folder>
 <div class="folder" *ngIf="folder" (click)="toggleFolderTracks()" (contextmenu)="onContextMenu($event, folder)">
 	<div class="art">
 		<app-coverart-image [coverArtObj]="folder" [size]="135" [alt]="folder.name"></app-coverart-image>

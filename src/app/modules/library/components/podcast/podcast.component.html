@@ -1,4 +1,3 @@
-<app-context-menu-podcast></app-context-menu-podcast>
 <div *ngIf="podcast" class="podcast" (click)="togglePodcastEpisodes()" (contextmenu)="onContextMenu($event, podcast)">
 	<div class="art" (click)="navig.toPodcast(podcast)">
 		<app-coverart-image [coverArtObj]="podcast" [size]="135" [alt]="podcast.name"></app-coverart-image>

@@ -322,11 +322,6 @@ export class PlayerService implements OnDestroy {
 		}
 	}
 
-	addTrack(track: Jam.Track): void {
-		const trackCount = this.queue.add(track, true);
-		this.notify.success(`Tracks added to queue (${trackCount})`);
-	}
-
 	addEpisode(episode: Jam.PodcastEpisode): void {
 		if (episode.status === PodcastStatus.completed) {
 			this.resolveAddTracks(this.queue.addEpisode(episode));
@@ -353,10 +348,16 @@ export class PlayerService implements OnDestroy {
 		this.resolveAddTracks(this.queue.addArtist(artist));
 	}
 
+	addTrack(track: Jam.Track): void {
+		this.queue.add(track, true);
+		this.resolveAddTracks(Promise.resolve(1));
+		// this.notify.success(`Tracks added to queue (${trackCount})`);
+	}
+
 	protected resolveAddTracks(promise: Promise<number>): void {
 		promise
 			.then(trackCount => {
-				this.notify.success(`Tracks added to queue (${trackCount})`);
+				this.notify.success(`Tracks added to queue: ${trackCount}`);
 			})
 			.catch(e => {
 				this.notify.error(e);

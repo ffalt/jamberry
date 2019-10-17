@@ -31,9 +31,7 @@ export class AlbumComponent implements OnChanges {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Album): void {
-		this.contextMenuService.show.next({contextMenu: this.albumMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuAlbumComponent, item, $event);
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {

@@ -4,10 +4,13 @@ import {
 	AfterViewInit,
 	ChangeDetectorRef,
 	Component,
+	ComponentFactoryResolver,
+	ComponentRef,
 	ElementRef,
 	EventEmitter,
 	HostListener,
 	Inject,
+	Injector,
 	Input,
 	OnDestroy,
 	OnInit,
@@ -15,7 +18,8 @@ import {
 	Output,
 	QueryList,
 	ViewChild,
-	ViewChildren
+	ViewChildren,
+	ViewContainerRef
 } from '@angular/core';
 import {isLeftArrowKey} from '@app/utils/keys';
 import {Subject} from 'rxjs';
@@ -28,7 +32,7 @@ import {CONTEXT_MENU_OPTIONS} from './context-menu.tokens';
 @Component({
 	// tslint:disable-next-line:component-selector
 	selector: 'context-menu-content',
-	styleUrls: ['./context-menu.content.component.scss'],
+	styleUrls: ['context-menu.content.component.scss'],
 	templateUrl: 'context-menu.content.component.html'
 })
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -49,11 +53,14 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	autoFocus = false;
 	protected unsubscribe = new Subject();
 	private _keyManager: ActiveDescendantKeyManager<ContextMenuItemDirective>;
+	private childComponentRef: ComponentRef<any>;
 
 	constructor(
 		private changeDetector: ChangeDetectorRef,
 		private elementRef: ElementRef,
-		@Optional() @Inject(CONTEXT_MENU_OPTIONS) private options: ContextMenuOptions
+		@Optional() @Inject(CONTEXT_MENU_OPTIONS) private options: ContextMenuOptions,
+		private componentFactoryResolver: ComponentFactoryResolver,
+		private injector: Injector
 	) {
 		this.autoFocus = options ? options.autoFocus : false;
 	}
@@ -63,8 +70,8 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 			menuItem.currentItem = this.item;
 			menuItem.execute
 				.pipe(takeUntil(this.unsubscribe)).subscribe(value => {
-					this.execute.emit({event: value.event, item: value.item, menuItem});
-				});
+				this.execute.emit({event: value.event, item: value.item, menuItem});
+			});
 		});
 		const queryList = new QueryList<ContextMenuItemDirective>();
 		queryList.reset(this.menuItems);

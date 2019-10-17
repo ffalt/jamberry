@@ -1,6 +1,5 @@
 <app-view-type-toggle #viewType [viewTypeList]="viewTypeList" [headline]="headline"></app-view-type-toggle>
 <app-background-text-list [list]="albums" [name]="typeName||'Albums'"></app-background-text-list>
-<app-context-menu-album></app-context-menu-album>
 <ng-container *ngFor="let group of groups">
 	<div class="group">
 		<ng-container>{{group.type}}</ng-container>

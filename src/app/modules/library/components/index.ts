@@ -20,6 +20,7 @@ import {ContextMenuEpisodeComponent} from './context-menu-episode/context-menu-e
 import {ContextMenuFolderComponent} from './context-menu-folder/context-menu-folder.component';
 import {ContextMenuPlaylistComponent} from './context-menu-playlist/context-menu-playlist.component';
 import {ContextMenuPodcastComponent} from './context-menu-podcast/context-menu-podcast.component';
+import {ContextMenuTrackComponent} from './context-menu-track/context-menu-track.component';
 import {CurrentPlayingComponent} from './current-playing/current-playing.component';
 import {EpisodeStateButtonComponent} from './episode-state-button/episode-state.button.component';
 import {EpisodesLoaderComponent} from './episodes-loader/episodes-loader.component';
@@ -46,10 +47,23 @@ import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {StartSectionComponent} from './start-section/start-section.component';
 import {TabsComponent} from './tabs/tabs.component';
+import {TracksLoaderByTypeComponent} from './tracks-loader-by-type/tracks-loader-by-type.component';
+import {TracksLoaderComponent} from './tracks-loader/tracks-loader.component';
 import {TracksPlaylistComponent} from './tracks-playlist/tracks-playlist.component';
-import {ViewTypeToggleComponent} from './view-type-toggle/view-type-toggle.component';
+import {TracksComponent} from './tracks/tracks.component';
+
+export const entryComponents: Array<any> = [
+	ContextMenuAlbumComponent,
+	ContextMenuArtistComponent,
+	ContextMenuEpisodeComponent,
+	ContextMenuFolderComponent,
+	ContextMenuPlaylistComponent,
+	ContextMenuPodcastComponent,
+	ContextMenuTrackComponent,
+];
 
 export const components: Array<any> = [
+	...entryComponents,
 	AlbumComponent,
 	AlbumsComponent,
 	AlbumsIndexLoaderByTypeComponent,
@@ -58,48 +72,44 @@ export const components: Array<any> = [
 	AlbumsLoaderComponent,
 	AlbumsPageByTypeComponent,
 	ArtistComponent,
+	ArtistMbComponent,
 	ArtistOverviewComponent,
 	ArtistSimilarComponent,
-	ArtistMbComponent,
 	ArtistsComponent,
-	ArtistsLoaderComponent,
-	ArtistsLoaderByTypeComponent,
 	ArtistsIndexLoaderComponent,
-	ContextMenuAlbumComponent,
-	ContextMenuArtistComponent,
-	ContextMenuFolderComponent,
-	ContextMenuPlaylistComponent,
-	ContextMenuPodcastComponent,
-	ContextMenuEpisodeComponent,
+	ArtistsLoaderByTypeComponent,
+	ArtistsLoaderComponent,
 	ChatComponent,
+	CurrentPlayingComponent,
+	EpisodeStateButtonComponent,
 	EpisodesComponent,
 	EpisodesLoaderComponent,
-	EpisodeStateButtonComponent,
 	FolderComponent,
 	FoldersComponent,
 	FoldersLoaderComponent,
 	IndexComponent,
 	IndexEntryComponent,
 	IndexGroupComponent,
-	CurrentPlayingComponent,
 	MbArtistComponent,
 	PlaylistComponent,
 	PlaylistsComponent,
-	PlaylistsLoaderComponent,
 	PlaylistsLoaderByTypeComponent,
+	PlaylistsLoaderComponent,
 	PodcastComponent,
 	PodcastsComponent,
-	PodcastsLoaderComponent,
 	PodcastsLatestEpisodesComponent,
 	PodcastsLoaderByTypeComponent,
+	PodcastsLoaderComponent,
 	SidebarComponent,
 	SidebarIndexComponent,
 	SidebarListComponent,
 	SidebarRightComponent,
+	StartSectionComponent,
 	TabsComponent,
-	TracksPlaylistComponent,
-	ViewTypeToggleComponent,
-	StartSectionComponent
+	TracksComponent,
+	TracksLoaderByTypeComponent,
+	TracksLoaderComponent,
+	TracksPlaylistComponent
 ];
 
 export * from './album/album.component';
@@ -129,10 +139,6 @@ export * from './index-entry/index-entry.component';
 export * from './index-group/index-group.component';
 export * from './index/index.component';
 export * from './mb-artist/mb-artist.component';
-export * from './playlist/playlist.component';
-export * from './playlists-loader-by-type/playlists-loader-by-type.component';
-export * from './playlists-loader/playlists-loader.component';
-export * from './playlists/playlists.component';
 export * from './podcast/podcast.component';
 export * from './podcasts-latest-episodes/podcasts-latest-episodes.component';
 export * from './podcasts-loader-by-type/podcasts-loader-by-type.component';
@@ -145,10 +151,17 @@ export * from './sidebar/sidebar.component';
 export * from './start-section/start-section.component';
 export * from './tabs/tabs.component';
 export * from './tracks-playlist/tracks-playlist.component';
-export * from './view-type-toggle/view-type-toggle.component';
 export * from './context-menu-album/context-menu-album.component';
 export * from './context-menu-artist/context-menu-artist.component';
 export * from './context-menu-folder/context-menu-folder.component';
-export * from './context-menu-playlist/context-menu-playlist.component';
 export * from './context-menu-podcast/context-menu-podcast.component';
 export * from './context-menu-episode/context-menu-episode.component';
+export * from './playlist/playlist.component';
+export * from './playlists-loader-by-type/playlists-loader-by-type.component';
+export * from './playlists-loader/playlists-loader.component';
+export * from './playlists/playlists.component';
+export * from './context-menu-playlist/context-menu-playlist.component';
+export * from './tracks-loader-by-type/tracks-loader-by-type.component';
+export * from './tracks-loader/tracks-loader.component';
+export * from './tracks/tracks.component';
+export * from './context-menu-track/context-menu-track.component';

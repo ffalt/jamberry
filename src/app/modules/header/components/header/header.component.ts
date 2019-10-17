@@ -1,8 +1,10 @@
 import {Location} from '@angular/common';
 import {Component} from '@angular/core';
+import {ContextMenuService} from '@app/modules/context-menu';
 import {MainTabsService} from '@app/modules/main-tabs/services';
 import {AppService, NavigService} from '@core/services';
 import {JamAuthService} from '@jam';
+import {ContextMenuUserComponent} from '../context-menu-user/context-menu-user.component';
 
 @Component({
 	selector: 'app-header',
@@ -11,7 +13,11 @@ import {JamAuthService} from '@jam';
 })
 export class HeaderComponent {
 
-	constructor(public app: AppService, public auth: JamAuthService, private location: Location, public navig: NavigService, public tabService: MainTabsService) {
+	constructor(
+		public app: AppService, private location: Location, public auth: JamAuthService,
+		public navig: NavigService, public tabService: MainTabsService,
+		private contextMenuService: ContextMenuService
+	) {
 	}
 
 	back(): void {
@@ -23,6 +29,10 @@ export class HeaderComponent {
 		if (this.app.view.currentSidebar) {
 			this.app.view.currentSidebar.toggleMobileNavig();
 		}
+	}
+
+	onUserContextMenu(event: MouseEvent): void {
+		this.contextMenuService.open(ContextMenuUserComponent, undefined, event);
 	}
 
 }

@@ -22,6 +22,7 @@ import {ChildTooltipContentComponent} from './obj-tooltip-content/child-tooltip-
 import {RateComponent} from './rate/rate.component';
 import {SplitterComponent} from './splitter/splitter.component';
 import {TextOverlayContentComponent} from './text-overlay-content/text-overlay-content.component';
+import {ViewTypeToggleComponent} from './view-type-toggle/view-type-toggle.component';
 
 export const entryComponents: Array<any> = [
 	ChildTooltipContentComponent,
@@ -51,7 +52,8 @@ export const components: Array<any> = [
 	MusicbrainzIconComponent,
 	RateComponent,
 	SplitterComponent,
-	ChaptersComponent
+	ChaptersComponent,
+	ViewTypeToggleComponent
 ];
 
 export * from './background-text-list/background-text-list.component';
@@ -78,3 +80,4 @@ export * from './obj-tooltip-content/child-tooltip-content.component';
 export * from './rate/rate.component';
 export * from './splitter/splitter.component';
 export * from './text-overlay-content/text-overlay-content.component';
+export * from './view-type-toggle/view-type-toggle.component';

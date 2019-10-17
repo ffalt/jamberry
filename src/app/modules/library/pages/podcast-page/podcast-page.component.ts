@@ -3,8 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {PodcastService} from '@shared/services';
-import {ActionsService} from '@shared/services';
+import {ActionsService, PodcastService} from '@shared/services';
 import {Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {ContextMenuPodcastComponent} from '../../components/context-menu-podcast/context-menu-podcast.component';
@@ -20,7 +19,6 @@ export class PodcastPageComponent implements OnInit, OnDestroy {
 	protected unsubscribe = new Subject();
 	private subList: Subscription;
 	private podcastID: string;
-	@ViewChild(ContextMenuPodcastComponent, {static: true}) podcastMenu: ContextMenuPodcastComponent;
 
 	constructor(
 		public podcastService: PodcastService,
@@ -50,9 +48,7 @@ export class PodcastPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Podcast): void {
-		this.contextMenuService.show.next({contextMenu: this.podcastMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuPodcastComponent, item, $event);
 	}
 
 	recheck(): void {

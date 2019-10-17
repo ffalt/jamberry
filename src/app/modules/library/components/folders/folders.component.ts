@@ -12,7 +12,6 @@ import {ContextMenuFolderComponent} from '../context-menu-folder/context-menu-fo
 })
 export class FoldersComponent {
 	@Input() folders: Array<Jam.Folder>;
-	@ViewChild(ContextMenuFolderComponent, {static: true}) folderMenu: ContextMenuFolderComponent;
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
@@ -20,8 +19,6 @@ export class FoldersComponent {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Folder): void {
-		this.contextMenuService.show.next({contextMenu: this.folderMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuFolderComponent, item, $event);
 	}
 }

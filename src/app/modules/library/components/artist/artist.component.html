@@ -1,4 +1,3 @@
-<app-context-menu-artist></app-context-menu-artist>
 <div *ngIf="artist" class="artist" (contextmenu)="onContextMenu($event, artist)">
 	<div class="art">
 		<app-coverart-image [coverArtObj]="artist" [size]="135" [alt]="artist.name"></app-coverart-image>

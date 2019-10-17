@@ -5,6 +5,7 @@ import {RouterModule} from '@angular/router';
 import {AutocompleteModule} from '@app/modules/autocomplete';
 import {ContextMenuModule} from '@app/modules/context-menu';
 import {SharedModule} from '@shared/shared.module';
+import {ContextMenuUserComponent} from './components/context-menu-user/context-menu-user.component';
 import {HeaderComponent} from './components/header/header.component';
 import {SearchBoxComponent} from './components/search-box/search-box.component';
 
@@ -22,6 +23,7 @@ import {SearchBoxComponent} from './components/search-box/search-box.component';
 	],
 	declarations: [
 		HeaderComponent,
+		ContextMenuUserComponent,
 		SearchBoxComponent
 	]
 })

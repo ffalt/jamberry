@@ -2,8 +2,7 @@ import {Component, Input, ViewChild} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
-import {PodcastService} from '@shared/services';
-import {ActionsService} from '@shared/services';
+import {ActionsService, PodcastService} from '@shared/services';
 import {ContextMenuEpisodeComponent} from '../context-menu-episode/context-menu-episode.component';
 
 @Component({
@@ -14,7 +13,6 @@ import {ContextMenuEpisodeComponent} from '../context-menu-episode/context-menu-
 export class EpisodesComponent {
 	@Input() episodes: Array<Jam.PodcastEpisode>;
 	@Input() showPodcast: boolean = false;
-	@ViewChild(ContextMenuEpisodeComponent, {static: true}) episodeMenu: ContextMenuEpisodeComponent;
 
 	constructor(
 		public jam: JamService, public player: PlayerService, public podcastService: PodcastService,
@@ -24,9 +22,7 @@ export class EpisodesComponent {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.PodcastEpisode): void {
-		this.contextMenuService.show.next({contextMenu: this.episodeMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuEpisodeComponent, item, $event);
 	}
 
 	tapEpisode(event, episode: Jam.PodcastEpisode): void {

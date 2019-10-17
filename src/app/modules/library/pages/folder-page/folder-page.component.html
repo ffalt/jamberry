@@ -1,5 +1,4 @@
 <app-loading *ngIf="!folder"></app-loading>
-<app-context-menu-folder></app-context-menu-folder>
 <div class="folder" *ngIf="folder">
 	<div class="header" [appBackgroundImage]="folder.id" (contextmenu)="onContextMenu($event, folder)">
 		<div class="info">

@@ -1,4 +1,3 @@
-<app-context-menu-album></app-context-menu-album>
 <div class="album" *ngIf="album" (click)="toggleAlbumTracks()" (contextmenu)="onContextMenu($event, album)">
 	<div class="art">
 		<app-coverart-image [coverArtObj]="album" [size]="135" [alt]="album.name" (click)="navig.toAlbum(album)" appClickStop></app-coverart-image>

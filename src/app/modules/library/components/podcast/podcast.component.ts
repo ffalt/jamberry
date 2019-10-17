@@ -2,7 +2,6 @@ import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/co
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
-import {PodcastService} from '@shared/services';
 import {ActionsService} from '@shared/services';
 import {ContextMenuPodcastComponent} from '../context-menu-podcast/context-menu-podcast.component';
 
@@ -17,10 +16,8 @@ export class PodcastComponent implements OnChanges {
 	episodes: Array<Jam.PodcastEpisode>;
 	episodesExpanded: boolean = false;
 	PodcastStatus = PodcastStatus;
-	@ViewChild(ContextMenuPodcastComponent, {static: true}) podcastMenu: ContextMenuPodcastComponent;
 
 	constructor(
-		public podcastService: PodcastService,
 		public navig: NavigService,
 		public player: PlayerService,
 		public actions: ActionsService,
@@ -30,9 +27,7 @@ export class PodcastComponent implements OnChanges {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Podcast): void {
-		this.contextMenuService.show.next({contextMenu: this.podcastMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuPodcastComponent, item, $event);
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {

@@ -1,7 +1,5 @@
 <app-view-type-toggle #viewType [viewTypeList]="true"></app-view-type-toggle>
 <app-background-text-list [list]="folders" name="Folders"></app-background-text-list>
-<app-context-menu-folder></app-context-menu-folder>
-
 <div *ngIf="!viewType.viewTypeList" class="media-cards">
 	<div class="media-card" *ngFor="let folder of folders" (contextmenu)="onContextMenu($event, folder)">
 		<div class="image" (click)="navig.toFolder(folder)">

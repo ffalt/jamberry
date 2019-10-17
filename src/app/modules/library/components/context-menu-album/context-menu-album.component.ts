@@ -1,15 +1,15 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {ContextMenuHostComponentInterface} from '@app/modules/context-menu';
 import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.component';
 import {NavigService, PlayerService} from '@core/services';
-import {PlaylistService} from '@shared/services';
-import {ActionsService} from '@shared/services';
+import {ActionsService, PlaylistService} from '@shared/services';
 
 @Component({
 	selector: 'app-context-menu-album',
 	templateUrl: 'context-menu-album.component.html',
 	styleUrls: ['context-menu-album.component.scss']
 })
-export class ContextMenuAlbumComponent {
+export class ContextMenuAlbumComponent implements ContextMenuHostComponentInterface {
 	@ViewChild('albumMenu') contextMenu: ContextMenuComponent;
 
 	constructor(

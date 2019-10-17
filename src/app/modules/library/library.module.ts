@@ -6,10 +6,9 @@ import {AutocompleteModule} from '@app/modules/autocomplete';
 import {ContextMenuModule} from '@app/modules/context-menu';
 import {DeferLoadModule} from '@app/modules/defer-load';
 import {PlayerModule} from '@app/modules/player';
-import {TracksModule} from '@app/modules/tracks';
 import {SharedModule} from '@shared/shared.module';
 
-import {components} from './components';
+import {components, entryComponents} from './components';
 import {LibraryComponent} from './library.component';
 import {routing} from './library.routing';
 import {pages} from './pages';
@@ -24,9 +23,9 @@ import {pages} from './pages';
 		DragDropModule,
 		PlayerModule,
 		AutocompleteModule,
-		TracksModule,
 		routing
 	],
+	entryComponents: [...entryComponents],
 	declarations: [LibraryComponent, ...pages, ...components],
 	providers: []
 })

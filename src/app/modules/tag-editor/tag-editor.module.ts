@@ -12,7 +12,8 @@ import {routing} from './tag-editor.routing';
 
 @NgModule({
 	imports: [
-		AdminCoreModule, CommonModule, SharedModule, FormsModule, ContextMenuModule, ScrollingModule, AutocompleteModule, routing
+		AdminCoreModule, CommonModule, SharedModule, FormsModule,
+		ContextMenuModule, ScrollingModule, AutocompleteModule, routing
 	],
 	entryComponents: [...entryComponents],
 	declarations: [...components, ...pages],

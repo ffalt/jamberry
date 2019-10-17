@@ -1,4 +1,3 @@
-<app-context-menu-playlist [canEdit]="jam.auth.user && playlist && playlist.userID === jam.auth.user.id"></app-context-menu-playlist>
 <div class="playlist" *ngIf="playlist" (click)="togglePlaylistTracks()" (contextmenu)="onContextMenu($event, playlist)">
 	<div class="art" (click)="navig.toPlaylist(playlist)">
 		<app-coverart-image [coverArtObj]="playlist" [size]="135" [alt]="playlist.name" (click)="navig.toPlaylist(playlist)" appClickStop></app-coverart-image>

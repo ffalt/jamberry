@@ -16,7 +16,6 @@ import {takeUntil} from 'rxjs/operators';
 export class ArtistPageComponent implements OnInit, OnDestroy {
 	artist: Jam.Artist;
 	id: string;
-	@ViewChild(ContextMenuArtistComponent, {static: true}) artistMenu: ContextMenuArtistComponent;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -42,9 +41,7 @@ export class ArtistPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Artist): void {
-		this.contextMenuService.show.next({contextMenu: this.artistMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuArtistComponent, item, $event);
 	}
 
 	refresh(): void {

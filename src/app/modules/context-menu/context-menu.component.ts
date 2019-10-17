@@ -34,7 +34,7 @@ export interface LinkConfig {
 	// tslint:disable-next-line:component-selector
 	selector: 'context-menu',
 	styleUrls: ['./context-menu.component.scss'],
-	template: ' '
+	template: ''
 })
 export class ContextMenuComponent implements OnDestroy {
 	@Input() menuClass = '';
@@ -45,7 +45,7 @@ export class ContextMenuComponent implements OnDestroy {
 	@ContentChildren(ContextMenuItemDirective) menuItems: QueryList<ContextMenuItemDirective>;
 	@ViewChild('menu', {static: true}) menuElement: ElementRef;
 	visibleMenuItems: Array<ContextMenuItemDirective> = [];
-	links: Array<LinkConfig> = [];
+	// links: Array<LinkConfig> = [];
 	item: any;
 	event: MouseEvent | KeyboardEvent;
 	protected unsubscribe = new Subject();

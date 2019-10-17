@@ -1,15 +1,4 @@
-<context-menu #trackMenu>
-	<ng-template contextMenuItem let-track>
-		<app-context-entry-fav [base]="track" baseType="track"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-track>
-		<app-context-entry-rate [base]="track" baseType="track"></app-context-entry-rate>
-	</ng-template>
-	<!--		<ng-template context–MenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>-->
-	<ng-template contextMenuItem (execute)="navig.toTrack($event.item)"><i class="icon-track"></i> Show Track Details</ng-template>
-</context-menu>
-
-<div class="player-top-view" *ngIf="player.currentTrack && !player.currentEpisode" [contextMenu]="trackMenu" [contextMenuSubject]="player.currentTrack">
+<div class="player-top-view" *ngIf="player.currentTrack && !player.currentEpisode" (contextmenu)="onContextMenu($event, player.currentTrack)">
 	<div class="track-plate">
 		<div class="art">
 			<app-coverart-image [coverArtObj]="player.currentTrack" [size]="135" [alt]="player.currentTrack.name"></app-coverart-image>
@@ -21,7 +10,7 @@
 			<div class="album" (click)="navig.toAlbumID(player.currentTrack.albumID, player.currentTrack.tag.album)"><a>{{player.currentTrack.tag.album}}</a></div>
 			<div class="artist" (click)="navig.toArtistID(player.currentTrack.artistID, player.currentTrack.tag.artist)"><a>{{player.currentTrack.tag.artist}}</a></div>
 			<div class="actions">
-				<a class="more" [contextMenu]="trackMenu" [contextMenuSubject]="player.currentTrack" [contextMenuTriggerLeft]="true">…</a>
+				<a class="more" (click)="onContextMenu($event, player.currentTrack)">…</a>
 			</div>
 		</div>
 	</div>

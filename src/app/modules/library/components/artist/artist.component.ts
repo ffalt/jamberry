@@ -12,7 +12,6 @@ import {ActionsService} from '@shared/services';
 })
 export class ArtistComponent {
 	@Input() artist: Jam.Artist;
-	@ViewChild(ContextMenuArtistComponent, {static: true}) artistMenu: ContextMenuArtistComponent;
 
 	constructor(
 		public player: PlayerService, public actions: ActionsService, public navig: NavigService,
@@ -21,9 +20,7 @@ export class ArtistComponent {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Artist): void {
-		this.contextMenuService.show.next({contextMenu: this.artistMenu.contextMenu, event: $event, item});
-		$event.preventDefault();
-		$event.stopPropagation();
+		this.contextMenuService.open(ContextMenuArtistComponent, item, $event);
 	}
 
 }

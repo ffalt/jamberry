@@ -2,7 +2,6 @@ import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AuthCanActivateGuard} from '@app/guards';
-import {TracksLoaderByTypeComponent} from '@app/modules/tracks/components';
 import {
 	AlbumsIndexLoaderByTypeComponent,
 	AlbumsLoaderByTypeComponent,
@@ -15,6 +14,7 @@ import {
 	PlaylistsLoaderByTypeComponent,
 	PodcastsLatestEpisodesComponent,
 	PodcastsLoaderByTypeComponent,
+	TracksLoaderByTypeComponent,
 } from '@library/components';
 import {
 	AlbumPageComponent,

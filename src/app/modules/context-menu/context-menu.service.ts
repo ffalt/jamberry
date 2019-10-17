@@ -1,4 +1,4 @@
-import {Overlay, OverlayRef, ScrollStrategyOptions} from '@angular/cdk/overlay';
+import {ComponentType, Overlay, OverlayRef, ScrollStrategyOptions} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {ComponentRef, ElementRef, Injectable} from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
@@ -6,6 +6,10 @@ import {Subject, Subscription} from 'rxjs';
 import {ContextMenuComponent} from './context-menu.component';
 import {ContextMenuContentComponent} from './context-menu.content.component';
 import {ContextMenuItemDirective} from './context-menu.item.directive';
+
+export interface ContextMenuHostComponentInterface {
+	contextMenu: ContextMenuComponent;
+}
 
 export interface ContextMenuClickEvent {
 	anchorElementRef?: ElementRef;
@@ -55,6 +59,7 @@ export class ContextMenuService {
 
 	// private contextMenuContent: ComponentRef<ContextMenuContentComponent>;
 	private overlays: Array<OverlayRef> = [];
+	private templateOverlay: OverlayRef;
 	private fakeElement: any = {
 		getBoundingClientRect: (): ClientRect => ({
 			bottom: 0,
@@ -72,93 +77,21 @@ export class ContextMenuService {
 	) {
 	}
 
+	open(contextMenuHost: ComponentType<ContextMenuHostComponentInterface>, item: any, event: MouseEvent, opts?: any): void {
+		this.templateOverlay = this.overlay.create({});
+		const contextMenuTemplate: ComponentRef<any> = this.templateOverlay.attach(new ComponentPortal(contextMenuHost));
+		setTimeout(() => {
+			this.show.next({contextMenu: contextMenuTemplate.instance.contextMenu, event, item});
+		});
+		event.preventDefault();
+		event.stopPropagation();
+	}
+
 	openContextMenu(context: ContextMenuContext): void {
-		const {anchorElement, anchorElementRef, event, parentContextMenu} = context;
-
-		if (!parentContextMenu) {
-			const mouseEvent = event as MouseEvent;
-			this.fakeElement.getBoundingClientRect = (): ClientRect => ({
-				bottom: mouseEvent.clientY,
-				height: 0,
-				left: mouseEvent.clientX,
-				right: mouseEvent.clientX,
-				top: mouseEvent.clientY,
-				width: 0
-			});
-			this.closeAllContextMenus({eventType: 'cancel', event});
-
-			const positionStrategy = this.overlay.position().flexibleConnectedTo(
-				anchorElementRef || (new ElementRef(anchorElement || this.fakeElement)))
-				.withFlexibleDimensions(false)
-				.withPositions([
-					{
-						originX: 'center',
-						originY: 'top',
-						overlayX: 'center',
-						overlayY: 'bottom'
-					}
-				]);
-			// deprecated
-			// const positionStrategy = this.overlay.position().connectedTo(
-			// 	new ElementRef(anchorElement || this.fakeElement),
-			// 	{originX: 'start', originY: 'bottom'},
-			// 	{overlayX: 'start', overlayY: 'top'})
-			// 	.withFallbackPosition(
-			// 		{originX: 'start', originY: 'top'},
-			// 		{overlayX: 'start', overlayY: 'bottom'})
-			// 	.withFallbackPosition(
-			// 		{originX: 'end', originY: 'top'},
-			// 		{overlayX: 'start', overlayY: 'top'})
-			// 	.withFallbackPosition(
-			// 		{originX: 'start', originY: 'top'},
-			// 		{overlayX: 'end', overlayY: 'top'})
-			// 	.withFallbackPosition(
-			// 		{originX: 'end', originY: 'center'},
-			// 		{overlayX: 'start', overlayY: 'center'})
-			// 	.withFallbackPosition(
-			// 		{originX: 'start', originY: 'center'},
-			// 		{overlayX: 'end', overlayY: 'center'})
-			// ;
-			this.overlays = [this.overlay.create({
-				positionStrategy,
-				panelClass: 'ngx-contextmenu',
-				scrollStrategy: this.scrollStrategy.close()
-			})];
-			this.attachContextMenu(this.overlays[0], context);
+		if (!context.parentContextMenu) {
+			this.createParentContextMenuOverlay(context);
 		} else {
-			const positionStrategy = this.overlay.position().flexibleConnectedTo(
-				new ElementRef(event ? event.target : anchorElement))
-				.withFlexibleDimensions(false)
-				.withPositions([
-					{
-						originX: 'end',
-						originY: 'top',
-						overlayX: 'start',
-						overlayY: 'top'
-					}
-				]);
-			// const positionStrategy = this.overlay.position().connectedTo(
-			// ,
-			// 	{originX: 'end', originY: 'top'},
-			// 	{overlayX: 'start', overlayY: 'top'})
-			// 	.withFallbackPosition(
-			// 		{originX: 'start', originY: 'top'},
-			// 		{overlayX: 'end', overlayY: 'top'})
-			// 	.withFallbackPosition(
-			// 		{originX: 'end', originY: 'bottom'},
-			// 		{overlayX: 'start', overlayY: 'bottom'})
-			// 	.withFallbackPosition(
-			// 		{originX: 'start', originY: 'bottom'},
-			// 		{overlayX: 'end', overlayY: 'bottom'})
-			// ;
-			const newOverlay = this.overlay.create({
-				positionStrategy,
-				panelClass: 'ngx-contextmenu',
-				scrollStrategy: this.scrollStrategy.close()
-			});
-			this.destroySubMenus(parentContextMenu);
-			this.overlays = this.overlays.concat(newOverlay);
-			this.attachContextMenu(newOverlay, context);
+			this.createChildContextMenuOverlay(context);
 		}
 	}
 
@@ -200,6 +133,7 @@ export class ContextMenuService {
 		contextMenuContent.onDestroy(() => {
 			menuItems.forEach(menuItem => menuItem.isActive = false);
 			subscriptions.unsubscribe();
+			this.closeTemplates();
 		});
 		contextMenuContent.changeDetectorRef.detectChanges();
 	}
@@ -213,6 +147,14 @@ export class ContextMenuService {
 			});
 		}
 		this.overlays = [];
+	}
+
+	closeTemplates(): void {
+		if (this.templateOverlay) {
+			this.templateOverlay.detach();
+			this.templateOverlay.dispose();
+			this.templateOverlay = undefined;
+		}
 	}
 
 	getLastAttachedOverlay(): OverlayRefWithContextMenu {
@@ -265,6 +207,62 @@ export class ContextMenuService {
 	isLeafMenu(contextMenuContent: ContextMenuContentComponent): boolean {
 		const overlay = this.getLastAttachedOverlay();
 		return contextMenuContent.overlay === overlay;
+	}
+
+	private createParentContextMenuOverlay(context: ContextMenuContext): void {
+		const {anchorElement, anchorElementRef, event} = context;
+		const mouseEvent = event as MouseEvent;
+		this.fakeElement.getBoundingClientRect = (): ClientRect => ({
+			bottom: mouseEvent.clientY,
+			height: 0,
+			left: mouseEvent.clientX,
+			right: mouseEvent.clientX,
+			top: mouseEvent.clientY,
+			width: 0
+		});
+		this.closeAllContextMenus({eventType: 'cancel', event});
+
+		const positionStrategy = this.overlay.position().flexibleConnectedTo(
+			anchorElementRef || (new ElementRef(anchorElement || this.fakeElement)))
+			.withFlexibleDimensions(false)
+			.withPositions([
+				{
+					originX: 'center',
+					originY: 'top',
+					overlayX: 'center',
+					overlayY: 'bottom'
+				}
+			]);
+		this.overlays = [this.overlay.create({
+			positionStrategy,
+			panelClass: 'ngx-contextmenu',
+			scrollStrategy: this.scrollStrategy.close()
+		})];
+
+		this.attachContextMenu(this.overlays[0], context);
+	}
+
+	private createChildContextMenuOverlay(context: ContextMenuContext): void {
+		const {anchorElement, event, parentContextMenu} = context;
+		const positionStrategy = this.overlay.position().flexibleConnectedTo(
+			new ElementRef(event ? event.target : anchorElement))
+			.withFlexibleDimensions(false)
+			.withPositions([
+				{
+					originX: 'end',
+					originY: 'top',
+					overlayX: 'start',
+					overlayY: 'top'
+				}
+			]);
+		const newOverlay = this.overlay.create({
+			positionStrategy,
+			panelClass: 'ngx-contextmenu',
+			scrollStrategy: this.scrollStrategy.close()
+		});
+		this.destroySubMenus(parentContextMenu);
+		this.overlays = this.overlays.concat(newOverlay);
+		this.attachContextMenu(newOverlay, context);
 	}
 
 }

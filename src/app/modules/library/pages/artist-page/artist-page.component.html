@@ -1,5 +1,4 @@
 <app-loading *ngIf="!artist"></app-loading>
-<app-context-menu-artist></app-context-menu-artist>
 <div class="artist" *ngIf="artist">
 	<div class="header" [appBackgroundImage]="artist.id" (contextmenu)="onContextMenu($event, artist)">
 		<div class="info">

@@ -1,5 +1,5 @@
 <app-loading *ngIf="!track"></app-loading>
-<app-context-menu-track [showGoTo]="false"></app-context-menu-track>
+<!--<app-context-menu-track [showGoTo]="false"></app-context-menu-track>-->
 <div class="track" *ngIf="track">
 	<div class="header" [appBackgroundImage]="track.id" (contextmenu)="onContextMenu($event, track)">
 		<div class="info">
