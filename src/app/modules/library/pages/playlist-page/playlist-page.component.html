@@ -1,21 +1,7 @@
 <app-loading *ngIf="!playlist"></app-loading>
-
-<context-menu #playlistMenu>
-	<ng-template contextMenuItem let-playlist>
-		<app-context-entry-fav [base]="playlist" baseType="playlist"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-playlist>
-		<app-context-entry-rate [base]="playlist" baseType="playlist"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addPlaylistToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-	<ng-template contextMenuItem let-playlist (execute)="playlistService.editPlaylist($event.item)" *ngIf="jam.auth.user && playlist.userID === jam.auth.user.id"><i class="icon-edit"></i> Edit Playlist</ng-template>
-	<ng-template contextMenuItem let-playlist (execute)="playlistService.removePlaylist($event.item)" *ngIf="jam.auth.user && playlist.userID === jam.auth.user.id"><i class="icon-remove"></i> Remove Playlist</ng-template>
-</context-menu>
-
+<app-context-menu-playlist [canEdit]="jam.auth.user && playlist && playlist.userID === jam.auth.user.id"></app-context-menu-playlist>
 <div class="playlist" *ngIf="playlist">
-
-	<div class="header" [contextMenu]="playlistMenu" [contextMenuSubject]="playlist">
+	<div class="header" (contextmenu)="onContextMenu($event, playlist)">
 		<div class="info">
 			<div class="img">
 				<app-coverart-image [coverArtObj]="playlist" [size]="150" [fill]="true" [alt]="playlist.name"></app-coverart-image>
@@ -28,7 +14,7 @@
 				</div>
 			</div>
 			<div class="listeners">
-				<a class="more" [contextMenu]="playlistMenu" [contextMenuSubject]="playlist" [contextMenuTriggerLeft]="true">…</a>
+				<a class="more" (click)="onContextMenu($event, playlist)">…</a>
 			</div>
 		</div>
 		<div class="navigation"></div>

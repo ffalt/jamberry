@@ -1,7 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
+import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
+import {ContextMenuFolderComponent} from '../context-menu-folder/context-menu-folder.component';
 
 @Component({
 	selector: 'app-folders',
@@ -10,8 +12,16 @@ import {ActionsService} from '@shared/services';
 })
 export class FoldersComponent {
 	@Input() folders: Array<Jam.Folder>;
+	@ViewChild(ContextMenuFolderComponent, {static: true}) folderMenu: ContextMenuFolderComponent;
 
-	constructor(public navig: NavigService, public player: PlayerService, public actions: ActionsService) {
+	constructor(
+		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
+		private contextMenuService: ContextMenuService) {
 	}
 
+	onContextMenu($event: MouseEvent, item: Jam.Folder): void {
+		this.contextMenuService.show.next({contextMenu: this.folderMenu.contextMenu, event: $event, item});
+		$event.preventDefault();
+		$event.stopPropagation();
+	}
 }

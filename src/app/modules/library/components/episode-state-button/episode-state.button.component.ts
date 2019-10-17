@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
-import {PodcastService} from '@library/services';
+import {PodcastService} from '@shared/services';
 import {ActionsService} from '@shared/services';
 
 @Component({

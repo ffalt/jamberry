@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {AppService, NavigService} from '@core/services';
 import {JamObjectType} from '@jam';
-import {Index, IndexEntry, IndexGroup} from '@library/services';
+import {Index, IndexEntry, IndexGroup} from '@shared/services';
 
 export function scrollToIndexGroup(index: number): void {
 	const elements = document.getElementById('index-' + index.toString());

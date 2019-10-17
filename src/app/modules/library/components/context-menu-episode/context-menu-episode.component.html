@@ -1,0 +1,12 @@
+<context-menu #episodeMenu>
+	<ng-template contextMenuItem let-episode>
+		<app-context-entry-fav [base]="episode" baseType="episode"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-episode>
+		<app-context-entry-rate [base]="episode" baseType="episode"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="playlistService.addEpisode($event.item)"><i class="icon-playlist"></i> Add To Playlist</ng-template>
+	<ng-template contextMenuItem (execute)="player.addEpisode($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+	<ng-template contextMenuItem *ngIf="showGoTo" (execute)="navig.toPodcastEpisode($event.item)"><i class="icon-track"></i> Show Episode Details</ng-template>
+</context-menu>

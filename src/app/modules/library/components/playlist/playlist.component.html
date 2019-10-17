@@ -1,16 +1,5 @@
-<context-menu #playlistMenu>
-	<ng-template contextMenuItem let-playlist>
-		<app-context-entry-fav [base]="playlist" baseType="playlist"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-playlist>
-		<app-context-entry-rate [base]="playlist" baseType="playlist"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addPlaylistToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-	<ng-template contextMenuItem let-playlist (execute)="playlistService.editPlaylist($event.item)" *ngIf="jam.auth.user && playlist.userID === jam.auth.user.id"><i class="icon-edit"></i> Edit Playlist</ng-template>
-	<ng-template contextMenuItem let-playlist (execute)="playlistService.removePlaylist($event.item)" *ngIf="jam.auth.user && playlist.userID === jam.auth.user.id"><i class="icon-remove"></i> Remove Playlist</ng-template>
-</context-menu>
-<div class="playlist" *ngIf="playlist" (click)="togglePlaylistTracks()" [contextMenu]="playlistMenu" [contextMenuSubject]="playlist">
+<app-context-menu-playlist [canEdit]="jam.auth.user && playlist && playlist.userID === jam.auth.user.id"></app-context-menu-playlist>
+<div class="playlist" *ngIf="playlist" (click)="togglePlaylistTracks()" (contextmenu)="onContextMenu($event, playlist)">
 	<div class="art" (click)="navig.toPlaylist(playlist)">
 		<app-coverart-image [coverArtObj]="playlist" [size]="135" [alt]="playlist.name" (click)="navig.toPlaylist(playlist)" appClickStop></app-coverart-image>
 	</div>
@@ -19,7 +8,7 @@
 		<div class="type">Playlist</div>
 		<div class="actions">
 			<button class="button-primary" (click)="player.startPlaylist(playlist)" appClickStop><i class="icon-play"></i> Play</button>
-			<a [contextMenu]="playlistMenu" [contextMenuSubject]="playlist" [contextMenuTriggerLeft]="true">…</a>
+			<a (click)="onContextMenu($event, playlist)">…</a>
 		</div>
 	</div>
 </div>

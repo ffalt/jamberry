@@ -1,8 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {FolderType, FolderTypesAlbum, Jam, JamService} from '@jam';
-import {getFolderTypeInfo, Tab} from '@library/components';
+import {ContextMenuFolderComponent, getFolderTypeInfo, Tab} from '@library/components';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -27,12 +28,13 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 	isCollection: boolean;
 	isElse: boolean;
 	id: string;
+	@ViewChild(ContextMenuFolderComponent, {static: true}) folderMenu: ContextMenuFolderComponent;
 	protected unsubscribe = new Subject();
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
-	) {
+		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute,
+		private contextMenuService: ContextMenuService) {
 	}
 
 	ngOnInit(): void {
@@ -48,6 +50,12 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
+	}
+
+	onContextMenu($event: MouseEvent, item: Jam.Folder): void {
+		this.contextMenuService.show.next({contextMenu: this.folderMenu.contextMenu, event: $event, item});
+		$event.preventDefault();
+		$event.stopPropagation();
 	}
 
 	refresh(): void {

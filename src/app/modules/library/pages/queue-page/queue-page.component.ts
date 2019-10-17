@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {QueueService} from '@core/services';
-import {PlaylistService} from '@library/services';
+import {PlaylistService} from '@shared/services';
 
 @Component({
 	selector: 'app-page-queue',

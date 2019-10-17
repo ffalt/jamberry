@@ -1,6 +1,7 @@
 <app-loading *ngIf="!episode"></app-loading>
+<app-context-menu-episode [showGoTo]="false"></app-context-menu-episode>
 <div class="episode" *ngIf="episode">
-	<div class="header" [appBackgroundImage]="episode.id">
+	<div class="header" [appBackgroundImage]="episode.id" (contextmenu)="onContextMenu($event, episode)">
 		<div class="info">
 			<div class="img">
 				<app-coverart-image [coverArtObj]="episode" [size]="150" [fill]="true" [alt]="episode.name" [allowEnlarge]="true"></app-coverart-image>
@@ -11,6 +12,9 @@
 				<div class="actions">
 					<app-episode-state-button [episode]="episode" showTitle="true"></app-episode-state-button>
 				</div>
+			</div>
+			<div class="listeners">
+				<a class="more" (click)="onContextMenu($event, episode)">…</a>
 			</div>
 		</div>
 		<div class="navigation"></div>

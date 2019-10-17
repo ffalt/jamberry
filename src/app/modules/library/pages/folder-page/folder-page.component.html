@@ -1,18 +1,7 @@
 <app-loading *ngIf="!folder"></app-loading>
-
-<context-menu #folderMenu>
-	<ng-template contextMenuItem let-folder>
-		<app-context-entry-fav [base]="folder" baseType="folder"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-folder>
-		<app-context-entry-rate [base]="folder" baseType="folder"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addFolderToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-</context-menu>
-
+<app-context-menu-folder></app-context-menu-folder>
 <div class="folder" *ngIf="folder">
-	<div class="header" [appBackgroundImage]="folder.id" [contextMenu]="folderMenu" [contextMenuSubject]="folder">
+	<div class="header" [appBackgroundImage]="folder.id" (contextmenu)="onContextMenu($event, folder)">
 		<div class="info">
 			<div class="img">
 				<app-coverart-image [coverArtObj]="folder" [size]="150" [fill]="true" [alt]="folder.name" [allowEnlarge]="true"></app-coverart-image>
@@ -33,7 +22,7 @@
 				</ng-container>
 				<div class="label">Played</div>
 				<div class="count">{{folder.state.played || 0}}</div>
-				<a class="more" [contextMenu]="folderMenu" [contextMenuSubject]="folder" [contextMenuTriggerLeft]="true">…</a>
+				<a class="more" (click)="onContextMenu($event, folder)">…</a>
 			</div>
 		</div>
 		<app-tabs class="navigation" *ngIf="hasArtistID" [tabs]="tabs" [current]="currentTab" (tabChange)="setTab($event)"></app-tabs>

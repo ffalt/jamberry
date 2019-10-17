@@ -1,19 +1,9 @@
 <app-view-type-toggle #viewType [viewTypeList]="true"></app-view-type-toggle>
-
 <app-background-text-list [list]="folders" name="Folders"></app-background-text-list>
-<context-menu #folderMenu>
-	<ng-template contextMenuItem let-folder>
-		<app-context-entry-fav [base]="folder" baseType="folder"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-folder>
-		<app-context-entry-rate [base]="folder" baseType="folder"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addFolderToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-</context-menu>
+<app-context-menu-folder></app-context-menu-folder>
 
 <div *ngIf="!viewType.viewTypeList" class="media-cards">
-	<div class="media-card" *ngFor="let folder of folders" [contextMenu]="folderMenu" [contextMenuSubject]="folder">
+	<div class="media-card" *ngFor="let folder of folders" (contextmenu)="onContextMenu($event, folder)">
 		<div class="image" (click)="navig.toFolder(folder)">
 			<app-coverart-image [coverArtObj]="folder" [size]="300" [alt]="folder.name" [fill]="true"></app-coverart-image>
 		</div>
@@ -45,7 +35,7 @@
 			</a>
 			<div class="footer-buttons">
 				<button class="button-primary" (click)="player.startFolder(folder)"><i class="icon-play"></i> Play</button>
-				<a [contextMenu]="folderMenu" [contextMenuSubject]="folder" [contextMenuTriggerLeft]="true">…</a>
+				<a (click)="onContextMenu($event, folder)">…</a>
 			</div>
 		</div>
 	</div>

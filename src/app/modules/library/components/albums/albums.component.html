@@ -1,25 +1,12 @@
 <app-view-type-toggle #viewType [viewTypeList]="viewTypeList" [headline]="headline"></app-view-type-toggle>
-
 <app-background-text-list [list]="albums" [name]="typeName||'Albums'"></app-background-text-list>
-
-<context-menu #albumMenu>
-	<ng-template contextMenuItem let-album>
-		<app-context-entry-fav [base]="album" baseType="album"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-album>
-		<app-context-entry-rate [base]="album" baseType="album"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addAlbumToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-</context-menu>
-
+<app-context-menu-album></app-context-menu-album>
 <ng-container *ngFor="let group of groups">
 	<div class="group">
 		<ng-container>{{group.type}}</ng-container>
 	</div>
-
 	<div *ngIf="!viewType.viewTypeList" class="media-cards">
-		<div class="media-card" *ngFor="let album of group.albums" [contextMenu]="albumMenu" [contextMenuSubject]="album">
+		<div class="media-card" *ngFor="let album of group.albums" (contextmenu)="onContextMenu($event, album)">
 			<div class="image" (click)="navig.toAlbum(album)">
 				<app-coverart-image [coverArtObj]="album" [size]="300" [alt]="album.name" [fill]="true"></app-coverart-image>
 			</div>
@@ -36,12 +23,11 @@
 				</a>
 				<div class="footer-buttons">
 					<button class="button-primary" (click)="player.startAlbum(album)"><i class="icon-play"></i> Play</button>
-					<a [contextMenu]="albumMenu" [contextMenuSubject]="album" [contextMenuTriggerLeft]="true">…</a>
+					<a (click)="onContextMenu($event, album)">…</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<div class="albums" *ngIf="viewType.viewTypeList">
 		<ng-container *ngFor="let album of group.albums">
 			<app-album [album]="album" [showArtist]="showArtist" [limitArtist]="limitArtist"></app-album>

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {IndexEntry} from '@library/services';
+import {IndexEntry} from '@shared/services';
 
 @Component({
 	selector: 'app-index-entry',

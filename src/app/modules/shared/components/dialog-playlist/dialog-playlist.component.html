@@ -22,7 +22,7 @@
 	</a>
 	<div class="tracks" *ngIf="showTrackPreview">
 		<div class="track" *ngFor="let track of playlistEdit.tracks">
-			<div class="title"><p>{{track.tag.title}}</p><span title="Artist">{{track.tag.artist}}</span></div>
+			<div class="title"><p>{{track.tag?.title || track.name}}</p><span title="Artist">{{track.tag?.artist}}</span></div>
 			<div class="length">{{track.duration|duration}}</div>
 			<div class="remove"><a title="Remove From Playlist" (click)="remove(track)"><i class="icon-remove"></i></a></div>
 		</div>

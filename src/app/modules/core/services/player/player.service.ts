@@ -322,65 +322,39 @@ export class PlayerService implements OnDestroy {
 		}
 	}
 
-	addTrackToQueue(track: Jam.Track): void {
-		const trackCount = this.queue.addTracks([track], true);
+	addTrack(track: Jam.Track): void {
+		const trackCount = this.queue.add(track, true);
 		this.notify.success(`Tracks added to queue (${trackCount})`);
 	}
 
-	addEpisodeToQueue(episode: Jam.PodcastEpisode): void {
+	addEpisode(episode: Jam.PodcastEpisode): void {
 		if (episode.status === PodcastStatus.completed) {
-			this.queue.addEpisode(episode)
-				.then(trackCount => {
-					this.notify.success(`Tracks added to queue (${trackCount})`);
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+			this.resolveAddTracks(this.queue.addEpisode(episode));
 		}
 	}
 
-	addPodcastToQueue(podcast: Jam.Podcast): void {
-		this.queue.addPodcast(podcast)
-			.then(trackCount => {
-				this.notify.success(`Tracks added to queue (${trackCount})`);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+	addPodcast(podcast: Jam.Podcast): void {
+		this.resolveAddTracks(this.queue.addPodcast(podcast));
 	}
 
-	addFolderToQueue(folder: Jam.Folder): void {
-		this.queue.addFolder(folder)
-			.then(trackCount => {
-				this.notify.success(`Tracks added to queue (${trackCount})`);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+	addFolder(folder: Jam.Folder): void {
+		this.resolveAddTracks(this.queue.addFolder(folder));
 	}
 
-	addPlaylistToQueue(playlist: Jam.Playlist): void {
-		this.queue.addPlaylist(playlist)
-			.then(trackCount => {
-				this.notify.success(`Tracks added to queue (${trackCount})`);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+	addPlaylist(playlist: Jam.Playlist): void {
+		this.resolveAddTracks(this.queue.addPlaylist(playlist));
 	}
 
-	addAlbumToQueue(album: Jam.Album): void {
-		this.queue.addAlbum(album)
-			.then(trackCount => {
-				this.notify.success(`Tracks added to queue (${trackCount})`);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+	addAlbum(album: Jam.Album): void {
+		this.resolveAddTracks(this.queue.addAlbum(album));
 	}
 
-	addArtistToQueue(artist: Jam.Artist): void {
-		this.queue.addArtist(artist)
+	addArtist(artist: Jam.Artist): void {
+		this.resolveAddTracks(this.queue.addArtist(artist));
+	}
+
+	protected resolveAddTracks(promise: Promise<number>): void {
+		promise
 			.then(trackCount => {
 				this.notify.success(`Tracks added to queue (${trackCount})`);
 			})

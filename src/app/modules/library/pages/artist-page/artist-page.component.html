@@ -1,16 +1,7 @@
 <app-loading *ngIf="!artist"></app-loading>
-<context-menu #artistMenu>
-	<ng-template contextMenuItem let-artist>
-		<app-context-entry-fav [base]="artist" baseType="artist"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-artist>
-		<app-context-entry-rate [base]="artist" baseType="artist"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addArtistToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-</context-menu>
-<div class="artist" *ngIf="artist" [contextMenu]="artistMenu" [contextMenuSubject]="artist">
-	<div class="header" [appBackgroundImage]="artist.id">
+<app-context-menu-artist></app-context-menu-artist>
+<div class="artist" *ngIf="artist">
+	<div class="header" [appBackgroundImage]="artist.id" (contextmenu)="onContextMenu($event, artist)">
 		<div class="info">
 			<div class="img">
 				<app-coverart-image [coverArtObj]="artist" [size]="150" [fill]="true" [alt]="artist.name" [allowEnlarge]="true"></app-coverart-image>
@@ -29,7 +20,7 @@
 				<div class="count">{{artist.trackCount}}</div>
 				<div class="label">Played</div>
 				<div class="count">{{artist.state.played || 0}}</div>
-				<a class="more" [contextMenu]="artistMenu" [contextMenuSubject]="artist" [contextMenuTriggerLeft]="true">…</a>
+				<a class="more" (click)="onContextMenu($event, artist)">…</a>
 			</div>
 		</div>
 		<div class="navigation">

@@ -1,6 +1,8 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
+import {ContextMenuFolderComponent} from '../context-menu-folder/context-menu-folder.component';
 
 export function getFolderTypeInfo(folder: Jam.Folder): { type?: string; name?: string; year?: string } {
 	if (folder) {
@@ -44,8 +46,17 @@ export class FolderComponent implements OnChanges {
 	showArtist: boolean = false;
 	headline: { type?: string; name?: string; year?: string } = {};
 	@Input() folder: Jam.Folder;
+	@ViewChild(ContextMenuFolderComponent, {static: true}) folderMenu: ContextMenuFolderComponent;
 
-	constructor(public navig: NavigService, public player: PlayerService, private jam: JamService, private notify: NotifyService) {
+	constructor(
+		public navig: NavigService, public player: PlayerService, private jam: JamService, private notify: NotifyService,
+		private contextMenuService: ContextMenuService) {
+	}
+
+	onContextMenu($event: MouseEvent, item: Jam.Folder): void {
+		this.contextMenuService.show.next({contextMenu: this.folderMenu.contextMenu, event: $event, item});
+		$event.preventDefault();
+		$event.stopPropagation();
 	}
 
 	toggleFolderTracks(): void {

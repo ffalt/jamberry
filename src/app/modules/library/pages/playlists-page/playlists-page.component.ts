@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {JamLists} from '@app/utils/jam-lists';
-import {PlaylistService} from '@library/services';
+import {PlaylistService} from '@shared/services';
 
 @Component({
 	selector: 'app-page-playlists',

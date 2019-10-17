@@ -4,7 +4,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {DialogOverlayModule} from '@app/modules/dialog-overlay';
 import {ToastModule} from '@app/modules/toast';
 import {TEST_JAM_MODULE} from '@core/jam.module.mock';
-import {PodcastService} from '@library/services';
+import {PodcastService} from '@shared/services';
 import {SharedModule} from '@shared/shared.module';
 import {PodcastSearchPageComponent} from './podcast-search-page.component';
 

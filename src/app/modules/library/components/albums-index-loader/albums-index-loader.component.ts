@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamParameters, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@jam';
-import {Index, IndexService} from '@library/services';
+import {Index, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {AppService, NavigService} from '@core/services';
 import {JamObjectType} from '@jam';
-import {IndexEntry, IndexGroup} from '@library/services';
+import {IndexEntry, IndexGroup} from '@shared/services';
 
 @Component({
 	selector: 'app-index-group',

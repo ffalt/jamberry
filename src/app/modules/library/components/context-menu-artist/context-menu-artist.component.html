@@ -1,0 +1,11 @@
+<context-menu #artistMenu>
+	<ng-template contextMenuItem let-artist>
+		<app-context-entry-fav [base]="artist" baseType="artist"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-artist>
+		<app-context-entry-rate [base]="artist" baseType="artist"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="playlistService.addArtist($event.item)"><i class="icon-playlist"></i> Add To Playlist</ng-template>
+	<ng-template contextMenuItem (execute)="player.addArtist($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+</context-menu>

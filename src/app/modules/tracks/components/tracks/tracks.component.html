@@ -1,17 +1,5 @@
 <app-background-text-list [list]="tracks" name="Tracks"></app-background-text-list>
-
-<context-menu #trackMenu>
-	<ng-template contextMenuItem let-track>
-		<app-context-entry-fav [base]="track" baseType="track"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-track>
-		<app-context-entry-rate [base]="track" baseType="track"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addTrackToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toTrack($event.item)"><i class="icon-track"></i> Show Track Details</ng-template>
-</context-menu>
-
+<app-context-menu-track></app-context-menu-track>
 <div *ngIf="tracks && tracks.length>0" class="tracks">
 	<div class="heading">
 		<div class="fav" title="Favorite Track"><i class="icon-heart-empty"></i></div>
@@ -23,7 +11,7 @@
 		<div class="length" title="Duration"><i class="icon-stopwatch"></i></div>
 	</div>
 	<ng-container *ngFor="let track of tracks">
-		<div class="track" (tap)="tapTrack($event, track)" [contextMenu]="trackMenu" [contextMenuSubject]="track">
+		<div class="track" (tap)="tapTrack($event, track)" (contextmenu)="onContextMenu($event, track)">
 			<div class="fav"><a (click)="actions.toggleTrackFav(track)">
 				<app-fav-icon [state]="track.state"></app-fav-icon>
 			</a></div>

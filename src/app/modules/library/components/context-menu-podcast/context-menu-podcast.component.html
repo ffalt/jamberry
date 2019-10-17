@@ -1,0 +1,13 @@
+<context-menu #podcastMenu>
+	<ng-template contextMenuItem let-podcast>
+		<app-context-entry-fav [base]="podcast" baseType="podcast"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-podcast>
+		<app-context-entry-rate [base]="podcast" baseType="podcast"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="playlistService.addPodcast($event.item)"><i class="icon-playlist"></i> Add To Playlist</ng-template>
+	<ng-template contextMenuItem (execute)="player.addPodcast($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+	<ng-template contextMenuItem (execute)="podcastService.checkPodcast($event.item)" *ngIf="jam.auth.user?.roles?.podcast"><i class="icon-rescan"></i> Refresh Podcast Feed</ng-template>
+	<ng-template contextMenuItem (execute)="podcastService.removePodcast($event.item)" *ngIf="jam.auth.user?.roles?.podcast"><i class="icon-remove"></i> Remove Podcast</ng-template>
+</context-menu>

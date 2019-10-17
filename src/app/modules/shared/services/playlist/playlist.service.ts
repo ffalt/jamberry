@@ -2,7 +2,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {Notifiers} from '@app/utils/notifier';
 import {DialogsService, NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {Jam, JamService, PodcastStatus} from '@jam';
 import {DialogPlaylistComponent} from '@shared/components';
 
 export interface PlaylistEdit {
@@ -175,4 +175,53 @@ export class PlaylistService {
 			});
 	}
 
+	choosePlaylist(getTracks: Promise<Jam.TrackList>): void {
+		this.dialogOverlay.open({
+				title: 'Choose Playlist',
+				// childComponent: DialogChoosePlaylistComponent,
+				data: {},
+				onOkBtn: async () => {
+
+				},
+				onCancelBtn: async () => Promise.resolve()
+			}
+		);
+	}
+
+	// unify with player.addXYZ functions
+
+	addTrack(track: Jam.Track): void {
+		this.choosePlaylist(new Promise<Jam.TrackList>((resolve, reject) => {
+			resolve({items: [track]});
+		}));
+	}
+
+	addAlbum(album: Jam.Album): void {
+		this.choosePlaylist(this.jam.album.tracks({ids: [album.id], trackTag: true, trackState: true}));
+	}
+
+	addFolder(folder: Jam.Folder): void {
+		this.choosePlaylist(this.jam.folder.tracks({ids: [folder.id], recursive: true, trackTag: true, trackState: true}));
+	}
+
+	addArtist(artist: Jam.Artist): void {
+		this.choosePlaylist(this.jam.artist.tracks({ids: [artist.id], trackTag: true, trackState: true}));
+	}
+
+	addPodcast(podcast: Jam.Podcast): void {
+		this.choosePlaylist(this.jam.episode.search({
+			podcastID: podcast.id,
+			trackTag: true,
+			trackState: true,
+			status: PodcastStatus.completed
+		}));
+	}
+
+	addEpisode(episode: Jam.PodcastEpisode): void {
+		if (episode.status === PodcastStatus.completed) {
+			this.choosePlaylist(new Promise<Jam.TrackList>((resolve, reject) => {
+				resolve({items: [episode]});
+			}));
+		}
+	}
 }

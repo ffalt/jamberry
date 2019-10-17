@@ -1,17 +1,7 @@
 <app-loading *ngIf="!track"></app-loading>
-<context-menu #trackMenu>
-	<ng-template contextMenuItem let-track>
-		<app-context-entry-fav [base]="track" baseType="track"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-track>
-		<app-context-entry-rate [base]="track" baseType="track"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addTrackToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-</context-menu>
-
-<div class="track" *ngIf="track" [contextMenu]="trackMenu" [contextMenuSubject]="track">
-	<div class="header" [appBackgroundImage]="track.id">
+<app-context-menu-track [showGoTo]="false"></app-context-menu-track>
+<div class="track" *ngIf="track">
+	<div class="header" [appBackgroundImage]="track.id" (contextmenu)="onContextMenu($event, track)">
 		<div class="info">
 			<div class="img">
 				<app-coverart-image [coverArtObj]="track" [size]="150" [fill]="true" [alt]="track.tag?.title" [allowEnlarge]="true"></app-coverart-image>
@@ -32,8 +22,7 @@
 				</ng-container>
 				<div class="label">Played</div>
 				<div class="count">{{track.state.played || 0}}</div>
-
-				<a class="more" [contextMenu]="trackMenu" [contextMenuSubject]="track" [contextMenuTriggerLeft]="true">…</a>
+				<a class="more" (click)="onContextMenu($event, track)">…</a>
 			</div>
 		</div>
 		<app-tabs class="navigation" [tabs]="tabs" [current]="currentTab" (tabChange)="setTab($event)"></app-tabs>

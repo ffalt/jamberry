@@ -1,6 +1,6 @@
 import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {Index, IndexGroup, IndexService} from '@library/services';
+import {Index, IndexGroup, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

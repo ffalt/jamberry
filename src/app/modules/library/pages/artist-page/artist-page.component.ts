@@ -1,7 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
+import {ContextMenuArtistComponent} from '@library/components/context-menu-artist/context-menu-artist.component';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -14,11 +16,13 @@ import {takeUntil} from 'rxjs/operators';
 export class ArtistPageComponent implements OnInit, OnDestroy {
 	artist: Jam.Artist;
 	id: string;
+	@ViewChild(ContextMenuArtistComponent, {static: true}) artistMenu: ContextMenuArtistComponent;
 	protected unsubscribe = new Subject();
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
+		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute,
+		private contextMenuService: ContextMenuService
 	) {
 	}
 
@@ -35,6 +39,12 @@ export class ArtistPageComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
+	}
+
+	onContextMenu($event: MouseEvent, item: Jam.Artist): void {
+		this.contextMenuService.show.next({contextMenu: this.artistMenu.contextMenu, event: $event, item});
+		$event.preventDefault();
+		$event.stopPropagation();
 	}
 
 	refresh(): void {

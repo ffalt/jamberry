@@ -1,7 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {Jam} from '@jam';
-import {PlaylistEdit} from '@library/services';
+import {PlaylistEdit} from '@shared/services';
 
 @Component({
 	selector: 'app-dialog-new-playlist',

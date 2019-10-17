@@ -1,14 +1,5 @@
-<context-menu #albumMenu>
-	<ng-template contextMenuItem let-album>
-		<app-context-entry-fav [base]="album" baseType="album"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-album>
-		<app-context-entry-rate [base]="album" baseType="album"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addAlbumToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-</context-menu>
-<div class="album" *ngIf="album" (click)="toggleAlbumTracks()" [contextMenu]="albumMenu" [contextMenuSubject]="album">
+<app-context-menu-album></app-context-menu-album>
+<div class="album" *ngIf="album" (click)="toggleAlbumTracks()" (contextmenu)="onContextMenu($event, album)">
 	<div class="art">
 		<app-coverart-image [coverArtObj]="album" [size]="135" [alt]="album.name" (click)="navig.toAlbum(album)" appClickStop></app-coverart-image>
 	</div>
@@ -20,7 +11,7 @@
 		<div *ngIf="showArtist || isVariousArtists" class="artist"><a (click)="navig.toArtistID(album.artistID,album.name)" appClickStop>{{album.artist}}</a></div>
 		<div class="actions">
 			<button class="button-primary" (click)="player.startAlbum(album)" appClickStop><i class="icon-play"></i> Play</button>
-			<a [contextMenu]="albumMenu" [contextMenuSubject]="album" [contextMenuTriggerLeft]="true" appClickStop>…</a>
+			<a (click)="onContextMenu($event, album)">…</a>
 		</div>
 	</div>
 </div>

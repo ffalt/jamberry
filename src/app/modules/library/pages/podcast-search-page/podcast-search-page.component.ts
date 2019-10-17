@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AppService, NavigService, NotifyService} from '@core/services';
 import {JamService} from '@jam';
-import {GpodderResult, PodcastService} from '@library/services';
+import {GpodderResult, PodcastService} from '@shared/services';
 
 export interface PodcastSearchResult {
 	url: URL;

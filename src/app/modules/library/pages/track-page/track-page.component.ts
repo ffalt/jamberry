@@ -1,5 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {ContextMenuService} from '@app/modules/context-menu';
+import {ContextMenuTrackComponent} from '@app/modules/tracks/components';
 import {extractSVGParts} from '@app/utils/svg-parts';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -23,14 +25,15 @@ export class TrackPageComponent implements OnInit, OnDestroy {
 	];
 	currentTab: Tab = this.tabs[0];
 	svg: { viewbox: string; path: string };
-
+	@ViewChild(ContextMenuTrackComponent, {static: true}) trackMenu: ContextMenuTrackComponent;
 	@ViewChild(LoadMoreButtonComponent, {static: false}) loadMore: LoadMoreButtonComponent;
 	id: string;
 	protected unsubscribe = new Subject();
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
+		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute,
+		private contextMenuService: ContextMenuService
 	) {
 	}
 
@@ -48,6 +51,12 @@ export class TrackPageComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
+	}
+
+	onContextMenu($event: MouseEvent, track: Jam.Track): void {
+		this.contextMenuService.show.next({contextMenu: this.trackMenu.contextMenu, event: $event, item: track});
+		$event.preventDefault();
+		$event.stopPropagation();
 	}
 
 	setTab(tab: Tab): void {

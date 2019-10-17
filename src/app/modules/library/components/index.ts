@@ -14,6 +14,12 @@ import {ArtistsLoaderByTypeComponent} from './artists-loader-by-type/artists-loa
 import {ArtistsLoaderComponent} from './artists-loader/artists-loader.component';
 import {ArtistsComponent} from './artists/artists.component';
 import {ChatComponent} from './chat/chat.component';
+import {ContextMenuAlbumComponent} from './context-menu-album/context-menu-album.component';
+import {ContextMenuArtistComponent} from './context-menu-artist/context-menu-artist.component';
+import {ContextMenuEpisodeComponent} from './context-menu-episode/context-menu-episode.component';
+import {ContextMenuFolderComponent} from './context-menu-folder/context-menu-folder.component';
+import {ContextMenuPlaylistComponent} from './context-menu-playlist/context-menu-playlist.component';
+import {ContextMenuPodcastComponent} from './context-menu-podcast/context-menu-podcast.component';
 import {CurrentPlayingComponent} from './current-playing/current-playing.component';
 import {EpisodeStateButtonComponent} from './episode-state-button/episode-state.button.component';
 import {EpisodesLoaderComponent} from './episodes-loader/episodes-loader.component';
@@ -40,10 +46,7 @@ import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {StartSectionComponent} from './start-section/start-section.component';
 import {TabsComponent} from './tabs/tabs.component';
-import {TracksLoaderByTypeComponent} from './tracks-loader-by-type/tracks-loader-by-type.component';
-import {TracksLoaderComponent} from './tracks-loader/tracks-loader.component';
 import {TracksPlaylistComponent} from './tracks-playlist/tracks-playlist.component';
-import {TracksComponent} from './tracks/tracks.component';
 import {ViewTypeToggleComponent} from './view-type-toggle/view-type-toggle.component';
 
 export const components: Array<any> = [
@@ -62,6 +65,12 @@ export const components: Array<any> = [
 	ArtistsLoaderComponent,
 	ArtistsLoaderByTypeComponent,
 	ArtistsIndexLoaderComponent,
+	ContextMenuAlbumComponent,
+	ContextMenuArtistComponent,
+	ContextMenuFolderComponent,
+	ContextMenuPlaylistComponent,
+	ContextMenuPodcastComponent,
+	ContextMenuEpisodeComponent,
 	ChatComponent,
 	EpisodesComponent,
 	EpisodesLoaderComponent,
@@ -88,9 +97,6 @@ export const components: Array<any> = [
 	SidebarListComponent,
 	SidebarRightComponent,
 	TabsComponent,
-	TracksComponent,
-	TracksLoaderComponent,
-	TracksLoaderByTypeComponent,
 	TracksPlaylistComponent,
 	ViewTypeToggleComponent,
 	StartSectionComponent
@@ -138,8 +144,11 @@ export * from './sidebar-right/sidebar-right.component';
 export * from './sidebar/sidebar.component';
 export * from './start-section/start-section.component';
 export * from './tabs/tabs.component';
-export * from './tracks-loader-by-type/tracks-loader-by-type.component';
-export * from './tracks-loader/tracks-loader.component';
 export * from './tracks-playlist/tracks-playlist.component';
-export * from './tracks/tracks.component';
 export * from './view-type-toggle/view-type-toggle.component';
+export * from './context-menu-album/context-menu-album.component';
+export * from './context-menu-artist/context-menu-artist.component';
+export * from './context-menu-folder/context-menu-folder.component';
+export * from './context-menu-playlist/context-menu-playlist.component';
+export * from './context-menu-podcast/context-menu-podcast.component';
+export * from './context-menu-episode/context-menu-episode.component';

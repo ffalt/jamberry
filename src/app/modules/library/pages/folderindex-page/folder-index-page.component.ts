@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppService, NavigService, NotifyService} from '@core/services';
 import {JamService} from '@jam';
 import {scrollToIndexGroup} from '@library/components';
-import {Index, IndexService} from '@library/services';
+import {Index, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

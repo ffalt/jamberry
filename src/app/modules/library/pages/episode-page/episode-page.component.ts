@@ -1,8 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
-import {PodcastService} from '@library/services';
+import {ContextMenuEpisodeComponent} from '@library/components';
+import {PodcastService} from '@shared/services';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -16,12 +18,14 @@ export class EpisodePageComponent implements OnInit, OnDestroy {
 	episode: Jam.PodcastEpisode;
 	PodcastStatus = PodcastStatus;
 	id: string;
+	@ViewChild(ContextMenuEpisodeComponent, {static: true}) episodeMenu: ContextMenuEpisodeComponent;
 	protected unsubscribe = new Subject();
 
 	constructor(
 		public podcastService: PodcastService,
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		public jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
+		public jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute,
+		private contextMenuService: ContextMenuService
 	) {
 	}
 
@@ -44,6 +48,12 @@ export class EpisodePageComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
+	}
+
+	onContextMenu($event: MouseEvent, item: Jam.PodcastEpisode): void {
+		this.contextMenuService.show.next({contextMenu: this.episodeMenu.contextMenu, event: $event, item});
+		$event.preventDefault();
+		$event.stopPropagation();
 	}
 
 	refresh(): void {

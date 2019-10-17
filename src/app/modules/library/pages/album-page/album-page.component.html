@@ -1,18 +1,7 @@
 <app-loading *ngIf="!album"></app-loading>
-<context-menu #albumMenu>
-	<ng-template contextMenuItem let-album>
-		<app-context-entry-fav [base]="album" baseType="album"></app-context-entry-fav>
-	</ng-template>
-	<ng-template contextMenuItem let-album>
-		<app-context-entry-rate [base]="album" baseType="album"></app-context-entry-rate>
-	</ng-template>
-	<ng-template contextMenuItem (execute)="player.addAlbumToQueue($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-</context-menu>
-
-<div class="album" *ngIf="album" [contextMenu]="albumMenu" [contextMenuSubject]="album">
-	<div class="header" [appBackgroundImage]="album.id">
-
+<app-context-menu-album></app-context-menu-album>
+<div class="album" *ngIf="album">
+	<div class="header" [appBackgroundImage]="album.id" (contextmenu)="onContextMenu($event, album)">
 		<div class="info">
 			<div class="img">
 				<app-coverart-image [coverArtObj]="album" [size]="150" [fill]="true" [alt]="album.name" [allowEnlarge]="true"></app-coverart-image>
@@ -33,7 +22,7 @@
 				</ng-container>
 				<div class="label">Played</div>
 				<div class="count">{{album.state.played || 0}}</div>
-				<a class="more" [contextMenu]="albumMenu" [contextMenuSubject]="album" [contextMenuTriggerLeft]="true">…</a>
+				<a class="more" (click)="onContextMenu($event, album)">…</a>
 			</div>
 		</div>
 

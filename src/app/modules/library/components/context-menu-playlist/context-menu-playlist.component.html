@@ -1,0 +1,12 @@
+<context-menu #playlistMenu>
+	<ng-template contextMenuItem let-playlist>
+		<app-context-entry-fav [base]="playlist" baseType="playlist"></app-context-entry-fav>
+	</ng-template>
+	<ng-template contextMenuItem let-playlist>
+		<app-context-entry-rate [base]="playlist" baseType="playlist"></app-context-entry-rate>
+	</ng-template>
+	<ng-template contextMenuItem (execute)="player.addPlaylist($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
+	<ng-template contextMenuItem let-playlist (execute)="playlistService.editPlaylist($event.item)" *ngIf="canEdit"><i class="icon-edit"></i> Edit Playlist</ng-template>
+	<ng-template contextMenuItem let-playlist (execute)="playlistService.removePlaylist($event.item)" *ngIf="canEdit"><i class="icon-remove"></i> Remove Playlist</ng-template>
+</context-menu>

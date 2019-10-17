@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {JamLists} from '@app/utils/jam-lists';
 import {NavigService} from '@core/services';
 import {JamService} from '@jam';
-import {PodcastService} from '@library/services';
+import {PodcastService} from '@shared/services';
 
 @Component({
 	selector: 'app-page-podcasts',
