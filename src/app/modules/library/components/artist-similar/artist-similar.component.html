@@ -1,3 +1,4 @@
+<app-loading *ngIf="!artist"></app-loading>
 <ng-container *ngIf="artist && artist.similar">
 	<app-artists [artists]="artist.similar"></app-artists>
 </ng-container>

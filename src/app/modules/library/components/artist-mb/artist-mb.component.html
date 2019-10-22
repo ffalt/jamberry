@@ -1,3 +1,4 @@
+<app-loading *ngIf="!artist"></app-loading>
 <ng-container *ngIf="mbArtistID">
 	<app-mb-artist [mbArtistID]="mbArtistID"></app-mb-artist>
 </ng-container>
