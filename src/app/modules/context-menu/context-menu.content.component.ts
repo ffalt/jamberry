@@ -4,13 +4,10 @@ import {
 	AfterViewInit,
 	ChangeDetectorRef,
 	Component,
-	ComponentFactoryResolver,
-	ComponentRef,
 	ElementRef,
 	EventEmitter,
 	HostListener,
 	Inject,
-	Injector,
 	Input,
 	OnDestroy,
 	OnInit,
@@ -18,8 +15,7 @@ import {
 	Output,
 	QueryList,
 	ViewChild,
-	ViewChildren,
-	ViewContainerRef
+	ViewChildren
 } from '@angular/core';
 import {isLeftArrowKey} from '@app/utils/keys';
 import {Subject} from 'rxjs';
@@ -53,14 +49,11 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	autoFocus = false;
 	protected unsubscribe = new Subject();
 	private _keyManager: ActiveDescendantKeyManager<ContextMenuItemDirective>;
-	private childComponentRef: ComponentRef<any>;
 
 	constructor(
 		private changeDetector: ChangeDetectorRef,
 		private elementRef: ElementRef,
-		@Optional() @Inject(CONTEXT_MENU_OPTIONS) private options: ContextMenuOptions,
-		private componentFactoryResolver: ComponentFactoryResolver,
-		private injector: Injector
+		@Optional() @Inject(CONTEXT_MENU_OPTIONS) private options: ContextMenuOptions
 	) {
 		this.autoFocus = options ? options.autoFocus : false;
 	}
@@ -132,7 +125,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		ContextMenuContentComponent.cancelEvent(event);
 		const menuItem = this.menuItems[this._keyManager.activeItemIndex];
 		if (menuItem) {
-			this.onMenuItemSelect(menuItem, event);
+			this.onMenuItemSelect(menuItem, event, this._keyManager.activeItemIndex);
 		}
 	}
 
@@ -168,12 +161,22 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		});
 	}
 
-	onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent | KeyboardEvent): void {
+	onMenuItemSelect(menuItem: ContextMenuItemDirective, event: MouseEvent | KeyboardEvent, index: number): void {
+		const anchorElementRef = this.menuItemElements.toArray()[index];
+		const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
 		event.preventDefault();
 		event.stopPropagation();
-		this.onOpenSubMenu(menuItem, event);
 		if (!menuItem.subMenu) {
-			menuItem.triggerExecute(this.item, event);
+			menuItem.triggerExecute({
+				anchorElementRef,
+				anchorElement,
+				contextMenu: menuItem.subMenu,
+				event,
+				item: this.item,
+				parentContextMenu: this
+			});
+		} else {
+			this.onOpenSubMenu(menuItem, event);
 		}
 	}
 

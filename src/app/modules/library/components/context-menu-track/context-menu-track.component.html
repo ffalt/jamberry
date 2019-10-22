@@ -5,7 +5,7 @@
 	<ng-template contextMenuItem let-track>
 		<app-context-entry-rate [base]="track" baseType="track"></app-context-entry-rate>
 	</ng-template>
-	<ng-template contextMenuItem (execute)="playlistService.addTrack($event.item)"><i class="icon-playlist"></i> Add To Playlist</ng-template>
+	<ng-template contextMenuItem (execute)="playlistDialogsService.addTrack($event.item)"><i class="icon-playlist"></i> Add To Playlist</ng-template>
 	<ng-template contextMenuItem (execute)="player.addTrack($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
 	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
 	<ng-template *ngIf="showGoTo" contextMenuItem (execute)="navig.toTrack($event.item)"><i class="icon-track"></i> Show Track Details</ng-template>

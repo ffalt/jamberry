@@ -1,9 +1,9 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {ActionsService, PodcastService} from '@shared/services';
-import {ContextMenuEpisodeComponent} from '../context-menu-episode/context-menu-episode.component';
+import {ContextMenuEpisodeComponent, ContextMenuEpisodeComponentOpts} from '../context-menu-episode/context-menu-episode.component';
 
 @Component({
 	selector: 'app-episodes',
@@ -22,7 +22,7 @@ export class EpisodesComponent {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.PodcastEpisode): void {
-		this.contextMenuService.open(ContextMenuEpisodeComponent, item, $event);
+		this.contextMenuService.open<ContextMenuEpisodeComponentOpts>(ContextMenuEpisodeComponent, item, $event, {showGoTo: true});
 	}
 
 	tapEpisode(event, episode: Jam.PodcastEpisode): void {

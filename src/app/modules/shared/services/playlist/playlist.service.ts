@@ -1,17 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {Notifiers} from '@app/utils/notifier';
-import {DialogsService, NotifyService} from '@core/services';
-import {Jam, JamService, PodcastStatus} from '@jam';
-import {DialogPlaylistComponent} from '@shared/components';
-
-export interface PlaylistEdit {
-	playlist?: Jam.Playlist;
-	name: string;
-	comment: string;
-	isPublic: boolean;
-	tracks: Array<Jam.Track>;
-}
+import {NotifyService} from '@core/services';
+import {Jam, JamService} from '@jam';
 
 @Injectable()
 export class PlaylistService {
@@ -19,75 +9,7 @@ export class PlaylistService {
 	playlistChange = new Notifiers<Jam.Playlist>();
 	private playlists: Array<Jam.Playlist> = [];
 
-	constructor(private jam: JamService, private notify: NotifyService, private dialogOverlay: DialogOverlayService, private dialogsService: DialogsService) {
-	}
-
-	newPlaylist(tracks?: Array<Jam.Track>): void {
-		const edit: PlaylistEdit = {
-			name: '',
-			comment: '',
-			isPublic: false,
-			tracks: tracks ? tracks.slice(0) : []
-		};
-		this.dialogOverlay.open({
-			title: 'New Playlist',
-			childComponent: DialogPlaylistComponent,
-			data: edit,
-			onOkBtn: async () => {
-				try {
-					await this.applyDialogPlaylist(edit);
-					this.notify.success('Playlist created');
-				} catch (e) {
-					this.notify.error(e);
-					return Promise.reject(e);
-				}
-			},
-			onCancelBtn: async () => Promise.resolve()
-		});
-	}
-
-	removePlaylist(playlist: Jam.Playlist): void {
-		this.dialogsService.confirm('Remove Playlist', 'Do you want to remove the playlist?', () => {
-			this.remove(playlist)
-				.then(() => {
-					this.notify.success('Playlist removed');
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
-		});
-	}
-
-	editPlaylist(playlist: Jam.Playlist): void {
-		this.getTracks(playlist.id)
-			.then(tracks => {
-				const edit: PlaylistEdit = {
-					name: playlist.name,
-					comment: playlist.comment,
-					isPublic: playlist.isPublic,
-					tracks: tracks.slice(0),
-					playlist
-				};
-				this.dialogOverlay.open({
-						title: 'Edit Playlist',
-						childComponent: DialogPlaylistComponent,
-						data: edit,
-						onOkBtn: async () => {
-							try {
-								await this.applyDialogPlaylist(edit);
-								this.notify.success('Playlist updated');
-							} catch (e) {
-								this.notify.error(e);
-								return Promise.reject(e);
-							}
-						},
-						onCancelBtn: async () => Promise.resolve()
-					}
-				);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+	constructor(private jam: JamService, private notify: NotifyService) {
 	}
 
 	async remove(playlist: Jam.Playlist): Promise<void> {
@@ -95,31 +17,6 @@ export class PlaylistService {
 		this.playlists = this.playlists.filter(pl => pl.id !== playlist.id);
 		this.playlistsChange.emit(this.playlists);
 		this.playlistChange.emit(playlist.id, undefined);
-	}
-
-	async applyDialogPlaylist(edit: PlaylistEdit): Promise<void> {
-		const trackIDs = edit.tracks.map(t => t.id);
-		if (!edit.playlist) {
-			if (edit.name.length > 0) {
-				const playlist = await this.jam.playlist.create({
-					name: edit.name,
-					isPublic: edit.isPublic,
-					comment: edit.comment,
-					trackIDs
-				});
-				this.playlists.push(playlist);
-				this.playlistsChange.emit(this.playlists);
-			}
-		} else {
-			await this.jam.playlist.update({
-				id: edit.playlist.id,
-				name: edit.name,
-				isPublic: edit.isPublic,
-				comment: edit.comment,
-				trackIDs
-			});
-			this.refreshPlaylist(edit.playlist.id);
-		}
 	}
 
 	savePlaylist(playlist: Jam.Playlist, trackIDs: Array<string>): void {
@@ -164,64 +61,16 @@ export class PlaylistService {
 		return playlist.tracks || [];
 	}
 
+	async getLists(): Promise<Array<Jam.Playlist>> {
+		const list = await this.jam.playlist.search({playlistState: true});
+		this.playlists = list.items;
+		this.playlistsChange.emit(this.playlists);
+		return list.items;
+	}
+
 	refreshLists(): void {
-		this.jam.playlist.search({playlistState: true})
-			.then(data => {
-				this.playlists = data.items;
-				this.playlistsChange.emit(this.playlists);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
-	}
-
-	choosePlaylist(getTracks: Promise<Jam.TrackList>): void {
-		this.dialogOverlay.open({
-				title: 'Choose Playlist',
-				// childComponent: DialogChoosePlaylistComponent,
-				data: {},
-				onOkBtn: async () => {
-
-				},
-				onCancelBtn: async () => Promise.resolve()
-			}
-		);
-	}
-
-	// unify with player.addXYZ functions
-
-	addTrack(track: Jam.Track): void {
-		this.choosePlaylist(new Promise<Jam.TrackList>((resolve, reject) => {
-			resolve({items: [track]});
-		}));
-	}
-
-	addAlbum(album: Jam.Album): void {
-		this.choosePlaylist(this.jam.album.tracks({ids: [album.id], trackTag: true, trackState: true}));
-	}
-
-	addFolder(folder: Jam.Folder): void {
-		this.choosePlaylist(this.jam.folder.tracks({ids: [folder.id], recursive: true, trackTag: true, trackState: true}));
-	}
-
-	addArtist(artist: Jam.Artist): void {
-		this.choosePlaylist(this.jam.artist.tracks({ids: [artist.id], trackTag: true, trackState: true}));
-	}
-
-	addPodcast(podcast: Jam.Podcast): void {
-		this.choosePlaylist(this.jam.episode.search({
-			podcastID: podcast.id,
-			trackTag: true,
-			trackState: true,
-			status: PodcastStatus.completed
-		}));
-	}
-
-	addEpisode(episode: Jam.PodcastEpisode): void {
-		if (episode.status === PodcastStatus.completed) {
-			this.choosePlaylist(new Promise<Jam.TrackList>((resolve, reject) => {
-				resolve({items: [episode]});
-			}));
-		}
+		this.getLists().catch(e => {
+			this.notify.error(e);
+		});
 	}
 }

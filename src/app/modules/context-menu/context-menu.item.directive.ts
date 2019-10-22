@@ -1,5 +1,6 @@
 import {Highlightable} from '@angular/cdk/a11y';
 import {Directive, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
+import {ContextMenuClickEvent} from './context-menu.service';
 
 @Directive({
 	// tslint:disable-next-line:directive-selector
@@ -11,7 +12,7 @@ export class ContextMenuItemDirective implements Highlightable {
 	@Input() enabled: boolean = true;
 	@Input() passive = false;
 	@Input() visible: boolean = true;
-	@Output() readonly execute: EventEmitter<{ event: MouseEvent | KeyboardEvent, item: any }> = new EventEmitter();
+	@Output() readonly execute: EventEmitter<ContextMenuClickEvent> = new EventEmitter();
 
 	currentItem: any;
 	isActive = false;
@@ -31,9 +32,9 @@ export class ContextMenuItemDirective implements Highlightable {
 		this.isActive = false;
 	}
 
-	triggerExecute(item: any, $event?: MouseEvent | KeyboardEvent): void {
+	triggerExecute(event: ContextMenuClickEvent): void {
 		if (this.enabled) {
-			this.execute.emit({event: $event, item});
+			this.execute.emit(event);
 		}
 	}
 }

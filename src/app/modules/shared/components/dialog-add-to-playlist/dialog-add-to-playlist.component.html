@@ -1,0 +1,23 @@
+<div class="playlists">
+	<ul *ngIf="playlists">
+		<li *ngFor="let playlist of playlists" (click)="addTo(playlist)">
+			<a>{{playlist.name}}
+				<span>Nr of Tracks: {{playlist.trackCount}}</span>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="tracks-preview" *ngIf="trackList && trackList.items.length>0">
+	<a class="preview" (click)="showTrackPreview=!showTrackPreview">
+		<app-expand-collapse-icon [expanded]="showTrackPreview"></app-expand-collapse-icon>
+		Tracks to Add: {{trackList.items.length}}
+	</a>
+	<div class="tracks" *ngIf="showTrackPreview">
+		<div class="track" *ngFor="let track of trackList.items">
+			<div class="title">{{track.tag?.title || track.name}} <span title="Artist">{{track.tag?.artist}}</span></div>
+			<div class="length">{{track.duration|duration}}</div>
+			<div class="remove"><a title="Do not add to Playlist" (click)="remove(track)"><i class="icon-remove"></i></a></div>
+		</div>
+	</div>
+</div>
+<app-loading *ngIf="!playlists || !trackList"></app-loading>

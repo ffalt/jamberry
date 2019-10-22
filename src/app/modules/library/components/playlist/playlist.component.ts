@@ -1,9 +1,9 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {ActionsService, PlaylistService} from '@shared/services';
-import {ContextMenuPlaylistComponent} from '../context-menu-playlist/context-menu-playlist.component';
+import {ContextMenuPlaylistComponent, ContextMenuPlaylistComponentOptions} from '../context-menu-playlist/context-menu-playlist.component';
 
 @Component({
 	selector: 'app-playlist',
@@ -23,7 +23,9 @@ export class PlaylistComponent implements OnChanges {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Playlist): void {
-		this.contextMenuService.open(ContextMenuPlaylistComponent, item, $event);
+		this.contextMenuService.open<ContextMenuPlaylistComponentOptions>(ContextMenuPlaylistComponent, item, $event, {
+			canEdit: this.jam.auth.user && this.playlist && this.playlist.userID === this.jam.auth.user.id
+		});
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {

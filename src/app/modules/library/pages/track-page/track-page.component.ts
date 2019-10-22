@@ -4,7 +4,7 @@ import {ContextMenuService} from '@app/modules/context-menu';
 import {extractSVGParts} from '@app/utils/svg-parts';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {ContextMenuTrackComponent, Tab} from '@library/components';
+import {ContextMenuTrackComponent, ContextMenuTrackComponentOptions, Tab} from '@library/components';
 import {LoadMoreButtonComponent} from '@shared/components';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
@@ -52,7 +52,7 @@ export class TrackPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent, track: Jam.Track): void {
-		this.contextMenuService.open(ContextMenuTrackComponent, track, $event);
+		this.contextMenuService.open<ContextMenuTrackComponentOptions>(ContextMenuTrackComponent, track, $event, {showGoTo: false});
 	}
 
 	setTab(tab: Tab): void {

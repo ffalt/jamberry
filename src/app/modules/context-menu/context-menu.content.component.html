@@ -7,7 +7,7 @@
 			<a *ngIf="!menuItem.divider && !menuItem.passive" href
 				 [class.active]="menuItem.isActive && menuItem.enabled"
 				 [class.disabled]="!menuItem.enabled" [class.hasSubMenu]="!!menuItem.subMenu"
-				 (click)="onMenuItemSelect(menuItem, $event)" (mouseenter)="onOpenSubMenu(menuItem, $event)">
+				 (click)="onMenuItemSelect(menuItem, $event, i)" (mouseenter)="onOpenSubMenu(menuItem, $event)">
 				<ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
 			</a>
 

@@ -7,8 +7,10 @@ import {ContextMenuComponent} from './context-menu.component';
 import {ContextMenuContentComponent} from './context-menu.content.component';
 import {ContextMenuItemDirective} from './context-menu.item.directive';
 
-export interface ContextMenuHostComponentInterface {
+export interface ContextMenuHostComponentInterface<T> {
 	contextMenu: ContextMenuComponent;
+
+	initOpts?(opts: T): void;
 }
 
 export interface ContextMenuClickEvent {
@@ -52,14 +54,10 @@ export type CloseContextMenuEvent = ExecuteContextMenuEvent | CancelContextMenuE
 @Injectable()
 export class ContextMenuService {
 	isDestroyingLeafMenu = false;
-
 	show: Subject<ContextMenuClickEvent> = new Subject<ContextMenuClickEvent>();
-	// triggerClose: Subject<ContextMenuContentComponent> = new Subject();
 	close: Subject<CloseContextMenuEvent> = new Subject();
-
-	// private contextMenuContent: ComponentRef<ContextMenuContentComponent>;
 	private overlays: Array<OverlayRef> = [];
-	private templateOverlay: OverlayRef;
+	private templateOverlays: Array<OverlayRef> = [];
 	private fakeElement: any = {
 		getBoundingClientRect: (): ClientRect => ({
 			bottom: 0,
@@ -77,11 +75,24 @@ export class ContextMenuService {
 	) {
 	}
 
-	open(contextMenuHost: ComponentType<ContextMenuHostComponentInterface>, item: any, event: MouseEvent, opts?: any): void {
-		this.templateOverlay = this.overlay.create({});
-		const contextMenuTemplate: ComponentRef<any> = this.templateOverlay.attach(new ComponentPortal(contextMenuHost));
+	open<T>(contextMenuHost: ComponentType<ContextMenuHostComponentInterface<T>>, item: any, event: MouseEvent | KeyboardEvent, opts?: T, parentEvent?: ContextMenuClickEvent): void {
+		const templateOverlay = this.overlay.create({});
+		this.templateOverlays.push(templateOverlay);
+		const contextMenuTemplate: ComponentRef<any> = templateOverlay.attach(new ComponentPortal(contextMenuHost));
+		const instance = contextMenuTemplate.instance as ContextMenuHostComponentInterface<T>;
+		if (instance.initOpts) {
+			instance.initOpts(opts);
+		}
 		setTimeout(() => {
-			this.show.next({contextMenu: contextMenuTemplate.instance.contextMenu, event, item});
+			this.show.next({
+				contextMenu: instance.contextMenu,
+				event,
+				item,
+				anchorElement: parentEvent ? parentEvent.anchorElement : undefined,
+				anchorElementRef: parentEvent ? parentEvent.anchorElementRef : undefined,
+				activeMenuItemIndex: parentEvent ? parentEvent.activeMenuItemIndex : undefined,
+				parentContextMenu: parentEvent ? parentEvent.parentContextMenu : undefined
+			});
 		});
 		event.preventDefault();
 		event.stopPropagation();
@@ -122,6 +133,7 @@ export class ContextMenuService {
 			}));
 		subscriptions.add(contextMenuContent.instance.openSubMenu.asObservable()
 			.subscribe((subMenuEvent: ContextMenuContext) => {
+
 				this.destroySubMenus(contextMenuContent.instance);
 				if (!subMenuEvent.contextMenu) {
 					contextMenuContent.instance.isLeaf = true;
@@ -133,7 +145,9 @@ export class ContextMenuService {
 		contextMenuContent.onDestroy(() => {
 			menuItems.forEach(menuItem => menuItem.isActive = false);
 			subscriptions.unsubscribe();
-			this.closeTemplates();
+			if (this.overlays.length === 1) {
+				this.closeTemplates();
+			}
 		});
 		contextMenuContent.changeDetectorRef.detectChanges();
 	}
@@ -150,11 +164,13 @@ export class ContextMenuService {
 	}
 
 	closeTemplates(): void {
-		if (this.templateOverlay) {
-			this.templateOverlay.detach();
-			this.templateOverlay.dispose();
-			this.templateOverlay = undefined;
+		if (this.templateOverlays) {
+			this.templateOverlays.forEach(overlay => {
+				overlay.detach();
+				overlay.dispose();
+			});
 		}
+		this.templateOverlays = [];
 	}
 
 	getLastAttachedOverlay(): OverlayRefWithContextMenu {
@@ -243,7 +259,7 @@ export class ContextMenuService {
 	}
 
 	private createChildContextMenuOverlay(context: ContextMenuContext): void {
-		const {anchorElement, event, parentContextMenu} = context;
+		const {anchorElement, event} = context;
 		const positionStrategy = this.overlay.position().flexibleConnectedTo(
 			new ElementRef(event ? event.target : anchorElement))
 			.withFlexibleDimensions(false)
@@ -260,7 +276,7 @@ export class ContextMenuService {
 			panelClass: 'ngx-contextmenu',
 			scrollStrategy: this.scrollStrategy.close()
 		});
-		this.destroySubMenus(parentContextMenu);
+		// this.destroySubMenus(parentContextMenu);
 		this.overlays = this.overlays.concat(newOverlay);
 		this.attachContextMenu(newOverlay, context);
 	}

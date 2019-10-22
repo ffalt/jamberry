@@ -5,7 +5,7 @@
 	<ng-template contextMenuItem let-album>
 		<app-context-entry-rate [base]="album" baseType="album"></app-context-entry-rate>
 	</ng-template>
-	<ng-template contextMenuItem (execute)="playlistService.addAlbum($event.item)"><i class="icon-playlist"></i> Add To Playlist</ng-template>
+	<ng-template contextMenuItem (execute)="playlistDialogsService.addAlbum($event.item)"><i class="icon-playlist"></i> Add To Playlist</ng-template>
 	<ng-template contextMenuItem (execute)="player.addAlbum($event.item)"><i class="icon-list-add"></i> Add To Queue</ng-template>
 	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
 </context-menu>

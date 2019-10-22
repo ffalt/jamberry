@@ -1,0 +1,123 @@
+@import "globals.scss";
+
+:host {
+
+	.playlists {
+		ul {
+			background-color: var(--control);
+			color: var(--on-control);
+			box-shadow: var(--control-box-shadow);
+			border-color: var(--control-box-border);
+			border-width: 1px;
+			border-style: solid;
+			border-radius: 0;
+			padding: 0;
+			margin: 0;
+			list-style: none;
+		}
+
+		li {
+			list-style: none;
+			display: block;
+			width: 100%;
+			background-color: var(--control);
+			color: var(--on-control);
+			border: 0;
+			text-align: left;
+			cursor: pointer;
+			margin: 0;
+			padding: 0;
+
+			a {
+				display: block;
+				padding: 12px 20px;
+				height: 100%;
+				width: 100%;
+			}
+
+			&:hover {
+				background-color: var(--control-hover);
+				color: var(--on-control-hover);
+			}
+
+			&.active {
+				background-color: var(--control-hover);
+				color: var(--on-control-hover);
+			}
+
+
+		}
+	}
+
+
+	.tracks-preview {
+		margin-top: $margin;
+	}
+
+	.preview {
+		width: 100%;
+		display: block;
+		text-align: right;
+		font-size: $small;
+	}
+
+	.tracks {
+		margin-top: $margin-sm;
+		user-select: none;
+		padding: $padding;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+		max-height: 300px;
+		border-width: 1px;
+		border-style: solid;
+		border-color: var(--control-border);
+
+		.track {
+			border-top-width: 1px;
+			border-top-style: solid;
+			border-bottom-width: 0;
+			border-bottom-style: solid;
+			border-color: var(--control-border);
+			padding-top: $padding-xs;
+			padding-bottom: $padding-xs;
+			display: flex;
+			flex-flow: row nowrap;
+			align-items: center;
+
+			.title {
+				color: var(--on-control-hover);
+
+				span {
+					font-size: 0.8em;
+					color: var(--on-control);
+				}
+			}
+
+			.length {
+				margin-left: auto;
+				width: 80px;
+				padding-right: $padding;
+				text-align: right;
+			}
+
+			.remove {
+				width: 20px;
+
+				i {
+					&:hover {
+						color: var(--on-control-hover);
+					}
+				}
+			}
+
+			&:last-child {
+				border-bottom-width: 1px;
+			}
+
+		}
+
+	}
+
+}

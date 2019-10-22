@@ -4,6 +4,7 @@ import {ChaptersComponent} from './chapters/chapters.component';
 import {ContextEntryFavComponent} from './context-entry-fav/context-entry-fav.component';
 import {ContextEntryRateComponent} from './context-entry-rate/context-entry-rate.component';
 import {CoverartImageComponent} from './coverart-image/coverart-image.component';
+import {DialogChoosePlaylistComponent} from './dialog-add-to-playlist/dialog-add-to-playlist.component';
 import {DialogConfirmComponent} from './dialog-confirm/dialog-confirm.component';
 import {DialogPasswordComponent} from './dialog-password/dialog-password.component';
 import {DialogPlaylistComponent} from './dialog-playlist/dialog-playlist.component';
@@ -28,6 +29,7 @@ export const entryComponents: Array<any> = [
 	ChildTooltipContentComponent,
 	DialogPasswordComponent,
 	DialogPlaylistComponent,
+	DialogChoosePlaylistComponent,
 	DialogRateComponent,
 	ImageOverlayContentComponent,
 	TextOverlayContentComponent
@@ -81,3 +83,4 @@ export * from './rate/rate.component';
 export * from './splitter/splitter.component';
 export * from './text-overlay-content/text-overlay-content.component';
 export * from './view-type-toggle/view-type-toggle.component';
+export * from './dialog-add-to-playlist/dialog-add-to-playlist.component';

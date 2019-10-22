@@ -6,7 +6,10 @@ import {Jam, JamService} from '@jam';
 import {ActionsService, PlaylistService} from '@shared/services';
 import {Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ContextMenuPlaylistComponent} from '../../components/context-menu-playlist/context-menu-playlist.component';
+import {
+	ContextMenuPlaylistComponent,
+	ContextMenuPlaylistComponentOptions
+} from '../../components/context-menu-playlist/context-menu-playlist.component';
 
 @Component({
 	selector: 'app-page-playlist',
@@ -48,7 +51,7 @@ export class PlaylistPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Playlist): void {
-		this.contextMenuService.open(ContextMenuPlaylistComponent, item, $event, {
+		this.contextMenuService.open<ContextMenuPlaylistComponentOptions>(ContextMenuPlaylistComponent, item, $event, {
 			canEdit: this.jam.auth.user && this.playlist && this.playlist.userID === this.jam.auth.user.id
 		});
 	}

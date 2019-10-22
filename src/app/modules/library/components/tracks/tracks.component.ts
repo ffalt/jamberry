@@ -3,7 +3,7 @@ import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
-import {ContextMenuTrackComponent} from '../context-menu-track/context-menu-track.component';
+import {ContextMenuTrackComponent, ContextMenuTrackComponentOptions} from '../context-menu-track/context-menu-track.component';
 
 @Component({
 	selector: 'app-tracks',
@@ -24,7 +24,7 @@ export class TracksComponent {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Track): void {
-		this.contextMenuService.open(ContextMenuTrackComponent, item, $event);
+		this.contextMenuService.open<ContextMenuTrackComponentOptions>(ContextMenuTrackComponent, item, $event, {showGoTo: true});
 	}
 
 	tapTrack(event, track: Jam.Track): void {

@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
-import {ContextMenuEpisodeComponent} from '@library/components';
+import {ContextMenuEpisodeComponent, ContextMenuEpisodeComponentOpts} from '@library/components';
 import {ActionsService, PodcastService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -49,7 +49,7 @@ export class EpisodePageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.PodcastEpisode): void {
-		this.contextMenuService.open(ContextMenuEpisodeComponent, item, $event);
+		this.contextMenuService.open<ContextMenuEpisodeComponentOpts>(ContextMenuEpisodeComponent, item, $event, {showGoTo: false});
 	}
 
 	refresh(): void {

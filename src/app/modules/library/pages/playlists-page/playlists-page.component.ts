@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {JamLists} from '@app/utils/jam-lists';
-import {PlaylistService} from '@shared/services';
+import {PlaylistDialogsService} from '@shared/services';
 
 @Component({
 	selector: 'app-page-playlists',
@@ -10,6 +10,6 @@ import {PlaylistService} from '@shared/services';
 export class PlaylistsPageComponent {
 	JamLists = JamLists;
 
-	constructor(public playlistService: PlaylistService) {
+	constructor(public playlistDialogsService: PlaylistDialogsService) {
 	}
 }
