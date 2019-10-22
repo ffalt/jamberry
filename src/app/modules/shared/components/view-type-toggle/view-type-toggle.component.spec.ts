@@ -1,5 +1,4 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {ViewTypeToggleComponent} from './view-type-toggle.component';
 
 describe('ViewTypeToggleComponent', () => {
@@ -8,8 +7,8 @@ describe('ViewTypeToggleComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
+			imports: [],
+			providers: [],
 			declarations: [ViewTypeToggleComponent]
 		}).compileComponents()
 	);

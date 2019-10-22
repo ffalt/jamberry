@@ -1,36 +1,29 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {FormsModule} from '@angular/forms';
-import {ContextMenuModule, ContextMenuService} from '@app/modules/context-menu';
-import {BackgroundTextListComponent} from '@shared/components/background-text-list/background-text-list.component';
-import {BackgroundTextComponent} from '@shared/components/background-text/background-text.component';
-import {ContextEntryFavComponent} from '@shared/components/context-entry-fav/context-entry-fav.component';
-import {ContextEntryRateComponent} from '@shared/components/context-entry-rate/context-entry-rate.component';
-import {ExpandCollapseIconComponent} from '@shared/components/expand-collapse-icon/expand-collapse-icon.component';
-import {FavIconComponent} from '@shared/components/fav-icon/fav-icon.component';
-import {RateComponent} from '@shared/components/rate/rate.component';
-import {AgoPipe} from '@shared/pipes/ago.pipe';
-import {DurationPipe} from '@shared/pipes/duration.pipe';
-import {DialogPlaylistComponent} from './dialog-playlist.component';
+import {DialogChoosePlaylistComponent, ExpandCollapseIconComponent, LoadingComponent} from '@shared/components';
+import {DurationPipe} from '@shared/pipes';
+import {PlaylistService} from '@shared/services';
+import {TEST_SHARED_MODULE_IMPORTS, TEST_SHARED_MODULE_PROVIDERS} from '@shared/shared.module.mock';
+import {MockComponent} from 'ng-mocks';
 
-describe('DialogPlaylistComponent', () => {
-	let component: DialogPlaylistComponent;
-	let fixture: ComponentFixture<DialogPlaylistComponent>;
+describe('DialogChoosePlaylistComponent', () => {
+	let component: DialogChoosePlaylistComponent;
+	let fixture: ComponentFixture<DialogChoosePlaylistComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule, ContextMenuModule],
-			providers: [ContextMenuService],
+			imports: [...TEST_SHARED_MODULE_IMPORTS],
+			providers: [...TEST_SHARED_MODULE_PROVIDERS, PlaylistService],
 			declarations: [
-				DialogPlaylistComponent, ExpandCollapseIconComponent,
-				DurationPipe, BackgroundTextListComponent, BackgroundTextListComponent,
-				ContextEntryFavComponent, ContextEntryRateComponent, FavIconComponent, AgoPipe,
-				BackgroundTextComponent, RateComponent
+				DialogChoosePlaylistComponent,
+				MockComponent(LoadingComponent),
+				MockComponent(ExpandCollapseIconComponent),
+				DurationPipe
 			]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(DialogPlaylistComponent);
+		fixture = TestBed.createComponent(DialogChoosePlaylistComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

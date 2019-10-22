@@ -1,21 +1,21 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
-import {ContextMenuTrackComponent} from './context-menu-artist.component';
+import {ContextMenuUserComponent} from './context-menu-user.component';
 
-describe('ContextMenuAlbumComponent', () => {
-	let component: ContextMenuTrackComponent;
-	let fixture: ComponentFixture<ContextMenuTrackComponent>;
+describe('ContextMenuUserComponent', () => {
+	let component: ContextMenuUserComponent;
+	let fixture: ComponentFixture<ContextMenuUserComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [ContextMenuTrackComponent]
+			declarations: [ContextMenuUserComponent]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(ContextMenuTrackComponent);
+		fixture = TestBed.createComponent(ContextMenuUserComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

@@ -1,21 +1,21 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
-import {ContextMenuAlbumComponent} from './context-menu-folder.component';
+import {ContextMenuFolderComponent} from './context-menu-folder.component';
 
-describe('ContextMenuAlbumComponent', () => {
-	let component: ContextMenuAlbumComponent;
-	let fixture: ComponentFixture<ContextMenuAlbumComponent>;
+describe('ContextMenuFolderComponent', () => {
+	let component: ContextMenuFolderComponent;
+	let fixture: ComponentFixture<ContextMenuFolderComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [ContextMenuAlbumComponent]
+			declarations: [ContextMenuFolderComponent]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(ContextMenuAlbumComponent);
+		fixture = TestBed.createComponent(ContextMenuFolderComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

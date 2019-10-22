@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AlbumsIndexLoaderComponent, IndexComponent, ViewTypeToggleComponent} from '@library/components';
+import {AlbumsIndexLoaderComponent, IndexComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
 
@@ -13,7 +13,6 @@ describe('AlbumsIndexLoaderComponent', () => {
 			providers: [...TEST_LIBRARY_PROVIDERS],
 			declarations: [
 				AlbumsIndexLoaderComponent,
-				MockComponent(ViewTypeToggleComponent),
 				MockComponent(IndexComponent)
 			]
 		}).compileComponents()

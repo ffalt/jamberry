@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {IndexComponent, IndexGroupComponent, ViewTypeToggleComponent} from '@library/components';
+import {IndexComponent, IndexGroupComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
 
@@ -11,7 +11,7 @@ describe('IndexComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [IndexComponent, MockComponent(ViewTypeToggleComponent), MockComponent(IndexGroupComponent)]
+			declarations: [IndexComponent, MockComponent(IndexGroupComponent)]
 		}).compileComponents()
 	);
 
