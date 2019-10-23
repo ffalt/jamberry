@@ -1,7 +1,6 @@
 import {TrackHealthComponent} from '@admin/components/track-health/track-health.component';
 import {Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {FolderService, UiStateService} from '@app/modules/admin-core/services';
-import {AppService, NotifyService, UserStorageService} from '@core/services';
+import {AdminFolderService, AppService, NotifyService, UiStateService, UserStorageService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -21,7 +20,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	protected unsubscribe = new Subject();
 
 	constructor(
-		private app: AppService, private jam: JamService, private notify: NotifyService, private uiState: UiStateService, private folderService: FolderService,
+		private app: AppService, private jam: JamService, private notify: NotifyService, private uiState: UiStateService, private folderService: AdminFolderService,
 		private userStorage: UserStorageService
 	) {
 		userStorage.userChange

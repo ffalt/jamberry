@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {UiStateService} from '@app/modules/admin-core/services';
+import {UiStateService} from '@core/services';
 import {Jam} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

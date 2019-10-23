@@ -1,9 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {hasFileExtension} from '@app/modules/tag-editor/model/utils';
-import {NotifyService} from '@core/services';
+import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
 import {ArtworkImageType, Jam, JamService, MusicBrainzLookupType} from '@jam';
-import {FolderService, FolderServiceNotifyMode} from '@app/modules/admin-core/services';
 
 export interface ArtistImageSearch {
 	folder: Jam.Folder;
@@ -28,7 +27,7 @@ export class ArtistImageComponent implements OnChanges {
 	isWorking = false;
 	isArtRefreshing = false;
 
-	constructor(private jam: JamService, private notify: NotifyService, private folderService: FolderService, private http: HttpClient) {
+	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService, private http: HttpClient) {
 	}
 
 	trackByFn(index: number, node: ArtistImageNode): string {
@@ -162,7 +161,7 @@ export class ArtistImageComponent implements OnChanges {
 				});
 		} else {
 			this.isWorking = false;
-			this.folderService.notifyFolderChange(this.data.folder.id, FolderServiceNotifyMode.fsnRefresh);
+			this.folderService.notifyFolderChange(this.data.folder.id, AdminFolderServiceNotifyMode.fsnRefresh);
 			this.refreshArtworks();
 		}
 	}

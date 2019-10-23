@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RootEdit, RootService} from '@app/modules/admin-core/services';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AppService, DialogsService, NotifyService} from '@core/services';
+import {AdminRootService, AppService, DialogsService, NotifyService, AdminRootServiceEditData} from '@core/services';
 import {Jam, RootScanStrategy} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -26,7 +25,7 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 		private app: AppService,
 		private notify: NotifyService,
 		private dialogs: DialogsService,
-		private rootService: RootService,
+		private rootService: AdminRootService,
 		private dialogOverlay: DialogOverlayService
 	) {
 	}
@@ -65,7 +64,7 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 	}
 
 	newRoot(): void {
-		const edit: RootEdit = {
+		const edit: AdminRootServiceEditData = {
 			name: '',
 			path: '',
 			strategy: RootScanStrategy.auto
@@ -87,7 +86,7 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 	}
 
 	editRoot(root: Jam.Root): void {
-		const edit: RootEdit = {
+		const edit: AdminRootServiceEditData = {
 			root,
 			name: root.name,
 			path: root.path,

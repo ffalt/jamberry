@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HammerModule} from '@angular/platform-browser';
-import {AdminCoreModule} from '@app/modules/admin-core/admin-core.module';
 import {AutocompleteModule} from '@app/modules/autocomplete';
 import {ContextMenuModule} from '@app/modules/context-menu';
 import {SharedModule} from '@shared/shared.module';
@@ -23,7 +22,6 @@ import {pages} from './pages';
 		FormsModule,
 		HammerModule,
 		CdkTableModule,
-		AdminCoreModule,
 		ImageCropperModule,
 		ContextMenuModule,
 		ScrollingModule,

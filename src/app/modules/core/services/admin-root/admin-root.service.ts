@@ -1,21 +1,23 @@
 import {EventEmitter, Injectable, OnDestroy} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {Poller} from '@app/utils/poller';
-import {NotifyService} from '@core/services';
 import {Jam, JamService, RootScanStrategy} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {FolderService} from './folder.service';
+import {AdminFolderService} from '../admin-folder/admin-folder.service';
+import {NotifyService} from '../notify/notify.service';
 
-export interface RootEdit {
+export interface AdminRootServiceEditData {
 	root?: Jam.Root;
 	name: string;
 	path: string;
 	strategy: RootScanStrategy;
 }
 
-@Injectable()
-export class RootService implements OnDestroy {
+@Injectable({
+	providedIn: 'root'
+})
+export class AdminRootService implements OnDestroy {
 	rootsChange = new EventEmitter<Array<Jam.Root>>();
 	rootChange = new Notifiers<Jam.Root>();
 	protected unsubscribe = new Subject();
@@ -40,7 +42,7 @@ export class RootService implements OnDestroy {
 			});
 	});
 
-	constructor(private jam: JamService, private notify: NotifyService, private folderService: FolderService) {
+	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
 	}
 
 	ngOnDestroy(): void {
@@ -48,7 +50,7 @@ export class RootService implements OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	async applyDialogRoot(edit: RootEdit): Promise<void> {
+	async applyDialogRoot(edit: AdminRootServiceEditData): Promise<void> {
 		if (edit.root) {
 			const item = await this.jam.root.update({id: edit.root.id, name: edit.name, path: edit.path, strategy: edit.strategy});
 			this.folderService.waitForQueueResult('Updating Root', item, [])

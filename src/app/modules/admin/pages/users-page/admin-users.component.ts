@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {UserEdit, UserService} from '@app/modules/admin-core/services';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AppService, DialogsService, NotifyService} from '@core/services';
+import {AdminUserService, AdminUserServiceEditData, AppService, DialogsService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -26,7 +25,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 		private dialogs: DialogsService,
 		private jam: JamService,
 		private notify: NotifyService,
-		private userService: UserService,
+		private userService: AdminUserService,
 		private dialogOverlay: DialogOverlayService
 	) {
 	}
@@ -73,7 +72,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 	}
 
 	newUser(): void {
-		const edit: UserEdit = {
+		const edit: AdminUserServiceEditData = {
 			edit: {
 				password: '',
 				id: '',
@@ -103,7 +102,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 	}
 
 	editUser(user: Jam.User): void {
-		const edit: UserEdit = {
+		const edit: AdminUserServiceEditData = {
 			user,
 			edit: {
 				password: '',

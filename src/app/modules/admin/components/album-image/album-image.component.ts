@@ -1,6 +1,5 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {FolderService, FolderServiceNotifyMode} from '@app/modules/admin-core/services';
-import {NotifyService} from '@core/services';
+import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
 import {ArtworkImageType, CoverArtArchive, CoverArtArchiveLookupType, Jam, JamService, LastFMLookupType} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -28,7 +27,7 @@ export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 	@Input() data: AlbumImageSearch;
 	protected unsubscribe = new Subject();
 
-	constructor(private jam: JamService, private notify: NotifyService, private folderService: FolderService) {
+	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
 	}
 
 	ngOnInit(): void {
@@ -167,11 +166,11 @@ export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 				.then(item => {
 					this.folderService.waitForQueueResult('Downloading Artwork', item, [])
 						.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-							node.storing = false;
-							node.stored = true;
-							this.folderService.notifyFolderChange(this.data.folder.id, FolderServiceNotifyMode.fsnRefresh);
-							this.use();
-						});
+						node.storing = false;
+						node.stored = true;
+						this.folderService.notifyFolderChange(this.data.folder.id, AdminFolderServiceNotifyMode.fsnRefresh);
+						this.use();
+					});
 				})
 				.catch(e => {
 					node.storing = false;

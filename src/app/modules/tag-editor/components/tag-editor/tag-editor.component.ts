@@ -1,10 +1,9 @@
-import {FolderService} from '@app/modules/admin-core/services';
 import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChildren} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {isDownArrowKey, isLeftRightArrowKeys, isRightArrowKey, isUpDownArrowKeys} from '@app/utils/keys';
-import {AppService, NotifyService} from '@core/services';
+import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
 import {TagEditor} from '../../model/tag-editor.class';
 import {FilenameColumnID, RawTagEditCell, RawTagEditColumn, RawTagEditRow} from '../../model/tag-editor.types';
@@ -36,7 +35,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	@ViewChildren(CellEditor) cellEditors !: QueryList<CellEditor>;
 
 	constructor(
-		private app: AppService, private folderService: FolderService,
+		private app: AppService, private folderService: AdminFolderService,
 		private jam: JamService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
 	}
 

@@ -2,9 +2,8 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 
-import {AppService, NotifyService} from '@core/services';
+import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {FolderHealthID, Jam, JamService} from '@jam';
-import {FolderService} from '@app/modules/admin-core/services';
 import {DialogAlbumImageComponent} from '../dialog-album-image/dialog-album-image-component';
 import {DialogArtistImageComponent} from '../dialog-artist-image/dialog-artist-image-component';
 
@@ -38,7 +37,7 @@ export class FolderHealthComponent implements OnChanges {
 		private jam: JamService,
 		private notify: NotifyService,
 		private dialogOverlay: DialogOverlayService,
-		private folderService: FolderService
+		private folderService: AdminFolderService
 	) {
 	}
 

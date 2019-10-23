@@ -1,4 +1,5 @@
 <app-loading *ngIf="!folder"></app-loading>
+<app-background-text-list [list]="folder?.tracks" name="Tracks"></app-background-text-list>
 <div class="tracks" *ngIf="folder && folder.tracks && folder.tracks.length>0">
 	<div class="actions">
 		<button class="button-on-control" title="Refresh Folder" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>

@@ -1,10 +1,9 @@
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {AppService, NotifyService} from '@core/services';
+import {AdminFolderService, AdminFolderServiceNotifyMode, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {FolderService, FolderServiceNotifyMode} from '@app/modules/admin-core/services';
 
 export interface TreeNode {
 	level: number;
@@ -39,7 +38,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 	@ViewChild(CdkVirtualScrollViewport, {static: true}) viewport: CdkVirtualScrollViewport;
 	protected unsubscribe = new Subject();
 
-	constructor(private app: AppService, private jam: JamService, private notify: NotifyService, private folderService: FolderService) {
+	constructor(private app: AppService, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
 	}
 
 	ngOnInit(): void {
@@ -50,7 +49,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 				if (node) {
 					this.jam.folder.id({id: change.id, folderCounts: true}).then(folder => {
 						node.folder = folder;
-						if (change.mode === FolderServiceNotifyMode.fsnRefreshChilds) {
+						if (change.mode === AdminFolderServiceNotifyMode.fsnRefreshChilds) {
 							if (node.expanded) {
 								this.collapseNode(node);
 								node.hasChildren = folder.folderCount > 0;

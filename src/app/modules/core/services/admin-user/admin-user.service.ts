@@ -1,15 +1,17 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
-import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService} from '@jam';
+import {NotifyService} from '../notify/notify.service';
 
-export interface UserEdit {
+export interface AdminUserServiceEditData {
 	user?: Jam.User;
 	edit: JamParameters.UserUpdate;
 }
 
-@Injectable()
-export class UserService {
+@Injectable({
+	providedIn: 'root'
+})
+export class AdminUserService {
 	usersChange = new EventEmitter<Array<Jam.User>>();
 	userChange = new Notifiers<Jam.User>();
 	private users: Array<Jam.User>;
@@ -17,7 +19,7 @@ export class UserService {
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}
 
-	async applyDialogUser(edit: UserEdit): Promise<void> {
+	async applyDialogUser(edit: AdminUserServiceEditData): Promise<void> {
 		if (edit.user) {
 			await this.jam.user.update(edit.edit);
 			this.refreshUser(edit.user.id);

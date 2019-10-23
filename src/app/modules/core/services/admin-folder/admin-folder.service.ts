@@ -1,9 +1,9 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Poller} from '@app/utils/poller';
-import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
+import {NotifyService} from '../notify/notify.service';
 
-export enum FolderServiceNotifyMode {
+export enum AdminFolderServiceNotifyMode {
 	fsnRefresh,
 	fsnRefreshChilds
 }
@@ -19,9 +19,11 @@ export interface AdminChangeQueueInfoPoll {
 	notifyAfter?: EventEmitter<void>;
 }
 
-@Injectable()
-export class FolderService {
-	foldersChange = new EventEmitter<{ id: string, mode: FolderServiceNotifyMode }>();
+@Injectable({
+	providedIn: 'root'
+})
+export class AdminFolderService {
+	foldersChange = new EventEmitter<{ id: string, mode: AdminFolderServiceNotifyMode }>();
 	tracksChange = new EventEmitter<{ id: string }>();
 	current: AdminChangeQueueInfoPoll;
 	queue: Array<AdminChangeQueueInfoPoll> = [];
@@ -33,7 +35,7 @@ export class FolderService {
 		this.tracksChange.emit({id});
 	}
 
-	notifyFolderChange(id: string, mode: FolderServiceNotifyMode): void {
+	notifyFolderChange(id: string, mode: AdminFolderServiceNotifyMode): void {
 		this.foldersChange.emit({id, mode});
 	}
 
@@ -105,10 +107,10 @@ export class FolderService {
 
 	private pollEnd(data: AdminChangeQueueInfoPoll): void {
 		(data.folderIDs || []).forEach(id => {
-			this.notifyFolderChange(id, FolderServiceNotifyMode.fsnRefresh);
+			this.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
 		});
 		(data.refreshChildsFolderIDs || []).forEach(id => {
-			this.notifyFolderChange(id, FolderServiceNotifyMode.fsnRefreshChilds);
+			this.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefreshChilds);
 		});
 		(data.trackIDs || []).forEach(id => {
 			this.notifyTrackChange(id);

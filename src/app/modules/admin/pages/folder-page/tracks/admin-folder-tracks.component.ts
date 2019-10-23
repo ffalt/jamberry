@@ -1,11 +1,10 @@
 import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-parent-view-id/admin-base-parent-view-id.component';
 import {DialogChooseFolderComponent, SelectFolder} from '@admin/components/dialog-choose-folder/dialog-choose-folder.component';
 import {TrackListComponent} from '@admin/components/track-list/track-list.component';
-import {FolderService} from '@app/modules/admin-core/services';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {DialogsService, NotifyService} from '@core/services';
+import {AdminFolderService, DialogsService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {takeUntil} from 'rxjs/operators';
 
@@ -19,7 +18,7 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 	@ViewChild(TrackListComponent, {static: false}) tracks: TrackListComponent;
 
 	constructor(
-		route: ActivatedRoute, private jam: JamService, private notify: NotifyService, private folderService: FolderService,
+		route: ActivatedRoute, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService,
 		private dialogsService: DialogsService, private dialogOverlay: DialogOverlayService
 	) {
 		super(route);

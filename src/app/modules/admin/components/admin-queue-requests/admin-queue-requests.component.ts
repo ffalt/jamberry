@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FolderService} from '@app/modules/admin-core/services';
+import {AdminFolderService} from '@core/services';
 
 @Component({
 	selector: 'app-admin-queue-requests',
@@ -8,7 +8,7 @@ import {FolderService} from '@app/modules/admin-core/services';
 })
 export class AdminQueueRequestsComponent {
 
-	constructor(public folderService: FolderService) {
+	constructor(public folderService: AdminFolderService) {
 	}
 
 }

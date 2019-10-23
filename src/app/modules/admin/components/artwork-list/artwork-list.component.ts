@@ -1,10 +1,9 @@
-import {ImageEditOverlayContentComponent} from '@admin/components/image-edit-overlay-content/image-edit-overlay-content.component';
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AppService, NotifyService} from '@core/services';
+import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {ImageOverlayContentComponent} from '@shared/components/image-overlay-content/image-overlay-content.component';
-import {FolderService} from '@app/modules/admin-core/services';
+import {ImageOverlayContentComponent} from '@shared/components';
+import {ImageEditOverlayContentComponent} from '../image-edit-overlay-content/image-edit-overlay-content.component';
 
 export interface ArtworkImageNode {
 	artwork: Jam.ArtworkImage;
@@ -38,7 +37,7 @@ export class ArtworkListComponent implements OnChanges {
 		private app: AppService,
 		private jam: JamService,
 		private notify: NotifyService,
-		private folderService: FolderService,
+		private folderService: AdminFolderService,
 		private dialogOverlay: DialogOverlayService) {
 	}
 

@@ -1,3 +1,6 @@
+import {AdminFolderService} from './admin-folder/admin-folder.service';
+import {AdminRootService} from './admin-root/admin-root.service';
+import {AdminUserService} from './admin-user/admin-user.service';
 import {AppService} from './app/app.service';
 import {ConfigurationService} from './configuration/configuration.service';
 import {DialogsService} from './dialogs/dialogs.service';
@@ -9,6 +12,7 @@ import {PushNotificationService} from './push-notification/push-notification.ser
 import {QueueService} from './queue/queue.service';
 import {SettingsStoreService} from './settings-store/settings-store.service';
 import {TitleService} from './title/title.service';
+import {UiStateService} from './ui-state/ui-state.service';
 import {UserStorageService} from './userstorage/userstorage.service';
 
 export const services: Array<any> = [
@@ -23,7 +27,11 @@ export const services: Array<any> = [
 	LocalstorageService,
 	DialogsService,
 	ConfigurationService,
-	AppService
+	AppService,
+	AdminRootService,
+	AdminUserService,
+	AdminFolderService,
+	UiStateService
 ];
 
 export * from './app/app.service';
@@ -39,3 +47,7 @@ export * from './queue/queue.service';
 export * from './settings-store/settings-store.service';
 export * from './title/title.service';
 export * from './userstorage/userstorage.service';
+export * from './admin-folder/admin-folder.service';
+export * from './admin-root/admin-root.service';
+export * from './admin-user/admin-user.service';
+export * from './ui-state/ui-state.service';

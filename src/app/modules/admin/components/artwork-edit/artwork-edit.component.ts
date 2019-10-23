@@ -1,8 +1,7 @@
-import {FolderService} from '@app/modules/admin-core/services';
 import {HttpEventType} from '@angular/common/http';
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
 import {base64ArrayBuffer} from '@app/utils/base64';
-import {AppService, NotifyService} from '@core/services';
+import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {Subject} from 'rxjs';
@@ -30,7 +29,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	constructor(
 		private app: AppService,
 		private jam: JamService,
-		private folderService: FolderService,
+		private folderService: AdminFolderService,
 		private notify: NotifyService
 	) {
 	}
@@ -80,22 +79,22 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 		const file = new File([this.croppedImageFile], this.data.artwork.name, {type: this.croppedImageFile.type});
 		this.jam.folder.artworkUpload_update({id: this.data.artwork.id}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
-				event => {
-					if (event.type === HttpEventType.Response) {
-						this.folderService.waitForQueueResult('Updating Folder Artwork', event.body,
-							[this.data.folderID]);
-						this.imageEdited.emit();
-					} else if (event.type === HttpEventType.UploadProgress) {
-						// const percentDone = Math.round(100 * event.loaded / event.total);
-						// console.log(`File is ${percentDone}% loaded.`);
-					}
-				}, err => {
-					// this.setImageSource();
-					this.notify.error(err);
-				},
-				() => {
-					this.notify.success('Upload done');
+			event => {
+				if (event.type === HttpEventType.Response) {
+					this.folderService.waitForQueueResult('Updating Folder Artwork', event.body,
+						[this.data.folderID]);
+					this.imageEdited.emit();
+				} else if (event.type === HttpEventType.UploadProgress) {
+					// const percentDone = Math.round(100 * event.loaded / event.total);
+					// console.log(`File is ${percentDone}% loaded.`);
 				}
-			);
+			}, err => {
+				// this.setImageSource();
+				this.notify.error(err);
+			},
+			() => {
+				this.notify.success('Upload done');
+			}
+		);
 	}
 }

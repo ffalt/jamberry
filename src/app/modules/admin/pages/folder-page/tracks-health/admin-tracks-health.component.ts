@@ -1,8 +1,7 @@
 import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-parent-view-id/admin-base-parent-view-id.component';
-import {FolderService} from '@app/modules/admin-core/services';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {AppService, NotifyService} from '@core/services';
+import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {takeUntil} from 'rxjs/operators';
 
@@ -20,7 +19,7 @@ export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent i
 	modes: Array<string> = [];
 	mediaCheck: boolean = false;
 
-	constructor(route: ActivatedRoute, private app: AppService, private jam: JamService, private notify: NotifyService, private folderService: FolderService) {
+	constructor(route: ActivatedRoute, private app: AppService, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
 		super(route);
 	}
 
