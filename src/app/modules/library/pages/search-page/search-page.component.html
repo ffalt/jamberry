@@ -37,7 +37,7 @@
 				<app-albums-loader [query]="query" [grouping]="false"></app-albums-loader>
 			</div>
 			<div class="tab-pane" *ngSwitchCase="tabs.artists.id">
-				<app-artists-loader [query]="query"></app-artists-loader>
+				<app-artists-loader [query]="query" [albumType]="AlbumType.album"></app-artists-loader>
 			</div>
 			<div class="tab-pane" *ngSwitchCase="tabs.tracks.id">
 				<app-tracks-loader [query]="query"></app-tracks-loader>

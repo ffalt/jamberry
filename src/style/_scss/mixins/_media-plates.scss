@@ -51,15 +51,11 @@
 
 		.type {
 			text-transform: uppercase;
-			font-size: 0.8em;
 		}
 
 		.type, .year, .state {
 			letter-spacing: 1px;
-		}
-
-		.state {
-			font-size: $small;
+			font-size: 0.8em;
 		}
 
 		.name {

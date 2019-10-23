@@ -11,6 +11,7 @@ import {PodcastPageComponent} from './podcast-page/podcast-page.component';
 import {PodcastsPageComponent} from './podcasts-page/podcasts-page.component';
 import {QueuePageComponent} from './queue-page/queue-page.component';
 import {SearchPageComponent} from './search-page/search-page.component';
+import {SeriesPageComponent} from './series-page/series-page.component';
 import {StartPageComponent} from './start-page/start-page.component';
 import {TrackPageComponent} from './track-page/track-page.component';
 import {TracksPageComponent} from './tracks-page/tracks-page.component';
@@ -29,6 +30,7 @@ export const pages: Array<any> = [
 	PodcastsPageComponent,
 	QueuePageComponent,
 	SearchPageComponent,
+	SeriesPageComponent,
 	StartPageComponent,
 	TrackPageComponent,
 	TracksPageComponent
@@ -50,3 +52,4 @@ export * from './search-page/search-page.component';
 export * from './start-page/start-page.component';
 export * from './track-page/track-page.component';
 export * from './tracks-page/tracks-page.component';
+export * from './series-page/series-page.component';

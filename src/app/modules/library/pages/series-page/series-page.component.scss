@@ -1,0 +1,11 @@
+@import "globals.scss";
+
+:host {
+	.series {
+		@include view();
+
+		.content {
+			padding: $padding;
+		}
+	}
+}

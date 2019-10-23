@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {NotifyService} from '@core/services';
-import {JamParameters, JamService} from '@jam';
+import {JamParameters, JamService, AlbumType} from '@jam';
 
 export interface Tab {
 	id: string;
@@ -24,6 +24,7 @@ export interface Tabs {
 	styleUrls: ['search-page.component.scss']
 })
 export class SearchPageComponent implements AutocompleteDataControl {
+	AlbumType = AlbumType;
 	value: string = '';
 	query: string = '';
 	tabs: Tabs = {

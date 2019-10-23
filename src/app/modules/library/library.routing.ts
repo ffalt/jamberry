@@ -14,7 +14,7 @@ import {
 	PlaylistsLoaderByTypeComponent,
 	PodcastsLatestEpisodesComponent,
 	PodcastsLoaderByTypeComponent,
-	TracksLoaderByTypeComponent,
+	TracksLoaderByTypeComponent
 } from '@library/components';
 import {
 	AlbumPageComponent,
@@ -30,6 +30,7 @@ import {
 	PodcastsPageComponent,
 	QueuePageComponent,
 	SearchPageComponent,
+	SeriesPageComponent,
 	StartPageComponent,
 	TrackPageComponent,
 	TracksPageComponent
@@ -492,6 +493,44 @@ export const routes: Routes = [
 						component: ArtistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played Artists'}
+					},
+					{path: '**', redirectTo: ''}
+				]
+			},
+			{
+				path: 'series', component: SeriesPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Series'},
+				children: [
+					{
+						path: '',
+						pathMatch: 'full',
+						component: ArtistsIndexLoaderComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Series Index'}
+					},
+					{path: 'random', component: ArtistsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Series'}},
+					{
+						path: 'favorites',
+						component: ArtistsLoaderByTypeComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Favorite Series'}
+					},
+					{
+						path: 'top-rated',
+						component: ArtistsLoaderByTypeComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Top Rated Series'}
+					},
+					{
+						path: 'most-played',
+						component: ArtistsLoaderByTypeComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Most Played Series'}
+					},
+					{
+						path: 'recently-played',
+						component: ArtistsLoaderByTypeComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Recently Played Series'}
 					},
 					{path: '**', redirectTo: ''}
 				]

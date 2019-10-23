@@ -61,6 +61,7 @@ export const DefaultFrameColumns: Array<{ id: string, subid?: string; width: num
 	{id: 'TOPE', width: 140},
 	{id: 'TCON', width: 100, force: true},
 	{id: 'TPOS', width: 60, force: true},
+	{id: 'GRP1', width: 60, force: true},
 	{id: 'TMOO', width: 100},
 	{id: 'APIC', width: 100},
 	{id: 'TSOP', width: 140},

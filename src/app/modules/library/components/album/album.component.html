@@ -4,8 +4,12 @@
 	</div>
 	<div class="meta">
 		<app-fav-icon [state]="album.state" (click)="actions.toggleAlbumFav(album)" appClickStop></app-fav-icon>
-		<div class="year">{{album.tag.year}}</div>
+		<div class="year">
+			<span *ngIf="!album.tag.albumNr">{{album.tag.albumNr}}</span>
+			<span *ngIf="album.tag.albumNr">Episode {{album.tag.albumNr}}</span>
+		</div>
 		<div class="name"><a (click)="navig.toAlbum(album)" appClickStop>{{album.name}}</a></div>
+
 		<div class="type" *ngIf="album.albumType !== AlbumType.album">{{album.albumType}}</div>
 		<div *ngIf="showArtist || isVariousArtists" class="artist"><a (click)="navig.toArtistID(album.artistID,album.name)" appClickStop>{{album.artist}}</a></div>
 		<div class="actions">

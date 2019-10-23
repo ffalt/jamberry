@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ListTypeUrlNamesKeys} from '@app/utils/jam-lists';
-import {JamParameters} from '@jam';
+import {AlbumType, JamParameters} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -12,12 +12,18 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class ArtistsLoaderByTypeComponent implements OnInit, OnDestroy {
 	listType: JamParameters.ListType;
+	albumType: AlbumType = AlbumType.album;
 	protected unsubscribe = new Subject();
 
 	constructor(protected route: ActivatedRoute) {
 	}
 
 	ngOnInit(): void {
+		this.route.parent.url
+			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
+			const type = val.length > 0 ? val[0].path : undefined;
+			this.albumType = type === 'artists' ? AlbumType.album : AlbumType.audiodrama;
+		});
 		this.route.url
 			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
 			const type = val.length > 0 ? val[0].path : undefined;

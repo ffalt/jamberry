@@ -1,14 +1,14 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {JamAlbumTypes} from '@app/utils/jam-lists';
 import {AppService, NotifyService} from '@core/services';
-import {AlbumType, Jam, JamObjectType, JamParameters, JamService} from '@jam';
+import {Jam, JamObjectType, JamParameters, JamService} from '@jam';
 
 export interface IndexEntry {
 	id: string;
 	name: string;
 	extra?: string;
 	extraID?: string;
-	extraType?: JamObjectType;
+	extraMode?: JamObjectType;
 	trackCount: number;
 	image: string;
 }
@@ -130,8 +130,7 @@ export class IndexService {
 			});
 	}
 
-	requestArtistIndex(): Index | undefined {
-		const query = {albumType: AlbumType.album};
+	requestArtistIndex(query: JamParameters.ArtistIndex): Index | undefined {
 		let item = this.findIndex(JamObjectType.artist, query);
 		if (item && item.index) {
 			return item.index;

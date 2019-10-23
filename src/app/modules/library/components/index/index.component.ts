@@ -45,7 +45,7 @@ export class IndexComponent {
 	}
 
 	navigToExtra(entry: IndexEntry): void {
-		switch (entry.extraType) {
+		switch (entry.extraMode) {
 			case JamObjectType.artist:
 				this.navig.toArtistID(entry.extraID, entry.extra);
 				break;

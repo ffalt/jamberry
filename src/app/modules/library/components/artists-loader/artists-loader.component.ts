@@ -10,6 +10,7 @@ import {LoadMoreButtonComponent} from '@shared/components/load-more-button/load-
 })
 export class ArtistsLoaderComponent implements OnChanges {
 	artists: Array<Jam.Artist>;
+	@Input() albumType: AlbumType;
 	@Input() listType: JamParameters.ListType;
 	@Input() query: string;
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore: LoadMoreButtonComponent;
@@ -42,6 +43,7 @@ export class ArtistsLoaderComponent implements OnChanges {
 		this.getArtists(() =>
 			this.jam.artist.search({
 				query: this.query,
+				albumType: this.albumType,
 				offset: this.loadMore.offset,
 				amount: this.loadMore.amount,
 				artistState: true
@@ -51,7 +53,7 @@ export class ArtistsLoaderComponent implements OnChanges {
 	list(): void {
 		this.getArtists(() =>
 			this.jam.artist.list({
-				albumTypes: [AlbumType.album],
+				albumType: this.albumType,
 				list: this.listType,
 				artistState: true,
 				offset: this.loadMore.offset,

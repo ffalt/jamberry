@@ -1,5 +1,6 @@
 import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {NotifyService} from '@core/services';
+import {AlbumType} from '@jam';
 import {Index, IndexGroup, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -33,7 +34,7 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 		this.indexService.artistIndexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			artistIndexCache => {
-				if (this.useMeta) {
+				if (this.useMeta && artistIndexCache.query.albumType === AlbumType.album) {
 					this.index = artistIndexCache.index;
 				}
 			},
@@ -51,7 +52,7 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 
 	private refreshIndex(): void {
 		this.index = this.useMeta ?
-			this.indexService.requestArtistIndex() :
+			this.indexService.requestArtistIndex({albumType: AlbumType.album}) :
 			this.indexService.requestFolderIndex();
 	}
 }

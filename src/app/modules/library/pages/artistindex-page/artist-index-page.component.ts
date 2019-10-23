@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {AlbumTypeUrlNamesKeys} from '@app/utils/jam-lists';
 import {AppService, NavigService, NotifyService} from '@core/services';
-import {JamService} from '@jam';
+import {AlbumType, JamService} from '@jam';
 import {scrollToIndexGroup} from '@library/components/index/index.component';
 import {Index, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
@@ -27,12 +29,14 @@ export class ArtistIndexPageComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.indexService.artistIndexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(artistIndexCache => {
+				if (artistIndexCache.query.albumType === AlbumType.album) {
 					this.index = artistIndexCache.index;
-				},
-				e => {
-					this.notify.error(e);
 				}
-			);
+			},
+			e => {
+				this.notify.error(e);
+			}
+		);
 		this.refresh();
 	}
 
@@ -42,7 +46,7 @@ export class ArtistIndexPageComponent implements OnInit, OnDestroy {
 	}
 
 	refresh(): void {
-		this.index = this.indexService.requestArtistIndex();
+		this.index = this.indexService.requestArtistIndex({albumType: AlbumType.album});
 	}
 
 	scrollToGroup(index: number): void {

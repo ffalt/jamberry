@@ -1,5 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
+import {AlbumType} from '@jam';
 import {Index, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -11,22 +13,30 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class ArtistsIndexLoaderComponent implements OnInit, OnDestroy {
 	index: Index;
+	albumType: AlbumType = AlbumType.album;
 	protected unsubscribe = new Subject();
 
-	constructor(protected indexService: IndexService, protected notify: NotifyService) {
+	constructor(protected indexService: IndexService, protected notify: NotifyService, protected route: ActivatedRoute) {
 	}
 
 	ngOnInit(): void {
+		this.route.parent.url
+			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
+			const type = val.length > 0 ? val[0].path : undefined;
+			this.albumType = type === 'artists' ? AlbumType.album : AlbumType.audiodrama;
+			this.refresh();
+		});
 		this.indexService.artistIndexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			artistIndexCache => {
-				this.index = artistIndexCache.index;
+				if (artistIndexCache.query.albumType === this.albumType) {
+					this.index = artistIndexCache.index;
+				}
 			},
 			e => {
 				this.notify.error(e);
 			}
 		);
-		this.refresh();
 	}
 
 	ngOnDestroy(): void {
@@ -35,7 +45,7 @@ export class ArtistsIndexLoaderComponent implements OnInit, OnDestroy {
 	}
 
 	load(): void {
-		this.index = this.indexService.requestArtistIndex();
+		this.index = this.indexService.requestArtistIndex({albumType: this.albumType});
 	}
 
 	refresh(): void {

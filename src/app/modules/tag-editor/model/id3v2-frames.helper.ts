@@ -1014,6 +1014,11 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 		versions: [3, 4],
 		impl: FrameType.Text
 	},
+	'GRP1': {
+		title: 'Grouping',
+		versions: [3, 4],
+		impl: FrameType.Text
+	},
 	'NCON': {
 		title: 'MusicMatch Binary',
 		versions: [3, 4],
