@@ -22,7 +22,7 @@ export class ArtistsLoaderByTypeComponent implements OnInit, OnDestroy {
 		this.route.parent.url
 			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
 			const type = val.length > 0 ? val[0].path : undefined;
-			this.albumType = type === 'artists' ? AlbumType.album : AlbumType.audiodrama;
+			this.albumType = type === 'artists' ? AlbumType.album : AlbumType.series;
 		});
 		this.route.url
 			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {

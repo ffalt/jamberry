@@ -196,7 +196,7 @@ export const routes: Routes = [
 				]
 			},
 			{
-				path: 'audiodrama', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Series'},
+				path: 'series-episodes', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Series'},
 				children: [
 					{
 						path: '',

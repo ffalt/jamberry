@@ -122,7 +122,7 @@ export enum AlbumType {
 	audiobook = 'audiobook',
 	ep = 'ep',
 	single = 'single',
-	audiodrama = 'audiodrama'
+	series = 'series'
 }
 
 export const AlbumTypesArtistMusic = [AlbumType.album, AlbumType.live, AlbumType.bootleg, AlbumType.ep, AlbumType.single];
@@ -202,7 +202,7 @@ export const enum MusicBrainzAlbumSecondaryType {
 	spokenword = 'Spokenword',
 	interview = 'Interview',
 	audiobook = 'Audiobook',
-	audiodrama = 'Series',
+	audiodrama = 'Audio drama',
 	live = 'Live',
 	remix = 'Remix',
 	djmix = 'DJ-mix',

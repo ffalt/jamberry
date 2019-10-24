@@ -71,8 +71,8 @@ export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 		if (this.stats && this.stats.albumTypes.audiobook > 0) {
 			this.spokenList.push({link: '/library/audiobooks', name: 'Books', icon: 'icon-audiobook'});
 		}
-		if (this.stats && this.stats.albumTypes.audiodrama > 0) {
-			this.spokenList.push({link: '/library/series', name: 'Series', icon: 'icon-audiodrama'});
+		if (this.stats && this.stats.albumTypes.series > 0) {
+			this.spokenList.push({link: '/library/series', name: 'Series', icon: 'icon-series'});
 		}
 		this.musicList = [
 			{link: '/library/artists', name: 'Artists', icon: 'icon-artist'},

@@ -72,12 +72,12 @@ export class StartPageComponent implements OnInit {
 				this.stats =
 					[
 						{text: 'Artists', link: '/library/artists', value: stats.artistTypes.album},
-						{text: 'Series', link: '/library/series', value: stats.artistTypes.audiodrama},
+						{text: 'Series', link: '/library/series', value: stats.artistTypes.series},
 						...[
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.album), value: stats.albumTypes.album},
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.compilation), value: stats.albumTypes.compilation},
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.audiobook), value: stats.albumTypes.audiobook},
-							// {albumType: JamAlbumTypes.find(t => t.id === AlbumType.audiodrama), value: stats.albumTypes.audiodrama},
+							// {albumType: JamAlbumTypes.find(t => t.id === AlbumType.series), value: stats.albumTypes.series},
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.soundtrack), value: stats.albumTypes.soundtrack},
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.live), value: stats.albumTypes.live},
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.bootleg), value: stats.albumTypes.bootleg},

@@ -211,7 +211,7 @@ export class TagEditor {
 		const albumTypeCol = this.columns.find(c => c.def.id === 'TXXX' && c.def.subid === 'MusicBrainz Album Type');
 		for (const edit of this.edits) {
 			if (genreCol) {
-				this.updateEditTextCell(edit, genreCol, 'Audio Drama');
+				this.updateEditTextCell(edit, genreCol, 'Audio Series');
 			}
 			if (albumTypeCol) {
 				this.updateEditTextCell(edit, albumTypeCol, 'album/audiodrama');
