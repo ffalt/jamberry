@@ -11,6 +11,7 @@ import {ActionsService} from '@shared/services';
 	styleUrls: ['artists.component.scss']
 })
 export class ArtistsComponent {
+	@Input() typeName: string;
 	@Input() artists: Array<Jam.Artist>;
 	@Input() viewTypeList: boolean = false;
 

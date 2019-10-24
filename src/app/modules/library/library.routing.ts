@@ -51,27 +51,27 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: AlbumsIndexLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Album Index'}
+						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Albums'}},
-					{path: 'favorites', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorite Albums'}},
+					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'favorites', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
 					{
 						path: 'top-rated',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Albums'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Albums'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Albums'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -84,37 +84,37 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: AlbumsIndexLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Compilations Index'}
+						data: {name: 'Index'}
 					},
 					{
 						path: 'random',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Random Compilations'}
+						data: {name: 'Random'}
 					},
 					{
 						path: 'favorites',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Compilations'}
+						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Compilations'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Compilations'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Compilations'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -127,32 +127,32 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: AlbumsIndexLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Soundtracks Index'}
+						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Soundtracks'}},
+					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Soundtracks'}
+						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Soundtracks'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Soundtracks'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Soundtracks'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -165,70 +165,70 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: AlbumsIndexLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Audiobooks Index'}
+						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Audiobooks'}},
+					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Audiobooks'}
+						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Audiobooks'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Audiobooks'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Audiobooks'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
 			},
 			{
-				path: 'audiodrama', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Audio Drama'},
+				path: 'audiodrama', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Series'},
 				children: [
 					{
 						path: '',
 						pathMatch: 'full',
 						component: AlbumsIndexLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Audio Drama Index'}
+						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Audio Drama'}},
+					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Audio Drama'}
+						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Audio Drama'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Audio Drama'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Audio Drama'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -241,32 +241,32 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: AlbumsIndexLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Bootlegs Index'}
+						data: {name: 'Index'}
 					},
 					{
 						path: 'favorites',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Bootlegs'}
+						data: {name: 'Favorites'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Bootlegs'}},
+					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'top-rated',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Bootlegs'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Bootlegs'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Bootlegs'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -279,32 +279,32 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: AlbumsIndexLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Bootlegs Index'}
+						data: {name: 'Singles Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Singles'}},
+					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Singles'}
+						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Singles'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Singles'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Singles'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -317,22 +317,22 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: AlbumsIndexLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Live Index'}
+						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Live'}},
-					{path: 'favorites', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorite Live'}},
-					{path: 'top-rated', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Top Rated Live'}},
+					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'favorites', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
+					{path: 'top-rated', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Top Rated'}},
 					{
 						path: 'most-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Live'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Live'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -345,22 +345,22 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: AlbumsIndexLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'EPs Index'}
+						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random EPs'}},
-					{path: 'favorites', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorite EPs'}},
-					{path: 'top-rated', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Top Rated EPs'}},
+					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'favorites', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
+					{path: 'top-rated', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Top Rated'}},
 					{
 						path: 'most-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played EPs'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: AlbumsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played EPs'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -380,32 +380,32 @@ export const routes: Routes = [
 						path: 'latest',
 						component: PodcastsLatestEpisodesComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Latest Podcast Episodes'}
+						data: {name: 'Latest Episodes'}
 					},
 					{
 						path: 'favorites',
 						component: PodcastsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Podcasts'}
+						data: {name: 'Favorites'}
 					},
 					{path: 'random', component: PodcastsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Podcasts'}},
 					{
 						path: 'top-rated',
 						component: PodcastsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Podcasts'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: PodcastsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Podcasts'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: PodcastsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Podcasts'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -418,43 +418,43 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: PlaylistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Playlists'}
+						data: {name: 'Index'}
 					},
 					{
 						path: 'favorites',
 						component: PlaylistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Playlists'}
+						data: {name: 'Favorites'}
 					},
 					{
 						path: 'recently-played',
 						component: PlaylistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Playlists'}
+						data: {name: 'Recently Played'}
 					},
 					{
 						path: 'random',
 						component: PlaylistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Random Playlists'}
+						data: {name: 'Random'}
 					},
 					{
 						path: 'favorites',
 						component: PlaylistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Playlists'}
+						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
 						component: PlaylistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Playlists'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: PlaylistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Playlists'}
+						data: {name: 'Most Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -467,26 +467,26 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: ArtistsIndexLoaderComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Artist Index'}
+						data: {name: 'Index'}
 					},
-					{path: 'random', component: ArtistsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Artists'}},
+					{path: 'random', component: ArtistsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
 						component: ArtistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Artists'}
+						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
 						component: ArtistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Artists'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: ArtistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Artists'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
@@ -505,32 +505,32 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: ArtistsIndexLoaderComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Series Index'}
+						data: {name: 'Index'}
 					},
-					{path: 'random', component: ArtistsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Series'}},
+					{path: 'random', component: ArtistsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
 						component: ArtistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorite Series'}
+						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
 						component: ArtistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Series'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: ArtistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Series'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: ArtistsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Series'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -539,25 +539,25 @@ export const routes: Routes = [
 				path: 'tracks', component: TracksPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Tracks'},
 				children: [
 					// {path: '', pathMatch: 'full', component: TracksIndexLoaderComponent, canActivate: [AuthGuard], data: {name: 'Track Index'}},
-					{path: 'random', component: TracksLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Tracks'}},
-					{path: 'favorites', component: TracksLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorite Tracks'}},
+					{path: 'random', component: TracksLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'favorites', component: TracksLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
 					{
 						path: 'top-rated',
 						component: TracksLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated Tracks'}
+						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
 						component: TracksLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played Tracks'}
+						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
 						component: TracksLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played Tracks'}
+						data: {name: 'Recently Played'}
 					},
 					{path: '**', redirectTo: 'favorites'}
 				]

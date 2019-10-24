@@ -202,7 +202,7 @@ export const enum MusicBrainzAlbumSecondaryType {
 	spokenword = 'Spokenword',
 	interview = 'Interview',
 	audiobook = 'Audiobook',
-	audiodrama = 'Audio drama',
+	audiodrama = 'Series',
 	live = 'Live',
 	remix = 'Remix',
 	djmix = 'DJ-mix',

@@ -1,7 +1,7 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
-import {Jam} from '@jam';
+import {AlbumType, Jam} from '@jam';
 import {ContextMenuArtistComponent} from '@library/components/context-menu-artist/context-menu-artist.component';
 import {ActionsService} from '@shared/services';
 
@@ -11,6 +11,7 @@ import {ActionsService} from '@shared/services';
 	styleUrls: ['artist.component.scss']
 })
 export class ArtistComponent {
+	AlbumType = AlbumType;
 	@Input() artist: Jam.Artist;
 
 	constructor(

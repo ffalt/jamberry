@@ -1,5 +1,5 @@
 <app-view-type-toggle #viewType [viewTypeList]="viewTypeList"></app-view-type-toggle>
-<app-background-text-list [list]="artists" name="Artists"></app-background-text-list>
+<app-background-text-list [list]="artists" [name]="typeName||'Artists'"></app-background-text-list>
 <div *ngIf="!viewType.viewTypeList" class="media-cards">
 	<div class="media-card" *ngFor="let artist of artists" (contextmenu)="onContextMenu($event, artist)">
 		<div class="image" (click)="navig.toArtist(artist)">

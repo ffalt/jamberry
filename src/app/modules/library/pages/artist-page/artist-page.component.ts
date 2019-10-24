@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {AlbumType, Jam, JamService} from '@jam';
 import {ContextMenuArtistComponent} from '@library/components/context-menu-artist/context-menu-artist.component';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
@@ -14,6 +14,7 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['artist-page.component.scss']
 })
 export class ArtistPageComponent implements OnInit, OnDestroy {
+	AlbumType = AlbumType;
 	artist: Jam.Artist;
 	id: string;
 	protected unsubscribe = new Subject();
