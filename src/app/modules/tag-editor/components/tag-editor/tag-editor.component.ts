@@ -1,4 +1,5 @@
-import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChildren} from '@angular/core';
+import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
+import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
@@ -34,10 +35,19 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	isSaving = false;
 	@Input() id: string;
 	@ViewChildren(CellEditor) cellEditors !: QueryList<CellEditor>;
+	@ViewChild(CdkVirtualScrollViewport, {static: false}) viewPort: CdkVirtualScrollViewport;
 
 	constructor(
 		private app: AppService, private folderService: AdminFolderService,
 		private jam: JamService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
+	}
+
+	get inverseOfTranslation(): string {
+		if (!this.viewPort || !this.viewPort['_renderedContentOffset']) {
+			return '-0px';
+		}
+		const offset = this.viewPort['_renderedContentOffset'];
+		return `-${offset}px`;
 	}
 
 	@HostListener('window:beforeunload')

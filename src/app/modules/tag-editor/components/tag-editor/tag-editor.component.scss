@@ -89,6 +89,8 @@
 					border-top: none;
 					border-bottom: none;
 					color: var(--on-background-active);
+					background-color: var(--background);
+					position: sticky;
 
 					.actions {
 						padding: 0;

@@ -30,8 +30,8 @@
 			<table>
 				<thead>
 				<tr class="header-row">
-					<th></th>
-					<th class="header-row-title" *ngFor="let column of editor.columns; trackBy: trackByColumnFn" (click)="activeCol = column">
+					<th [style.top]="inverseOfTranslation"></th>
+					<th [style.top]="inverseOfTranslation" class="header-row-title" *ngFor="let column of editor.columns; trackBy: trackByColumnFn" (click)="activeCol = column">
 						<div>
 							<span [title]="column.def.id">{{column.def.name}}</span>
 						</div>
