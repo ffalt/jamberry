@@ -7,7 +7,6 @@
 	display: flex;
 	flex-direction: column;
 
-
 	.actions {
 		padding: $padding-sm $padding;
 	}
@@ -74,21 +73,6 @@
 				border-right-width: 1px;
 				border-right-style: solid;
 				border-right-color: var(--background-border);
-
-				.input-group {
-					display: flex;
-					align-items: center;
-
-					app-autocomplete {
-						flex: 1;
-						min-height: 20px;
-					}
-
-					button {
-						margin-top: 6px;
-						margin-right: 2px;
-					}
-				}
 			}
 
 			tr.header-row {

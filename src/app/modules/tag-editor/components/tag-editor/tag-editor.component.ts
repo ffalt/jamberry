@@ -30,6 +30,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	tracks: Array<Jam.Track>;
 	editor: TagEditor = new TagEditor();
 	canLoadRecursive = false;
+	activeCol?: RawTagEditColumn;
 	isSaving = false;
 	@Input() id: string;
 	@ViewChildren(CellEditor) cellEditors !: QueryList<CellEditor>;
@@ -51,6 +52,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	refresh(): void {
 		this.folder = undefined;
 		this.tracks = undefined;
+		this.activeCol = undefined;
 		if (this.id) {
 			this.jam.folder.id({
 				id: this.id,

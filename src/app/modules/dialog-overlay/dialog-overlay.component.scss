@@ -1,7 +1,5 @@
 @import "globals.scss";
 
-$base-duration: 0.25s;
-
 $cdk-z-index-overlay-backdrop: 1000;
 $cdk-z-index-overlay: 1000;
 
@@ -100,42 +98,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 		max-width: 2.5rem;
 		max-height: 2.5rem;
 
-		.close {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 2.5rem;
-			height: 2.5rem;
-			border: none;
-			background-color: transparent;
-			font-size: 1.5rem;
-			transition: $base-duration linear;
-
-			&:before, &:after {
-				position: absolute;
-				content: '';
-				width: 0.75rem;
-				height: 0.125rem;
-				background-color: var(--on-control-hover);
-				overflow: hidden;
-			}
-
-			&:before {
-				transform: rotate(-45deg);
-			}
-
-			&:after {
-				transform: rotate(45deg);
-			}
-
-			&:hover {
-				transform: rotate(360deg);
-
-				&:before, &:after {
-					background-color: var(--accent);
-				}
-			}
-		}
+		@include close();
 	}
 }
 

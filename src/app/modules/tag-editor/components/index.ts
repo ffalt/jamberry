@@ -7,6 +7,7 @@ import {CellEditorTxtListComponent} from './cell-editor-txt-list/cell-editor-txt
 import {CellEditorTxtComponent} from './cell-editor-txt/cell-editor-txt.component';
 import {CellEditorUnknownComponent} from './cell-editor-unknown/cell-editor-unknown.component';
 import {CellEditorComponent} from './cell-editor/cell-editor.component';
+import {ColumnToolComponent} from './column-tool/column-tool.component';
 import {DialogAlbumComponent} from './dialog-album/dialog-album.component';
 import {DialogChooseColumnsComponent} from './dialog-choose-columns/dialog-choose-columns.component';
 import {DialogMatchReleaseComponent} from './dialog-match-release/dialog-match-release.component';
@@ -34,6 +35,7 @@ export const entryComponents: Array<any> = [
 export const components: Array<any> = [
 	...entryComponents,
 	CellEditorComponent,
+	ColumnToolComponent,
 	TagEditorInlineAutocompleteComponent,
 	MatchReleaseComponent,
 	TagEditorAutocompleteComponent,
@@ -60,3 +62,4 @@ export * from './inline-autocomplete/tag-editor-inline-autocomplete.component';
 export * from './match-release/match-release.component';
 export * from './score-box/score-box.component';
 export * from './tag-editor/tag-editor.component';
+export * from './column-tool/column-tool.component';

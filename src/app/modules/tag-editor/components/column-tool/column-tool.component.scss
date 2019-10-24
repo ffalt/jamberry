@@ -1,0 +1,68 @@
+@import "globals.scss";
+
+:host {
+
+	.column-tools {
+		border: 1px solid var(--control-border);
+		padding-bottom: $padding;
+
+		.close-panel {
+			float: right;
+			display: inline-block;
+			overflow: hidden;
+			width: 2.5rem;
+			height: 2.5rem;
+			max-width: 2.5rem;
+			max-height: 2.5rem;
+			margin-top: -$padding;
+			@include close();
+		}
+
+		.column-tools-title {
+			padding-top: $padding;
+			padding-left: $padding;
+			padding-right: $padding;
+			span {
+				color: var(--on-control-active);
+			}
+		}
+
+		@include input-box();
+
+		.input-box {
+			display: flex;
+		}
+
+		app-tag-editor-autocomplete {
+			flex: 1;
+			border: none;
+			outline: none;
+			min-height: 24px;
+			height: 24px;
+			background-color: var(--input);
+			color: var(--on-input);
+		}
+
+		select {
+			flex: 1;
+			border: none;
+			outline: none;
+			height: 24px;
+			background-color: var(--input);
+			color: var(--on-input);
+			width: 100%;
+		}
+
+		.column-tool-content {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.column-tool {
+			padding: $padding $padding 0;
+			font-size: 0.8em;
+			align-self: center;
+		}
+
+	}
+}

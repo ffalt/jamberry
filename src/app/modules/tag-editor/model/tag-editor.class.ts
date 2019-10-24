@@ -146,16 +146,23 @@ export class TagEditor {
 	}
 
 	setReleaseDateFromYearFrames(column: RawTagEditColumn): void {
-		const yearColIndex = this.columns.findIndex(c => c.def.id === 'TYER');
-		if (yearColIndex >= 0) {
+		this.copyColumn(this.columns.findIndex(c => c.def.id === 'TYER'), column);
+	}
+
+	copyColumn(sourceColIndex: number, column: RawTagEditColumn): void {
+		if (sourceColIndex >= 0) {
 			for (const edit of this.edits) {
-				const cell = edit.cells[yearColIndex];
+				const cell = edit.cells[sourceColIndex];
 				const text = cell.frames.length > 0 ? cell.frames[0].value.text : undefined;
 				if (text) {
 					this.updateEditTextCell(edit, column, text);
 				}
 			}
 		}
+	}
+
+	setColumnFromTitleFrames(column: RawTagEditColumn): void {
+		this.copyColumn(this.columns.findIndex(c => c.def.id === 'TIT2'), column);
 	}
 
 	clearColumn(column: RawTagEditColumn): void {
@@ -188,7 +195,7 @@ export class TagEditor {
 		}
 	}
 
-	setAudiodramaFrames(): void {
+	setAudioSeriesFrames(): void {
 		const genreCol = this.columns.find(c => c.def.id === 'TCON');
 		const albumTypeCol = this.columns.find(c => c.def.id === 'TXXX' && c.def.subid === 'MusicBrainz Album Type');
 		for (const edit of this.edits) {
@@ -511,6 +518,15 @@ export class TagEditor {
 					title: 'Copy from Artist Column',
 					click: () => {
 						this.setAlbumArtistFrames(col);
+					}
+				});
+			} else if (id === 'TALB') {
+				col.multi = true;
+				result.push({
+					icon: 'icon-down-thin',
+					title: 'Copy from Title Column',
+					click: () => {
+						this.setColumnFromTitleFrames(col);
 					}
 				});
 			} else if (id === 'TDOR') {

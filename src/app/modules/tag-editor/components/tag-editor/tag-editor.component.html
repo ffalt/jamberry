@@ -3,7 +3,7 @@
 <context-menu #actionMenu>
 	<ng-template contextMenuItem (execute)="chooseColumns()"><i class="icon-list-add"></i> Choose Columns</ng-template>
 	<ng-template contextMenuItem (execute)="editor.setAudiobookFrames()"><i class="icon-edit"></i> Set Fixed Audiobook Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.setAudiodramaFrames()"><i class="icon-edit"></i> Set Fixed Audio Series Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setAudioSeriesFrames()"><i class="icon-edit"></i> Set Fixed Audio Series Frames</ng-template>
 	<ng-template contextMenuItem (execute)="editor.setSoundtrackFrames()"><i class="icon-edit"></i> Set Fixed Soundtrack Frames</ng-template>
 	<ng-template contextMenuItem (execute)="editor.setBootlegFrames()"><i class="icon-edit"></i> Set Fixed Bootleg Frames</ng-template>
 </context-menu>
@@ -23,6 +23,7 @@
 		<button class="button-on-control" *ngIf="isSaving" title="Save"><i class="icon-spin icon-spnner"></i></button>
 		<button class="button-on-control" title="More" [contextMenu]="actionMenu" [contextMenuTriggerLeft]="true">…</button>
 	</div>
+	<app-admin-tag-editor-column-tool [editor]="editor" [activeCol]="activeCol" (requestClose)="activeCol=undefined"></app-admin-tag-editor-column-tool>
 	<app-loading *ngIf="!tracks"></app-loading>
 	<div class="editor" *ngIf="tracks && tracks.length>0 && editor.edits">
 		<cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="34">
@@ -30,24 +31,9 @@
 				<thead>
 				<tr class="header-row">
 					<th></th>
-					<th class="header-row-title" *ngFor="let column of editor.columns; trackBy: trackByColumnFn">
-						<context-menu #columnMenu>
-							<ng-template contextMenuItem let-column="column" *ngFor="let action of column.actions" (execute)="action.click()"><i [class]="action.icon"></i> {{action.title}}</ng-template>
-						</context-menu>
-						<div [contextMenu]="columnMenu" [contextMenuTriggerLeft]="true" [contextMenuSubject]="column">
+					<th class="header-row-title" *ngFor="let column of editor.columns; trackBy: trackByColumnFn" (click)="activeCol = column">
+						<div>
 							<span [title]="column.def.id">{{column.def.name}}</span>
-						</div>
-					</th>
-				</tr>
-				<tr class="header-row-sub">
-					<th class="col-state">
-					</th>
-					<th *ngFor="let column of editor.columns; trackBy: trackByColumnFn">
-						<div *ngIf="column.multi" class="cell-editor">
-							<div class="input-group">
-								<app-tag-editor-autocomplete [(value)]="column.multiStr" [getList]="column.getAutoCompleteList"></app-tag-editor-autocomplete>
-								<button class="button-on-background button-small" (click)="editor.setColumnText(column)" title="Fill all Cells in this Column"><i class="icon-down-thin"></i></button>
-							</div>
 						</div>
 					</th>
 				</tr>
