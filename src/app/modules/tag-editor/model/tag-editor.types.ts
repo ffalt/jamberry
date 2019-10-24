@@ -20,7 +20,6 @@ export interface RawTagEditColumn {
 	def: RawTagEditColumnDef;
 	sort: number;
 	multi?: boolean;
-	multiStr?: string;
 	actions: Array<RawTagEditColumnAction>;
 
 	getAutoCompleteList?(cell?: RawTagEditCell): Array<string>;

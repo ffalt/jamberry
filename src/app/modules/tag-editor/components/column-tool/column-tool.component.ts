@@ -12,6 +12,8 @@ export class ColumnToolComponent {
 	@Input() activeCol: RawTagEditColumn;
 	@Output() readonly requestClose = new EventEmitter();
 	sourceColumnIndex?: number;
+	multiStr?: string;
+	removeMultiStr?: string;
 
 	close(): void {
 		this.requestClose.emit();

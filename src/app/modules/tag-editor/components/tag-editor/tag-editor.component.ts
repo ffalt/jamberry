@@ -36,19 +36,29 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	@Input() id: string;
 	@ViewChildren(CellEditor) cellEditors !: QueryList<CellEditor>;
 	@ViewChild(CdkVirtualScrollViewport, {static: false}) viewPort: CdkVirtualScrollViewport;
+	inverseOfTranslationTop: number = 0;
 
 	constructor(
 		private app: AppService, private folderService: AdminFolderService,
 		private jam: JamService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
 	}
 
-	get inverseOfTranslation(): string {
-		if (!this.viewPort || !this.viewPort['_renderedContentOffset']) {
-			return '-0px';
-		}
-		const offset = this.viewPort['_renderedContentOffset'];
-		return `-${offset}px`;
+	onScroll(): void {
+		this.inverseOfTranslationTop = this.viewPort ? -this.viewPort.getOffsetToRenderedContentStart() : 0;
+		setTimeout(() => {
+			this.inverseOfTranslationTop = this.viewPort ? -this.viewPort.getOffsetToRenderedContentStart() : 0;
+		});
 	}
+
+	// get inverseOfTranslation(): string {
+	// const offset = this.viewPort.getOffsetToRenderedContentStart();
+
+	// if (!this.viewPort || !this.viewPort['_renderedContentOffset']) {
+	// 	return '-0px';
+	// }
+	// const offset = this.viewPort['_renderedContentOffset'];
+	// return `-${offset}px`;
+	// }
 
 	@HostListener('window:beforeunload')
 	canDeactivate(): boolean {
@@ -88,6 +98,10 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 
 	trackByColumnFn(index: number, item: RawTagEditColumn): string {
 		return item.def.id + item.def.subid;
+	}
+
+	trackByCellFn(index: number, item: RawTagEditCell): string {
+		return item.column.def.id + item.column.def.subid;
 	}
 
 	loadRecursive(): void {

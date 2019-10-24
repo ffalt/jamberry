@@ -7,8 +7,15 @@
 		<div class="column-tool" *ngIf="activeCol.multi">
 			Set Text
 			<div class="input-box">
-				<app-tag-editor-autocomplete [(value)]="activeCol.multiStr" [getList]="activeCol.getAutoCompleteList"></app-tag-editor-autocomplete>
-				<i (click)="editor.setColumnText(activeCol)" class="icon-down-thin"></i>
+				<app-tag-editor-autocomplete [(value)]="multiStr" [getList]="activeCol.getAutoCompleteList"></app-tag-editor-autocomplete>
+				<i (click)="editor.setColumnText(activeCol, multiStr)" class="icon-down-thin"></i>
+			</div>
+		</div>
+		<div class="column-tool" *ngIf="activeCol.multi">
+			Remove Text
+			<div class="input-box">
+				<input type="text" [(ngModel)]="removeMultiStr">
+				<i (click)="editor.removeColumnText(activeCol, removeMultiStr)" class="icon-down-thin"></i>
 			</div>
 		</div>
 		<div class="column-tool">Copy From

@@ -1,4 +1,5 @@
-<div *ngIf="cell" class="input-group" [class.changed]="cell.changed">
-	<app-tag-editor-inline-autocomplete [value]="val" (valueChange)="onValueChange($event)"
-																			[getList]="cell.column.getAutoCompleteList" [data]="cell" (navigKeyDownRequest)="onNavigKeyDown($event)"></app-tag-editor-inline-autocomplete>
-</div>
+<app-tag-editor-inline-autocomplete *ngIf="cell"
+																		class="input-group" [class.changed]="cell.changed"
+																		[value]="val" (valueChange)="onValueChange($event)"
+																		[getList]="cell.column.getAutoCompleteList" [data]="cell"
+																		(navigKeyDownRequest)="onNavigKeyDown($event)"></app-tag-editor-inline-autocomplete>

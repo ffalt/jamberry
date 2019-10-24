@@ -16,6 +16,17 @@ export class TagEditor {
 	columns: Array<RawTagEditColumn> = [];
 	edits: Array<RawTagEditRow> = [];
 
+	removeColumnText(column: RawTagEditColumn, text: string): void {
+		const index = this.columns.indexOf(column);
+		for (const edit of this.edits) {
+			const cell = edit.cells[index];
+			const t = cell.frames.length > 0 ? cell.frames[0].value.text : undefined;
+			if (t) {
+				this.updateEditTextCell(edit, column, t.replace(text, ''));
+			}
+		}
+	}
+
 	updateEditTextCell(edit: RawTagEditRow, column: RawTagEditColumn, value?: string): void {
 		const index = this.columns.indexOf(column);
 		const cell = edit.cells[index];
@@ -52,9 +63,9 @@ export class TagEditor {
 		}
 	}
 
-	setColumnText(column: RawTagEditColumn): void {
+	setColumnText(column: RawTagEditColumn, text: string): void {
 		for (const edit of this.edits) {
-			this.updateEditTextCell(edit, column, column.multiStr);
+			this.updateEditTextCell(edit, column, text);
 		}
 	}
 
@@ -471,6 +482,7 @@ export class TagEditor {
 	private setColumnActions(col: RawTagEditColumn, id: string, subid: string | undefined, impl: FrameType): void {
 		const result: Array<RawTagEditColumnAction> = [];
 		if ([FrameType.IdText, FrameType.Text, FrameType.LangDescText].includes(impl)) {
+			col.multi = true;
 			if (id === 'TRCK') {
 				result.push({
 					icon: 'icon-down-thin',
@@ -494,7 +506,6 @@ export class TagEditor {
 					}
 				});
 			} else if (id === 'TPOS') {
-				col.multi = true;
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Try find Part of Set',
@@ -503,7 +514,6 @@ export class TagEditor {
 					}
 				});
 			} else if (id === 'TIT2') {
-				col.multi = true;
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Add Index Nr to Title',
@@ -512,7 +522,6 @@ export class TagEditor {
 					}
 				});
 			} else if (id === 'TPE2') {
-				col.multi = true;
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Copy from Artist Column',
@@ -521,7 +530,6 @@ export class TagEditor {
 					}
 				});
 			} else if (id === 'TALB') {
-				col.multi = true;
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Copy from Title Column',
@@ -530,7 +538,6 @@ export class TagEditor {
 					}
 				});
 			} else if (id === 'TDOR') {
-				col.multi = true;
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Copy from Year Column',
@@ -538,8 +545,6 @@ export class TagEditor {
 						this.setReleaseDateFromYearFrames(col);
 					}
 				});
-			} else {
-				col.multi = true;
 			}
 		}
 		if (impl !== FrameType.Filename) {

@@ -26,12 +26,12 @@
 	<app-admin-tag-editor-column-tool [editor]="editor" [activeCol]="activeCol" (requestClose)="activeCol=undefined"></app-admin-tag-editor-column-tool>
 	<app-loading *ngIf="!tracks"></app-loading>
 	<div class="editor" *ngIf="tracks && tracks.length>0 && editor.edits">
-		<cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="34">
+		<cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="34" (scrolledIndexChange)="onScroll()" [minBufferPx]="1000" [maxBufferPx]="1000">
 			<table>
 				<thead>
 				<tr class="header-row">
-					<th [style.top]="inverseOfTranslation"></th>
-					<th [style.top]="inverseOfTranslation" class="header-row-title" *ngFor="let column of editor.columns; trackBy: trackByColumnFn" (click)="activeCol = column">
+					<th [style.top.px]="inverseOfTranslationTop"></th>
+					<th [style.top.px]="inverseOfTranslationTop" class="header-row-title" *ngFor="let column of editor.columns; trackBy: trackByColumnFn" (click)="activeCol = column">
 						<div>
 							<span [title]="column.def.id">{{column.def.name}}</span>
 						</div>
@@ -39,11 +39,11 @@
 				</tr>
 				</thead>
 				<colgroup>
-					<col [style.min-width]="'30px'">
-					<col *ngFor="let column of editor.columns; trackBy: trackByColumnFn" [style.min-width.px]="column.def.width">
+					<col [style.min-width.px]="60">
+					<col *ngFor="let column of editor.columns; trackBy: trackByColumnFn" [style.min-width.px]="column.def.width || 60">
 				</colgroup>
 				<tbody>
-				<tr *cdkVirtualFor="let edit of editor.edits; trackBy: trackByEditFn">
+				<tr *cdkVirtualFor="let edit of editor.edits; trackBy: trackByEditFn; templateCacheSize: 100">
 					<td class="col-state">
 						<div class="cell-editor">
 							<ng-container *ngIf="edit.changed">
@@ -52,7 +52,7 @@
 							</ng-container>
 						</div>
 					</td>
-					<td *ngFor="let cell of edit.cells">
+					<td *ngFor="let cell of edit.cells; trackBy: trackByCellFn">
 						<app-cell-editor class="cell-editor" [class.changed]="cell.changed" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor>
 					</td>
 				</tr>
