@@ -22,7 +22,7 @@
 			<ng-container *ngIf="current">
 				<div class="current">
 					<span *ngIf="current">{{current.pos + 1}} / {{folders.length}}</span>
-					<a [routerLink]="['/admin/folder/'+current.folder.id+'/tags']"><i class="icon-folder"></i> {{current.folder.name}}</a>
+					<a [routerLink]="['/admin/folder', current.folder.id, 'tags']"><i class="icon-folder"></i> {{current.folder.name}}</a>
 				</div>
 
 				<ng-container *ngIf="current && current.health">

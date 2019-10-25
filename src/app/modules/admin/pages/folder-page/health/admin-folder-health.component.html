@@ -10,7 +10,7 @@
 		<app-background-text-list [list]="hints" name="Folder Health Issues"></app-background-text-list>
 		<div *ngFor="let folderHealth of hints" class="folder">
 			<div class="meta">
-				<a [routerLink]="['/admin/folder/'+folderHealth.folder.id+'/overview']">
+				<a [routerLink]="['/admin/folder',folderHealth.folder.id,'overview']">
 					<ng-container [ngSwitch]="folderHealth.folder.type">
 						<ng-container *ngSwitchCase="'multialbum'">
 							<div class="type">Album</div>

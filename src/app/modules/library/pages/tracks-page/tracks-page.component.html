@@ -14,7 +14,7 @@
 		</div>
 		<div class="navigation">
 			<ul class="tabs">
-				<li *ngFor="let list of JamLists" [routerLink]="['/library/tracks/'+list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
+				<li *ngFor="let list of JamLists" [routerLink]="['/library/tracks',list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
 			</ul>
 		</div>
 	</div>

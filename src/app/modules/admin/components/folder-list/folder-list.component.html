@@ -1,7 +1,7 @@
 <cdk-table *ngIf="dataSource" [dataSource]="dataSource">
 	<ng-container cdkColumnDef="name">
 		<cdk-header-cell *cdkHeaderCellDef>Title</cdk-header-cell>
-		<cdk-cell *cdkCellDef="let folder" data-label="Title"><a [routerLink]="['/admin/folder/'+folder.id+'/overview']">{{folder.name}}</a></cdk-cell>
+		<cdk-cell *cdkCellDef="let folder" data-label="Title"><a [routerLink]="['/admin/folder', folder.id, 'overview']">{{folder.name}}</a></cdk-cell>
 	</ng-container>
 	<ng-container cdkColumnDef="artist">
 		<cdk-header-cell *cdkHeaderCellDef>Artist</cdk-header-cell>

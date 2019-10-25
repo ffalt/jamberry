@@ -8,7 +8,7 @@
 		<a title="Artist" (click)="navig.toArtistID(player.currentTrack.artistID, player.currentTrack.tag.artist)">{{player.currentTrack.tag?.artist|limit:40}}</a>
 	</div>
 	<div class="fav">
-		<a title="Toggle Track as Favorite" (click)="actions.toggleTrackFav(player.currentTrack)"><i [class]="player.currentTrack.state?.faved?'icon-heart-full':'icon-heart-empty'"></i></a>
+		<a title="Toggle Track as Favorite" (click)="actions.toggleTrackFav(player.currentTrack)"><i [class]="player.currentTrack.state?.faved | stringToggle:'icon-heart-full':'icon-heart-empty'"></i></a>
 	</div>
 </section>
 <section class="playing" *ngIf="player.currentTrack && player.currentEpisode">
@@ -20,6 +20,6 @@
 		<a title="Podcast" (click)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcast)">{{player.currentEpisode.podcast|limit:40}}</a>
 	</div>
 	<div class="fav">
-		<a title="Toggle Track as Favorite" (click)="actions.toggleEpisodeFav(player.currentEpisode)"><i [class]="player.currentEpisode.state?.faved?'icon-heart-full':'icon-heart-empty'"></i></a>
+		<a title="Toggle Track as Favorite" (click)="actions.toggleEpisodeFav(player.currentEpisode)"><i [class]="player.currentEpisode.state?.faved | stringToggle:'icon-heart-full':'icon-heart-empty'"></i></a>
 	</div>
 </section>

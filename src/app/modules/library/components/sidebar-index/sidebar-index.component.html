@@ -5,7 +5,7 @@
 			<div class="index-group" *ngFor="let group of index.groups" [class.active]="group===current" (click)="current=group">{{group.name}}</div>
 		</div>
 		<div class="index-entries" *ngIf="current">
-			<a class="item" *ngFor="let o of current.entries" [routerLink]="['/library/'+index.type+'/' + o.id, {name: o.name}]" routerLinkActive="active">
+			<a class="item" *ngFor="let o of current.entries" [routerLink]="['/library', index.type, o.id, {name: o.name}]" routerLinkActive="active">
 				<app-coverart-image [coverArtObj]="o" [alt]="o.name" [size]="23" [round]="true"></app-coverart-image>
 				<span>{{o.name}}</span>
 			</a>

@@ -11,8 +11,8 @@
 		</div>
 		<div class="navigation">
 			<ul class="tabs">
-				<li [routerLink]="['/library/'+typeInfo.link]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a>Index</a></li>
-				<li *ngFor="let list of JamLists" [routerLink]="['/library/'+typeInfo.link+'/'+list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
+				<li [routerLink]="['/library', typeInfo.link]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a>Index</a></li>
+				<li *ngFor="let list of JamLists" [routerLink]="['/library', typeInfo.link, list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
 			</ul>
 		</div>
 	</div>

@@ -12,7 +12,7 @@
 				</div>
 			</div>
 			<div class="listeners" *ngIf="album.tag">
-				<div><span class="label">Artist:</span>&nbsp;<a [routerLink]="['/admin/artist/'+album.artistID]">{{album.artist}}</a></div>
+				<div><span class="label">Artist:</span>&nbsp;<a [routerLink]="['/admin/artist',album.artistID]">{{album.artist}}</a></div>
 				<div *ngIf="album.tag.year"><span class="label">Year:</span> {{album.tag.year}}</div>
 				<div *ngIf="album.tag.genre"><span class="label">Genre:</span> {{album.tag.genre}}</div>
 				<div *ngIf="album.tag.duration"><span class="label">Duration:</span> {{album.tag.duration | duration}}</div>

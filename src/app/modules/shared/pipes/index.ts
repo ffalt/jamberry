@@ -6,11 +6,13 @@ import {FilesizePipe} from './filesize.pipe';
 import {JsonPipe} from './json.pipe';
 import {LimitPipe} from './limit.pipe';
 import {MediadurationPipe} from './mediaduration.pipe';
+import {StringTogglePipe} from './string-toggle/string-toggle.pipe';
 
 export const pipes: Array<any> = [
 	AgoPipe,
 	ArtistOrSeriesPipe,
 	ArtistsOrSeriesPipe,
+	StringTogglePipe,
 	DurationPipe,
 	FilesizePipe,
 	JsonPipe,
@@ -18,6 +20,7 @@ export const pipes: Array<any> = [
 	MediadurationPipe
 ];
 
+export * from './string-toggle/string-toggle.pipe';
 export * from './artist-or-series/artists-or-series.pipe';
 export * from './artist-or-series/artist-or-series.pipe';
 export * from './ago.pipe';

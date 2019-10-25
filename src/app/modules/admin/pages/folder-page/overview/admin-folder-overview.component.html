@@ -60,7 +60,7 @@
 				</div>
 				<div *ngIf="folder.parentID">
 					<div class="label">Parent Id:</div>
-					<div><a [routerLink]="['/admin/folder/'+folder.parentID]">{{folder.parentID}}</a></div>
+					<div><a [routerLink]="['/admin/folder',folder.parentID]">{{folder.parentID}}</a></div>
 				</div>
 			</div>
 		</div>

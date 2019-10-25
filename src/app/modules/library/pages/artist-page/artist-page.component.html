@@ -24,9 +24,9 @@
 		</div>
 		<div class="navigation" *ngIf="!artist.albumTypes.includes(AlbumType.series)">
 			<ul class="tabs">
-				<li routerLinkActive="active" [routerLink]="['/library/artist/'+id+'/']" [routerLinkActiveOptions]="{exact: true}"><a>Overview</a></li>
-				<li routerLinkActive="active" [routerLink]="['/library/artist/'+id+'/similar']"><a>Similar Artists</a></li>
-				<li routerLinkActive="active" [routerLink]="['/library/artist/'+id+'/musicbrainz']"><a>MusicBrainz</a></li>
+				<li routerLinkActive="active" [routerLink]="['/library/artist', id]" [routerLinkActiveOptions]="{exact: true}"><a>Overview</a></li>
+				<li routerLinkActive="active" [routerLink]="['/library/artist', id, 'similar']"><a>Similar Artists</a></li>
+				<li routerLinkActive="active" [routerLink]="['/library/artist', id, 'musicbrainz']"><a>MusicBrainz</a></li>
 			</ul>
 		</div>
 	</div>

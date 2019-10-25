@@ -1,1 +1,1 @@
-<i *ngIf="state" [class]="state.faved?'icon-heart-full':'icon-heart-empty'"></i>
+<i *ngIf="state" [class]="state.faved | stringToggle:'icon-heart-full':'icon-heart-empty'"></i>

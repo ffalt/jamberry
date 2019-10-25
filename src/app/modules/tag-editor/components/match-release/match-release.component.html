@@ -127,7 +127,7 @@
 				<div *ngIf="group.expanded && group.currentRelease" class="match-tracks-info">
 					<div *ngFor="let media of group.currentRelease.media">
 						<div *ngIf="group.currentRelease.media.length>1" (click)="media.expanded=!media.expanded">
-							<i [class]="media.expanded?'icon-minus':'icon-plus'"></i>
+							<i [class]="media.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
 							Media {{media.mbMedia.position}}
 							<i class="icon-checkmark" title="All tracks matched" *ngIf="media.complete"></i><i title="Unmatched tracks!" class="icon-warning" *ngIf="!media.complete"></i>
 						</div>

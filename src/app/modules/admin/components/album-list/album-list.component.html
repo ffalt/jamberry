@@ -1,12 +1,12 @@
 <cdk-table *ngIf="dataSource" [dataSource]="dataSource">
 	<ng-container cdkColumnDef="name">
 		<cdk-header-cell *cdkHeaderCellDef>Title</cdk-header-cell>
-		<cdk-cell *cdkCellDef="let album" data-label="Title"><a [routerLink]="['/admin/album/'+album.id,{name:album.name}]">{{album.name}}</a></cdk-cell>
+		<cdk-cell *cdkCellDef="let album" data-label="Title"><a [routerLink]="['/admin/album',album.id,{name:album.name}]">{{album.name}}</a></cdk-cell>
 	</ng-container>
 	<ng-container cdkColumnDef="artist">
 		<cdk-header-cell *cdkHeaderCellDef>Artist</cdk-header-cell>
 		<cdk-cell *cdkCellDef="let album" data-label="Artist">
-			<a [routerLink]="['/admin/artist/'+album.artistID,{name:album.artist}]">{{album.artist}}</a>
+			<a [routerLink]="['/admin/artist',album.artistID,{name:album.artist}]">{{album.artist}}</a>
 		</cdk-cell>
 	</ng-container>
 	<ng-container cdkColumnDef="year">

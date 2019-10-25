@@ -15,7 +15,7 @@
 					</div>
 					<div class="footer">
 						<div class="footer-content">
-							<label [title]="node.image.approved?'Approved':'Not Approved'">
+							<label [title]="node.image.approved | stringToggle:'Approved':'Not Approved'">
 								<input type="checkbox" [(ngModel)]="node.checked" [checked]="node.checked"> {{node.image.types}}
 							</label>
 						</div>

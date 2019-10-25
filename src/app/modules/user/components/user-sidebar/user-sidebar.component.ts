@@ -19,7 +19,10 @@ export interface UserSidebarSection {
 	styleUrls: ['user-sidebar.component.scss']
 })
 export class UserSidebarComponent implements OnInit, OnDestroy, SidebarProvider {
-	collapsed: { [sectionName: string]: boolean; } = {};
+	collapsed: {
+		[sectionName: string]: boolean;
+		main?: boolean;
+	} = {};
 	sections: Array<UserSidebarSection> = [];
 	showMobileNavig: boolean = false;
 

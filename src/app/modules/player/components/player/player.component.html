@@ -29,16 +29,16 @@
 		</div>
 
 		<div class="player-controls">
-			<a class="player-control" [title]="player.repeatTrack?'Stop repeating current track':'Repeat current track'" (click)="toggleRepeat()" [class.active]="player.repeatTrack">
+			<a class="player-control" [title]="player.repeatTrack | stringToggle:'Stop repeating current track':'Repeat current track'" (click)="toggleRepeat()" [class.active]="player.repeatTrack">
 				<i class="icon-loop"></i>
 			</a>
-			<a class="player-control" [title]="(showSpeed?'Hide':'Show')+' Playback Speed Control'" (click)="showSpeed=!showSpeed" [class.active]="showSpeed">
+			<a class="player-control" [title]="showSpeed | stringToggle:'Hide Playback Speed Control' :'Show Playback Speed Control'" (click)="showSpeed=!showSpeed" [class.active]="showSpeed">
 				<i class="icon-speed"></i>
 			</a>
-			<a class="player-control button-info" (click)="tabService.clickInfo()" [title]="(tabService.infoTab.active?'Hide':'Show')+' Play Info'" [class.active]="tabService.infoTab.active">
+			<a class="player-control button-info" (click)="tabService.clickInfo()" [title]="tabService.infoTab.active | stringToggle:'Hide Play Info' :'Show Play Info'" [class.active]="tabService.infoTab.active">
 				<i class="icon-info"></i>
 			</a>
-			<a class="player-control button-queue" (click)="tabService.clickQueue()" [title]="(tabService.queueTab.active?'Hide':'Show')+' Play Queue'" [class.active]="tabService.queueTab.active">
+			<a class="player-control button-queue" (click)="tabService.clickQueue()" [title]="tabService.queueTab.active | stringToggle: 'Hide Play Queue':'Show Play Queue'" [class.active]="tabService.queueTab.active">
 				<i class="icon-queue"></i>
 			</a>
 		</div>

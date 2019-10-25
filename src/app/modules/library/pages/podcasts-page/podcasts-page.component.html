@@ -23,7 +23,7 @@
 			<ul class="tabs">
 				<li [routerLink]="['/library/podcasts']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a>Index</a></li>
 				<li [routerLink]="['/library/podcasts/latest']" routerLinkActive="active"><a>Latest Episodes</a></li>
-				<li *ngFor="let list of lists" [routerLink]="['/library/podcasts/'+list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
+				<li *ngFor="let list of lists" [routerLink]="['/library/podcasts',list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
 			</ul>
 		</div>
 	</div>
