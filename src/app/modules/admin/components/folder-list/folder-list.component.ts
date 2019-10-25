@@ -4,8 +4,8 @@ import {JamDataSource} from '../../model/data-source';
 
 @Component({
 	selector: 'app-admin-folder-list',
-	templateUrl: 'folder-list.component.html',
-	styleUrls: ['folder-list.component.scss']
+	templateUrl: './folder-list.component.html',
+	styleUrls: ['./folder-list.component.scss']
 })
 export class FolderListComponent implements OnChanges {
 	@Input() folders: Array<Jam.Folder> = [];

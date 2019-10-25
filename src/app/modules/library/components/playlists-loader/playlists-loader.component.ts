@@ -5,8 +5,8 @@ import {LoadMoreButtonComponent} from '@shared/components/load-more-button/load-
 
 @Component({
 	selector: 'app-playlists-loader',
-	templateUrl: 'playlists-loader.component.html',
-	styleUrls: ['playlists-loader.component.scss']
+	templateUrl: './playlists-loader.component.html',
+	styleUrls: ['./playlists-loader.component.scss']
 })
 export class PlaylistsLoaderComponent implements OnChanges {
 	@Input() listType: JamParameters.ListType;

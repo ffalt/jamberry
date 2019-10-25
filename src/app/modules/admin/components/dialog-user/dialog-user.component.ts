@@ -4,8 +4,8 @@ import {AdminUserServiceEditData} from '@core/services';
 
 @Component({
 	selector: 'app-dialog-user',
-	templateUrl: 'dialog-user.component.html',
-	styleUrls: ['dialog-user.component.scss']
+	templateUrl: './dialog-user.component.html',
+	styleUrls: ['./dialog-user.component.scss']
 })
 export class DialogUserComponent implements DialogOverlay<AdminUserServiceEditData> {
 	edit: AdminUserServiceEditData;

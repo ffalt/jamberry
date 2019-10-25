@@ -10,8 +10,8 @@ export interface ContextMenuEpisodeComponentOpts {
 
 @Component({
 	selector: 'app-context-menu-episode',
-	templateUrl: 'context-menu-episode.component.html',
-	styleUrls: ['context-menu-episode.component.scss']
+	templateUrl: './context-menu-episode.component.html',
+	styleUrls: ['./context-menu-episode.component.scss']
 })
 export class ContextMenuEpisodeComponent implements ContextMenuHostComponentInterface<ContextMenuEpisodeComponentOpts> {
 	showGoTo: boolean = true;

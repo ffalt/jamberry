@@ -8,7 +8,7 @@ import {AlbumType} from '@jam';
 
 @Component({
 	selector: 'app-albums-index-loader-by-type',
-	templateUrl: 'albums-index-loader-by-type.component.html',
+	templateUrl: './albums-index-loader-by-type.component.html',
 	styleUrls: ['./albums-index-loader-by-type.component.scss']
 })
 export class AlbumsIndexLoaderByTypeComponent implements OnInit, OnDestroy {

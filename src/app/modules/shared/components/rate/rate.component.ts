@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 
 @Component({
 	selector: 'app-rate',
-	templateUrl: 'rate.component.html',
-	styleUrls: ['rate.component.scss']
+	templateUrl: './rate.component.html',
+	styleUrls: ['./rate.component.scss']
 })
 export class RateComponent implements OnInit, OnChanges {
 	@Input() rating: number = 0;

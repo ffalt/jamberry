@@ -4,8 +4,8 @@ import {ActionsService} from '@shared/services';
 
 @Component({
 	selector: 'app-current-playing',
-	templateUrl: 'current-playing.component.html',
-	styleUrls: ['current-playing.component.scss']
+	templateUrl: './current-playing.component.html',
+	styleUrls: ['./current-playing.component.scss']
 })
 export class CurrentPlayingComponent {
 

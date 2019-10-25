@@ -4,8 +4,8 @@ import {Jam, JamService} from '@jam';
 
 @Component({
 	selector: 'app-admin-artists',
-	templateUrl: 'admin-artists.component.html',
-	styleUrls: ['admin-artists.component.scss']
+	templateUrl: './admin-artists.component.html',
+	styleUrls: ['./admin-artists.component.scss']
 })
 export class AdminArtistsComponent implements OnInit {
 	artists: Array<Jam.Artist> = [];

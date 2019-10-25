@@ -4,8 +4,8 @@ import {Jam, JamObjectType, JamService} from '@jam';
 
 @Component({
 	selector: 'app-context-entry-rate',
-	templateUrl: 'context-entry-rate.component.html',
-	styleUrls: ['context-entry-rate.component.scss']
+	templateUrl: './context-entry-rate.component.html',
+	styleUrls: ['./context-entry-rate.component.scss']
 })
 export class ContextEntryRateComponent implements OnChanges {
 	@Input() base: Jam.Base;

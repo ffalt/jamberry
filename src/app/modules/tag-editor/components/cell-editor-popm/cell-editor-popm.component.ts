@@ -6,8 +6,8 @@ import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
 	selector: 'app-cell-editor-popm',
-	templateUrl: 'cell-editor-popm.component.html',
-	styleUrls: ['cell-editor-popm.component.scss'],
+	templateUrl: './cell-editor-popm.component.html',
+	styleUrls: ['./cell-editor-popm.component.scss'],
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorPopmComponent)}]
 })
 export class CellEditorPopmComponent extends CellEditor implements OnChanges {

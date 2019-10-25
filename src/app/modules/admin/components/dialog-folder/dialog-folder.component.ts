@@ -4,8 +4,8 @@ import {FolderEdit} from '../../admin.interface';
 
 @Component({
 	selector: 'app-dialog-folder',
-	templateUrl: 'dialog-folder.component.html',
-	styleUrls: ['dialog-folder.component.scss']
+	templateUrl: './dialog-folder.component.html',
+	styleUrls: ['./dialog-folder.component.scss']
 })
 export class DialogFolderComponent implements DialogOverlay<FolderEdit> {
 	edit: FolderEdit;

@@ -7,8 +7,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-albums-page-by-type',
-	templateUrl: 'albums-page-by-type.component.html',
-	styleUrls: ['albums-page-by-type.component.scss']
+	templateUrl: './albums-page-by-type.component.html',
+	styleUrls: ['./albums-page-by-type.component.scss']
 })
 export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {
 	albumType: AlbumType;

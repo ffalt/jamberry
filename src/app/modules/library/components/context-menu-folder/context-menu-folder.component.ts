@@ -6,8 +6,8 @@ import {ActionsService, PlaylistDialogsService} from '@shared/services';
 
 @Component({
 	selector: 'app-context-menu-folder',
-	templateUrl: 'context-menu-folder.component.html',
-	styleUrls: ['context-menu-folder.component.scss']
+	templateUrl: './context-menu-folder.component.html',
+	styleUrls: ['./context-menu-folder.component.scss']
 })
 export class ContextMenuFolderComponent implements ContextMenuHostComponentInterface<any> {
 	@ViewChild('folderMenu') contextMenu: ContextMenuComponent;

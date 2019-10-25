@@ -4,8 +4,8 @@ import {ArtistImageSearch} from '../artist-image/artist-image.component';
 
 @Component({
 	selector: 'app-dialog-artist-image',
-	templateUrl: 'dialog-artist-image.component.html',
-	styleUrls: ['dialog-artist-image.component.scss']
+	templateUrl: './dialog-artist-image.component.html',
+	styleUrls: ['./dialog-artist-image.component.scss']
 })
 export class DialogArtistImageComponent implements DialogOverlay<ArtistImageSearch> {
 	data: ArtistImageSearch;

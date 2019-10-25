@@ -7,8 +7,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-artist-mb',
-	templateUrl: 'artist-mb.component.html',
-	styleUrls: ['artist-mb.component.scss']
+	templateUrl: './artist-mb.component.html',
+	styleUrls: ['./artist-mb.component.scss']
 })
 export class ArtistMbComponent implements OnInit, OnDestroy {
 	mbArtistID: string;

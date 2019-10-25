@@ -7,8 +7,8 @@ import {ActionsService} from '@shared/services';
 
 @Component({
 	selector: 'app-artists',
-	templateUrl: 'artists.component.html',
-	styleUrls: ['artists.component.scss']
+	templateUrl: './artists.component.html',
+	styleUrls: ['./artists.component.scss']
 })
 export class ArtistsComponent {
 	@Input() typeName: string;

@@ -18,8 +18,8 @@ export interface PodcastSearch {
 
 @Component({
 	selector: 'app-page-podcast-search',
-	templateUrl: 'podcast-search-page.component.html',
-	styleUrls: ['podcast-search-page.component.scss']
+	templateUrl: './podcast-search-page.component.html',
+	styleUrls: ['./podcast-search-page.component.scss']
 })
 export class PodcastSearchPageComponent {
 	podcasts: Array<PodcastSearch>;

@@ -18,8 +18,8 @@ export interface ArtistImageNode {
 
 @Component({
 	selector: 'app-admin-artist-image',
-	templateUrl: 'artist-image.component.html',
-	styleUrls: ['artist-image.component.scss']
+	templateUrl: './artist-image.component.html',
+	styleUrls: ['./artist-image.component.scss']
 })
 export class ArtistImageComponent implements OnChanges {
 	@Input() data: ArtistImageSearch;

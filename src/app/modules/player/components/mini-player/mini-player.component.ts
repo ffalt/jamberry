@@ -4,8 +4,8 @@ import {AppService, PlayerService, QueueService} from '@core/services';
 
 @Component({
 	selector: 'app-mini-player',
-	templateUrl: 'mini-player.component.html',
-	styleUrls: ['mini-player.component.scss']
+	templateUrl: './mini-player.component.html',
+	styleUrls: ['./mini-player.component.scss']
 })
 export class MiniPlayerComponent {
 

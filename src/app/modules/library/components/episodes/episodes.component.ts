@@ -7,8 +7,8 @@ import {ContextMenuEpisodeComponent, ContextMenuEpisodeComponentOpts} from '../c
 
 @Component({
 	selector: 'app-episodes',
-	templateUrl: 'episodes.component.html',
-	styleUrls: ['episodes.component.scss']
+	templateUrl: './episodes.component.html',
+	styleUrls: ['./episodes.component.scss']
 })
 export class EpisodesComponent {
 	@Input() episodes: Array<Jam.PodcastEpisode>;

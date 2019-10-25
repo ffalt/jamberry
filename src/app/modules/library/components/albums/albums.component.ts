@@ -7,8 +7,8 @@ import {ContextMenuAlbumComponent} from '../context-menu-album/context-menu-albu
 
 @Component({
 	selector: 'app-albums',
-	templateUrl: 'albums.component.html',
-	styleUrls: ['albums.component.scss']
+	templateUrl: './albums.component.html',
+	styleUrls: ['./albums.component.scss']
 })
 export class AlbumsComponent implements OnChanges {
 	@Input() albums: Array<Jam.Album>;

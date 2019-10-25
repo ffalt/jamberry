@@ -7,8 +7,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-admin-folder-health',
-	templateUrl: 'admin-folder-health.component.html',
-	styleUrls: ['admin-folder-health.component.scss']
+	templateUrl: './admin-folder-health.component.html',
+	styleUrls: ['./admin-folder-health.component.scss']
 })
 export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	all: Array<Jam.FolderHealth>;

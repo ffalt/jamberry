@@ -6,8 +6,8 @@ import {ActionsService, PlaylistDialogsService} from '@shared/services';
 
 @Component({
 	selector: 'app-context-menu-artist',
-	templateUrl: 'context-menu-artist.component.html',
-	styleUrls: ['context-menu-artist.component.scss']
+	templateUrl: './context-menu-artist.component.html',
+	styleUrls: ['./context-menu-artist.component.scss']
 })
 export class ContextMenuArtistComponent implements ContextMenuHostComponentInterface<any> {
 	@ViewChild('artistMenu') contextMenu: ContextMenuComponent;

@@ -5,8 +5,8 @@ import {AppService, PlayerService, SettingsStoreService} from '@core/services';
 
 @Component({
 	selector: 'app-page-settings',
-	templateUrl: 'settings-page.component.html',
-	styleUrls: ['settings-page.component.scss']
+	templateUrl: './settings-page.component.html',
+	styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent {
 

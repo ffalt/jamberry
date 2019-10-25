@@ -5,8 +5,8 @@ import {ActionsService, PodcastService} from '@shared/services';
 
 @Component({
 	selector: 'app-episode-state-button',
-	templateUrl: 'episode-state.button.component.html',
-	styleUrls: ['episode-state.button.component.scss']
+	templateUrl: './episode-state.button.component.html',
+	styleUrls: ['./episode-state.button.component.scss']
 })
 export class EpisodeStateButtonComponent {
 	@Input() episode: Jam.PodcastEpisode;

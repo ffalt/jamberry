@@ -4,8 +4,8 @@ import {AlbumImageSearch} from '../album-image/album-image.component';
 
 @Component({
 	selector: 'app-dialog-album-image',
-	templateUrl: 'dialog-album-image.component.html',
-	styleUrls: ['dialog-album-image.component.scss']
+	templateUrl: './dialog-album-image.component.html',
+	styleUrls: ['./dialog-album-image.component.scss']
 })
 export class DialogAlbumImageComponent implements DialogOverlay<AlbumImageSearch> {
 	data: AlbumImageSearch;

@@ -11,7 +11,7 @@
 			<div class="images">
 				<div *ngFor="let node of nodes; trackBy: trackByFn">
 					<div class="image">
-						<img [src]="node.image.thumbnails.small"><br/>
+						<img alt="{{node.image.types}}" [src]="node.image.thumbnails.small"><br/>
 					</div>
 					<div class="footer">
 						<div class="footer-content">

@@ -6,8 +6,8 @@ import {StartSectionItem} from '@library/components';
 
 @Component({
 	selector: 'app-page-start',
-	templateUrl: 'start-page.component.html',
-	styleUrls: ['start-page.component.scss']
+	templateUrl: './start-page.component.html',
+	styleUrls: ['./start-page.component.scss']
 })
 export class StartPageComponent implements OnInit {
 	data: {

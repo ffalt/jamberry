@@ -10,8 +10,8 @@ export function scrollToIndexGroup(index: number): void {
 
 @Component({
 	selector: 'app-index',
-	templateUrl: 'index.component.html',
-	styleUrls: ['index.component.scss']
+	templateUrl: './index.component.html',
+	styleUrls: ['./index.component.scss']
 })
 export class IndexComponent {
 	@Input() index: Index;

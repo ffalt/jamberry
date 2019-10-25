@@ -10,8 +10,8 @@ import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/contex
 
 @Component({
 	selector: 'app-queue',
-	templateUrl: 'queue.component.html',
-	styleUrls: ['queue.component.scss']
+	templateUrl: './queue.component.html',
+	styleUrls: ['./queue.component.scss']
 })
 export class QueueComponent implements OnInit, OnDestroy {
 	@Input() showControls: boolean = true;

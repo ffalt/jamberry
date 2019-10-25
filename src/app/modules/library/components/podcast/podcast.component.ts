@@ -7,8 +7,8 @@ import {ContextMenuPodcastComponent} from '../context-menu-podcast/context-menu-
 
 @Component({
 	selector: 'app-podcast',
-	templateUrl: 'podcast.component.html',
-	styleUrls: ['podcast.component.scss']
+	templateUrl: './podcast.component.html',
+	styleUrls: ['./podcast.component.scss']
 })
 export class PodcastComponent implements OnChanges {
 	@Input() podcast: Jam.Podcast;

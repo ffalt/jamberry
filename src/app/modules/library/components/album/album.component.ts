@@ -7,8 +7,8 @@ import {ContextMenuAlbumComponent} from '../context-menu-album/context-menu-albu
 
 @Component({
 	selector: 'app-album',
-	templateUrl: 'album.component.html',
-	styleUrls: ['album.component.scss']
+	templateUrl: './album.component.html',
+	styleUrls: ['./album.component.scss']
 })
 export class AlbumComponent implements OnChanges {
 	@Input() album: Jam.Album;

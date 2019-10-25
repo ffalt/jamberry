@@ -15,8 +15,8 @@ const objTypes = {
 
 @Component({
 	selector: 'app-search-box',
-	templateUrl: 'search-box.component.html',
-	styleUrls: ['search-box.component.scss']
+	templateUrl: './search-box.component.html',
+	styleUrls: ['./search-box.component.scss']
 })
 export class SearchBoxComponent implements AutocompleteDataControl {
 	// asyncSelected: string = '';

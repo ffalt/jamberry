@@ -7,8 +7,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-tracks-loader-page-by-type',
-	templateUrl: 'tracks-loader-by-type.component.html',
-	styleUrls: ['tracks-loader-by-type.component.scss']
+	templateUrl: './tracks-loader-by-type.component.html',
+	styleUrls: ['./tracks-loader-by-type.component.scss']
 })
 export class TracksLoaderByTypeComponent implements OnInit, OnDestroy {
 	listType: JamParameters.ListType;

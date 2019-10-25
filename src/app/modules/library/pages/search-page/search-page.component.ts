@@ -20,8 +20,8 @@ export interface Tabs {
 
 @Component({
 	selector: 'app-page-search',
-	templateUrl: 'search-page.component.html',
-	styleUrls: ['search-page.component.scss']
+	templateUrl: './search-page.component.html',
+	styleUrls: ['./search-page.component.scss']
 })
 export class SearchPageComponent implements AutocompleteDataControl {
 	AlbumType = AlbumType;

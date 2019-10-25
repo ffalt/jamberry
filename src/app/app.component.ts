@@ -25,8 +25,8 @@ import {takeUntil} from 'rxjs/operators';
 @Component({
 	// tslint:disable-next-line:component-selector
 	selector: 'body',
-	templateUrl: 'app.component.html',
-	styleUrls: ['app.component.scss']
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
 	@HostBinding('class.expand') get expandBody(): boolean {

@@ -3,8 +3,8 @@ import {IndexEntry} from '@shared/services';
 
 @Component({
 	selector: 'app-index-entry',
-	templateUrl: 'index-entry.component.html',
-	styleUrls: ['index-entry.component.scss']
+	templateUrl: './index-entry.component.html',
+	styleUrls: ['./index-entry.component.scss']
 })
 export class IndexEntryComponent {
 	@Input() entry: IndexEntry;

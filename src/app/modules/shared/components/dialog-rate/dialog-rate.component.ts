@@ -8,8 +8,8 @@ export interface RateEdit {
 
 @Component({
 	selector: 'app-dialog-rate',
-	templateUrl: 'dialog-rate.component.html',
-	styleUrls: ['dialog-rate.component.scss']
+	templateUrl: './dialog-rate.component.html',
+	styleUrls: ['./dialog-rate.component.scss']
 })
 export class DialogRateComponent implements DialogOverlay<RateEdit> {
 	data: RateEdit;

@@ -6,8 +6,8 @@ import {PodcastService} from '@shared/services';
 
 @Component({
 	selector: 'app-page-podcasts',
-	templateUrl: 'podcasts-page.component.html',
-	styleUrls: ['podcasts-page.component.scss']
+	templateUrl: './podcasts-page.component.html',
+	styleUrls: ['./podcasts-page.component.scss']
 })
 export class PodcastsPageComponent {
 	lists = JamLists.filter(l => l.id !== 'random');

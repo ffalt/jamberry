@@ -2,8 +2,8 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 @Component({
 	selector: 'app-score-box',
-	templateUrl: 'score-box.component.html',
-	styleUrls: ['score-box.component.scss']
+	templateUrl: './score-box.component.html',
+	styleUrls: ['./score-box.component.scss']
 })
 export class ScoreBoxComponent implements OnChanges {
 	@Input() score: number;

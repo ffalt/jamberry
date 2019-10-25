@@ -10,8 +10,8 @@ export interface ContextMenuPlaylistComponentOptions {
 
 @Component({
 	selector: 'app-context-menu-playlist',
-	templateUrl: 'context-menu-playlist.component.html',
-	styleUrls: ['context-menu-playlist.component.scss']
+	templateUrl: './context-menu-playlist.component.html',
+	styleUrls: ['./context-menu-playlist.component.scss']
 })
 export class ContextMenuPlaylistComponent implements ContextMenuHostComponentInterface<ContextMenuPlaylistComponentOptions> {
 	@ViewChild('playlistMenu') contextMenu: ContextMenuComponent;

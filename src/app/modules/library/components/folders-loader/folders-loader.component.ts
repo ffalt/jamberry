@@ -5,8 +5,8 @@ import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
 	selector: 'app-folders-loader',
-	templateUrl: 'folders-loader.component.html',
-	styleUrls: ['folders-loader.component.scss']
+	templateUrl: './folders-loader.component.html',
+	styleUrls: ['./folders-loader.component.scss']
 })
 export class FoldersLoaderComponent implements OnChanges {
 	folders: Array<Jam.Folder>;

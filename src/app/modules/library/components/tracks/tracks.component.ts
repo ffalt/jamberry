@@ -7,8 +7,8 @@ import {ContextMenuTrackComponent, ContextMenuTrackComponentOptions} from '../co
 
 @Component({
 	selector: 'app-tracks',
-	templateUrl: 'tracks.component.html',
-	styleUrls: ['tracks.component.scss']
+	templateUrl: './tracks.component.html',
+	styleUrls: ['./tracks.component.scss']
 })
 export class TracksComponent {
 	@Input() tracks: Array<Jam.Track>;

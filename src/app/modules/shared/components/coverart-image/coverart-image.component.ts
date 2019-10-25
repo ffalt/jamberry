@@ -5,8 +5,8 @@ import {ImageOverlayContentComponent} from '../image-overlay-content/image-overl
 
 @Component({
 	selector: 'app-coverart-image',
-	templateUrl: 'coverart-image.component.html',
-	styleUrls: ['coverart-image.component.scss']
+	templateUrl: './coverart-image.component.html',
+	styleUrls: ['./coverart-image.component.scss']
 })
 export class CoverartImageComponent implements OnChanges, AfterContentInit {
 	@Input() coverArtObj: { id: string, name: string };

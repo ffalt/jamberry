@@ -7,8 +7,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-albums-index-loader',
-	templateUrl: 'albums-index-loader.component.html',
-	styleUrls: ['albums-index-loader.component.scss']
+	templateUrl: './albums-index-loader.component.html',
+	styleUrls: ['./albums-index-loader.component.scss']
 })
 export class AlbumsIndexLoaderComponent implements OnInit, OnChanges, OnDestroy {
 	index: Index;

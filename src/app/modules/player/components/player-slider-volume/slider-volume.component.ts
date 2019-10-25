@@ -3,8 +3,8 @@ import {PlayerEvents, PlayerService} from '@core/services';
 
 @Component({
 	selector: 'app-volume-slider',
-	templateUrl: 'slider-volume.component.html',
-	styleUrls: ['slider-volume.component.scss']
+	templateUrl: './slider-volume.component.html',
+	styleUrls: ['./slider-volume.component.scss']
 })
 export class SliderVolumeComponent implements OnInit {
 	volumePC: number = 50;

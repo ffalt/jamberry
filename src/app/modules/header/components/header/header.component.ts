@@ -8,8 +8,8 @@ import {ContextMenuUserComponent} from '../context-menu-user/context-menu-user.c
 
 @Component({
 	selector: 'app-header',
-	templateUrl: 'header.component.html',
-	styleUrls: ['header.component.scss']
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
 

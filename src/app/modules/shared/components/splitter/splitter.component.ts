@@ -2,8 +2,8 @@ import {Component, ElementRef, HostBinding, HostListener, Input} from '@angular/
 
 @Component({
 	selector: 'app-splitter',
-	templateUrl: 'splitter.component.html',
-	styleUrls: ['splitter.component.scss']
+	templateUrl: './splitter.component.html',
+	styleUrls: ['./splitter.component.scss']
 })
 export class SplitterComponent {
 	@Input() leftSnap: boolean = true;

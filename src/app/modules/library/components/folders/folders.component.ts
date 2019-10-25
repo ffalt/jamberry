@@ -7,8 +7,8 @@ import {ContextMenuFolderComponent} from '../context-menu-folder/context-menu-fo
 
 @Component({
 	selector: 'app-folders',
-	templateUrl: 'folders.component.html',
-	styleUrls: ['folders.component.scss']
+	templateUrl: './folders.component.html',
+	styleUrls: ['./folders.component.scss']
 })
 export class FoldersComponent {
 	@Input() folders: Array<Jam.Folder>;

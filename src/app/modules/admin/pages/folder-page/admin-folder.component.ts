@@ -9,8 +9,8 @@ import {FolderTreeComponent} from '../../components/folder-tree/folder-tree.comp
 
 @Component({
 	selector: 'app-admin-folder',
-	templateUrl: 'admin-folder.component.html',
-	styleUrls: ['admin-folder.component.scss']
+	templateUrl: './admin-folder.component.html',
+	styleUrls: ['./admin-folder.component.scss']
 })
 export class AdminFolderComponent implements OnInit, OnDestroy {
 	id: string = '';

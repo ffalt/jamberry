@@ -10,8 +10,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-page-artist',
-	templateUrl: 'artist-page.component.html',
-	styleUrls: ['artist-page.component.scss']
+	templateUrl: './artist-page.component.html',
+	styleUrls: ['./artist-page.component.scss']
 })
 export class ArtistPageComponent implements OnInit, OnDestroy {
 	AlbumType = AlbumType;

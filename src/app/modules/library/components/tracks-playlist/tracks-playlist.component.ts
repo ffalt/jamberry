@@ -6,8 +6,8 @@ import {ActionsService} from '@shared/services';
 
 @Component({
 	selector: 'app-tracks-playlist',
-	templateUrl: 'tracks-playlist.component.html',
-	styleUrls: ['tracks-playlist.component.scss']
+	templateUrl: './tracks-playlist.component.html',
+	styleUrls: ['./tracks-playlist.component.scss']
 })
 export class TracksPlaylistComponent {
 	@Input() tracks: Array<Jam.Track>;

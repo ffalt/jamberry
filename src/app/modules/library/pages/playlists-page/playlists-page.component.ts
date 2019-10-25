@@ -4,8 +4,8 @@ import {PlaylistDialogsService} from '@shared/services';
 
 @Component({
 	selector: 'app-page-playlists',
-	templateUrl: 'playlists-page.component.html',
-	styleUrls: ['playlists-page.component.scss']
+	templateUrl: './playlists-page.component.html',
+	styleUrls: ['./playlists-page.component.scss']
 })
 export class PlaylistsPageComponent {
 	JamLists = JamLists;

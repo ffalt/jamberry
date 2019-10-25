@@ -10,8 +10,8 @@ export interface ContextMenuTrackComponentOptions {
 
 @Component({
 	selector: 'app-context-menu-track',
-	templateUrl: 'context-menu-track.component.html',
-	styleUrls: ['context-menu-track.component.scss']
+	templateUrl: './context-menu-track.component.html',
+	styleUrls: ['./context-menu-track.component.scss']
 })
 export class ContextMenuTrackComponent implements ContextMenuHostComponentInterface<ContextMenuTrackComponentOptions> {
 	@ViewChild('trackMenu') contextMenu: ContextMenuComponent;

@@ -4,8 +4,8 @@ import {Jam, JamService} from '@jam';
 
 @Component({
 	selector: 'app-admin-albums',
-	templateUrl: 'admin-albums.component.html',
-	styleUrls: ['admin-albums.component.scss']
+	templateUrl: './admin-albums.component.html',
+	styleUrls: ['./admin-albums.component.scss']
 })
 export class AdminAlbumsComponent implements OnInit {
 	albums: Array<Jam.Album> = [];

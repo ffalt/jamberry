@@ -4,8 +4,8 @@ import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
 	selector: 'app-cell-editor-txt-list',
-	templateUrl: 'cell-editor-txt-list.component.html',
-	styleUrls: ['cell-editor-txt-list.component.scss'],
+	templateUrl: './cell-editor-txt-list.component.html',
+	styleUrls: ['./cell-editor-txt-list.component.scss'],
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorTxtListComponent)}]
 })
 export class CellEditorTxtListComponent extends CellEditor implements OnChanges {

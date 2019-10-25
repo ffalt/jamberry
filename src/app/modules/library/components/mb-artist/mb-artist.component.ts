@@ -19,8 +19,8 @@ export interface ReleaseGroup {
 
 @Component({
 	selector: 'app-mb-artist',
-	templateUrl: 'mb-artist.component.html',
-	styleUrls: ['mb-artist.component.scss']
+	templateUrl: './mb-artist.component.html',
+	styleUrls: ['./mb-artist.component.scss']
 })
 export class MbArtistComponent implements OnChanges {
 	mbArtist: MusicBrainz.Artist;

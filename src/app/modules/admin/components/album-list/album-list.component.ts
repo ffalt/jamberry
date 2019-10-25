@@ -4,8 +4,8 @@ import {JamDataSource} from '../../model/data-source';
 
 @Component({
 	selector: 'app-admin-album-list',
-	templateUrl: 'album-list.component.html',
-	styleUrls: ['album-list.component.scss']
+	templateUrl: './album-list.component.html',
+	styleUrls: ['./album-list.component.scss']
 })
 export class AlbumListComponent implements OnChanges {
 	@Input() albums: Array<Jam.Album> = [];

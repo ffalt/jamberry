@@ -5,8 +5,8 @@ import {PlaylistEdit} from '@shared/services';
 
 @Component({
 	selector: 'app-dialog-new-playlist',
-	templateUrl: 'dialog-playlist.component.html',
-	styleUrls: ['dialog-playlist.component.scss']
+	templateUrl: './dialog-playlist.component.html',
+	styleUrls: ['./dialog-playlist.component.scss']
 })
 export class DialogPlaylistComponent implements DialogOverlay<PlaylistEdit> {
 	showTrackPreview = false;

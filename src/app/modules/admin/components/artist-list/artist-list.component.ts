@@ -5,8 +5,8 @@ import {JamDataSource} from '../../model/data-source';
 
 @Component({
 	selector: 'app-admin-artist-list',
-	templateUrl: 'artist-list.component.html',
-	styleUrls: ['artist-list.component.scss']
+	templateUrl: './artist-list.component.html',
+	styleUrls: ['./artist-list.component.scss']
 })
 export class AdminArtistListComponent implements OnChanges {
 	dataSource: JamDataSource<Jam.Artist>;

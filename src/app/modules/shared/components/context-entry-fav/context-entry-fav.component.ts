@@ -4,8 +4,8 @@ import {Jam, JamObjectType, JamService} from '@jam';
 
 @Component({
 	selector: 'app-context-entry-fav',
-	templateUrl: 'context-entry-fav.component.html',
-	styleUrls: ['context-entry-fav.component.scss']
+	templateUrl: './context-entry-fav.component.html',
+	styleUrls: ['./context-entry-fav.component.scss']
 })
 export class ContextEntryFavComponent {
 	@Input() base: Jam.Base;

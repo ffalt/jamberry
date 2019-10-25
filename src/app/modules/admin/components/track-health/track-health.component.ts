@@ -21,8 +21,8 @@ export interface TrackHealthHint {
 
 @Component({
 	selector: 'app-track-health',
-	templateUrl: 'track-health.component.html',
-	styleUrls: ['track-health.component.scss']
+	templateUrl: './track-health.component.html',
+	styleUrls: ['./track-health.component.scss']
 })
 export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	hints: Array<TrackHealthHint>;

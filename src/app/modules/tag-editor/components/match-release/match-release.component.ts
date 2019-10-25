@@ -96,8 +96,8 @@ export interface ImageNode {
 
 @Component({
 	selector: 'app-match-release',
-	templateUrl: 'match-release.component.html',
-	styleUrls: ['match-release.component.scss']
+	templateUrl: './match-release.component.html',
+	styleUrls: ['./match-release.component.scss']
 })
 export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	@Input() data: ReleaseMatching;

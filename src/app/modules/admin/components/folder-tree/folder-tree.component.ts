@@ -26,8 +26,8 @@ function walkChildren(node: TreeNode, onItem: (node: TreeNode) => void): void {
 
 @Component({
 	selector: 'app-admin-folder-tree',
-	templateUrl: 'folder-tree.component.html',
-	styleUrls: ['folder-tree.component.scss']
+	templateUrl: './folder-tree.component.html',
+	styleUrls: ['./folder-tree.component.scss']
 })
 export class FolderTreeComponent implements OnInit, OnDestroy {
 	selected: TreeNode;

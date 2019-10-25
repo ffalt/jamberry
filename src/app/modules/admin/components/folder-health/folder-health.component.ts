@@ -23,8 +23,8 @@ export interface FolderHealthHint {
 
 @Component({
 	selector: 'app-folder-health',
-	templateUrl: 'folder-health.component.html',
-	styleUrls: ['folder-health.component.scss']
+	templateUrl: './folder-health.component.html',
+	styleUrls: ['./folder-health.component.scss']
 })
 export class FolderHealthComponent implements OnChanges {
 	hints: Array<FolderHealthHint>;

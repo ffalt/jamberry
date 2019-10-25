@@ -2,8 +2,8 @@ import {Component, Input} from '@angular/core';
 
 @Component({
 	selector: 'app-logo-icon',
-	templateUrl: 'logo-icon.component.html',
-	styleUrls: ['logo-icon.component.scss']
+	templateUrl: './logo-icon.component.html',
+	styleUrls: ['./logo-icon.component.scss']
 })
 export class LogoIconComponent {
 	@Input() size: number = 30;

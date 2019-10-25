@@ -3,8 +3,8 @@ import {DeferLoadService} from '@app/modules/defer-load';
 
 @Component({
 	selector: 'app-library',
-	templateUrl: 'library.component.html',
-	styleUrls: ['library.component.scss']
+	templateUrl: './library.component.html',
+	styleUrls: ['./library.component.scss']
 })
 
 export class LibraryComponent {

@@ -7,8 +7,8 @@ export interface PasswordEdit {
 
 @Component({
 	selector: 'app-dialog-password',
-	templateUrl: 'dialog-password.component.html',
-	styleUrls: ['dialog-password.component.scss']
+	templateUrl: './dialog-password.component.html',
+	styleUrls: ['./dialog-password.component.scss']
 })
 export class DialogPasswordComponent implements DialogOverlay<PasswordEdit> {
 	data: PasswordEdit;

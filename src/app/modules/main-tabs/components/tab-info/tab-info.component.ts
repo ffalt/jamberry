@@ -4,8 +4,8 @@ import {NavigService, PlayerService} from '@core/services';
 
 @Component({
 	selector: 'app-tab-info',
-	templateUrl: 'tab-info.component.html',
-	styleUrls: ['tab-info.component.scss']
+	templateUrl: './tab-info.component.html',
+	styleUrls: ['./tab-info.component.scss']
 })
 export class TabInfoComponent implements TabComponent {
 

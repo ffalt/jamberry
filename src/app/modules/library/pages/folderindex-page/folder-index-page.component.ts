@@ -8,8 +8,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-page-folder-index',
-	templateUrl: 'folder-index-page.component.html',
-	styleUrls: ['folder-index-page.component.scss']
+	templateUrl: './folder-index-page.component.html',
+	styleUrls: ['./folder-index-page.component.scss']
 })
 export class FolderIndexPageComponent implements OnInit, OnDestroy {
 	index: Index;

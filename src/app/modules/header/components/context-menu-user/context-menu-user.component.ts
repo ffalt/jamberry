@@ -6,8 +6,8 @@ import {NavigService} from '@core/services';
 
 @Component({
 	selector: 'app-context-menu-user',
-	templateUrl: 'context-menu-user.component.html',
-	styleUrls: ['context-menu-user.component.scss']
+	templateUrl: './context-menu-user.component.html',
+	styleUrls: ['./context-menu-user.component.scss']
 })
 export class ContextMenuUserComponent implements ContextMenuHostComponentInterface<any> {
 	@ViewChild('userMenu') contextMenu: ContextMenuComponent;

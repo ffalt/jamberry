@@ -10,8 +10,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-page-folder',
-	templateUrl: 'folder-page.component.html',
-	styleUrls: ['folder-page.component.scss']
+	templateUrl: './folder-page.component.html',
+	styleUrls: ['./folder-page.component.scss']
 })
 export class FolderPageComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder;

@@ -6,8 +6,8 @@ import {IndividualConfig, ToastPackage} from './toast-config';
 
 @Component({
 	selector: 'app-toast-component',
-	templateUrl: 'toast.component.html',
-	styleUrls: ['toast.component.scss'],
+	templateUrl: './toast.component.html',
+	styleUrls: ['./toast.component.scss'],
 	// tslint:disable-next-line:use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None,
 	animations: [

@@ -7,8 +7,8 @@ import {DialogPasswordComponent, PasswordEdit} from '@shared/components';
 
 @Component({
 	selector: 'app-sessions-page',
-	templateUrl: 'sessions-page.component.html',
-	styleUrls: ['sessions-page.component.scss']
+	templateUrl: './sessions-page.component.html',
+	styleUrls: ['./sessions-page.component.scss']
 })
 export class SessionsPageComponent implements OnInit {
 	sessions: Array<Jam.UserSession>;

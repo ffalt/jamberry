@@ -8,8 +8,8 @@ import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/contex
 
 @Component({
 	selector: 'app-player-current-info',
-	templateUrl: 'player-current-info.component.html',
-	styleUrls: ['player-current-info.component.scss']
+	templateUrl: './player-current-info.component.html',
+	styleUrls: ['./player-current-info.component.scss']
 })
 export class PlayerCurrentInfoComponent implements TabComponent {
 

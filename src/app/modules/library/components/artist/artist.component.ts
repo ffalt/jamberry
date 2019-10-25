@@ -7,8 +7,8 @@ import {ActionsService} from '@shared/services';
 
 @Component({
 	selector: 'app-artist',
-	templateUrl: 'artist.component.html',
-	styleUrls: ['artist.component.scss']
+	templateUrl: './artist.component.html',
+	styleUrls: ['./artist.component.scss']
 })
 export class ArtistComponent {
 	AlbumType = AlbumType;

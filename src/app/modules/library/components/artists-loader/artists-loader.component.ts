@@ -5,8 +5,8 @@ import {LoadMoreButtonComponent} from '@shared/components/load-more-button/load-
 
 @Component({
 	selector: 'app-artists-loader',
-	templateUrl: 'artists-loader.component.html',
-	styleUrls: ['artists-loader.component.scss']
+	templateUrl: './artists-loader.component.html',
+	styleUrls: ['./artists-loader.component.scss']
 })
 export class ArtistsLoaderComponent implements OnChanges {
 	artists: Array<Jam.Artist>;

@@ -4,8 +4,8 @@ import {AppService, PlayerService, QueueService} from '@core/services';
 
 @Component({
 	selector: 'app-player',
-	templateUrl: 'player.component.html',
-	styleUrls: ['player.component.scss']
+	templateUrl: './player.component.html',
+	styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent {
 	showSpeed: boolean = false;

@@ -4,8 +4,8 @@ import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomp
 
 @Component({
 	selector: 'app-tag-editor-inline-autocomplete',
-	templateUrl: 'tag-editor-inline-autocomplete.component.html',
-	styleUrls: ['tag-editor-inline-autocomplete.component.scss'],
+	templateUrl: './tag-editor-inline-autocomplete.component.html',
+	styleUrls: ['./tag-editor-inline-autocomplete.component.scss'],
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
 		useExisting: TagEditorInlineAutocompleteComponent,

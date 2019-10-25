@@ -7,8 +7,8 @@ import {ContextMenuPlaylistComponent, ContextMenuPlaylistComponentOptions} from 
 
 @Component({
 	selector: 'app-playlist',
-	templateUrl: 'playlist.component.html',
-	styleUrls: ['playlist.component.scss']
+	templateUrl: './playlist.component.html',
+	styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnChanges {
 	@Input() playlist: Jam.Playlist;

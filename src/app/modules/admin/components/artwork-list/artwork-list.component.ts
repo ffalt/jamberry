@@ -25,8 +25,8 @@ function extractExt(filename: string): string {
 
 @Component({
 	selector: 'app-admin-artwork-list',
-	templateUrl: 'artwork-list.component.html',
-	styleUrls: ['artwork-list.component.scss']
+	templateUrl: './artwork-list.component.html',
+	styleUrls: ['./artwork-list.component.scss']
 })
 export class ArtworkListComponent implements OnChanges {
 	@Input() artworks: Array<Jam.ArtworkImage>;

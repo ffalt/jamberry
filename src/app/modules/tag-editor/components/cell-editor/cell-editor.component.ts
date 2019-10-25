@@ -6,8 +6,8 @@ import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
 	selector: 'app-cell-editor',
-	templateUrl: 'cell-editor.component.html',
-	styleUrls: ['cell-editor.component.scss']
+	templateUrl: './cell-editor.component.html',
+	styleUrls: ['./cell-editor.component.scss']
 })
 export class CellEditorComponent {
 	FrameType = FrameType;

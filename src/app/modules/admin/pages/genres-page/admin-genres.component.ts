@@ -5,8 +5,8 @@ import {JamDataSource} from '../../model/data-source';
 
 @Component({
 	selector: 'app-admin-genres',
-	templateUrl: 'admin-genres.component.html',
-	styleUrls: ['admin-genres.component.scss']
+	templateUrl: './admin-genres.component.html',
+	styleUrls: ['./admin-genres.component.scss']
 })
 export class AdminGenresComponent implements OnInit {
 	tracks: Array<Jam.Track>;

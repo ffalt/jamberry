@@ -11,8 +11,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-admin-folder-folders',
-	templateUrl: 'admin-folder-folders.component.html',
-	styleUrls: ['admin-folder-folders.component.scss']
+	templateUrl: './admin-folder-folders.component.html',
+	styleUrls: ['./admin-folder-folders.component.scss']
 })
 export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder | undefined;

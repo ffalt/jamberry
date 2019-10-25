@@ -7,8 +7,8 @@ import {ActionsService, PlaylistDialogsService, PodcastService} from '@shared/se
 
 @Component({
 	selector: 'app-context-menu-podcast',
-	templateUrl: 'context-menu-podcast.component.html',
-	styleUrls: ['context-menu-podcast.component.scss']
+	templateUrl: './context-menu-podcast.component.html',
+	styleUrls: ['./context-menu-podcast.component.scss']
 })
 export class ContextMenuPodcastComponent implements ContextMenuHostComponentInterface<any> {
 	@ViewChild('podcastMenu') contextMenu: ContextMenuComponent;

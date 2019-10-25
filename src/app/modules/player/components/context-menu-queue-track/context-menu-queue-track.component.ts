@@ -6,8 +6,8 @@ import {ActionsService} from '@shared/services';
 
 @Component({
 	selector: 'app-context-menu-queue-track',
-	templateUrl: 'context-menu-queue-track.component.html',
-	styleUrls: ['context-menu-queue-track.component.scss']
+	templateUrl: './context-menu-queue-track.component.html',
+	styleUrls: ['./context-menu-queue-track.component.scss']
 })
 export class ContextMenuQueueTrackComponent implements ContextMenuHostComponentInterface<any> {
 	@ViewChild('queueMenu') contextMenu: ContextMenuComponent;

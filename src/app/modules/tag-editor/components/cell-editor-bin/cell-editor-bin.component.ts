@@ -10,8 +10,8 @@ export interface BinFrame {
 
 @Component({
 	selector: 'app-cell-editor-bin',
-	templateUrl: 'cell-editor-bin.component.html',
-	styleUrls: ['cell-editor-bin.component.scss'],
+	templateUrl: './cell-editor-bin.component.html',
+	styleUrls: ['./cell-editor-bin.component.scss'],
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorBinComponent)}]
 })
 export class CellEditorBinComponent extends CellEditor implements OnChanges {

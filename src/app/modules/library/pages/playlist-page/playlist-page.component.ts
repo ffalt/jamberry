@@ -13,8 +13,8 @@ import {
 
 @Component({
 	selector: 'app-page-playlist',
-	templateUrl: 'playlist-page.component.html',
-	styleUrls: ['playlist-page.component.scss']
+	templateUrl: './playlist-page.component.html',
+	styleUrls: ['./playlist-page.component.scss']
 })
 export class PlaylistPageComponent implements OnInit, OnDestroy {
 	playlist: Jam.Playlist;

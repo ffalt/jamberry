@@ -4,7 +4,7 @@ import {JamService} from '@jam';
 
 @Component({
 	selector: 'app-lyrics',
-	templateUrl: 'lyrics.component.html',
+	templateUrl: './lyrics.component.html',
 	styleUrls: ['./lyrics.component.scss']
 })
 export class LyricsComponent implements OnChanges {

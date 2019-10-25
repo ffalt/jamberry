@@ -7,8 +7,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-artist-similar',
-	templateUrl: 'artist-similar.component.html',
-	styleUrls: ['artist-similar.component.scss']
+	templateUrl: './artist-similar.component.html',
+	styleUrls: ['./artist-similar.component.scss']
 })
 export class ArtistSimilarComponent implements OnInit, OnDestroy {
 	artist: Jam.Artist;

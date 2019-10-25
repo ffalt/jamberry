@@ -7,8 +7,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-sidebar-index',
-	templateUrl: 'sidebar-index.component.html',
-	styleUrls: ['sidebar-index.component.scss']
+	templateUrl: './sidebar-index.component.html',
+	styleUrls: ['./sidebar-index.component.scss']
 })
 export class SidebarIndexComponent implements OnInit, OnDestroy {
 	index: Index;

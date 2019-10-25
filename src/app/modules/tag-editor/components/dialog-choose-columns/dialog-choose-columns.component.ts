@@ -19,8 +19,8 @@ export interface SelectColumn {
 
 @Component({
 	selector: 'app-dialog-choose-columns',
-	templateUrl: 'dialog-choose-columns.component.html',
-	styleUrls: ['dialog-choose-columns.component.scss']
+	templateUrl: './dialog-choose-columns.component.html',
+	styleUrls: ['./dialog-choose-columns.component.scss']
 })
 export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns> {
 	data: SelectColumns;

@@ -10,8 +10,8 @@ import {JamDataSource} from '../../model/data-source';
 
 @Component({
 	selector: 'app-admin-root',
-	templateUrl: 'admin-root.component.html',
-	styleUrls: ['admin-root.component.scss']
+	templateUrl: './admin-root.component.html',
+	styleUrls: ['./admin-root.component.scss']
 })
 export class AdminRootComponent implements OnInit, OnDestroy {
 	roots: Array<Jam.Root>;

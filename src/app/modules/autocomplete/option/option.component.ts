@@ -5,7 +5,7 @@ import {AutocompleteControl, AutocompleteOption} from '@app/modules/autocomplete
 	selector: 'app-autocomplete-option',
 	template: '<ng-content></ng-content>',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	styleUrls: ['option.component.scss']
+	styleUrls: ['./option.component.scss']
 })
 export class OptionComponent {
 	@Input() option: AutocompleteOption;

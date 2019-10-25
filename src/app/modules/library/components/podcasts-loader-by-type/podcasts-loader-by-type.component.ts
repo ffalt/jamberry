@@ -7,8 +7,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-podcasts-loader-page-by-type',
-	templateUrl: 'podcasts-loader-by-type.component.html',
-	styleUrls: ['podcasts-loader-by-type.component.scss']
+	templateUrl: './podcasts-loader-by-type.component.html',
+	styleUrls: ['./podcasts-loader-by-type.component.scss']
 })
 export class PodcastsLoaderByTypeComponent implements OnInit, OnDestroy {
 	listType: JamParameters.ListType;

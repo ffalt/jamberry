@@ -7,8 +7,8 @@ import {TagEditorComponent} from '../../components/tag-editor/tag-editor.compone
 
 @Component({
 	selector: 'app-admin-folder-tag-editor',
-	templateUrl: 'admin-folder-tag-editor.component.html',
-	styleUrls: ['admin-folder-tag-editor.component.scss']
+	templateUrl: './admin-folder-tag-editor.component.html',
+	styleUrls: ['./admin-folder-tag-editor.component.scss']
 })
 export class AdminFolderTagEditorComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
 	id: string;

@@ -6,8 +6,8 @@ import {Jam, JamService} from '@jam';
 
 @Component({
 	selector: 'app-admin-artist',
-	templateUrl: 'admin-artist.component.html',
-	styleUrls: ['admin-artist.component.scss']
+	templateUrl: './admin-artist.component.html',
+	styleUrls: ['./admin-artist.component.scss']
 })
 export class AdminArtistComponent extends AdminBaseViewIdComponent {
 	artist: Jam.Artist;

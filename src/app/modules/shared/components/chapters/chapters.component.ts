@@ -4,7 +4,7 @@ import {Jam} from '@jam';
 
 @Component({
 	selector: 'app-chapters',
-	templateUrl: 'chapters.component.html',
+	templateUrl: './chapters.component.html',
 	styleUrls: ['./chapters.component.scss']
 })
 export class ChaptersComponent {

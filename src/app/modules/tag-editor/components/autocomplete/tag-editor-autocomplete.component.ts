@@ -3,8 +3,8 @@ import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomp
 
 @Component({
 	selector: 'app-tag-editor-autocomplete',
-	templateUrl: 'tag-editor-autocomplete.component.html',
-	styleUrls: ['tag-editor-autocomplete.component.scss'],
+	templateUrl: './tag-editor-autocomplete.component.html',
+	styleUrls: ['./tag-editor-autocomplete.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TagEditorAutocompleteComponent implements AutocompleteDataControl, OnChanges {

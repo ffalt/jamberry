@@ -11,8 +11,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-admin-folder',
-	templateUrl: 'admin-folder-overview.component.html',
-	styleUrls: ['admin-folder-overview.component.scss']
+	templateUrl: './admin-folder-overview.component.html',
+	styleUrls: ['./admin-folder-overview.component.scss']
 })
 export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	name: string = '';

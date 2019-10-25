@@ -10,8 +10,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-page-episode',
-	templateUrl: 'episode-page.component.html',
-	styleUrls: ['episode-page.component.scss']
+	templateUrl: './episode-page.component.html',
+	styleUrls: ['./episode-page.component.scss']
 })
 export class EpisodePageComponent implements OnInit, OnDestroy {
 	episode: Jam.PodcastEpisode;

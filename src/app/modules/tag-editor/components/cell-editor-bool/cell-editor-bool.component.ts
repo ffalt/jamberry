@@ -16,8 +16,8 @@ import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
 	selector: 'app-cell-editor-bool',
-	templateUrl: 'cell-editor-bool.component.html',
-	styleUrls: ['cell-editor-bool.component.scss'],
+	templateUrl: './cell-editor-bool.component.html',
+	styleUrls: ['./cell-editor-bool.component.scss'],
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorBoolComponent)}]
 })
 export class CellEditorBoolComponent extends CellEditor implements OnChanges {

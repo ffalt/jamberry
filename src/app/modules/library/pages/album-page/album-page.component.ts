@@ -10,8 +10,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-page-album',
-	templateUrl: 'album-page.component.html',
-	styleUrls: ['album-page.component.scss']
+	templateUrl: './album-page.component.html',
+	styleUrls: ['./album-page.component.scss']
 })
 export class AlbumPageComponent implements OnInit, OnDestroy {
 	album: Jam.Album;

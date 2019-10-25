@@ -4,8 +4,8 @@ import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
 	selector: 'app-cell-editor-unknown',
-	templateUrl: 'cell-editor-unknown.component.html',
-	styleUrls: ['cell-editor-unknown.component.scss'],
+	templateUrl: './cell-editor-unknown.component.html',
+	styleUrls: ['./cell-editor-unknown.component.scss'],
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorUnknownComponent)}]
 })
 export class CellEditorUnknownComponent extends CellEditor {

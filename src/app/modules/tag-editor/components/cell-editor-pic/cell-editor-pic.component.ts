@@ -31,8 +31,8 @@ export const Id3v2ValuePicTypes: { [name: string]: string; } = {
 
 @Component({
 	selector: 'app-cell-editor-pic',
-	templateUrl: 'cell-editor-pic.component.html',
-	styleUrls: ['cell-editor-pic.component.scss'],
+	templateUrl: './cell-editor-pic.component.html',
+	styleUrls: ['./cell-editor-pic.component.scss'],
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorPicComponent)}]
 })
 export class CellEditorPicComponent extends CellEditor implements OnChanges {

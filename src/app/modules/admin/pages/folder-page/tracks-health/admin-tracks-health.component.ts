@@ -7,8 +7,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-admin-tracks-health',
-	templateUrl: 'admin-tracks-health.component.html',
-	styleUrls: ['admin-tracks-health.component.scss']
+	templateUrl: './admin-tracks-health.component.html',
+	styleUrls: ['./admin-tracks-health.component.scss']
 })
 
 export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {

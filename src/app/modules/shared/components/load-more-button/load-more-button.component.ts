@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
 	selector: 'app-load-more-button',
-	templateUrl: 'load-more-button.component.html',
-	styleUrls: ['load-more-button.component.scss']
+	templateUrl: './load-more-button.component.html',
+	styleUrls: ['./load-more-button.component.scss']
 })
 export class LoadMoreButtonComponent {
 	@Input() offset: number = 0;

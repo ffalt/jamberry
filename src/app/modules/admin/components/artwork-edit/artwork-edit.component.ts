@@ -14,8 +14,8 @@ export interface ImageEdit {
 
 @Component({
 	selector: 'app-admin-artwork-edit',
-	templateUrl: 'artwork-edit.component.html',
-	styleUrls: ['artwork-edit.component.scss']
+	templateUrl: './artwork-edit.component.html',
+	styleUrls: ['./artwork-edit.component.scss']
 })
 export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	@Input() data: ImageEdit;

@@ -5,8 +5,8 @@ import {TagEditorInlineAutocompleteComponent} from '../inline-autocomplete/tag-e
 
 @Component({
 	selector: 'app-cell-editor-txt',
-	templateUrl: 'cell-editor-txt.component.html',
-	styleUrls: ['cell-editor-txt.component.scss'],
+	templateUrl: './cell-editor-txt.component.html',
+	styleUrls: ['./cell-editor-txt.component.scss'],
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorTxtComponent)}]
 })
 export class CellEditorTxtComponent extends CellEditor implements OnChanges {

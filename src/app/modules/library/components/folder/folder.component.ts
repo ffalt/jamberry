@@ -36,8 +36,8 @@ export function getFolderTypeInfo(folder: Jam.Folder): { type?: string; name?: s
 
 @Component({
 	selector: 'app-folder',
-	templateUrl: 'folder.component.html',
-	styleUrls: ['folder.component.scss']
+	templateUrl: './folder.component.html',
+	styleUrls: ['./folder.component.scss']
 })
 export class FolderComponent implements OnChanges {
 	showTracks: boolean = true;

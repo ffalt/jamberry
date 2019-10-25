@@ -5,8 +5,8 @@ import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
 	selector: 'app-tracks-loader',
-	templateUrl: 'tracks-loader.component.html',
-	styleUrls: ['tracks-loader.component.scss']
+	templateUrl: './tracks-loader.component.html',
+	styleUrls: ['./tracks-loader.component.scss']
 })
 export class TracksLoaderComponent implements OnChanges {
 	showRating: boolean = false;

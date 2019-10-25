@@ -6,8 +6,8 @@ import {JamAuthService} from '@jam';
 
 @Component({
 	selector: 'app-page-about',
-	templateUrl: 'about-page.component.html',
-	styleUrls: ['about-page.component.scss']
+	templateUrl: './about-page.component.html',
+	styleUrls: ['./about-page.component.scss']
 })
 export class AboutPageComponent {
 	keyCmds: Array<{ name: string, desc: string }> = [];

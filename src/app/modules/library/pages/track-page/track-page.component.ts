@@ -12,8 +12,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-page-track',
-	templateUrl: 'track-page.component.html',
-	styleUrls: ['track-page.component.scss']
+	templateUrl: './track-page.component.html',
+	styleUrls: ['./track-page.component.scss']
 })
 export class TrackPageComponent implements OnInit, OnDestroy {
 	track: Jam.Track;

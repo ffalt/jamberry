@@ -6,8 +6,8 @@ import {SidebarListItem} from '@library/components';
 
 @Component({
 	selector: 'app-sidebar',
-	templateUrl: 'sidebar.component.html',
-	styleUrls: ['sidebar.component.scss']
+	templateUrl: './sidebar.component.html',
+	styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 	root: Jam.Root;

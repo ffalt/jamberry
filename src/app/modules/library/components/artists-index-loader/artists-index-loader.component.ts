@@ -8,8 +8,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-artists-index-loader',
-	templateUrl: 'artists-index-loader.component.html',
-	styleUrls: ['artists-index-loader.component.scss']
+	templateUrl: './artists-index-loader.component.html',
+	styleUrls: ['./artists-index-loader.component.scss']
 })
 export class ArtistsIndexLoaderComponent implements OnInit, OnDestroy {
 	index: Index;

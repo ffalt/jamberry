@@ -16,8 +16,8 @@ import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
 
 @Component({
 	selector: 'app-dialog-overlay',
-	templateUrl: 'dialog-overlay.component.html',
-	styleUrls: ['dialog-overlay.component.scss'],
+	templateUrl: './dialog-overlay.component.html',
+	styleUrls: ['./dialog-overlay.component.scss'],
 	// tslint:disable-next-line:use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None
 })

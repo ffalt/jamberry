@@ -3,8 +3,8 @@ import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/m
 
 @Component({
 	selector: 'app-text-overlay-content',
-	templateUrl: 'text-overlay-content.component.html',
-	styleUrls: ['text-overlay-content.component.scss']
+	templateUrl: './text-overlay-content.component.html',
+	styleUrls: ['./text-overlay-content.component.scss']
 })
 export class TextOverlayContentComponent implements DialogOverlay<string> {
 	data: string;

@@ -4,8 +4,8 @@ import {Jam, JamService} from '@jam';
 
 @Component({
 	selector: 'app-admin-settings',
-	templateUrl: 'admin-settings.component.html',
-	styleUrls: ['admin-settings.component.scss']
+	templateUrl: './admin-settings.component.html',
+	styleUrls: ['./admin-settings.component.scss']
 })
 
 export class AdminSettingsComponent implements OnInit {

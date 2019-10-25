@@ -386,7 +386,13 @@
 			"allow-boolean-or-undefined",
 			"allow-number"
 		],
+		"relative-url-prefix": true,
 		"switch-default": true,
+		"template-accessibility-label-for": false,
+		"template-accessibility-tabindex-no-positive": true,
+		"template-accessibility-elements-content": false,
+		"template-accessibility-valid-aria": true,
+		"template-no-any": true,
 		"template-banana-in-box": true,
 		"template-conditional-complexity": true,
 		"template-cyclomatic-complexity": [
@@ -398,6 +404,11 @@
 			"check-id",
 			"check-text"
 		],
+		"template-no-autofocus": true,
+		"template-no-distracting-elements": true,
+		"template-click-events-have-key-events": false,
+		"template-mouse-events-have-key-events": false,
+		"template-accessibility-alt-text": false,
 		"template-no-call-expression": true,
 		"template-no-negated-async": true,
 		"template-use-track-by-function": false,

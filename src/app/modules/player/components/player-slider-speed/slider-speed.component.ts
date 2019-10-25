@@ -3,8 +3,8 @@ import {PlayerEvents, PlayerService} from '@core/services';
 
 @Component({
 	selector: 'app-speed-slider',
-	templateUrl: 'slider-speed.component.html',
-	styleUrls: ['slider-speed.component.scss']
+	templateUrl: './slider-speed.component.html',
+	styleUrls: ['./slider-speed.component.scss']
 })
 export class SliderSpeedComponent implements OnInit {
 	speedPC: number = 20;

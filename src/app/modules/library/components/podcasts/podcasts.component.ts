@@ -3,8 +3,8 @@ import {Jam, PodcastStatus} from '@jam';
 
 @Component({
 	selector: 'app-podcasts',
-	templateUrl: 'podcasts.component.html',
-	styleUrls: ['podcasts.component.scss']
+	templateUrl: './podcasts.component.html',
+	styleUrls: ['./podcasts.component.scss']
 })
 export class PodcastsComponent {
 	PodcastStatus = PodcastStatus;

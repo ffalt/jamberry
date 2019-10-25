@@ -3,13 +3,13 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
 	selector: 'app-inline-edit',
-	templateUrl: 'inline-edit.component.html',
+	templateUrl: './inline-edit.component.html',
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
 		useExisting: InlineEditComponent,
 		multi: true
 	}],
-	styleUrls: ['inline-edit.component.scss'],
+	styleUrls: ['./inline-edit.component.scss'],
 	// tslint:disable-next-line:use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None
 })

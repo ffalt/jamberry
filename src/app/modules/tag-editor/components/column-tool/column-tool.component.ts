@@ -4,8 +4,8 @@ import {TagEditor} from '../../model/tag-editor.class';
 
 @Component({
 	selector: 'app-admin-tag-editor-column-tool',
-	templateUrl: 'column-tool.component.html',
-	styleUrls: ['column-tool.component.scss']
+	templateUrl: './column-tool.component.html',
+	styleUrls: ['./column-tool.component.scss']
 })
 export class ColumnToolComponent {
 	@Input() editor: TagEditor;

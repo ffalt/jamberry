@@ -5,8 +5,8 @@ import {JamService} from '@jam';
 
 @Component({
 	selector: 'app-time-slider',
-	templateUrl: 'slider-time.component.html',
-	styleUrls: ['slider-time.component.scss']
+	templateUrl: './slider-time.component.html',
+	styleUrls: ['./slider-time.component.scss']
 })
 export class SliderTimeComponent implements OnInit {
 	timePC: number = 0;

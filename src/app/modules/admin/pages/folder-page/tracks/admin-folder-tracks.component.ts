@@ -10,8 +10,8 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-admin-folder-tracks',
-	templateUrl: 'admin-folder-tracks.component.html',
-	styleUrls: ['admin-folder-tracks.component.scss']
+	templateUrl: './admin-folder-tracks.component.html',
+	styleUrls: ['./admin-folder-tracks.component.scss']
 })
 export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder | undefined;

@@ -13,8 +13,8 @@ export interface TrackItem {
 
 @Component({
 	selector: 'app-admin-track-list',
-	templateUrl: 'track-list.component.html',
-	styleUrls: ['track-list.component.scss']
+	templateUrl: './track-list.component.html',
+	styleUrls: ['./track-list.component.scss']
 })
 export class TrackListComponent implements OnChanges, OnDestroy {
 	dataSource: JamDataSource<TrackItem>;

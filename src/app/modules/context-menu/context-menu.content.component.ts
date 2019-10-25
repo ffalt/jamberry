@@ -28,8 +28,8 @@ import {CONTEXT_MENU_OPTIONS} from './context-menu.tokens';
 @Component({
 	// tslint:disable-next-line:component-selector
 	selector: 'context-menu-content',
-	styleUrls: ['context-menu.content.component.scss'],
-	templateUrl: 'context-menu.content.component.html'
+	styleUrls: ['./context-menu.content.component.scss'],
+	templateUrl: './context-menu.content.component.html'
 })
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
 	@Input() menuItems: Array<ContextMenuItemDirective> = [];

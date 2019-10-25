@@ -8,8 +8,8 @@ export interface TooltipInfo {
 
 @Component({
 	selector: 'app-child-tooltip-content',
-	templateUrl: 'child-tooltip-content.component.html',
-	styleUrls: ['child-tooltip-content.component.scss']
+	templateUrl: './child-tooltip-content.component.html',
+	styleUrls: ['./child-tooltip-content.component.scss']
 
 })
 export class ChildTooltipContentComponent implements AfterViewInit {

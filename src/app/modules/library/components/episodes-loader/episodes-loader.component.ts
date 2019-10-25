@@ -5,8 +5,8 @@ import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
 	selector: 'app-episodes-loader',
-	templateUrl: 'episodes-loader.component.html',
-	styleUrls: ['episodes-loader.component.scss']
+	templateUrl: './episodes-loader.component.html',
+	styleUrls: ['./episodes-loader.component.scss']
 })
 export class EpisodesLoaderComponent implements OnChanges {
 	episodes: Array<Jam.PodcastEpisode>;

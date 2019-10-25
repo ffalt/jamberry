@@ -7,8 +7,8 @@ export interface Base64Image {
 
 @Component({
 	selector: 'app-image-base64',
-	templateUrl: 'image-base64.component.html',
-	styleUrls: ['image-base64.component.scss']
+	templateUrl: './image-base64.component.html',
+	styleUrls: ['./image-base64.component.scss']
 })
 export class ImageBase64Component implements OnChanges {
 	@Input() image: Base64Image;

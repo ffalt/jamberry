@@ -4,8 +4,8 @@ import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/m
 
 @Component({
 	selector: 'app-image-edit-overlay-content',
-	templateUrl: 'image-edit-overlay-content.component.html',
-	styleUrls: ['image-edit-overlay-content.scss']
+	templateUrl: './image-edit-overlay-content.component.html',
+	styleUrls: ['./image-edit-overlay-content.scss']
 })
 export class ImageEditOverlayContentComponent implements DialogOverlay<ImageEdit> {
 	data: ImageEdit;

@@ -5,8 +5,8 @@ import {IndexEntry, IndexGroup} from '@shared/services';
 
 @Component({
 	selector: 'app-index-group',
-	templateUrl: 'index-group.component.html',
-	styleUrls: ['index-group.component.scss']
+	templateUrl: './index-group.component.html',
+	styleUrls: ['./index-group.component.scss']
 })
 export class IndexGroupComponent {
 	@Input() indexType: JamObjectType;

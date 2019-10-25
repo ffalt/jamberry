@@ -6,8 +6,8 @@ import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
 	selector: 'app-albums-loader',
-	templateUrl: 'albums-loader.component.html',
-	styleUrls: ['albums-loader.component.scss']
+	templateUrl: './albums-loader.component.html',
+	styleUrls: ['./albums-loader.component.scss']
 })
 export class AlbumsLoaderComponent implements OnChanges {
 	albums: Array<Jam.Album>;

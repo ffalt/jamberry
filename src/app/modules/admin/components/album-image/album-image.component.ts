@@ -17,8 +17,8 @@ export interface ImageNode {
 
 @Component({
 	selector: 'app-admin-album-image',
-	templateUrl: 'album-image.component.html',
-	styleUrls: ['album-image.component.scss']
+	templateUrl: './album-image.component.html',
+	styleUrls: ['./album-image.component.scss']
 })
 export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 	nodes: Array<ImageNode>;

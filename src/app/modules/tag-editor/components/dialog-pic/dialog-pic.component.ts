@@ -14,8 +14,8 @@ export interface PicEdit {
 
 @Component({
 	selector: 'app-dialog-pic',
-	templateUrl: 'dialog-pic.component.html',
-	styleUrls: ['dialog-pic.component.scss']
+	templateUrl: './dialog-pic.component.html',
+	styleUrls: ['./dialog-pic.component.scss']
 })
 export class DialogPicComponent implements DialogOverlay<PicEdit> {
 	pics: Array<{ frame: PicFrame, pic: Base64Image }>;

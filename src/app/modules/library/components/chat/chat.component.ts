@@ -4,8 +4,8 @@ import {Jam, JamService} from '@jam';
 
 @Component({
 	selector: 'app-chat',
-	templateUrl: 'chat.component.html',
-	styleUrls: ['chat.component.scss']
+	templateUrl: './chat.component.html',
+	styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, OnDestroy {
 	msg: string = '';

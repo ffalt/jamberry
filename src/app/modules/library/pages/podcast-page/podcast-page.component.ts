@@ -10,8 +10,8 @@ import {ContextMenuPodcastComponent} from '../../components/context-menu-podcast
 
 @Component({
 	selector: 'app-page-podcast',
-	templateUrl: 'podcast-page.component.html',
-	styleUrls: ['podcast-page.component.scss']
+	templateUrl: './podcast-page.component.html',
+	styleUrls: ['./podcast-page.component.scss']
 })
 export class PodcastPageComponent implements OnInit, OnDestroy {
 	podcast: Jam.Podcast;
