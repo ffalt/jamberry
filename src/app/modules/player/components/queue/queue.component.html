@@ -14,12 +14,12 @@
 					<div class="handle" cdkDragHandle><span class="grippy"></span></div>
 					<div class="number">
 						<ng-container *ngIf="player.currentTrack && player.currentTrack.id===track.id">
-							<i [class]="{'icon-play':player.isPlaying,'icon-pause':!player.isPlaying}"></i>
+							<i [class]="player.isPlaying | stringToggle:'icon-play':'icon-pause'"></i>
 						</ng-container>
 						<ng-container *ngIf="!player.currentTrack || player.currentTrack.id!==track.id">
 							<i class="icon-hash small-screen-icon"></i>
 						</ng-container>
-						<ng-container>{{index + 1}}</ng-container>
+						{{index + 1}}
 					</div>
 					<div class="title"><p>{{track.tag ? track.tag.title : track.name}}</p><a *ngIf="track.tag && track.tag.artist" (click)="navig.toArtistID(track.artistID,track.tag.artist)">{{track.tag.artist}}</a></div>
 					<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{track.duration|duration}}</div>

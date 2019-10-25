@@ -1,11 +1,11 @@
 <div class="mbartist" *ngIf="mbArtist">
 
-	<h2>Artist Information by<br/><a [href]="'https://musicbrainz.org/artist/'+mbArtist.id" target="_blank" rel="noopener">
+	<h2>Artist Information by<br/><a href="'https://musicbrainz.org/artist/{{mbArtist.id}}" target="_blank" rel="noopener">
 		<app-mb-icon [size]="24"></app-mb-icon>
 		MusicBrainz</a></h2>
 
 	<div class="section">
-		<a [href]="'https://musicbrainz.org/artist/'+mbArtist.id" target="_blank" rel="noopener">{{ mbArtist.name }} <i class="icon-info"></i></a>
+		<a href="https://musicbrainz.org/artist/{{mbArtist.id}}" target="_blank" rel="noopener">{{ mbArtist.name }} <i class="icon-info"></i></a>
 		<div class="disambiguation">{{mbArtist.disambiguation}}</div>
 		<div><span class="label">Type: </span>{{ mbArtist.type }}</div>
 	</div>
@@ -22,7 +22,7 @@
 				<div class="date">{{group.group.firstReleaseDate | slice: 0:4}}</div>
 				<div class="title">{{group.group.title}}</div>
 				<div class="info">
-					<a [href]="'https://musicbrainz.org/release-group/'+group.group.id" target="_blank" rel="noopener">
+					<a href="https://musicbrainz.org/release-group/{{group.group.id}}" target="_blank" rel="noopener">
 						<i class="icon-info"></i>
 						{{group.group.primaryType}}
 						{{group.group.secondaryTypes}}

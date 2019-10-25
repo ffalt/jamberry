@@ -17,7 +17,7 @@
 	</ng-container>
 	<ng-container cdkColumnDef="type">
 		<cdk-header-cell *cdkHeaderCellDef>Type</cdk-header-cell>
-		<cdk-cell *cdkCellDef="let folder" data-label="Type">{{folder.type}} {{folder.tag.albumType ? '/ ' + folder.tag.albumType : ''}}</cdk-cell>
+		<cdk-cell *cdkCellDef="let folder" data-label="Type">{{folder.type}}<ng-container *ngIf="folder.tag.albumType"> / {{folder.tag.albumType}}</ng-container></cdk-cell>
 	</ng-container>
 	<cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
 	<cdk-row cdk-row *cdkRowDef="let row; columns: displayedColumns;"></cdk-row>

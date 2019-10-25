@@ -66,19 +66,19 @@
 					</div>
 					<div class="key-value-row" *ngIf="track.tag.musicbrainz && track.tag.musicbrainz.trackID">
 						<div>MusicBrainz Track ID:</div>
-						<div><a [href]="'https://musicbrainz.org/track/'+track.tag.musicbrainz.trackID" target="_blank" rel="noopener">{{track.tag.musicbrainz.trackID}}</a></div>
+						<div><a href="https://musicbrainz.org/track/{{track.tag.musicbrainz.trackID}}" target="_blank" rel="noopener">{{track.tag.musicbrainz.trackID}}</a></div>
 					</div>
 					<div class="key-value-row" *ngIf="track.tag.musicbrainz && track.tag.musicbrainz.releaseID">
 						<div>MusicBrainz Album ID:</div>
-						<div><a [href]="'https://musicbrainz.org/release/'+track.tag.musicbrainz.releaseID" target="_blank" rel="noopener">{{track.tag.musicbrainz.releaseID}}</a></div>
+						<div><a href="https://musicbrainz.org/release/{{track.tag.musicbrainz.releaseID}}" target="_blank" rel="noopener">{{track.tag.musicbrainz.releaseID}}</a></div>
 					</div>
 					<div class="key-value-row" *ngIf="track.tag.musicbrainz && track.tag.musicbrainz.releaseID">
 						<div>MusicBrainz Release Group ID:</div>
-						<div><a [href]="'https://musicbrainz.org/release-group/'+track.tag.musicbrainz.releaseGroupID" target="_blank" rel="noopener">{{track.tag.musicbrainz.releaseGroupID}}</a></div>
+						<div><a href="https://musicbrainz.org/release-group/{{track.tag.musicbrainz.releaseGroupID}}" target="_blank" rel="noopener">{{track.tag.musicbrainz.releaseGroupID}}</a></div>
 					</div>
 					<div class="key-value-row" *ngIf="track.tag.musicbrainz && track.tag.musicbrainz.artistID">
 						<div>MusicBrainz Artist ID:</div>
-						<div><a [href]="'https://musicbrainz.org/artist/'+track.tag.musicbrainz.artistID" target="_blank" rel="noopener">{{track.tag.musicbrainz.artistID}}</a></div>
+						<div><a href="https://musicbrainz.org/artist/{{track.tag.musicbrainz.artistID}}" target="_blank" rel="noopener">{{track.tag.musicbrainz.artistID}}</a></div>
 					</div>
 				</div>
 				<div>

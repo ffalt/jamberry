@@ -22,7 +22,7 @@
 				</div>
 				<div>
 					<div class="label">Type:</div>
-					<div>{{folder.type}} {{isAlbum ? '/ ' + folder.tag.albumType : ''}}</div>
+					<div>{{folder.type}}<ng-container *ngIf="isAlbum"> / {{folder.tag.albumType}}</ng-container></div>
 				</div>
 				<div>
 					<div class="label">Tracks:</div>
@@ -30,15 +30,15 @@
 				</div>
 				<div>
 					<div class="label">Folders:</div>
-					<div> {{folder.folderCount}}</div>
+					<div>{{folder.folderCount}}</div>
 				</div>
 				<div *ngIf="folder.tag.artist">
 					<div class="label">Artist:</div>
-					<div> {{folder.tag.artist}}</div>
+					<div>{{folder.tag.artist}}</div>
 				</div>
 				<div *ngIf="folder.tag.album">
 					<div class="label">Album:</div>
-					<div> {{folder.tag.album}}</div>
+					<div>{{folder.tag.album}}</div>
 				</div>
 			</div>
 			<div>
@@ -52,11 +52,11 @@
 				</div>
 				<div *ngIf="folder.tag.musicbrainz && folder.tag.musicbrainz.releaseID">
 					<div class="label">MB Release ID:</div>
-					<div><a [href]="'https://musicbrainz.org/release/'+folder.tag.musicbrainz.releaseID" target="_blank" rel="noopener">{{folder.tag.musicbrainz.releaseID}}</a></div>
+					<div><a href="https://musicbrainz.org/release/{{folder.tag.musicbrainz.releaseID}}" target="_blank" rel="noopener">{{folder.tag.musicbrainz.releaseID}}</a></div>
 				</div>
 				<div *ngIf="folder.tag.musicbrainz && folder.tag.musicbrainz.artistID">
 					<div class="label">MB Artist ID:</div>
-					<div><a [href]="'https://musicbrainz.org/artist/'+folder.tag.musicbrainz.artistID" target="_blank" rel="noopener">{{folder.tag.musicbrainz.artistID}}</a></div>
+					<div><a href="https://musicbrainz.org/artist/{{folder.tag.musicbrainz.artistID}}" target="_blank" rel="noopener">{{folder.tag.musicbrainz.artistID}}</a></div>
 				</div>
 				<div *ngIf="folder.parentID">
 					<div class="label">Parent Id:</div>

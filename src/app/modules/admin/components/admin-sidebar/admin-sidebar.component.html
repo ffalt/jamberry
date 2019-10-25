@@ -2,7 +2,7 @@
 	<div class="list" [class.active]="collapsed.main">
 		<div class="header" (click)="collapsed.main=!collapsed.main">Administration</div>
 		<div class="collapse" *ngIf="!collapsed.main">
-			<a *ngFor="let section of sections; trackBy: trackByFn" class="item" [routerLink]="'/admin/' + section.id" routerLinkActive="active">
+			<a *ngFor="let section of sections; trackBy: trackByFn" class="item" [routerLink]="['/admin', section.id]" routerLinkActive="active">
 				<i [class]="section.icon"></i><span>{{section.text}}</span>
 			</a>
 		</div>
