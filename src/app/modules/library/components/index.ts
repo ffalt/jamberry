@@ -59,7 +59,7 @@ export const entryComponents: Array<any> = [
 	ContextMenuFolderComponent,
 	ContextMenuPlaylistComponent,
 	ContextMenuPodcastComponent,
-	ContextMenuTrackComponent,
+	ContextMenuTrackComponent
 ];
 
 export const components: Array<any> = [

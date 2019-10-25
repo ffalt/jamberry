@@ -26,7 +26,6 @@ export class ContextMenuPlaylistComponent implements ContextMenuHostComponentInt
 
 	initOpts(opts: ContextMenuPlaylistComponentOptions): void {
 		this.canEdit = opts.canEdit;
-		console.log('initOpts', opts);
 	}
 
 }

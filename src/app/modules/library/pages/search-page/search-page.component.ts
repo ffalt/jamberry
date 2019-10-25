@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {NotifyService} from '@core/services';
-import {JamParameters, JamService, AlbumType} from '@jam';
+import {AlbumType, JamParameters, JamService} from '@jam';
 
 export interface Tab {
 	id: string;

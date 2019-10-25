@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminRootService, AppService, DialogsService, NotifyService, AdminRootServiceEditData} from '@core/services';
+import {AdminRootService, AdminRootServiceEditData, AppService, DialogsService, NotifyService} from '@core/services';
 import {Jam, RootScanStrategy} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

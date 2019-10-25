@@ -134,9 +134,7 @@ export class PlaylistDialogsService {
 	// unify with player.addXYZ functions
 
 	addTrack(track: Jam.Track): void {
-		this.choosePlaylist(() => new Promise<Jam.TrackList>((resolve, reject) => {
-			resolve({items: [track]});
-		}));
+		this.choosePlaylist(() => PlaylistDialogsService.tracksPromise([track]));
 	}
 
 	addAlbum(album: Jam.Album): void {
@@ -162,9 +160,14 @@ export class PlaylistDialogsService {
 
 	addEpisode(episode: Jam.PodcastEpisode): void {
 		if (episode.status === PodcastStatus.completed) {
-			this.choosePlaylist(() => new Promise<Jam.TrackList>((resolve, reject) => {
-				resolve({items: [episode]});
-			}));
+			this.choosePlaylist(() => PlaylistDialogsService.tracksPromise([episode]));
 		}
 	}
+
+	private static async tracksPromise(tracks: Array<Jam.Track>): Promise<Jam.TrackList> {
+		return new Promise<Jam.TrackList>(resolve => {
+			resolve({items: tracks});
+		});
+	}
+
 }

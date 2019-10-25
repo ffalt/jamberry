@@ -4,7 +4,6 @@ import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.compo
 import {NavigService, PlayerService} from '@core/services';
 import {ActionsService, PlaylistDialogsService} from '@shared/services';
 
-
 export interface ContextMenuTrackComponentOptions {
 	showGoTo: boolean;
 }

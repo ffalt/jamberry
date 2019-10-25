@@ -16,6 +16,7 @@ import {takeUntil} from 'rxjs/operators';
 export class ArtistPageComponent implements OnInit, OnDestroy {
 	AlbumType = AlbumType;
 	artist: Jam.Artist;
+	isArtist: boolean = false;
 	id: string;
 	protected unsubscribe = new Subject();
 
@@ -53,6 +54,7 @@ export class ArtistPageComponent implements OnInit, OnDestroy {
 		this.jam.artist.id({id: this.id, artistState: true})
 			.then(artist => {
 				this.artist = artist;
+				this.isArtist = !(artist.albumTypes.length === 1 && artist.albumTypes.includes(AlbumType.series));
 			})
 			.catch(e => {
 				this.notify.error(e);

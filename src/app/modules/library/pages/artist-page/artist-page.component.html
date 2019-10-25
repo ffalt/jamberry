@@ -22,7 +22,7 @@
 				<a class="more" (click)="onContextMenu($event, artist)">…</a>
 			</div>
 		</div>
-		<div class="navigation" *ngIf="!artist.albumTypes.includes(AlbumType.series)">
+		<div class="navigation" *ngIf="isArtist">
 			<ul class="tabs">
 				<li routerLinkActive="active" [routerLink]="['/library/artist', id]" [routerLinkActiveOptions]="{exact: true}"><a>Overview</a></li>
 				<li routerLinkActive="active" [routerLink]="['/library/artist', id, 'similar']"><a>Similar Artists</a></li>

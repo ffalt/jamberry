@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {ContextMenuHostComponentInterface} from '@app/modules/context-menu';
 import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.component';
 import {NavigService, PlayerService, QueueService} from '@core/services';
-import {ActionsService, PlaylistDialogsService, PlaylistService} from '@shared/services';
+import {ActionsService} from '@shared/services';
 
 @Component({
 	selector: 'app-context-menu-queue-track',

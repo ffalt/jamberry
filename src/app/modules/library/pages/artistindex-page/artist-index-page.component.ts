@@ -1,6 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {AlbumTypeUrlNamesKeys} from '@app/utils/jam-lists';
 import {AppService, NavigService, NotifyService} from '@core/services';
 import {AlbumType, JamService} from '@jam';
 import {scrollToIndexGroup} from '@library/components/index/index.component';

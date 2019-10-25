@@ -1,4 +1,4 @@
-import {Jam, JamParameters} from '@jam';
+import {Jam} from '@jam';
 
 export interface FolderEdit {
 	folder?: Jam.Folder;

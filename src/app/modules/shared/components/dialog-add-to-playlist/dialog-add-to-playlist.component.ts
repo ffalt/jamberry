@@ -34,9 +34,13 @@ export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlayli
 			.pipe(takeUntil(this.unsubscribe)).subscribe(playlists => {
 			this.playlists = playlists;
 		});
-		this.playlistService.getLists().then(playlists => {
-			this.playlists = playlists;
-		});
+		this.playlistService.getLists()
+			.then(playlists => {
+				this.playlists = playlists;
+			})
+			.catch(e => {
+				this.notify.error(e);
+			});
 		this.start().catch(e => {
 			this.notify.error(e);
 		});
