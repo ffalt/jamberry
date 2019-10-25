@@ -7,7 +7,7 @@ import {PlayerEvents, PlayerService} from '@core/services';
 	styleUrls: ['slider-speed.component.scss']
 })
 export class SliderSpeedComponent implements OnInit {
-	speedPC: string = '20%';
+	speedPC: number = 20;
 	speedString: string = 'Speed: 1x';
 	private speed: number = 1;
 	private readonly min: number = 0;
@@ -32,11 +32,11 @@ export class SliderSpeedComponent implements OnInit {
 	private displaySpeed(speed: number): void {
 		this.speed = speed;
 		this.speedString = `Speed: ${speed.toFixed(2)}x`;
-		this.speedPC = this.calculatePositionBySpeed();
+		this.speedPC = this.calculatePositionPercentBySpeed();
 	}
 
-	private calculatePositionBySpeed(): string {
-		return `${((this.speed - 0.5) / (this.max - this.min) * 100)}%`;
+	private calculatePositionPercentBySpeed(): number {
+		return ((this.speed - 0.5) / (this.max - this.min) * 100);
 	}
 
 	private calculateSpeedByPosition(offsetX: number): number {

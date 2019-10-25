@@ -8,7 +8,7 @@ import {JamService} from '@jam';
 	styleUrls: ['mini-slider-time.component.scss']
 })
 export class MiniSliderTimeComponent implements OnInit {
-	timePC: string = '0%';
+	timePC: number = 0;
 
 	constructor(private element: ElementRef, public player: PlayerService, public jam: JamService, private app: AppService) {
 	}
@@ -24,12 +24,11 @@ export class MiniSliderTimeComponent implements OnInit {
 	}
 
 	updateTimeIndicator(): void {
-		this.timePC = this.calculatePositionByTime();
+		this.timePC = this.calculatePositionPercentByTime();
 	}
 
-	calculatePositionByTime(): string {
-		const percent = this.player.currentTime * 100 / this.player.totalTime;
-		return `${percent}%`;
+	calculatePositionPercentByTime(): number {
+		return this.player.currentTime * 100 / this.player.totalTime;
 	}
 
 	changePlaybackTime(event: any): void {

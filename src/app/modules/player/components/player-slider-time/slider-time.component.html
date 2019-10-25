@@ -4,7 +4,7 @@
 		<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" [attr.viewBox]="svg.viewbox" style="fill-rule:evenodd;clip-rule:evenodd;">
 			<defs>
 				<clipPath id="cut-off-right">
-					<rect x="0" y="0" [style.width]="timePC" height="256"/>
+					<rect x="0" y="0" [style.width.%]="timePC" height="256"/>
 				</clipPath>
 				<path id="waveform-path" [attr.d]="svg.path"></path>
 			</defs>
@@ -12,5 +12,5 @@
 			<use xlink:href="#waveform-path" stroke="#2B7343" fill="#2B7343" clip-path="url(#cut-off-right)"/>
 		</svg>
 	</div>
-	<div class="scrubber" [style.width]="timePC" [class.line]="!!svg"></div>
+	<div class="scrubber" [style.width.%]="timePC" [class.line]="!!svg"></div>
 </div>

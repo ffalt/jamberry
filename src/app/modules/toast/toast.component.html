@@ -4,5 +4,5 @@
 </div>
 <div *ngIf="message" role="alertdialog" aria-live="polite" [class]="options.messageClass" [attr.aria-label]="message">{{ message }}</div>
 <div *ngIf="options.progressBar">
-	<div class="toast-progress" [style.width]="width + '%'"></div>
+	<div class="toast-progress" [style.width.%]="width"></div>
 </div>

@@ -1,4 +1,6 @@
 import {AgoPipe} from './ago.pipe';
+import {ArtistOrSeriesPipe} from './artist-or-series/artist-or-series.pipe';
+import {ArtistsOrSeriesPipe} from './artist-or-series/artists-or-series.pipe';
 import {DurationPipe} from './duration.pipe';
 import {FilesizePipe} from './filesize.pipe';
 import {JsonPipe} from './json.pipe';
@@ -7,6 +9,8 @@ import {MediadurationPipe} from './mediaduration.pipe';
 
 export const pipes: Array<any> = [
 	AgoPipe,
+	ArtistOrSeriesPipe,
+	ArtistsOrSeriesPipe,
 	DurationPipe,
 	FilesizePipe,
 	JsonPipe,
@@ -14,6 +18,8 @@ export const pipes: Array<any> = [
 	MediadurationPipe
 ];
 
+export * from './artist-or-series/artists-or-series.pipe';
+export * from './artist-or-series/artist-or-series.pipe';
 export * from './ago.pipe';
 export * from './duration.pipe';
 export * from './filesize.pipe';

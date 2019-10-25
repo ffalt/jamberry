@@ -6,7 +6,7 @@
 				<app-coverart-image [coverArtObj]="artist" [size]="150" [fill]="true" [alt]="artist.name" [allowEnlarge]="true"></app-coverart-image>
 			</div>
 			<div class="meta">
-				<div class="type">{{artist.albumTypes.includes(AlbumType.series) ? 'Series' : 'Artist'}}</div>
+				<div class="type">{{artist | artistOrSeries}}</div>
 				<div class="name">{{artist.name}}</div>
 				<div class="actions">
 					<button class="button-primary" (click)="player.startArtist(artist)"><i class="icon-play"></i> Play</button>

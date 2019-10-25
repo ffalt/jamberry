@@ -3,7 +3,7 @@
 		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
 	</div>
 	<ng-container *cdkVirtualFor="let node of nodes">
-		<div (click)="selectNode(node)" class="node" [style.padding-left]="(node.level*12)+'px'" [class.active]="node===selected" [class]="node.folder.type">
+		<div (click)="selectNode(node)" class="node" [style.padding-left.px]="node.level*12" [class.active]="node===selected" [class]="node.folder.type">
 			<span class="node-toggle" (click)="toggleNode(node)" [title]="'Subfolders: '+node.folder.folderCount">
 				<i *ngIf="node.isLoading" class="icon-spin icon-spinner"></i>
 				<i *ngIf="!node.isLoading && node.hasChildren" [class]="node.expanded?'icon-minus':'icon-plus'"></i>

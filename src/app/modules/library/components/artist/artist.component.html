@@ -4,7 +4,7 @@
 	</div>
 	<div class="meta">
 		<app-fav-icon [state]="artist.state" (click)="actions.toggleArtistFav(artist)" appClickStop></app-fav-icon>
-		<div class="type">{{artist.albumTypes.includes(AlbumType.series) ? 'Series' : 'Artist'}}</div>
+		<div class="type">{{artist | artistOrSeries}}</div>
 		<div class="name" (click)="navig.toArtist(artist)">{{artist.name}}</div>
 		<div class="actions">
 			<button class="button-primary" (click)="player.startArtist(artist)" appClickStop><i class="icon-play"></i> Play</button>

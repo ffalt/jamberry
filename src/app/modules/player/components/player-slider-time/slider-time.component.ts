@@ -9,7 +9,7 @@ import {JamService} from '@jam';
 	styleUrls: ['slider-time.component.scss']
 })
 export class SliderTimeComponent implements OnInit {
-	timePC: string = '0%';
+	timePC: number = 0;
 	svg: { viewbox: string; path: string };
 
 	constructor(private element: ElementRef, public player: PlayerService, public jam: JamService, private app: AppService) {
@@ -46,12 +46,11 @@ export class SliderTimeComponent implements OnInit {
 	}
 
 	updateTimeIndicator(): void {
-		this.timePC = this.calculatePositionByTime();
+		this.timePC = this.calculatePositionPercentByTime();
 	}
 
-	calculatePositionByTime(): string {
-		const percent = this.player.currentTime * 100 / this.player.totalTime;
-		return `${percent}%`;
+	calculatePositionPercentByTime(): number {
+		return this.player.currentTime * 100 / this.player.totalTime;
 	}
 
 	changePlaybackTime(event: any): void {

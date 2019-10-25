@@ -7,7 +7,7 @@ import {PlayerEvents, PlayerService} from '@core/services';
 	styleUrls: ['slider-volume.component.scss']
 })
 export class SliderVolumeComponent implements OnInit {
-	volumePC: string = '50%';
+	volumePC: number = 50;
 	private volume: number = 0;
 
 	constructor(private player: PlayerService, private element: ElementRef) {
@@ -27,11 +27,11 @@ export class SliderVolumeComponent implements OnInit {
 
 	private displayVolume(volume: number): void {
 		this.volume = volume;
-		this.volumePC = this.calculatePositionByVolume();
+		this.volumePC = this.calculatePositionPercentByVolume();
 	}
 
-	private calculatePositionByVolume(): string {
-		return this.volume.toString() + '%';
+	private calculatePositionPercentByVolume(): number {
+		return this.volume;
 	}
 
 	private calculateVolumeByPosition(offsetX: number): number {
