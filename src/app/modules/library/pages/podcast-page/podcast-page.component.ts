@@ -67,6 +67,7 @@ export class PodcastPageComponent implements OnInit, OnDestroy {
 					}
 					this.podcast = podcast;
 				});
+			this.refresh();
 		}
 	}
 
