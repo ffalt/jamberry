@@ -11,9 +11,9 @@ import {HeaderTab} from '@shared/components';
 })
 export class PlaylistsPageComponent {
 	tabs: Array<HeaderTab> = [
-		{label: 'Index', link: {route: '/library/playlists', options: {exact: true}}},
+		{label: 'Index', link: {route: '/library/playlists', exact: true}},
 		...JamLists.map(list => (
-			{label: list.text, link: {route: `/library/playlists/${list.link}`, options: {}}}
+			{label: list.text, link: {route: `/library/playlists/${list.link}`}}
 		))
 	];
 

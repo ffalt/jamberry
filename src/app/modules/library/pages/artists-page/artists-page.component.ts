@@ -9,9 +9,9 @@ import {HeaderTab} from '@shared/components';
 })
 export class ArtistsPageComponent {
 	tabs: Array<HeaderTab> = [
-		{label: 'Index', link: {route: '/library/artists', options: {exact: true}}},
+		{label: 'Index', link: {route: '/library/artists', exact: true}},
 		...JamLists.map(list => (
-			{label: list.text, link: {route: `/library/artists/${list.link}`, options: {}}}
+			{label: list.text, link: {route: `/library/artists/${list.link}`}}
 		))
 	];
 }

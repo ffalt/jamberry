@@ -73,9 +73,9 @@ export class ArtistPageComponent implements OnInit, OnDestroy {
 		].filter(info => info.value !== undefined);
 		this.tabs = !this.isArtist ? [] :
 			[
-				{label: 'Overview', link: {route: `/library/artist/${this.id}`, options: {exact: true}}},
-				{label: 'Similar Artists', link: {route: `/library/artist/${this.id}/similar`, options: {}}},
-				{label: 'MusicBrainz', link: {route: `/library/artist/${this.id}/musicbrainz`, options: {}}}
+				{label: 'Overview', link: {route: `/library/artist/${this.id}`, exact: true}},
+				{label: 'Similar Artists', link: {route: `/library/artist/${this.id}/similar`}},
+				{label: 'MusicBrainz', link: {route: `/library/artist/${this.id}/musicbrainz`}}
 			];
 	}
 }

@@ -4,7 +4,7 @@ export interface HeaderTab {
 	label: string;
 	link?: {
 		route: string;
-		options: { exact?: boolean };
+		exact?: boolean;
 	};
 	active?: boolean;
 

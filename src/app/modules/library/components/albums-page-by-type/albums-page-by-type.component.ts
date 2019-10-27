@@ -25,9 +25,9 @@ export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {
 			const albumType = AlbumTypeUrlNamesKeys[type];
 			this.typeInfo = JamAlbumTypes.find(t => t.id === albumType);
 			this.tabs = this.typeInfo ? [
-				{label: 'Index', link: {route: '/library/' + this.typeInfo.link, options: {exact: true}}},
+				{label: 'Index', link: {route: '/library/' + this.typeInfo.link, exact: true}},
 				...JamLists.map(list => (
-					{label: list.text, link: {route: `/library/${this.typeInfo.link}/${list.link}`, options: {}}}
+					{label: list.text, link: {route: `/library/${this.typeInfo.link}/${list.link}`}}
 				))
 			] : [];
 		});

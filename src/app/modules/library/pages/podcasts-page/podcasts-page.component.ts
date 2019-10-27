@@ -13,9 +13,9 @@ import {HeaderTab} from '@shared/components';
 })
 export class PodcastsPageComponent {
 	tabs: Array<HeaderTab> = [
-		{label: 'Index', link: {route: '/library/podcasts', options: {exact: true}}},
+		{label: 'Index', link: {route: '/library/podcasts', exact: true}},
 		...JamLists.filter(l => l.id !== 'random').map(list => (
-			{label: list.text, link: {route: `/library/podcasts/${list.link}`, options: {}}}
+			{label: list.text, link: {route: `/library/podcasts/${list.link}`}}
 		))
 	];
 

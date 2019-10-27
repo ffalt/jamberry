@@ -154,6 +154,7 @@
 				text-transform: uppercase;
 				font-size: 12px;
 				letter-spacing: 1px;
+				vertical-align: middle;
 				color: var(--on-control-ambient);
 			}
 
@@ -161,6 +162,7 @@
 				padding-bottom: $margin-sm;
 				color: var(--on-control-ambient-hover);
 				overflow: hidden;
+				vertical-align: middle;
 
 				a {
 					color: var(--on-control-ambient-hover);
@@ -250,21 +252,25 @@
 			.header-infos {
 				width: 100%;
 				text-align: center;
+				padding-left: 0;
+				padding-right: 0;
 				padding-bottom: 0;
 
-				> a {
+				.more {
 					float: right;
 				}
 
 				.label {
 					display: inline-block;
 					text-align: right;
+					font-size: 0.8em;
 					width: 50%;
 					padding-right: $padding-sm;
 				}
 
 				.count {
-					padding-left: $padding-sm;
+					padding-left: 0;
+					font-size: 0.8em;
 					padding-bottom: 0;
 					display: inline-block;
 					text-align: left;
