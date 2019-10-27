@@ -7,7 +7,7 @@
 			</div>
 			<div class="meta">
 				<div class="type">{{album.albumType}}</div>
-				<div class="number" *ngIf="album.tag.albumNr">Episode {{album.tag.albumNr}}</div>
+				<div class="number" *ngIf="album.tag.grouping">Episode {{album.tag.grouping}}</div>
 				<div class="name">{{album.name}}</div>
 					<div class="actions">
 					<button class="button-primary" (click)="player.startAlbum(album)"><i class="icon-play"></i> Play</button>

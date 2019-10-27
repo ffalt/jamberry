@@ -5,8 +5,8 @@
 	<div class="meta">
 		<app-fav-icon [state]="album.state" (click)="actions.toggleAlbumFav(album)" appClickStop></app-fav-icon>
 		<div class="year">
-			<span *ngIf="!album.tag.albumNr">{{album.tag.albumNr}}</span>
-			<span *ngIf="album.tag.albumNr">Episode {{album.tag.albumNr}}</span>
+			<span *ngIf="!album.tag.grouping">{{album.tag.year}}</span>
+			<span *ngIf="album.tag.grouping">Episode {{album.tag.grouping}}</span>
 		</div>
 		<div class="name"><a (click)="navig.toAlbum(album)" appClickStop>{{album.name}}</a></div>
 
