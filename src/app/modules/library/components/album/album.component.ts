@@ -15,6 +15,7 @@ export class AlbumComponent implements OnChanges {
 	@Input() showArtist: boolean = false;
 	@Input() limitArtist: Jam.Artist;
 	AlbumType = AlbumType;
+	showArtistLabel: boolean = false;
 	isVariousArtists: boolean = false;
 	tracks: Array<Jam.Track>;
 	tracksExpanded: boolean = false;
@@ -40,6 +41,7 @@ export class AlbumComponent implements OnChanges {
 		if (this.album) {
 			this.isVariousArtists = this.album.artist === MUSICBRAINZ_VARIOUS_ARTISTS_NAME;
 		}
+		this.showArtistLabel = this.showArtist || this.isVariousArtists;
 	}
 
 	toggleAlbumTracks(): void {

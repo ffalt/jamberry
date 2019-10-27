@@ -9,9 +9,8 @@
 			<span *ngIf="album.tag.grouping">Episode {{album.tag.grouping}}</span>
 		</div>
 		<div class="name"><a (click)="navig.toAlbum(album)" appClickStop>{{album.name}}</a></div>
-
 		<div class="type" *ngIf="album.albumType !== AlbumType.album">{{album.albumType}}</div>
-		<div *ngIf="showArtist || isVariousArtists" class="artist"><a (click)="navig.toArtistID(album.artistID,album.name)" appClickStop>{{album.artist}}</a></div>
+		<div *ngIf="showArtistLabel" class="artist"><a (click)="navig.toArtistID(album.artistID,album.name)" appClickStop>{{album.artist}}</a></div>
 		<div class="actions">
 			<button class="button-primary" (click)="player.startAlbum(album)" appClickStop><i class="icon-play"></i> Play</button>
 			<a (click)="onContextMenu($event, album)">…</a>
@@ -20,6 +19,6 @@
 </div>
 <div *ngIf="tracksExpanded" class="tracks">
 	<app-loading *ngIf="!tracks" [time]="500"></app-loading>
-	<app-tracks [tracks]="tracks" [showArtist]="showArtist||isVariousArtists"></app-tracks>
+	<app-tracks [tracks]="tracks" [showArtist]="showArtistLabel"></app-tracks>
 </div>
 
