@@ -1,8 +1,6 @@
 @mixin view-content {
 	padding: $padding;
 
-	@include note();
-
 	.section-title {
 		text-transform: uppercase;
 		letter-spacing: 1.25px;
@@ -78,7 +76,7 @@
 		margin-top: $margin-lg;
 
 		display: flex;
-		flex-flow: row wrap;
+		flex-flow: row nowrap;
 		justify-content: space-between;
 		align-items: center; // flex-end;
 		color: var(--on-control-ambient);
@@ -143,9 +141,8 @@
 
 		}
 
-		.listeners {
+		.header-infos {
 			width: 20%;
-			//z-index: 1;
 			padding: $padding;
 			text-align: right;
 			font-weight: 100;
@@ -207,7 +204,7 @@
 	}
 
 	@media (max-width: $break-pad) {
-		.info .listeners .more {
+		.info .header-infos .more {
 			visibility: inherit;
 		}
 	}
@@ -217,6 +214,7 @@
 		flex-flow: column wrap;
 		min-height: 100px;
 		.info {
+			padding: $padding-sm;
 			margin-top: 0;
 			width: 100%;
 			display: block;
@@ -249,7 +247,7 @@
 				}
 			}
 
-			.listeners {
+			.header-infos {
 				width: 100%;
 				text-align: center;
 				padding-bottom: 0;

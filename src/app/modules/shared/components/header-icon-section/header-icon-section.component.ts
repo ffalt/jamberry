@@ -13,7 +13,7 @@ export class HeaderIconSectionComponent {
 	@Input() sectionType: string;
 	@Input() smallTabs: boolean = false;
 	@Input() hasContextMenu: boolean = false;
-	@Input() tabs: Array<HeaderTab>;
+	@Input() tabs: Array<HeaderTab> = [];
 	@Output() readonly contextMenuRequest = new EventEmitter<MouseEvent>();
 
 	@HostListener('contextmenu', ['$event'])

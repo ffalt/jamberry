@@ -9,9 +9,7 @@
 		<div class="overview" *ngIf="playlist.comment">
 			<div class="info">
 				<div class="section-title">Description</div>
-				<div class="description">
-					<div class="note">{{playlist.comment}}</div>
-				</div>
+				<app-info-text [info]="playlist.comment"></app-info-text>
 			</div>
 		</div>
 		<app-tracks-playlist [tracks]="playlist.tracks" [showArtist]="true"></app-tracks-playlist>

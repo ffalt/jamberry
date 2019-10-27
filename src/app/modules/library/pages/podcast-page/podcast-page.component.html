@@ -10,9 +10,7 @@
 		<div class="overview" *ngIf="podcast.description">
 			<div class="info">
 				<div class="section-title">Description</div>
-				<div class="description">
-					<div class="note">{{podcast.description}}</div>
-				</div>
+				<app-info-text [info]="podcast.description"></app-info-text>
 			</div>
 		</div>
 		<app-episodes [episodes]="podcast.episodes"></app-episodes>

@@ -30,13 +30,7 @@ export class ArtistIndexPageComponent implements OnInit, OnDestroy {
 		this.indexService.artistIndexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(artistIndexCache => {
 				if (artistIndexCache.query.albumType === AlbumType.album) {
-					this.index = artistIndexCache.index;
-					this.tabs = this.index.groups.map((group, index) =>
-						({
-							label: group.name, click: () => {
-								this.scrollToGroup(index);
-							}
-						}));
+					this.display(artistIndexCache.index);
 				}
 			},
 			e => {
@@ -59,4 +53,13 @@ export class ArtistIndexPageComponent implements OnInit, OnDestroy {
 		scrollToIndexGroup(index);
 	}
 
+	display(index: Index): void {
+		this.index = index;
+		this.tabs = index.groups.map((group, i) =>
+			({
+				label: group.name, click: () => {
+					this.scrollToGroup(i);
+				}
+			}));
+	}
 }

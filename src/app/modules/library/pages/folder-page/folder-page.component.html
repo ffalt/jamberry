@@ -18,9 +18,7 @@
 			<div class="tab-pane" *ngSwitchCase="tabsObjs.overview.id">
 				<div class="info" *ngIf="folder.info">
 					<div class="section-title">Description</div>
-					<div class="description">
-						<app-info-note [info]="folder.info"></app-info-note>
-					</div>
+					<app-info-note [info]="folder.info"></app-info-note>
 				</div>
 				<app-folders *ngIf="folder.folders && folder.folders.length>0" [folders]="folder.folders"></app-folders>
 				<app-tracks *ngIf="folder.tracks && folder.tracks.length>0" [tracks]="folder.tracks"></app-tracks>

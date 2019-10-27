@@ -18,6 +18,7 @@ import {HeaderTabsComponent} from './header-tabs/header-tabs.component';
 import {IconartImageComponent} from './iconart-image/iconart-image.component';
 import {ImageOverlayContentComponent} from './image-overlay-content/image-overlay-content.component';
 import {InfoNoteComponent} from './info-note/info-note.component';
+import {InfoTextComponent} from './info-text/info-text.component';
 import {LoadMoreButtonComponent} from './load-more-button/load-more-button.component';
 import {LoadingComponent} from './loading/loading.component';
 import {LogoIconComponent} from './logo-icon/logo-icon.component';
@@ -54,6 +55,7 @@ export const components: Array<any> = [
 	HeaderJamBaseComponent,
 	HeaderIconSectionComponent,
 	IconartImageComponent,
+	InfoTextComponent,
 	InfoNoteComponent,
 	LoadingComponent,
 	LoadMoreButtonComponent,
@@ -96,3 +98,4 @@ export * from './header-slim/header-slim.component';
 export * from './header-icon-section/header-icon-section.component';
 export * from './header-tabs/header-tabs.component';
 export * from './header-jambase/header-jambase.component';
+export * from './info-text/info-text.component';

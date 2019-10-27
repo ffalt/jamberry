@@ -9,9 +9,7 @@
 		<button class="button-on-control" [contextMenu]="folderActionMenu" [contextMenuSubject]="folder" [contextMenuTriggerLeft]="true">…</button>
 	</div>
 	<div class="content">
-		<div class="info-content" *ngIf="folder.info && folder.info.description">
-			<app-info-note *ngIf="folder.info" [info]="folder.info"></app-info-note>
-		</div>
+		<app-info-note *ngIf="folder.info && folder.info.description" [info]="folder.info"></app-info-note>
 		<div class="properties">
 			<div>
 				<div>
@@ -22,7 +20,9 @@
 				</div>
 				<div>
 					<div class="label">Type:</div>
-					<div>{{folder.type}}<ng-container *ngIf="isAlbum"> / {{folder.tag.albumType}}</ng-container></div>
+					<div>{{folder.type}}
+						<ng-container *ngIf="isAlbum"> / {{folder.tag.albumType}}</ng-container>
+					</div>
 				</div>
 				<div>
 					<div class="label">Tracks:</div>
