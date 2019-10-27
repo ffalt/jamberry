@@ -1,15 +1,7 @@
 <div class="settings">
-	<div class="header slim">
-		<div class="info">
-			<div class="meta">
-				<div class="type">JamServe</div>
-				<div class="name">Admin Settings</div>
-				<div class="actions">
-					<button class="button-on-control" title="Save" (click)="save()"><i class="icon-floppy"></i> Save Settings</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<app-view-header-slim section="Admin Settings">
+		<button class="button-on-control" title="Save" (click)="save()"><i class="icon-floppy"></i> Save Settings</button>
+	</app-view-header-slim>
 	<div class="content">
 		<app-loading *ngIf="!settings"></app-loading>
 		<ng-container *ngIf="settings">

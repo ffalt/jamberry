@@ -11,6 +11,10 @@ import {DialogPlaylistComponent} from './dialog-playlist/dialog-playlist.compone
 import {DialogRateComponent} from './dialog-rate/dialog-rate.component';
 import {ExpandCollapseIconComponent} from './expand-collapse-icon/expand-collapse-icon.component';
 import {FavIconComponent} from './fav-icon/fav-icon.component';
+import {HeaderIconSectionComponent} from './header-icon-section/header-icon-section.component';
+import {HeaderJamBaseComponent} from './header-jambase/header-jambase.component';
+import {HeaderSlimComponent} from './header-slim/header-slim.component';
+import {HeaderTabsComponent} from './header-tabs/header-tabs.component';
 import {IconartImageComponent} from './iconart-image/iconart-image.component';
 import {ImageOverlayContentComponent} from './image-overlay-content/image-overlay-content.component';
 import {InfoNoteComponent} from './info-note/info-note.component';
@@ -45,6 +49,10 @@ export const components: Array<any> = [
 	DialogConfirmComponent,
 	ExpandCollapseIconComponent,
 	FavIconComponent,
+	HeaderTabsComponent,
+	HeaderSlimComponent,
+	HeaderJamBaseComponent,
+	HeaderIconSectionComponent,
 	IconartImageComponent,
 	InfoNoteComponent,
 	LoadingComponent,
@@ -84,3 +92,7 @@ export * from './splitter/splitter.component';
 export * from './text-overlay-content/text-overlay-content.component';
 export * from './view-type-toggle/view-type-toggle.component';
 export * from './dialog-add-to-playlist/dialog-add-to-playlist.component';
+export * from './header-slim/header-slim.component';
+export * from './header-icon-section/header-icon-section.component';
+export * from './header-tabs/header-tabs.component';
+export * from './header-jambase/header-jambase.component';

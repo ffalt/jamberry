@@ -8,7 +8,7 @@
 	display: block;
 
 	.start {
-		@include view();
+		@include view-host();
 
 		.content {
 			@include media-cards();

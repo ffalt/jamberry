@@ -2,10 +2,9 @@
 
 :host {
 	.playlist {
-		@include view();
-
+		@include view-host();
 		.content {
-			padding: $padding;
+			@include view-content();
 		}
 	}
 }

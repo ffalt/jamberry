@@ -14,6 +14,8 @@ import {
 	PlaylistsLoaderByTypeComponent,
 	PodcastsLatestEpisodesComponent,
 	PodcastsLoaderByTypeComponent,
+	TrackOverviewComponent,
+	TrackSimilarComponent,
 	TracksLoaderByTypeComponent
 } from '@library/components';
 import {
@@ -591,7 +593,26 @@ export const routes: Routes = [
 				]
 			},
 
-			{path: 'track/:id', component: TrackPageComponent, canActivate: [AuthCanActivateGuard]},
+			{
+				path: 'track/:id', component: TrackPageComponent, canActivate: [AuthCanActivateGuard],
+				children: [
+					{
+						path: '',
+						pathMatch: 'full',
+						component: TrackOverviewComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Overview'}
+					},
+					{
+						path: 'similar',
+						component: TrackSimilarComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Similar'}
+					},
+					{path: '**', redirectTo: ''}
+				]
+			},
+
 			{path: 'folder/:id', component: FolderPageComponent, canActivate: [AuthCanActivateGuard]},
 			{path: 'playlist/:id', component: PlaylistPageComponent, canActivate: [AuthCanActivateGuard]},
 			{path: 'podcast/:id', component: PodcastPageComponent, canActivate: [AuthCanActivateGuard]},

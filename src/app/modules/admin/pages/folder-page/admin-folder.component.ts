@@ -56,8 +56,8 @@ export class AdminFolderComponent implements OnInit, OnDestroy {
 			this.route.params
 				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
 				const id = params.id;
+				this.id = id;
 				if (this.tree && id) {
-					this.id = id;
 					setTimeout(() => {
 						if (this.tree) {
 							this.tree.selectFolderByID(id);

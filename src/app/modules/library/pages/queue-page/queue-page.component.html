@@ -1,21 +1,5 @@
 <div class="queue">
-	<div class="header">
-		<div class="info">
-			<div class="img">
-				<app-iconart-image icon="icon-queue"></app-iconart-image>
-			</div>
-			<div class="meta">
-				<div class="type">Play</div>
-				<div class="name">Queue</div>
-				<div class="actions">
-					<a (click)="queue.clear()" title="Clear Queue"><i class="icon-remove"></i> Clear</a>
-					<a (click)="queue.shuffle()" title="Randomize Order of Tracks"><i class="icon-shuffle"></i> Shuffle</a>
-					<a (click)="playlistDialogsService.newPlaylist(queue.tracks)" title="Save to new Playlist"><i class="icon-playlist"></i> Save as</a>
-				</div>
-			</div>
-		</div>
-		<div class="navigation"></div>
-	</div>
+	<app-view-header-icon-section icon="icon-queue" section="Queue" (contextMenuRequest)="onContextMenu($event)" [hasContextMenu]="true"></app-view-header-icon-section>
 	<div class="content">
 		<app-queue [showControls]="false"></app-queue>
 	</div>

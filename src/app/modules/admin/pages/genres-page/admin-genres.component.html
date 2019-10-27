@@ -1,7 +1,7 @@
 <div class="genres">
-	<div class="admin-actions">
+	<app-view-header-slim section="Genres">
 		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
-	</div>
+	</app-view-header-slim>
 	<div class="content">
 		<div class="left-content">
 			<cdk-table *ngIf="dataSource" [dataSource]="dataSource">

@@ -11,13 +11,13 @@
 	align-content: flex-start;
 
 	.left {
-		width: 10%;
+		width: 15%;
 		height: 100%;
 		min-width: 140px;
 	}
 
 	.middle {
-		width: 90%;
+		width: 85%;
 		flex-grow: 1;
 		height: 100%;
 	}
@@ -25,10 +25,10 @@
 	@media (max-width: $break-desktop-large) {
 
 		.left {
-			width: 15%;
+			width: 20%;
 		}
 		.middle {
-			width: 75%;
+			width: 80%;
 		}
 	}
 

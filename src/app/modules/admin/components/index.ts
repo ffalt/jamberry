@@ -3,9 +3,7 @@ import {AdminBaseViewIdComponent} from './admin-base-view-id/admin-base-view-id.
 import {AdminQueueRequestsComponent} from './admin-queue-requests/admin-queue-requests.component';
 import {AdminSidebarComponent} from './admin-sidebar/admin-sidebar.component';
 import {AlbumImageComponent} from './album-image/album-image.component';
-import {AlbumListComponent} from './album-list/album-list.component';
 import {ArtistImageComponent} from './artist-image/artist-image.component';
-import {AdminArtistListComponent} from './artist-list/artist-list.component';
 import {ArtworkEditComponent} from './artwork-edit/artwork-edit.component';
 import {ArtworkListComponent} from './artwork-list/artwork-list.component';
 import {DialogAlbumImageComponent} from './dialog-album-image/dialog-album-image-component';
@@ -41,12 +39,10 @@ export const components: Array<any> = [
 	...entryComponents,
 	AdminBaseViewIdComponent,
 	AdminBaseParentViewIdComponent,
-	AdminArtistListComponent,
 	AdminQueueRequestsComponent,
 	AdminSidebarComponent,
 	ArtworkEditComponent,
 	AlbumImageComponent,
-	AlbumListComponent,
 	ArtistImageComponent,
 	ArtworkListComponent,
 	FolderHealthComponent,
@@ -63,9 +59,7 @@ export * from './admin-base-view-id/admin-base-view-id.component';
 export * from './admin-queue-requests/admin-queue-requests.component';
 export * from './admin-sidebar/admin-sidebar.component';
 export * from './album-image/album-image.component';
-export * from './album-list/album-list.component';
 export * from './artist-image/artist-image.component';
-export * from './artist-list/artist-list.component';
 export * from './artwork-edit/artwork-edit.component';
 export * from './artwork-list/artwork-list.component';
 export * from './dialog-album-image/dialog-album-image-component';

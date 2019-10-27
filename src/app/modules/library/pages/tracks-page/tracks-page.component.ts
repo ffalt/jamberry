@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {JamLists} from '@app/utils/jam-lists';
+import {HeaderTab} from '@shared/components';
 
 @Component({
 	selector: 'app-page-tracks',
@@ -7,5 +8,6 @@ import {JamLists} from '@app/utils/jam-lists';
 	styleUrls: ['./tracks-page.component.scss']
 })
 export class TracksPageComponent {
-	JamLists = JamLists;
+	tabs: Array<HeaderTab> =
+		JamLists.map(list => ({label: list.text, link: {route: `/library/tracks/${list.link}`, options: {}}}));
 }

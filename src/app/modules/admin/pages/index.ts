@@ -1,7 +1,3 @@
-import {AdminAlbumComponent} from './album-page/admin-album.component';
-import {AdminAlbumsComponent} from './albums-page/admin-albums.component';
-import {AdminArtistComponent} from './artist-page/admin-artist.component';
-import {AdminArtistsComponent} from './artists-page/admin-artists.component';
 import {AdminFolderComponent} from './folder-page/admin-folder.component';
 import {AdminFolderFoldersComponent} from './folder-page/folders/admin-folder-folders.component';
 import {AdminFolderHealthComponent} from './folder-page/health/admin-folder-health.component';
@@ -16,10 +12,6 @@ import {AdminStartComponent} from './start-page/admin.start.component';
 import {AdminUsersComponent} from './users-page/admin-users.component';
 
 export const pages: Array<any> = [
-	AdminAlbumComponent,
-	AdminAlbumsComponent,
-	AdminArtistComponent,
-	AdminArtistsComponent,
 	AdminFolderComponent,
 	AdminFolderComponent,
 	AdminFolderHealthComponent,
@@ -35,10 +27,6 @@ export const pages: Array<any> = [
 	AdminUsersComponent
 ];
 
-export * from './album-page/admin-album.component';
-export * from './albums-page/admin-albums.component';
-export * from './artist-page/admin-artist.component';
-export * from './artists-page/admin-artists.component';
 export * from './folder-page/admin-folder.component';
 export * from './folder-page/folders/admin-folder-folders.component';
 export * from './folder-page/health/admin-folder-health.component';

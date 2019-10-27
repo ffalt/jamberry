@@ -1,6 +1,5 @@
 @mixin view-content {
-	padding-left: $padding;
-	padding-right: $padding;
+	padding: $padding;
 
 	@include note();
 
@@ -19,316 +18,281 @@
 
 }
 
-@mixin view {
-	height: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
+@mixin view-header-slim {
+	min-height: 130px;
 
-	.header {
+	.info .meta .name {
+		font-size: $large;
+	}
+	@media (max-width: $break-phone) {
+		min-height: 100px;
+		padding-left: $padding;
+		padding-right: $padding;
 
-		min-height: 260px;
-		border-bottom-width: 1px;
-		border-bottom-style: solid;
-		border-bottom-color: var(--control);
-		position: relative;
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-origin: padding-box;
-		overflow: visible;
-		//z-index: 1;
+		.info {
+			.img {
+				width: inherit;
+			}
+
+			.meta {
+				padding-left: 0;
+				margin-left: 0;
+				width: 100%;
+			}
+		}
+	}
+}
+
+@mixin view-header {
+	min-height: 260px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: var(--control);
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-origin: padding-box;
+	overflow: visible;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: flex-end;
+
+	&:before {
+		content: ' ';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		background-color: var(--background-transparent);
+	}
+
+	.info {
+		padding: $padding;
+		z-index: 1;
+		width: 100%;
+		margin-top: $margin-lg;
 
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
-		align-items: flex-end;
+		align-items: center; // flex-end;
+		color: var(--on-control-ambient);
 
-		&:before {
-			content: ' ';
-			display: block;
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			z-index: 0;
-			background-color: var(--background-transparent);
+		.img {
+			margin-right: $margin;
+			flex: 0 0 160px;
+			height: 160px;
 		}
 
-		.info {
-			padding: $padding;
-			z-index: 1;
-			width: 100%;
-			margin-top: $margin-lg;
+		.meta {
+			flex: 1 1;
 
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-between;
-			align-items: center; // flex-end;
-			color: var(--on-control-ambient);
-
-			.img {
-				margin-right: $margin;
-				flex: 0 0 160px;
-				height: 160px;
+			.year, .artist, .name, .number {
+				color: var(--on-control-hover);
 			}
 
-			.meta {
-				flex: 1 1;
-
-				.year, .artist, .name, .number {
-					color: var(--on-control-hover);
-				}
-
-				.type {
-					text-transform: uppercase;
-					font-size: 11px;
-					letter-spacing: 1px;
-				}
-
-				.name {
-					font-size: $xxx-large;
-					font-weight: 100;
-					padding: 0 0 $padding-sm 0;
-				}
-
-				.year {
-					font-size: $medium;
-					font-weight: 100;
-					padding: 0 0 $padding-sm 0;
-				}
-
-				.artist {
-					font-size: $medium;
-					font-weight: 100;
-					padding: 0 0 $padding-sm 0;
-					cursor: pointer;
-				}
-
-				.actions {
-
-					display: flex;
-					flex-flow: row wrap;
-
-					button {
-						margin-right: $margin-sm;
-						margin-top: $margin-sm;
-						height: 27px;
-						font-weight: 500;
-						padding: 1px $padding 0;
-
-						i {
-							transform: scale(1.3);
-							transform-origin: center;
-						}
-					}
-
-				}
-
-			}
-
-			.listeners {
-				width: 20%;
-				//z-index: 1;
-				padding: $padding;
-				text-align: right;
-				font-weight: 100;
-				font-size: 16px;
+			.type {
+				text-transform: uppercase;
+				font-size: 11px;
 				letter-spacing: 1px;
+			}
 
-				.label {
-					font-weight: 300;
-					text-transform: uppercase;
-					font-size: 12px;
-					letter-spacing: 1px;
-					color: var(--on-control-ambient);
+			.name {
+				font-size: $xxx-large;
+				font-weight: 100;
+				padding: 0 0 $padding-sm 0;
+			}
+
+			.year {
+				font-size: $medium;
+				font-weight: 100;
+				padding: 0 0 $padding-sm 0;
+			}
+
+			.artist {
+				font-size: $medium;
+				font-weight: 100;
+				padding: 0 0 $padding-sm 0;
+				cursor: pointer;
+			}
+
+			.actions {
+				display: flex;
+				flex-flow: row wrap;
+				padding-right: $padding;
+
+				button {
+					margin-right: $margin-sm;
+					margin-top: $margin-sm;
+					height: 27px;
+					font-weight: 500;
+					padding: 1px $padding 0;
+
+					i {
+						transform: scale(1.3);
+						transform-origin: center;
+					}
 				}
 
-				.count {
-					padding-bottom: $margin-sm;
+			}
+
+		}
+
+		.listeners {
+			width: 20%;
+			//z-index: 1;
+			padding: $padding;
+			text-align: right;
+			font-weight: 100;
+			font-size: 16px;
+			letter-spacing: 1px;
+
+			.label {
+				font-weight: 300;
+				text-transform: uppercase;
+				font-size: 12px;
+				letter-spacing: 1px;
+				color: var(--on-control-ambient);
+			}
+
+			.count {
+				padding-bottom: $margin-sm;
+				color: var(--on-control-ambient-hover);
+				overflow: hidden;
+
+				a {
 					color: var(--on-control-ambient-hover);
 
-					a {
-						color: var(--on-control-ambient-hover);
-
-						&:hover {
-							color: var(--on-control-ambient);
-						}
-					}
-				}
-
-				.more {
-					user-select: none;
-					//visibility: hidden;
-					padding: 4px 9px 10px;
-					margin-right: -9px;
-					border-radius: 50%;
-					border: 1px solid transparent;
-
 					&:hover {
-						background-color: var(--control-hover);
-						color: var(--on-background-hover);
+						color: var(--on-control-ambient);
 					}
 				}
 			}
 
-			//&:hover {
-			//	.listeners .more {
-			//		visibility: inherit;
-			//	}
-			//}
-		}
+			.more {
+				user-select: none;
+				//visibility: hidden;
+				padding: 4px 9px 10px;
+				margin-right: -9px;
+				border-radius: 50%;
+				border: 1px solid transparent;
 
-		.navigation {
-			width: 100%;
-			//z-index: 1;
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-between;
-			align-items: center;
-			background-color: var(--background-transparent);
-
-			.tabs {
-				@include tabs();
-			}
-		}
-
-		&.slim {
-			min-height: 130px;
-
-			.info .meta .name {
-				font-size: $large;
+				&:hover {
+					background-color: var(--control-hover);
+					color: var(--on-background-hover);
+				}
 			}
 		}
 
 	}
 
-	.toolbar {
-		padding: $padding $padding 0;
-
-		span {
-			text-transform: uppercase;
-			letter-spacing: 1.25px;
-			font-size: $small;
-		}
-	}
-
-	.content {
-		@include view-content();
+	.navigation {
+		width: 100%;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		align-items: center;
+		background-color: var(--background-transparent);
 	}
 
 	@media (max-width: $break-notebook) {
-		.header .info .meta .name {
+		.info .meta .name {
 			font-size: $xx-large;
 		}
 	}
 
 	@media (max-width: $break-pad) {
-		overflow-y: auto;
-
-		.header .info .listeners .more {
+		.info .listeners .more {
 			visibility: inherit;
 		}
 	}
 
 	@media (max-width: $break-phone) {
-		.content {
-			padding-left: $padding-sm;
-			padding-right: $padding-sm;
-		}
-		.header {
-			height: auto;
-			flex-flow: column wrap;
-			min-height: 100px;
+		height: auto;
+		flex-flow: column wrap;
+		min-height: 100px;
+		.info {
+			margin-top: 0;
+			width: 100%;
+			display: block;
+			text-align: center;
 
-			.info {
-				margin-top: 0;
-				width: 100%;
-				display: block;
+			.img {
+				margin-right: 0;
+				width: 30%;
+				display: inline-block;
+				height: auto;
+			}
+
+			.meta {
+				width: 70%;
+				display: inline-block;
 				text-align: center;
+				vertical-align: top;
+				padding-left: $padding;
 
-				.img {
-					margin-right: 0;
-					width: 30%;
-					display: inline-block;
-					height: auto;
+				.name {
+					font-size: $x-large;
 				}
 
-				.meta {
-					width: 70%;
-					display: inline-block;
-					text-align: center;
-					vertical-align: top;
-					padding-left: $padding;
-
-					.name {
-						font-size: $x-large;
-					}
-
-					.type {
-						margin-top: $margin-sm;
-					}
-
-					.actions {
-						justify-content: center;
-					}
+				.type {
+					margin-top: $margin-sm;
 				}
 
-				.listeners {
-					width: 100%;
-					text-align: center;
+				.actions {
+					justify-content: center;
+				}
+			}
+
+			.listeners {
+				width: 100%;
+				text-align: center;
+				padding-bottom: 0;
+
+				> a {
+					float: right;
+				}
+
+				.label {
+					display: inline-block;
+					text-align: right;
+					width: 50%;
+					padding-right: $padding-sm;
+				}
+
+				.count {
+					padding-left: $padding-sm;
 					padding-bottom: 0;
-
-					> a {
-						float: right;
-					}
-
-					.label {
-						display: inline-block;
-						text-align: right;
-						width: 50%;
-						padding-right: $padding-sm;
-					}
-
-					.count {
-						padding-left: $padding-sm;
-						padding-bottom: 0;
-						display: inline-block;
-						text-align: left;
-						width: 50%;
-					}
-				}
-			}
-
-		}
-
-		.header.slim {
-			min-height: 100px;
-
-			.info {
-				.img {
-					width: inherit;
-				}
-
-				.meta {
-					padding-left: 0;
-					margin-left: 0;
-					width: 100%;
+					display: inline-block;
+					text-align: left;
+					width: 50%;
 				}
 			}
 		}
-
 	}
 
 	@media (max-width: $break-watch) {
-		.header {
-			.info {
-				.meta {
-					width: 100%;
-				}
-			}
+		.info .meta {
+			width: 100%;
 		}
 	}
 
+	&.slim {
+		@include view-header-slim();
+	}
+}
 
+@mixin view-host {
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+
+	@media (max-width: $break-pad) {
+		overflow-y: auto;
+	}
 }

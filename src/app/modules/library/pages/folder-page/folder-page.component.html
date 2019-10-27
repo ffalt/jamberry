@@ -1,31 +1,10 @@
 <app-loading *ngIf="!folder"></app-loading>
 <div class="folder" *ngIf="folder">
-	<div class="header" [appBackgroundImage]="folder.id" (contextmenu)="onContextMenu($event, folder)">
-		<div class="info">
-			<div class="img">
-				<app-coverart-image [coverArtObj]="folder" [size]="150" [fill]="true" [alt]="folder.name" [allowEnlarge]="true"></app-coverart-image>
-			</div>
-			<div class="meta">
-				<div class="type" *ngIf="headline.type">{{headline.type}}</div>
-				<div class="name" *ngIf="headline.name">{{headline.name}}</div>
-				<div class="actions">
-					<button class="button-primary" (click)="player.startFolder(folder)"><i class="icon-play"></i> Play</button>
-				</div>
-			</div>
-			<div class="listeners">
-				<ng-container *ngIf="isAlbum">
-					<div class="label">Artist</div>
-					<div class="count">{{folder.tag.artist}}</div>
-					<div class="label">Year</div>
-					<div class="count">{{folder.tag.year}}</div>
-				</ng-container>
-				<div class="label">Played</div>
-				<div class="count">{{folder.state.played || 0}}</div>
-				<a class="more" (click)="onContextMenu($event, folder)">…</a>
-			</div>
-		</div>
-		<app-tabs class="navigation" *ngIf="hasArtistID" [tabs]="tabs" [current]="currentTab" (tabChange)="setTab($event)"></app-tabs>
-	</div>
+	<app-view-header-jam-base
+		[appBackgroundImage]="folder.id" [section]="headline.name" [sectionType]="headline.type"
+		[base]="folder" [infos]="infos" [tabs]="tabs" (contextMenuRequest)="onContextMenu($event)">
+		<button class="button-primary" (click)="player.startFolder(folder)"><i class="icon-play"></i> Play</button>
+	</app-view-header-jam-base>
 
 	<div class="content">
 		<div class="section-title">Navigation</div>
@@ -36,7 +15,7 @@
 
 		<div class="tab-content" [ngSwitch]="currentTab.id">
 
-			<div class="tab-pane" *ngSwitchCase="'overview'">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.overview.id">
 				<div class="info" *ngIf="folder.info">
 					<div class="section-title">Description</div>
 					<div class="description">
@@ -47,11 +26,11 @@
 				<app-tracks *ngIf="folder.tracks && folder.tracks.length>0" [tracks]="folder.tracks"></app-tracks>
 			</div>
 
-			<div class="tab-pane" *ngSwitchCase="'similar'">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.similar.id">
 				<app-folders *ngIf="folder.similar" [folders]="folder.similar"></app-folders>
 			</div>
 
-			<div class="tab-pane" *ngSwitchCase="'musicbrainz'">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.musicbrainz.id">
 				<app-mb-artist [mbArtistID]="folder.tag.musicbrainz.artistID"></app-mb-artist>
 			</div>
 

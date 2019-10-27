@@ -2,10 +2,10 @@ import {Component} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamParameters, JamService} from '@jam';
+import {HeaderTab} from '@shared/components';
 
-export interface Tab {
+export interface Tab extends HeaderTab {
 	id: string;
-	name: string;
 }
 
 export interface Tabs {
@@ -27,23 +27,33 @@ export class SearchPageComponent implements AutocompleteDataControl {
 	AlbumType = AlbumType;
 	value: string = '';
 	query: string = '';
-	tabs: Tabs = {
-		artists: {id: 'artist', name: 'Artist'},
-		albums: {id: 'album', name: 'Album'},
-		folders: {id: 'folder', name: 'Folder'},
-		podcasts: {id: 'podcast', name: 'Podcast'},
-		episodes: {id: 'episode', name: 'Episodes'},
-		playlists: {id: 'playlist', name: 'Playlist'},
-		tracks: {id: 'track', name: 'Track'}
+	tabsObjs: Tabs = {
+		artists: {id: 'artist', label: 'Artist'},
+		albums: {id: 'album', label: 'Album'},
+		folders: {id: 'folder', label: 'Folder'},
+		podcasts: {id: 'podcast', label: 'Podcast'},
+		episodes: {id: 'episode', label: 'Episodes'},
+		playlists: {id: 'playlist', label: 'Playlist'},
+		tracks: {id: 'track', label: 'Track'}
 	};
-	currentTab: { id: string; name: string; } = this.tabs.artists;
-	tabList = Object.keys(this.tabs).map(key => this.tabs[key]);
+	currentTab: Tab = this.tabsObjs.artists;
+	tabs: Array<HeaderTab> = Object.keys(this.tabsObjs).map(key => {
+		const tab = this.tabsObjs[key];
+		tab.click = () => {
+			this.setCurrentTab(tab);
+		};
+		return tab;
+	});
 
 	constructor(protected jam: JamService, protected notify: NotifyService) {
+		this.currentTab = this.tabsObjs.artists;
+		this.currentTab.active = true;
 	}
 
-	setCurrentTab(tab: { id: string; name: string; }): void {
+	setCurrentTab(tab: Tab): void {
 		this.currentTab = tab;
+		this.tabs.forEach(t => t.active = false);
+		tab.active = true;
 		this.search();
 	}
 

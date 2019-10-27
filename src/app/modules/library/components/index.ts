@@ -19,7 +19,10 @@ import {ContextMenuArtistComponent} from './context-menu-artist/context-menu-art
 import {ContextMenuEpisodeComponent} from './context-menu-episode/context-menu-episode.component';
 import {ContextMenuFolderComponent} from './context-menu-folder/context-menu-folder.component';
 import {ContextMenuPlaylistComponent} from './context-menu-playlist/context-menu-playlist.component';
+import {ContextMenuPlaylistsComponent} from './context-menu-playlists/context-menu-playlists.component';
 import {ContextMenuPodcastComponent} from './context-menu-podcast/context-menu-podcast.component';
+import {ContextMenuPodcastsComponent} from './context-menu-podcasts/context-menu-podcasts.component';
+import {ContextMenuQueueComponent} from './context-menu-queue/context-menu-queue.component';
 import {ContextMenuTrackComponent} from './context-menu-track/context-menu-track.component';
 import {CurrentPlayingComponent} from './current-playing/current-playing.component';
 import {EpisodeStateButtonComponent} from './episode-state-button/episode-state.button.component';
@@ -47,6 +50,8 @@ import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {StartSectionComponent} from './start-section/start-section.component';
 import {TabsComponent} from './tabs/tabs.component';
+import {TrackOverviewComponent} from './track-overview/track-overview.component';
+import {TrackSimilarComponent} from './track-similar/track-similar.component';
 import {TracksLoaderByTypeComponent} from './tracks-loader-by-type/tracks-loader-by-type.component';
 import {TracksLoaderComponent} from './tracks-loader/tracks-loader.component';
 import {TracksPlaylistComponent} from './tracks-playlist/tracks-playlist.component';
@@ -58,7 +63,10 @@ export const entryComponents: Array<any> = [
 	ContextMenuEpisodeComponent,
 	ContextMenuFolderComponent,
 	ContextMenuPlaylistComponent,
+	ContextMenuPlaylistsComponent,
 	ContextMenuPodcastComponent,
+	ContextMenuPodcastsComponent,
+	ContextMenuQueueComponent,
 	ContextMenuTrackComponent
 ];
 
@@ -107,6 +115,8 @@ export const components: Array<any> = [
 	StartSectionComponent,
 	TabsComponent,
 	TracksComponent,
+	TrackOverviewComponent,
+	TrackSimilarComponent,
 	TracksLoaderByTypeComponent,
 	TracksLoaderComponent,
 	TracksPlaylistComponent
@@ -161,7 +171,12 @@ export * from './playlists-loader-by-type/playlists-loader-by-type.component';
 export * from './playlists-loader/playlists-loader.component';
 export * from './playlists/playlists.component';
 export * from './context-menu-playlist/context-menu-playlist.component';
+export * from './context-menu-playlists/context-menu-playlists.component';
 export * from './tracks-loader-by-type/tracks-loader-by-type.component';
 export * from './tracks-loader/tracks-loader.component';
 export * from './tracks/tracks.component';
 export * from './context-menu-track/context-menu-track.component';
+export * from './context-menu-podcasts/context-menu-podcasts.component';
+export * from './context-menu-queue/context-menu-queue.component';
+export * from './track-overview/track-overview.component';
+export * from './track-similar/track-similar.component';

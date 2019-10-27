@@ -1,23 +1,22 @@
 <div class="radar">
-	<div class="toolbar">
-		<span>Health Radar</span>
-	</div>
+	<app-view-header-slim section="Health Radar">
+		<ng-container *ngIf="folders">
+			<div class="buttons" *ngIf="!searching">
+				<button class="button-primary" (click)="start()"><i class="icon-play"></i> Next</button>
+				<button *ngIf="current" class="button-on-control" (click)="refresh(current.pos, false)"><i class="icon-reload"></i> Refresh</button>
+				<button *ngIf="current && current.health && current.health.length>0" class="button-on-control" (click)="fixAll()">Fix all fixable</button>
+			</div>
+			<div class="buttons" *ngIf="searching">
+				<button class="button-on-control" (click)="stop()"><i class="icon-stop"></i> Stop</button>
+				<button class="button-on-control"><i class="icon-spin icon-spinner"></i></button>
+			</div>
+		</ng-container>
+
+	</app-view-header-slim>
 
 	<div class="content">
 		<app-loading *ngIf="!folders"></app-loading>
 		<div *ngIf="folders">
-
-			<div class="action">
-				<div class="buttons" *ngIf="!searching">
-					<button class="button-primary" (click)="start()"><i class="icon-play"></i> Next</button>
-					<button *ngIf="current" class="button-on-control" (click)="refresh(current.pos, false)"><i class="icon-reload"></i> Refresh</button>
-					<button *ngIf="current && current.health && current.health.length>0" class="button-on-control" (click)="fixAll()">Fix all fixable</button>
-				</div>
-				<div class="buttons" *ngIf="searching">
-					<button class="button-on-control" (click)="stop()"><i class="icon-stop"></i> Stop</button>
-					<button class="button-on-control"><i class="icon-spin icon-spinner"></i></button>
-				</div>
-			</div>
 
 			<ng-container *ngIf="current">
 				<div class="current">

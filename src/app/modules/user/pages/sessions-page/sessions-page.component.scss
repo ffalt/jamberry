@@ -2,9 +2,10 @@
 
 :host {
 	.sessions {
-		@include view();
+		@include view-host();
 
 		.content {
+			@include view-content();
 			padding: $padding $padding $padding-xl;
 
 			.subsonic {
@@ -70,7 +71,6 @@
 					}
 				}
 			}
-
 		}
 	}
 }

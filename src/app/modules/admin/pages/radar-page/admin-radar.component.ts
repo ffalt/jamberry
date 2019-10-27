@@ -30,7 +30,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	}
 
 	trackHealthResolved(health: Jam.TrackHealth): void {
-		if (this.current.health) {
+		if (this.current && this.current.health) {
 			this.current.health = this.current.health.filter(h => h !== health);
 		}
 	}
@@ -79,18 +79,19 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 			this.searching = false;
 			return;
 		}
-		this.current = {
+		const current: { pos: number, folder: Jam.Folder, health?: Array<Jam.TrackHealth> } = {
 			folder,
 			pos
 		};
+		this.current = current;
 		this.userStorage.set<{ folderID: string }>(AdminRadarComponent.localStorageName, {folderID: folder.id});
 		this.jam.track.health({parentID: folder.id, media: true})
 			.then(health => {
 				if (health.length > 0) {
-					this.current.health = health;
+					current.health = health;
 					this.searching = false;
 				} else if (!continueNext) {
-					this.current.health = [];
+					current.health = [];
 					this.searching = false;
 				} else {
 					this.request();

@@ -2,25 +2,26 @@
 
 :host {
 	.start {
-		@include view();
+		@include view-host();
 
-		.header .img {
-			text-align: center;
-
-			app-logo-icon {
-				height: 130px;
-				width: 130px;
-				@media (max-width: $break-phone) {
-					height: 60px;
-					width: 60px;
+		.header-start {
+			@include view-header();
+			@include view-header-slim();
+			.img {
+				text-align: center;
+				app-logo-icon {
+					height: 130px;
+					width: 130px;
+					@media (max-width: $break-phone) {
+						height: 60px;
+						width: 60px;
+					}
 				}
 			}
 		}
 
-		.header {
-		}
-
 		.content {
+			@include view-content();
 			padding: 0 $padding $padding-xl;
 
 			.section-title {
@@ -84,7 +85,6 @@
 					}
 				}
 			}
-
 
 		}
 	}

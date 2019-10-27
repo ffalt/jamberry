@@ -5,7 +5,8 @@
 	width: 100%;
 
 	.health {
-		@include view();
+		display: flex;
+		flex-direction: column;
 
 		.actions {
 			padding: $padding-sm $padding;

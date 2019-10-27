@@ -1,30 +1,5 @@
-<context-menu #playlistsMenu>
-	<ng-template contextMenuItem (execute)="playlistDialogsService.newPlaylist()"><i class="icon-list-add"></i> New Playlist</ng-template>
-</context-menu>
-
 <div class="playlists">
-	<div class="header" [contextMenu]="playlistsMenu">
-		<div class="info">
-			<div class="img">
-				<app-iconart-image icon="icon-playlist"></app-iconart-image>
-			</div>
-			<div class="meta">
-				<div class="type"></div>
-				<div class="name">Playlists</div>
-				<div class="actions">
-				</div>
-			</div>
-			<div class="listeners">
-				<a class="more" [contextMenu]="playlistsMenu" [contextMenuTriggerLeft]="true">…</a>
-			</div>
-		</div>
-		<div class="navigation">
-			<ul class="tabs">
-				<li [routerLink]="['/library/playlists']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a>Index</a></li>
-				<li *ngFor="let list of JamLists" [routerLink]="['/library/playlists',list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
-			</ul>
-		</div>
-	</div>
+	<app-view-header-icon-section icon="icon-playlist" section="Playlists" [tabs]="tabs" (contextMenuRequest)="onContextMenu($event)" [hasContextMenu]="true"></app-view-header-icon-section>
 	<div class="content">
 		<router-outlet></router-outlet>
 	</div>

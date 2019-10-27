@@ -87,11 +87,6 @@
 				background-color: transparent;
 			}
 		}
-
-		&.mini {
-			flex: 0;
-		}
-
 	}
 
 	@media (max-width: $break-pad) {
@@ -101,10 +96,6 @@
 		> li {
 			padding: $padding-xs;
 			min-width: 33%;
-
-			&.mini {
-				min-width: 20px;
-			}
 
 			> a {
 				font-size: 0.8em;
@@ -120,6 +111,17 @@
 				font-size: 0.8em;
 			}
 		}
+	}
+
+	&.mini {
+		> li {
+			flex: 0;
+			@media (max-width: $break-pad) {
+				min-width: 20px;
+			}
+		}
+		padding-left: $padding;
+		padding-right: $padding;
 	}
 
 }

@@ -1,47 +1,18 @@
 <app-loading *ngIf="!album"></app-loading>
 <div class="album" *ngIf="album">
-	<div class="header" [appBackgroundImage]="album.id" (contextmenu)="onContextMenu($event, album)">
-		<div class="info">
-			<div class="img">
-				<app-coverart-image [coverArtObj]="album" [size]="150" [fill]="true" [alt]="album.name" [allowEnlarge]="true"></app-coverart-image>
-			</div>
-			<div class="meta">
-				<div class="type">{{album.albumType}}</div>
-				<div class="number" *ngIf="album.tag.grouping">Episode {{album.tag.grouping}}</div>
-				<div class="name">{{album.name}}</div>
-					<div class="actions">
-					<button class="button-primary" (click)="player.startAlbum(album)"><i class="icon-play"></i> Play</button>
-				</div>
-			</div>
-			<div class="listeners">
-				<div class="label">Artist</div>
-				<div class="count"><a (click)="navig.toArtistID(album.artistID,album.artist)">{{album.artist}}</a></div>
-				<ng-container *ngIf="album.tag.year">
-					<div class="label">Year</div>
-					<div class="count">{{album.tag.year}}</div>
-				</ng-container>
-				<div class="label">Played</div>
-				<div class="count">{{album.state.played || 0}}</div>
-				<a class="more" (click)="onContextMenu($event, album)">…</a>
-			</div>
-		</div>
-
-		<div class="navigation">
-		</div>
-
-	</div>
-
+	<app-view-header-jam-base
+		[appBackgroundImage]="album.id" [section]="album.name" [sectionType]="album.albumType"
+		[base]="album" [infos]="infos" (contextMenuRequest)="onContextMenu($event)">
+		<button class="button-primary" (click)="player.startAlbum(album)"><i class="icon-play"></i> Play</button>
+	</app-view-header-jam-base>
 	<div class="content">
-
 		<div class="overview">
-
 			<div class="info" *ngIf="album.info">
 				<div class="section-title">Description</div>
 				<div class="description">
 					<app-info-note [info]="album.info"></app-info-note>
 				</div>
 			</div>
-
 			<div class="album-tracks">
 				<div class="head">
 					<span class="section-title">Tracks</span>
@@ -49,7 +20,5 @@
 				<app-tracks [tracks]="tracks" [showArtist]="isCompilation"></app-tracks>
 			</div>
 		</div>
-
 	</div>
-
 </div>

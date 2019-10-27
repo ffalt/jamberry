@@ -1,21 +1,5 @@
 <div class="artists" appDeferLoadScrollHost>
-	<div class="header">
-		<div class="info">
-			<div class="img">
-				<app-iconart-image icon="icon-artist"></app-iconart-image>
-			</div>
-			<div class="meta">
-				<div class="type"></div>
-				<div class="name">Artists</div>
-			</div>
-		</div>
-		<div class="navigation">
-			<ul class="tabs">
-				<li [routerLink]="['/library/artists']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a>Index</a></li>
-				<li *ngFor="let list of JamLists" [routerLink]="['/library/artists',list.link]" routerLinkActive="active"><a>{{list.text}}</a></li>
-			</ul>
-		</div>
-	</div>
+	<app-view-header-icon-section icon="icon-artist" section="Artists" [tabs]="tabs"></app-view-header-icon-section>
 	<div class="content">
 		<router-outlet></router-outlet>
 	</div>

@@ -2,7 +2,7 @@
 	<div class="list" [class.active]="collapsed.main">
 		<div class="header" (click)="collapsed.main=!collapsed.main">User</div>
 		<div class="collapse" *ngIf="!collapsed.main">
-			<a *ngFor="let section of sections; trackBy: trackByFn" class="item" [routerLink]="['/user', section.id]" routerLinkActive="active" [routerLinkActiveOptions]="section.options">
+			<a *ngFor="let section of sections; trackBy: trackByFn" class="item" [routerLink]="[section.link]" routerLinkActive="active" [routerLinkActiveOptions]="section.options">
 				<i [class]="section.icon"></i><span>{{section.text}}</span>
 			</a>
 		</div>

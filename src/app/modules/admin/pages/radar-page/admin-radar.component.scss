@@ -8,13 +8,11 @@
 	display: block;
 
 	.radar {
-		@include view();
+		display: flex;
+		flex-direction: column;
 
 		.content {
 			padding: $padding;
-		}
-
-		.action {
 		}
 
 		.buttons {

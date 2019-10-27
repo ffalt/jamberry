@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppService, NavigService, NotifyService} from '@core/services';
 import {JamService} from '@jam';
 import {scrollToIndexGroup} from '@library/components';
+import {HeaderTab} from '@shared/components';
 import {Index, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -13,6 +14,7 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class FolderIndexPageComponent implements OnInit, OnDestroy {
 	index: Index;
+	tabs: Array<HeaderTab>;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -29,6 +31,12 @@ export class FolderIndexPageComponent implements OnInit, OnDestroy {
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			folderIndexCache => {
 				this.index = folderIndexCache.index;
+				this.tabs = this.index.groups.map((group, index) =>
+					({
+						label: group.name, click: () => {
+							this.scrollToGroup(index);
+						}
+					}));
 			},
 			e => {
 				this.notify.error(e);

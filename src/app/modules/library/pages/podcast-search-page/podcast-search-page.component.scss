@@ -2,13 +2,17 @@
 
 :host {
 	.search-podcasts {
-		@include view();
+		@include view-host();
 
 		@include input-box-large();
 
+		.reference {
+			padding-top: $padding-xs;
+			font-size: 0.8em;
+		}
+
 		.content {
-			padding: $padding;
-			width: 100%;
+			@include view-content();
 
 			.podcasts {
 				width: 100%;

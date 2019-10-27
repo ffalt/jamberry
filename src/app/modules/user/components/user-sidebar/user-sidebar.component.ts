@@ -7,6 +7,7 @@ import {routes} from '../../user.routing';
 export interface UserSidebarSection {
 	id: string;
 	text: string;
+	link: string;
 	icon: string;
 	options: {
 		exact: boolean;
@@ -27,17 +28,21 @@ export class UserSidebarComponent implements OnInit, OnDestroy, SidebarProvider 
 	showMobileNavig: boolean = false;
 
 	constructor(private app: AppService, private router: Router) {
-		const sections: Array<UserSidebarSection> = routes[0].children.filter(route => route.path.length > 0 && route.data && route.data.name).map(route =>
-			({
-				id: route.data && route.data.link ? route.data.link : route.path,
+		const sections: Array<UserSidebarSection> = routes[0].children.filter(route => route.path.length > 0 && route.data && route.data.name).map(route => {
+			const id = route.data && route.data.link ? route.data.link : route.path;
+			return ({
+				id,
 				text: route.data ? route.data.name : '',
 				icon: route.data && route.data.icon ? route.data.icon : 'icon-admin',
+				link: '/user/' + id,
 				options: {exact: false}
-			}));
+			});
+		});
 		const main: UserSidebarSection = {
 			id: '',
 			text: 'User',
 			icon: 'icon-user',
+			link: '/user',
 			options: {exact: true}
 		};
 		this.sections = [main].concat(sections);

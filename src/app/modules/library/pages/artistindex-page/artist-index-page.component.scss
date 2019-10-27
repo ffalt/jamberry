@@ -2,14 +2,9 @@
 
 :host {
 	.index {
-		@include view();
-
-		.header {
-			.navigation {
-				padding-left: $padding;
-				padding-right: $padding;
-			}
+		@include view-host();
+		.content {
+			@include view-content();
 		}
-
 	}
 }

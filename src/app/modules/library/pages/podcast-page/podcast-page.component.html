@@ -1,22 +1,11 @@
 <app-loading *ngIf="!podcast"></app-loading>
 <div class="podcast" *ngIf="podcast">
-	<div class="header" [appBackgroundImage]="podcast.id" (contextmenu)="onContextMenu($event, podcast)">
-		<div class="info">
-			<div class="img">
-				<app-coverart-image [coverArtObj]="podcast" [size]="150" [fill]="true" [alt]="podcast.name" [allowEnlarge]="true"></app-coverart-image>
-			</div>
-			<div class="meta">
-				<div class="type">Podcast</div>
-				<div class="name">{{podcast.name}}</div>
-				<div class="actions">
-					<!--					<button class="button-primary" (click)="player.startPodcast(podcast)"><i class="icon-play"></i> Play</button>-->
-				</div>
-			</div>
-			<div class="listeners">
-				<a class="more" (click)="onContextMenu($event, podcast)">…</a>
-			</div>
-		</div>
-	</div>
+	<app-view-header-jam-base
+		[appBackgroundImage]="podcast.id" [section]="podcast.name" sectionType="podcast"
+		[base]="podcast"
+		(contextMenuRequest)="onContextMenu($event)">
+		<button class="button-primary" (click)="player.startPodcast(podcast)"><i class="icon-play"></i> Play</button>
+	</app-view-header-jam-base>
 	<div class="content">
 		<div class="overview" *ngIf="podcast.description">
 			<div class="info">

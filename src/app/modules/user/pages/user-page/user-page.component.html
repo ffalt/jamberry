@@ -1,15 +1,7 @@
 <div class="user">
-	<div class="header slim">
-		<div class="info">
-			<div class="meta">
-				<div class="type">Jamberry</div>
-				<div class="name">User</div>
-				<div class="actions"></div>
-			</div>
-		</div>
-	</div>
-	<div class="content">
-		<div *ngIf="auth.user">
+	<app-view-header-slim section="User"></app-view-header-slim>
+	<div class="content" *ngIf="auth.user">
+		<div>
 			<div class="section">
 				<div class="section-title">Name</div>
 				<div>{{auth.user.name}}</div>
@@ -40,8 +32,6 @@
 					<div *ngIf="auth.user.roles.admin"><i class="icon-checkmark"></i> Server Administration</div>
 				</div>
 			</div>
-		</div>
-		<div>
 		</div>
 	</div>
 </div>

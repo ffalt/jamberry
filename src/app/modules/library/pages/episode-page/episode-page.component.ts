@@ -4,6 +4,7 @@ import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {ContextMenuEpisodeComponent, ContextMenuEpisodeComponentOpts} from '@library/components';
+import {HeaderInfo} from '@shared/components';
 import {ActionsService, PodcastService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -16,6 +17,7 @@ import {takeUntil} from 'rxjs/operators';
 export class EpisodePageComponent implements OnInit, OnDestroy {
 	episode: Jam.PodcastEpisode;
 	PodcastStatus = PodcastStatus;
+	infos: Array<HeaderInfo> = [];
 	id: string;
 	protected unsubscribe = new Subject();
 
@@ -48,15 +50,15 @@ export class EpisodePageComponent implements OnInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.PodcastEpisode): void {
-		this.contextMenuService.open<ContextMenuEpisodeComponentOpts>(ContextMenuEpisodeComponent, item, $event, {showGoTo: false});
+	onContextMenu($event: MouseEvent): void {
+		this.contextMenuService.open<ContextMenuEpisodeComponentOpts>(ContextMenuEpisodeComponent, this.episode, $event, {showGoTo: false});
 	}
 
 	refresh(): void {
 		if (this.id) {
 			this.jam.episode.id({id: this.id, trackTag: true, trackState: true, trackMedia: true})
 				.then(episode => {
-					this.episode = episode;
+					this.display(episode);
 				})
 				.catch(e => {
 					this.notify.error(e);
@@ -64,4 +66,15 @@ export class EpisodePageComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	display(episode: Jam.PodcastEpisode): void {
+		this.episode = episode;
+		this.infos = [
+			{
+				label: 'Podcast', value: episode.podcast, click: () => {
+					this.navig.toPodcastID(episode.podcastID, episode.podcast);
+				}
+			},
+			{label: 'Played', value: episode.state.played || 0}
+		].filter(info => info.value !== undefined);
+	}
 }

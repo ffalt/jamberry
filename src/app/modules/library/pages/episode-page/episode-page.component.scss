@@ -2,12 +2,10 @@
 
 :host {
 	.episode {
-		@include view();
-
+		@include view-host();
 		.content {
-			padding: $padding;
+			@include view-content();
 			@include key-value-list();
-
 		}
 	}
 }

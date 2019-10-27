@@ -8,40 +8,39 @@
 	flex: 0 1 100%;
 
 	.album {
-		@include view();
+		@include view-host();
 
 		.content {
-			padding: $padding;
+			@include view-content();
+		}
 
-			.overview {
-				display: flex;
-				flex-flow: row wrap;
+		.overview {
+			display: flex;
+			flex-flow: row wrap;
 
+			.info {
+				width: 100%;
+			}
+
+			@media (max-width: $break-pad) {
 				.info {
-					width: 100%;
+					padding-right: 0;
 				}
+			}
 
-				@media (max-width: $break-pad) {
-					.info {
-						padding-right: 0;
-					}
-				}
+			.album-tracks {
 
-				.album-tracks {
+				margin-top: $margin;
+				width: 100%;
 
-					margin-top: $margin;
-					width: 100%;
-
-					.head {
-						display: flex;
-						flex-flow: row wrap;
-						justify-content: space-between;
-						align-items: center;
-					}
+				.head {
+					display: flex;
+					flex-flow: row wrap;
+					justify-content: space-between;
+					align-items: center;
 				}
 			}
 		}
-
 	}
 
 }

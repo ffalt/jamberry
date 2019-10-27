@@ -8,9 +8,10 @@
 	display: block;
 
 	.users {
-		@include view();
+		@include view-host();
 
 		.content {
+			@include view-content();
 			@include cdk-table();
 
 			.icon-checkmark {

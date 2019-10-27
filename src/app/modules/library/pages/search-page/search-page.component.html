@@ -7,51 +7,33 @@
 </app-autocomplete>
 
 <div class="search">
-	<div class="header">
-		<div class="info">
-			<div class="img">
-				<app-iconart-image icon="icon-search"></app-iconart-image>
-			</div>
-			<div class="meta">
-				<div class="name">Search</div>
-				<div class="actions">
-					<div class="input-box">
-						<input autocomplete="off" type="text" name="query" placeholder="Search here"
-									 [(ngModel)]="value" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this">
-						<i (click)="search()" title="Search" class="icon-search"></i>
-					</div>
-				</div>
-			</div>
+	<app-view-header-icon-section icon="icon-search" section="Search" [tabs]="tabs">
+		<div class="input-box">
+			<input autocomplete="off" type="text" name="query" placeholder="Search here" [(ngModel)]="value" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this">
+			<i (click)="search()" title="Search" class="icon-search"></i>
 		</div>
-		<div class="navigation">
-			<ul class="tabs">
-				<li *ngFor="let tab of tabList" [class.active]="currentTab===tab" (click)="setCurrentTab(tab)">
-					<a>{{tab.name}}</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+	</app-view-header-icon-section>
 	<div class="content" *ngIf="query">
 		<div class="tab-content" [ngSwitch]="currentTab.id">
-			<div class="tab-pane" *ngSwitchCase="tabs.albums.id">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.albums.id">
 				<app-albums-loader [query]="query" [grouping]="false"></app-albums-loader>
 			</div>
-			<div class="tab-pane" *ngSwitchCase="tabs.artists.id">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.artists.id">
 				<app-artists-loader [query]="query" [albumType]="AlbumType.album"></app-artists-loader>
 			</div>
-			<div class="tab-pane" *ngSwitchCase="tabs.tracks.id">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.tracks.id">
 				<app-tracks-loader [query]="query"></app-tracks-loader>
 			</div>
-			<div class="tab-pane" *ngSwitchCase="tabs.podcasts.id">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.podcasts.id">
 				<app-podcasts-loader [query]="query"></app-podcasts-loader>
 			</div>
-			<div class="tab-pane" *ngSwitchCase="tabs.episodes.id">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.episodes.id">
 				<app-episodes-loader [query]="query"></app-episodes-loader>
 			</div>
-			<div class="tab-pane" *ngSwitchCase="tabs.playlists.id">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.playlists.id">
 				<app-playlists-loader [query]="query"></app-playlists-loader>
 			</div>
-			<div class="tab-pane" *ngSwitchCase="tabs.folders.id">
+			<div class="tab-pane" *ngSwitchCase="tabsObjs.folders.id">
 				<app-folders-loader [query]="query"></app-folders-loader>
 			</div>
 		</div>

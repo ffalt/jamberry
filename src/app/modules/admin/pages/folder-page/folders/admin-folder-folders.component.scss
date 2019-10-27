@@ -9,18 +9,13 @@
 	.folders {
 		display: flex;
 		flex-direction: column;
-		@include view();
 
 		.actions {
 			padding: $padding-sm $padding;
+			border-bottom-color: var(--background-border);
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
 		}
 
-		.content {
-			flex: 1 1 auto;
-			position: relative;
-			overflow: auto;
-
-			height: 100%;
-		}
 	}
 }

@@ -1,26 +1,11 @@
 @import "globals.scss";
 
 :host {
-
 	.search {
-		@include view();
+		@include view-host();
 		@include input-box-large();
-
-		.actions {
-			width: 50%;
-
-			@media (max-width: $break-desktop-huge) {
-				width: 80%;
-			}
-			@media (max-width: $break-phone) {
-				width: 100%;
-			}
-		}
-
 		.content {
-			width: 100%;
-			padding: $padding;
+			@include view-content();
 		}
 	}
-
 }

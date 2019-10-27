@@ -1,7 +1,8 @@
+<div class="actions">
+	<span class="name">Folders</span>
+	<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
+</div>
 <cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="22" class="list-container list-group">
-	<div class="actions">
-		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
-	</div>
 	<ng-container *cdkVirtualFor="let node of nodes">
 		<div (click)="selectNode(node)" class="node" [style.padding-left.px]="node.level*12" [class.active]="node===selected" [class]="node.folder.type">
 			<span class="node-toggle" (click)="toggleNode(node)" title="Subfolders: {{node.folder.folderCount}}">

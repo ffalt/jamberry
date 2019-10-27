@@ -47,8 +47,8 @@ export class PodcastPageComponent implements OnInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Podcast): void {
-		this.contextMenuService.open(ContextMenuPodcastComponent, item, $event);
+	onContextMenu($event: MouseEvent): void {
+		this.contextMenuService.open(ContextMenuPodcastComponent, this.podcast, $event);
 	}
 
 	recheck(): void {

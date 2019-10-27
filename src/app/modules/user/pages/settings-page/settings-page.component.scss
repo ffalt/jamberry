@@ -2,10 +2,11 @@
 
 :host {
 	.settings {
-		@include view();
+		@include view-host();
 
 		.content {
 			padding: $padding $padding $padding-xl;
+			@include view-content();
 
 			label {
 				display: block;

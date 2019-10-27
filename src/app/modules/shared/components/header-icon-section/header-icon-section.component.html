@@ -1,0 +1,16 @@
+<div class="info">
+	<div class="img">
+		<app-iconart-image [icon]="icon"></app-iconart-image>
+	</div>
+	<div class="meta">
+		<div class="type">{{sectionType}}</div>
+		<div class="name">{{section}}</div>
+		<div class="actions">
+			<ng-content></ng-content>
+		</div>
+	</div>
+	<div *ngIf="hasContextMenu" class="listeners">
+		<a class="more" (click)="contextmenuEvent($event)">…</a>
+	</div>
+</div>
+<app-view-header-tabs class="navigation" [tabs]="tabs" [smallTabs]="smallTabs"></app-view-header-tabs>

@@ -1,10 +1,9 @@
 <div class="roots">
-	<div class="toolbar">
-		<span>Roots</span>
+	<app-view-header-slim section="Roots">
 		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
 		<button class="button-on-control" title="Add new Root" (click)="newRoot()"><i class="icon-list-add"></i> Add</button>
 		<button class="button-on-control" title="Rescan Roots" (click)="rescan()"><i class="icon-rescan"></i> Rescan</button>
-	</div>
+	</app-view-header-slim>
 	<div class="content">
 		<cdk-table *ngIf="dataSource" [dataSource]="dataSource">
 			<ng-container cdkColumnDef="name">

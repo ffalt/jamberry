@@ -3,10 +3,21 @@ import {ActivatedRoute} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {FolderType, FolderTypesAlbum, Jam, JamService} from '@jam';
-import {ContextMenuFolderComponent, getFolderTypeInfo, Tab} from '@library/components';
+import {ContextMenuFolderComponent, getFolderTypeInfo} from '@library/components';
+import {HeaderInfo, HeaderTab} from '@shared/components';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+
+export interface FolderHeaderTab extends HeaderTab {
+	id: string;
+}
+
+export interface FolderHeaderTabs {
+	overview: FolderHeaderTab;
+	similar: FolderHeaderTab;
+	musicbrainz: FolderHeaderTab;
+}
 
 @Component({
 	selector: 'app-page-folder',
@@ -15,13 +26,22 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class FolderPageComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder;
-	tabs: Array<Tab> = [
-		{id: 'overview', name: 'Overview'},
-		{id: 'similar', name: 'Related Artists'},
-		{id: 'musicbrainz', name: 'MusicBrainz'}
-	];
 	headline: { type?: string; name?: string; year?: string } = {};
-	currentTab: Tab = this.tabs[0];
+	tabsObjs: FolderHeaderTabs = {
+		overview: {id: 'overview', label: 'Overview'},
+		similar: {id: 'similar', label: 'Related Artists'},
+		musicbrainz: {id: 'musicbrainz', label: 'MusicBrainz'}
+	};
+	tabsList: Array<FolderHeaderTab> = Object.keys(this.tabsObjs).map(key => {
+		const tab = this.tabsObjs[key];
+		tab.click = () => {
+			this.setTab(tab);
+		};
+		return tab;
+	});
+	tabs: Array<FolderHeaderTab> = [];
+	currentTab: FolderHeaderTab;
+	infos: Array<HeaderInfo> = [];
 	hasArtistID: boolean;
 	isAlbum: boolean;
 	isArtist: boolean;
@@ -34,6 +54,7 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
 		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute,
 		private contextMenuService: ContextMenuService) {
+		this.setTab(this.tabsList[0]);
 	}
 
 	ngOnInit(): void {
@@ -51,13 +72,14 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Folder): void {
-		this.contextMenuService.open(ContextMenuFolderComponent, item, $event);
+	onContextMenu($event: MouseEvent): void {
+		this.contextMenuService.open(ContextMenuFolderComponent, this.folder, $event);
 	}
 
 	refresh(): void {
 		this.folder = undefined;
 		this.hasArtistID = false;
+		this.tabs = [];
 		this.headline = {};
 		if (this.id) {
 			this.jam.folder.id({
@@ -72,16 +94,7 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 				folderSimilar: true
 			})
 				.then(folder => {
-					this.folder = folder;
-					this.headline = getFolderTypeInfo(this.folder);
-					this.isAlbum = FolderTypesAlbum.includes(folder.type as FolderType);
-					this.isArtist = folder.type === FolderType.artist;
-					this.isCollection = folder.type === FolderType.collection;
-					this.isElse = !this.isAlbum && !this.isArtist && !this.isCollection;
-					this.hasArtistID = this.isArtist && folder.tag && folder.tag.musicbrainz && !!folder.tag.musicbrainz.artistID;
-					if (!this.hasArtistID) {
-						this.currentTab = this.tabs[0];
-					}
+					this.display(folder);
 				})
 				.catch(e => {
 					this.notify.error(e);
@@ -89,7 +102,33 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	setTab(tab: Tab): void {
+	setTab(tab: FolderHeaderTab): void {
 		this.currentTab = tab;
+		this.tabsList.forEach(t => t.active = false);
+		tab.active = true;
+	}
+
+	display(folder: Jam.Folder): void {
+		this.folder = folder;
+		this.headline = getFolderTypeInfo(this.folder);
+		this.isAlbum = FolderTypesAlbum.includes(folder.type as FolderType);
+		this.isArtist = folder.type === FolderType.artist;
+		this.isCollection = folder.type === FolderType.collection;
+		this.isElse = !this.isAlbum && !this.isArtist && !this.isCollection;
+		this.hasArtistID = this.isArtist && folder.tag && folder.tag.musicbrainz && !!folder.tag.musicbrainz.artistID;
+		if (this.hasArtistID) {
+			this.tabs = this.tabsList;
+		} else {
+			this.setTab(this.tabsList[0]);
+		}
+		this.infos = [
+			...(this.isAlbum ?
+					[
+						{label: 'Artist', value: folder.tag.artist},
+						{label: 'Year', value: folder.tag.year},
+					] : []
+			),
+			{label: 'Played', value: folder.state.played || 0}
+		].filter(info => info.value !== undefined);
 	}
 }

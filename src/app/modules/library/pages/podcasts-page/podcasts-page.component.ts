@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
+import {ContextMenuService} from '@app/modules/context-menu';
 import {JamLists} from '@app/utils/jam-lists';
 import {NavigService} from '@core/services';
 import {JamService} from '@jam';
-import {PodcastService} from '@shared/services';
+import {ContextMenuPodcastsComponent} from '@library/components';
+import {HeaderTab} from '@shared/components';
 
 @Component({
 	selector: 'app-page-podcasts',
@@ -10,13 +12,17 @@ import {PodcastService} from '@shared/services';
 	styleUrls: ['./podcasts-page.component.scss']
 })
 export class PodcastsPageComponent {
-	lists = JamLists.filter(l => l.id !== 'random');
+	tabs: Array<HeaderTab> = [
+		{label: 'Index', link: {route: '/library/podcasts', options: {exact: true}}},
+		...JamLists.filter(l => l.id !== 'random').map(list => (
+			{label: list.text, link: {route: `/library/podcasts/${list.link}`, options: {}}}
+		))
+	];
 
-	constructor(public jam: JamService, public podcastService: PodcastService, public navig: NavigService) {
+	constructor(public jam: JamService, public navig: NavigService, private contextMenuService: ContextMenuService) {
 	}
 
-	refreshPodcastFeeds(): void {
-		this.podcastService.checkPodcasts();
+	onContextMenu($event: MouseEvent, item?: any): void {
+		this.contextMenuService.open(ContextMenuPodcastsComponent, item, $event);
 	}
-
 }

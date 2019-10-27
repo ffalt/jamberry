@@ -1,9 +1,8 @@
 <div class="users">
-	<div class="toolbar">
-		<span>Users</span>
+	<app-view-header-slim section="Users">
 		<button class="button-on-control" title="Add new User" (click)="newUser()"><i class="icon-list-add"></i> Add</button>
 		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
-	</div>
+	</app-view-header-slim>
 	<div class="content">
 		<cdk-table *ngIf="dataSource" [dataSource]="dataSource">
 			<ng-container cdkColumnDef="id">

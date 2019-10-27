@@ -2,10 +2,10 @@
 
 :host {
 	.folder {
-		@include view();
+		@include view-host();
 
 		.content {
-			padding: $padding;
+			@include view-content();
 
 			.breadcrumb {
 				list-style: none;

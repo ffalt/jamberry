@@ -8,7 +8,7 @@
 	display: block;
 
 	.roots {
-		@include view();
+		@include view-host();
 
 		.content {
 			@include cdk-table();

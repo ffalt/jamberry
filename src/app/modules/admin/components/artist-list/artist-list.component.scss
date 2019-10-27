@@ -1,9 +1,0 @@
-@import "globals.scss";
-
-:host {
-	@include cdk-table();
-
-	.albums, .tracks {
-		max-width: 80px;
-	}
-}

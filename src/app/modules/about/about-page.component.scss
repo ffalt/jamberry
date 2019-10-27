@@ -2,24 +2,23 @@
 
 :host {
 	.about {
-		@include view();
+		@include view-host();
 
-		.header {
+		app-view-header-slim {
 			padding-left: $padding-xl;
 			padding-right: $padding-xl;
 		}
 
 		.content {
-			padding-left: $padding-xl;
-			padding-right: $padding-xl;
-			padding-bottom: $padding-xl;
-			@include key-value-list();
-
+			@include view-content();
+			padding: 0 $padding-xl $padding-xl;
 
 			@media (max-width: $break-phone) {
 				padding-left: $padding;
 				padding-right: $padding;
 			}
+
+			@include key-value-list();
 		}
 	}
 

@@ -1,9 +1,9 @@
 @import "globals.scss";
 
 :host {
+	@include view-host();
 	height: 100%;
 	width: 100%;
-	@include view();
 	min-height: 100%;
 	flex: 1 1 auto;
 	position: relative;
@@ -22,8 +22,8 @@
 		flex-flow: row wrap;
 		justify-content: space-between;
 		align-items: center;
-		background-color: rgba(24, 24, 24, .6);
-		color: var(--on-control-ambient);
+		background-color: var(--background-transparent);
+		color: var(--on-control);
 
 		.tabs {
 			@include tabs();
@@ -44,7 +44,7 @@
 
 		.left-content {
 			height: 100%;
-			width: 25%;
+			width: 30%;
 			display: block;
 			border-right: 1px solid var(--background-border);
 
@@ -54,7 +54,7 @@
 		}
 
 		.right-content {
-			width: 75%;
+			width: 70%;
 			flex-shrink: 1;
 			flex-grow: 1;
 			height: 100%;

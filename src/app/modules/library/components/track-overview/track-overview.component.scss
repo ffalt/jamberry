@@ -1,0 +1,10 @@
+@import "globals.scss";
+
+:host {
+	@include key-value-list();
+
+	.svg {
+		height: 100px;
+		min-height: 100px;
+	}
+}

@@ -2,11 +2,10 @@
 
 :host {
 	.user {
-		@include view();
+		@include view-host();
 
 		.content {
-			padding: $padding;
-			padding-bottom: $padding-xl;
+			@include view-content();
 
 			.section {
 				padding-bottom: $padding-lg;

@@ -1,35 +1,10 @@
 <app-loading *ngIf="!artist"></app-loading>
 <div class="artist" *ngIf="artist">
-	<div class="header" [appBackgroundImage]="artist.id" (contextmenu)="onContextMenu($event, artist)">
-		<div class="info">
-			<div class="img">
-				<app-coverart-image [coverArtObj]="artist" [size]="150" [fill]="true" [alt]="artist.name" [allowEnlarge]="true"></app-coverart-image>
-			</div>
-			<div class="meta">
-				<div class="type">{{artist | artistOrSeries}}</div>
-				<div class="name">{{artist.name}}</div>
-				<div class="actions">
-					<button class="button-primary" (click)="player.startArtist(artist)"><i class="icon-play"></i> Play</button>
-				</div>
-			</div>
-			<div class="listeners">
-				<div class="label">Albums</div>
-				<div class="count">{{artist.albumCount}}</div>
-				<div class="label">Tracks</div>
-				<div class="count">{{artist.trackCount}}</div>
-				<div class="label">Played</div>
-				<div class="count">{{artist.state.played || 0}}</div>
-				<a class="more" (click)="onContextMenu($event, artist)">…</a>
-			</div>
-		</div>
-		<div class="navigation" *ngIf="isArtist">
-			<ul class="tabs">
-				<li routerLinkActive="active" [routerLink]="['/library/artist', id]" [routerLinkActiveOptions]="{exact: true}"><a>Overview</a></li>
-				<li routerLinkActive="active" [routerLink]="['/library/artist', id, 'similar']"><a>Similar Artists</a></li>
-				<li routerLinkActive="active" [routerLink]="['/library/artist', id, 'musicbrainz']"><a>MusicBrainz</a></li>
-			</ul>
-		</div>
-	</div>
+	<app-view-header-jam-base
+		[appBackgroundImage]="artist.id" [section]="artist.name" [sectionType]="artist | artistOrSeries"
+		[base]="artist" [infos]="infos" [tabs]="tabs" (contextMenuRequest)="onContextMenu($event)">
+		<button class="button-primary" (click)="player.startArtist(artist)"><i class="icon-play"></i> Play</button>
+	</app-view-header-jam-base>
 	<div class="content">
 		<router-outlet></router-outlet>
 	</div>

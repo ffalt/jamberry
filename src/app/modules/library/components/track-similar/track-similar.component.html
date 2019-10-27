@@ -1,0 +1,3 @@
+<app-loading *ngIf="!similar"></app-loading>
+<app-tracks [showArtist]="true" [tracks]="similar"></app-tracks>
+<app-load-more-button [loading]="!similar" (requestLoad)="loadSimilar()"></app-load-more-button>

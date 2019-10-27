@@ -50,8 +50,8 @@ export class PlaylistPageComponent implements OnInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Playlist): void {
-		this.contextMenuService.open<ContextMenuPlaylistComponentOptions>(ContextMenuPlaylistComponent, item, $event, {
+	onContextMenu($event: MouseEvent): void {
+		this.contextMenuService.open<ContextMenuPlaylistComponentOptions>(ContextMenuPlaylistComponent, this.playlist, $event, {
 			canEdit: this.jam.auth.user && this.playlist && this.playlist.userID === this.jam.auth.user.id
 		});
 	}

@@ -2,17 +2,9 @@
 
 :host {
 	.track {
-		@include view();
-
+		@include view-host();
 		.content {
-			padding: $padding;
-			@include key-value-list();
-
-			.svg {
-				height: 100px;
-				min-height: 100px;
-			}
-
+			@include view-content();
 		}
 	}
 }

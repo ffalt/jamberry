@@ -8,7 +8,7 @@
 	display: block;
 
 	.genres {
-		@include view();
+		@include view-host();
 		overflow-y: hidden;
 		overflow-x: hidden;
 

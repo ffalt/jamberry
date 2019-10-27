@@ -2,10 +2,6 @@ import {AdminFolderFoldersComponent} from '@admin/pages/folder-page/folders/admi
 import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AdminComponent} from './admin.component';
-import {AdminAlbumComponent} from './pages/album-page/admin-album.component';
-import {AdminAlbumsComponent} from './pages/albums-page/admin-albums.component';
-import {AdminArtistComponent} from './pages/artist-page/admin-artist.component';
-import {AdminArtistsComponent} from './pages/artists-page/admin-artists.component';
 import {AdminFolderComponent} from './pages/folder-page/admin-folder.component';
 import {AdminFolderHealthComponent} from './pages/folder-page/health/admin-folder-health.component';
 import {AdminFolderOverviewComponent} from './pages/folder-page/overview/admin-folder-overview.component';
@@ -37,11 +33,6 @@ export const routes: Routes = [
 					{path: 'tags', loadChildren: () => import('../tag-editor/tag-editor.module').then(m => m.TagEditorModule)}
 				]
 			},
-			{path: 'artist/:id', component: AdminArtistComponent},
-			{path: 'artist', component: AdminArtistsComponent, data: {name: 'Artists', icon: 'icon-artist'}},
-			{path: 'album', component: AdminAlbumsComponent, data: {name: 'Albums', icon: 'icon-album'}},
-			{path: 'album/:id', component: AdminAlbumComponent},
-
 			{path: 'radar', component: AdminRadarComponent, data: {name: 'Health Radar', icon: 'icon-health'}},
 			{path: 'genre', component: AdminGenresComponent, data: {name: 'Genres', icon: 'icon-genre'}},
 			{path: 'settings', component: AdminSettingsComponent, data: {name: 'Admin Settings'}}

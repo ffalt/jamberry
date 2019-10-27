@@ -1,24 +1,10 @@
 <app-loading *ngIf="!playlist"></app-loading>
 <div class="playlist" *ngIf="playlist">
-	<div class="header" (contextmenu)="onContextMenu($event, playlist)">
-		<div class="info">
-			<div class="img">
-				<app-coverart-image [coverArtObj]="playlist" [size]="150" [fill]="true" [alt]="playlist.name"></app-coverart-image>
-			</div>
-			<div class="meta">
-				<div class="type">Playlist</div>
-				<div class="name">{{playlist.name}}</div>
-				<div class="actions">
-					<button class="button-primary" (click)="player.startPlaylist(playlist)"><i class="icon-play"></i> Play</button>
-				</div>
-			</div>
-			<div class="listeners">
-				<a class="more" (click)="onContextMenu($event, playlist)">…</a>
-			</div>
-		</div>
-		<div class="navigation"></div>
-	</div>
-
+	<app-view-header-jam-base
+		[appBackgroundImage]="playlist.id" [section]="playlist.name" sectionType="playlist"
+		[base]="playlist" (contextMenuRequest)="onContextMenu($event)">
+		<button class="button-primary" (click)="player.startPlaylist(playlist)"><i class="icon-play"></i> Play</button>
+	</app-view-header-jam-base>
 	<div class="content">
 		<div class="overview" *ngIf="playlist.comment">
 			<div class="info">

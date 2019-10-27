@@ -9,18 +9,13 @@
 	.tracks {
 		display: flex;
 		flex-direction: column;
-		@include view();
+		width: 100%;
 
 		.actions {
 			padding: $padding-sm $padding;
-		}
-
-		.content {
-			flex: 1 1 auto;
-			position: relative;
-			overflow: auto;
-
-			height: 100%;
+			border-bottom-color: var(--background-border);
+			border-bottom-width: 1px;
+			border-bottom-style: solid;
 		}
 	}
 }
