@@ -1,4 +1,4 @@
-<app-mini-time-slider [class.hidden]="tabService.playerTab.active || !player.currentTrack"></app-mini-time-slider>
+<app-mini-time-slider [class.hidden]="tabService.playerTab.active" *ngIf="player.isPlaying"></app-mini-time-slider>
 <div class="buttons">
 	<div>
 		<a class="art" (click)="tabService.clickPlayer()" [class.active]="tabService.playerTab.active">
