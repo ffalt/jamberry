@@ -27,7 +27,7 @@ export const routes: Routes = [
 			{path: 'root', component: AdminRootComponent, data: {name: 'Roots', icon: 'icon-root'}},
 			{path: 'folder', redirectTo: 'folder/'},
 			{
-				path: 'folder/:id', component: AdminFolderComponent, data: {id: 'folder', name: 'Folders', icon: 'icon-folder', link: 'folder/'},
+				path: 'folder/:id', component: AdminFolderComponent, data: {id: 'folder', name: 'Folders', icon: 'icon-folder', link: 'folder'},
 				children: [
 					{path: 'overview', component: AdminFolderOverviewComponent},
 					{path: 'health', component: AdminFolderHealthComponent},
