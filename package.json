@@ -16,6 +16,7 @@
     "lint:fix": "ng lint --fix",
     "build:ivy": "ivy-ngcc",
     "clean": "rimraf dist",
+    "update:angular": "ng update --next=true --force --skip-commits @angular/cli @angular/core",
     "release": "deplokay -c deplokay.json",
     "build:prebuild": "npm run clean && node ./build-pre.js",
     "bundle-report": "npm run build:stats && webpack-bundle-analyzer --mode static dist/stats.json",
