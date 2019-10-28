@@ -19,11 +19,13 @@ export class ArtistsLoaderByTypeComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.route.parent.url
-			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
-			const type = val.length > 0 ? val[0].path : undefined;
-			this.albumType = type === 'artists' ? AlbumType.album : AlbumType.series;
-		});
+		if (this.route.parent) {
+			this.route.parent.url
+				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
+				const type = val.length > 0 ? val[0].path : undefined;
+				this.albumType = type === 'artists' ? AlbumType.album : AlbumType.series;
+			});
+		}
 		this.route.url
 			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
 			const type = val.length > 0 ? val[0].path : undefined;

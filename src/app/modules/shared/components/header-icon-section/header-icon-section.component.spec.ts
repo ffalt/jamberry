@@ -1,13 +1,19 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {HeaderTabsComponent, IconartImageComponent} from '@shared/components';
+import {MockComponent} from 'ng-mocks';
 import {HeaderIconSectionComponent} from './header-icon-section.component';
 
-describe('BackgroundTextComponent', () => {
+describe('HeaderIconSectionComponent', () => {
 	let component: HeaderIconSectionComponent;
 	let fixture: ComponentFixture<HeaderIconSectionComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [HeaderIconSectionComponent]
+			declarations: [
+				HeaderIconSectionComponent,
+				MockComponent(HeaderTabsComponent),
+				MockComponent(IconartImageComponent)
+			]
 		}).compileComponents()
 	);
 

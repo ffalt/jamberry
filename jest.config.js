@@ -13,7 +13,8 @@ module.exports = {
 		"@library/(.*)": "<rootDir>/src/app/modules/library/$1",
 		"@jam": "<rootDir>/src/app/modules/jam/index"
 	},
-	transformIgnorePatterns: ['node_modules/(?!(jest-test))', '<rootDir>/local/'],
+	modulePathIgnorePatterns: ['<rootDir>/local/', '<rootDir>/resources', '<rootDir>/dist'],
+	transformIgnorePatterns: ['node_modules/(?!(jest-test))'],
 	globals: {
 		'ts-jest': {
 			...tsJestPreset,

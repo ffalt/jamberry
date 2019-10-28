@@ -2,6 +2,8 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {HotkeyModule, HotkeysService} from '@app/modules/hotkeys';
 import {ToastModule} from '@app/modules/toast';
 import {TEST_JAM_MODULE} from '@core/jam.module.mock';
+import {HeaderSlimComponent} from '@shared/components';
+import {MockComponent} from 'ng-mocks';
 import {AboutPageComponent} from './about-page.component';
 
 describe('AboutPageComponent', () => {
@@ -12,7 +14,7 @@ describe('AboutPageComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [HotkeyModule.forRoot(), ToastModule.forRoot(), TEST_JAM_MODULE],
 			providers: [HotkeysService],
-			declarations: [AboutPageComponent]
+			declarations: [AboutPageComponent, MockComponent(HeaderSlimComponent)]
 		}).compileComponents()
 	);
 

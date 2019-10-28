@@ -20,12 +20,14 @@ export class ArtistsIndexLoaderComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.route.parent.url
-			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
-			const type = val.length > 0 ? val[0].path : undefined;
-			this.albumType = type === 'artists' ? AlbumType.album : AlbumType.series;
-			this.refresh();
-		});
+		if (this.route.parent) {
+			this.route.parent.url
+				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
+				const type = val.length > 0 ? val[0].path : undefined;
+				this.albumType = type === 'artists' ? AlbumType.album : AlbumType.series;
+				this.refresh();
+			});
+		}
 		this.indexService.artistIndexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			artistIndexCache => {

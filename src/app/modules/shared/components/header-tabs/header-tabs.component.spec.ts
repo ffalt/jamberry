@@ -1,4 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {TEST_SHARED_MODULE_IMPORTS, TEST_SHARED_MODULE_PROVIDERS} from '@shared/shared.module.mock';
 import {HeaderTabsComponent} from './header-tabs.component';
 
 describe('BackgroundTextComponent', () => {
@@ -7,6 +9,8 @@ describe('BackgroundTextComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
+			imports: [...TEST_SHARED_MODULE_IMPORTS],
+			providers: [...TEST_SHARED_MODULE_PROVIDERS],
 			declarations: [HeaderTabsComponent]
 		}).compileComponents()
 	);

@@ -1,4 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {StringTogglePipe} from '@shared/pipes';
 import {ExpandCollapseIconComponent} from './expand-collapse-icon.component';
 
 describe('ExpandCollapseIconComponent', () => {
@@ -6,7 +7,9 @@ describe('ExpandCollapseIconComponent', () => {
 	let fixture: ComponentFixture<ExpandCollapseIconComponent>;
 
 	beforeEach(async () =>
-		TestBed.configureTestingModule({declarations: [ExpandCollapseIconComponent]}).compileComponents()
+		TestBed.configureTestingModule({
+			declarations: [ExpandCollapseIconComponent, StringTogglePipe]
+		}).compileComponents()
 	);
 
 	beforeEach(() => {

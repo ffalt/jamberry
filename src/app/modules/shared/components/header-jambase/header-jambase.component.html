@@ -1,12 +1,10 @@
-<!--<div class="header" [appBackgroundImage]="album.id" (contextmenu)="onContextMenu($event, album)">-->
-<div class="info">
+<div class="info" *ngIf="base">
 	<div class="img">
 		<app-coverart-image [coverArtObj]="base" [size]="150" [fill]="true" [alt]="base.name" [allowEnlarge]="true"></app-coverart-image>
 	</div>
 	<div class="meta">
 		<div class="type">{{sectionType}}</div>
 		<div class="name">{{section}}</div>
-		<!--			<div class="number" *ngIf="album.tag.grouping">Episode {{album.tag.grouping}}</div>-->
 		<div class="actions">
 			<ng-content></ng-content>
 		</div>

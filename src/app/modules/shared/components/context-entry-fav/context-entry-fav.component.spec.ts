@@ -1,6 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FavIconComponent} from '@shared/components/fav-icon/fav-icon.component';
+import {StringTogglePipe} from '@shared/pipes';
 import {TEST_SHARED_MODULE_IMPORTS, TEST_SHARED_MODULE_PROVIDERS} from '@shared/shared.module.mock';
+import {MockComponent} from 'ng-mocks';
 import {ContextEntryFavComponent} from './context-entry-fav.component';
 
 describe('ContextEntryFavComponent', () => {
@@ -11,7 +13,11 @@ describe('ContextEntryFavComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [...TEST_SHARED_MODULE_IMPORTS],
 			providers: [...TEST_SHARED_MODULE_PROVIDERS],
-			declarations: [ContextEntryFavComponent, FavIconComponent]
+			declarations: [
+				ContextEntryFavComponent,
+				MockComponent(FavIconComponent),
+				StringTogglePipe
+			]
 		}).compileComponents()
 	);
 
