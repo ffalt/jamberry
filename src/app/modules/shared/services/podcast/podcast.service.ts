@@ -59,7 +59,7 @@ export class PodcastService {
 	constructor(private jam: JamService, private http: HttpClient, private notify: NotifyService, private dialogsService: DialogsService) {
 	}
 
-	searchPodcast(query: string, cb: (data: Array<GpodderResult>) => void): void {
+	searchPodcast(query: string, cb: (data: Array<GpodderResult>) => void, onError: (error: Error) => void): void {
 		const url = `https://gpodder.net/search.json?q=${query}`;
 		this.http.get<Array<GpodderResult>>(url)
 			.pipe(take(1))
@@ -75,8 +75,10 @@ export class PodcastService {
 				err => {
 					if (err.status === 0) {
 						this.notify.error({error: 'Could not reach server https://gpodder.net'});
+						onError(err);
 						return;
 					}
+					onError(err);
 					this.notify.error(err);
 				}
 			);

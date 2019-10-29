@@ -1,0 +1,14 @@
+<div class="art">
+	<app-coverart-image [coverArtObj]="base" [size]="135" [alt]="base.name" (click)="goTo()" appClickStop></app-coverart-image>
+</div>
+<div class="meta">
+	<app-fav-icon [state]="base.state" (click)="toggleFav()" appClickStop></app-fav-icon>
+	<div class="year">{{mediaYear}}</div>
+	<div *ngIf="mediaParent" class="artist"><a (click)="goToParent()" appClickStop>{{mediaParent}}</a></div>
+	<div class="name"><a (click)="goTo()" appClickStop>{{mediaName}}</a></div>
+	<div class="type">{{mediaType}}</div>
+	<div class="actions">
+		<button class="button-primary" (click)="play()" appClickStop><i class="icon-play"></i> Play</button>
+		<a (click)="contextmenuEvent($event)">…</a>
+	</div>
+</div>

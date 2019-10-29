@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Jam, PodcastStatus} from '@jam';
+import {Jam} from '@jam';
 
 @Component({
 	selector: 'app-podcasts',
@@ -7,6 +7,5 @@ import {Jam, PodcastStatus} from '@jam';
 	styleUrls: ['./podcasts.component.scss']
 })
 export class PodcastsComponent {
-	PodcastStatus = PodcastStatus;
 	@Input() podcasts: Array<Jam.Podcast>;
 }

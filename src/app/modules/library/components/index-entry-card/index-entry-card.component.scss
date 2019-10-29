@@ -1,7 +1,6 @@
 @import "globals.scss";
 
 :host {
-	cursor: pointer;
 	@include media-card();
 
 	img {

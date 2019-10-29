@@ -4,32 +4,10 @@
 	<div class="group">
 		<ng-container>{{group.type}}</ng-container>
 	</div>
-	<div *ngIf="!viewType.viewTypeList" class="media-cards">
-		<div class="media-card" *ngFor="let album of group.albums" (contextmenu)="onContextMenu($event, album)">
-			<div class="image" (click)="navig.toAlbum(album)">
-				<app-coverart-image [coverArtObj]="album" [size]="300" [alt]="album.name" [fill]="true"></app-coverart-image>
-			</div>
-			<div class="date" *ngIf="album.tag.year">
-				<span class="year">{{album.tag.year}}</span>
-			</div>
-			<div class="fav" (click)="actions.toggleAlbumFav(album)">
-				<app-fav-icon [state]="album.state"></app-fav-icon>
-			</div>
-			<div class="footer">
-				<a class="footer-content" (click)="navig.toAlbum(album)">
-					{{album.name | limit:50}}
-					<div class="footer-subline">{{album.artist | limit:50}}</div>
-				</a>
-				<div class="footer-buttons">
-					<button class="button-primary" (click)="player.startAlbum(album)"><i class="icon-play"></i> Play</button>
-					<a (click)="onContextMenu($event, album)">…</a>
-				</div>
-			</div>
-		</div>
+	<div class="album-cards" *ngIf="!viewType.viewTypeList">
+		<app-album-card *ngFor="let album of group.albums" [album]="album" [showArtist]="showArtist"></app-album-card>
 	</div>
-	<div class="albums" *ngIf="viewType.viewTypeList">
-		<ng-container *ngFor="let album of group.albums">
-			<app-album [album]="album" [showArtist]="showArtist" [limitArtist]="limitArtist"></app-album>
-		</ng-container>
+	<div class="album-plates" *ngIf="viewType.viewTypeList">
+		<app-album-plate *ngFor="let album of group.albums" [album]="album" [showArtist]="showArtist" [limitArtist]="limitArtist"></app-album-plate>
 	</div>
 </ng-container>

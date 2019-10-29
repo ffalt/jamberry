@@ -1,0 +1,14 @@
+<app-media-plate *ngIf="artist" [base]="artist" [mediaName]="artist.name" [mediaType]="artist | artistOrSeries"
+								 (click)="toggleArtistAlbums()" (contextMenuRequest)="onContextMenu($event)" (goToRequest)="navig.toArtist(artist)"
+								 (playRequest)="player.startArtist(artist)" (toggleFavRequest)="actions.toggleArtistFav(artist)"
+></app-media-plate>
+<div *ngIf="albumsExpanded" class="albums">
+	<app-loading *ngIf="!albums" [time]="100"></app-loading>
+	<div class="albums">
+		<div class="album" *ngFor="let album of albums" (click)="navig.toAlbum(album)">
+			<div class="number">{{album.tag.grouping ? album.tag.grouping : album.tag.year}}</div>
+			<div class="title">{{album.name}}</div>
+			<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{album.tag.duration|duration}}</div>
+		</div>
+	</div>
+</div>

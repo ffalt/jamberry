@@ -1,7 +1,0 @@
-@import "globals.scss";
-
-:host {
-	.artist {
-		@include media-plate();
-	}
-}

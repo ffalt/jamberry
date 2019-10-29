@@ -1,11 +1,10 @@
 @mixin media-card {
-
 	margin: $margin;
 	width: calc((100% / 4) - 30px);
 	position: relative;
 	overflow: hidden;
 	display: flex;
-	//@Input() @HostBinding('class.border') border: boolean = true;
+	cursor: pointer;
 
 	&:before {
 		content: "";
@@ -94,12 +93,6 @@
 		}
 	}
 
-	//&:hover, &.no-hover {
-	//	.footer, .date, .fav {
-	//		transform: translateY(0);
-	//	}
-	//}
-
 	@media (max-width: $break-desktop-huge) {
 		width: calc((100% / 4) - 30px);
 	}
@@ -120,18 +113,10 @@
 }
 
 @mixin media-cards {
+	display: flex;
+	flex-flow: row wrap;
 
-	.media-cards {
-		display: flex;
-		flex-flow: row wrap;
-
-		.media-card {
-			@include media-card();
-		}
-
-		@media (max-width: $break-pad) {
-			justify-content: space-around;
-		}
+	@media (max-width: $break-pad) {
+		justify-content: space-around;
 	}
-
 }

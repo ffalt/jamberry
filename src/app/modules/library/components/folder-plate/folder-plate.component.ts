@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
+import {ActionsService} from '@shared/services';
 import {ContextMenuFolderComponent} from '../context-menu-folder/context-menu-folder.component';
 
 export function getFolderTypeInfo(folder: Jam.Folder): { type?: string; name?: string; year?: string } {
@@ -35,11 +36,11 @@ export function getFolderTypeInfo(folder: Jam.Folder): { type?: string; name?: s
 }
 
 @Component({
-	selector: 'app-folder',
-	templateUrl: './folder.component.html',
-	styleUrls: ['./folder.component.scss']
+	selector: 'app-folder-plate',
+	templateUrl: './folder-plate.component.html',
+	styleUrls: ['./folder-plate.component.scss']
 })
-export class FolderComponent implements OnChanges {
+export class FolderPlateComponent implements OnChanges {
 	showTracks: boolean = true;
 	tracks: Array<Jam.Track>;
 	tracksExpanded: boolean = false;
@@ -49,11 +50,11 @@ export class FolderComponent implements OnChanges {
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, private jam: JamService, private notify: NotifyService,
-		private contextMenuService: ContextMenuService) {
+		private contextMenuService: ContextMenuService, public actions: ActionsService) {
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Folder): void {
-		this.contextMenuService.open(ContextMenuFolderComponent, item, $event);
+	onContextMenu($event: MouseEvent): void {
+		this.contextMenuService.open(ContextMenuFolderComponent, this.folder, $event);
 	}
 
 	toggleFolderTracks(): void {

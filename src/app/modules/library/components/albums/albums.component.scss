@@ -1,7 +1,9 @@
 @import "globals.scss";
 
 :host {
-	@include media-cards();
+	.album-cards {
+		@include media-cards();
+	}
 
 	.group {
 		border-bottom-width: 1px;

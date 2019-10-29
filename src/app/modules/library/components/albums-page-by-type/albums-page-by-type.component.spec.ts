@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AlbumComponent, AlbumsPageByTypeComponent} from '@library/components';
+import {AlbumPlateComponent, AlbumsPageByTypeComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
 
@@ -11,7 +11,7 @@ describe('AlbumsPageByTypeComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [AlbumsPageByTypeComponent, MockComponent(AlbumComponent)]
+			declarations: [AlbumsPageByTypeComponent, MockComponent(AlbumPlateComponent)]
 		}).compileComponents()
 	);
 

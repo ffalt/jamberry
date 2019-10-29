@@ -9,9 +9,5 @@
 
 	.start {
 		@include view-host();
-
-		.content {
-			@include media-cards();
-		}
 	}
 }

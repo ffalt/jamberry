@@ -1,6 +1,4 @@
 <app-background-text-list [list]="playlists" name="Playlists"></app-background-text-list>
 <div class="playlists">
-	<ng-container *ngFor="let playlist of playlists">
-		<app-playlist [playlist]="playlist"></app-playlist>
-	</ng-container>
+	<app-playlist *ngFor="let playlist of playlists" [playlist]="playlist"></app-playlist>
 </div>

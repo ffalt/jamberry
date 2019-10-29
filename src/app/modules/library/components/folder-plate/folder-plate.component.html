@@ -1,0 +1,8 @@
+<app-media-plate *ngIf="folder" [base]="folder" [mediaName]="headline.name" [mediaType]="headline.type" [mediaYear]="headline.year"
+								 (click)="toggleFolderTracks()" (contextMenuRequest)="onContextMenu($event)" (goToRequest)="navig.toFolder(folder)"
+								 (playRequest)="player.startFolder(folder)" (toggleFavRequest)="actions.toggleFolderFav(folder)"
+></app-media-plate>
+<div *ngIf="showTracks && tracksExpanded" class="tracks">
+	<app-loading *ngIf="!tracks" [time]="100"></app-loading>
+	<app-tracks [tracks]="tracks" [showArtist]="showArtist"></app-tracks>
+</div>

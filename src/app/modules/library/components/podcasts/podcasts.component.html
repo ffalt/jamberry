@@ -1,6 +1,4 @@
 <app-background-text-list [list]="podcasts" name="Podcasts"></app-background-text-list>
-<div class="media-plates">
-	<ng-container *ngFor="let podcast of podcasts">
-		<app-podcast [podcast]="podcast"></app-podcast>
-	</ng-container>
+<div class="podcasts">
+	<app-podcast *ngFor="let podcast of podcasts" [podcast]="podcast"></app-podcast>
 </div>

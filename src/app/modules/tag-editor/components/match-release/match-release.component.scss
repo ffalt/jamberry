@@ -176,35 +176,7 @@
 				}
 
 				.match-images {
-					@include media-cards();
 
-					//.media-cards {
-					//	display: flex;
-					//	flex-flow: row wrap;
-					//
-					//	.media-card {
-					//
-					//		margin: $margin;
-					//		width: calc((100% / 4) - 30px);
-					//		position: relative;
-					//		overflow: hidden;
-					//
-					//		label {
-					//			white-space: nowrap;
-					//			overflow: hidden;
-					//			text-overflow: ellipsis;
-					//		}
-					//
-					//		.image {
-					//			min-height: 40px;
-					//
-					//			img {
-					//				width: 100%;
-					//				height: auto;
-					//			}
-					//		}
-					//	}
-					//}
 				}
 			}
 

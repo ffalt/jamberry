@@ -1,16 +1,7 @@
-<div class="playlist" *ngIf="playlist" (click)="togglePlaylistTracks()" (contextmenu)="onContextMenu($event, playlist)">
-	<div class="art" (click)="navig.toPlaylist(playlist)">
-		<app-coverart-image [coverArtObj]="playlist" [size]="135" [alt]="playlist.name" (click)="navig.toPlaylist(playlist)" appClickStop></app-coverart-image>
-	</div>
-	<div class="meta">
-		<div class="name" (click)="navig.toPlaylist(playlist)" appClickStop><a>{{playlist.name}}</a></div>
-		<div class="type">Playlist</div>
-		<div class="actions">
-			<button class="button-primary" (click)="player.startPlaylist(playlist)" appClickStop><i class="icon-play"></i> Play</button>
-			<a (click)="onContextMenu($event, playlist)">…</a>
-		</div>
-	</div>
-</div>
+<app-media-plate *ngIf="playlist" [base]="playlist" [mediaName]="playlist.name" mediaType="playlist"
+								 (click)="togglePlaylistTracks()" (contextMenuRequest)="onContextMenu($event)" (goToRequest)="navig.toPlaylist(playlist)"
+								 (playRequest)="player.startPlaylist(playlist)" (toggleFavRequest)="actions.togglePlaylistFav(playlist)"
+></app-media-plate>
 <div *ngIf="tracksExpanded" class="tracks">
 	<app-loading *ngIf="!tracks" [time]="500"></app-loading>
 	<app-tracks [tracks]="tracks" [showArtist]="true"></app-tracks>

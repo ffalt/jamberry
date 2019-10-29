@@ -24,9 +24,8 @@ export interface PodcastSearch {
 export class PodcastSearchPageComponent {
 	podcasts: Array<PodcastSearch>;
 	searchValue: string = '';
-	searching: number = 0;
+	isSearching: boolean = false;
 
-	// TODO: PodcastService is in parent module not in core or shared, it works but see docs if this is valid (probably not)
 	constructor(
 		public app: AppService,
 		public jam: JamService,
@@ -47,13 +46,17 @@ export class PodcastSearchPageComponent {
 			});
 	}
 
-	search(name: string): void {
+	search(query: string): void {
 		this.podcasts = undefined;
-		if (name && name.length > 0) {
-			this.searching++;
-			this.podcastService.searchPodcast(name, data => {
-				this.searching--;
-				this.buildSearchResults(data);
+		if (query && query.length > 0) {
+			this.isSearching = true;
+			this.podcastService.searchPodcast(query, data => {
+				if (this.searchValue === query) {
+					this.buildSearchResults(data);
+					this.isSearching = false;
+				}
+			}, e => {
+				this.isSearching = false;
 			});
 		}
 	}

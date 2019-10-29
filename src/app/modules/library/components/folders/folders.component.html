@@ -1,46 +1,8 @@
 <app-view-type-toggle #viewType [viewTypeList]="true"></app-view-type-toggle>
 <app-background-text-list [list]="folders" name="Folders"></app-background-text-list>
-<div *ngIf="!viewType.viewTypeList" class="media-cards">
-	<div class="media-card" *ngFor="let folder of folders" (contextmenu)="onContextMenu($event, folder)">
-		<div class="image" (click)="navig.toFolder(folder)">
-			<app-coverart-image [coverArtObj]="folder" [size]="300" [alt]="folder.name" [fill]="true"></app-coverart-image>
-		</div>
-		<div class="date" *ngIf="folder.tag.year && (folder.type==='album' || folder.type==='multialbum')">
-			<span class="year">{{folder.tag.year}}</span>
-		</div>
-		<div class="fav" (click)="actions.toggleFolderFav(folder)">
-			<app-fav-icon [state]="folder.state"></app-fav-icon>
-		</div>
-		<div class="footer">
-			<a class="footer-content" (click)="navig.toFolder(folder)" [ngSwitch]="folder.type">
-				<ng-container *ngSwitchCase="'multialbum'">
-					{{folder.tag.album | limit:50}}
-					<div class="footer-subline">{{folder.tag.artist | limit:50}}</div>
-				</ng-container>
-				<ng-container *ngSwitchCase="'album'">
-					{{folder.tag.album | limit:50}}
-					<div class="footer-subline">{{folder.tag.artist | limit:50}}</div>
-				</ng-container>
-				<ng-container *ngSwitchCase="'artist'">
-					{{folder.tag.artist | limit:90}}
-				</ng-container>
-				<ng-container *ngSwitchCase="'collection'">
-					{{folder.name | limit:90}}
-				</ng-container>
-				<ng-container *ngSwitchDefault>
-					{{folder.name | limit:90}}
-				</ng-container>
-			</a>
-			<div class="footer-buttons">
-				<button class="button-primary" (click)="player.startFolder(folder)"><i class="icon-play"></i> Play</button>
-				<a (click)="onContextMenu($event, folder)">…</a>
-			</div>
-		</div>
-	</div>
+<div class="folder-cards" *ngIf="!viewType.viewTypeList">
+	<app-folder-card *ngFor="let folder of folders" [folder]="folder"></app-folder-card>
 </div>
-
-<div class="folders" *ngIf="viewType.viewTypeList">
-	<ng-container *ngFor="let folder of folders">
-		<app-folder [folder]="folder"></app-folder>
-	</ng-container>
+<div class="folder-plates" *ngIf="viewType.viewTypeList">
+	<app-folder-plate *ngFor="let folder of folders" [folder]="folder"></app-folder-plate>
 </div>

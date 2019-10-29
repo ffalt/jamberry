@@ -1,14 +1,16 @@
-import {AlbumComponent} from './album/album.component';
+import {AlbumCardComponent} from './album-card/album-card.component';
+import {AlbumPlateComponent} from './album-plate/album-plate.component';
 import {AlbumsIndexLoaderByTypeComponent} from './albums-index-loader-by-type/albums-index-loader-by-type.component';
 import {AlbumsIndexLoaderComponent} from './albums-index-loader/albums-index-loader.component';
 import {AlbumsLoaderByTypeComponent} from './albums-loader-by-type/albums-loader-by-type.component';
 import {AlbumsLoaderComponent} from './albums-loader/albums-loader.component';
 import {AlbumsPageByTypeComponent} from './albums-page-by-type/albums-page-by-type.component';
 import {AlbumsComponent} from './albums/albums.component';
+import {ArtistCardComponent} from './artist-card/artist-card.component';
 import {ArtistMbComponent} from './artist-mb/artist-mb.component';
 import {ArtistOverviewComponent} from './artist-overview/artist-overview.component';
+import {ArtistPlateComponent} from './artist-plate/artist-plate.component';
 import {ArtistSimilarComponent} from './artist-similar/artist-similar.component';
-import {ArtistComponent} from './artist/artist.component';
 import {ArtistsIndexLoaderComponent} from './artists-index-loader/artists-index-loader.component';
 import {ArtistsLoaderByTypeComponent} from './artists-loader-by-type/artists-loader-by-type.component';
 import {ArtistsLoaderComponent} from './artists-loader/artists-loader.component';
@@ -28,10 +30,11 @@ import {CurrentPlayingComponent} from './current-playing/current-playing.compone
 import {EpisodeStateButtonComponent} from './episode-state-button/episode-state.button.component';
 import {EpisodesLoaderComponent} from './episodes-loader/episodes-loader.component';
 import {EpisodesComponent} from './episodes/episodes.component';
-import {FolderComponent} from './folder/folder.component';
+import {FolderCardComponent} from './folder-card/folder-card.component';
+import {FolderPlateComponent} from './folder-plate/folder-plate.component';
 import {FoldersLoaderComponent} from './folders-loader/folders-loader.component';
 import {FoldersComponent} from './folders/folders.component';
-import {IndexEntryComponent} from './index-entry/index-entry.component';
+import {IndexEntryCardComponent} from './index-entry-card/index-entry-card.component';
 import {IndexGroupComponent} from './index-group/index-group.component';
 import {IndexComponent} from './index/index.component';
 import {MbArtistComponent} from './mb-artist/mb-artist.component';
@@ -72,17 +75,19 @@ export const entryComponents: Array<any> = [
 
 export const components: Array<any> = [
 	...entryComponents,
-	AlbumComponent,
+	AlbumPlateComponent,
 	AlbumsComponent,
 	AlbumsIndexLoaderByTypeComponent,
 	AlbumsIndexLoaderComponent,
 	AlbumsLoaderByTypeComponent,
 	AlbumsLoaderComponent,
 	AlbumsPageByTypeComponent,
-	ArtistComponent,
+	AlbumCardComponent,
+	ArtistPlateComponent,
 	ArtistMbComponent,
 	ArtistOverviewComponent,
 	ArtistSimilarComponent,
+	ArtistCardComponent,
 	ArtistsComponent,
 	ArtistsIndexLoaderComponent,
 	ArtistsLoaderByTypeComponent,
@@ -92,11 +97,12 @@ export const components: Array<any> = [
 	EpisodeStateButtonComponent,
 	EpisodesComponent,
 	EpisodesLoaderComponent,
-	FolderComponent,
+	FolderPlateComponent,
+	FolderCardComponent,
 	FoldersComponent,
 	FoldersLoaderComponent,
 	IndexComponent,
-	IndexEntryComponent,
+	IndexEntryCardComponent,
 	IndexGroupComponent,
 	MbArtistComponent,
 	PlaylistComponent,
@@ -122,7 +128,7 @@ export const components: Array<any> = [
 	TracksPlaylistComponent
 ];
 
-export * from './album/album.component';
+export * from './album-plate/album-plate.component';
 export * from './albums-index-loader-by-type/albums-index-loader-by-type.component';
 export * from './albums-index-loader/albums-index-loader.component';
 export * from './albums-loader-by-type/albums-loader-by-type.component';
@@ -132,7 +138,7 @@ export * from './albums/albums.component';
 export * from './artist-mb/artist-mb.component';
 export * from './artist-overview/artist-overview.component';
 export * from './artist-similar/artist-similar.component';
-export * from './artist/artist.component';
+export * from './artist-plate/artist-plate.component';
 export * from './artists-index-loader/artists-index-loader.component';
 export * from './artists-loader-by-type/artists-loader-by-type.component';
 export * from './artists-loader/artists-loader.component';
@@ -142,10 +148,10 @@ export * from './current-playing/current-playing.component';
 export * from './episode-state-button/episode-state.button.component';
 export * from './episodes-loader/episodes-loader.component';
 export * from './episodes/episodes.component';
-export * from './folder/folder.component';
+export * from './folder-plate/folder-plate.component';
 export * from './folders-loader/folders-loader.component';
 export * from './folders/folders.component';
-export * from './index-entry/index-entry.component';
+export * from './index-entry-card/index-entry-card.component';
 export * from './index-group/index-group.component';
 export * from './index/index.component';
 export * from './mb-artist/mb-artist.component';
@@ -180,3 +186,6 @@ export * from './context-menu-podcasts/context-menu-podcasts.component';
 export * from './context-menu-queue/context-menu-queue.component';
 export * from './track-overview/track-overview.component';
 export * from './track-similar/track-similar.component';
+export * from './album-card/album-card.component';
+export * from './artist-card/artist-card.component';
+export * from './folder-card/folder-card.component';

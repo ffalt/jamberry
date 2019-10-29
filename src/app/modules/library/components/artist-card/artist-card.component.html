@@ -1,0 +1,15 @@
+<div class="image" (click)="navig.toArtist(artist)">
+	<app-coverart-image [coverArtObj]="artist" [size]="300" [alt]="artist.name" [fill]="true"></app-coverart-image>
+</div>
+<div class="fav" (click)="actions.toggleArtistFav(artist)">
+	<app-fav-icon [state]="artist.state"></app-fav-icon>
+</div>
+<div class="footer">
+	<a class="footer-content" (click)="navig.toArtist(artist)">
+		{{artist.name | limit:90}}
+	</a>
+	<div class="footer-buttons">
+		<button class="button-primary" (click)="player.startArtist(artist)"><i class="icon-play"></i> Play</button>
+		<a (click)="onContextMenu($event)">…</a>
+	</div>
+</div>

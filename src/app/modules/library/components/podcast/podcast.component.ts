@@ -26,8 +26,8 @@ export class PodcastComponent implements OnChanges {
 	) {
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Podcast): void {
-		this.contextMenuService.open(ContextMenuPodcastComponent, item, $event);
+	onContextMenu($event: MouseEvent): void {
+		this.contextMenuService.open(ContextMenuPodcastComponent, this.podcast, $event);
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {

@@ -1,9 +1,5 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {ContextMenuService} from '@app/modules/context-menu';
-import {NavigService, NotifyService, PlayerService} from '@core/services';
-import {Jam, JamService} from '@jam';
-import {ActionsService} from '@shared/services';
-import {ContextMenuAlbumComponent} from '../context-menu-album/context-menu-album.component';
+import {Jam} from '@jam';
 
 @Component({
 	selector: 'app-albums',
@@ -19,20 +15,6 @@ export class AlbumsComponent implements OnChanges {
 	@Input() typeName: string;
 	@Input() headline: string;
 	groups: Array<{ type: string; albums: Array<Jam.Album>; }>;
-
-	constructor(
-		public navig: NavigService,
-		public player: PlayerService,
-		public actions: ActionsService,
-		protected notify: NotifyService,
-		protected jam: JamService,
-		private contextMenuService: ContextMenuService
-	) {
-	}
-
-	onContextMenu($event: MouseEvent, item: Jam.Album): void {
-		this.contextMenuService.open(ContextMenuAlbumComponent, item, $event);
-	}
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.groups = undefined;

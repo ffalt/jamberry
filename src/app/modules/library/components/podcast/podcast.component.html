@@ -1,28 +1,8 @@
-<div *ngIf="podcast" class="podcast" (click)="togglePodcastEpisodes()" (contextmenu)="onContextMenu($event, podcast)">
-	<div class="art" (click)="navig.toPodcast(podcast)">
-		<app-coverart-image [coverArtObj]="podcast" [size]="135" [alt]="podcast.name"></app-coverart-image>
-	</div>
-	<div class="meta">
-		<div class="type">Podcast</div>
-		<div class="name" (click)="navig.toPodcast(podcast)"><a>{{podcast.name}}</a></div>
-		<div class="state">
-			<ng-container [ngSwitch]="podcast.status">
-				<ng-container *ngSwitchCase="PodcastStatus.completed">
-					Last Check: {{podcast.lastCheck | date:'short'}}
-				</ng-container>
-				<ng-container *ngSwitchDefault>
-					{{podcast.status}}
-				</ng-container>
-			</ng-container>
-		</div>
-		<div class="actions">
-			<button class="button-primary" (click)="player.startPodcast(podcast)"><i class="icon-play"></i> Play</button>
-			<a (click)="onContextMenu($event, podcast)">…</a>
-		</div>
-	</div>
-</div>
+<app-media-plate *ngIf="podcast" [base]="podcast" [mediaName]="podcast.name" mediaType="podcast"
+								 (click)="togglePodcastEpisodes()" (contextMenuRequest)="onContextMenu($event)" (goToRequest)="navig.toPodcast(podcast)"
+								 (playRequest)="player.startPodcast(podcast)" (toggleFavRequest)="actions.togglePodcastFav(podcast)"
+></app-media-plate>
 <div *ngIf="episodesExpanded" class="tracks">
 	<app-loading *ngIf="!episodes" [time]="100"></app-loading>
 	<app-episodes [episodes]="episodes"></app-episodes>
 </div>
-

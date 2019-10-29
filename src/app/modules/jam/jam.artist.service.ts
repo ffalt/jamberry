@@ -83,6 +83,13 @@ export class JamArtistService {
 	}
 
 	/**
+	 * get albums of an artist by artist id
+	 */
+	async albums(params: JamParameters.ArtistAlbums): Promise<Jam.AlbumList> {
+		return this.base.requestData<Jam.AlbumList>('artist/albums', params);
+	}
+
+	/**
 	 * get external artist description by id
 	 */
 	async info(params: JamParameters.ID): Promise<Jam.Info> {

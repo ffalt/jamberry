@@ -1,7 +1,13 @@
 @import "globals.scss";
 
 :host {
-	@include media-cards();
+	.index-cards {
+		@include media-cards();
+
+		.index-card-placeholder {
+			@include media-card();
+		}
+	}
 
 	.title {
 		padding: $padding-sm;

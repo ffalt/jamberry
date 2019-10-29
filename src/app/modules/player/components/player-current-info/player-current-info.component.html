@@ -26,11 +26,8 @@
 			<div class="year">{{player.currentEpisode.date | date}}</div>
 			<div class="name" (click)="navig.toPodcastEpisode(player.currentEpisode)"><a>{{player.currentEpisode.tag ? player.currentEpisode.tag.title : player.currentEpisode.name}}</a></div>
 			<div class="album" (click)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcast)"><a>{{player.currentEpisode.podcast}}</a></div>
-			<div class="artist"><a>{{player.currentEpisode.author}}</a></div>
-			<div class="actions">
-				<!--						<button class="button-primary" (click)="player.startAlbum(album)" appClickStop><i class="icon-play"></i> Play</button>-->
-				<!--						<a [contextMenu]="albumMenu" [contextMenuSubject]="album" [contextMenuTriggerLeft]="true" appClickStop>…</a>-->
-			</div>
+			<div class="artist">{{player.currentEpisode.author}}</div>
+			<div class="actions"></div>
 		</div>
 	</div>
 	<div class="description" *ngIf="player.currentEpisode.summary">

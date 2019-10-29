@@ -1,4 +1,6 @@
-@mixin media-plate {
+@import "globals.scss";
+
+:host {
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: var(--background-border);
@@ -16,7 +18,6 @@
 		display: block;
 		cursor: pointer;
 	}
-
 
 	.meta {
 
@@ -129,17 +130,4 @@
 			}
 		}
 	}
-}
-
-@mixin media-plates {
-
-	.media-plates {
-		width: 100%;
-
-		.media-plate {
-			@include media-plate();
-		}
-
-	}
-
 }

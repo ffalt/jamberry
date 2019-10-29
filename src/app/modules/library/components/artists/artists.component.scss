@@ -1,6 +1,8 @@
 @import "globals.scss";
 
 :host {
-	@include media-cards();
+	.artist-cards {
+		@include media-cards();
+	}
 }
 

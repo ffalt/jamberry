@@ -17,13 +17,12 @@ export class PlaylistComponent implements OnChanges {
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		public jam: JamService, public playlistService: PlaylistService, public notify: NotifyService,
-		private contextMenuService: ContextMenuService
+		public jam: JamService, public notify: NotifyService, private contextMenuService: ContextMenuService
 	) {
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Playlist): void {
-		this.contextMenuService.open<ContextMenuPlaylistComponentOptions>(ContextMenuPlaylistComponent, item, $event, {
+	onContextMenu($event: MouseEvent): void {
+		this.contextMenuService.open<ContextMenuPlaylistComponentOptions>(ContextMenuPlaylistComponent, this.playlist, $event, {
 			canEdit: this.jam.auth.user && this.playlist && this.playlist.userID === this.jam.auth.user.id
 		});
 	}

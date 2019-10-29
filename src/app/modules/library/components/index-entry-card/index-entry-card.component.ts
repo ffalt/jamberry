@@ -2,11 +2,11 @@ import {Component, Input} from '@angular/core';
 import {IndexEntry} from '@shared/services';
 
 @Component({
-	selector: 'app-index-entry',
-	templateUrl: './index-entry.component.html',
-	styleUrls: ['./index-entry.component.scss']
+	selector: 'app-index-entry-card',
+	templateUrl: './index-entry-card.component.html',
+	styleUrls: ['./index-entry-card.component.scss']
 })
-export class IndexEntryComponent {
+export class IndexEntryCardComponent {
 	@Input() entry: IndexEntry;
 	visible: boolean = false;
 

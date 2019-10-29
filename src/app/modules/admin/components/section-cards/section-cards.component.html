@@ -1,10 +1,8 @@
-<div class="media-cards">
-	<div class="media-card no-hover" *ngFor="let section of sections; trackBy: trackByFn" [routerLink]="['/admin', section.id]">
-		<div class="image">
-			<app-iconart-image [icon]="section.icon"></app-iconart-image>
-		</div>
-		<div class="footer">
-			<a class="footer-content">{{section.text}}</a>
-		</div>
+<div class="section-card no-hover" *ngFor="let section of sections; trackBy: trackByFn" [routerLink]="['/admin', section.id]">
+	<div class="image">
+		<app-iconart-image [icon]="section.icon"></app-iconart-image>
+	</div>
+	<div class="footer">
+		<a class="footer-content">{{section.text}}</a>
 	</div>
 </div>
