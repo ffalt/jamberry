@@ -1,19 +1,19 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ImageBase64Component} from '../image-base64/image-base64.component';
-import {DialogPicComponent} from './dialog-pic.component';
+import {DialogTagImageComponent} from './dialog-tag-image.component';
 
 describe('DialogPicComponent', () => {
-	let component: DialogPicComponent;
-	let fixture: ComponentFixture<DialogPicComponent>;
+	let component: DialogTagImageComponent;
+	let fixture: ComponentFixture<DialogTagImageComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [DialogPicComponent, ImageBase64Component]
+			declarations: [DialogTagImageComponent, ImageBase64Component]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(DialogPicComponent);
+		fixture = TestBed.createComponent(DialogTagImageComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

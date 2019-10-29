@@ -7,6 +7,7 @@ import {ContextMenuModule} from '@app/modules/context-menu';
 import {SharedModule} from '@shared/shared.module';
 import {components, entryComponents} from './components';
 import {pages} from './pages';
+import {pipes} from './pipes';
 import {routing} from './tag-editor.routing';
 
 @NgModule({
@@ -15,7 +16,7 @@ import {routing} from './tag-editor.routing';
 		ContextMenuModule, ScrollingModule, AutocompleteModule, routing
 	],
 	entryComponents: [...entryComponents],
-	declarations: [...components, ...pages],
+	declarations: [...components, ...pages, ...pipes],
 	providers: []
 })
 export class TagEditorModule {
