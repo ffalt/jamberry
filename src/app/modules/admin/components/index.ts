@@ -12,6 +12,7 @@ import {DialogAvatarComponent} from './dialog-avatar/dialog-avatar.component';
 import {DialogChooseFolderComponent} from './dialog-choose-folder/dialog-choose-folder.component';
 import {DialogFolderComponent} from './dialog-folder/dialog-folder.component';
 import {DialogRootComponent} from './dialog-root/dialog-root.component';
+import {DialogUploadImageComponent} from './dialog-upload-image/dialog-upload-image.component';
 import {DialogUserPassComponent} from './dialog-user-pass/dialog-user-pass.component';
 import {DialogUserComponent} from './dialog-user/dialog-user.component';
 import {FolderHealthComponent} from './folder-health/folder-health.component';
@@ -28,6 +29,7 @@ export const entryComponents: Array<any> = [
 	DialogArtistImageComponent,
 	DialogAvatarComponent,
 	DialogChooseFolderComponent,
+	DialogUploadImageComponent,
 	DialogFolderComponent,
 	DialogRootComponent,
 	DialogUserComponent,
@@ -78,3 +80,4 @@ export * from './inline-edit/inline-edit.component';
 export * from './section-cards/section-cards.component';
 export * from './track-health/track-health.component';
 export * from './track-list/track-list.component';
+export * from './dialog-upload-image/dialog-upload-image.component';

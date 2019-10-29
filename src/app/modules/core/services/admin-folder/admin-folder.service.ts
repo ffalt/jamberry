@@ -16,7 +16,7 @@ export interface AdminChangeQueueInfoPoll {
 	refreshChildsFolderIDs?: Array<string>;
 	trackIDs?: Array<string>;
 	count: number;
-	notifyAfter?: EventEmitter<void>;
+	notifyAfter?: EventEmitter<Jam.AdminChangeQueueInfo>;
 }
 
 @Injectable({
@@ -39,7 +39,7 @@ export class AdminFolderService {
 		this.foldersChange.emit({id, mode});
 	}
 
-	waitForQueueResult(title: string, item: Jam.AdminChangeQueueInfo, folderIDs?: Array<string>, refreshChildsFolderIDs?: Array<string>, trackIDs?: Array<string>): EventEmitter<void> {
+	waitForQueueResult(title: string, item: Jam.AdminChangeQueueInfo, folderIDs?: Array<string>, refreshChildsFolderIDs?: Array<string>, trackIDs?: Array<string>): EventEmitter<Jam.AdminChangeQueueInfo> {
 		let old = this.queue.find(q => q.id === item.id);
 		if (!old && this.current && this.current.id === item.id) {
 			old = this.current;
@@ -69,7 +69,7 @@ export class AdminFolderService {
 			old.count++;
 			return;
 		}
-		const notifyAfter = new EventEmitter<void>();
+		const notifyAfter = new EventEmitter<Jam.AdminChangeQueueInfo>();
 		this.queue.push({title, id: item.id, item, folderIDs, refreshChildsFolderIDs, trackIDs, count: 1, notifyAfter});
 		this.nextPoll();
 		return notifyAfter;
@@ -89,7 +89,7 @@ export class AdminFolderService {
 							if (result.error) {
 								this.notify.error(Error(result.error));
 							}
-							this.pollEnd(data);
+							this.pollEnd(data, result);
 							cb(false);
 							return;
 						}
@@ -97,7 +97,7 @@ export class AdminFolderService {
 					})
 					.catch(err => {
 						console.error('error while polling admin change queue status', err);
-						this.pollEnd(data);
+						this.pollEnd(data, undefined);
 						cb(false);
 					});
 			});
@@ -105,7 +105,7 @@ export class AdminFolderService {
 		}
 	}
 
-	private pollEnd(data: AdminChangeQueueInfoPoll): void {
+	private pollEnd(data: AdminChangeQueueInfoPoll, result: Jam.AdminChangeQueueInfo): void {
 		(data.folderIDs || []).forEach(id => {
 			this.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
 		});
@@ -116,7 +116,7 @@ export class AdminFolderService {
 			this.notifyTrackChange(id);
 		});
 		if (data.notifyAfter) {
-			data.notifyAfter.emit();
+			data.notifyAfter.emit(result);
 			data.notifyAfter.complete();
 			data.notifyAfter = undefined;
 		}
