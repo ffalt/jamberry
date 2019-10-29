@@ -9,6 +9,7 @@
 	.tracks {
 		display: flex;
 		flex-direction: column;
+		height: 100%;
 		width: 100%;
 
 		.actions {
@@ -16,6 +17,10 @@
 			border-bottom-color: var(--background-border);
 			border-bottom-width: 1px;
 			border-bottom-style: solid;
+		}
+
+		app-admin-track-list {
+			overflow-y: auto;
 		}
 	}
 }

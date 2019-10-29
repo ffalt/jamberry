@@ -9,12 +9,18 @@
 	.folders {
 		display: flex;
 		flex-direction: column;
+		height: 100%;
+		width: 100%;
 
 		.actions {
 			padding: $padding-sm $padding;
 			border-bottom-color: var(--background-border);
 			border-bottom-width: 1px;
 			border-bottom-style: solid;
+		}
+
+		app-admin-folder-list {
+			overflow-y: auto;
 		}
 
 	}

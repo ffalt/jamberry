@@ -295,8 +295,4 @@
 	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
-
-	@media (max-width: $break-pad) {
-		overflow-y: auto;
-	}
 }

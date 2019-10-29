@@ -3,18 +3,18 @@
 :host {
 	height: 100%;
 	width: 100%;
-	overflow-y: auto;
-	overflow-x: auto;
 	display: block;
+	overflow: hidden;
 
 	.genres {
-		@include view-host();
-		overflow-y: hidden;
-		overflow-x: hidden;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-flow: column;
+		overflow: hidden;
 
 		.content {
 			width: 100%;
-			height: 100%;
 			flex: 1;
 			display: flex;
 			flex-flow: row nowrap;
@@ -24,15 +24,22 @@
 
 			.left-content {
 				@include cdk-table();
-				flex-grow: 1;
+				//flex-grow: 1;
 				height: 100%;
 				width: 25%;
-				display: block;
+				//display: block;
 				border-right: 1px solid var(--background-border);
 				font-size: 0.8em;
-				min-width: 140px;
 				overflow-y: auto;
 				overflow-x: auto;
+
+				cdk-table {
+					//height: 100%;
+					//width: 100%;
+					//overflow-y: auto;
+					//overflow-x: auto;
+					display: block;
+				}
 
 				.count {
 					max-width: 40px;
@@ -51,6 +58,15 @@
 					display: block;
 				}
 			}
+
+			@media (max-width: $break-phone) {
+				.right-content, .left-content {
+					width: 50%;
+				}
+			}
+
 		}
+
+
 	}
 }

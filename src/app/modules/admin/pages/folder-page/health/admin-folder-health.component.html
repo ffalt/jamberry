@@ -5,7 +5,7 @@
 			<option *ngFor="let m of modes" [value]="m">{{m}}</option>
 		</select>
 	</div>
-	<div class="content">
+	<div class="health-content">
 		<app-loading *ngIf="!hints"></app-loading>
 		<app-background-text-list [list]="hints" name="Folder Health Issues"></app-background-text-list>
 		<div *ngFor="let folderHealth of hints" class="folder">

@@ -2,10 +2,11 @@
 
 :host {
 	.settings {
-		@include view-host();
-
+		overflow-y: auto;
+		overflow-x: hidden;
+		height: 100%;
 		.content {
-			padding: $padding $padding $padding-xl;
+			padding: $padding $padding 0;
 
 			.chat-max-age {
 				display: inline-block;
