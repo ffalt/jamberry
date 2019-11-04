@@ -4,7 +4,7 @@ import {JamObjectType} from '@jam';
 import {Index, IndexEntry, IndexGroup} from '@shared/services';
 
 export function scrollToIndexGroup(index: number): void {
-	const elements = document.getElementById('index-' + index.toString());
+	const elements = document.getElementById(`index-${index}`);
 	elements.scrollIntoView();
 }
 

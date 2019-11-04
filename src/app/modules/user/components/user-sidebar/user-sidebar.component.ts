@@ -34,7 +34,7 @@ export class UserSidebarComponent implements OnInit, OnDestroy, SidebarProvider 
 				id,
 				text: route.data ? route.data.name : '',
 				icon: route.data && route.data.icon ? route.data.icon : 'icon-admin',
-				link: '/user/' + id,
+				link: `/user/${id}`,
 				options: {exact: false}
 			});
 		});

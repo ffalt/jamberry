@@ -1,9 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 import {TEST_SHARED_MODULE_IMPORTS, TEST_SHARED_MODULE_PROVIDERS} from '@shared/shared.module.mock';
 import {HeaderTabsComponent} from './header-tabs.component';
 
-describe('BackgroundTextComponent', () => {
+describe('HeaderTabsComponent', () => {
 	let component: HeaderTabsComponent;
 	let fixture: ComponentFixture<HeaderTabsComponent>;
 

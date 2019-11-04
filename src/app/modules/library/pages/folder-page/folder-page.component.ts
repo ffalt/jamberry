@@ -125,7 +125,7 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 			...(this.isAlbum ?
 					[
 						{label: 'Artist', value: folder.tag.artist},
-						{label: 'Year', value: folder.tag.year},
+						{label: 'Year', value: folder.tag.year}
 					] : []
 			),
 			{label: 'Played', value: folder.state.played || 0}

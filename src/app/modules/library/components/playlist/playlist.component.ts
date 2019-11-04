@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {ActionsService, PlaylistService} from '@shared/services';
+import {ActionsService} from '@shared/services';
 import {ContextMenuPlaylistComponent, ContextMenuPlaylistComponentOptions} from '../context-menu-playlist/context-menu-playlist.component';
 
 @Component({

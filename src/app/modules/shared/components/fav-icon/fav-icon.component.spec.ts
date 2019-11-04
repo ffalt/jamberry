@@ -1,6 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {StringTogglePipe} from '@shared/pipes';
-import {MockComponent} from 'ng-mocks';
 import {FavIconComponent} from './fav-icon.component';
 
 describe('FavStarComponent', () => {

@@ -44,12 +44,8 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	}
 
 	updateResult(): void {
-		this.edit.frames = this.pics.map(p => {
-			return {...p.frame, value: {...p.frame.value, mimeType: p.pic.mimeType, bin: p.pic.base64}};
-			// p.frame.value.mimeType = p.pic.mimeType;
-			// p.frame.value.bin = p.pic.base64;
-			// return p.frame;
-		});
+		this.edit.frames = this.pics.map(p =>
+			({...p.frame, value: {...p.frame.value, mimeType: p.pic.mimeType, bin: p.pic.base64}}));
 	}
 
 	uploadFile(files: FileList): void {

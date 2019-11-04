@@ -34,7 +34,7 @@ export class HeaderJamBaseComponent {
 		this.contextMenuRequest.emit(event);
 	}
 
-	clickItem(item: HeaderInfo):void {
+	clickItem(item: HeaderInfo): void {
 		if (item.click) {
 			item.click();
 		}
