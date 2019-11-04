@@ -8,11 +8,12 @@ import {Rect} from './rect';
 })
 export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 
-	@Input() preRender: boolean = true;
+	@Input() preRender: boolean = false;
 	@Output() readonly appDeferLoad: EventEmitter<any> = new EventEmitter();
 
 	private intersectionObserver?: IntersectionObserver;
 	private scrollSubscription?: Subscription;
+	private observeSubscription?: Subscription;
 	private timeoutId?: number;
 	private timeoutLoadMS: number = 50;
 
@@ -78,17 +79,19 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 		if (!!this.intersectionObserver) {
 			return;
 		}
-		this.intersectionObserver = new IntersectionObserver(entries => {
-			this.checkForIntersection(entries);
-		}, {threshold: 0});
+		this.intersectionObserver = this.deferLoadService.getObserver();
 		if (this.intersectionObserver && this._element.nativeElement) {
 			this.intersectionObserver.observe(this._element.nativeElement as Element);
+			this.observeSubscription = this.deferLoadService.observeNotify
+				.subscribe(entries => this.checkForIntersection(entries));
 		}
 	}
 
 	private checkForIntersection = (entries: Array<IntersectionObserverEntry>) => {
 		entries.forEach((entry: IntersectionObserverEntry) => {
-			this.manageIntersection(entry);
+			if (entry.target === this._element.nativeElement) {
+				this.manageIntersection(entry);
+			}
 		});
 	};
 
@@ -96,7 +99,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 		// For Samsung native browser, IO has been partially implemented where by the
 		// callback fires, but entry object is empty. We will check manually.
 		if (entry && entry.time) {
-			return (entry as any).isIntersecting && entry.target === this._element.nativeElement;
+			return entry.isIntersecting;
 		}
 		return this.isVisible();
 	}
@@ -113,7 +116,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	}
 
 	private addScrollListeners(): void {
-		this.scrollSubscription = this.deferLoadService.notify
+		this.scrollSubscription = this.deferLoadService.scrollNotify
 			.subscribe(event => {
 				if (this.checkInView(event.rect)) {
 					this.loadFromScroll();
@@ -130,9 +133,8 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 		if (this.scrollSubscription) {
 			this.scrollSubscription.unsubscribe();
 		}
-
-		if (this.intersectionObserver) {
-			this.intersectionObserver.disconnect();
+		if (this.observeSubscription) {
+			this.observeSubscription.unsubscribe();
 		}
 	}
 
