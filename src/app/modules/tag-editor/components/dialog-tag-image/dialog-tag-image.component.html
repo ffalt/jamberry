@@ -1,5 +1,8 @@
 <div class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)">
-	<app-image-base64 *ngIf="currentPic" [image]="currentPic.pic"></app-image-base64>
+	<image-cropper *ngIf="currentPic" [imageBase64]="currentPic.base64" (imageCropped)="imageCropped($event)"></image-cropper>
+	<!--	(imageLoaded)="imageLoaded()"-->
+	<!--	(cropperReady)="cropperReady()"-->
+	<!--	(loadImageFailed)="loadImageFailed()"-->
 	<form>
 		<input type="file" (change)="selectFile($event)" placeholder="Upload image" accept=".png,.jpeg,.jpg">
 	</form>

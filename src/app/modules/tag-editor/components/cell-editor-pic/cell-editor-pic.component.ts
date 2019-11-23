@@ -59,6 +59,7 @@ export class CellEditorPicComponent extends CellEditor implements OnChanges {
 				this.pics = data.frames;
 				this.cell.changed = true;
 				this.cell.parent.changed = true;
+				this.cell.frames = data.frames;
 				return Promise.resolve();
 			},
 			onCancelBtn: async () => Promise.resolve()
