@@ -1,0 +1,5 @@
+<div *ngFor="let lyric of lyrics" [title]="lyric.value.text">
+	<i class="icon-edit"></i>
+	<ng-container *ngIf="lyric.value.language">[{{lyric.value.language}}]</ng-container>
+	{{lyric.value.text | limit: 50}}
+</div>

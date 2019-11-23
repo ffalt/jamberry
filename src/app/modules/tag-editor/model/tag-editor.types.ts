@@ -88,7 +88,7 @@ export const DefaultFrameColumns: Array<{ id: string, subid?: string; width: num
 	{id: 'TIME', width: 60},
 	{id: 'TKEY', width: 60},
 	{id: 'TBPM', width: 60},
-	{id: 'USLT', width: 300},
+	{id: 'USLT', width: 200, force: true},
 	{id: 'APIC', width: 80},
 	{id: 'TPUB', width: 140},
 	{id: 'WPUB', width: 140},

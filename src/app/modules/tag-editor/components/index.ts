@@ -1,6 +1,7 @@
 import {TagEditorAutocompleteComponent} from './autocomplete/tag-editor-autocomplete.component';
 import {CellEditorBinComponent} from './cell-editor-bin/cell-editor-bin.component';
 import {CellEditorBoolComponent} from './cell-editor-bool/cell-editor-bool.component';
+import {CellEditorLyricsComponent} from './cell-editor-lyrics/cell-editor-lyrics.component';
 import {CellEditorPicComponent} from './cell-editor-pic/cell-editor-pic.component';
 import {CellEditorPopmComponent} from './cell-editor-popm/cell-editor-popm.component';
 import {CellEditorTxtListComponent} from './cell-editor-txt-list/cell-editor-txt-list.component';
@@ -12,6 +13,7 @@ import {DialogAlbumComponent} from './dialog-album/dialog-album.component';
 import {DialogChooseColumnsComponent} from './dialog-choose-columns/dialog-choose-columns.component';
 import {DialogMatchReleaseComponent} from './dialog-match-release/dialog-match-release.component';
 import {DialogTagImageComponent} from './dialog-tag-image/dialog-tag-image.component';
+import {DialogTagLyricsComponent} from './dialog-tag-lyrics/dialog-tag-lyrics.component';
 import {ImageBase64Component} from './image-base64/image-base64.component';
 import {TagEditorInlineAutocompleteComponent} from './inline-autocomplete/tag-editor-inline-autocomplete.component';
 import {MatchReleaseComponent} from './match-release/match-release.component';
@@ -23,8 +25,10 @@ export const entryComponents: Array<any> = [
 	DialogAlbumComponent,
 	DialogChooseColumnsComponent,
 	DialogMatchReleaseComponent,
+	DialogTagLyricsComponent,
 	CellEditorBoolComponent,
 	CellEditorBinComponent,
+	CellEditorLyricsComponent,
 	CellEditorPicComponent,
 	CellEditorPopmComponent,
 	CellEditorTxtComponent,
@@ -51,6 +55,7 @@ export * from './cell-editor-pic/cell-editor-pic.component';
 export * from './cell-editor-popm/cell-editor-popm.component';
 export * from './cell-editor-txt-list/cell-editor-txt-list.component';
 export * from './cell-editor-txt/cell-editor-txt.component';
+export * from './cell-editor-lyrics/cell-editor-lyrics.component';
 export * from './cell-editor-unknown/cell-editor-unknown.component';
 export * from './cell-editor/cell-editor.component';
 export * from './dialog-album/dialog-album.component';
@@ -63,3 +68,4 @@ export * from './match-release/match-release.component';
 export * from './score-box/score-box.component';
 export * from './tag-editor/tag-editor.component';
 export * from './column-tool/column-tool.component';
+export * from './dialog-tag-lyrics/dialog-tag-lyrics.component';

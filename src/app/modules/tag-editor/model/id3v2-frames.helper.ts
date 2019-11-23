@@ -20,6 +20,7 @@ export enum FrameType {
 	Popularimeter,
 	MusicCDId,
 	EventTimingCodes,
+	USLT,
 	SYLT,
 	GEOB,
 	ETCO,
@@ -337,7 +338,7 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 	'ULT': {
 		title: 'Unsychronized lyric/text transcription',
 		versions: [2],
-		impl: FrameType.LangDescText,
+		impl: FrameType.USLT,
 		upgrade: 'USLT'
 	},
 	'SLT': {
@@ -842,7 +843,7 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 	'USLT': {
 		title: 'Unsychronized lyric/text transcription',
 		versions: [3, 4],
-		impl: FrameType.LangDescText
+		impl: FrameType.USLT
 	},
 	'SYLT': {
 		title: 'Synchronised lyrics/text',

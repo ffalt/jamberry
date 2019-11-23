@@ -6,6 +6,7 @@
 	<app-cell-editor-txt *ngSwitchCase="FrameType.Filename" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-txt>
 	<app-cell-editor-txt-list *ngSwitchCase="FrameType.TextList" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-txt-list>
 	<app-cell-editor-bool *ngSwitchCase="FrameType.Bool" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-bool>
+	<app-cell-editor-lyrics tabindex="0" *ngSwitchCase="FrameType.USLT" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-lyrics>
 	<app-cell-editor-bin tabindex="0" *ngSwitchCase="FrameType.IdBin" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-bin>
 	<app-cell-editor-bin tabindex="0" *ngSwitchCase="FrameType.GEOB" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-bin>
 	<app-cell-editor-pic tabindex="0" *ngSwitchCase="FrameType.Pic" [cell]="cell" (navigKeyDownRequest)="onCellEditorNavigationKeyDown($event)"></app-cell-editor-pic>
