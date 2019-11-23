@@ -1,4 +1,4 @@
-import {ID3v2Frames, Jam, MUSICBRAINZ_VARIOUS_ARTISTS_NAME} from '@jam';
+import {ID3v2Frames, Jam, JamService, MUSICBRAINZ_VARIOUS_ARTISTS_NAME} from '@jam';
 import {Genres} from './genres.consts';
 import {FrameCOMMSubIdsDefs, FrameDef, FrameDefs, FrameTXXXSubIdsDefs, FrameType, FrameUFIDSubIdsDefs} from './id3v2-frames.helper';
 import {
@@ -16,6 +16,9 @@ export class TagEditor {
 	columns: Array<RawTagEditColumn> = [];
 	edits: Array<RawTagEditRow> = [];
 
+	constructor(private jam: JamService) {
+	}
+
 	removeColumnText(column: RawTagEditColumn, text: string): void {
 		const index = this.columns.indexOf(column);
 		for (const edit of this.edits) {
@@ -31,9 +34,16 @@ export class TagEditor {
 		const index = this.columns.indexOf(column);
 		const cell = edit.cells[index];
 		const text = value ? value : '';
-		let frames = [{id: cell.column.def.id, value: {id: cell.column.def.subid, text}}];
-		if (text.length === 0) {
-			frames = [];
+		let frames = [];
+		if (text.length > 0) {
+			frames = [{
+				id: cell.column.def.id,
+				value: ([FrameType.USLT, FrameType.LangDescText].includes(column.def.impl)) ? {
+					id: '',
+					language: '',
+					text
+				} : {id: cell.column.def.subid, text}
+			}];
 		}
 		if (cell.frames.length === 0 || cell.frames[0].value.text !== text) {
 			edit.cells[index] = {
@@ -158,6 +168,29 @@ export class TagEditor {
 
 	setReleaseDateFromYearFrames(column: RawTagEditColumn): void {
 		this.copyColumn(this.columns.findIndex(c => c.def.id === 'TYER'), column);
+	}
+
+	getCellText(cell: RawTagEditCell): string | undefined {
+		return cell.frames.length > 0 ? cell.frames[0].value.text : undefined;
+	}
+
+	async findMissingLyrics(col: RawTagEditColumn): Promise<void> {
+		const lyricsColIndex = this.columns.findIndex(c => c.def.id === 'USLT');
+		const artistColIndex = this.columns.findIndex(c => c.def.id === 'TPE1');
+		const titleColIndex = this.columns.findIndex(c => c.def.id === 'TIT2');
+		for (const edit of this.edits) {
+			const lyrics = this.getCellText(edit.cells[lyricsColIndex]);
+			if (!lyrics) {
+				const artist = this.getCellText(edit.cells[artistColIndex]);
+				const title = this.getCellText(edit.cells[titleColIndex]);
+				if (title && artist) {
+					const res = await this.jam.metadata.lyricsovh_search({title, artist});
+					if (res && res.lyrics) {
+						this.updateEditTextCell(edit, col, res.lyrics);
+					}
+				}
+			}
+		}
 	}
 
 	copyColumn(sourceColIndex: number, column: RawTagEditColumn): void {
@@ -546,6 +579,14 @@ export class TagEditor {
 					}
 				});
 			}
+		} else if (impl === FrameType.USLT) {
+			result.push({
+				icon: 'icon-down-thin',
+				title: 'Search for missing Lyrics',
+				click: () => {
+					this.findMissingLyrics(col);
+				}
+			});
 		}
 		if (impl !== FrameType.Filename) {
 			result.push({

@@ -29,7 +29,7 @@ export interface SaveAction {
 export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	folder: Jam.Folder;
 	tracks: Array<Jam.Track>;
-	editor: TagEditor = new TagEditor();
+	editor: TagEditor;
 	canLoadRecursive = false;
 	activeCol?: RawTagEditColumn;
 	isSaving = false;
@@ -41,6 +41,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	constructor(
 		private app: AppService, private folderService: AdminFolderService,
 		private jam: JamService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
+		this.editor = new TagEditor(jam);
 	}
 
 	onScroll(): void {
