@@ -20,6 +20,13 @@ export class JamMetadataService {
 	}
 
 	/**
+	 * search lyrics.ovh data
+	 */
+	async lyricsovh_search(params: JamParameters.LyricsOVHSearch): Promise<Jam.LyricsOVHResponse> {
+		return this.base.requestData<Jam.LyricsOVHResponse>('lyricsovh/search', params);
+	}
+
+	/**
 	 * lookup acoustid data
 	 */
 	async acoustid_lookup(params: JamParameters.AcoustidLookup): Promise<Array<Jam.AcoustidResponse>> {
