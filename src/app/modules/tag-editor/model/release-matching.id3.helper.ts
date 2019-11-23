@@ -172,6 +172,9 @@ export function toID3v24(match: Matching, genres: Array<string>, images: Array<I
 	fillImages(builder, match, images);
 	fillMood(builder, match);
 	fillAcoustID(builder, match, track);
+	if (match.lyrics) {
+		builder.lyrics(match.lyrics.lyrics);
+	}
 
 	// TODO: add more tag frames
 	// addFrame('TKEY',release.Initialkey ?);

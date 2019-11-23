@@ -11,6 +11,7 @@ export interface Matching {
 	mbGroup?: MusicBrainz.ReleaseGroup;
 	lastfm?: LastFM.Album;
 	genres?: Array<string>;
+	lyrics?: Jam.LyricsOVHResponse;
 	abdata?: ABData;
 	acoustidEntries?: Array<AcoustIDEntry>;
 }

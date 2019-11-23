@@ -176,7 +176,7 @@
 				}
 
 				.match-images {
-
+					@include media-cards();
 				}
 			}
 

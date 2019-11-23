@@ -21,6 +21,9 @@
 						<div *ngIf="match.abdata">
 							<span class="label">Moods:</span>&nbsp;<span class="value">{{match.abdata.moods}}</span>
 						</div>
+						<div *ngIf="match.lyrics">
+							<span class="label">Lyrics:</span>&nbsp;<span class="value">yes</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -66,7 +69,11 @@
 				</div>
 			</div>
 			<div class="match-track-moods">
-				<div class="section">Moods</div>
+				<div class="section">More</div>
+				<button [class.disabled]="!isRunning" class="button-on-background" (click)="loadLyrics(current.group.currentRelease)">
+					<i *ngIf="isRunning" class="icon-spin icon-spinner"></i>
+					<ng-container *ngIf="!isRunning">Load Lyrics</ng-container>
+				</button>
 				<button [class.disabled]="!isRunning" class="button-on-background" (click)="loadMoods(current.group.currentRelease)">
 					<i *ngIf="isRunning" class="icon-spin icon-spinner"></i>
 					<ng-container *ngIf="!isRunning">Load AcousticBrainz Moods</ng-container>

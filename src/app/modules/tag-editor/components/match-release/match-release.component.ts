@@ -381,6 +381,21 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			});
 	}
 
+	loadLyrics(release: MatchRelease): void {
+		if (this.isRunning) {
+			return;
+		}
+		this.isRunning = true;
+		this.loadLyricsOVH(release)
+			.then(() => {
+				this.isRunning = false;
+			})
+			.catch(e => {
+				this.isRunning = false;
+				this.notify.error(e);
+			});
+	}
+
 	removeMatching(group: MatchReleaseGroup, release: MatchRelease, track: MatchingTrack): void {
 		track.currentMatch = undefined;
 		group.updateScore();
@@ -606,6 +621,18 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 						track.abData = abData;
 						track.currentMatch.match.abdata = abData;
 					}
+				}
+			}
+		}
+	}
+
+	private async loadLyricsOVH(release: MatchRelease): Promise<void> {
+		for (const media of release.media) {
+			for (const track of media.tracks) {
+				if (track.currentMatch && !track.currentMatch.match.lyrics && track.mbTrack.artistCredit && track.mbTrack.artistCredit.length > 0) {
+					const artist = track.mbTrack.artistCredit[0].name;
+					const title = track.mbTrack.title;
+					track.currentMatch.match.lyrics = await this.jam.metadata.lyricsovh_search({title, artist});
 				}
 			}
 		}
