@@ -336,13 +336,13 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 		upgrade: 'SYTC'
 	},
 	'ULT': {
-		title: 'Unsychronized lyric/text transcription',
+		title: 'Lyrics',
 		versions: [2],
 		impl: FrameType.USLT,
 		upgrade: 'USLT'
 	},
 	'SLT': {
-		title: 'Synchronised lyrics/text',
+		title: 'Synchronised Lyrics',
 		versions: [2],
 		impl: FrameType.SYLT,
 		upgrade: 'SYLT'
@@ -841,12 +841,12 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 		impl: FrameType.Unknown
 	},
 	'USLT': {
-		title: 'Unsychronized lyric/text transcription',
+		title: 'Lyrics',
 		versions: [3, 4],
 		impl: FrameType.USLT
 	},
 	'SYLT': {
-		title: 'Synchronised lyrics/text',
+		title: 'Synchronised Lyrics',
 		versions: [3, 4],
 		impl: FrameType.SYLT
 	},
