@@ -13,6 +13,10 @@
 	</ng-container>
 	<ng-container *ngSwitchCase="PodcastStatus.error">
 		<span [title]="episode.errorMessage"><i class="icon-warning"></i></span>
+		<button *ngIf="jam.auth.user?.roles?.podcast" class="button-on-background"
+						title="Get Episode" (click)="podcastService.retrieveEpisode(episode)">
+			<i class="icon-download"></i>
+		</button>
 	</ng-container>
 	<ng-container *ngSwitchCase="PodcastStatus.completed">
 		<button class="button-primary" (click)="player.startEpisode(episode)"><i class="icon-play"></i>
