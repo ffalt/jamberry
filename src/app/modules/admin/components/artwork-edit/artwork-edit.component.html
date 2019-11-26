@@ -1,5 +1,9 @@
+<label>
+	<input type="checkbox" [(ngModel)]="maintainAspectRatio" [checked]="maintainAspectRatio"> Maintain Aspect Ratio
+</label>
 <image-cropper *ngIf="imageBase64"
 							 [imageBase64]="imageBase64"
+							 [maintainAspectRatio]="maintainAspectRatio"
 							 (imageCropped)="imageCropped($event)"
 							 (imageLoaded)="imageLoaded()"
 							 (cropperReady)="cropperReady()"

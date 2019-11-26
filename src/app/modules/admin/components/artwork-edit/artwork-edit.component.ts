@@ -23,6 +23,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	croppedImage: string;
 	croppedImageFile: Blob;
 	mimeType: string = 'image/jpeg';
+	maintainAspectRatio: boolean = true;
 	@Output() readonly imageEdited = new EventEmitter<void>();
 	protected unsubscribe = new Subject();
 

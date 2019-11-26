@@ -16,6 +16,7 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	edit: PicEdit;
 	pics: Array<{ frame: ID3v2Frames.Pic, base64: string, pic: { mimeType: string, base64: string } }>;
 	currentPic: { frame: ID3v2Frames.Pic, base64: string, pic: { mimeType: string, base64: string } };
+	maintainAspectRatio: boolean = true;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PicEdit>>): void {
 		this.edit = options.data;
@@ -70,8 +71,8 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onload = (event: any) => {
-			this.currentPic.base64 = event.target.result;
 			this.updatePicture(event.target.result);
+			this.currentPic.base64 = event.target.result;
 		};
 		reader.onerror = e => {
 			console.error(e);
