@@ -3,7 +3,6 @@ import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {DialogTagLyricsComponent, LyricsEdit} from '@app/modules/tag-editor/components/dialog-tag-lyrics/dialog-tag-lyrics.component';
 import {isEnterKey} from '@app/utils/keys';
-import {ID3v2Frames} from '@jam';
 import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
@@ -13,7 +12,6 @@ import {RawTagEditCell} from '../../model/tag-editor.types';
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorLyricsComponent)}]
 })
 export class CellEditorLyricsComponent extends CellEditor implements OnChanges {
-	lyrics: Array<ID3v2Frames.LangDescText>;
 	@Input() cell: RawTagEditCell;
 	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell, event: KeyboardEvent }>();
 
@@ -50,14 +48,14 @@ export class CellEditorLyricsComponent extends CellEditor implements OnChanges {
 	}
 
 	editLyrics(): void {
-		const data: LyricsEdit = {frames: this.lyrics.slice(0)};
+		const data: LyricsEdit = {frames: this.cell.frames};
 		this.dialogOverlay.open({
 			title: 'Tag Lyrics',
 			childComponent: DialogTagLyricsComponent,
 			data,
 			panelClass: 'overlay-panel-large-buttons',
 			onOkBtn: async () => {
-				this.lyrics = data.result.filter(f => f.value.text.length > 0);
+				this.cell.frames = data.result.filter(f => f.value.text.length > 0);
 				this.cell.changed = true;
 				this.cell.parent.changed = true;
 				return Promise.resolve();
@@ -67,7 +65,7 @@ export class CellEditorLyricsComponent extends CellEditor implements OnChanges {
 	}
 
 	protected changeCell(cell: RawTagEditCell): void {
-		this.lyrics = cell ? (cell.frames || []) : [];
+		// this.lyrics = cell ? (cell.frames || []) : [];
 	}
 
 }
