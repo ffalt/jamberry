@@ -38,7 +38,7 @@ export class TagEditor {
 		if (text.length > 0) {
 			frames = [{
 				id: cell.column.def.id,
-				value: ([FrameType.USLT, FrameType.LangDescText].includes(column.def.impl)) ? {
+				value: (FrameType.LangDescText === column.def.impl) ? {
 					id: '',
 					language: '',
 					text
@@ -578,15 +578,15 @@ export class TagEditor {
 						this.setReleaseDateFromYearFrames(col);
 					}
 				});
+			} else if (id === 'USLT') {
+				result.push({
+					icon: 'icon-down-thin',
+					title: 'Search for missing Lyrics',
+					click: () => {
+						this.findMissingLyrics(col);
+					}
+				});
 			}
-		} else if (impl === FrameType.USLT) {
-			result.push({
-				icon: 'icon-down-thin',
-				title: 'Search for missing Lyrics',
-				click: () => {
-					this.findMissingLyrics(col);
-				}
-			});
 		}
 		if (impl !== FrameType.Filename) {
 			result.push({

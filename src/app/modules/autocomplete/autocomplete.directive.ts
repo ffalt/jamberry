@@ -133,6 +133,10 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	}
 
 	private display(): void {
+		if (!this.options || this.options.length === 0) {
+			this.isVisible = false;
+			return;
+		}
 		if (!this.isCreated) {
 			this.openDropdown();
 		}

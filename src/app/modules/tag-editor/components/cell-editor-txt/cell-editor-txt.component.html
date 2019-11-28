@@ -1,5 +1,11 @@
-<app-tag-editor-inline-autocomplete *ngIf="cell"
-																		class="input-group" [class.changed]="cell.changed"
-																		[value]="val" (valueChange)="onValueChange($event)"
-																		[getList]="cell.column.getAutoCompleteList" [data]="cell"
-																		(navigKeyDownRequest)="onNavigKeyDown($event)"></app-tag-editor-inline-autocomplete>
+<!--<app-autocomplete #autocomplete="appAutocomplete">-->
+<!--	<ng-template appAutocompleteContent let-control>-->
+<!--		<ng-container *ngFor="let option of control.options">-->
+<!--			<app-autocomplete-option-header *ngIf="option.header">{{option.header}}</app-autocomplete-option-header>-->
+<!--			<app-autocomplete-option [option]="option" [control]="control">{{option.data}}</app-autocomplete-option>-->
+<!--		</ng-container>-->
+<!--	</ng-template>-->
+<!--</app-autocomplete>-->
+<input #inputEl type="text" autocomplete="off" [(ngModel)]="val" (blur)="onBlur()" (keydown.enter)="onEnter()">
+<!--[appAutocomplete]="autocomplete" [appAutocompleteControl]="this"-->
+<!--[appAutocompleteSettings]="{allowEmpty:true}" (appAutocompleteNavigKeyDown)="onNavigKeyDown($event)"-->

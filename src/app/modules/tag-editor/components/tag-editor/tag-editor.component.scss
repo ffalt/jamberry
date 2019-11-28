@@ -35,18 +35,20 @@
 
 			.cell-editor {
 				width: 100%;
-				display: block;
 				height: 34px;
 				border-top-width: 1px;
 				border-top-style: solid;
 				border-left-width: 1px;
 				border-left-style: solid;
-				text-align: center;
+				text-align: left;
 				padding-bottom: 1px;
 				padding-top: 1px;
 				font-size: $x-small;
 				color: var(--on-background);
 				border-color: var(--background-border);
+				overflow: hidden;
+				display: flex;
+				align-items: center;
 
 				&.changed {
 					padding-bottom: 0;
@@ -117,6 +119,7 @@
 
 				td {
 					border: none;
+					max-width: 200px;
 
 					&.col-state {
 						text-align: center;

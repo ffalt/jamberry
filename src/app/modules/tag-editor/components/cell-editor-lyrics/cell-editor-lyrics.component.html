@@ -1,7 +1,0 @@
-<ng-container *ngIf="cell">
-	<div *ngFor="let lyric of cell.frames" [title]="lyric.value.text">
-		<i class="icon-edit"></i>
-		<ng-container *ngIf="lyric.value.language">[{{lyric.value.language}}]</ng-container>
-		{{lyric.value.text | limit: 40}}
-	</div>
-</ng-container>
