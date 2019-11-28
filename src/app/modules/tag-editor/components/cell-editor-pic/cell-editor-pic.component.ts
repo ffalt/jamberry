@@ -56,10 +56,10 @@ export class CellEditorPicComponent extends CellEditor implements OnChanges {
 			childComponent: DialogTagImageComponent,
 			data,
 			onOkBtn: async () => {
-				this.pics = data.frames;
+				this.pics = data.result || [];
 				this.cell.changed = true;
 				this.cell.parent.changed = true;
-				this.cell.frames = data.frames;
+				this.cell.frames = this.pics;
 				return Promise.resolve();
 			},
 			onCancelBtn: async () => Promise.resolve()

@@ -5,6 +5,7 @@ import {ImageCroppedEvent} from 'ngx-image-cropper';
 
 export interface PicEdit {
 	frames: Array<ID3v2Frames.Pic>;
+	result?: Array<ID3v2Frames.Pic>;
 }
 
 @Component({
@@ -14,19 +15,21 @@ export interface PicEdit {
 })
 export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	edit: PicEdit;
-	pics: Array<{ frame: ID3v2Frames.Pic, base64: string, pic: { mimeType: string, base64: string } }>;
-	currentPic: { frame: ID3v2Frames.Pic, base64: string, pic: { mimeType: string, base64: string } };
 	maintainAspectRatio: boolean = true;
+	current: { frame?: ID3v2Frames.Pic, source?: string } = {};
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PicEdit>>): void {
 		this.edit = options.data;
-		this.pics = options.data.frames
-			.map(frame => ({
-				frame,
-				base64: `data:${(frame.value.mimeType || 'image/jpeg')};base64,${frame.value.bin}`,
-				pic: {mimeType: frame.value.mimeType, base64: frame.value.bin}
-			}));
-		this.currentPic = this.pics[0];
+		this.edit.result = options.data.frames.map(frame => ({id: frame.id, value: {...frame.value}}));
+		if (this.edit.result.length > 0) {
+			this.displayFrame(this.edit.result[0]);
+		}
+	}
+
+	displayFrame(frame: ID3v2Frames.Pic): void {
+		const base64 = `data:${(frame.value.mimeType || 'image/jpeg')};base64,${frame.value.bin}`;
+		this.current.frame = frame;
+		this.current.source = base64;
 	}
 
 	onDropFile(event: DragEvent): void {
@@ -45,22 +48,16 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 		event.preventDefault();
 	}
 
-	updateResult(): void {
-		this.edit.frames = this.pics.map(p =>
-			({...p.frame, value: {...p.frame.value, mimeType: p.pic.mimeType, bin: p.pic.base64}}));
+	splitBase64(fullBase64: string): { mimeType: string, base64: string } {
+		return {
+			mimeType: fullBase64.slice(5, fullBase64.indexOf(';')),
+			base64: fullBase64.slice(fullBase64.indexOf('base64,') + 7)
+		};
 	}
 
-	updatePicture(pic: string): void {
-		const mimeType = pic.slice(5, pic.indexOf(';'));
-		const base64 = pic.slice(pic.indexOf('base64,') + 7);
-		if (!this.currentPic) {
-			const frame: ID3v2Frames.Pic = {id: 'APIC', value: {mimeType, description: '', bin: base64, pictureType: 3}};
-			this.currentPic = {frame, pic: {base64, mimeType}, base64: pic};
-			this.pics.push(this.currentPic);
-		} else {
-			this.currentPic.pic = {base64, mimeType};
-		}
-		this.updateResult();
+	buildFrame(fullBase64: string): ID3v2Frames.Pic {
+		const {mimeType, base64} = this.splitBase64(fullBase64);
+		return {id: 'APIC', value: {mimeType, description: '', bin: base64, pictureType: 3}};
 	}
 
 	uploadFile(files: FileList): void {
@@ -71,16 +68,40 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onload = (event: any) => {
-			this.updatePicture(event.target.result);
-			this.currentPic.base64 = event.target.result;
+			const fullBase64 = event.target.result;
+			if (!this.current.frame) {
+				this.current.frame = this.buildFrame(fullBase64);
+				this.edit.result.push(this.current.frame);
+			}
+			this.current.source = fullBase64;
+			const {mimeType, base64} = this.splitBase64(fullBase64);
+			this.current.frame.value.mimeType = mimeType;
+			this.current.frame.value.bin = base64;
 		};
 		reader.onerror = e => {
 			console.error(e);
 		};
 	}
 
+	loadImageFailed(): void {
+		// console.log('loadImageFailed');
+	}
+
+	cropperReady(): void {
+		// console.log('cropperReady');
+	}
+
+	imageLoaded(): void {
+		// console.log('imageLoaded');
+	}
+
 	imageCropped(event: ImageCroppedEvent): void {
-		this.updatePicture(event.base64);
+		// console.log('imageCropped', event);
+		if (this.current) {
+			const {mimeType, base64} = this.splitBase64(event.base64);
+			this.current.frame.value.mimeType = mimeType;
+			this.current.frame.value.bin = base64;
+		}
 	}
 
 }

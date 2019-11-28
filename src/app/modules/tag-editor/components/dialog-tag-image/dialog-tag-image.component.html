@@ -2,10 +2,15 @@
 	<input type="checkbox" [(ngModel)]="maintainAspectRatio" [checked]="maintainAspectRatio"> Maintain Aspect Ratio
 </label>
 <div class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)">
-	<image-cropper *ngIf="currentPic" [maintainAspectRatio]="maintainAspectRatio" [imageBase64]="currentPic.base64" (imageCropped)="imageCropped($event)"></image-cropper>
-	<!--	(imageLoaded)="imageLoaded()"-->
-	<!--	(cropperReady)="cropperReady()"-->
-	<!--	(loadImageFailed)="loadImageFailed()"-->
+	<image-cropper *ngIf="current.source"
+								 [maintainAspectRatio]="maintainAspectRatio"
+								 [format]="'jpeg'"
+								 [outputType]="'base64'"
+								 [imageBase64]="current.source"
+								 (cropperReady)="cropperReady()"
+								 (loadImageFailed)="loadImageFailed()"
+								 (imageLoaded)="imageLoaded()"
+								 (imageCropped)="imageCropped($event)"></image-cropper>
 	<form>
 		<input type="file" (change)="selectFile($event)" placeholder="Upload image" accept=".png,.jpeg,.jpg">
 	</form>
