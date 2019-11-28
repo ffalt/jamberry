@@ -57,7 +57,7 @@ export class CellEditorLyricsComponent extends CellEditor implements OnChanges {
 			data,
 			panelClass: 'overlay-panel-large-buttons',
 			onOkBtn: async () => {
-				this.lyrics = data.frames.filter(f => f.value.text.length > 0);
+				this.lyrics = data.result.filter(f => f.value.text.length > 0);
 				this.cell.changed = true;
 				this.cell.parent.changed = true;
 				return Promise.resolve();

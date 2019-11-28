@@ -4,6 +4,7 @@ import {ID3v2Frames} from '@jam';
 
 export interface LyricsEdit {
 	frames: Array<ID3v2Frames.LangDescText>;
+	result?: Array<ID3v2Frames.LangDescText>;
 }
 
 @Component({
@@ -13,20 +14,16 @@ export interface LyricsEdit {
 })
 export class DialogTagLyricsComponent implements DialogOverlay<LyricsEdit> {
 	edit: LyricsEdit;
-	lyrics: Array<{ frame: ID3v2Frames.LangDescText, text: string }>;
-	currentLyrics: { frame: ID3v2Frames.LangDescText, text: string };
+	currentLyrics: ID3v2Frames.LangDescText;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<LyricsEdit>>): void {
 		this.edit = options.data;
-		this.lyrics = options.data.frames.map(frame => ({frame, text: frame.value.text}));
-		this.currentLyrics = this.lyrics[0];
-		if (!this.currentLyrics) {
-			this.currentLyrics = {frame: {id: 'USLT', value: {id: '', language: '', text: ''}}, text: ''};
-			this.lyrics.push(this.currentLyrics);
+		this.edit.result = options.data.frames.map(frame => ({id: frame.id, value: {...frame.value}}));
+		if (this.edit.result.length === 0) {
+			const frame = {id: 'USLT', value: {id: '', language: '', text: ''}};
+			this.edit.result.push(frame);
 		}
+		this.currentLyrics = this.edit.result[0];
 	}
 
-	updateResult(): void {
-		this.edit.frames = this.lyrics.map(p => ({...p.frame, value: {...p.frame.value, text: p.text}}));
-	}
 }
