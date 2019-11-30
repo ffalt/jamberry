@@ -13,6 +13,7 @@ import {ContextMenuAlbumComponent} from '../context-menu-album/context-menu-albu
 export class AlbumCardComponent {
 	@Input() album: Jam.Album;
 	@Input() showArtist: boolean;
+	visible: boolean = false;
 
 	constructor(
 		public navig: NavigService,
@@ -28,4 +29,7 @@ export class AlbumCardComponent {
 		this.contextMenuService.open(ContextMenuAlbumComponent, this.album, $event);
 	}
 
+	gotInView(): void {
+		this.visible = true;
+	}
 }

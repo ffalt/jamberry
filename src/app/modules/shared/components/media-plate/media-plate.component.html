@@ -1,5 +1,5 @@
-<div class="art">
-	<app-coverart-image [coverArtObj]="base" [size]="135" [alt]="base.name" (click)="goTo()" appClickStop></app-coverart-image>
+<div class="art" (appDeferLoad)="gotInView()">
+	<app-coverart-image *ngIf="visible" [coverArtObj]="base" [size]="135" [alt]="base.name" (click)="goTo()" appClickStop></app-coverart-image>
 </div>
 <div class="meta">
 	<app-fav-icon [state]="base.state" (click)="toggleFav()" appClickStop></app-fav-icon>
@@ -9,6 +9,6 @@
 	<div class="type">{{mediaType}}</div>
 	<div class="actions">
 		<button class="button-primary" (click)="play()" appClickStop><i class="icon-play"></i> Play</button>
-		<a (click)="contextmenuEvent($event)">…</a>
+		<a (click)="contextmenuEvent($event)" appClickStop>…</a>
 	</div>
 </div>

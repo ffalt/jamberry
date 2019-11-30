@@ -12,6 +12,7 @@ import {ContextMenuArtistComponent} from '../context-menu-artist/context-menu-ar
 })
 export class ArtistCardComponent {
 	@Input() artist: Jam.Artist;
+	visible: boolean = false;
 
 	constructor(
 		public navig: NavigService,
@@ -27,4 +28,7 @@ export class ArtistCardComponent {
 		this.contextMenuService.open(ContextMenuArtistComponent, this.artist, $event);
 	}
 
+	gotInView(): void {
+		this.visible = true;
+	}
 }

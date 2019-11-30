@@ -18,6 +18,7 @@ export class MediaPlateComponent {
 	@Output() readonly goToRequest = new EventEmitter<void>();
 	@Output() readonly goToParentRequest = new EventEmitter<void>();
 	@Output() readonly toggleFavRequest = new EventEmitter<void>();
+	visible: boolean = false;
 
 	@HostListener('contextmenu', ['$event'])
 	contextmenuEvent(event: MouseEvent): void {
@@ -38,5 +39,9 @@ export class MediaPlateComponent {
 
 	toggleFav(): void {
 		this.toggleFavRequest.emit();
+	}
+
+	gotInView(): void {
+		this.visible = true;
 	}
 }
