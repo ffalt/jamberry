@@ -25,8 +25,6 @@ import {CellEditorTxtComponent} from '../cell-editor-txt/cell-editor-txt.compone
 import {DialogTagImageComponent, PicEdit} from '../dialog-tag-image/dialog-tag-image.component';
 import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-tag-lyrics.component';
 
-// TODO: Lifecycle and change detection is not working when creating the components dynamically. Why, what's wrong? Use a giant ngSwitch in the meanwhile
-
 @Component({
 	selector: 'app-cell-editor',
 	templateUrl: './cell-editor.component.html',
@@ -211,11 +209,10 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	private frameToString(frame: RawTagEditFrame): string {
 		switch (this.cell.column.def.impl) {
 			case FrameType.Filename:
-				return this.cell.track.name;
-			case FrameType.LangDescText:
-				return this.langDescFrameToString(frame);
 			case FrameType.Text:
 				return this.textFrameToString(frame);
+			case FrameType.LangDescText:
+				return this.langDescFrameToString(frame);
 			case FrameType.IdText:
 				return this.idTextFrameToString(frame);
 			case FrameType.Pic:
