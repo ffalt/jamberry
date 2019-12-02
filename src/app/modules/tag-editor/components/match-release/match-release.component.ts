@@ -685,11 +685,15 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		for (const match of this.matchings) {
 			if (!match.acoustidEntries) {
 				this.currentAction = 'Checking files with AcoustID: ' + match.track.name;
-				const data = await this.jam.metadata.acoustid_lookup({id: match.track.id});
+				try {
+					const data = await this.jam.metadata.acoustid_lookup({id: match.track.id});
+					match.acoustidEntries = acoustidResultToList(data, match.track);
+				} catch (e) {
+					console.error(e);
+				}
 				if (this.isAborted) {
 					return;
 				}
-				match.acoustidEntries = acoustidResultToList(data, match.track);
 			}
 			list = list.concat(match.acoustidEntries);
 		}
