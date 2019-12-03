@@ -17,6 +17,11 @@ export interface ReleaseGroup {
 	album?: Jam.Album;
 }
 
+export interface ReleaseGroupGroup {
+	groups: Array<ReleaseGroup>;
+	type: string;
+}
+
 @Component({
 	selector: 'app-mb-artist',
 	templateUrl: './mb-artist.component.html',
@@ -24,8 +29,7 @@ export interface ReleaseGroup {
 })
 export class MbArtistComponent implements OnChanges {
 	mbArtist: MusicBrainz.Artist;
-	releaseGroups: Array<ReleaseGroup> = [];
-	relationGroups: Array<RelationGroup> = [];
+	releaseGroups: Array<ReleaseGroupGroup> = [];
 	urlRelationGroup: RelationGroup;
 	@Input() mbArtistID: string;
 
@@ -48,35 +52,49 @@ export class MbArtistComponent implements OnChanges {
 		}
 	}
 
-	display(mbArtist: MusicBrainz.Artist): void {
-		this.mbArtist = mbArtist;
-		this.relationGroups = [];
-		this.relationGroups = [];
+	displayRelationGroups(mbArtist: MusicBrainz.Artist): void {
 		this.urlRelationGroup = undefined;
-		if (!mbArtist) {
-			return;
-		}
-		this.releaseGroups = this.mbArtist.releaseGroups
-			.sort((a, b) => {
-				const result = a.primaryType.localeCompare(b.primaryType);
-				if (result !== 0) {
-					return result;
-				}
-				return b.firstReleaseDate.localeCompare(a.firstReleaseDate);
-			})
-			.map(group => ({group}));
-
 		const relTypes: { [name: string]: { [type: string]: Array<MusicBrainz.Relation> } } = {};
 		(mbArtist.relations || []).forEach(rel => {
 			relTypes[rel.targetType] = relTypes[rel.targetType] || {};
 			relTypes[rel.targetType][rel.type] = relTypes[rel.targetType][rel.type] || [];
 			relTypes[rel.targetType][rel.type].push(rel);
 		});
-		this.relationGroups = Object.keys(relTypes).map(key =>
+		const relationGroups = Object.keys(relTypes).map(key =>
 			({
 				targetType: key,
 				types: Object.keys(relTypes[key]).map(k => ({type: k, relations: relTypes[key][k]}))
 			}));
-		this.urlRelationGroup = this.relationGroups.find(r => r.targetType === 'url');
+		this.urlRelationGroup = relationGroups.find(r => r.targetType === 'url');
+	}
+
+	displayReleaseGroups(mbArtist: MusicBrainz.Artist): void {
+		this.releaseGroups = [];
+		mbArtist.releaseGroups.forEach(r => {
+			const type = [r.primaryType, ...(r.secondaryTypes || [])].join(' / ');
+			let typeGroup = this.releaseGroups.find(g => g.type === type);
+			if (!typeGroup) {
+				typeGroup = {groups: [], type};
+				this.releaseGroups.push(typeGroup);
+			}
+			typeGroup.groups.push({group: r});
+		});
+		this.releaseGroups.forEach(g => {
+			g.groups.sort((a, b) => {
+				return b.group.firstReleaseDate.localeCompare(a.group.firstReleaseDate);
+			});
+		});
+		this.releaseGroups.sort((a, b) => a.type.localeCompare(b.type));
+	}
+
+	display(mbArtist: MusicBrainz.Artist): void {
+		this.mbArtist = mbArtist;
+		this.releaseGroups = [];
+		this.urlRelationGroup = undefined;
+		if (!mbArtist) {
+			return;
+		}
+		this.displayRelationGroups(mbArtist);
+		this.displayReleaseGroups(mbArtist);
 	}
 }
