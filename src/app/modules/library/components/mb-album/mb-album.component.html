@@ -1,0 +1,65 @@
+<div class="mbalbum" *ngIf="mbAlbum">
+
+	<div class="section-title">Album Information by <a href="https://musicbrainz.org/release/{{mbAlbum.id}}" target="_blank" rel="noopener">
+		<app-mb-icon [size]="18"></app-mb-icon>
+		MusicBrainz</a></div>
+
+	<div class="info-groups">
+		<div class="info-group" *ngFor="let infoGroup of infoGroups">
+			<div class="section-title">{{infoGroup.name}}</div>
+			<div class="infos">
+				<dl class="info" *ngFor="let info of infoGroup.infos">
+					<dt class="info-title">{{info.name}}</dt>
+					<dd class="info-value">{{info.value}}</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="media" *ngFor="let media of mbAlbum.media">
+		<div>Media: {{media.title || media.position}}</div>
+		<div>Format: {{media.format}}</div>
+		<div>Tracks: {{media.trackCount}}</div>
+		<div *ngFor="let track of media.tracks">
+			<hr>
+			<div>Track {{track.number}}: {{track.title || track.position}}</div>
+
+			<pre>{{track | json}}</pre>
+		</div>
+	</div>
+
+
+
+	<hr>
+	<pre>{{mbAlbum | json}}</pre>
+
+	<!--	<div class="section" *ngIf="releaseGroups && releaseGroups.length>0">-->
+	<!--		<div *ngFor="let typeGroup of releaseGroups">-->
+	<!--			<div class="section-title">Discography: {{typeGroup.type}}</div>-->
+	<!--			<div class="releasegroups">-->
+	<!--				<div class="heading">-->
+	<!--					<div class="date" title="Year">Year</div>-->
+	<!--					<div class="title" title="Title">Title</div>-->
+	<!--					<div class="info" title="MusicBrainz Page">Info</div>-->
+	<!--				</div>-->
+	<!--				<div class="releasegroup" *ngFor="let group of typeGroup.groups">-->
+	<!--					<div class="date">{{group.group.firstReleaseDate | slice: 0:4}}</div>-->
+	<!--					<div class="title">{{group.group.title}}</div>-->
+	<!--					<div class="info"><a href="https://musicbrainz.org/release-group/{{group.group.id}}" target="_blank" rel="noopener"><i class="icon-info"></i></a></div>-->
+	<!--				</div>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--	</div>-->
+
+	<!--	<div class="section" *ngIf="urlRelationGroup">-->
+	<!--		<div class="section-title">URLs</div>-->
+	<!--		<div class="url-type" *ngFor="let t of urlRelationGroup.types">-->
+	<!--			<span>{{t.type}}</span>-->
+	<!--			<div *ngFor="let rel of t.relations">-->
+	<!--				<a [href]="rel.url.resource" target="_blank"> {{rel.url.resource}}</a>-->
+	<!--			</div>-->
+	<!--		</div>-->
+	<!--	</div>-->
+
+</div>

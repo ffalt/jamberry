@@ -1,0 +1,33 @@
+@import "globals.scss";
+
+:host {
+	@include view-content();
+
+	.overview {
+		display: flex;
+		flex-flow: row wrap;
+
+		.info {
+			width: 100%;
+		}
+
+		@media (max-width: $break-pad) {
+			.info {
+				padding-right: 0;
+			}
+		}
+
+		.album-tracks {
+
+			margin-top: $margin;
+			width: 100%;
+
+			.head {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: space-between;
+				align-items: center;
+			}
+		}
+	}
+}

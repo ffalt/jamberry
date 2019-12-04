@@ -1,11 +1,11 @@
 <div class="mbartist" *ngIf="mbArtist">
 
-	<h2>Artist Information by<br/><a href="https://musicbrainz.org/artist/{{mbArtist.id}}" target="_blank" rel="noopener">
-		<app-mb-icon [size]="24"></app-mb-icon>
-		MusicBrainz</a></h2>
+	<div class="section-title">Artist Information by
+		<a href="https://musicbrainz.org/artist/{{mbArtist.id}}" target="_blank" rel="noopener"><app-mb-icon [size]="18"></app-mb-icon> MusicBrainz</a>
+	</div>
 
 	<div class="section">
-		<a href="https://musicbrainz.org/artist/{{mbArtist.id}}" target="_blank" rel="noopener">{{ mbArtist.name }} <i class="icon-info"></i></a>
+		<h2><a href="https://musicbrainz.org/artist/{{mbArtist.id}}" target="_blank" rel="noopener">{{ mbArtist.name }} <i class="icon-info"></i></a></h2>
 		<div class="disambiguation">{{mbArtist.disambiguation}}</div>
 		<div><span class="label">Type: </span>{{ mbArtist.type }}</div>
 	</div>

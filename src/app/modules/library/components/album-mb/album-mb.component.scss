@@ -1,0 +1,6 @@
+@import "globals.scss";
+
+:host {
+	@include view-content();
+}
+

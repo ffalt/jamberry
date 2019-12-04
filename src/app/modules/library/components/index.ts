@@ -1,4 +1,6 @@
 import {AlbumCardComponent} from './album-card/album-card.component';
+import {AlbumMbComponent} from './album-mb/album-mb.component';
+import {AlbumOverviewComponent} from './album-overview/album-overview.component';
 import {AlbumPlateComponent} from './album-plate/album-plate.component';
 import {AlbumsIndexLoaderByTypeComponent} from './albums-index-loader-by-type/albums-index-loader-by-type.component';
 import {AlbumsIndexLoaderComponent} from './albums-index-loader/albums-index-loader.component';
@@ -37,6 +39,7 @@ import {FoldersComponent} from './folders/folders.component';
 import {IndexEntryCardComponent} from './index-entry-card/index-entry-card.component';
 import {IndexGroupComponent} from './index-group/index-group.component';
 import {IndexComponent} from './index/index.component';
+import {MbAlbumComponent} from './mb-album/mb-album.component';
 import {MbArtistComponent} from './mb-artist/mb-artist.component';
 import {PlaylistComponent} from './playlist/playlist.component';
 import {PlaylistsLoaderByTypeComponent} from './playlists-loader-by-type/playlists-loader-by-type.component';
@@ -76,6 +79,8 @@ export const entryComponents: Array<any> = [
 export const components: Array<any> = [
 	...entryComponents,
 	AlbumPlateComponent,
+	AlbumMbComponent,
+	AlbumOverviewComponent,
 	AlbumsComponent,
 	AlbumsIndexLoaderByTypeComponent,
 	AlbumsIndexLoaderComponent,
@@ -105,6 +110,7 @@ export const components: Array<any> = [
 	IndexEntryCardComponent,
 	IndexGroupComponent,
 	MbArtistComponent,
+	MbAlbumComponent,
 	PlaylistComponent,
 	PlaylistsComponent,
 	PlaylistsLoaderByTypeComponent,
@@ -128,6 +134,8 @@ export const components: Array<any> = [
 	TracksPlaylistComponent
 ];
 
+export * from './album-overview/album-overview.component';
+export * from './album-mb/album-mb.component';
 export * from './album-plate/album-plate.component';
 export * from './albums-index-loader-by-type/albums-index-loader-by-type.component';
 export * from './albums-index-loader/albums-index-loader.component';
@@ -154,6 +162,7 @@ export * from './folders/folders.component';
 export * from './index-entry-card/index-entry-card.component';
 export * from './index-group/index-group.component';
 export * from './index/index.component';
+export * from './mb-album/mb-album.component';
 export * from './mb-artist/mb-artist.component';
 export * from './podcast/podcast.component';
 export * from './podcasts-latest-episodes/podcasts-latest-episodes.component';

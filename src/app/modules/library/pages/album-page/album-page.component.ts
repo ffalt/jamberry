@@ -4,7 +4,7 @@ import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {AlbumType, Jam, JamService} from '@jam';
 import {ContextMenuAlbumComponent} from '@library/components';
-import {HeaderInfo} from '@shared/components';
+import {HeaderInfo, HeaderTab} from '@shared/components';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -16,10 +16,9 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class AlbumPageComponent implements OnInit, OnDestroy {
 	album: Jam.Album;
-	tracks: Array<Jam.Track> = [];
-	isCompilation: boolean = false;
 	infos: Array<HeaderInfo> = [];
 	id: string;
+	tabs: Array<HeaderTab> = [];
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -50,9 +49,7 @@ export class AlbumPageComponent implements OnInit, OnDestroy {
 
 	display(album: Jam.Album): void {
 		this.album = album;
-		this.isCompilation = this.album.albumType === AlbumType.compilation;
-		this.tracks = album.tracks;
-		this.infos = [
+			this.infos = [
 			{
 				label: 'Artist', value: album.artist, click: () => {
 					this.navig.toArtistID(album.artistID, album.artist);
@@ -61,13 +58,17 @@ export class AlbumPageComponent implements OnInit, OnDestroy {
 			{label: 'Year', value: album.tag.year},
 			{label: 'Played', value: album.state.played || 0}
 		].filter(info => info.value !== undefined);
+		this.tabs = album && album.tag && album.tag.musicbrainz && album.tag.musicbrainz.albumID ?
+			[
+				{label: 'Overview', link: {route: `/library/album/${this.id}`, exact: true}},
+				{label: 'MusicBrainz', link: {route: `/library/album/${this.id}/musicbrainz`}}
+			] : [];
 	}
 
 	refresh(): void {
 		this.album = undefined;
-		this.tracks = [];
 		if (this.id) {
-			this.jam.album.id({id: this.id, albumState: true, trackState: true, trackTag: true, albumTracks: true, albumInfo: true})
+			this.jam.album.id({id: this.id, albumState: true, albumTag: true})
 				.then(album => {
 					this.display(album);
 				})

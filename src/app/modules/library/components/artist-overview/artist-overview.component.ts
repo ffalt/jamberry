@@ -47,6 +47,7 @@ export class ArtistOverviewComponent implements OnInit, OnDestroy {
 			artistState: true,
 			artistAlbums: true,
 			albumState: true,
+			albumTag: true,
 			artistInfo: true
 		})
 			.then(artist => {

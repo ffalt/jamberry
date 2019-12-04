@@ -48,6 +48,7 @@ export class AlbumsLoaderComponent implements OnChanges {
 				query: this.query,
 				offset: this.loadMore.offset,
 				amount: this.loadMore.amount,
+				albumTag: true,
 				albumState: true
 			}));
 	}
@@ -58,6 +59,7 @@ export class AlbumsLoaderComponent implements OnChanges {
 			this.jam.album.list({
 				list: this.listType,
 				albumState: true,
+				albumTag: true,
 				offset: this.loadMore.offset,
 				amount: this.loadMore.amount,
 				albumType: this.albumType,

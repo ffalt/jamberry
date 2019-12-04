@@ -31,7 +31,7 @@ export class ArtistPlateComponent {
 		this.albumsExpanded = !this.albumsExpanded;
 		if (this.artist) {
 			const id = this.artist.id;
-			this.jam.artist.albums({ids: [id], albumState: true})
+			this.jam.artist.albums({ids: [id], albumState: true, albumTag: true})
 				.then(data => {
 					if (this.artist && this.artist.id === id) {
 						this.albums = data.items;

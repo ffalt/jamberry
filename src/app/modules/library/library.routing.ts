@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {AuthCanActivateGuard} from '@app/guards';
 import {
+	AlbumMbComponent, AlbumOverviewComponent,
 	AlbumsIndexLoaderByTypeComponent,
 	AlbumsLoaderByTypeComponent,
 	AlbumsPageByTypeComponent,
@@ -564,9 +565,31 @@ export const routes: Routes = [
 					{path: '**', redirectTo: 'favorites'}
 				]
 			},
-
-			{path: 'album/:id', component: AlbumPageComponent, canActivate: [AuthCanActivateGuard]},
-
+			{
+				path: 'album/:id', component: AlbumPageComponent, canActivate: [AuthCanActivateGuard],
+				children: [
+					{
+						path: '',
+						pathMatch: 'full',
+						component: AlbumOverviewComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Overview'}
+					},
+					// {
+					// 	path: 'similar',
+					// 	component: ArtistSimilarComponent,
+					// 	canActivate: [AuthCanActivateGuard],
+					// 	data: {name: 'Similar'}
+					// },
+					{
+						path: 'musicbrainz',
+						component: AlbumMbComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'MusicBrainz'}
+					},
+					{path: '**', redirectTo: ''}
+				]
+			},
 			{
 				path: 'artist/:id', component: ArtistPageComponent, canActivate: [AuthCanActivateGuard],
 				children: [

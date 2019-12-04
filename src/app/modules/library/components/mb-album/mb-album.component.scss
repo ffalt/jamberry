@@ -1,0 +1,72 @@
+@import "globals.scss";
+
+:host {
+
+	.section {
+		margin-bottom: $margin-lg;
+	}
+
+	.section-title {
+		text-transform: uppercase;
+		letter-spacing: 1.25px;
+		font-size: $x-small * 1.2;
+		margin-bottom: $margin-sm;
+		color: var(--on-control-ambient);
+	}
+
+	.info-groups {
+		display: flex;
+		flex-direction: row;
+		@media (max-width: $break-phone) {
+			flex-direction: column;
+		}
+
+		.info-group {
+			flex: 1;
+		}
+	}
+
+	.infos {
+
+		.info {
+			//display: flex;
+
+			.info-title {
+				color: var(--on-control-ambient);
+				font-size: $x-small;
+				letter-spacing: 1.25px;
+			}
+
+			.info-value {
+				margin-left: $margin;
+			}
+		}
+	}
+
+	.url-type {
+		font-size: $small;
+		margin-bottom: $margin-sm;
+
+		span {
+			text-transform: uppercase;
+			color: var(--on-background-active);
+		}
+	}
+
+	.releasegroups {
+		@include album-table();
+
+		.heading, .releasegroup {
+			@include album-table-row();
+		}
+
+		.heading {
+			@include album-table-header-row();
+		}
+
+		.releasegroup {
+			@include album-table-data-row();
+		}
+
+	}
+}

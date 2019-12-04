@@ -1,0 +1,51 @@
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {NotifyService} from '@core/services';
+import {Jam, JamService} from '@jam';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
+@Component({
+	selector: 'app-album-mb',
+	templateUrl: './album-mb.component.html',
+	styleUrls: ['./album-mb.component.scss']
+})
+export class AlbumMbComponent implements OnInit, OnDestroy {
+	mbAlbumID: string;
+	album: Jam.Album;
+	id: string;
+	protected unsubscribe = new Subject();
+
+	constructor(protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute) {
+	}
+
+	ngOnInit(): void {
+		if (this.route && this.route.parent) {
+			this.route.parent.params
+				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
+				this.id = params.id;
+				this.refresh();
+			});
+		}
+	}
+
+	ngOnDestroy(): void {
+		this.unsubscribe.next();
+		this.unsubscribe.complete();
+	}
+
+	refresh(): void {
+		this.album = undefined;
+		if (!this.id) {
+			return;
+		}
+		this.jam.album.id({id: this.id, albumTag: true})
+			.then(album => {
+				this.album = album;
+				this.mbAlbumID = album && album.tag && album.tag.musicbrainz && album.tag.musicbrainz.albumID ? album.tag.musicbrainz.albumID : undefined;
+			})
+			.catch(e => {
+				this.notify.error(e);
+			});
+	}
+}
