@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
-import {ArtworkImageType, CoverArtArchive, CoverArtArchiveLookupType, Jam, JamService, LastFMLookupType} from '@jam';
+import {ArtworkImageType, CoverArtArchive, CoverArtArchiveLookupType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -46,7 +46,9 @@ export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.musicbrainz) {
-			if (this.data.folder.tag.musicbrainz.releaseID) {
+			if (this.data.folder.tag.musicbrainz.releaseID && this.data.folder.tag.musicbrainz.releaseGroupID) {
+				this.loadReleaseGroupAndRelease(this.data.folder.tag.musicbrainz.releaseID, this.data.folder.tag.musicbrainz.releaseGroupID);
+			} else if (this.data.folder.tag.musicbrainz.releaseID) {
 				this.loadRelease(this.data.folder.tag.musicbrainz.releaseID);
 			} else if (this.data.folder.tag.musicbrainz.releaseGroupID) {
 				this.loadReleaseGroup(this.data.folder.tag.musicbrainz.releaseGroupID);
@@ -72,60 +74,37 @@ export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 		});
 	}
 
-	display(result: CoverArtArchive.Response): void {
-		if (result.images) {
-			this.nodes = result.images.map(image => {
-				if (image.types.length === 0) {
-					image.types.push('Other');
-				}
-				if (image.image) {
-					image.image = image.image.replace('http:', 'https:');
-				}
-				if (image.thumbnails && image.thumbnails.small) {
-					image.thumbnails.small = image.thumbnails.small.replace('http:', 'https:');
-				}
-				return {
-					image,
-					checked: false,
-					storing: false,
-					stored: false
-				};
-			});
 
-			const front = this.nodes.find(i => i.image.types.length === 1 && i.image.types[0] === 'Front' && i.image.approved);
-			if (front) {
-				front.checked = true;
-			}
-		} else {
-			this.nodes = [];
+	display(nodes: Array<ImageNode>): void {
+		this.nodes = nodes;
+		const front = this.nodes.find(i => i.image.types.length === 1 && i.image.types[0] === 'Front' && i.image.approved);
+		if (front) {
+			front.checked = true;
 		}
 	}
 
-	loadReleaseGroup(musicBrainzReleaseGroupID: string): void {
+	loadReleaseGroupAndRelease(musicBrainzReleaseID: string, musicBrainzReleaseGroupID: string): void {
 		this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.releaseGroup, id: musicBrainzReleaseGroupID})
 			.then(res => {
-				this.display(res);
-				// if (this.nodes.length === 0 &&
-				// 	this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.musicbrainz && this.data.folder.tag.musicbrainz.releaseID) {
-				// 	this.nodes = undefined;
-				// 	this.loadLastFM(this.data.folder.tag.musicbrainz.releaseID);
-				// }
+				let nodes = this.imagesToNodes(res);
+				this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.release, id: musicBrainzReleaseID})
+					.then(res2 => {
+						nodes = nodes.concat(this.imagesToNodes(res2));
+						this.display(nodes);
+					})
+					.catch(e => {
+						this.notify.error(e);
+					});
 			})
 			.catch(e => {
 				this.notify.error(e);
 			});
 	}
 
-	loadLastFM(musicBrainzReleaseID: string): void {
-		this.jam.metadata.lastfm_lookup({type: LastFMLookupType.album, id: musicBrainzReleaseID})
+	loadReleaseGroup(musicBrainzReleaseGroupID: string): void {
+		this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.releaseGroup, id: musicBrainzReleaseGroupID})
 			.then(res => {
-				if (!res.album) {
-					this.nodes = [];
-				} else {
-					this.nodes = [];
-					// TODO: show last fm image node
-					console.error('TODO loadLastFM', res);
-				}
+				this.display(this.imagesToNodes(res));
 			})
 			.catch(e => {
 				this.notify.error(e);
@@ -136,8 +115,9 @@ export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 		if (musicBrainzReleaseID) {
 			this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.release, id: musicBrainzReleaseID})
 				.then(res => {
-					this.display(res);
-					if (this.nodes.length === 0 &&
+					const nodes = this.imagesToNodes(res);
+					this.display(nodes);
+					if (nodes.length === 0 &&
 						this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.musicbrainz && this.data.folder.tag.musicbrainz.releaseGroupID) {
 						this.nodes = undefined;
 						this.loadReleaseGroup(this.data.folder.tag.musicbrainz.releaseGroupID);
@@ -179,5 +159,28 @@ export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 		} else {
 			this.isWorking = false;
 		}
+	}
+
+	private imagesToNodes(result: CoverArtArchive.Response): Array<ImageNode> {
+		if (result.images) {
+			return result.images.map(image => {
+				if (image.types.length === 0) {
+					image.types.push('Other');
+				}
+				if (image.image) {
+					image.image = image.image.replace('http:', 'https:');
+				}
+				if (image.thumbnails && image.thumbnails.small) {
+					image.thumbnails.small = image.thumbnails.small.replace('http:', 'https:');
+				}
+				return {
+					image,
+					checked: false,
+					storing: false,
+					stored: false
+				};
+			});
+		}
+		return [];
 	}
 }

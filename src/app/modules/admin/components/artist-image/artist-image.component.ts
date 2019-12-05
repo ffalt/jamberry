@@ -58,62 +58,68 @@ export class ArtistImageComponent implements OnChanges {
 			});
 	}
 
-	async loadWikiCommonImage(artistID: string): Promise<ArtistImageNode | undefined> {
+	async loadWikiDataID(artistID: string): Promise<string | undefined> {
 		const mb = await this.jam.metadata.musicbrainz_lookup({type: MusicBrainzLookupType.artist, id: artistID});
 		if (mb && mb.artist && mb.artist.relations) {
 			const rel = mb.artist.relations.find(r => r.type === 'wikidata');
 			if (rel) {
 				const id = rel.url.resource.split('/').pop();
-				if (id) {
-					const wdata = await this.jam.metadata.wikidata_lookup({id});
-					if (wdata.entity) {
-						const keys = Object.keys(wdata.entity.claims);
-						for (const key of keys) {
-							let claims = wdata.entity.claims[key];
-							claims = claims.filter(c => c.mainsnak.datatype === 'commonsMedia' && typeof c.mainsnak.datavalue.value === 'string' && hasFileExtension(c.mainsnak.datavalue.value, ['jpg', 'jpeg', 'png']));
-							const claim = claims[0];
-							if (claim) {
-								const filename = claim.mainsnak.datavalue.value;
-								const url = `https://en.wikipedia.org/w/api.php?format=json&action=query&origin=*&titles=File:${filename}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=LicenseShortName`;
-								const data = await this.http.get<{
-									batchcomplete: string;
-									query: {
-										normalized: Array<{ from: string; to: string; }>;
-										pages: {
-											[num: string]: {
-												ns: number;
-												title: string;
-												missing: string;
-												known: string;
-												imagerepository: string;
-												imageinfo: Array<{
-													url: string;
-													descriptionurl: string;
-													descriptionshorturl: string;
-													extmetadata: {
-														LicenseShortName: {
-															value: string;
-															hidden: string;
-															desc: string;
-														}
-													}
-												}>;
+				return id;
+			}
+		}
+	}
+
+	async loadWikiCommonImage(artistID: string): Promise<ArtistImageNode | undefined> {
+		const id = await this.loadWikiDataID(artistID);
+		if (id) {
+			const wdata = await this.jam.metadata.wikidata_lookup({id});
+			const claimsObj = wdata.entity ? wdata.entity.claims : (wdata.data ? wdata.data.claims : undefined);
+			if (claimsObj) {
+				const keys = Object.keys(claimsObj);
+				for (const key of keys) {
+					let claims = claimsObj[key];
+					claims = claims.filter(c => typeof c.mainsnak.datavalue.value === 'string' && hasFileExtension(c.mainsnak.datavalue.value, ['jpg', 'jpeg', 'png']));
+					const claim = claims[0];
+					if (claim) {
+						const filename = claim.mainsnak.datavalue.value;
+						const url = `https://en.wikipedia.org/w/api.php?format=json&action=query&origin=*&titles=File:${filename}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=LicenseShortName`;
+						const data = await this.http.get<{
+							batchcomplete: string;
+							query: {
+								normalized: Array<{ from: string; to: string; }>;
+								pages: {
+									[num: string]: {
+										ns: number;
+										title: string;
+										missing: string;
+										known: string;
+										imagerepository: string;
+										imageinfo: Array<{
+											url: string;
+											descriptionurl: string;
+											descriptionshorturl: string;
+											extmetadata: {
+												LicenseShortName: {
+													value: string;
+													hidden: string;
+													desc: string;
+												}
 											}
-										}
-									}
-								}>(url).toPromise();
-								if (data && data.query.pages) {
-									const page = data.query.pages[Object.keys(data.query.pages)[0]];
-									if (page && page.imageinfo[0]) {
-										return {
-											name: page.imageinfo[0].extmetadata.LicenseShortName.value,
-											image: page.imageinfo[0].url,
-											checked: true,
-											storing: false,
-											stored: false
-										};
+										}>;
 									}
 								}
+							}
+						}>(url).toPromise();
+						if (data && data.query.pages) {
+							const page = data.query.pages[Object.keys(data.query.pages)[0]];
+							if (page && page.imageinfo[0]) {
+								return {
+									name: page.imageinfo[0].extmetadata.LicenseShortName.value,
+									image: page.imageinfo[0].url,
+									checked: true,
+									storing: false,
+									stored: false
+								};
 							}
 						}
 					}
