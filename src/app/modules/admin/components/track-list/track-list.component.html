@@ -27,6 +27,14 @@
 		<cdk-header-cell [ngClass]="'format'" *cdkHeaderCellDef>Format</cdk-header-cell>
 		<cdk-cell [ngClass]="'format'" *cdkCellDef="let trackItem" data-label="Format">{{trackItem.track.media.format}}</cdk-cell>
 	</ng-container>
+	<ng-container cdkColumnDef="bitRate">
+		<cdk-header-cell [ngClass]="'bitRate'" *cdkHeaderCellDef>Bit Rate</cdk-header-cell>
+		<cdk-cell [ngClass]="'bitRate'" *cdkCellDef="let trackItem" data-label="Bit Rate">{{trackItem.track.media.bitRate}}</cdk-cell>
+	</ng-container>
+	<ng-container cdkColumnDef="sampleRate">
+		<cdk-header-cell [ngClass]="'sampleRate'" *cdkHeaderCellDef>Sample Rate</cdk-header-cell>
+		<cdk-cell [ngClass]="'sampleRate'" *cdkCellDef="let trackItem" data-label="Sample Rate">{{trackItem.track.media.sampleRate}}</cdk-cell>
+	</ng-container>
 	<ng-container cdkColumnDef="duration">
 		<cdk-header-cell [ngClass]="'duration'" *cdkHeaderCellDef>Duration</cdk-header-cell>
 		<cdk-cell [ngClass]="'duration'" *cdkCellDef="let trackItem" data-label="Duration">{{trackItem.track.duration | duration}}</cdk-cell>

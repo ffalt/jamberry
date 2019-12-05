@@ -18,7 +18,7 @@ export interface TrackItem {
 })
 export class TrackListComponent implements OnChanges, OnDestroy {
 	dataSource: JamDataSource<TrackItem>;
-	displayedColumns: Array<string> = ['number', 'name', 'album', 'artist', 'format', 'duration'];
+	displayedColumns: Array<string> = ['number', 'name', 'album', 'artist', 'format', 'bitRate', 'sampleRate', 'duration'];
 	selection = new SelectionModel<TrackItem>(true, undefined);
 	@Input() tracks: Array<Jam.Track> = [];
 	@Input() showMore: boolean = false;
