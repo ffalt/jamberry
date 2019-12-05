@@ -1,10 +1,7 @@
 import {HttpClient} from '@angular/common/http';
-import {ChangeDetectorRef, Component, HostBinding, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
-import {base64ArrayBuffer} from '@app/utils/base64';
+import {ChangeDetectorRef, Component, HostBinding, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild} from '@angular/core';
 import {AppService, NotifyService} from '@core/services';
 import {
-	CoverArtArchive,
-	CoverArtArchiveLookupType,
 	Jam,
 	JamBaseService,
 	JamParameters,
@@ -14,7 +11,6 @@ import {
 	MusicBrainzLookupType,
 	MusicBrainzSearchType
 } from '@jam';
-import {take} from 'rxjs/operators';
 import {AcoustIDEntry, acoustidResultToList, AcoustidTree} from '../../model/acoustid.helper';
 import {
 	GenreTag,
@@ -35,7 +31,7 @@ import {
 } from '../../model/release-matching.helper';
 import {toID3v24} from '../../model/release-matching.id3.helper';
 import {stripExtension} from '../../model/utils';
-import {Base64Image} from '../image-base64/image-base64.component';
+import {MatchCoverartComponent, MatchImageSearch} from '../match-coverart/match-coverart.component';
 
 export interface ReleaseDataMatching {
 	track: Jam.Track;
@@ -87,13 +83,6 @@ export enum RunType {
 	auto
 }
 
-export interface ImageNode {
-	image: CoverArtArchive.Image;
-	base64?: Base64Image;
-	checked: boolean;
-	requested?: boolean;
-}
-
 @Component({
 	selector: 'app-match-release',
 	templateUrl: './match-release.component.html',
@@ -102,15 +91,12 @@ export interface ImageNode {
 export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	@Input() data: ReleaseMatching;
 	isRunning: boolean = false;
-	isImageSearchRunning: boolean = false;
 	isGenreSearchRunning: boolean = false;
 	isAborted: boolean = false;
 	currentAction: string;
-	showFrontImagesOnly: boolean = true;
-	images: Array<ImageNode>;
-	coverArtArchive: Array<ImageNode>;
 	customGenre = {text: '', checked: true};
 	@HostBinding('class.right-active') rightActive: boolean = true;
+	@ViewChild(MatchCoverartComponent, {static: false}) coverArt: MatchCoverartComponent;
 
 	matchings: Array<Matching> = [];
 	matchTree = new MatchTree();
@@ -146,6 +132,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		}
 	};
 
+	coverArtSearch?: MatchImageSearch;
 	current: { group: MatchReleaseGroup, release: MatchRelease };
 	genres: Array<{ tag: GenreTag, checked: boolean }>;
 	RunType = RunType;
@@ -288,7 +275,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		for (const match of this.matchings) {
 			match.genres = genres;
 		}
-		const images = this.coverArtArchive ? this.coverArtArchive.filter(i => i.checked && i.base64) : [];
+		const images = this.coverArt ? this.coverArt.getChecked() : [];
 		for (const result of this.data.matchings) {
 			const match = this.matchings.find(m => m.track.id === result.track.id);
 			result.rawTag = match ? toID3v24(match, genres, images) : undefined;
@@ -314,8 +301,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	chooseRelease(group: MatchReleaseGroup, release: MatchRelease): void {
 		this.stopApply();
 		this.current = {group, release};
-		this.images = undefined;
-		this.coverArtArchive = undefined;
+		this.coverArtSearch = {mbReleaseID: release.mbRelease.id, mbReleaseGroupID: group.mbGroup.id};
 		for (const media of release.media) {
 			for (const track of media.tracks) {
 				if (track.currentMatch) {
@@ -327,10 +313,6 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			}
 		}
 		this.loadGenres(group, release)
-			.catch(e => {
-				this.notify.error(e);
-			});
-		this.loadCoverartImages(release.mbRelease.id, group.mbGroup.id)
 			.catch(e => {
 				this.notify.error(e);
 			});
@@ -348,35 +330,27 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		}
 	}
 
-	onToggleShowFrontImagesOnly(): void {
-		if (!this.showFrontImagesOnly) {
-			if (this.coverArtArchive) {
-				for (const node of this.coverArtArchive) {
-					if (!node.base64 && !node.requested) {
-						this.getBase64Image(node)
-							.catch(e => {
-								console.error(e);
-							});
-					}
-				}
-			}
-		}
-		if (this.coverArtArchive) {
-			this.images = this.coverArtArchive.filter(i => i.image.front || !this.showFrontImagesOnly);
-		}
+	setRunning(action: string): void {
+		this.currentAction = action;
+		this.isRunning = true;
+	}
+
+	stopRunning(): void {
+		this.isRunning = false;
+		this.currentAction = '';
 	}
 
 	loadMoods(release: MatchRelease): void {
 		if (this.isRunning) {
 			return;
 		}
-		this.isRunning = true;
+		this.setRunning('Searching Moods');
 		this.loadAcousticBrainz(release)
 			.then(() => {
-				this.isRunning = false;
+				this.stopRunning();
 			})
 			.catch(e => {
-				this.isRunning = false;
+				this.stopRunning();
 				this.notify.error(e);
 			});
 	}
@@ -385,13 +359,13 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		if (this.isRunning) {
 			return;
 		}
-		this.isRunning = true;
+		this.setRunning('Searching Lyrics');
 		this.loadLyricsOVH(release)
 			.then(() => {
-				this.isRunning = false;
+				this.stopRunning();
 			})
 			.catch(e => {
-				this.isRunning = false;
+				this.stopRunning();
 				this.notify.error(e);
 			});
 	}
@@ -443,97 +417,15 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 				if (this.shouldStop()) {
 					return;
 				}
-				await this.acoustId();
-				if (this.shouldStop()) {
-					return;
-				}
+				// await this.acoustId();
+				// if (this.shouldStop()) {
+				// 	return;
+				// }
 				await this.musicBrainzByTags();
 				break;
 			default:
 				break;
 		}
-	}
-
-	private async loadImages(result: CoverArtArchive.Response): Promise<void> {
-		if (result.images) {
-			this.coverArtArchive = result.images.map(image => {
-				if (image.types.length === 0) {
-					image.types.push('Other');
-				}
-				if (image.image) {
-					image.image = image.image.replace('http:', 'https:');
-				}
-				if (image.thumbnails) {
-					Object.keys(image.thumbnails).forEach(key => {
-						image.thumbnails[key] = image.thumbnails[key].replace('http:', 'https:');
-					});
-				}
-				const node: ImageNode = {
-					image,
-					checked: false
-				};
-				if (image.front || !this.showFrontImagesOnly) {
-					this.getBase64Image(node)
-						.catch(e => {
-							console.error(e);
-						});
-				}
-				return node;
-			});
-			this.images = this.coverArtArchive.filter(i => i.image.front || !this.showFrontImagesOnly);
-			const front = this.images.find(i => i.image.front);
-			if (front) {
-				front.checked = true;
-			}
-		} else {
-			this.images = undefined;
-			this.coverArtArchive = [];
-		}
-	}
-
-	private async loadCoverartImages(releaseID: string, releaseGroupID: string): Promise<void> {
-		if (releaseID) {
-			this.isImageSearchRunning = true;
-			let res = await this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.release, id: releaseID});
-			await this.loadImages(res);
-			if (this.coverArtArchive.length === 0 && releaseGroupID) {
-				this.images = undefined;
-				this.coverArtArchive = undefined;
-				res = await this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.releaseGroup, id: releaseGroupID});
-				await this.loadImages(res);
-				this.isImageSearchRunning = false;
-			} else {
-				this.isImageSearchRunning = false;
-			}
-		}
-	}
-
-	private async getBase64Image(image: ImageNode): Promise<void> {
-		if (image.requested) {
-			return;
-		}
-		const imageUrl = image.image.thumbnails['500'] || image.image.thumbnails.small;
-		image.requested = true;
-		return new Promise<void>((resolve, reject) => {
-			this.client.get(imageUrl, {observe: 'response', responseType: 'arraybuffer' as 'arraybuffer'})
-				.pipe(take(1)).subscribe(resp => {
-					image.requested = false;
-					image.base64 = {
-						mimeType: resp.headers.get('Content-Type'),
-						base64: base64ArrayBuffer(resp.body)
-					};
-					resolve();
-				},
-				err => {
-					image.requested = false;
-					if (err.status === 0) {
-						this.notify.error({error: 'Could not reach server https://coverartarchive.org'});
-						return;
-					}
-					this.notify.error(err);
-					resolve();
-				});
-		});
 	}
 
 	private async loadGenres(group: MatchReleaseGroup, release: MatchRelease): Promise<void> {

@@ -11,6 +11,7 @@ import {DialogTagLyricsComponent} from './dialog-tag-lyrics/dialog-tag-lyrics.co
 import {DialogTagTextlistComponent} from './dialog-tag-textlist/dialog-tag-textlist.component';
 import {ImageBase64Component} from './image-base64/image-base64.component';
 import {TagEditorInlineAutocompleteComponent} from './inline-autocomplete/tag-editor-inline-autocomplete.component';
+import {MatchCoverartComponent} from './match-coverart/match-coverart.component';
 import {MatchReleaseComponent} from './match-release/match-release.component';
 import {ScoreBoxComponent} from './score-box/score-box.component';
 import {TagEditorComponent} from './tag-editor/tag-editor.component';
@@ -32,12 +33,14 @@ export const components: Array<any> = [
 	ColumnToolComponent,
 	TagEditorInlineAutocompleteComponent,
 	MatchReleaseComponent,
+	MatchCoverartComponent,
 	TagEditorAutocompleteComponent,
 	ImageBase64Component,
 	ScoreBoxComponent,
 	TagEditorComponent
 ];
 
+export * from './match-coverart/match-coverart.component';
 export * from './cell-editor-display/cell-editor-display.component';
 export * from './dialog-tag-textlist/dialog-tag-textlist.component';
 export * from './autocomplete/tag-editor-autocomplete.component';

@@ -44,43 +44,13 @@
 					</label>
 				</ng-container>
 			</div>
-			<div class="match-album-images">
-				<label class="front-only-choice">
-					<input type="checkbox" [(ngModel)]="showFrontImagesOnly" [checked]="showFrontImagesOnly" (change)="onToggleShowFrontImagesOnly()"> Front only
-				</label>
-				<div class="section">
-					<a href="https://coverartarchive.org/" rel="noopener" target="_blank">Coverart</a>
-				</div>
-				<i *ngIf="isImageSearchRunning" class="icon-spin icon-spinner"></i>
-				<div *ngIf="images && !isImageSearchRunning" class="match-images">
-					<app-background-text-list [list]="images" name="Images"></app-background-text-list>
-					<div class="media-cards">
-						<div class="media-card no-hover" *ngFor="let node of images">
-							<ng-container *ngIf="node.base64">
-								<div class="image">
-									<app-image-base64 [image]="node.base64"></app-image-base64>
-								</div>
-								<div class="footer">
-									<div class="footer-content"><label><input type="checkbox" [checked]="node.checked"> {{node.image.types}}</label></div>
-								</div>
-							</ng-container>
-						</div>
-					</div>
-				</div>
-			</div>
+			<app-match-coverart [data]="coverArtSearch"></app-match-coverart>
 			<div class="match-track-moods">
 				<div class="section">More</div>
-				<button [class.disabled]="!isRunning" class="button-on-background" (click)="loadLyrics(current.group.currentRelease)">
-					<i *ngIf="isRunning" class="icon-spin icon-spinner"></i>
-					<ng-container *ngIf="!isRunning">Load Lyrics</ng-container>
-				</button>
-				<button [class.disabled]="!isRunning" class="button-on-background" (click)="loadMoods(current.group.currentRelease)">
-					<i *ngIf="isRunning" class="icon-spin icon-spinner"></i>
-					<ng-container *ngIf="!isRunning">Load AcousticBrainz Moods</ng-container>
-				</button>
+				<button [class.disabled]="!isRunning" class="button-on-background" (click)="loadLyrics(current.group.currentRelease)">Load Lyrics</button>
+				<button [class.disabled]="!isRunning" class="button-on-background" (click)="loadMoods(current.group.currentRelease)">Load AcousticBrainz Moods</button>
 			</div>
 		</div>
-
 	</div>
 
 	<div *ngIf="!current" class="match-releases">
@@ -185,11 +155,14 @@
 	</div>
 	<div *ngIf="manual" class="match-actions">
 		<div class="match-search">
-			Album Name
-			<app-tag-editor-autocomplete [(value)]="manualSearchData.releaseGroup" [getList]="manualSearchData.getAutoCompleteAlbumList" [standalone]="true"></app-tag-editor-autocomplete>
-
-			Artist
-			<app-tag-editor-autocomplete [(value)]="manualSearchData.artist" [getList]="manualSearchData.getAutoCompleteArtistList" [standalone]="true"></app-tag-editor-autocomplete>
+			<div>
+				<div>Album Name</div>
+				<app-tag-editor-autocomplete [(value)]="manualSearchData.releaseGroup" [getList]="manualSearchData.getAutoCompleteAlbumList" [standalone]="true"></app-tag-editor-autocomplete>
+			</div>
+			<div>
+				<div>Artist</div>
+				<app-tag-editor-autocomplete [(value)]="manualSearchData.artist" [getList]="manualSearchData.getAutoCompleteArtistList" [standalone]="true"></app-tag-editor-autocomplete>
+			</div>
 		</div>
 		<div *ngIf="!isRunning">
 			<button (click)="manualSearch()" class="button-primary">Search</button>
@@ -198,7 +171,6 @@
 		</div>
 		<div *ngIf="isRunning">
 			<button (click)="stop()" class="button-accent">Stop</button>
-			<div>{{currentAction}}</div>
 		</div>
 	</div>
 </div>

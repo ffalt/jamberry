@@ -1,5 +1,5 @@
 import {Jam, MusicBrainz} from '@jam';
-import {ImageNode} from '../components/match-release/match-release.component';
+import {MatchImageNode} from '../components/match-coverart/match-coverart.component';
 import {ID3V24TagBuilder} from './id3v2-builder.helper';
 import {Matching} from './release-matching.helper';
 
@@ -93,7 +93,7 @@ function fillTypes(builder: ID3V24TagBuilder, match: Matching, track: MusicBrain
 	}
 }
 
-function fillImages(builder: ID3V24TagBuilder, match: Matching, images: Array<ImageNode>): void {
+function fillImages(builder: ID3V24TagBuilder, match: Matching, images: Array<MatchImageNode>): void {
 	if (images && images.length > 0) {
 		for (const image of images) {
 			// export const ID3v2_ValuePicTypes: { [name: string]: string; } = {
@@ -156,7 +156,7 @@ function fillAcoustID(builder: ID3V24TagBuilder, match: Matching, track: MusicBr
 	}
 }
 
-export function toID3v24(match: Matching, genres: Array<string>, images: Array<ImageNode>): Jam.RawTag {
+export function toID3v24(match: Matching, genres: Array<string>, images: Array<MatchImageNode>): Jam.RawTag {
 	// lets have more or less the same mapping as https://picard.musicbrainz.org/docs/mappings/
 	if (!match.mbTrack) {
 		return;

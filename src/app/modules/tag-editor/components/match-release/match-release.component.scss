@@ -166,6 +166,10 @@
 				white-space: nowrap;
 			}
 
+			app-match-coverart {
+				border-top: 1px solid var(--background-border);
+			}
+
 			.match-album-images {
 				border-top: 1px solid var(--background-border);
 				padding-top: $padding;
@@ -201,6 +205,28 @@
 			vertical-align: middle;
 			margin-top: $margin-sm;
 			margin-bottom: $margin-lg;
+
+			app-tag-editor-autocomplete {
+				height: 28px;
+				display: block;
+			}
+
+			.match-search {
+				display: flex;
+				flex-direction: row;
+				text-align: left;
+				@media (max-width: $break-pad) {
+					flex-direction: column;
+				}
+
+				> div {
+					flex: 1;
+					padding-left: $padding-sm;
+					padding-right: $padding-sm;
+				}
+
+				margin-bottom: $margin-sm;
+			}
 
 			button {
 				margin-left: $margin-sm;

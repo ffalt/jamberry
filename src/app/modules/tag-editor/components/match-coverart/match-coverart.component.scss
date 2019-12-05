@@ -1,0 +1,34 @@
+@import "globals.scss";
+
+:host {
+	padding-top: $padding;
+
+	.section {
+		color: var(--on-background-active);
+		text-transform: uppercase;
+		padding-bottom: $padding-sm;
+		white-space: nowrap;
+		a {
+			color: var(--on-background-active);
+		}
+		a:hover {
+			color: var(--on-background);
+		}
+	}
+
+	.front-only-choice {
+		float: right;
+		font-size: 0.8em;
+	}
+
+	.match-images {
+		min-height: 200px;
+		@include media-cards();
+
+		.image {
+			max-width: 200px;
+			max-height: 200px;
+		}
+	}
+
+}
