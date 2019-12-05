@@ -26,7 +26,7 @@
 	<app-admin-tag-editor-column-tool [editor]="editor" [activeCol]="activeCol" (requestClose)="activeCol=undefined"></app-admin-tag-editor-column-tool>
 	<app-loading *ngIf="!tracks"></app-loading>
 	<div class="editor" *ngIf="tracks && tracks.length>0 && editor.edits">
-		<cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="34" (scrolledIndexChange)="onScroll()" [minBufferPx]="1000" [maxBufferPx]="1000">
+<!--		<cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="34" (scrolledIndexChange)="onScroll()" [minBufferPx]="1000" [maxBufferPx]="1000">-->
 			<table>
 				<thead>
 				<tr class="header-row">
@@ -43,7 +43,8 @@
 					<col *ngFor="let column of editor.columns; trackBy: trackByColumnFn" [style.min-width.px]="column.def.width || 60">
 				</colgroup>
 				<tbody>
-				<tr *cdkVirtualFor="let edit of editor.edits; trackBy: trackByEditFn; templateCacheSize: 100">
+<!--				<tr *cdkVirtualFor="let edit of editor.edits; trackBy: trackByEditFn; templateCacheSize: 100">-->
+				<tr *ngFor="let edit of editor.edits; trackBy: trackByEditFn">
 					<td class="col-state">
 						<div class="cell-editor">
 							<ng-container *ngIf="edit.changed">
@@ -58,6 +59,6 @@
 				</tr>
 				</tbody>
 			</table>
-		</cdk-virtual-scroll-viewport>
+<!--		</cdk-virtual-scroll-viewport>-->
 	</div>
 </ng-container>

@@ -35,8 +35,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	isSaving = false;
 	@Input() id: string;
 	@ViewChildren(CellEditor) cellEditors !: QueryList<CellEditor>;
-	@ViewChild(CdkVirtualScrollViewport, {static: false}) viewPort: CdkVirtualScrollViewport;
-	inverseOfTranslationTop: number = 0;
+	// @ViewChild(CdkVirtualScrollViewport, {static: false}) viewPort: CdkVirtualScrollViewport;
+	// inverseOfTranslationTop: number = 0;
 
 	constructor(
 		private app: AppService, private folderService: AdminFolderService,
@@ -45,10 +45,10 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	onScroll(): void {
-		this.inverseOfTranslationTop = this.viewPort ? -this.viewPort.getOffsetToRenderedContentStart() : 0;
-		setTimeout(() => {
-			this.inverseOfTranslationTop = this.viewPort ? -this.viewPort.getOffsetToRenderedContentStart() : 0;
-		});
+		// this.inverseOfTranslationTop = this.viewPort ? -this.viewPort.getOffsetToRenderedContentStart() : 0;
+		// setTimeout(() => {
+		// 	this.inverseOfTranslationTop = this.viewPort ? -this.viewPort.getOffsetToRenderedContentStart() : 0;
+		// });
 	}
 
 	// get inverseOfTranslation(): string {
@@ -294,11 +294,11 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		try {
 			if (action.filename) {
 				const item = await this.jam.track.name_update({id: action.track.id, name: action.filename});
-				this.folderService.waitForQueueResult('Renaming Track', item, [], [], [action.track.id]);
+				this.folderService.waitForQueueResult('Renaming Track', item, [action.track.parentID], [], [action.track.id]);
 			}
 			if (action.rawTag) {
 				const item = await this.jam.track.rawTag_update({id: action.track.id, tag: action.rawTag});
-				this.folderService.waitForQueueResult('Writing Track Tag', item, [], [], [action.track.id]);
+				this.folderService.waitForQueueResult('Writing Track Tag', item, [action.track.parentID], [], [action.track.id]);
 			}
 			action.edit.saving = false;
 			action.edit.tag = action.rawTag;
