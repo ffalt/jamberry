@@ -1,14 +1,15 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ImageBase64Component} from '../image-base64/image-base64.component';
+import {FormsModule} from '@angular/forms';
 import {DialogTagTextlistComponent} from './dialog-tag-textlist.component';
 
-describe('DialogPicComponent', () => {
+describe('DialogTagTextlistComponent', () => {
 	let component: DialogTagTextlistComponent;
 	let fixture: ComponentFixture<DialogTagTextlistComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [DialogTagTextlistComponent, ImageBase64Component]
+			imports: [FormsModule],
+			declarations: [DialogTagTextlistComponent]
 		}).compileComponents()
 	);
 

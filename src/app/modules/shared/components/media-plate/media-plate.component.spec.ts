@@ -1,18 +1,22 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {HeaderTabsComponent, IconartImageComponent} from '@shared/components';
+import {CoverartImageComponent, FavIconComponent, HeaderTabsComponent, IconartImageComponent} from '@shared/components';
+import {SharedModule} from '@shared/shared.module';
+import {TEST_SHARED_MODULE_IMPORTS, TEST_SHARED_MODULE_PROVIDERS} from '@shared/shared.module.mock';
 import {MockComponent} from 'ng-mocks';
 import {MediaPlateComponent} from './media-plate.component';
 
-describe('HeaderIconSectionComponent', () => {
+describe('MediaPlateComponent', () => {
 	let component: MediaPlateComponent;
 	let fixture: ComponentFixture<MediaPlateComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
+			imports: [...TEST_SHARED_MODULE_IMPORTS],
+			providers: [...TEST_SHARED_MODULE_PROVIDERS],
 			declarations: [
 				MediaPlateComponent,
-				MockComponent(HeaderTabsComponent),
-				MockComponent(IconartImageComponent)
+				MockComponent(FavIconComponent),
+				MockComponent(CoverartImageComponent)
 			]
 		}).compileComponents()
 	);

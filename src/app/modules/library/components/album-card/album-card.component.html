@@ -1,19 +1,21 @@
-<div class="image" (click)="navig.toAlbum(album)" (appDeferLoad)="gotInView()">
-	<app-coverart-image *ngIf="visible" [coverArtObj]="album" [size]="300" [alt]="album.name" [fill]="true"></app-coverart-image>
-</div>
-<div class="date" *ngIf="album.tag.year">
-	<span class="year">{{album.tag.year}}</span>
-</div>
-<div class="fav" (click)="actions.toggleAlbumFav(album)">
-	<app-fav-icon [state]="album.state"></app-fav-icon>
-</div>
-<div class="footer">
-	<a class="footer-content" (click)="navig.toAlbum(album)">
-		{{album.name | limit:50}}
-		<div class="footer-subline" *ngIf="showArtist">{{album.artist | limit:50}}</div>
-	</a>
-	<div class="footer-buttons">
-		<button class="button-primary" (click)="player.startAlbum(album)"><i class="icon-play"></i> Play</button>
-		<a (click)="onContextMenu($event)">…</a>
+<ng-container *ngIf="album">
+	<div class="image" (click)="navig.toAlbum(album)" (appDeferLoad)="gotInView()">
+		<app-coverart-image *ngIf="visible" [coverArtObj]="album" [size]="300" [alt]="album.name" [fill]="true"></app-coverart-image>
 	</div>
-</div>
+	<div class="date" *ngIf="album.tag.year">
+		<span class="year">{{album.tag.year}}</span>
+	</div>
+	<div class="fav" (click)="actions.toggleAlbumFav(album)">
+		<app-fav-icon [state]="album.state"></app-fav-icon>
+	</div>
+	<div class="footer">
+		<a class="footer-content" (click)="navig.toAlbum(album)">
+			{{album.name | limit:50}}
+			<div class="footer-subline" *ngIf="showArtist">{{album.artist | limit:50}}</div>
+		</a>
+		<div class="footer-buttons">
+			<button class="button-primary" (click)="player.startAlbum(album)"><i class="icon-play"></i> Play</button>
+			<a (click)="onContextMenu($event)">…</a>
+		</div>
+	</div>
+</ng-container>

@@ -1,9 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CellEditorBinComponent} from '@app/modules/tag-editor/components/cell-editor-bin/cell-editor-bin.component';
-import {CellEditorBoolComponent} from '@app/modules/tag-editor/components/cell-editor-bool/cell-editor-bool.component';
-import {CellEditorPicComponent} from '@app/modules/tag-editor/components/cell-editor-pic/cell-editor-pic.component';
-import {CellEditorPopmComponent} from '@app/modules/tag-editor/components/cell-editor-popm/cell-editor-popm.component';
-import {CellEditorTxtListComponent} from '@app/modules/tag-editor/components/cell-editor-txt-list/cell-editor-txt-list.component';
+import {DialogOverlayModule} from '@app/modules/dialog-overlay';
+import {CellEditorDisplayComponent} from '@app/modules/tag-editor/components';
 import {CellEditorTxtComponent} from '@app/modules/tag-editor/components/cell-editor-txt/cell-editor-txt.component';
 import {CellEditorComponent} from '@app/modules/tag-editor/components/cell-editor/cell-editor.component';
 import {MockComponent} from 'ng-mocks';
@@ -14,13 +11,10 @@ describe('CellEditorComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
+			imports: [DialogOverlayModule],
 			declarations: [
 				CellEditorComponent,
-				MockComponent(CellEditorTxtListComponent),
-				MockComponent(CellEditorPopmComponent),
-				MockComponent(CellEditorBinComponent),
-				MockComponent(CellEditorBoolComponent),
-				MockComponent(CellEditorPicComponent),
+				MockComponent(CellEditorDisplayComponent),
 				MockComponent(CellEditorTxtComponent)
 			]
 		}).compileComponents()

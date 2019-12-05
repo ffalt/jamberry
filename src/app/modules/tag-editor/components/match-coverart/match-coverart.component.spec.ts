@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {
-	ImageBase64Component,
+	MatchCoverartComponent,
 	MatchReleaseComponent,
 	ScoreBoxComponent,
 	TagEditorAutocompleteComponent
@@ -18,7 +18,7 @@ describe('MatchReleaseComponent', () => {
 			providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
 			declarations: [
 				MatchReleaseComponent,
-				MockComponent(ImageBase64Component),
+				MockComponent(MatchCoverartComponent),
 				MockComponent(ScoreBoxComponent),
 				MockComponent(TagEditorAutocompleteComponent)
 			]

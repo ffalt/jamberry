@@ -1,14 +1,15 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ImageBase64Component} from '../image-base64/image-base64.component';
+import {FormsModule} from '@angular/forms';
 import {DialogTagLyricsComponent} from './dialog-tag-lyrics.component';
 
-describe('DialogPicComponent', () => {
+describe('DialogTagLyricsComponent', () => {
 	let component: DialogTagLyricsComponent;
 	let fixture: ComponentFixture<DialogTagLyricsComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [DialogTagLyricsComponent, ImageBase64Component]
+			imports: [FormsModule],
+			declarations: [DialogTagLyricsComponent]
 		}).compileComponents()
 	);
 

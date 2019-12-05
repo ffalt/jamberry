@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {FolderPlateComponent, FoldersComponent, TracksComponent} from '@library/components';
+import {FolderCardComponent, FolderPlateComponent, FoldersComponent, TracksComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
 
@@ -11,7 +11,12 @@ describe('FoldersComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [FoldersComponent, MockComponent(FolderPlateComponent), MockComponent(TracksComponent)]
+			declarations: [
+				FoldersComponent,
+				MockComponent(FolderCardComponent),
+				MockComponent(FolderPlateComponent),
+				MockComponent(TracksComponent)
+			]
 		}).compileComponents()
 	);
 

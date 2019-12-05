@@ -1,23 +1,23 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AlbumCardComponent} from '@library/components';
+import {FolderCardComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 
-describe('AlbumCardComponent', () => {
-	let component: AlbumCardComponent;
-	let fixture: ComponentFixture<AlbumCardComponent>;
+describe('FolderCardComponent', () => {
+	let component: FolderCardComponent;
+	let fixture: ComponentFixture<FolderCardComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
 			declarations: [
-				AlbumCardComponent
+				FolderCardComponent
 			]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(AlbumCardComponent);
+		fixture = TestBed.createComponent(FolderCardComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
