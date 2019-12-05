@@ -1,6 +1,6 @@
 {
   "name": "jamberry",
-  "version": "0.2.11-alpha",
+  "version": "0.2.12-alpha",
   "author": "ffalt",
   "license": "MIT",
   "description": "a html5 jamserve web player",
@@ -14,7 +14,6 @@
     "test:coverage": "jest --coverage true",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
-    "build:ivy": "ivy-ngcc",
     "clean": "rimraf dist",
     "update:angular": "ng update --next=true --force @angular/cli @angular/core",
     "release": "deplokay -c deplokay.json",
