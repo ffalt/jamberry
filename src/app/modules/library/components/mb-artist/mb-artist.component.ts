@@ -2,16 +2,6 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamService, MusicBrainz, MusicBrainzLookupType} from '@jam';
 
-export interface RelationType {
-	type: string;
-	relations: Array<MusicBrainz.Relation>;
-}
-
-export interface RelationGroup {
-	targetType: string;
-	types: Array<RelationType>;
-}
-
 export interface ReleaseGroup {
 	group: MusicBrainz.ReleaseGroupBase;
 	album?: Jam.Album;
@@ -30,7 +20,6 @@ export interface ReleaseGroupGroup {
 export class MbArtistComponent implements OnChanges {
 	mbArtist: MusicBrainz.Artist;
 	releaseGroups: Array<ReleaseGroupGroup> = [];
-	urlRelationGroup: RelationGroup;
 	@Input() mbArtistID: string;
 
 	constructor(private jam: JamService, private notify: NotifyService) {
@@ -50,22 +39,6 @@ export class MbArtistComponent implements OnChanges {
 					this.notify.error(e);
 				});
 		}
-	}
-
-	displayRelationGroups(mbArtist: MusicBrainz.Artist): void {
-		this.urlRelationGroup = undefined;
-		const relTypes: { [name: string]: { [type: string]: Array<MusicBrainz.Relation> } } = {};
-		(mbArtist.relations || []).forEach(rel => {
-			relTypes[rel.targetType] = relTypes[rel.targetType] || {};
-			relTypes[rel.targetType][rel.type] = relTypes[rel.targetType][rel.type] || [];
-			relTypes[rel.targetType][rel.type].push(rel);
-		});
-		const relationGroups = Object.keys(relTypes).map(key =>
-			({
-				targetType: key,
-				types: Object.keys(relTypes[key]).map(k => ({type: k, relations: relTypes[key][k]}))
-			}));
-		this.urlRelationGroup = relationGroups.find(r => r.targetType === 'url');
 	}
 
 	displayReleaseGroups(mbArtist: MusicBrainz.Artist): void {
@@ -90,11 +63,9 @@ export class MbArtistComponent implements OnChanges {
 	display(mbArtist: MusicBrainz.Artist): void {
 		this.mbArtist = mbArtist;
 		this.releaseGroups = [];
-		this.urlRelationGroup = undefined;
 		if (!mbArtist) {
 			return;
 		}
-		this.displayRelationGroups(mbArtist);
 		this.displayReleaseGroups(mbArtist);
 	}
 }

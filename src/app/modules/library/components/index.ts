@@ -41,6 +41,7 @@ import {IndexGroupComponent} from './index-group/index-group.component';
 import {IndexComponent} from './index/index.component';
 import {MbAlbumComponent} from './mb-album/mb-album.component';
 import {MbArtistComponent} from './mb-artist/mb-artist.component';
+import {MbRelationsComponent} from './mb-relations/mb-relations.component';
 import {PlaylistComponent} from './playlist/playlist.component';
 import {PlaylistsLoaderByTypeComponent} from './playlists-loader-by-type/playlists-loader-by-type.component';
 import {PlaylistsLoaderComponent} from './playlists-loader/playlists-loader.component';
@@ -111,6 +112,7 @@ export const components: Array<any> = [
 	IndexGroupComponent,
 	MbArtistComponent,
 	MbAlbumComponent,
+	MbRelationsComponent,
 	PlaylistComponent,
 	PlaylistsComponent,
 	PlaylistsLoaderByTypeComponent,
@@ -198,3 +200,4 @@ export * from './track-similar/track-similar.component';
 export * from './album-card/album-card.component';
 export * from './artist-card/artist-card.component';
 export * from './folder-card/folder-card.component';
+export * from './mb-relations/mb-relations.component';
