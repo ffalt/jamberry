@@ -16,59 +16,12 @@
 
 	@include key-value-list();
 
-	.info-groups {
-		display: flex;
-		flex-direction: row;
-		@media (max-width: $break-phone) {
-			flex-direction: column;
-		}
-
-		.info-group {
-			flex: 1;
-		}
+	.value {
+		color: var(--on-background-active);
 	}
 
-	.infos {
-
-		.info {
-			//display: flex;
-
-			.info-title {
-				color: var(--on-control-ambient);
-				font-size: $x-small;
-				letter-spacing: 1.25px;
-			}
-
-			.info-value {
-				margin-left: $margin;
-			}
-		}
-	}
-
-	.url-type {
-		font-size: $small;
+	.track, .labelInfo {
 		margin-bottom: $margin-sm;
-
-		span {
-			text-transform: uppercase;
-			color: var(--on-background-active);
-		}
 	}
 
-	.releasegroups {
-		@include album-table();
-
-		.heading, .releasegroup {
-			@include album-table-row();
-		}
-
-		.heading {
-			@include album-table-header-row();
-		}
-
-		.releasegroup {
-			@include album-table-data-row();
-		}
-
-	}
 }

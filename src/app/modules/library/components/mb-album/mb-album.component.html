@@ -14,23 +14,23 @@
 		</div>
 	</div>
 
-
 	<div class="section-title">ReleaseEvents</div>
 	<div class="releaseEvent" *ngFor="let releaseEvent of mbAlbum.releaseEvents">
-		<div>{{releaseEvent.date}} {{releaseEvent.area.name}}</div>
+		<div>{{releaseEvent.date}} <span class="value">{{releaseEvent.area.name}}</span></div>
 	</div>
 
 	<div class="section-title">Labels</div>
-	<div class="releaseEvent" *ngFor="let labelInfo of mbAlbum.labelInfo">
-		<div>{{labelInfo.label.name}}</div>
+	<div class="labelInfo" *ngFor="let labelInfo of mbAlbum.labelInfo">
+		<div class="value">{{labelInfo.label.name}}</div>
 		<div *ngIf="labelInfo.label.disambiguation">{{labelInfo.label.disambiguation}}</div>
-		<div>Catalog Number {{labelInfo.catalogNumber}}</div>
+		<div>Catalog Number <span class="value">{{labelInfo.catalogNumber}}</span></div>
 	</div>
 
 	<div class="media" *ngFor="let media of mbAlbum.media">
 		<div class="section-title">Media: {{media.format}} {{media.position}} ({{media.trackCount}} Tracks)</div>
-		<div *ngFor="let track of media.tracks">
-			<div>Track {{track.number}}: {{track.title || track.position}} by {{compactArtist(track.artistCredit)}} - {{track.length | mediaduration}}</div>
+		<div class="track" *ngFor="let track of media.tracks">
+			<div>Track {{track.number}} - {{track.length | mediaduration}}</div>
+			<div><span class="value">{{track.title || track.position}}</span> by <span class="value">{{compactArtist(track.artistCredit)}}</span></div>
 		</div>
 	</div>
 
