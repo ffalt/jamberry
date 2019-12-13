@@ -57,7 +57,7 @@
     "@types/hammerjs": "2.0.36",
     "@types/jest": "24.0.23",
     "@types/mousetrap": "1.6.3",
-    "@types/node": "12.12.14",
+    "@types/node": "12.12.17",
     "codelyzer": "5.2.0",
     "conventional-changelog-cli": "2.0.28",
     "deplokay": "0.0.11",
@@ -68,7 +68,7 @@
     "rxjs-tslint-rules": "4.27.1",
     "ts-node": "8.5.4",
     "tslint": "5.20.1",
-    "tslint-etc": "1.9.2",
+    "tslint-etc": "1.10.0",
     "typescript": "3.6.4",
     "webpack-bundle-analyzer": "3.6.0"
   }
