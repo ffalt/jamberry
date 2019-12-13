@@ -62,9 +62,21 @@
 			}
 		}
 
+		&.single {
+			.node-icon {
+				color: #edbfd0;
+			}
+		}
+
 		&.album {
 			.node-icon {
 				color: #bdbd9c;
+			}
+		}
+
+		&.multialbum {
+			.node-icon {
+				color: #bdaaae;
 			}
 		}
 

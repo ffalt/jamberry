@@ -64,8 +64,8 @@ export class TrackPageComponent implements OnInit, OnDestroy {
 	refresh(): void {
 		this.track = undefined;
 		this.tabs = [
-			{label: 'Overview', link: {route: `/library/track/${this.id}`, exact: true}},
-			{label: 'Similar Tracks', link: {route: `/library/track/${this.id}/similar`}}
+			{label: 'Overview', link: {route: `/library/tracks/id/${this.id}`, exact: true}},
+			{label: 'Similar Tracks', link: {route: `/library/tracks/id/${this.id}/similar`}}
 		];
 		this.load();
 	}

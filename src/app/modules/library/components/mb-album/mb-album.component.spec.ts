@@ -1,5 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {MbArtistComponent, MbRelationsComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
+import {MockComponent} from 'ng-mocks';
 import {MbAlbumComponent} from './mb-album.component';
 
 describe('MbAlbumComponent', () => {
@@ -10,7 +12,7 @@ describe('MbAlbumComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [MbAlbumComponent]
+			declarations: [MbAlbumComponent, MockComponent(MbRelationsComponent)]
 		}).compileComponents()
 	);
 

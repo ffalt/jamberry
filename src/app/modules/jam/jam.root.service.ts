@@ -76,17 +76,17 @@ export class JamRootService {
 	}
 
 	/**
-	 * start a root scan by root id // Rights needed: admin
+	 * start a root refresh by root id // Rights needed: admin
 	 */
-	async scan(params: JamParameters.ID): Promise<Jam.AdminChangeQueueInfo> {
-		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('root/scan', params);
+	async refresh(params: JamParameters.RootRefresh): Promise<Jam.AdminChangeQueueInfo> {
+		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('root/refresh', params);
 	}
 
 	/**
-	 * start scan of all roots // Rights needed: admin
+	 * start refresh of all roots // Rights needed: admin
 	 */
-	async scanAll(): Promise<Array<Jam.AdminChangeQueueInfo>> {
-		return this.base.requestPostData<Array<Jam.AdminChangeQueueInfo>>('root/scanAll', {});
+	async refreshAll(params: JamParameters.RootRefreshAll): Promise<Array<Jam.AdminChangeQueueInfo>> {
+		return this.base.requestPostData<Array<Jam.AdminChangeQueueInfo>>('root/refreshAll', params);
 	}
 
 }

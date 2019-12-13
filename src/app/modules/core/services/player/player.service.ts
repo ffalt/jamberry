@@ -219,6 +219,17 @@ export class PlayerService implements OnDestroy {
 		this.play(track, true);
 	}
 
+	startSeries(series: Jam.Series): void {
+		this.queue.clear();
+		this.queue.addSeries(series)
+			.then(() => {
+				this.next();
+			})
+			.catch(e => {
+				this.notify.error(e);
+			});
+	}
+
 	startFolder(folder: Jam.Folder): void {
 		this.queue.clear();
 		this.queue.addFolder(folder)
@@ -330,6 +341,10 @@ export class PlayerService implements OnDestroy {
 
 	addPodcast(podcast: Jam.Podcast): void {
 		this.resolveAddTracks(this.queue.addPodcast(podcast));
+	}
+
+	addSeries(series: Jam.Series): void {
+		this.resolveAddTracks(this.queue.addSeries(series));
 	}
 
 	addFolder(folder: Jam.Folder): void {

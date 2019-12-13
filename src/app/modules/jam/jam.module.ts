@@ -24,6 +24,7 @@ import {JamPlayqueueService} from './jam.playqueue.service';
 import {JamPodcastService} from './jam.podcast.service';
 import {JamRadioService} from './jam.radio.service';
 import {JamRootService} from './jam.root.service';
+import {JamSeriesService} from './jam.series.service';
 import {JamTrackService} from './jam.track.service';
 import {JamUserService} from './jam.user.service';
 import {JamVariousService} from './jam.various.service';
@@ -49,6 +50,7 @@ export const jamProviders: Array<Provider> =
 		JamPodcastService,
 		JamRadioService,
 		JamRootService,
+		JamSeriesService,
 		JamTrackService,
 		JamUserService,
 		JamVariousService,

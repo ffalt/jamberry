@@ -2,7 +2,8 @@
 	<app-view-header-slim section="Roots">
 		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
 		<button class="button-on-control" title="Add new Root" (click)="newRoot()"><i class="icon-list-add"></i> Add</button>
-		<button class="button-on-control" title="Rescan Roots" (click)="rescan()"><i class="icon-rescan"></i> Rescan</button>
+		<button class="button-on-control" title="Rescan Roots" (click)="refreshRoots()"><i class="icon-rescan"></i> Rescan</button>
+		<button class="button-on-control" title="Rescan Roots & all meta data (artists, albums, series)" (click)="refreshRoots(true)"><i class="icon-rescan"></i> Rescan (with meta)</button>
 	</app-view-header-slim>
 	<div class="content">
 		<cdk-table *ngIf="dataSource" [dataSource]="dataSource">
@@ -24,15 +25,15 @@
 					<span *ngIf="!root.status">Not scanned</span>
 					<span *ngIf="root.status && root.status.error" class="error">Error:<br>{{root.status.error}}</span>
 					<span *ngIf="root.status && !root.status.error">
-						<ng-container *ngIf="root.status.scanning">Scanning…</ng-container>
-						<ng-container *ngIf="!root.status.scanning">Last Scan:<br>{{root.status.lastScan | date:'medium'}}</ng-container>
+						<ng-container *ngIf="root.status.scanning">Working…</ng-container>
+						<ng-container *ngIf="!root.status.scanning">Last Change:<br>{{root.status.lastScan | date:'medium'}}</ng-container>
 					</span>
 				</cdk-cell>
 			</ng-container>
 			<ng-container cdkColumnDef="actions">
 				<cdk-header-cell [ngClass]="'actions'" *cdkHeaderCellDef>Actions</cdk-header-cell>
 				<cdk-cell [ngClass]="'actions'" *cdkCellDef="let root" data-label="Actions">
-					<a title="Rescan Root" (click)="rescanRoot(root)" appClickStop><i class="icon-rescan"></i></a>
+					<a title="Rescan Root" (click)="refreshRoot(root)" appClickStop><i class="icon-rescan"></i></a>
 					<a title="Edit Root" (click)="editRoot(root)" appClickStop><i class="icon-edit"></i></a>
 					<a title="Delete Root" (click)="deleteRoot(root)" appClickStop><i class="icon-remove"></i></a>
 				</cdk-cell>

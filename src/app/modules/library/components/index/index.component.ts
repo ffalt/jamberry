@@ -39,6 +39,9 @@ export class IndexComponent {
 			case JamObjectType.album:
 				this.navig.toAlbumID(entry.id, entry.name);
 				break;
+			case JamObjectType.series:
+				this.navig.toSeriesID(entry.id, entry.name);
+				break;
 			default:
 				break;
 		}

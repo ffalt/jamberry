@@ -20,6 +20,7 @@ import {JamPlayqueueService} from './jam.playqueue.service';
 import {JamPodcastService} from './jam.podcast.service';
 import {JamRadioService} from './jam.radio.service';
 import {JamRootService} from './jam.root.service';
+import {JamSeriesService} from './jam.series.service';
 import {JamTrackService} from './jam.track.service';
 import {JamUserService} from './jam.user.service';
 import {JamVariousService} from './jam.various.service';
@@ -46,6 +47,7 @@ export class JamService {
 		public podcast: JamPodcastService,
 		public radio: JamRadioService,
 		public root: JamRootService,
+		public series: JamSeriesService,
 		public track: JamTrackService,
 		public user: JamUserService,
 		public various: JamVariousService

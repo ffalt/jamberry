@@ -73,12 +73,6 @@ export class TagEditor {
 		}
 	}
 
-	setColumnText(column: RawTagEditColumn, text: string): void {
-		for (const edit of this.edits) {
-			this.updateEditTextCell(edit, column, text);
-		}
-	}
-
 	setColumnFilenames(column: RawTagEditColumn): void {
 		const index = this.columns.indexOf(column);
 		for (const edit of this.edits) {
@@ -193,6 +187,20 @@ export class TagEditor {
 		}
 	}
 
+	insertFromColumn(sourceColIndex: number, pos: number, column: RawTagEditColumn): void {
+		const index = this.columns.indexOf(column);
+		if (sourceColIndex >= 0) {
+			for (const edit of this.edits) {
+				const sourceText = this.getCellText(edit.cells[sourceColIndex]);
+				const destText = this.getCellText(edit.cells[index]) || '';
+				if (sourceText) {
+					const text = destText.slice(0, pos) + sourceText + destText.slice(pos);
+					this.updateEditTextCell(edit, column, text);
+				}
+			}
+		}
+	}
+
 	copyColumn(sourceColIndex: number, column: RawTagEditColumn): void {
 		if (sourceColIndex >= 0) {
 			for (const edit of this.edits) {
@@ -202,6 +210,33 @@ export class TagEditor {
 					this.updateEditTextCell(edit, column, text);
 				}
 			}
+		}
+	}
+
+	appendFromColumn(sourceColIndex: number, column: RawTagEditColumn): void {
+		const index = this.columns.indexOf(column);
+		if (sourceColIndex >= 0) {
+			for (const edit of this.edits) {
+				const text = this.getCellText(edit.cells[sourceColIndex]);
+				if (text) {
+					const dest = this.getCellText(edit.cells[index]) || '';
+					this.updateEditTextCell(edit, column, dest + text);
+				}
+			}
+		}
+	}
+
+	setColumnText(column: RawTagEditColumn, text: string): void {
+		for (const edit of this.edits) {
+			this.updateEditTextCell(edit, column, text);
+		}
+	}
+
+	appendColumnText(column: RawTagEditColumn, multiStr: string): void {
+		const index = this.columns.indexOf(column);
+		for (const edit of this.edits) {
+			const text = this.getCellText(edit.cells[index]) || '';
+			this.updateEditTextCell(edit, column, text + multiStr);
 		}
 	}
 

@@ -27,6 +27,7 @@ import {ContextMenuPlaylistsComponent} from './context-menu-playlists/context-me
 import {ContextMenuPodcastComponent} from './context-menu-podcast/context-menu-podcast.component';
 import {ContextMenuPodcastsComponent} from './context-menu-podcasts/context-menu-podcasts.component';
 import {ContextMenuQueueComponent} from './context-menu-queue/context-menu-queue.component';
+import {ContextMenuSeriesComponent} from './context-menu-series/context-menu-series.component';
 import {ContextMenuTrackComponent} from './context-menu-track/context-menu-track.component';
 import {CurrentPlayingComponent} from './current-playing/current-playing.component';
 import {EpisodeStateButtonComponent} from './episode-state-button/episode-state.button.component';
@@ -51,6 +52,12 @@ import {PodcastsLatestEpisodesComponent} from './podcasts-latest-episodes/podcas
 import {PodcastsLoaderByTypeComponent} from './podcasts-loader-by-type/podcasts-loader-by-type.component';
 import {PodcastsLoaderComponent} from './podcasts-loader/podcasts-loader.component';
 import {PodcastsComponent} from './podcasts/podcasts.component';
+import {SeriesCardComponent} from './series-card/series-card.component';
+import {SeriesIndexLoaderComponent} from './series-index-loader/series-index-loader.component';
+import {SeriesLoaderByTypeComponent} from './series-loader-by-type/series-loader-by-type.component';
+import {SeriesLoaderComponent} from './series-loader/series-loader.component';
+import {SeriesPlateComponent} from './series-plate/series-plate.component';
+import {SeriesComponent} from './series/series.component';
 import {SidebarIndexComponent} from './sidebar-index/sidebar-index.component';
 import {SidebarListComponent} from './sidebar-list/sidebar-list.component';
 import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
@@ -68,6 +75,7 @@ export const entryComponents: Array<any> = [
 	ContextMenuAlbumComponent,
 	ContextMenuArtistComponent,
 	ContextMenuEpisodeComponent,
+	ContextMenuSeriesComponent,
 	ContextMenuFolderComponent,
 	ContextMenuPlaylistComponent,
 	ContextMenuPlaylistsComponent,
@@ -122,6 +130,12 @@ export const components: Array<any> = [
 	PodcastsLatestEpisodesComponent,
 	PodcastsLoaderByTypeComponent,
 	PodcastsLoaderComponent,
+	SeriesComponent,
+	SeriesCardComponent,
+	SeriesPlateComponent,
+	SeriesLoaderComponent,
+	SeriesLoaderByTypeComponent,
+	SeriesIndexLoaderComponent,
 	SidebarComponent,
 	SidebarIndexComponent,
 	SidebarListComponent,
@@ -201,3 +215,10 @@ export * from './album-card/album-card.component';
 export * from './artist-card/artist-card.component';
 export * from './folder-card/folder-card.component';
 export * from './mb-relations/mb-relations.component';
+export * from './series-loader-by-type/series-loader-by-type.component';
+export * from './series-loader/series-loader.component';
+export * from './series-plate/series-plate.component';
+export * from './series-card/series-card.component';
+export * from './series-index-loader/series-index-loader.component';
+export * from './series/series.component';
+export * from './context-menu-series/context-menu-series.component';

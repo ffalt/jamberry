@@ -14,7 +14,7 @@
 				<i [class]="node.expanded | stringToggle:'icon-folder-open':'icon-folder'"></i>
 			</span>
 			<span [title]="node.folder.name">
-			 {{node.folder.name}}
+			 {{node.folder.name}} | 		 {{node.folder.type}}
 			</span>
 		</div>
 	</ng-container>

@@ -1,0 +1,12 @@
+@import "globals.scss";
+
+:host {
+	.albums {
+		@include track-table();
+
+		.album {
+			@include track-table-row();
+			@include track-table-data-row();
+		}
+	}
+}

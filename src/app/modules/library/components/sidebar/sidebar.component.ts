@@ -71,7 +71,7 @@ export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 		if (this.stats && this.stats.albumTypes.audiobook > 0) {
 			this.spokenList.push({link: '/library/audiobooks', name: 'Books', icon: 'icon-audiobook'});
 		}
-		if (this.stats && this.stats.albumTypes.series > 0) {
+		if (this.stats && this.stats.series > 0) {
 			this.spokenList.push({link: '/library/series', name: 'Series', icon: 'icon-series'});
 		}
 		this.musicList = [
@@ -85,7 +85,7 @@ export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 			this.musicList.push({link: '/library/soundtracks', name: 'Soundtracks', icon: 'icon-soundtrack'});
 		}
 		this.musicList.push({link: '/library/tracks', name: 'Tracks', icon: 'icon-track'});
-		this.musicList.push({link: '/library/folder-index', name: 'Folders', icon: 'icon-folder'});
+		this.musicList.push({link: '/library/folders/index', name: 'Folders', icon: 'icon-folder'});
 	}
 
 }

@@ -90,6 +90,13 @@ export class JamArtistService {
 	}
 
 	/**
+	 * get series of an artist by artist id
+	 */
+	async series(params: JamParameters.ArtistSeries): Promise<Jam.SeriesList> {
+		return this.base.requestData<Jam.SeriesList>('artist/series', params);
+	}
+
+	/**
 	 * get external artist description by id
 	 */
 	async info(params: JamParameters.ID): Promise<Jam.Info> {

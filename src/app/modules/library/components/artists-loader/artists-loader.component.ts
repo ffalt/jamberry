@@ -10,7 +10,6 @@ import {LoadMoreButtonComponent} from '@shared/components/load-more-button/load-
 })
 export class ArtistsLoaderComponent implements OnChanges {
 	artists: Array<Jam.Artist>;
-	albumTypeName: string;
 	@Input() albumType: AlbumType;
 	@Input() listType: JamParameters.ListType;
 	@Input() query: string;
@@ -73,7 +72,6 @@ export class ArtistsLoaderComponent implements OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		this.albumTypeName = this.albumType === AlbumType.album ? 'Artists' : 'Series';
 		this.loadMore.offset = 0;
 		this.loadMore.total = 0;
 		this.loadMore.hasMore = false;

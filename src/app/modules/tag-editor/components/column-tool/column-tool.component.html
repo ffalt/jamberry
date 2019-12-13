@@ -5,26 +5,26 @@
 	</div>
 	<div class="column-tool-content">
 		<div class="column-tool" *ngIf="activeCol.multi">
-			Set Text
+			Column Text
 			<div class="input-box">
 				<app-tag-editor-autocomplete [(value)]="multiStr" [getList]="activeCol.getAutoCompleteList"></app-tag-editor-autocomplete>
-				<i (click)="editor.setColumnText(activeCol, multiStr)" class="icon-down-thin"></i>
-			</div>
+				</div>
+			<button class="button-on-background" (click)="editor.setColumnText(activeCol, multiStr)">Set</button>
+			<button class="button-on-background" (click)="editor.appendColumnText(activeCol, multiStr)">Append</button>
+			<button class="button-on-background" (click)="editor.removeColumnText(activeCol, multiStr)">Remove</button>
 		</div>
-		<div class="column-tool" *ngIf="activeCol.multi">
-			Remove Text
-			<div class="input-box">
-				<input type="text" [(ngModel)]="removeMultiStr">
-				<i (click)="editor.removeColumnText(activeCol, removeMultiStr)" class="icon-down-thin"></i>
-			</div>
-		</div>
-		<div class="column-tool">Copy From
+		<div class="column-tool">
+			Column Source
 			<div class="input-box">
 				<select [(ngModel)]="sourceColumnIndex">
 					<option *ngFor="let col of editor.columns; let i=index;" [value]="i">{{col.def.name}}</option>
 				</select>
-				<i (click)="editor.copyColumn(sourceColumnIndex,activeCol)" class="icon-down-thin"></i>
 			</div>
+			<button class="button-on-background" (click)="editor.copyColumn(sourceColumnIndex,activeCol)">Copy</button>
+			<button class="button-on-background" (click)="editor.appendFromColumn(sourceColumnIndex,activeCol)">Append</button>
+			<button class="button-on-background" (click)="editor.insertFromColumn(sourceColumnIndex,0, activeCol)">Insert at
+				<input type="number">
+			</button>
 		</div>
 		<div class="column-tool" *ngFor="let action of activeCol.actions">
 			{{action.title}}<br/>

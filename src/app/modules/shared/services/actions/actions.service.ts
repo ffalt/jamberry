@@ -22,6 +22,10 @@ export class ActionsService {
 		this.rate(JamObjectType.artist, artist);
 	}
 
+	rateSeries(series: Jam.Series): void {
+		this.rate(JamObjectType.series, series);
+	}
+
 	rateFolder(folder: Jam.Folder): void {
 		this.rate(JamObjectType.folder, folder);
 	}
@@ -81,6 +85,10 @@ export class ActionsService {
 
 	toggleArtistFav(artist: Jam.Artist): void {
 		this.toggleFav(JamObjectType.artist, artist);
+	}
+
+	toggleSeriesFav(series: Jam.Series): void {
+		this.toggleFav(JamObjectType.series, series);
 	}
 
 	togglePlaylistFav(playlist: Jam.Playlist): void {

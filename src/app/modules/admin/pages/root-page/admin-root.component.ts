@@ -114,12 +114,12 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	rescan(): void {
-		this.rootService.rescanRoots();
+	refreshRoots(refreshMeta?: boolean): void {
+		this.rootService.rescanRoots(refreshMeta);
 	}
 
-	rescanRoot(root: Jam.Root): void {
-		this.rootService.rescanRoot(root);
+	refreshRoot(root: Jam.Root, refreshMeta?: boolean): void {
+		this.rootService.rescanRoot(root, refreshMeta);
 	}
 
 }

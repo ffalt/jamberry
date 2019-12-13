@@ -68,8 +68,8 @@ export class AdminRootService implements OnDestroy {
 		}
 	}
 
-	rescanRoot(root: Jam.Root): void {
-		this.jam.root.scan({id: root.id})
+	rescanRoot(root: Jam.Root, refreshMeta?: boolean): void {
+		this.jam.root.refresh({id: root.id, refreshMeta})
 			.then(() => {
 				this.refreshRoot(root.id);
 			})
@@ -78,8 +78,8 @@ export class AdminRootService implements OnDestroy {
 			});
 	}
 
-	rescanRoots(): void {
-		this.jam.root.scanAll()
+	rescanRoots(refreshMeta?: boolean): void {
+		this.jam.root.refreshAll({refreshMeta})
 			.then(() => {
 				this.refreshRoots();
 			})

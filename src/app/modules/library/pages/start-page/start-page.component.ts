@@ -78,10 +78,9 @@ export class StartPageComponent implements OnInit {
 						].map(t => ({
 							text: t.albumType.text, link: '/library/' + t.albumType.link, value: t.value
 						})),
-						{text: 'Series', link: '/library/series', value: stats.artistTypes.series},
+						{text: 'Series', link: '/library/series', value: stats.series},
 						...[
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.audiobook), value: stats.albumTypes.audiobook},
-							// {albumType: JamAlbumTypes.find(t => t.id === AlbumType.series), value: stats.albumTypes.series},
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.soundtrack), value: stats.albumTypes.soundtrack},
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.live), value: stats.albumTypes.live},
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.bootleg), value: stats.albumTypes.bootleg},
@@ -90,7 +89,7 @@ export class StartPageComponent implements OnInit {
 						].map(t => ({
 							text: t.albumType.text, link: '/library/' + t.albumType.link, value: t.value
 						})),
-						{text: 'Folders', link: '/library/folder-index', value: stats.folder},
+						{text: 'Folders', link: '/library/folders/index', value: stats.folder},
 						{text: 'Tracks', link: '/library/tracks', value: stats.track}
 					].filter(t => t.value > 0);
 			})

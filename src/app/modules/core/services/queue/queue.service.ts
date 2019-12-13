@@ -162,6 +162,11 @@ export class QueueService {
 		return this.addTracks(data.items);
 	}
 
+	async addSeries(series: Jam.Series): Promise<number> {
+		const data = await this.jam.series.tracks({ids: [series.id], trackTag: true, trackState: true});
+		return this.addTracks(data.items);
+	}
+
 	async addPlaylist(playlist: Jam.Playlist): Promise<number> {
 		const data = await this.jam.playlist.tracks({ids: [playlist.id], trackTag: true, trackState: true});
 		return this.addTracks(data.items);

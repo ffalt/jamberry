@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {JamAlbumTypes} from '@app/utils/jam-lists';
 import {AppService, NotifyService} from '@core/services';
-import {Jam, JamObjectType, JamParameters, JamService} from '@jam';
+import {AlbumType, Jam, JamObjectType, JamParameters, JamService} from '@jam';
 
 export interface IndexEntry {
 	id: string;
@@ -88,6 +88,26 @@ function buildIndexArtistIndex(artistIndex: Jam.ArtistIndex, expanded: boolean, 
 	}
 }
 
+function buildIndexSeriesIndex(seriesIndex: Jam.SeriesIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
+	if (seriesIndex) {
+		return {
+			name,
+			type: JamObjectType.series,
+			groups: seriesIndex.groups.map(g => ({
+				name: g.name,
+				expanded,
+				entries: g.entries.map(entry => ({
+					id: entry.seriesID,
+					name: entry.name,
+					visible: false,
+					trackCount: entry.trackCount,
+					image: jam.base.image_url(entry.seriesID, 200)
+				}))
+			}))
+		};
+	}
+}
+
 interface IndexCache {
 	index?: Index;
 	query: any;
@@ -99,6 +119,7 @@ export class IndexService {
 	artistIndexNotify = new EventEmitter<IndexCache>();
 	folderIndexNotify = new EventEmitter<IndexCache>();
 	albumIndexNotify = new EventEmitter<IndexCache>();
+	seriesIndexNotify = new EventEmitter<IndexCache>();
 	private indexes: Array<IndexCache> = [];
 
 	constructor(private app: AppService, private jam: JamService, private notify: NotifyService) {
@@ -165,6 +186,26 @@ export class IndexService {
 			.then(index => {
 				item.index = buildIndexFolderIndex(index, !this.app.smallscreen, 'Folders', this.jam);
 				this.folderIndexNotify.emit(item);
+			})
+			.catch(e => {
+				this.notify.error(e);
+			});
+	}
+
+	requestSeriesIndex(query: { albumType: AlbumType }): Index | undefined {
+		let item = this.findIndex(JamObjectType.series, query);
+		if (item && item.index) {
+			return item.index;
+		}
+		if (item) {
+			return; // already requested
+		}
+		item = {mode: JamObjectType.series, query};
+		this.indexes.push(item);
+		this.jam.series.index(item.query)
+			.then(index => {
+				item.index = buildIndexSeriesIndex(index, !this.app.smallscreen, 'Series', this.jam);
+				this.seriesIndexNotify.emit(item);
 			})
 			.catch(e => {
 				this.notify.error(e);

@@ -13,7 +13,6 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class ArtistsIndexLoaderComponent implements OnInit, OnDestroy {
 	index: Index;
-	albumType: AlbumType = AlbumType.album;
 	protected unsubscribe = new Subject();
 
 	constructor(protected indexService: IndexService, protected notify: NotifyService, protected route: ActivatedRoute) {
@@ -24,14 +23,13 @@ export class ArtistsIndexLoaderComponent implements OnInit, OnDestroy {
 			this.route.parent.url
 				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
 				const type = val.length > 0 ? val[0].path : undefined;
-				this.albumType = type === 'artists' ? AlbumType.album : AlbumType.series;
 				this.refresh();
 			});
 		}
 		this.indexService.artistIndexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			artistIndexCache => {
-				if (artistIndexCache.query.albumType === this.albumType) {
+				if (artistIndexCache.query.albumType === AlbumType.album) {
 					this.index = artistIndexCache.index;
 				}
 			},
@@ -47,7 +45,7 @@ export class ArtistsIndexLoaderComponent implements OnInit, OnDestroy {
 	}
 
 	load(): void {
-		this.index = this.indexService.requestArtistIndex({albumType: this.albumType});
+		this.index = this.indexService.requestArtistIndex({albumType: AlbumType.album});
 	}
 
 	refresh(): void {

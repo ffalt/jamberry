@@ -515,7 +515,7 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 		upgrade: 'TDOR'
 	},
 	'TIT1': {
-		title: 'Content group description',
+		title: 'Group',
 		versions: [3, 4],
 		impl: FrameType.Text
 	},
@@ -1015,7 +1015,7 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 		impl: FrameType.Text
 	},
 	'GRP1': {
-		title: 'Grouping',
+		title: 'Group Number',
 		versions: [3, 4],
 		impl: FrameType.Text
 	},

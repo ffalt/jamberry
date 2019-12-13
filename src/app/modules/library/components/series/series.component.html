@@ -1,0 +1,8 @@
+<app-view-type-toggle #viewType [viewTypeList]="viewTypeList"></app-view-type-toggle>
+<app-background-text-list [list]="series" [name]="'Series'"></app-background-text-list>
+<div class="series-cards" *ngIf="!viewType.viewTypeList">
+	<app-series-card *ngFor="let item of series" [series]="item"></app-series-card>
+</div>
+<div class="series-plates" *ngIf="viewType.viewTypeList">
+	<app-series-plate *ngFor="let item of series" [series]="item"></app-series-plate>
+</div>

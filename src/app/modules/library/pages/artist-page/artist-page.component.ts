@@ -17,7 +17,6 @@ import {takeUntil} from 'rxjs/operators';
 export class ArtistPageComponent implements OnInit, OnDestroy {
 	AlbumType = AlbumType;
 	artist: Jam.Artist;
-	isArtist: boolean = false;
 	infos: Array<HeaderInfo> = [];
 	tabs: Array<HeaderTab> = [];
 	id: string;
@@ -65,17 +64,16 @@ export class ArtistPageComponent implements OnInit, OnDestroy {
 
 	display(artist: Jam.Artist): void {
 		this.artist = artist;
-		this.isArtist = !(artist.albumTypes.length === 1 && artist.albumTypes.includes(AlbumType.series));
 		this.infos = [
 			{label: 'Albums', value: artist.albumCount},
 			{label: 'Tracks', value: artist.trackCount},
 			{label: 'Played', value: artist.state.played || 0}
 		].filter(info => info.value !== undefined);
-		this.tabs = !this.isArtist ? [] :
+		this.tabs =
 			[
-				{label: 'Overview', link: {route: `/library/artist/${this.id}`, exact: true}},
-				{label: 'Similar Artists', link: {route: `/library/artist/${this.id}/similar`}},
-				{label: 'MusicBrainz', link: {route: `/library/artist/${this.id}/musicbrainz`}}
+				{label: 'Overview', link: {route: `/library/artists/id/${this.id}`, exact: true}},
+				{label: 'Similar Artists', link: {route: `/library/artists/id/${this.id}/similar`}},
+				{label: 'MusicBrainz', link: {route: `/library/artists/id/${this.id}/musicbrainz`}}
 			];
 	}
 }

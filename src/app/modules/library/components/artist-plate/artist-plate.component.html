@@ -1,4 +1,4 @@
-<app-media-plate *ngIf="artist" [base]="artist" [mediaName]="artist.name" [mediaType]="artist | artistOrSeries"
+<app-media-plate *ngIf="artist" [base]="artist" [mediaName]="artist.name" [mediaType]="'Artist'"
 								 (click)="toggleArtistAlbums()" (contextMenuRequest)="onContextMenu($event)" (goToRequest)="navig.toArtist(artist)"
 								 (playRequest)="player.startArtist(artist)" (toggleFavRequest)="actions.toggleArtistFav(artist)"
 ></app-media-plate>

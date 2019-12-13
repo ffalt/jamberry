@@ -60,8 +60,8 @@ export class AlbumPageComponent implements OnInit, OnDestroy {
 		].filter(info => info.value !== undefined);
 		this.tabs = album && album.tag && album.tag.musicbrainz && album.tag.musicbrainz.albumID ?
 			[
-				{label: 'Overview', link: {route: `/library/album/${this.id}`, exact: true}},
-				{label: 'MusicBrainz', link: {route: `/library/album/${this.id}/musicbrainz`}}
+				{label: 'Overview', link: {route: `/library/albums/id/${this.id}`, exact: true}},
+				{label: 'MusicBrainz', link: {route: `/library/albums/id/${this.id}/musicbrainz`}}
 			] : [];
 	}
 

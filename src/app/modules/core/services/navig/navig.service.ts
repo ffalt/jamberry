@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {JamAlbumType} from '@app/utils/jam-lists';
 import {Jam} from '@jam';
 
 @Injectable({
@@ -11,24 +10,36 @@ export class NavigService {
 	constructor(private router: Router) {
 	}
 
-	toFolder(folder: Jam.Folder): void {
-		this.navigate([`/library/folder/${folder.id}`, {name: folder.name}]);
+	toTrackID(id: string, name: string): void {
+		this.navigate([`/library/tracks/id/${id}`, {name}]);
 	}
 
-	toTrack(track: Jam.Track): void {
-		this.navigate([`/library/track/${track.id}`, {name: track.tag.title}]);
+	toFolderID(id: string, name: string): void {
+		this.navigate([`/library/folders/id/${id}`, {name}]);
 	}
 
-	toTrackID(trackID: string, name: string): void {
-		this.navigate([`/library/track/${trackID}`, {name}]);
+	toPlaylistID(id: string, name: string): void {
+		this.navigate([`/library/playlists/id/${id}`, {name}]);
 	}
 
-	toFolderID(folderID: string, name: string): void {
-		this.navigate([`/library/folder/${folderID}`, {name}]);
+	toPodcastID(id: string, name: string): void {
+		this.navigate([`/library/podcasts/id/${id}`, {name}]);
 	}
 
-	toPlaylistID(playlistID: string, name: string): void {
-		this.navigate([`/library/playlist/${playlistID}`, {name}]);
+	toPodcastEpisodeID(id: string, name: string): void {
+		this.navigate([`/library/episodes/id/${id}`, {name}]);
+	}
+
+	toSeriesID(id: string, name: string): void {
+		this.navigate([`/library/series/id/${id}`, {name}]);
+	}
+
+	toArtistID(id: string, name: string): void {
+		this.navigate([`/library/artists/id/${id}`, {name}]);
+	}
+
+	toAlbumID(id: string, name: string): void {
+		this.navigate([`/library/albums/id/${id}`, {name}]);
 	}
 
 	toPodcasts(): void {
@@ -36,59 +47,7 @@ export class NavigService {
 	}
 
 	toPodcastSearch(): void {
-		this.navigate(['/library/podcast-search']);
-	}
-
-	toPodcast(podcast: Jam.Podcast): void {
-		this.navigate([`/library/podcast/${podcast.id}`, {name: podcast.name}]);
-	}
-
-	toPodcastID(podcastID: string, name: string): void {
-		this.navigate([`/library/podcast/${podcastID}`, {name}]);
-	}
-
-	toPodcastEpisodeID(podcastEpisodeID: string, name: string): void {
-		this.navigate([`/library/episode/${podcastEpisodeID}`, {name}]);
-	}
-
-	toPodcastEpisode(episode: Jam.PodcastEpisode): void {
-		this.navigate([`/library/episode/${episode.id}`, {name: episode.name}]);
-	}
-
-	toArtistIndexEntry(entry: Jam.ArtistIndexEntry): void {
-		this.navigate([`/library/artist/${entry.artistID}`, {name: entry.name}]);
-	}
-
-	toFolderIndexEntry(entry: Jam.FolderIndexEntry): void {
-		this.navigate([`/library/folder/${entry.folderID}`, {name: entry.name}]);
-	}
-
-	toArtist(artist: Jam.Artist): void {
-		this.navigate([`/library/artist/${artist.id}`, {name: artist.name}]);
-	}
-
-	toArtistID(artistID: string, name: string): void {
-		this.navigate([`/library/artist/${artistID}`, {name}]);
-	}
-
-	toAlbum(album: Jam.Album): void {
-		this.navigate([`/library/album/${album.id}`, {name: album.name}]);
-	}
-
-	toAlbumID(albumID: string, name: string): void {
-		this.navigate([`/library/album/${albumID}`, {name}]);
-	}
-
-	toSimilarTrack(track: Jam.Track): void {
-		this.navigate(['/library/tracks/similar', {name: track.name, trackId: track.id}]);
-	}
-
-	toPlaylist(playlist: Jam.Playlist): void {
-		this.navigate([`/library/playlist/${playlist.id}`, {name: playlist.name}]);
-	}
-
-	toFolderEditTags(id: string): void {
-		this.navigate([`/admin/folder/${id}/tags`]);
+		this.navigate(['/library/podcasts/search']);
 	}
 
 	toPlaylists(): void {
@@ -119,11 +78,39 @@ export class NavigService {
 		this.navigate(['/logout']);
 	}
 
-	toAlbums(albumtype: JamAlbumType): void {
-		this.navigate([`/library/${albumtype.link}`]);
+	toPodcast(podcast: Jam.Podcast): void {
+		this.toPodcastID(podcast.id, podcast.name);
 	}
 
-	private navigate(commands: Array<any>): void {
+	toFolder(folder: Jam.Folder): void {
+		this.toFolderID(folder.id, folder.name);
+	}
+
+	toTrack(track: Jam.Track): void {
+		this.toTrackID(track.id, track.tag.title);
+	}
+
+	toPodcastEpisode(episode: Jam.PodcastEpisode): void {
+		this.toPodcastEpisodeID(episode.id, episode.name);
+	}
+
+	toSeries(series: Jam.Series): void {
+		this.toSeriesID(series.id, series.name);
+	}
+
+	toArtist(artist: Jam.Artist): void {
+		this.toArtistID(artist.id, artist.name);
+	}
+
+	toAlbum(album: Jam.Album): void {
+		this.toAlbumID(album.id, album.name);
+	}
+
+	toPlaylist(playlist: Jam.Playlist): void {
+		this.toPlaylistID(playlist.id, playlist.name);
+	}
+
+	navigate(commands: Array<any>): void {
 		this.router.navigate(commands).catch(e => {
 			console.error(e);
 		});

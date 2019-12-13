@@ -3,7 +3,8 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {AuthCanActivateGuard} from '@app/guards';
 import {
-	AlbumMbComponent, AlbumOverviewComponent,
+	AlbumMbComponent,
+	AlbumOverviewComponent,
 	AlbumsIndexLoaderByTypeComponent,
 	AlbumsLoaderByTypeComponent,
 	AlbumsPageByTypeComponent,
@@ -15,6 +16,8 @@ import {
 	PlaylistsLoaderByTypeComponent,
 	PodcastsLatestEpisodesComponent,
 	PodcastsLoaderByTypeComponent,
+	SeriesIndexLoaderComponent,
+	SeriesLoaderByTypeComponent,
 	TrackOverviewComponent,
 	TrackSimilarComponent,
 	TracksLoaderByTypeComponent
@@ -38,6 +41,7 @@ import {
 	TrackPageComponent,
 	TracksPageComponent
 } from '@library/pages';
+import {SeriesIdPageComponent} from '@library/pages/series-id-page/series-id-page.component';
 import {LibraryComponent} from './library.component';
 
 export const routes: Routes = [
@@ -46,6 +50,31 @@ export const routes: Routes = [
 		children: [
 			{path: '', pathMatch: 'full', component: StartPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Library'}},
 
+			{
+				path: 'albums/id/:id', component: AlbumPageComponent, canActivate: [AuthCanActivateGuard],
+				children: [
+					{
+						path: '',
+						pathMatch: 'full',
+						component: AlbumOverviewComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Overview'}
+					},
+					// {
+					// 	path: 'similar',
+					// 	component: ArtistSimilarComponent,
+					// 	canActivate: [AuthCanActivateGuard],
+					// 	data: {name: 'Similar'}
+					// },
+					{
+						path: 'musicbrainz',
+						component: AlbumMbComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'MusicBrainz'}
+					},
+					{path: '**', redirectTo: ''}
+				]
+			},
 			{
 				path: 'albums', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Albums'},
 				children: [
@@ -162,44 +191,6 @@ export const routes: Routes = [
 			},
 			{
 				path: 'audiobooks', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Audiobooks'},
-				children: [
-					{
-						path: '',
-						pathMatch: 'full',
-						component: AlbumsIndexLoaderByTypeComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Index'}
-					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
-					{
-						path: 'favorites',
-						component: AlbumsLoaderByTypeComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Favorites'}
-					},
-					{
-						path: 'top-rated',
-						component: AlbumsLoaderByTypeComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Top Rated'}
-					},
-					{
-						path: 'most-played',
-						component: AlbumsLoaderByTypeComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Most Played'}
-					},
-					{
-						path: 'recently-played',
-						component: AlbumsLoaderByTypeComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Recently Played'}
-					},
-					{path: '**', redirectTo: ''}
-				]
-			},
-			{
-				path: 'series-episodes', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Series'},
 				children: [
 					{
 						path: '',
@@ -369,6 +360,12 @@ export const routes: Routes = [
 				]
 			},
 
+			{path: 'podcasts/id/:id', component: PodcastPageComponent, canActivate: [AuthCanActivateGuard]},
+			{
+				path: 'podcasts/search',
+				loadChildren: () => import('./pages/podcast-search-page/podcast-search-page.module').then(m => m.PodcastSearchPageModule),
+				canActivate: [AuthCanActivateGuard]
+			},
 			{
 				path: 'podcasts', component: PodcastsPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Podcasts'},
 				children: [
@@ -413,6 +410,8 @@ export const routes: Routes = [
 					{path: '**', redirectTo: ''}
 				]
 			},
+
+			{path: 'playlists/id/:id', component: PlaylistPageComponent, canActivate: [AuthCanActivateGuard]},
 			{
 				path: 'playlists', component: PlaylistsPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Playlists'},
 				children: [
@@ -462,6 +461,33 @@ export const routes: Routes = [
 					{path: '**', redirectTo: ''}
 				]
 			},
+
+			{path: 'artists/index', component: ArtistIndexPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Artist Index'}},
+			{
+				path: 'artists/id/:id', component: ArtistPageComponent, canActivate: [AuthCanActivateGuard],
+				children: [
+					{
+						path: '',
+						pathMatch: 'full',
+						component: ArtistOverviewComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Overview'}
+					},
+					{
+						path: 'similar',
+						component: ArtistSimilarComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Similar'}
+					},
+					{
+						path: 'musicbrainz',
+						component: ArtistMbComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'MusicBrainz'}
+					},
+					{path: '**', redirectTo: ''}
+				]
+			},
 			{
 				path: 'artists', component: ArtistsPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Artists'},
 				children: [
@@ -500,40 +526,64 @@ export const routes: Routes = [
 					{path: '**', redirectTo: ''}
 				]
 			},
+
+			{
+				path: 'series/id/:id', component: SeriesIdPageComponent, canActivate: [AuthCanActivateGuard]
+			},
 			{
 				path: 'series', component: SeriesPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Series'},
 				children: [
 					{
 						path: '',
 						pathMatch: 'full',
-						component: ArtistsIndexLoaderComponent,
+						component: SeriesIndexLoaderComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Index'}
 					},
-					{path: 'random', component: ArtistsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'random', component: SeriesLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
-						component: ArtistsLoaderByTypeComponent,
+						component: SeriesLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
-						component: ArtistsLoaderByTypeComponent,
+						component: SeriesLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: ArtistsLoaderByTypeComponent,
+						component: SeriesLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: ArtistsLoaderByTypeComponent,
+						component: SeriesLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
+					},
+					{path: '**', redirectTo: ''}
+				]
+			},
+
+			{
+				path: 'tracks/id/:id', component: TrackPageComponent, canActivate: [AuthCanActivateGuard],
+				children: [
+					{
+						path: '',
+						pathMatch: 'full',
+						component: TrackOverviewComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Overview'}
+					},
+					{
+						path: 'similar',
+						component: TrackSimilarComponent,
+						canActivate: [AuthCanActivateGuard],
+						data: {name: 'Similar'}
 					},
 					{path: '**', redirectTo: ''}
 				]
@@ -565,91 +615,13 @@ export const routes: Routes = [
 					{path: '**', redirectTo: 'favorites'}
 				]
 			},
-			{
-				path: 'album/:id', component: AlbumPageComponent, canActivate: [AuthCanActivateGuard],
-				children: [
-					{
-						path: '',
-						pathMatch: 'full',
-						component: AlbumOverviewComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Overview'}
-					},
-					// {
-					// 	path: 'similar',
-					// 	component: ArtistSimilarComponent,
-					// 	canActivate: [AuthCanActivateGuard],
-					// 	data: {name: 'Similar'}
-					// },
-					{
-						path: 'musicbrainz',
-						component: AlbumMbComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'MusicBrainz'}
-					},
-					{path: '**', redirectTo: ''}
-				]
-			},
-			{
-				path: 'artist/:id', component: ArtistPageComponent, canActivate: [AuthCanActivateGuard],
-				children: [
-					{
-						path: '',
-						pathMatch: 'full',
-						component: ArtistOverviewComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Overview'}
-					},
-					{
-						path: 'similar',
-						component: ArtistSimilarComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Similar'}
-					},
-					{
-						path: 'musicbrainz',
-						component: ArtistMbComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'MusicBrainz'}
-					},
-					{path: '**', redirectTo: ''}
-				]
-			},
 
-			{
-				path: 'track/:id', component: TrackPageComponent, canActivate: [AuthCanActivateGuard],
-				children: [
-					{
-						path: '',
-						pathMatch: 'full',
-						component: TrackOverviewComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Overview'}
-					},
-					{
-						path: 'similar',
-						component: TrackSimilarComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Similar'}
-					},
-					{path: '**', redirectTo: ''}
-				]
-			},
-
-			{path: 'folder/:id', component: FolderPageComponent, canActivate: [AuthCanActivateGuard]},
-			{path: 'playlist/:id', component: PlaylistPageComponent, canActivate: [AuthCanActivateGuard]},
-			{path: 'podcast/:id', component: PodcastPageComponent, canActivate: [AuthCanActivateGuard]},
-			{path: 'episode/:id', component: EpisodePageComponent, canActivate: [AuthCanActivateGuard]},
+			{path: 'folders/id/:id', component: FolderPageComponent, canActivate: [AuthCanActivateGuard]},
+			{path: 'folders/index', component: FolderIndexPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Folder Index'}},
+			{path: 'episodes/id/:id', component: EpisodePageComponent, canActivate: [AuthCanActivateGuard]},
 
 			{path: 'search', component: SearchPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Search'}},
-			{path: 'queue', component: QueuePageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Queue'}},
-			{path: 'artist-index', component: ArtistIndexPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Artist Index'}},
-			{path: 'folder-index', component: FolderIndexPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Folder Index'}},
-			{
-				path: 'podcast-search',
-				loadChildren: () => import('./pages/podcast-search-page/podcast-search-page.module').then(m => m.PodcastSearchPageModule),
-				canActivate: [AuthCanActivateGuard]
-			}
+			{path: 'queue', component: QueuePageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Queue'}}
 		]
 	}
 ];

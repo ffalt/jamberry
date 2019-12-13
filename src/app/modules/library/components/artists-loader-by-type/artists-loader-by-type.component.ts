@@ -12,20 +12,13 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class ArtistsLoaderByTypeComponent implements OnInit, OnDestroy {
 	listType: JamParameters.ListType;
-	albumType: AlbumType = AlbumType.album;
+	albumType = AlbumType.album;
 	protected unsubscribe = new Subject();
 
 	constructor(protected route: ActivatedRoute) {
 	}
 
 	ngOnInit(): void {
-		if (this.route.parent) {
-			this.route.parent.url
-				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
-				const type = val.length > 0 ? val[0].path : undefined;
-				this.albumType = type === 'artists' ? AlbumType.album : AlbumType.series;
-			});
-		}
 		this.route.url
 			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
 			const type = val.length > 0 ? val[0].path : undefined;
