@@ -3,8 +3,6 @@
 # compiled output
 /dist
 /tmp
-/electron/dist
-/electron/out
 
 # explicit local files
 /local
