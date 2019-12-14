@@ -69,7 +69,7 @@ export class AppComponent implements OnInit, OnDestroy {
 			console.error(e);
 		});
 		app.electron = this.isElectronApp();
-		app.standalone = app.electron && this.isStandaloneWebApp();
+		app.standalone = app.electron || this.isStandaloneWebApp();
 		this.setTheme();
 		this.setKeyboardShortcuts();
 		this.determinateScreen();
