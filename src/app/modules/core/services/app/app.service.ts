@@ -12,7 +12,6 @@ export interface SidebarProvider {
 export class AppService {
 	name: string = 'Jam';
 	version: string;
-	electron: boolean = false;
 	standalone: boolean = false;
 	smallscreen: boolean = false;
 	settings: Settings = new Settings();

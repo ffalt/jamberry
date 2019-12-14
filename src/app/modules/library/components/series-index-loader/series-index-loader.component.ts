@@ -22,7 +22,7 @@ export class SeriesIndexLoaderComponent implements OnInit, OnDestroy {
 		this.indexService.seriesIndexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			seriesIndexCache => {
-				if (seriesIndexCache.query.albumType === AlbumType.audiobook) {
+				if (seriesIndexCache.query.albumType === AlbumType.series) {
 					this.index = seriesIndexCache.index;
 				}
 			},
@@ -39,7 +39,7 @@ export class SeriesIndexLoaderComponent implements OnInit, OnDestroy {
 	}
 
 	load(): void {
-		this.index = this.indexService.requestSeriesIndex({albumType: AlbumType.audiobook});
+		this.index = this.indexService.requestSeriesIndex({albumType: AlbumType.series});
 	}
 
 	refresh(): void {

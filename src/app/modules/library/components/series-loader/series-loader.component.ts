@@ -42,7 +42,7 @@ export class SeriesLoaderComponent implements OnChanges {
 		this.getSeries(() =>
 			this.jam.series.search({
 				query: this.query,
-				albumType: AlbumType.audiobook,
+				albumTypes: [AlbumType.audiobook, AlbumType.series],
 				offset: this.loadMore.offset,
 				amount: this.loadMore.amount,
 				seriesState: true
@@ -52,7 +52,7 @@ export class SeriesLoaderComponent implements OnChanges {
 	list(): void {
 		this.getSeries(() =>
 			this.jam.series.list({
-				albumType: AlbumType.audiobook,
+				albumTypes: [AlbumType.audiobook, AlbumType.series],
 				list: this.listType,
 				seriesState: true,
 				offset: this.loadMore.offset,

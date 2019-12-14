@@ -6,7 +6,7 @@
 	<app-loading *ngIf="!albums" [time]="100"></app-loading>
 	<div class="albums">
 		<div class="album" *ngFor="let album of albums" (click)="navig.toAlbum(album)">
-			<div class="number">{{album.tag.grouping ? album.tag.grouping : album.tag.year}}</div>
+			<div class="number">{{album.seriesNr ? album.seriesNr : album.tag.year}}</div>
 			<div class="title">{{album.name}}</div>
 			<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{album.tag.duration|duration}}</div>
 		</div>

@@ -1,5 +1,5 @@
 <app-media-plate *ngIf="album" [base]="album" [mediaName]="album.name" [mediaType]="album.albumType"
-								 [mediaYear]="album.tag.grouping?'Episode '+album.tag.grouping:album.tag.year"
+								 [mediaYear]="album.seriesNr?'Episode '+album.seriesNr:album.tag.year"
 								 [mediaParent]="showArtistLabel?album.artist:undefined"
 								 (click)="toggleAlbumTracks()" (contextMenuRequest)="onContextMenu($event)" (goToRequest)="navig.toAlbum(album)"
 								 (goToParentRequest)="navig.toArtistID(album.artistID,album.name)" (playRequest)="player.startAlbum(album)"

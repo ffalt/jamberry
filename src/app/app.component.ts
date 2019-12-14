@@ -68,8 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		}).catch(e => {
 			console.error(e);
 		});
-		app.electron = this.isElectronApp();
-		app.standalone = app.electron || this.isStandaloneWebApp();
+		app.standalone = this.isStandaloneWebApp() || this.isElectronApp() || this.isMacGapApp();
 		this.setTheme();
 		this.setKeyboardShortcuts();
 		this.determinateScreen();
@@ -98,8 +97,11 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	isElectronApp(): boolean {
-		const userAgent = navigator.userAgent.toLowerCase();
-		return (userAgent.includes('electron/'));
+		return (navigator.userAgent.toLowerCase().includes('electron/'));
+	}
+
+	isMacGapApp(): boolean {
+		return (navigator.userAgent.includes('MacGap'));
 	}
 
 	setTheme(): void {
