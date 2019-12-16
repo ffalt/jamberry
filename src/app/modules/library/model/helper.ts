@@ -1,3 +1,4 @@
+/* tslint:disable:max-classes-per-file */
 import {AlbumType, FolderType, Jam, JamObjectType, JamParameters, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@jam';
 import {LibraryService} from '@library/services';
 import {JamObject} from '@shared/model/helpers';
@@ -414,6 +415,7 @@ export class JamEpisodeObject extends JamLibraryObject {
 	}
 
 	loadChildren(): void {
+		//
 	}
 
 	groupType(): string {

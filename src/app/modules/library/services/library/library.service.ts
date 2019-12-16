@@ -39,12 +39,11 @@ export class LibraryService {
 		if (lib && lib._loadedConfig && lib._loadedConfig.routes) {
 			const tabSection = lib._loadedConfig.routes[0].children.find(r => r.path === section);
 			if (tabSection) {
-				const result = tabSection.children.filter(r => !!r.data).map(r => {
-					return {
+				const result = tabSection.children.filter(r => !!r.data).map(r =>
+					({
 						label: r.data.name,
 						link: {route: `/library/${section}${r.path ? '/' : ''}${r.path}`, exact: r.path.length === 0}
-					};
-				});
+					}));
 				return result;
 			}
 		}

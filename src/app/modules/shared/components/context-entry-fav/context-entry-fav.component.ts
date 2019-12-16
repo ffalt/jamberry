@@ -18,7 +18,6 @@ export class ContextEntryFavComponent {
 	toggle(event: Event): void {
 		this.base.state = this.base.state || {};
 		const remove = !!this.base.state.faved;
-		console.log(this.baseType);
 		this.jam.base.fav(this.baseType, {id: this.base.id, remove})
 			.then(() => {
 				this.base.state.faved = remove ? undefined : Date.now();

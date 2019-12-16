@@ -14,8 +14,10 @@ import {HeaderTab} from '@shared/components';
 export class PodcastsPageComponent {
 	tabs: Array<HeaderTab>;
 
-	constructor(public jam: JamService, public navig: NavigService,
-							private contextMenuService: ContextMenuService, private library: LibraryService) {
+	constructor(
+		public jam: JamService, public navig: NavigService,
+		private contextMenuService: ContextMenuService, private library: LibraryService
+	) {
 		this.tabs = this.library.buildTabs('podcasts');
 	}
 

@@ -19,13 +19,6 @@ export class ArtistsIndexLoaderComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		if (this.route.parent) {
-			this.route.parent.url
-				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
-				const type = val.length > 0 ? val[0].path : undefined;
-				this.refresh();
-			});
-		}
 		this.indexService.artistIndexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			artistIndexCache => {
