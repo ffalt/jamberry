@@ -1,0 +1,11 @@
+<app-view-type-toggle #viewType [viewTypeList]="viewTypeList" [headline]="headline"></app-view-type-toggle>
+<app-background-text-list [list]="groups" [name]="typeName"></app-background-text-list>
+<ng-container *ngFor="let group of groups">
+	<div class="group">{{group.type}}</div>
+	<div class="cards" *ngIf="!viewType.viewTypeList">
+		<app-obj-card *ngFor="let obj of group.objs" [obj]="obj" [showParent]="showParent"></app-obj-card>
+	</div>
+	<div class="plates" *ngIf="viewType.viewTypeList">
+		<app-obj-plate *ngFor="let obj of group.objs" [obj]="obj" [showParent]="showParent"></app-obj-plate>
+	</div>
+</ng-container>

@@ -1,16 +1,16 @@
-<ng-container *ngIf="base">
+<ng-container *ngIf="obj">
 	<div class="art" (appDeferLoad)="gotInView()">
-		<app-coverart-image *ngIf="visible" [coverArtObj]="base" [size]="135" [alt]="base.name" (click)="goTo()" appClickStop></app-coverart-image>
+		<app-coverart-image *ngIf="visible" [coverArtObj]="obj.base" [size]="135" [alt]="obj.name" (click)="obj.navigTo()" appClickStop></app-coverart-image>
 	</div>
 	<div class="meta">
-		<app-fav-icon [state]="base.state" (click)="toggleFav()" appClickStop></app-fav-icon>
-		<div class="year">{{mediaYear}}</div>
-		<div *ngIf="mediaParent" class="artist"><a (click)="goToParent()" appClickStop>{{mediaParent}}</a></div>
-		<div class="name"><a (click)="goTo()" appClickStop>{{mediaName}}</a></div>
-		<div class="type">{{mediaType}}</div>
+		<app-fav-icon [state]="obj.base.state" (click)="obj.toggleFav()" appClickStop></app-fav-icon>
+		<div *ngIf="obj.year" class="year">{{obj.year}}</div>
+		<div *ngIf="showParent && obj.parent" class="artist"><a (click)="obj.navigToParent()" appClickStop>{{obj.parent}}</a></div>
+		<div class="name"><a (click)="obj.navigTo()" appClickStop>{{obj.name}}</a></div>
+		<div class="type">{{obj.mediaType}}</div>
 		<div class="actions">
-			<button class="button-primary" (click)="play()" appClickStop><i class="icon-play"></i> Play</button>
-			<a (click)="contextmenuEvent($event)" appClickStop>…</a>
+			<button class="button-primary" (click)="obj.play()" appClickStop><i class="icon-play"></i> Play</button>
+			<a (click)="obj.onContextMenu($event)" appClickStop>…</a>
 		</div>
 	</div>
 </ng-container>

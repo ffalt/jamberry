@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import {Jam} from '@jam';
+import {ChangeDetectionStrategy, Component, HostListener, Input} from '@angular/core';
+import {JamObject} from '@shared/model/helpers';
 
 @Component({
 	selector: 'app-media-plate',
@@ -8,37 +8,13 @@ import {Jam} from '@jam';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaPlateComponent {
-	@Input() base: Jam.Base;
-	@Input() mediaYear: string;
-	@Input() mediaName: string;
-	@Input() mediaType: string;
-	@Input() mediaParent: string;
-	@Output() readonly contextMenuRequest = new EventEmitter<MouseEvent>();
-	@Output() readonly playRequest = new EventEmitter<MouseEvent>();
-	@Output() readonly goToRequest = new EventEmitter<void>();
-	@Output() readonly goToParentRequest = new EventEmitter<void>();
-	@Output() readonly toggleFavRequest = new EventEmitter<void>();
+	@Input() obj: JamObject;
+	@Input() showParent: boolean;
 	visible: boolean = false;
 
 	@HostListener('contextmenu', ['$event'])
 	contextmenuEvent(event: MouseEvent): void {
-		this.contextMenuRequest.emit(event);
-	}
-
-	goTo(): void {
-		this.goToRequest.emit();
-	}
-
-	goToParent(): void {
-		this.goToParentRequest.emit();
-	}
-
-	play(): void {
-		this.playRequest.emit();
-	}
-
-	toggleFav(): void {
-		this.toggleFavRequest.emit();
+		this.obj.onContextMenu(event);
 	}
 
 	gotInView(): void {

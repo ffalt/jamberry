@@ -2,47 +2,40 @@ import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AuthCanActivateGuard} from '@app/guards';
-import {
-	AlbumMbComponent,
-	AlbumOverviewComponent,
-	AlbumsIndexLoaderByTypeComponent,
-	AlbumsLoaderByTypeComponent,
-	AlbumsPageByTypeComponent,
-	ArtistMbComponent,
-	ArtistOverviewComponent,
-	ArtistSimilarComponent,
-	ArtistsIndexLoaderComponent,
-	ArtistsLoaderByTypeComponent,
-	PlaylistsLoaderByTypeComponent,
-	PodcastsLatestEpisodesComponent,
-	PodcastsLoaderByTypeComponent,
-	SeriesIndexLoaderComponent,
-	SeriesLoaderByTypeComponent,
-	TrackOverviewComponent,
-	TrackSimilarComponent,
-	TracksLoaderByTypeComponent
-} from '@library/components';
-import {
-	AlbumPageComponent,
-	ArtistIndexPageComponent,
-	ArtistPageComponent,
-	ArtistsPageComponent,
-	EpisodePageComponent,
-	FolderIndexPageComponent,
-	FolderPageComponent,
-	PlaylistPageComponent,
-	PlaylistsPageComponent,
-	PodcastPageComponent,
-	PodcastsPageComponent,
-	QueuePageComponent,
-	SearchPageComponent,
-	SeriesPageComponent,
-	StartPageComponent,
-	TrackPageComponent,
-	TracksPageComponent
-} from '@library/pages';
+
 import {SeriesIdPageComponent} from '@library/pages/series-id-page/series-id-page.component';
 import {LibraryComponent} from './library.component';
+import { StartPageComponent } from './pages/start-page/start-page.component';
+import { AlbumPageComponent } from './pages/album-page/album-page.component';
+import { AlbumOverviewComponent } from './components/album-overview/album-overview.component';
+import { AlbumMbComponent } from './components/album-mb/album-mb.component';
+import { AlbumsPageByTypeComponent } from './components/albums-page-by-type/albums-page-by-type.component';
+import { AlbumsIndexLoaderByTypeComponent } from './components/albums-index-loader-by-type/albums-index-loader-by-type.component';
+import { ObjsLoaderByTypeComponent } from './components/obj-loader-by-type/objs-loader-by-type.component';
+import { PodcastPageComponent } from './pages/podcast-page/podcast-page.component';
+import { PodcastsPageComponent } from './pages/podcasts-page/podcasts-page.component';
+import { PodcastsLatestEpisodesComponent } from './components/podcasts-latest-episodes/podcasts-latest-episodes.component';
+import { PlaylistPageComponent } from './pages/playlist-page/playlist-page.component';
+import { PlaylistsPageComponent } from './pages/playlists-page/playlists-page.component';
+import { ArtistIndexPageComponent } from './pages/artistindex-page/artist-index-page.component';
+import { ArtistPageComponent } from './pages/artist-page/artist-page.component';
+import { ArtistOverviewComponent } from './components/artist-overview/artist-overview.component';
+import { ArtistSimilarComponent } from './components/artist-similar/artist-similar.component';
+import { ArtistMbComponent } from './components/artist-mb/artist-mb.component';
+import { ArtistsPageComponent } from './pages/artists-page/artists-page.component';
+import { ArtistsIndexLoaderComponent } from './components/artists-index-loader/artists-index-loader.component';
+import { SeriesPageComponent } from './pages/series-page/series-page.component';
+import { SeriesIndexLoaderComponent } from './components/series-index-loader/series-index-loader.component';
+import { TrackPageComponent } from './pages/track-page/track-page.component';
+import { TrackOverviewComponent } from './components/track-overview/track-overview.component';
+import { TrackSimilarComponent } from './components/track-similar/track-similar.component';
+import { TracksPageComponent } from './pages/tracks-page/tracks-page.component';
+import { TracksLoaderByTypeComponent } from './components/tracks-loader-by-type/tracks-loader-by-type.component';
+import { FolderPageComponent } from './pages/folder-page/folder-page.component';
+import { FolderIndexPageComponent } from './pages/folderindex-page/folder-index-page.component';
+import { EpisodePageComponent } from './pages/episode-page/episode-page.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { QueuePageComponent } from './pages/queue-page/queue-page.component';
 
 export const routes: Routes = [
 	{
@@ -85,23 +78,23 @@ export const routes: Routes = [
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
-					{path: 'favorites', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'favorites', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
 					{
 						path: 'top-rated',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
@@ -120,31 +113,31 @@ export const routes: Routes = [
 					},
 					{
 						path: 'random',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Random'}
 					},
 					{
 						path: 'favorites',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
@@ -161,28 +154,28 @@ export const routes: Routes = [
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
@@ -199,28 +192,28 @@ export const routes: Routes = [
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
@@ -239,26 +232,26 @@ export const routes: Routes = [
 					},
 					{
 						path: 'favorites',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'top-rated',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
@@ -275,28 +268,28 @@ export const routes: Routes = [
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Singles Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
@@ -313,18 +306,18 @@ export const routes: Routes = [
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
-					{path: 'favorites', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
-					{path: 'top-rated', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Top Rated'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'favorites', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
+					{path: 'top-rated', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Top Rated'}},
 					{
 						path: 'most-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
@@ -341,18 +334,18 @@ export const routes: Routes = [
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Index'}
 					},
-					{path: 'random', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
-					{path: 'favorites', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
-					{path: 'top-rated', component: AlbumsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Top Rated'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'favorites', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Favorites'}},
+					{path: 'top-rated', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Top Rated'}},
 					{
 						path: 'most-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: AlbumsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
@@ -372,7 +365,7 @@ export const routes: Routes = [
 					{
 						path: '',
 						pathMatch: 'full',
-						component: PodcastsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Podcasts'}
 					},
@@ -384,26 +377,26 @@ export const routes: Routes = [
 					},
 					{
 						path: 'favorites',
-						component: PodcastsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
-					{path: 'random', component: PodcastsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Podcasts'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random Podcasts'}},
 					{
 						path: 'top-rated',
-						component: PodcastsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: PodcastsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: PodcastsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
@@ -418,43 +411,43 @@ export const routes: Routes = [
 					{
 						path: '',
 						pathMatch: 'full',
-						component: PlaylistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Index'}
 					},
 					{
 						path: 'favorites',
-						component: PlaylistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
 					{
 						path: 'recently-played',
-						component: PlaylistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},
 					{
 						path: 'random',
-						component: PlaylistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Random'}
 					},
 					{
 						path: 'favorites',
-						component: PlaylistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
-						component: PlaylistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: PlaylistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
@@ -498,28 +491,28 @@ export const routes: Routes = [
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Index'}
 					},
-					{path: 'random', component: ArtistsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
-						component: ArtistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
-						component: ArtistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: ArtistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: ArtistsLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played Artists'}
 					},
@@ -540,28 +533,28 @@ export const routes: Routes = [
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Index'}
 					},
-					{path: 'random', component: SeriesLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
+					{path: 'random', component: ObjsLoaderByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Random'}},
 					{
 						path: 'favorites',
-						component: SeriesLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Favorites'}
 					},
 					{
 						path: 'top-rated',
-						component: SeriesLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Top Rated'}
 					},
 					{
 						path: 'most-played',
-						component: SeriesLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Most Played'}
 					},
 					{
 						path: 'recently-played',
-						component: SeriesLoaderByTypeComponent,
+						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
 						data: {name: 'Recently Played'}
 					},

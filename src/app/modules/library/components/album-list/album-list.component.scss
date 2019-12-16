@@ -1,0 +1,21 @@
+@import "globals.scss";
+
+:host {
+	width: 100%;
+
+	.albums {
+		@include album-table();
+
+		.heading, .album {
+			@include album-table-row();
+		}
+
+		.heading {
+			@include album-table-header-row();
+		}
+
+		.album {
+			@include album-table-data-row();
+		}
+	}
+}

@@ -12,6 +12,7 @@ import {components, entryComponents} from './components';
 import {LibraryComponent} from './library.component';
 import {routing} from './library.routing';
 import {pages} from './pages';
+import {services} from './services';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,7 @@ import {pages} from './pages';
 	],
 	entryComponents: [...entryComponents],
 	declarations: [LibraryComponent, ...pages, ...components],
-	providers: []
+	providers: [...services]
 })
 
 export class LibraryModule {

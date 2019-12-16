@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamParameters, JamService} from '@jam';
+import {LibraryService} from '@library/services';
 import {HeaderTab} from '@shared/components';
 
 export interface Tab extends HeaderTab {
@@ -14,6 +15,7 @@ export interface Tabs {
 	folders: Tab;
 	podcasts: Tab;
 	episodes: Tab;
+	series: Tab;
 	playlists: Tab;
 	tracks: Tab;
 }
@@ -33,6 +35,7 @@ export class SearchPageComponent implements AutocompleteDataControl {
 		folders: {id: 'folder', label: 'Folder'},
 		podcasts: {id: 'podcast', label: 'Podcast'},
 		episodes: {id: 'episode', label: 'Episodes'},
+		series: {id: 'series', label: 'Series'},
 		playlists: {id: 'playlist', label: 'Playlist'},
 		tracks: {id: 'track', label: 'Track'}
 	};
@@ -45,7 +48,7 @@ export class SearchPageComponent implements AutocompleteDataControl {
 		return tab;
 	});
 
-	constructor(protected jam: JamService, protected notify: NotifyService) {
+	constructor(protected jam: JamService, protected notify: NotifyService, public library: LibraryService) {
 		this.currentTab = this.tabsObjs.artists;
 		this.currentTab.active = true;
 	}

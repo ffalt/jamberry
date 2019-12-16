@@ -1,7 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {JamService} from '@jam';
+import {JamArtistObject} from '@library/model/helper';
+import {LibraryService} from '@library/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -11,11 +13,13 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./artist-similar.component.scss']
 })
 export class ArtistSimilarComponent implements OnInit, OnDestroy {
-	artist: Jam.Artist;
+	similar: Array<JamArtistObject>;
 	id: string;
 	protected unsubscribe = new Subject();
 
-	constructor(protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute) {
+	constructor(
+		private library: LibraryService,
+		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute) {
 	}
 
 	ngOnInit(): void {
@@ -34,13 +38,13 @@ export class ArtistSimilarComponent implements OnInit, OnDestroy {
 	}
 
 	refresh(): void {
-		this.artist = undefined;
+		this.similar = undefined;
 		if (!this.id) {
 			return;
 		}
-		this.jam.artist.id({id: this.id, artistSimilar: true})
-			.then(artist => {
-				this.artist = artist;
+		this.jam.artist.similar({id: this.id, artistState: true})
+			.then(data => {
+				this.similar = (data.items || []).map(o => new JamArtistObject(o, this.library));
 			})
 			.catch(e => {
 				this.notify.error(e);

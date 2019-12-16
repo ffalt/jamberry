@@ -1,8 +1,0 @@
-<app-view-type-toggle #viewType [viewTypeList]="true"></app-view-type-toggle>
-<app-background-text-list [list]="folders" name="Folders"></app-background-text-list>
-<div class="folder-cards" *ngIf="!viewType.viewTypeList">
-	<app-folder-card *ngFor="let folder of folders" [folder]="folder"></app-folder-card>
-</div>
-<div class="folder-plates" *ngIf="viewType.viewTypeList">
-	<app-folder-plate *ngFor="let folder of folders" [folder]="folder"></app-folder-plate>
-</div>

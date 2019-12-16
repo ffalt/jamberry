@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
-import {JamLists} from '@app/utils/jam-lists';
 import {NavigService} from '@core/services';
 import {JamService} from '@jam';
 import {ContextMenuPodcastsComponent} from '@library/components';
+import {LibraryService} from '@library/services';
 import {HeaderTab} from '@shared/components';
 
 @Component({
@@ -12,14 +12,11 @@ import {HeaderTab} from '@shared/components';
 	styleUrls: ['./podcasts-page.component.scss']
 })
 export class PodcastsPageComponent {
-	tabs: Array<HeaderTab> = [
-		{label: 'Index', link: {route: '/library/podcasts', exact: true}},
-		...JamLists.filter(l => l.id !== 'random').map(list => (
-			{label: list.text, link: {route: `/library/podcasts/${list.link}`}}
-		))
-	];
+	tabs: Array<HeaderTab>;
 
-	constructor(public jam: JamService, public navig: NavigService, private contextMenuService: ContextMenuService) {
+	constructor(public jam: JamService, public navig: NavigService,
+							private contextMenuService: ContextMenuService, private library: LibraryService) {
+		this.tabs = this.library.buildTabs('podcasts');
 	}
 
 	onContextMenu($event: MouseEvent, item?: any): void {

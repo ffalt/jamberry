@@ -1,0 +1,21 @@
+<ng-container *ngIf="obj">
+	<div class="image" (click)="obj.navigTo()" (appDeferLoad)="gotInView()">
+		<app-coverart-image *ngIf="visible" [coverArtObj]="obj.base" [size]="300" [alt]="obj.name" [fill]="true"></app-coverart-image>
+	</div>
+	<div class="date" *ngIf="obj.year">
+		<span class="year">{{obj.year}}</span>
+	</div>
+	<div class="fav" (click)="obj.toggleFav()">
+		<app-fav-icon [state]="obj.base.state"></app-fav-icon>
+	</div>
+	<div class="footer">
+		<a class="footer-content" (click)="obj.navigTo()">
+			{{obj.name | limit:showParent && obj.parent ? 90 : 50}}
+			<div class="footer-subline" *ngIf="showParent && obj.parent">{{obj.parent | limit:50}}</div>
+		</a>
+		<div class="footer-buttons">
+			<button class="button-primary" (click)="obj.play()"><i class="icon-play"></i> Play</button>
+			<a (click)="obj.onContextMenu($event)">…</a>
+		</div>
+	</div>
+</ng-container>

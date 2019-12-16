@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TracksComponent, TrackSimilarComponent} from '@library/components';
+import {TrackListComponent, TrackSimilarComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
 
@@ -11,7 +11,7 @@ describe('TrackSimilarComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [TrackSimilarComponent, MockComponent(TracksComponent)]
+			declarations: [TrackSimilarComponent, MockComponent(TrackListComponent)]
 		}).compileComponents()
 	);
 

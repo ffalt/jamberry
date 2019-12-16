@@ -20,12 +20,12 @@
 					<div class="section-title">Description</div>
 					<app-info-note [info]="folder.info"></app-info-note>
 				</div>
-				<app-folders *ngIf="folder.folders && folder.folders.length>0" [folders]="folder.folders"></app-folders>
-				<app-tracks *ngIf="folder.tracks && folder.tracks.length>0" [tracks]="folder.tracks"></app-tracks>
+				<app-obj-groups-view *ngIf="childFolders" [objs]="childFolders"></app-obj-groups-view>
+				<app-track-list *ngIf="folder.tracks && folder.tracks.length>0" [tracks]="folder.tracks"></app-track-list>
 			</div>
 
 			<div class="tab-pane" *ngSwitchCase="tabsObjs.similar.id">
-				<app-folders *ngIf="folder.similar" [folders]="folder.similar"></app-folders>
+				<app-obj-groups-view *ngIf="similarFolders" [objs]="similarFolders"></app-obj-groups-view>
 			</div>
 
 			<div class="tab-pane" *ngSwitchCase="tabsObjs.musicbrainz.id">

@@ -1,5 +1,5 @@
-import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
+
+import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChildren} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';

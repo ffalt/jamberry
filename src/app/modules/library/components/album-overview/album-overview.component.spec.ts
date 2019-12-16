@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
-import {TracksComponent} from '../../components/tracks/tracks.component';
+import {TrackListComponent} from '../track-list/track-list.component';
 import {AlbumOverviewComponent} from './album-overview.component';
 
 describe('AlbumPageComponent', () => {
@@ -12,7 +12,7 @@ describe('AlbumPageComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [AlbumOverviewComponent, MockComponent(TracksComponent)]
+			declarations: [AlbumOverviewComponent, MockComponent(TrackListComponent)]
 		}).compileComponents()
 	);
 

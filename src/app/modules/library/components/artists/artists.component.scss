@@ -1,8 +1,0 @@
-@import "globals.scss";
-
-:host {
-	.artist-cards {
-		@include media-cards();
-	}
-}
-

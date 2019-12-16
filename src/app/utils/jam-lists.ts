@@ -1,18 +1,4 @@
-import {AlbumType, JamParameters} from '@jam';
-
-export interface JamList {
-	id: JamParameters.ListType;
-	text: string;
-	link: string;
-}
-
-export const JamLists: Array<JamList> = [
-	{id: 'faved', link: 'favorites', text: 'Favorites'},
-	{id: 'highest', link: 'top-rated', text: 'Top Rated'},
-	{id: 'frequent', link: 'most-played', text: 'Most Played'},
-	{id: 'recent', link: 'recently-played', text: 'Recently Played'},
-	{id: 'random', link: 'random', text: 'Random'}
-];
+import {AlbumType, JamObjectType, JamParameters} from '@jam';
 
 export interface JamAlbumType {
 	id: AlbumType;
@@ -32,12 +18,29 @@ export const JamAlbumTypes: Array<JamAlbumType> = [
 	{id: AlbumType.single, link: 'singles', text: 'Singles', icon: 'icon-single'}
 ];
 
+export const JamTypesUrlNamesKeys: { [key: string]: JamObjectType } = {
+	albums: JamObjectType.album,
+	compilations: JamObjectType.album,
+	soundtracks: JamObjectType.album,
+	audiobooks: JamObjectType.album,
+	bootlegs: JamObjectType.album,
+	live: JamObjectType.album,
+	eps: JamObjectType.album,
+	singles: JamObjectType.album,
+	series: JamObjectType.series,
+	artists: JamObjectType.artist,
+	folders: JamObjectType.folder,
+	playlists: JamObjectType.playlist,
+	podcasts: JamObjectType.podcast
+};
+
 export const AlbumTypeUrlNamesKeys: { [key: string]: AlbumType } = {
 	albums: AlbumType.album,
 	compilations: AlbumType.compilation,
 	soundtracks: AlbumType.soundtrack,
 	audiobooks: AlbumType.audiobook,
 	bootlegs: AlbumType.bootleg,
+	series: AlbumType.series,
 	live: AlbumType.live,
 	eps: AlbumType.ep,
 	singles: AlbumType.single

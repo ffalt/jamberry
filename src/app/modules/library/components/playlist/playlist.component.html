@@ -1,9 +1,0 @@
-<app-media-plate *ngIf="playlist" [base]="playlist" [mediaName]="playlist.name" mediaType="playlist"
-								 (click)="togglePlaylistTracks()" (contextMenuRequest)="onContextMenu($event)" (goToRequest)="navig.toPlaylist(playlist)"
-								 (playRequest)="player.startPlaylist(playlist)" (toggleFavRequest)="actions.togglePlaylistFav(playlist)"
-></app-media-plate>
-<div *ngIf="tracksExpanded" class="tracks">
-	<app-loading *ngIf="!tracks" [time]="500"></app-loading>
-	<app-tracks [tracks]="tracks" [showArtist]="true"></app-tracks>
-</div>
-

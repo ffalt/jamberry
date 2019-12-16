@@ -36,9 +36,9 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell, event: KeyboardEvent }>();
 	lines: Array<string> = [];
 	inactive: boolean = true;
-	protected unsubscribe = new Subject();
 
 	@ViewChild('cellContainer', {static: false, read: ViewContainerRef}) container: ViewContainerRef;
+	protected unsubscribe = new Subject();
 	private componentRef: ComponentRef<any>;
 
 	constructor(private dialogOverlay: DialogOverlayService, private resolver: ComponentFactoryResolver) {

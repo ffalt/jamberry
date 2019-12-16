@@ -74,7 +74,6 @@ export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 		});
 	}
 
-
 	display(nodes: Array<ImageNode>): void {
 		this.nodes = nodes;
 		const front = this.nodes.find(i => i.image.types.length === 1 && i.image.types[0] === 'Front' && i.image.approved);

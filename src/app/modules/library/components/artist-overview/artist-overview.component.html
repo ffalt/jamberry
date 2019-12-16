@@ -6,7 +6,7 @@
 	</div>
 </div>
 <div class="artist-albums" *ngIf="albums && !tracksQuery">
-	<app-albums [albums]="albums" [viewTypeList]="true" [limitArtist]="artist"></app-albums>
+	<app-obj-groups-view [objs]="albums" [viewTypeList]="true"></app-obj-groups-view>
 </div>
 <div class="artist-tracks" *ngIf="tracksQuery">
 	<app-tracks-loader [queryCmd]="tracksQuery"></app-tracks-loader>

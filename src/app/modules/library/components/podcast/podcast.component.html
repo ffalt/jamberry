@@ -1,8 +1,0 @@
-<app-media-plate *ngIf="podcast" [base]="podcast" [mediaName]="podcast.name" mediaType="podcast"
-								 (click)="togglePodcastEpisodes()" (contextMenuRequest)="onContextMenu($event)" (goToRequest)="navig.toPodcast(podcast)"
-								 (playRequest)="player.startPodcast(podcast)" (toggleFavRequest)="actions.togglePodcastFav(podcast)"
-></app-media-plate>
-<div *ngIf="episodesExpanded" class="tracks">
-	<app-loading *ngIf="!episodes" [time]="100"></app-loading>
-	<app-episodes [episodes]="episodes"></app-episodes>
-</div>

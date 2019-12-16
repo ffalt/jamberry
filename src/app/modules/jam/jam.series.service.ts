@@ -82,4 +82,18 @@ export class JamSeriesService {
 		return this.base.requestData<Jam.Info>('series/info', params);
 	}
 
+	/**
+	 * fav/unfav a series
+	 */
+	async fav_update(params: JamParameters.Fav): Promise<void> {
+		return this.base.requestPostDataOK('series/fav/update', params);
+	}
+
+	/**
+	 * rate a series
+	 */
+	async rate_update(params: JamParameters.Rate): Promise<void> {
+		return this.base.requestPostDataOK('series/rate/update', params);
+	}
+
 }

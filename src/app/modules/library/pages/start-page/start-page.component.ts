@@ -74,7 +74,7 @@ export class StartPageComponent implements OnInit {
 						{text: 'Artists', link: '/library/artists', value: stats.artistTypes.album},
 						...[
 							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.album), value: stats.albumTypes.album},
-							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.compilation), value: stats.albumTypes.compilation},
+							{albumType: JamAlbumTypes.find(t => t.id === AlbumType.compilation), value: stats.albumTypes.compilation}
 						].map(t => ({
 							text: t.albumType.text, link: '/library/' + t.albumType.link, value: t.value
 						})),

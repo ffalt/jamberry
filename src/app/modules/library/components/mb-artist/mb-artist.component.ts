@@ -53,9 +53,8 @@ export class MbArtistComponent implements OnChanges {
 			typeGroup.groups.push({group: r});
 		});
 		this.releaseGroups.forEach(g => {
-			g.groups.sort((a, b) => {
-				return b.group.firstReleaseDate.localeCompare(a.group.firstReleaseDate);
-			});
+			g.groups.sort((a, b) =>
+				b.group.firstReleaseDate.localeCompare(a.group.firstReleaseDate));
 		});
 		this.releaseGroups.sort((a, b) => a.type.localeCompare(b.type));
 	}

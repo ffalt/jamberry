@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {FoldersComponent, MbArtistComponent, TabsComponent, TracksComponent} from '@library/components';
+import {FoldersComponent, MbArtistComponent, TabsComponent, TrackListComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {FolderPageComponent} from '@library/pages';
 import {MockComponent} from 'ng-mocks';
@@ -15,7 +15,7 @@ describe('FolderPageComponent', () => {
 			declarations: [
 				FolderPageComponent,
 				MockComponent(FoldersComponent),
-				MockComponent(TracksComponent),
+				MockComponent(TrackListComponent),
 				MockComponent(MbArtistComponent),
 				MockComponent(TabsComponent)
 			]

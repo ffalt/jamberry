@@ -149,6 +149,10 @@ export class PlaylistDialogsService {
 		this.choosePlaylist(() => this.jam.artist.tracks({ids: [artist.id], trackTag: true, trackState: true}));
 	}
 
+	addPlaylist(playlist: Jam.Playlist): void {
+		this.choosePlaylist(() => this.jam.playlist.tracks({ids: [playlist.id], trackTag: true, trackState: true}));
+	}
+
 	addSeries(series: Jam.Series): void {
 		this.choosePlaylist(() => this.jam.series.tracks({ids: [series.id], trackTag: true, trackState: true}));
 	}

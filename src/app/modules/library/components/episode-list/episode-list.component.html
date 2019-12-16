@@ -1,0 +1,21 @@
+<app-background-text-list [list]="episodes" name="Episodes"></app-background-text-list>
+<div *ngIf="episodes && episodes.length>0" class="episodes">
+	<div class="heading">
+		<div class="fav" title="Favorite"><i class="icon-heart-empty"></i></div>
+		<div class="state">State</div>
+		<div class="date">Date</div>
+		<div class="title">Episode</div>
+		<div class="length"><i class="icon-stopwatch"></i></div>
+	</div>
+	<div class="episode" *ngFor="let episode of episodes" (tap)="tapEpisode($event, episode)" (contextmenu)="onContextMenu($event, episode)">
+		<div class="fav"><a (click)="actions.toggleEpisodeFav(episode)">
+			<app-fav-icon [state]="episode.state"></app-fav-icon>
+		</a></div>
+		<div class="state">
+			<app-episode-state-button [episode]="episode"></app-episode-state-button>
+		</div>
+		<div class="date">{{episode.date | date}}</div>
+		<div class="title"><a class="title-link" (click)="navig.toPodcastEpisode(episode)">{{episode.name}}</a><a *ngIf="showPodcast" title="Podcast" (click)="navig.toPodcastID(episode.podcastID,episode.podcast)">{{episode.podcast}}</a></div>
+		<div class="length"><i class="icon-stopwatch small-screen-icon" *ngIf="episode.duration>0"></i> {{episode.duration|duration}}</div>
+	</div>
+</div>

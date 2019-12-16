@@ -1,7 +1,0 @@
-@import "globals.scss";
-
-:host {
-	.folder-cards {
-		@include media-cards();
-	}
-}

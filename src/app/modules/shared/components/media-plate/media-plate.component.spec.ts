@@ -1,6 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CoverartImageComponent, FavIconComponent, HeaderTabsComponent, IconartImageComponent} from '@shared/components';
-import {SharedModule} from '@shared/shared.module';
+import {CoverartImageComponent, FavIconComponent} from '@shared/components';
 import {TEST_SHARED_MODULE_IMPORTS, TEST_SHARED_MODULE_PROVIDERS} from '@shared/shared.module.mock';
 import {MockComponent} from 'ng-mocks';
 import {MediaPlateComponent} from './media-plate.component';

@@ -1,8 +1,0 @@
-<app-view-type-toggle #viewType [viewTypeList]="viewTypeList"></app-view-type-toggle>
-<app-background-text-list [list]="artists" [name]="typeName||'Artists'"></app-background-text-list>
-<div class="artist-cards" *ngIf="!viewType.viewTypeList">
-	<app-artist-card *ngFor="let artist of artists" [artist]="artist"></app-artist-card>
-</div>
-<div class="artist-plates" *ngIf="viewType.viewTypeList">
-	<app-artist-plate *ngFor="let artist of artists" [artist]="artist"></app-artist-plate>
-</div>

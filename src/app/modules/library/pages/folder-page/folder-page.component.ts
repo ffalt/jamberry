@@ -3,7 +3,9 @@ import {ActivatedRoute} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {FolderType, FolderTypesAlbum, Jam, JamService} from '@jam';
-import {ContextMenuFolderComponent, getFolderTypeInfo} from '@library/components';
+import {ContextMenuObjComponent} from '@library/components';
+import {JamFolderObject} from '@library/model/helper';
+import {LibraryService} from '@library/services';
 import {HeaderInfo, HeaderTab} from '@shared/components';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
@@ -17,6 +19,37 @@ export interface FolderHeaderTabs {
 	overview: FolderHeaderTab;
 	similar: FolderHeaderTab;
 	musicbrainz: FolderHeaderTab;
+}
+
+function getFolderTypeInfo(folder: Jam.Folder): { type?: string; name?: string; year?: string } {
+	// TODO: replace with JamFolderObject
+	if (folder) {
+		switch (folder.type as FolderType) {
+			case FolderType.album:
+			case FolderType.multialbum:
+				return {
+					type: 'Album',
+					name: folder.tag.album,
+					year: folder.tag.year !== undefined ? folder.tag.year.toString() : undefined
+				};
+			case FolderType.collection:
+				return {
+					type: 'Collection',
+					name: folder.name
+				};
+			case FolderType.artist:
+				return {
+					type: 'Artist',
+					name: folder.tag.artist
+				};
+			default:
+				return {
+					type: folder.type,
+					name: folder.name
+				};
+		}
+	}
+	return {};
 }
 
 @Component({
@@ -39,6 +72,8 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 		};
 		return tab;
 	});
+	childFolders: Array<JamFolderObject>;
+	similarFolders: Array<JamFolderObject>;
 	tabs: Array<FolderHeaderTab> = [];
 	currentTab: FolderHeaderTab;
 	infos: Array<HeaderInfo> = [];
@@ -52,6 +87,7 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
+		private library: LibraryService,
 		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute,
 		private contextMenuService: ContextMenuService) {
 		this.setTab(this.tabsList[0]);
@@ -73,7 +109,7 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent): void {
-		this.contextMenuService.open(ContextMenuFolderComponent, this.folder, $event);
+		this.contextMenuService.open(ContextMenuObjComponent, new JamFolderObject(this.folder, this.library), $event);
 	}
 
 	refresh(): void {
@@ -110,12 +146,20 @@ export class FolderPageComponent implements OnInit, OnDestroy {
 
 	display(folder: Jam.Folder): void {
 		this.folder = folder;
+		this.childFolders = undefined;
+		this.similarFolders = undefined;
 		this.headline = getFolderTypeInfo(this.folder);
 		this.isAlbum = FolderTypesAlbum.includes(folder.type as FolderType);
 		this.isArtist = folder.type === FolderType.artist;
 		this.isCollection = folder.type === FolderType.collection;
 		this.isElse = !this.isAlbum && !this.isArtist && !this.isCollection;
 		this.hasArtistID = this.isArtist && folder.tag && folder.tag.musicbrainz && !!folder.tag.musicbrainz.artistID;
+		if (this.folder.folders && this.folder.folders.length > 0) {
+			this.childFolders = this.folder.folders.map(o => new JamFolderObject(o, this.library));
+		}
+		if (this.folder.similar && this.folder.similar.length > 0) {
+			this.similarFolders = this.folder.similar.map(o => new JamFolderObject(o, this.library));
+		}
 		if (this.hasArtistID) {
 			this.tabs = this.tabsList;
 		} else {

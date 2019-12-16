@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {JamLists} from '@app/utils/jam-lists';
+import {LibraryService} from '@library/services';
 import {HeaderTab} from '@shared/components';
 
 @Component({
@@ -8,10 +8,10 @@ import {HeaderTab} from '@shared/components';
 	styleUrls: ['./series-page.component.scss']
 })
 export class SeriesPageComponent {
-	tabs: Array<HeaderTab> = [
-		{label: 'Index', link: {route: '/library/series', exact: true}},
-		...JamLists.map(list => (
-			{label: list.text, link: {route: `/library/series/${list.link}`}}
-		))
-	];
+	tabs: Array<HeaderTab>;
+
+	constructor(private library: LibraryService) {
+		this.tabs = this.library.buildTabs('series');
+	}
+
 }

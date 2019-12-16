@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
-import {NavigService, NotifyService, PlayerService} from '@core/services';
+import {NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {ContextMenuSeriesComponent} from '@library/components';
+import {ContextMenuObjComponent} from '@library/components/context-menu-obj/context-menu-obj.component';
+import {JamAlbumObject, JamSeriesObject} from '@library/model/helper';
+import {LibraryService} from '@library/services';
 import {HeaderInfo} from '@shared/components';
-import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -16,13 +17,14 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class SeriesIdPageComponent implements OnInit, OnDestroy {
 	series: Jam.Series;
+	albums: Array<JamAlbumObject>;
 	infos: Array<HeaderInfo> = [];
 	id: string;
 	protected unsubscribe = new Subject();
 
 	constructor(
-		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute,
+		private library: LibraryService, public player: PlayerService,
+		private jam: JamService, private notify: NotifyService, private route: ActivatedRoute,
 		private contextMenuService: ContextMenuService
 	) {
 	}
@@ -43,7 +45,7 @@ export class SeriesIdPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent): void {
-		this.contextMenuService.open(ContextMenuSeriesComponent, this.series, $event);
+		this.contextMenuService.open(ContextMenuObjComponent, new JamSeriesObject(this.series, this.library), $event);
 	}
 
 	refresh(): void {
@@ -62,6 +64,7 @@ export class SeriesIdPageComponent implements OnInit, OnDestroy {
 
 	display(series: Jam.Series): void {
 		this.series = series;
+		this.albums = (series.albums || []).map(s => new JamAlbumObject(s, this.library));
 		this.infos = [
 			{label: 'Albums', value: series.albumCount},
 			{label: 'Tracks', value: series.trackCount},

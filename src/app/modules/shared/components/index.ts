@@ -25,6 +25,7 @@ import {LogoIconComponent} from './logo-icon/logo-icon.component';
 import {LyricsComponent} from './lyrics/lyrics.component';
 import {MediaPlateComponent} from './media-plate/media-plate.component';
 import {MusicbrainzIconComponent} from './musicbrainz-icon/musicbrainz-icon.component';
+import {ObjCardComponent} from './obj-card/obj-card.component';
 import {ChildTooltipContentComponent} from './obj-tooltip-content/child-tooltip-content.component';
 import {RateComponent} from './rate/rate.component';
 import {SplitterComponent} from './splitter/splitter.component';
@@ -59,6 +60,7 @@ export const components: Array<any> = [
 	InfoTextComponent,
 	InfoNoteComponent,
 	LoadingComponent,
+	ObjCardComponent,
 	LoadMoreButtonComponent,
 	LogoIconComponent,
 	LyricsComponent,
@@ -102,3 +104,4 @@ export * from './header-tabs/header-tabs.component';
 export * from './header-jambase/header-jambase.component';
 export * from './info-text/info-text.component';
 export * from './media-plate/media-plate.component';
+export * from './obj-card/obj-card.component';

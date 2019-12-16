@@ -1,7 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NotifyService} from '@core/services';
+import {ContextMenuService} from '@app/modules/context-menu';
+import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamParameters, JamService} from '@jam';
+import {JamAlbumObject} from '@library/model/helper';
+import {LibraryService} from '@library/services';
+import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -12,12 +16,21 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class ArtistOverviewComponent implements OnInit, OnDestroy {
 	artist?: Jam.Artist;
-	albums?: Array<Jam.Album>;
+	albums?: Array<JamAlbumObject>;
 	tracksQuery?: JamParameters.TrackSearch;
 	id: string;
 	protected unsubscribe = new Subject();
 
-	constructor(protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute) {
+	constructor(
+		public navig: NavigService,
+		public player: PlayerService,
+		public actions: ActionsService,
+		protected library: LibraryService,
+		protected notify: NotifyService,
+		protected jam: JamService,
+		private contextMenuService: ContextMenuService,
+		protected route: ActivatedRoute
+	) {
 	}
 
 	ngOnInit(): void {
@@ -52,8 +65,8 @@ export class ArtistOverviewComponent implements OnInit, OnDestroy {
 		})
 			.then(artist => {
 				this.artist = artist;
-				this.albums = artist.albums;
-				if (!this.albums || this.albums.length === 0) {
+				this.albums = (artist.albums || []).map(a => new JamAlbumObject(a, this.library));
+				if (this.albums.length === 0) {
 					this.tracksQuery = {artistID: this.artist.id};
 				}
 			})

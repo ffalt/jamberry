@@ -3,7 +3,9 @@ import {ActivatedRoute} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {AlbumType, Jam, JamService} from '@jam';
-import {ContextMenuArtistComponent} from '@library/components/context-menu-artist/context-menu-artist.component';
+import {ContextMenuObjComponent} from '@library/components';
+import {JamArtistObject} from '@library/model/helper';
+import {LibraryService} from '@library/services';
 import {HeaderInfo, HeaderTab} from '@shared/components';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
@@ -23,6 +25,7 @@ export class ArtistPageComponent implements OnInit, OnDestroy {
 	protected unsubscribe = new Subject();
 
 	constructor(
+		private library: LibraryService,
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
 		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute,
 		private contextMenuService: ContextMenuService
@@ -45,7 +48,7 @@ export class ArtistPageComponent implements OnInit, OnDestroy {
 	}
 
 	onContextMenu($event: MouseEvent): void {
-		this.contextMenuService.open(ContextMenuArtistComponent, this.artist, $event);
+		this.contextMenuService.open(ContextMenuObjComponent, new JamArtistObject(this.artist, this.library), $event);
 	}
 
 	refresh(): void {

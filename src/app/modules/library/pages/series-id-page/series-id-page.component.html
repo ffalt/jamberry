@@ -5,7 +5,7 @@
 		[base]="series" [infos]="infos" (contextMenuRequest)="onContextMenu($event)">
 		<button class="button-primary" (click)="player.startSeries(series)"><i class="icon-play"></i> Play</button>
 	</app-view-header-jam-base>
-	<div class="content" *ngIf="series.albums">
-		<app-albums [albums]="series.albums" [viewTypeList]="true"></app-albums>
+	<div class="content" *ngIf="albums">
+		<app-obj-groups-view [objs]="albums" [viewTypeList]="true"></app-obj-groups-view>
 	</div>
 </div>
