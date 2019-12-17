@@ -1,3 +1,5 @@
-<app-loading *ngIf="!objs"></app-loading>
-<app-obj-groups-view [objs]="objs" [showParent]="showParent" [typeName]="loader.typeName" [grouping]="grouping"></app-obj-groups-view>
-<app-load-more-button (requestLoad)="load()"></app-load-more-button>
+<ng-container *ngIf="loader">
+	<app-loading *ngIf="!objs"></app-loading>
+	<app-obj-groups-view [objs]="objs" [showParent]="showParent" [typeName]="loader.typeName" [grouping]="grouping"></app-obj-groups-view>
+	<app-load-more-button (requestLoad)="load()"></app-load-more-button>
+</ng-container>

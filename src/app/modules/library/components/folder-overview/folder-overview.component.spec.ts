@@ -1,29 +1,26 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MbArtistComponent, ObjGroupsViewComponent, TabsComponent, TrackListComponent} from '@library/components';
+import {FolderOverviewComponent, ObjGroupsViewComponent, TrackListComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
-import {FolderPageComponent} from '@library/pages';
 import {MockComponent} from 'ng-mocks';
 
-describe('FolderPageComponent', () => {
-	let component: FolderPageComponent;
-	let fixture: ComponentFixture<FolderPageComponent>;
+describe('FolderOverviewComponent', () => {
+	let component: FolderOverviewComponent;
+	let fixture: ComponentFixture<FolderOverviewComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
 			declarations: [
-				FolderPageComponent,
+				FolderOverviewComponent,
 				MockComponent(ObjGroupsViewComponent),
-				MockComponent(TrackListComponent),
-				MockComponent(MbArtistComponent),
-				MockComponent(TabsComponent)
+				MockComponent(TrackListComponent)
 			]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(FolderPageComponent);
+		fixture = TestBed.createComponent(FolderOverviewComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

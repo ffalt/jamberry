@@ -1,7 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {StartSectionComponent} from '@library/components';
+import {StartPageComponent, StartSectionComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
-import {StartPageComponent} from '@library/pages';
 import {MockComponent} from 'ng-mocks';
 
 describe('StartPageComponent', () => {

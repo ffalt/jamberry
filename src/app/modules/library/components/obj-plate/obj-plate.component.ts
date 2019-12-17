@@ -1,5 +1,4 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {NavigService} from '@core/services';
 import {JamObjectType} from '@jam';
 import {JamLibraryObject} from '@library/model/helper';
 
@@ -15,9 +14,6 @@ export class ObjPlateComponent implements OnChanges {
 	hasTracks: boolean = false;
 	hasAlbums: boolean = false;
 	hasEpisodes: boolean = false;
-
-	constructor(public navig: NavigService) {
-	}
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.expanded = false;

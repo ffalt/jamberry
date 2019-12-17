@@ -1,5 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {EpisodeStateButtonComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
+import {MockComponent} from 'ng-mocks';
 import {ObjPageComponent} from './obj-page.component';
 
 describe('ObjPageComponent', () => {
@@ -10,7 +12,10 @@ describe('ObjPageComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [ObjPageComponent]
+			declarations: [
+				ObjPageComponent,
+				MockComponent(EpisodeStateButtonComponent)
+			]
 		}).compileComponents()
 	);
 
