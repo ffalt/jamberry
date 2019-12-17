@@ -1,23 +1,28 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AlbumCardComponent} from '@library/components';
-import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
+import {CoverartImageComponent, FavIconComponent, ObjCardComponent} from '@shared/components';
+import {LimitPipe} from '@shared/pipes';
+import {TEST_SHARED_MODULE_IMPORTS, TEST_SHARED_MODULE_PROVIDERS} from '@shared/shared.module.mock';
+import {MockComponent, MockPipe} from 'ng-mocks';
 
-describe('AlbumCardComponent', () => {
-	let component: AlbumCardComponent;
-	let fixture: ComponentFixture<AlbumCardComponent>;
+describe('ObjCardComponent', () => {
+	let component: ObjCardComponent;
+	let fixture: ComponentFixture<ObjCardComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
+			imports: [...TEST_SHARED_MODULE_IMPORTS],
+			providers: [...TEST_SHARED_MODULE_PROVIDERS],
 			declarations: [
-				AlbumCardComponent
+				ObjCardComponent,
+				MockComponent(CoverartImageComponent),
+				MockComponent(FavIconComponent),
+				MockPipe(LimitPipe)
 			]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(AlbumCardComponent);
+		fixture = TestBed.createComponent(ObjCardComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

@@ -2,8 +2,10 @@ import {Component, Input} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
+import {JamTrackObject} from '@library/model/helper';
+import {LibraryService} from '@library/services';
 import {ActionsService} from '@shared/services';
-import {ContextMenuTrackComponent, ContextMenuTrackComponentOptions} from '../context-menu-track/context-menu-track.component';
+import {ContextMenuObjComponent, ContextMenuObjComponentOptions} from '../context-menu-obj/context-menu-obj.component';
 
 @Component({
 	selector: 'app-track-list',
@@ -19,12 +21,12 @@ export class TrackListComponent {
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		private contextMenuService: ContextMenuService
+		private contextMenuService: ContextMenuService, private library: LibraryService
 	) {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Track): void {
-		this.contextMenuService.open<ContextMenuTrackComponentOptions>(ContextMenuTrackComponent, item, $event, {showGoTo: true});
+		this.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, new JamTrackObject(item, this.library), $event);
 	}
 
 	tapTrack(event, track: Jam.Track): void {

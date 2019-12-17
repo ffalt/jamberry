@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ObjPlateComponent, TrackListComponent} from '@library/components';
+import {AlbumListComponent, EpisodeListComponent, ObjPlateComponent, TrackListComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
 
@@ -13,6 +13,8 @@ describe('ObjPlateComponent', () => {
 			providers: [...TEST_LIBRARY_PROVIDERS],
 			declarations: [
 				ObjPlateComponent,
+				MockComponent(EpisodeListComponent),
+				MockComponent(AlbumListComponent),
 				MockComponent(TrackListComponent)
 			]
 		}).compileComponents()

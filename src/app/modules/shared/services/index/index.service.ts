@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {JamAlbumTypes} from '@app/utils/jam-lists';
+import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {AppService, NotifyService} from '@core/services';
 import {AlbumType, Jam, JamObjectType, JamParameters, JamService} from '@jam';
 
@@ -142,8 +142,8 @@ export class IndexService {
 		this.indexes.push(item);
 		this.jam.album.index(item.query)
 			.then(index => {
-				const albumType = JamAlbumTypes.find(t => t.id === query.albumType);
-				item.index = buildIndexAlbumIndex(index, !this.app.smallscreen, albumType ? albumType.text : 'Albums', this.jam);
+				const type = getTypeByAlbumType(query.albumType);
+				item.index = buildIndexAlbumIndex(index, !this.app.smallscreen, type ? type.text : '', this.jam);
 				this.albumIndexNotify.emit(item);
 			})
 			.catch(e => {

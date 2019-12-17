@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {AlbumTypeUrlNamesKeys, JamTypesUrlNamesKeys, ListTypeUrlNamesKeys} from '@app/utils/jam-lists';
+import {getUrlType, ListTypeUrlNamesKeys} from '@app/utils/jam-lists';
 import {AlbumType, JamObjectType, JamParameters} from '@jam';
 import {LibraryService} from '@library/services';
 import {Subject} from 'rxjs';
@@ -38,8 +38,8 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 				this.loadAll = false;
 				this.albumType = undefined;
 				this.loader = undefined;
-				const type = val.length > 0 ? val[0].path : undefined;
-				this.jamType = JamTypesUrlNamesKeys[type];
+				const type = getUrlType(val);
+				this.jamType = type.type;
 				switch (this.jamType) {
 					case JamObjectType.folder:
 						this.loader = this.library.folderLoader;
@@ -60,9 +60,6 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 						this.loadAll = true;
 						this.valid = true;
 						break;
-					case JamObjectType.episode:
-						this.loader = this.library.episodeLoader;
-						break;
 					case JamObjectType.series:
 						this.loader = this.library.seriesLoader;
 						this.listQuery = {listType: this.listType, albumType: this.albumType};
@@ -70,7 +67,7 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 						break;
 					case JamObjectType.album:
 						this.loader = this.library.albumLoader;
-						this.albumType = AlbumTypeUrlNamesKeys[type];
+						this.albumType = type.albumType;
 						this.valid = !!this.albumType;
 						this.listQuery = {listType: this.listType, albumType: this.albumType};
 						break;

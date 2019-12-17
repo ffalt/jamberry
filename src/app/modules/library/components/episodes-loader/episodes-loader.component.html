@@ -1,0 +1,3 @@
+<app-loading *ngIf="!episodes"></app-loading>
+<app-episode-list [episodes]="episodes" [showPodcast]="true"></app-episode-list>
+<app-load-more-button (requestLoad)="load()"></app-load-more-button>

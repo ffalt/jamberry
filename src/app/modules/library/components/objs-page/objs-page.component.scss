@@ -1,0 +1,10 @@
+@import "globals.scss";
+
+:host {
+	.objects {
+		@include view-host();
+		.content {
+			@include view-content();
+		}
+	}
+}

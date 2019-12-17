@@ -30,6 +30,7 @@ export class ArtistsIndexLoaderComponent implements OnInit, OnDestroy {
 				this.notify.error(e);
 			}
 		);
+		this.refresh();
 	}
 
 	ngOnDestroy(): void {

@@ -142,7 +142,7 @@
 		}
 
 		.header-infos {
-			width: 20%;
+			max-width: 30%;
 			padding: $padding;
 			text-align: right;
 			font-weight: 100;
@@ -162,6 +162,7 @@
 				padding-bottom: $margin-sm;
 				color: var(--on-control-ambient-hover);
 				overflow: hidden;
+				text-overflow: ellipsis;
 				vertical-align: middle;
 
 				a {
@@ -255,6 +256,7 @@
 				padding-left: 0;
 				padding-right: 0;
 				padding-bottom: 0;
+				max-width: 100%;
 
 				.more {
 					float: right;

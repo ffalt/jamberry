@@ -1,4 +1,4 @@
-import { AlbumListComponent } from './album-list/album-list.component';
+import {AlbumListComponent} from './album-list/album-list.component';
 import {AlbumMbComponent} from './album-mb/album-mb.component';
 import {AlbumOverviewComponent} from './album-overview/album-overview.component';
 import {AlbumsIndexLoaderByTypeComponent} from './albums-index-loader-by-type/albums-index-loader-by-type.component';
@@ -9,17 +9,17 @@ import {ArtistOverviewComponent} from './artist-overview/artist-overview.compone
 import {ArtistSimilarComponent} from './artist-similar/artist-similar.component';
 import {ArtistsIndexLoaderComponent} from './artists-index-loader/artists-index-loader.component';
 import {ChatComponent} from './chat/chat.component';
-import {ContextMenuEpisodeComponent} from './context-menu-episode/context-menu-episode.component';
 import {ContextMenuObjComponent} from './context-menu-obj/context-menu-obj.component';
-import {ContextMenuPlaylistComponent} from './context-menu-playlist/context-menu-playlist.component';
-import {ContextMenuPlaylistsComponent} from './context-menu-playlists/context-menu-playlists.component';
-import {ContextMenuPodcastComponent} from './context-menu-podcast/context-menu-podcast.component';
-import {ContextMenuPodcastsComponent} from './context-menu-podcasts/context-menu-podcasts.component';
-import {ContextMenuQueueComponent} from './context-menu-queue/context-menu-queue.component';
-import {ContextMenuTrackComponent} from './context-menu-track/context-menu-track.component';
+import {ContextMenuSimpleComponent} from './context-menu-simple/context-menu-simple.component';
 import {CurrentPlayingComponent} from './current-playing/current-playing.component';
 import {EpisodeListComponent} from './episode-list/episode-list.component';
+import {EpisodeOverviewComponent} from './episode-overview/episode-overview.component';
 import {EpisodeStateButtonComponent} from './episode-state-button/episode-state.button.component';
+import {EpisodesLoaderComponent} from './episodes-loader/episodes-loader.component';
+import {FolderMusicbrainzComponent} from './folder-mb/folder-musicbrainz.component';
+import {FolderOverviewComponent} from './folder-overview/folder-overview.component';
+import {FolderSimilarComponent} from './folder-similar/folder-similar.component';
+import {FoldersIndexLoaderComponent} from './folders-index-loader/folders-index-loader.component';
 import {IndexEntryCardComponent} from './index-entry-card/index-entry-card.component';
 import {IndexGroupComponent} from './index-group/index-group.component';
 import {IndexComponent} from './index/index.component';
@@ -28,14 +28,22 @@ import {MbArtistComponent} from './mb-artist/mb-artist.component';
 import {MbRelationsComponent} from './mb-relations/mb-relations.component';
 import {ObjGroupsViewComponent} from './obj-groups-view/obj-groups-view.component';
 import {ObjsLoaderByTypeComponent} from './obj-loader-by-type/objs-loader-by-type.component';
+import {ObjPageComponent} from './obj-page/obj-page.component';
 import {ObjPlateComponent} from './obj-plate/obj-plate.component';
 import {ObjsLoaderComponent} from './objs-loader/objs-loader.component';
+import {ObjsPageComponent} from './objs-page/objs-page.component';
+import {PlaylistOverviewComponent} from './playlist-overview/playlist-overview.component';
+import {PodcastOverviewComponent} from './podcast-overview/podcast-overview.component';
 import {PodcastsLatestEpisodesComponent} from './podcasts-latest-episodes/podcasts-latest-episodes.component';
+import {QueuePageComponent} from './queue-page/queue-page.component';
+import {SearchPageComponent} from './search-page/search-page.component';
 import {SeriesIndexLoaderComponent} from './series-index-loader/series-index-loader.component';
+import {SeriesOverviewComponent} from './series-overview/series-overview.component';
 import {SidebarIndexComponent} from './sidebar-index/sidebar-index.component';
 import {SidebarListComponent} from './sidebar-list/sidebar-list.component';
 import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
+import {StartPageComponent} from './start-page/start-page.component';
 import {StartSectionComponent} from './start-section/start-section.component';
 import {TabsComponent} from './tabs/tabs.component';
 import {TrackListComponent} from './track-list/track-list.component';
@@ -47,43 +55,44 @@ import {TracksPlaylistComponent} from './tracks-playlist/tracks-playlist.compone
 
 export const entryComponents: Array<any> = [
 	ContextMenuObjComponent,
-	ContextMenuEpisodeComponent,
-	ContextMenuPlaylistComponent,
-	ContextMenuPlaylistsComponent,
-	ContextMenuPodcastComponent,
-	ContextMenuPodcastsComponent,
-	ContextMenuQueueComponent,
-	ContextMenuTrackComponent
+	ContextMenuSimpleComponent
 ];
 
 export const components: Array<any> = [
 	...entryComponents,
+	AlbumListComponent,
 	AlbumMbComponent,
 	AlbumOverviewComponent,
 	AlbumsIndexLoaderByTypeComponent,
 	AlbumsIndexLoaderComponent,
 	AlbumsPageByTypeComponent,
-	AlbumListComponent,
 	ArtistMbComponent,
 	ArtistOverviewComponent,
 	ArtistSimilarComponent,
 	ArtistsIndexLoaderComponent,
 	ChatComponent,
 	CurrentPlayingComponent,
-	EpisodeStateButtonComponent,
 	EpisodeListComponent,
+	EpisodesLoaderComponent,
+	EpisodeStateButtonComponent,
 	IndexComponent,
 	IndexEntryCardComponent,
 	IndexGroupComponent,
-	MbArtistComponent,
 	MbAlbumComponent,
+	MbArtistComponent,
 	MbRelationsComponent,
-	ObjPlateComponent,
-	ObjsLoaderComponent,
 	ObjGroupsViewComponent,
+	ObjPageComponent,
+	ObjPlateComponent,
 	ObjsLoaderByTypeComponent,
+	ObjsLoaderComponent,
+	ObjsPageComponent,
+	PlaylistOverviewComponent,
+	EpisodeOverviewComponent,
+	PodcastOverviewComponent,
 	PodcastsLatestEpisodesComponent,
 	SeriesIndexLoaderComponent,
+	SeriesOverviewComponent,
 	SidebarComponent,
 	SidebarIndexComponent,
 	SidebarListComponent,
@@ -95,9 +104,17 @@ export const components: Array<any> = [
 	TrackSimilarComponent,
 	TracksLoaderByTypeComponent,
 	TracksLoaderComponent,
-	TracksPlaylistComponent
+	TracksPlaylistComponent,
+	StartPageComponent,
+	QueuePageComponent,
+	SearchPageComponent,
+	FolderOverviewComponent,
+	FolderSimilarComponent,
+	FolderMusicbrainzComponent,
+	FoldersIndexLoaderComponent
 ];
 
+export * from './album-list/album-list.component';
 export * from './album-mb/album-mb.component';
 export * from './album-overview/album-overview.component';
 export * from './albums-index-loader-by-type/albums-index-loader-by-type.component';
@@ -108,17 +125,11 @@ export * from './artist-overview/artist-overview.component';
 export * from './artist-similar/artist-similar.component';
 export * from './artists-index-loader/artists-index-loader.component';
 export * from './chat/chat.component';
-export * from './context-menu-episode/context-menu-episode.component';
 export * from './context-menu-obj/context-menu-obj.component';
-export * from './context-menu-playlist/context-menu-playlist.component';
-export * from './context-menu-playlists/context-menu-playlists.component';
-export * from './context-menu-podcast/context-menu-podcast.component';
-export * from './context-menu-podcasts/context-menu-podcasts.component';
-export * from './context-menu-queue/context-menu-queue.component';
-export * from './context-menu-track/context-menu-track.component';
 export * from './current-playing/current-playing.component';
-export * from './episode-state-button/episode-state.button.component';
 export * from './episode-list/episode-list.component';
+export * from './episode-state-button/episode-state.button.component';
+export * from './episodes-loader/episodes-loader.component';
 export * from './index-entry-card/index-entry-card.component';
 export * from './index-group/index-group.component';
 export * from './index/index.component';
@@ -126,21 +137,35 @@ export * from './mb-album/mb-album.component';
 export * from './mb-artist/mb-artist.component';
 export * from './mb-relations/mb-relations.component';
 export * from './obj-groups-view/obj-groups-view.component';
+export * from './obj-loader-by-type/objs-loader-by-type.component';
+export * from './obj-page/obj-page.component';
 export * from './obj-plate/obj-plate.component';
 export * from './objs-loader/objs-loader.component';
+export * from './objs-page/objs-page.component';
+export * from './playlist-overview/playlist-overview.component';
+export * from './podcast-overview/podcast-overview.component';
 export * from './podcasts-latest-episodes/podcasts-latest-episodes.component';
 export * from './series-index-loader/series-index-loader.component';
+export * from './series-overview/series-overview.component';
 export * from './sidebar-index/sidebar-index.component';
 export * from './sidebar-list/sidebar-list.component';
 export * from './sidebar-right/sidebar-right.component';
 export * from './sidebar/sidebar.component';
 export * from './start-section/start-section.component';
 export * from './tabs/tabs.component';
+export * from './track-list/track-list.component';
 export * from './track-overview/track-overview.component';
 export * from './track-similar/track-similar.component';
 export * from './tracks-loader-by-type/tracks-loader-by-type.component';
 export * from './tracks-loader/tracks-loader.component';
 export * from './tracks-playlist/tracks-playlist.component';
-export * from './track-list/track-list.component';
-export * from './obj-loader-by-type/objs-loader-by-type.component';
-export * from './album-list/album-list.component';
+export * from './start-page/start-page.component';
+export * from './queue-page/queue-page.component';
+export * from './search-page/search-page.component';
+export * from './episode-overview/episode-overview.component';
+export * from './obj-page/obj-page.component';
+export * from './folder-overview/folder-overview.component';
+export * from './folder-similar/folder-similar.component';
+export * from './folder-mb/folder-musicbrainz.component';
+export * from './folders-index-loader/folders-index-loader.component';
+export * from './context-menu-simple/context-menu-simple.component';

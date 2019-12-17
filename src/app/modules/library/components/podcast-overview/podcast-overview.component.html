@@ -1,0 +1,9 @@
+<ng-container *ngIf="podcast">
+	<div class="overview" *ngIf="podcast.description">
+		<div class="info">
+			<div class="section-title">Description</div>
+			<app-info-text [info]="podcast.description"></app-info-text>
+		</div>
+	</div>
+	<app-episode-list [episodes]="podcast.episodes"></app-episode-list>
+</ng-container>

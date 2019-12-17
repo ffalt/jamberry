@@ -1,5 +1,5 @@
 <div *ngIf="typeInfo" class="albums" appDeferLoadScrollHost>
-	<app-view-header-icon-section [section]="typeInfo.text" [icon]="typeInfo.icon" [tabs]="tabs"></app-view-header-icon-section>
+	<app-view-header-icon-section [section]="typeInfo.text" [sectionType]="typeInfo.category" [icon]="typeInfo.icon" [tabs]="tabs"></app-view-header-icon-section>
 	<div class="content">
 		<router-outlet></router-outlet>
 	</div>

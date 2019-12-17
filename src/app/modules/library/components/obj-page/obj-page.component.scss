@@ -1,0 +1,17 @@
+@import "globals.scss";
+
+:host {
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	flex: 0 1 100%;
+
+	.obj {
+		@include view-host();
+
+		.content {
+			@include view-content();
+		}
+	}
+}

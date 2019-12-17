@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {AlbumTypeUrlNamesKeys, JamAlbumType, JamAlbumTypes} from '@app/utils/jam-lists';
+import {getUrlType, JamType} from '@app/utils/jam-lists';
 import {LibraryService} from '@library/services';
 import {HeaderTab} from '@shared/components';
 import {Subject} from 'rxjs';
@@ -12,7 +12,7 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./albums-page-by-type.component.scss']
 })
 export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {
-	typeInfo: JamAlbumType;
+	typeInfo: JamType;
 	tabs: Array<HeaderTab>;
 	protected unsubscribe = new Subject();
 
@@ -22,10 +22,8 @@ export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.route.url
 			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
-			const type = val.length > 0 ? val[0].path : undefined;
-			const albumType = AlbumTypeUrlNamesKeys[type];
-			this.typeInfo = JamAlbumTypes.find(t => t.id === albumType);
-			this.tabs = this.library.buildTabs(this.typeInfo.link);
+			this.typeInfo = getUrlType(val);
+			this.tabs = this.typeInfo ? this.library.buildTabs(this.typeInfo.id) : undefined;
 		});
 	}
 

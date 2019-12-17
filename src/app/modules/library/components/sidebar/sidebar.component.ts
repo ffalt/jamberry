@@ -85,7 +85,7 @@ export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 			this.musicList.push({link: '/library/soundtracks', name: 'Soundtracks', icon: 'icon-soundtrack'});
 		}
 		this.musicList.push({link: '/library/tracks', name: 'Tracks', icon: 'icon-track'});
-		this.musicList.push({link: '/library/folders/index', name: 'Folders', icon: 'icon-folder'});
+		this.musicList.push({link: '/library/folders', name: 'Folders', icon: 'icon-folder'});
 	}
 
 }

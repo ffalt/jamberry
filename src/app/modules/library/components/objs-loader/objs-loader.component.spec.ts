@@ -1,25 +1,25 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {AlbumsComponent, AlbumsLoaderComponent} from '@library/components';
+import {ObjGroupsViewComponent, ObjsLoaderComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
 
-describe('AlbumsLoaderComponent', () => {
-	let component: AlbumsLoaderComponent;
-	let fixture: ComponentFixture<AlbumsLoaderComponent>;
+describe('ObjsLoaderComponent', () => {
+	let component: ObjsLoaderComponent;
+	let fixture: ComponentFixture<ObjsLoaderComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
 			declarations: [
-				AlbumsLoaderComponent,
-				MockComponent(AlbumsComponent)
+				ObjsLoaderComponent,
+				MockComponent(ObjGroupsViewComponent)
 			]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(AlbumsLoaderComponent);
+		fixture = TestBed.createComponent(ObjsLoaderComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

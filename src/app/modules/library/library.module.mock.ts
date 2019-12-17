@@ -8,6 +8,7 @@ import {DialogOverlayModule} from '@app/modules/dialog-overlay';
 import {PlayerModule} from '@app/modules/player';
 import {ToastModule} from '@app/modules/toast';
 import {TEST_JAM_MODULE} from '@core/jam.module.mock';
+import {LibraryService} from '@library/services';
 import {IndexService, PlaylistService, PodcastService} from '@shared/services';
 import {SharedModule} from '@shared/shared.module';
 
@@ -18,5 +19,5 @@ export const TEST_LIBRARY_IMPORTS = [
 	TEST_JAM_MODULE
 ];
 export const TEST_LIBRARY_PROVIDERS = [
-	IndexService, PlaylistService, PodcastService
+	IndexService, PlaylistService, PodcastService, LibraryService
 ];

@@ -1,11 +1,9 @@
 /* tslint:disable:max-classes-per-file */
-import {AlbumType, FolderType, Jam, JamObjectType, JamParameters, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@jam';
+import {AlbumType, FolderType, FolderTypesAlbum, Jam, JamObjectType, JamParameters, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@jam';
 import {LibraryService} from '@library/services';
+import {HeaderInfo} from '@shared/components';
 import {JamObject} from '@shared/model/helpers';
-import {ContextMenuEpisodeComponent} from '../components/context-menu-episode/context-menu-episode.component';
-import {ContextMenuObjComponent} from '../components/context-menu-obj/context-menu-obj.component';
-import {ContextMenuPlaylistComponent} from '../components/context-menu-playlist/context-menu-playlist.component';
-import {ContextMenuPodcastComponent} from '../components/context-menu-podcast/context-menu-podcast.component';
+import {ContextMenuObjComponent, ContextMenuObjComponentOptions} from '../components/context-menu-obj/context-menu-obj.component';
 
 export abstract class JamLibraryObject extends JamObject {
 	type: JamObjectType;
@@ -25,6 +23,8 @@ export abstract class JamLibraryObject extends JamObject {
 	abstract loadChildren(): void;
 
 	abstract groupType(): string;
+
+	abstract getInfos(): Array<HeaderInfo>;
 
 	download(): void {
 		this.library.actions.download(this.base);
@@ -59,8 +59,8 @@ export class JamAlbumObject extends JamLibraryObject {
 		this.library.actions.toggleAlbumFav(this.album);
 	}
 
-	onContextMenu($event: MouseEvent): void {
-		this.library.contextMenuService.open(ContextMenuObjComponent, this, $event);
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	loadChildren(): void {
@@ -86,6 +86,18 @@ export class JamAlbumObject extends JamLibraryObject {
 
 	addToQueue(): void {
 		this.library.player.addAlbum(this.album);
+	}
+
+	getInfos(): Array<HeaderInfo> {
+		return [
+			{
+				label: 'Artist', value: this.album.artist, click: () => {
+					this.navigToParent();
+				}
+			},
+			{label: 'Year', value: this.album.tag.year},
+			{label: 'Played', value: this.album.state.played || 0}
+		].filter(info => info.value !== undefined);
 	}
 
 }
@@ -128,8 +140,8 @@ export class JamFolderObject extends JamLibraryObject {
 		this.library.actions.toggleFolderFav(this.folder);
 	}
 
-	onContextMenu($event: MouseEvent): void {
-		this.library.contextMenuService.open(ContextMenuObjComponent, this, $event);
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	loadChildren(): void {
@@ -155,6 +167,18 @@ export class JamFolderObject extends JamLibraryObject {
 
 	addToQueue(): void {
 		this.library.player.addFolder(this.folder);
+	}
+
+	getInfos(): Array<HeaderInfo> {
+		return [
+			...(FolderTypesAlbum.includes(this.folder.type as FolderType) ?
+					[
+						{label: 'Artist', value: this.folder.tag.artist},
+						{label: 'Year', value: this.folder.tag.year}
+					] : []
+			),
+			{label: 'Played', value: this.folder.state.played || 0}
+		].filter(info => info.value !== undefined);
 	}
 
 }
@@ -184,8 +208,8 @@ export class JamArtistObject extends JamLibraryObject {
 		this.library.actions.toggleArtistFav(this.artist);
 	}
 
-	onContextMenu($event: MouseEvent): void {
-		this.library.contextMenuService.open(ContextMenuObjComponent, this, $event);
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	loadChildren(): void {
@@ -213,6 +237,13 @@ export class JamArtistObject extends JamLibraryObject {
 		this.library.player.addArtist(this.artist);
 	}
 
+	getInfos(): Array<HeaderInfo> {
+		return [
+			{label: 'Albums', value: this.artist.albumCount},
+			{label: 'Tracks', value: this.artist.trackCount},
+			{label: 'Played', value: this.artist.state.played || 0}
+		].filter(info => info.value !== undefined);
+	}
 }
 
 export class JamPlaylistObject extends JamLibraryObject {
@@ -240,8 +271,23 @@ export class JamPlaylistObject extends JamLibraryObject {
 		this.library.actions.togglePlaylistFav(this.playlist);
 	}
 
-	onContextMenu($event: MouseEvent): void {
-		this.library.contextMenuService.open(ContextMenuPlaylistComponent, this.playlist, $event);
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		let extras = [];
+		if (this.library.jam.auth.user && this.playlist && this.playlist.userID === this.library.jam.auth.user.id) {
+			extras = [
+				{
+					text: 'Edit Playlist', icon: 'icon-edit', click: () => {
+						this.library.playlistDialogsService.editPlaylist(this.playlist);
+					}
+				},
+				{
+					text: 'Remove Playlist', icon: 'icon-remove', click: () => {
+						this.library.playlistDialogsService.removePlaylist(this.playlist);
+					}
+				}
+			];
+		}
+		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {extras, hideGoto});
 	}
 
 	loadChildren(): void {
@@ -269,6 +315,80 @@ export class JamPlaylistObject extends JamLibraryObject {
 		this.library.player.addPlaylist(this.playlist);
 	}
 
+	getInfos(): Array<HeaderInfo> {
+		return [];
+	}
+}
+
+export class JamTrackObject extends JamLibraryObject {
+	type = JamObjectType.track;
+	childrenTypes = [];
+
+	constructor(public track: Jam.Track, library: LibraryService) {
+		super(track, library);
+		this.name = this.track.tag.title || this.track.name;
+	}
+
+	navigTo(): void {
+		this.library.navig.toTrack(this.track);
+	}
+
+	play(): void {
+		this.library.player.startTrack(this.track);
+	}
+
+	navigToParent(): void {
+		//
+	}
+
+	toggleFav(): void {
+		this.library.actions.toggleTrackFav(this.track);
+	}
+
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
+	}
+
+	loadChildren(): void {
+		if (!this.tracks) {
+			const id = this.base.id;
+			this.library.jam.playlist.tracks({ids: [id], trackTag: true, trackState: true})
+				.then(data => {
+					this.tracks = data.items;
+				})
+				.catch(e => {
+					this.library.notify.error(e);
+				});
+		}
+	}
+
+	groupType(): string {
+		return this.track.tag.genre;
+	}
+
+	addToPlaylist(): void {
+		this.library.playlistDialogsService.addTrack(this.track);
+	}
+
+	addToQueue(): void {
+		this.library.player.addTrack(this.track);
+	}
+
+	getInfos(): Array<HeaderInfo> {
+		return [
+			{
+				label: 'Artist', value: this.track.tag.artist, click: () => {
+					this.library.navig.toArtistID(this.track.artistID, this.track.tag.artist);
+				}
+			},
+			{
+				label: 'Album', value: this.track.tag.album, click: () => {
+					this.library.navig.toAlbumID(this.track.albumID, this.track.tag.album);
+				}
+			},
+			{label: 'Played', value: this.track.state.played || 0}
+		].filter(info => info.value !== undefined);
+	}
 }
 
 export class JamSeriesObject extends JamLibraryObject {
@@ -297,8 +417,8 @@ export class JamSeriesObject extends JamLibraryObject {
 		this.library.actions.toggleSeriesFav(this.series);
 	}
 
-	onContextMenu($event: MouseEvent): void {
-		this.library.contextMenuService.open(ContextMenuObjComponent, this, $event);
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	loadChildren(): void {
@@ -326,6 +446,13 @@ export class JamSeriesObject extends JamLibraryObject {
 		this.library.player.addSeries(this.series);
 	}
 
+	getInfos(): Array<HeaderInfo> {
+		return [
+			{label: 'Albums', value: this.series.albumCount},
+			{label: 'Tracks', value: this.series.trackCount},
+			{label: 'Played', value: this.series.state.played || 0}
+		].filter(info => info.value !== undefined);
+	}
 }
 
 export class JamPodcastObject extends JamLibraryObject {
@@ -353,8 +480,23 @@ export class JamPodcastObject extends JamLibraryObject {
 		this.library.actions.togglePodcastFav(this.podcast);
 	}
 
-	onContextMenu($event: MouseEvent): void {
-		this.library.contextMenuService.open(ContextMenuPodcastComponent, this.podcast, $event);
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		const extras =
+			(this.library.jam.auth && this.library.jam.auth.user && this.library.jam.auth.user.roles && this.library.jam.auth.user.roles.podcast) ?
+				[
+					{
+						text: 'Refresh Podcast Feed', icon: 'icon-rescan', click: () => {
+							this.library.podcastService.checkPodcast(this.podcast);
+						}
+					},
+					{
+						text: 'Remove Podcast', icon: 'icon-remove', click: () => {
+							this.library.podcastService.removePodcast(this.podcast);
+						}
+					}
+				] :
+				[];
+		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {extras, hideGoto});
 	}
 
 	loadChildren(): void {
@@ -382,6 +524,9 @@ export class JamPodcastObject extends JamLibraryObject {
 		this.library.player.addPodcast(this.podcast);
 	}
 
+	getInfos(): Array<HeaderInfo> {
+		return [];
+	}
 }
 
 export class JamEpisodeObject extends JamLibraryObject {
@@ -403,15 +548,15 @@ export class JamEpisodeObject extends JamLibraryObject {
 	}
 
 	navigToParent(): void {
-		this.library.navig.toPlaylistID(this.episode.podcastID, this.episode.podcast);
+		this.library.navig.toPodcastID(this.episode.podcastID, this.episode.podcast);
 	}
 
 	toggleFav(): void {
 		this.library.actions.toggleEpisodeFav(this.episode);
 	}
 
-	onContextMenu($event: MouseEvent): void {
-		this.library.contextMenuService.open(ContextMenuEpisodeComponent, this.episode, $event);
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	loadChildren(): void {
@@ -419,7 +564,7 @@ export class JamEpisodeObject extends JamLibraryObject {
 	}
 
 	groupType(): string {
-		return '';
+		return this.episode.status;
 	}
 
 	addToPlaylist(): void {
@@ -430,6 +575,16 @@ export class JamEpisodeObject extends JamLibraryObject {
 		this.library.player.addEpisode(this.episode);
 	}
 
+	getInfos(): Array<HeaderInfo> {
+		return [
+			{
+				label: 'Podcast', value: this.episode.podcast, click: () => {
+					this.navigToParent();
+				}
+			},
+			{label: 'Played', value: this.episode.state.played || 0}
+		].filter(info => info.value !== undefined);
+	}
 }
 
 export abstract class JamObjsLoader {
@@ -529,48 +684,6 @@ export class PlaylistsLoader extends JamObjsLoader {
 	async list(listQuery: { listType: JamParameters.ListType, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
 		const list = await this.library.jam.playlist.list({list: listQuery.listType, offset, amount, playlistState: true});
 		return {list, items: list.items.map(o => new JamPlaylistObject(o, this.library))};
-	}
-}
-
-export class EpisodesLoader extends JamObjsLoader {
-	typeName = 'Episodes';
-
-	async search(query: { query: string, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
-		const list = await this.library.jam.episode.search({
-			query: query.query,
-			offset,
-			amount,
-			sortField: 'date',
-			sortDescending: true,
-			trackState: true,
-			trackTag: true
-		});
-		return {list, items: list.items.map(o => new JamEpisodeObject(o, this.library))};
-	}
-
-	async all(offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
-		const list = await this.library.jam.episode.search({
-			offset,
-			amount,
-			sortField: 'date',
-			sortDescending: true,
-			trackState: true,
-			trackTag: true
-		});
-		return {list, items: list.items.map(o => new JamEpisodeObject(o, this.library))};
-	}
-
-	async list(listQuery: { listType: JamParameters.ListType, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
-		const list = await this.library.jam.episode.list({
-			list: listQuery.listType,
-			offset,
-			amount,
-			sortField: 'date',
-			sortDescending: true,
-			trackState: true,
-			trackTag: true
-		});
-		return {list, items: list.items.map(o => new JamEpisodeObject(o, this.library))};
 	}
 }
 

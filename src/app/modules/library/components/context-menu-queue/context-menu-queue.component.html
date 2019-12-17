@@ -1,5 +1,0 @@
-<context-menu #queueMenu>
-	<ng-template contextMenuItem (execute)="queue.clear()"><i class="icon-remove"></i> Clear Queue</ng-template>
-	<ng-template contextMenuItem (execute)="queue.shuffle()"><i class="icon-shuffle"></i> Shuffle Queue</ng-template>
-	<ng-template contextMenuItem (execute)="playlistDialogsService.newPlaylist(queue.tracks)"><i class="icon-playlist"></i> Save Queue as Playlist</ng-template>
-</context-menu>
