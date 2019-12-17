@@ -5,17 +5,15 @@ import {AuthCanActivateGuard} from '@app/guards';
 import {
 	AlbumMbComponent,
 	AlbumOverviewComponent,
-	AlbumsIndexLoaderByTypeComponent,
 	AlbumsPageByTypeComponent,
 	ArtistMbComponent,
 	ArtistOverviewComponent,
 	ArtistSimilarComponent,
-	ArtistsIndexLoaderComponent,
 	EpisodeOverviewComponent,
 	FolderMusicbrainzComponent,
 	FolderOverviewComponent,
-	FolderSimilarComponent, FoldersIndexLoaderComponent,
-	ObjPageComponent,
+	FolderSimilarComponent,
+	ObjPageComponent, ObjsIndexLoaderComponent,
 	ObjsLoaderByTypeComponent,
 	ObjsPageComponent,
 	PlaylistOverviewComponent,
@@ -23,7 +21,6 @@ import {
 	PodcastsLatestEpisodesComponent,
 	QueuePageComponent,
 	SearchPageComponent,
-	SeriesIndexLoaderComponent,
 	SeriesOverviewComponent,
 	StartPageComponent,
 	TrackOverviewComponent,
@@ -55,11 +52,11 @@ export const listRoutes: Routes = [
 	}
 ];
 
-export const albumListRoutes: Routes = [
+export const objsListRoutes: Routes = [
 	{
 		path: '',
 		pathMatch: 'full',
-		component: AlbumsIndexLoaderByTypeComponent,
+		component: ObjsIndexLoaderComponent,
 		canActivate: [AuthCanActivateGuard],
 		data: {name: 'Index'}
 	},
@@ -100,35 +97,35 @@ export const routes: Routes = [
 			},
 			{
 				path: 'albums', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Albums'},
-				children: albumListRoutes
+				children: objsListRoutes
 			},
 			{
 				path: 'compilations', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Compilations'},
-				children: albumListRoutes
+				children: objsListRoutes
 			},
 			{
 				path: 'soundtracks', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Soundtracks'},
-				children: albumListRoutes
+				children: objsListRoutes
 			},
 			{
 				path: 'audiobooks', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Audiobooks'},
-				children: albumListRoutes
+				children: objsListRoutes
 			},
 			{
 				path: 'bootlegs', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Bootlegs'},
-				children: albumListRoutes
+				children: objsListRoutes
 			},
 			{
 				path: 'singles', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Singles'},
-				children: albumListRoutes
+				children: objsListRoutes
 			},
 			{
 				path: 'live', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Live'},
-				children: albumListRoutes
+				children: objsListRoutes
 			},
 			{
 				path: 'eps', component: AlbumsPageByTypeComponent, canActivate: [AuthCanActivateGuard], data: {name: 'EPs'},
-				children: albumListRoutes
+				children: objsListRoutes
 			},
 
 			{
@@ -157,7 +154,7 @@ export const routes: Routes = [
 						pathMatch: 'full',
 						component: ObjsLoaderByTypeComponent,
 						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Podcasts'}
+						data: {name: 'Index'}
 					},
 					{
 						path: 'latest',
@@ -225,17 +222,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'artists', component: ObjsPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Artists'},
-				children: [
-					{
-						path: '',
-						pathMatch: 'full',
-						component: ArtistsIndexLoaderComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Index'}
-					},
-					...listRoutes,
-					{path: '**', redirectTo: ''}
-				]
+				children: objsListRoutes
 			},
 
 			{
@@ -253,17 +240,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'series', component: ObjsPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Series'},
-				children: [
-					{
-						path: '',
-						pathMatch: 'full',
-						component: SeriesIndexLoaderComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Index'}
-					},
-					...listRoutes,
-					{path: '**', redirectTo: ''}
-				]
+				children: objsListRoutes
 			},
 
 			{
@@ -340,17 +317,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'folders', component: ObjsPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Folders'},
-				children: [
-					{
-						path: '',
-						pathMatch: 'full',
-						component: FoldersIndexLoaderComponent,
-						canActivate: [AuthCanActivateGuard],
-						data: {name: 'Index'}
-					},
-					...listRoutes,
-					{path: '**', redirectTo: ''}
-				]
+				children: objsListRoutes
 			},
 
 			{

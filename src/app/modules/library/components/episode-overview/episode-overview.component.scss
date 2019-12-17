@@ -1,5 +1,6 @@
 @import "globals.scss";
 
 :host {
+	@include view-content();
 	@include key-value-list();
 }

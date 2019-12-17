@@ -1,7 +1,7 @@
 @import "globals.scss";
 
 :host {
-	@include key-value-list();
+	@include view-content();
 
 	.svg {
 		height: 100px;

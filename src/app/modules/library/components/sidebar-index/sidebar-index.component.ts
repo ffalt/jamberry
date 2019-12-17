@@ -1,6 +1,6 @@
 import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {AlbumType} from '@jam';
+import {AlbumType, JamObjectType} from '@jam';
 import {Index, IndexGroup, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -21,21 +21,17 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.indexService.folderIndexNotify
-			.pipe(takeUntil(this.unsubscribe)).subscribe(folderIndexCache => {
-				if (!this.useMeta) {
-					this.index = folderIndexCache.index;
-				}
-			},
-			e => {
-				this.notify.error(e);
-			}
-		);
-		this.indexService.artistIndexNotify
+		this.indexService.indexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
-			artistIndexCache => {
-				if (this.useMeta && artistIndexCache.query.albumType === AlbumType.album) {
-					this.index = artistIndexCache.index;
+			indexCache => {
+				if (this.useMeta) {
+					if (indexCache.matches(JamObjectType.artist, {albumType: AlbumType.album})) {
+						this.index = indexCache.index;
+					}
+				} else {
+					if (indexCache.matches(JamObjectType.folder, {level: 1})) {
+						this.index = indexCache.index;
+					}
 				}
 			},
 			e => {
@@ -52,7 +48,7 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 
 	private refreshIndex(): void {
 		this.index = this.useMeta ?
-			this.indexService.requestArtistIndex({albumType: AlbumType.album}) :
-			this.indexService.requestFolderIndex();
+			this.indexService.requestIndex(JamObjectType.artist, {albumType: AlbumType.album}) :
+			this.indexService.requestIndex(JamObjectType.folder, {level: 1});
 	}
 }

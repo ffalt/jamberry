@@ -38,7 +38,7 @@ export class JamAlbumObject extends JamLibraryObject {
 
 	constructor(public album: Jam.Album, library: LibraryService) {
 		super(album, library);
-		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.tag.year}`;
+		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.tag.year || ''}`;
 		this.parent = album.artist;
 		this.mediaType = album.albumType;
 	}
@@ -363,7 +363,7 @@ export class JamTrackObject extends JamLibraryObject {
 	}
 
 	groupType(): string {
-		return this.track.tag.genre;
+		return this.track.tag.genre || '';
 	}
 
 	addToPlaylist(): void {

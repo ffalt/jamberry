@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {AppService, NotifyService} from '@core/services';
-import {AlbumType, Jam, JamObjectType, JamParameters, JamService} from '@jam';
+import {Jam, JamObjectType, JamService} from '@jam';
 
 export interface IndexEntry {
 	id: string;
@@ -108,104 +108,72 @@ function buildIndexSeriesIndex(seriesIndex: Jam.SeriesIndex, expanded: boolean, 
 	}
 }
 
-interface IndexCache {
+export class IndexCache {
 	index?: Index;
-	query: any;
-	mode: JamObjectType;
+
+	constructor(public type: JamObjectType, public query: any) {
+	}
+
+	isQuery(query: any): boolean {
+		return JSON.stringify(query) === JSON.stringify(this.query);
+	}
+
+	matches(type: JamObjectType, query: any): boolean {
+		return type === this.type && this.isQuery(query);
+	}
 }
 
 @Injectable()
 export class IndexService {
-	artistIndexNotify = new EventEmitter<IndexCache>();
-	folderIndexNotify = new EventEmitter<IndexCache>();
-	albumIndexNotify = new EventEmitter<IndexCache>();
-	seriesIndexNotify = new EventEmitter<IndexCache>();
+	indexNotify = new EventEmitter<IndexCache>();
 	private indexes: Array<IndexCache> = [];
 
 	constructor(private app: AppService, private jam: JamService, private notify: NotifyService) {
 	}
 
-	findIndex(mode: JamObjectType, query: any): IndexCache | undefined {
-		const q = JSON.stringify(query);
-		return this.indexes.find(index => index.mode === mode && q === JSON.stringify(index.query));
+	findIndex(type: JamObjectType, query: any): IndexCache | undefined {
+		return this.indexes.find(index => index.matches(type, query));
 	}
 
-	requestAlbumIndex(query: JamParameters.AlbumIndex): Index | undefined {
-		let item = this.findIndex(JamObjectType.album, query);
-		if (item && item.index) {
-			return item.index;
-		}
-		if (item) {
-			return; // already requested
-		}
-		item = {mode: JamObjectType.album, query};
-		this.indexes.push(item);
-		this.jam.album.index(item.query)
-			.then(index => {
+	async getIndex(objType: JamObjectType, query: any): Promise<Index | undefined> {
+		switch (objType) {
+			case JamObjectType.folder:
+				return buildIndexFolderIndex(
+					await this.jam.folder.index(query),
+					!this.app.smallscreen, 'Folders', this.jam);
+			case JamObjectType.artist:
+				return buildIndexArtistIndex(
+					await this.jam.artist.index(query),
+					!this.app.smallscreen, 'Artists', this.jam);
+			case JamObjectType.series:
+				return buildIndexSeriesIndex(
+					await this.jam.series.index(query),
+					!this.app.smallscreen, 'Series', this.jam);
+			case JamObjectType.album:
 				const type = getTypeByAlbumType(query.albumType);
-				item.index = buildIndexAlbumIndex(index, !this.app.smallscreen, type ? type.text : '', this.jam);
-				this.albumIndexNotify.emit(item);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+				return buildIndexAlbumIndex(
+					await this.jam.album.index(query),
+					!this.app.smallscreen, type ? type.text : '', this.jam);
+			default:
+		}
 	}
 
-	requestArtistIndex(query: JamParameters.ArtistIndex): Index | undefined {
-		let item = this.findIndex(JamObjectType.artist, query);
+	requestIndex(objType: JamObjectType, query: any): Index | undefined {
+		let item = this.findIndex(objType, query);
 		if (item && item.index) {
 			return item.index;
 		}
 		if (item) {
 			return; // already requested
 		}
-		item = {mode: JamObjectType.artist, query};
+		item = new IndexCache(objType, query);
 		this.indexes.push(item);
-		this.jam.artist.index(item.query)
+		this.getIndex(objType, query)
 			.then(index => {
-				item.index = buildIndexArtistIndex(index, !this.app.smallscreen, 'Artists', this.jam);
-				this.artistIndexNotify.emit(item);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
-	}
-
-	requestFolderIndex(): Index | undefined {
-		const query = {level: 1};
-		let item = this.findIndex(JamObjectType.folder, query);
-		if (item && item.index) {
-			return item.index;
-		}
-		if (item) {
-			return; // already requested
-		}
-		item = {mode: JamObjectType.artist, query};
-		this.indexes.push(item);
-		this.jam.folder.index(item.query)
-			.then(index => {
-				item.index = buildIndexFolderIndex(index, !this.app.smallscreen, 'Folders', this.jam);
-				this.folderIndexNotify.emit(item);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
-	}
-
-	requestSeriesIndex(query: { albumType: AlbumType }): Index | undefined {
-		let item = this.findIndex(JamObjectType.series, query);
-		if (item && item.index) {
-			return item.index;
-		}
-		if (item) {
-			return; // already requested
-		}
-		item = {mode: JamObjectType.series, query};
-		this.indexes.push(item);
-		this.jam.series.index(item.query)
-			.then(index => {
-				item.index = buildIndexSeriesIndex(index, !this.app.smallscreen, 'Series', this.jam);
-				this.seriesIndexNotify.emit(item);
+				item.index = index;
+				if (item.index) {
+					this.indexNotify.emit(item);
+				}
 			})
 			.catch(e => {
 				this.notify.error(e);

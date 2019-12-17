@@ -1,13 +1,10 @@
 import {AlbumListComponent} from './album-list/album-list.component';
 import {AlbumMbComponent} from './album-mb/album-mb.component';
 import {AlbumOverviewComponent} from './album-overview/album-overview.component';
-import {AlbumsIndexLoaderByTypeComponent} from './albums-index-loader-by-type/albums-index-loader-by-type.component';
-import {AlbumsIndexLoaderComponent} from './albums-index-loader/albums-index-loader.component';
 import {AlbumsPageByTypeComponent} from './albums-page-by-type/albums-page-by-type.component';
 import {ArtistMbComponent} from './artist-mb/artist-mb.component';
 import {ArtistOverviewComponent} from './artist-overview/artist-overview.component';
 import {ArtistSimilarComponent} from './artist-similar/artist-similar.component';
-import {ArtistsIndexLoaderComponent} from './artists-index-loader/artists-index-loader.component';
 import {ChatComponent} from './chat/chat.component';
 import {ContextMenuObjComponent} from './context-menu-obj/context-menu-obj.component';
 import {ContextMenuSimpleComponent} from './context-menu-simple/context-menu-simple.component';
@@ -19,7 +16,6 @@ import {EpisodesLoaderComponent} from './episodes-loader/episodes-loader.compone
 import {FolderMusicbrainzComponent} from './folder-mb/folder-musicbrainz.component';
 import {FolderOverviewComponent} from './folder-overview/folder-overview.component';
 import {FolderSimilarComponent} from './folder-similar/folder-similar.component';
-import {FoldersIndexLoaderComponent} from './folders-index-loader/folders-index-loader.component';
 import {IndexEntryCardComponent} from './index-entry-card/index-entry-card.component';
 import {IndexGroupComponent} from './index-group/index-group.component';
 import {IndexComponent} from './index/index.component';
@@ -37,7 +33,6 @@ import {PodcastOverviewComponent} from './podcast-overview/podcast-overview.comp
 import {PodcastsLatestEpisodesComponent} from './podcasts-latest-episodes/podcasts-latest-episodes.component';
 import {QueuePageComponent} from './queue-page/queue-page.component';
 import {SearchPageComponent} from './search-page/search-page.component';
-import {SeriesIndexLoaderComponent} from './series-index-loader/series-index-loader.component';
 import {SeriesOverviewComponent} from './series-overview/series-overview.component';
 import {SidebarIndexComponent} from './sidebar-index/sidebar-index.component';
 import {SidebarListComponent} from './sidebar-list/sidebar-list.component';
@@ -52,6 +47,7 @@ import {TrackSimilarComponent} from './track-similar/track-similar.component';
 import {TracksLoaderByTypeComponent} from './tracks-loader-by-type/tracks-loader-by-type.component';
 import {TracksLoaderComponent} from './tracks-loader/tracks-loader.component';
 import {TracksPlaylistComponent} from './tracks-playlist/tracks-playlist.component';
+import { ObjsIndexLoaderComponent } from './objs-index-loader/objs-index-loader.component';
 
 export const entryComponents: Array<any> = [
 	ContextMenuObjComponent,
@@ -63,13 +59,10 @@ export const components: Array<any> = [
 	AlbumListComponent,
 	AlbumMbComponent,
 	AlbumOverviewComponent,
-	AlbumsIndexLoaderByTypeComponent,
-	AlbumsIndexLoaderComponent,
 	AlbumsPageByTypeComponent,
 	ArtistMbComponent,
 	ArtistOverviewComponent,
 	ArtistSimilarComponent,
-	ArtistsIndexLoaderComponent,
 	ChatComponent,
 	CurrentPlayingComponent,
 	EpisodeListComponent,
@@ -87,11 +80,11 @@ export const components: Array<any> = [
 	ObjsLoaderByTypeComponent,
 	ObjsLoaderComponent,
 	ObjsPageComponent,
+	ObjsIndexLoaderComponent,
 	PlaylistOverviewComponent,
 	EpisodeOverviewComponent,
 	PodcastOverviewComponent,
 	PodcastsLatestEpisodesComponent,
-	SeriesIndexLoaderComponent,
 	SeriesOverviewComponent,
 	SidebarComponent,
 	SidebarIndexComponent,
@@ -110,20 +103,16 @@ export const components: Array<any> = [
 	SearchPageComponent,
 	FolderOverviewComponent,
 	FolderSimilarComponent,
-	FolderMusicbrainzComponent,
-	FoldersIndexLoaderComponent
+	FolderMusicbrainzComponent
 ];
 
 export * from './album-list/album-list.component';
 export * from './album-mb/album-mb.component';
 export * from './album-overview/album-overview.component';
-export * from './albums-index-loader-by-type/albums-index-loader-by-type.component';
-export * from './albums-index-loader/albums-index-loader.component';
 export * from './albums-page-by-type/albums-page-by-type.component';
 export * from './artist-mb/artist-mb.component';
 export * from './artist-overview/artist-overview.component';
 export * from './artist-similar/artist-similar.component';
-export * from './artists-index-loader/artists-index-loader.component';
 export * from './chat/chat.component';
 export * from './context-menu-obj/context-menu-obj.component';
 export * from './current-playing/current-playing.component';
@@ -145,7 +134,6 @@ export * from './objs-page/objs-page.component';
 export * from './playlist-overview/playlist-overview.component';
 export * from './podcast-overview/podcast-overview.component';
 export * from './podcasts-latest-episodes/podcasts-latest-episodes.component';
-export * from './series-index-loader/series-index-loader.component';
 export * from './series-overview/series-overview.component';
 export * from './sidebar-index/sidebar-index.component';
 export * from './sidebar-list/sidebar-list.component';
@@ -167,5 +155,5 @@ export * from './obj-page/obj-page.component';
 export * from './folder-overview/folder-overview.component';
 export * from './folder-similar/folder-similar.component';
 export * from './folder-mb/folder-musicbrainz.component';
-export * from './folders-index-loader/folders-index-loader.component';
 export * from './context-menu-simple/context-menu-simple.component';
+export * from './objs-index-loader/objs-index-loader.component';

@@ -8,15 +8,6 @@ export interface JamAlbumType {
 	icon: string;
 }
 
-export interface JamType {
-	id: string;
-	text: string;
-	icon: string;
-	category?: string;
-	type: JamObjectType;
-	albumType?: AlbumType;
-}
-
 export enum JamUrlType {
 	albums = 'albums',
 	compilations = 'compilations',
@@ -33,6 +24,15 @@ export enum JamUrlType {
 	folders = 'folders',
 	tracks = 'tracks',
 	episodes = 'episodes'
+}
+
+export interface JamType {
+	id: JamUrlType;
+	text: string;
+	icon: string;
+	category?: string;
+	type: JamObjectType;
+	albumType?: AlbumType;
 }
 
 export const JamUrlTypes: Array<JamType> = [

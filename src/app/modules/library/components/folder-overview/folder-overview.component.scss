@@ -1,6 +1,7 @@
 @import "globals.scss";
 
 :host {
+	@include view-content();
 
 	.breadcrumb {
 		list-style: none;
