@@ -6,6 +6,7 @@ export abstract class JamObject {
 	parent?: string;
 	year?: string;
 	mediaType?: string;
+	genre?: string;
 
 	protected constructor(public base: Jam.Base) {
 		this.name = base.name;

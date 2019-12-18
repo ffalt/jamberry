@@ -41,6 +41,7 @@ export class JamAlbumObject extends JamLibraryObject {
 		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.year || ''}`;
 		this.parent = album.artist;
 		this.mediaType = album.albumType;
+		this.genre = album.genres && album.genres.length > 0 ? album.genres.join(' / ') : undefined;
 	}
 
 	navigTo(): void {
@@ -96,7 +97,8 @@ export class JamAlbumObject extends JamLibraryObject {
 				}
 			},
 			{label: 'Year', value: this.album.year},
-			{label: 'Played', value: this.album.state.played || 0}
+			{label: 'Genre', value: this.genre}
+			// {label: 'Played', value: this.album.state.played || 0}
 		].filter(info => info.value !== undefined);
 	}
 
@@ -110,6 +112,7 @@ export class JamFolderObject extends JamLibraryObject {
 		super(folder, library);
 		this.name = folder.name;
 		this.mediaType = folder.type;
+		this.genre = folder.tag && folder.tag.genres && folder.tag.genres.length > 0 ? folder.tag.genres.join(' / ') : undefined;
 		switch (folder.type) {
 			case FolderType.artist:
 				this.name = folder.tag.artist;
@@ -170,15 +173,15 @@ export class JamFolderObject extends JamLibraryObject {
 	}
 
 	getInfos(): Array<HeaderInfo> {
-		return [
-			...(FolderTypesAlbum.includes(this.folder.type as FolderType) ?
-					[
-						{label: 'Artist', value: this.folder.tag.artist},
-						{label: 'Year', value: this.folder.tag.year}
-					] : []
-			),
-			{label: 'Played', value: this.folder.state.played || 0}
-		].filter(info => info.value !== undefined);
+		return (FolderTypesAlbum.includes(this.folder.type as FolderType) ?
+				[
+					{label: 'Artist', value: this.folder.tag.artist},
+					{label: 'Year', value: this.folder.tag.year},
+					{label: 'Genre', value: this.genre}
+				] : []
+		)
+			// {label: 'Played', value: this.folder.state.played || 0}
+			.filter(info => info.value !== undefined);
 	}
 
 }
@@ -191,6 +194,7 @@ export class JamArtistObject extends JamLibraryObject {
 	constructor(public artist: Jam.Artist, library: LibraryService) {
 		super(artist, library);
 		this.name = this.artist.name;
+		this.genre = artist.genres && artist.genres.length > 0 ? artist.genres.join(' / ') : undefined;
 	}
 
 	navigTo(): void {
@@ -242,7 +246,8 @@ export class JamArtistObject extends JamLibraryObject {
 		return [
 			{label: 'Albums', value: this.artist.albumCount},
 			{label: 'Tracks', value: this.artist.trackCount},
-			{label: 'Played', value: this.artist.state.played || 0}
+			{label: 'Genre', value: this.genre}
+			// {label: 'Played', value: this.artist.state.played || 0}
 		].filter(info => info.value !== undefined);
 	}
 }
@@ -328,7 +333,8 @@ export class JamTrackObject extends JamLibraryObject {
 
 	constructor(public track: Jam.Track, library: LibraryService) {
 		super(track, library);
-		this.name = this.track.tag.title || this.track.name;
+		this.name = track.tag.title || track.name;
+		this.genre = track.tag.genre;
 	}
 
 	navigTo(): void {
@@ -388,7 +394,8 @@ export class JamTrackObject extends JamLibraryObject {
 					this.library.navig.toAlbumID(this.track.albumID, this.track.tag.album);
 				}
 			},
-			{label: 'Played', value: this.track.state.played || 0}
+			{label: 'Genre', value: this.genre}
+			// {label: 'Played', value: this.track.state.played || 0}
 		].filter(info => info.value !== undefined);
 	}
 }
@@ -453,7 +460,8 @@ export class JamSeriesObject extends JamLibraryObject {
 		return [
 			{label: 'Albums', value: this.series.albumCount},
 			{label: 'Tracks', value: this.series.trackCount},
-			{label: 'Played', value: this.series.state.played || 0}
+			{label: 'Genre', value: this.genre}
+			// {label: 'Played', value: this.series.state.played || 0}
 		].filter(info => info.value !== undefined);
 	}
 }
