@@ -24,6 +24,9 @@ export class LyricsComponent implements OnChanges {
 			.then(data => {
 				this.lyrics = data.lyrics ? data.lyrics.split('\n') : undefined;
 				this.lyricsSource = data.source;
+				if (!this.lyrics) {
+					this.lyrics = ['No Lyrics found'];
+				}
 			})
 			.catch(e => {
 				this.notify.error(e);

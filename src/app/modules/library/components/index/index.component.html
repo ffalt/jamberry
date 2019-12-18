@@ -7,7 +7,7 @@
 			<div class="index-group-name" id="index-{{j}}" (click)="group.expanded=!group.expanded">{{group.name}}</div>
 			<div class="index-entries" *ngIf="group.expanded">
 				<div class="index-entry" *ngFor="let entry of group.entries; trackBy: trackByEntryFn" (click)="navigTo(entry)">
-					<div class="title"><p><a class="title-link">{{entry.name}}</a></p> <a *ngIf="entry.extraID" (click)="navigToExtra(entry)">{{entry.extra}}</a></div>
+					<div class="title"><p><a class="title-link">{{entry.name}}</a></p> <a *ngIf="entry.extra" (click)="navigToExtra(entry)">{{entry.extra}}</a></div>
 				</div>
 			</div>
 		</div>

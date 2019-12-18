@@ -11,11 +11,11 @@
 		<div class="fav"><a (click)="actions.toggleAlbumFav(album)">
 			<app-fav-icon [state]="album.state"></app-fav-icon>
 		</a></div>
-		<div class="date">{{album.seriesNr ? album.seriesNr : album.tag.year}}</div>
+		<div class="date">{{album.seriesNr ? album.seriesNr : album.year}}</div>
 		<div class="title"><a class="title-link" (click)="navig.toAlbum(album)">{{album.name}}</a>
 			<a *ngIf="showArtist" title="Artist" (click)="navig.toArtistID(album.artistID,album.artist)">{{album.artist}}</a>
 		</div>
 		<div class="info">{{album.albumType}}</div>
-		<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{album.tag.duration|duration}}</div>
+		<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{album.duration|duration}}</div>
 	</div>
 </div>

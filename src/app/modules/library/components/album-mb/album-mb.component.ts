@@ -11,7 +11,7 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./album-mb.component.scss']
 })
 export class AlbumMbComponent implements OnInit, OnDestroy {
-	mbAlbumID: string;
+	mbReleaseID: string;
 	album: Jam.Album;
 	id: string;
 	protected unsubscribe = new Subject();
@@ -39,10 +39,10 @@ export class AlbumMbComponent implements OnInit, OnDestroy {
 		if (!this.id) {
 			return;
 		}
-		this.jam.album.id({id: this.id, albumTag: true})
+		this.jam.album.id({id: this.id})
 			.then(album => {
 				this.album = album;
-				this.mbAlbumID = album && album.tag && album.tag.musicbrainz && album.tag.musicbrainz.albumID ? album.tag.musicbrainz.albumID : undefined;
+				this.mbReleaseID = album ? album.mbReleaseID : undefined;
 			})
 			.catch(e => {
 				this.notify.error(e);

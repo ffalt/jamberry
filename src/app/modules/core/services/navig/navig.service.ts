@@ -78,6 +78,14 @@ export class NavigService {
 		this.navigate(['/logout']);
 	}
 
+	toGenreID(genre: string): void {
+		this.navigate([`/library/genres/id/${genre}`]);
+	}
+
+	toGenre(genre: Jam.Genre): void {
+		this.toGenreID(genre.name);
+	}
+
 	toPodcast(podcast: Jam.Podcast): void {
 		this.toPodcastID(podcast.id, podcast.name);
 	}

@@ -38,7 +38,7 @@ export class JamAlbumObject extends JamLibraryObject {
 
 	constructor(public album: Jam.Album, library: LibraryService) {
 		super(album, library);
-		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.tag.year || ''}`;
+		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.year || ''}`;
 		this.parent = album.artist;
 		this.mediaType = album.albumType;
 	}
@@ -95,7 +95,7 @@ export class JamAlbumObject extends JamLibraryObject {
 					this.navigToParent();
 				}
 			},
-			{label: 'Year', value: this.album.tag.year},
+			{label: 'Year', value: this.album.year},
 			{label: 'Played', value: this.album.state.played || 0}
 		].filter(info => info.value !== undefined);
 	}
@@ -215,7 +215,7 @@ export class JamArtistObject extends JamLibraryObject {
 	loadChildren(): void {
 		if (!this.albums) {
 			const id = this.base.id;
-			this.library.jam.artist.albums({ids: [id], albumTag: true, albumState: true})
+			this.library.jam.artist.albums({ids: [id], albumState: true})
 				.then(data => {
 					this.albums = data.items;
 				})
@@ -424,7 +424,7 @@ export class JamSeriesObject extends JamLibraryObject {
 	loadChildren(): void {
 		if (!this.albums) {
 			const id = this.base.id;
-			this.library.jam.series.albums({ids: [id], albumTag: true, albumState: true})
+			this.library.jam.series.albums({ids: [id], albumState: true})
 				.then(data => {
 					this.albums = data.items;
 				})
@@ -587,6 +587,12 @@ export class JamEpisodeObject extends JamLibraryObject {
 	}
 }
 
+export interface JamObjsLoaderSearchQuery {
+	query: string,
+	albumType?: AlbumType,
+	genre?: string;
+}
+
 export abstract class JamObjsLoader {
 	typeName: string;
 
@@ -594,7 +600,7 @@ export abstract class JamObjsLoader {
 
 	}
 
-	abstract search(query: { query: string, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }>;
+	abstract search(query: JamObjsLoaderSearchQuery, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }>;
 
 	abstract list(listQuery: { listType: JamParameters.ListType, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }>;
 
@@ -604,13 +610,19 @@ export abstract class JamObjsLoader {
 export class AlbumsLoader extends JamObjsLoader {
 	typeName = 'Albums';
 
-	async search(query: { query: string, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
-		const list = await this.library.jam.album.search({query: query.query, offset, amount, albumTag: true, albumState: true});
+	async search(query: JamObjsLoaderSearchQuery, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
+		const list = await this.library.jam.album.search({
+			query: query.query,
+			genre: query.genre,
+			offset,
+			amount,
+			albumState: true
+		});
 		return {list, items: list.items.map(o => new JamAlbumObject(o, this.library))};
 	}
 
 	async all(offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
-		const list = await this.library.jam.album.search({offset, amount, albumTag: true, albumState: true});
+		const list = await this.library.jam.album.search({offset, amount, albumState: true});
 		return {list, items: list.items.map(o => new JamAlbumObject(o, this.library))};
 	}
 
@@ -619,7 +631,6 @@ export class AlbumsLoader extends JamObjsLoader {
 		const list = await this.library.jam.album.list({
 			list: listQuery.listType, offset, amount,
 			albumState: true,
-			albumTag: true,
 			albumType: listQuery.albumType,
 			mbArtistID: artistID
 		});
@@ -630,8 +641,12 @@ export class AlbumsLoader extends JamObjsLoader {
 export class ArtistsLoader extends JamObjsLoader {
 	typeName = 'Artists';
 
-	async search(query: { query: string, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
-		const list = await this.library.jam.artist.search({query: query.query, offset, amount, artistState: true});
+	async search(query: JamObjsLoaderSearchQuery, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
+		const list = await this.library.jam.artist.search({
+			query: query.query,
+			genre: query.genre,
+			offset, amount, artistState: true
+		});
 		return {list, items: list.items.map(o => new JamArtistObject(o, this.library))};
 	}
 
@@ -652,8 +667,11 @@ export class ArtistsLoader extends JamObjsLoader {
 export class FoldersLoader extends JamObjsLoader {
 	typeName = 'Folders';
 
-	async search(query: { query: string, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
-		const list = await this.library.jam.folder.search({query: query.query, offset, amount, folderTag: true, folderState: true});
+	async search(query: JamObjsLoaderSearchQuery, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
+		const list = await this.library.jam.folder.search({
+			query: query.query, genre: query.genre,
+			offset, amount, folderTag: true, folderState: true
+		});
 		return {list, items: list.items.map(o => new JamFolderObject(o, this.library))};
 	}
 
@@ -671,7 +689,7 @@ export class FoldersLoader extends JamObjsLoader {
 export class PlaylistsLoader extends JamObjsLoader {
 	typeName = 'Playlists';
 
-	async search(query: { query: string, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
+	async search(query: JamObjsLoaderSearchQuery, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
 		const list = await this.library.jam.playlist.search({query: query.query, offset, amount, playlistState: true});
 		return {list, items: list.items.map(o => new JamPlaylistObject(o, this.library))};
 	}
@@ -690,7 +708,7 @@ export class PlaylistsLoader extends JamObjsLoader {
 export class PodcastsLoader extends JamObjsLoader {
 	typeName = 'Podcasts';
 
-	async search(query: { query: string, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
+	async search(query: JamObjsLoaderSearchQuery, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
 		const list = await this.library.jam.podcast.search({query: query.query, offset, amount, podcastState: true});
 		return {list, items: list.items.map(o => new JamPodcastObject(o, this.library))};
 	}
@@ -709,7 +727,7 @@ export class PodcastsLoader extends JamObjsLoader {
 export class SeriesLoader extends JamObjsLoader {
 	typeName = 'Series';
 
-	async search(query: { query: string, albumType?: AlbumType }, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
+	async search(query: JamObjsLoaderSearchQuery, offset?: number, amount?: number): Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }> {
 		const list = await this.library.jam.series.search({query: query.query, offset, amount, seriesState: true});
 		return {list, items: list.items.map(o => new JamSeriesObject(o, this.library))};
 	}

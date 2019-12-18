@@ -5,10 +5,10 @@ import {Jam, JamObjectType, JamService} from '@jam';
 
 export interface IndexEntry {
 	id: string;
+	link: string;
 	name: string;
 	extra?: string;
-	extraID?: string;
-	extraMode?: JamObjectType;
+	extraLink?: string;
 	trackCount: number;
 	image: string;
 }
@@ -25,20 +25,20 @@ export interface Index {
 	groups: Array<IndexGroup>;
 }
 
-function buildIndexAlbumIndex(albumIndex: Jam.AlbumIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
-	if (albumIndex) {
+function buildIndexAlbumIndex(index: Jam.AlbumIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
+	if (index) {
 		return {
 			type: JamObjectType.album,
 			name,
-			groups: albumIndex.groups.map(g => ({
+			groups: index.groups.map(g => ({
 				name: g.name,
 				expanded,
 				entries: g.entries.map(entry => ({
 					id: entry.id,
+					link: '/library/albums/id/' + entry.id,
+					extraLink: '/library/artists/id/' + entry.artistID,
 					name: entry.name,
 					extra: entry.artist,
-					extraID: entry.artistID,
-					extraMode: JamObjectType.artist,
 					visible: false,
 					trackCount: entry.trackCount,
 					image: jam.base.image_url(entry.id, 200)
@@ -48,16 +48,17 @@ function buildIndexAlbumIndex(albumIndex: Jam.AlbumIndex, expanded: boolean, nam
 	}
 }
 
-function buildIndexFolderIndex(artistIndex: Jam.FolderIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
-	if (artistIndex) {
+function buildIndexFolderIndex(index: Jam.FolderIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
+	if (index) {
 		return {
 			name,
 			type: JamObjectType.folder,
-			groups: artistIndex.groups.map(g => ({
+			groups: index.groups.map(g => ({
 				name: g.name,
 				expanded,
 				entries: g.entries.map(entry => ({
 					id: entry.folderID,
+					link: '/library/folders/id/' + entry.folderID,
 					name: entry.name,
 					visible: false,
 					trackCount: entry.trackCount,
@@ -68,16 +69,17 @@ function buildIndexFolderIndex(artistIndex: Jam.FolderIndex, expanded: boolean, 
 	}
 }
 
-function buildIndexArtistIndex(artistIndex: Jam.ArtistIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
-	if (artistIndex) {
+function buildIndexArtistIndex(index: Jam.ArtistIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
+	if (index) {
 		return {
 			name,
 			type: JamObjectType.artist,
-			groups: artistIndex.groups.map(g => ({
+			groups: index.groups.map(g => ({
 				name: g.name,
 				expanded,
 				entries: g.entries.map(entry => ({
 					id: entry.artistID,
+					link: '/library/artists/id/' + entry.artistID,
 					name: entry.name,
 					visible: false,
 					trackCount: entry.trackCount,
@@ -98,6 +100,7 @@ function buildIndexSeriesIndex(seriesIndex: Jam.SeriesIndex, expanded: boolean, 
 				expanded,
 				entries: g.entries.map(entry => ({
 					id: entry.seriesID,
+					link: '/library/series/id/' + entry.seriesID,
 					name: entry.name,
 					visible: false,
 					trackCount: entry.trackCount,

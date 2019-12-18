@@ -12,7 +12,7 @@
 	<div class="header-infos">
 		<ng-container *ngFor="let item of infos">
 			<div class="label">{{item.label}}</div>
-			<div class="count" (click)="clickItem(item)">{{item.value}}</div>
+			<div class="count" [class.clickable]="item.click" (click)="clickItem(item)">{{item.value}}</div>
 		</ng-container>
 		<a class="more" (click)="contextmenuEvent($event)">…</a>
 	</div>

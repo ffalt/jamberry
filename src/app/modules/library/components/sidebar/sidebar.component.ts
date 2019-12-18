@@ -64,7 +64,8 @@ export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 		this.mainList = [
 			{link: '/library/artist-index', name: 'Browse', icon: 'icon-browse'},
 			{link: '/library/search', name: 'Search', icon: 'icon-search'},
-			{link: '/library/playlists', name: 'Playlists', icon: 'icon-playlist'}
+			{link: '/library/playlists', name: 'Playlists', icon: 'icon-playlist'},
+			{link: '/library/genres', name: 'Genres', icon: 'icon-genre'}
 		];
 		this.spokenList = [
 			{link: '/library/podcasts', name: 'Podcasts', icon: 'icon-podcasts'}];

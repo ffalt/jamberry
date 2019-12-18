@@ -84,7 +84,7 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 	async get(id: string): Promise<JamLibraryObject | undefined> {
 		switch (this.type.type) {
 			case JamObjectType.album:
-				const album = await this.jam.album.id({id, albumState: true, albumTag: true});
+				const album = await this.jam.album.id({id, albumState: true});
 				return new JamAlbumObject(album, this.library);
 			case JamObjectType.series:
 				const series = await this.jam.series.id({id, seriesState: true});

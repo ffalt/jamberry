@@ -53,7 +53,7 @@ export class SeriesOverviewComponent implements OnInit, OnDestroy {
 		if (!this.id) {
 			return;
 		}
-		this.jam.series.id({id: this.id, seriesState: true, seriesAlbums: true, albumState: true, albumTag: true})
+		this.jam.series.id({id: this.id, seriesState: true, seriesAlbums: true, albumState: true})
 			.then(series => {
 				this.display(series);
 			})

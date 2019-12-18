@@ -1,0 +1,10 @@
+@import "globals.scss";
+
+:host {
+	.genre {
+		@include view-host();
+		.content {
+			@include view-content();
+		}
+	}
+}

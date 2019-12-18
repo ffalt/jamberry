@@ -42,7 +42,7 @@ export class ArtistMbComponent implements OnInit, OnDestroy {
 		this.jam.artist.id({id: this.id})
 			.then(artist => {
 				this.artist = artist;
-				this.mbArtistID = artist && artist.musicbrainz && artist.musicbrainz.artistID ? artist.musicbrainz.artistID : undefined;
+				this.mbArtistID = artist && artist.mbArtistID ? artist.mbArtistID : undefined;
 			})
 			.catch(e => {
 				this.notify.error(e);

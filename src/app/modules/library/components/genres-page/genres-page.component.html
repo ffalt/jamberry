@@ -1,0 +1,15 @@
+<div class="genres">
+	<app-view-header-icon-section icon="icon-genre" section="Genres"></app-view-header-icon-section>
+	<div class="content">
+		<app-loading *ngIf="!genres"></app-loading>
+		<div class="genres-list" *ngIf="genres">
+			<div class="genre" *ngFor="let genre of genres" (click)="navig.toGenre(genre)">
+				<div class="title"><p>{{genre.name}}</p><br>
+					<span>Albums:</span> <span class="highlight">{{genre.albumCount}}</span>
+					<span>Artists:</span> <span class="highlight">{{genre.artistCount}}</span>
+					<span>Tracks:</span> <span class="highlight">{{genre.trackCount}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

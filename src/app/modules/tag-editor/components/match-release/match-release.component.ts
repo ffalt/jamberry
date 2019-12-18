@@ -866,19 +866,19 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			if (this.shouldStop()) {
 				return;
 			}
-			if (match.track.tag && match.track.tag.musicbrainz) {
+			if (match.track.tag) {
 				let rg: MatchReleaseGroup;
-				if (match.track.tag.musicbrainz.releaseGroupID) {
-					rg = await this.addReleaseGroupByID(match.track.tag.musicbrainz.releaseGroupID);
+				if (match.track.tag.mbReleaseGroupID) {
+					rg = await this.addReleaseGroupByID(match.track.tag.mbReleaseGroupID);
 				}
-				if (!rg && match.track.tag.musicbrainz.releaseID) {
-					rg = await this.addReleaseGroupByReleaseID(match.track.tag.musicbrainz.releaseID);
+				if (!rg && match.track.tag.mbReleaseID) {
+					rg = await this.addReleaseGroupByReleaseID(match.track.tag.mbReleaseID);
 				}
 				if (rg) {
-					if (match.track.tag.musicbrainz.releaseID) {
-						const rel = rg.findRelease(match.track.tag.musicbrainz.releaseID);
+					if (match.track.tag.mbReleaseID) {
+						const rel = rg.findRelease(match.track.tag.mbReleaseID);
 						if (!rel) {
-							console.error('Could not find the release with id', match.track.tag.musicbrainz.releaseID);
+							console.error('Could not find the release with id', match.track.tag.mbReleaseID);
 						} else {
 							await this.loadRelease(rel);
 						}

@@ -1,5 +1,6 @@
 @mixin view-content {
 	padding: $padding;
+	padding-top: 0;
 
 	.section-title {
 		text-transform: uppercase;
@@ -165,8 +166,9 @@
 				text-overflow: ellipsis;
 				vertical-align: middle;
 
-				a {
+				&.clickable {
 					color: var(--on-control-ambient-hover);
+					cursor: pointer;
 
 					&:hover {
 						color: var(--on-control-ambient);
@@ -176,7 +178,6 @@
 
 			.more {
 				user-select: none;
-				//visibility: hidden;
 				padding: 4px 9px 10px;
 				margin-right: -9px;
 				border-radius: 50%;

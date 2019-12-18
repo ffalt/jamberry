@@ -2,6 +2,7 @@
 
 :host {
 	@include view-content();
+	@include key-value-list();
 
 	.svg {
 		height: 100px;

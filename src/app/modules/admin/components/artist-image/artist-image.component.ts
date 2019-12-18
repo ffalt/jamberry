@@ -35,10 +35,8 @@ export class ArtistImageComponent implements OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		if (this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.musicbrainz) {
-			if (this.data.folder.tag.musicbrainz.artistID) {
-				this.loadWikiCommon(this.data.folder.tag.musicbrainz.artistID);
-			}
+		if (this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.mbArtistID) {
+			this.loadWikiCommon(this.data.folder.tag.mbArtistID);
 		}
 		if (this.data && this.data.folder && !this.data.folder.artworks) {
 			this.refreshArtworks();

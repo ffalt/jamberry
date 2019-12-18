@@ -46,17 +46,17 @@
 					<div class="label">Year:</div>
 					<div> {{folder.tag.year}}</div>
 				</div>
-				<div *ngIf="folder.tag.genre">
+				<div *ngIf="folder.tag.genres">
 					<div class="label">Genre:</div>
-					<div> {{folder.tag.genre}}</div>
+					<div> {{folder.tag.genres}}</div>
 				</div>
-				<div *ngIf="folder.tag.musicbrainz && folder.tag.musicbrainz.releaseID">
+				<div *ngIf="folder.tag.mbReleaseID">
 					<div class="label">MB Release ID:</div>
-					<div><a href="https://musicbrainz.org/release/{{folder.tag.musicbrainz.releaseID}}" target="_blank" rel="noopener">{{folder.tag.musicbrainz.releaseID}}</a></div>
+					<div><a href="https://musicbrainz.org/release/{{folder.tag.mbReleaseID}}" target="_blank" rel="noopener">{{folder.tag.mbReleaseID}}</a></div>
 				</div>
-				<div *ngIf="folder.tag.musicbrainz && folder.tag.musicbrainz.artistID">
+				<div *ngIf="folder.tag.mbArtistID">
 					<div class="label">MB Artist ID:</div>
-					<div><a href="https://musicbrainz.org/artist/{{folder.tag.musicbrainz.artistID}}" target="_blank" rel="noopener">{{folder.tag.musicbrainz.artistID}}</a></div>
+					<div><a href="https://musicbrainz.org/artist/{{folder.tag.mbArtistID}}" target="_blank" rel="noopener">{{folder.tag.mbArtistID}}</a></div>
 				</div>
 				<div *ngIf="folder.parentID">
 					<div class="label">Parent Id:</div>
@@ -67,9 +67,9 @@
 		<div class="artworks">
 			<div class="section-title">Artworks</div>
 			<button class="button-on-control" (click)="uploadImage()"><i class="icon-upload-cloud"></i> Upload</button>
-			<button class="button-on-control" *ngIf="isAlbum && folder.tag && folder.tag.musicbrainz && (folder.tag.musicbrainz.releaseID || folder.tag.musicbrainz.releaseGroupID)"
+			<button class="button-on-control" *ngIf="isAlbum && folder.tag &&  (folder.tag.mbReleaseID || folder.tag.mbReleaseGroupID)"
 							(click)="searchAlbumImages()" title="Album Images"><i class="icon-picture"></i> Search Art</button>
-			<button class="button-on-control" *ngIf="isArtist && folder.tag && folder.tag.musicbrainz && folder.tag.musicbrainz.artistID" (click)="searchArtistImages()" title="Artist Images"><i class="icon-picture"></i> Search Art</button>
+			<button class="button-on-control" *ngIf="isArtist && folder.tag && folder.tag.mbArtistID" (click)="searchArtistImages()" title="Artist Images"><i class="icon-picture"></i> Search Art</button>
 			<div *ngIf="folder.artworks && folder.artworks.length>0">
 				<app-admin-artwork-list [folderID]="folder.id" [artworks]="folder.artworks"></app-admin-artwork-list>
 			</div>

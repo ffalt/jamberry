@@ -52,6 +52,6 @@ export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 
 	display(folder: Jam.Folder): void {
 		this.folder = folder;
-		this.hasArtistID = folder && folder.tag && folder.tag.musicbrainz && !!folder.tag.musicbrainz.artistID;
+		this.hasArtistID = folder && folder.tag && !!folder.tag.mbArtistID;
 	}
 }

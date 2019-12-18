@@ -9,14 +9,12 @@
 	</ng-container>
 	<ng-container cdkColumnDef="artist">
 		<cdk-header-cell *cdkHeaderCellDef>Artist</cdk-header-cell>
-		<cdk-cell *cdkCellDef="let trackItem" data-label="Artist">
-			<a [routerLink]="['/admin/artist',trackItem.track.artistID]">{{trackItem.track.tag.artist}}</a>
-		</cdk-cell>
+		<cdk-cell *cdkCellDef="let trackItem" data-label="Artist">{{trackItem.track.tag.artist}}</cdk-cell>
 	</ng-container>
 	<ng-container cdkColumnDef="album">
 		<cdk-header-cell *cdkHeaderCellDef>Album</cdk-header-cell>
 		<cdk-cell *cdkCellDef="let trackItem" data-label="Album">
-			<a [routerLink]="['/admin/album',trackItem.track.albumID]">{{trackItem.track.tag.album}}</a>
+			<a [routerLink]="['/admin/folder',trackItem.track.parentID, 'overview']">{{trackItem.track.tag.album}}</a>
 		</cdk-cell>
 	</ng-container>
 	<ng-container cdkColumnDef="number">

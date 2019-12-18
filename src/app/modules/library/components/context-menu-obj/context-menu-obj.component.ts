@@ -8,7 +8,7 @@ export interface ContextMenuObjComponentOptions {
 }
 
 @Component({
-	selector: 'app-context-menu-album',
+	selector: 'app-context-menu-obj',
 	templateUrl: './context-menu-obj.component.html',
 	styleUrls: ['./context-menu-obj.component.scss']
 })
@@ -18,8 +18,8 @@ export class ContextMenuObjComponent implements ContextMenuHostComponentInterfac
 	showGoto: boolean = true;
 
 	initOpts(opts: ContextMenuObjComponentOptions): void {
-		this.showGoto = !opts.hideGoto;
-		this.extras = opts.extras;
+		this.showGoto = !opts || !opts.hideGoto;
+		this.extras = opts ? opts.extras : [];
 	}
 
 }

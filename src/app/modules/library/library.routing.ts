@@ -25,7 +25,8 @@ import {
 	StartPageComponent,
 	TrackOverviewComponent,
 	TrackSimilarComponent,
-	TracksLoaderByTypeComponent
+	TracksLoaderByTypeComponent,
+	GenresPageComponent, GenrePageComponent
 } from '@library/components';
 import {LibraryComponent} from './library.component';
 
@@ -335,7 +336,10 @@ export const routes: Routes = [
 			},
 
 			{path: 'search', component: SearchPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Search'}},
-			{path: 'queue', component: QueuePageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Queue'}}
+			{path: 'queue', component: QueuePageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Queue'}},
+			{path: 'genres', component: GenresPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Genres'}},
+			{path: 'genres/id/:genre', component: GenrePageComponent, canActivate: [AuthCanActivateGuard]},
+			{path: 'genres/id/:genre/:type', component: GenrePageComponent, canActivate: [AuthCanActivateGuard]}
 		]
 	}
 ];

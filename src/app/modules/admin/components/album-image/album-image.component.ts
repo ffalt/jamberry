@@ -45,13 +45,13 @@ export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		if (this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.musicbrainz) {
-			if (this.data.folder.tag.musicbrainz.releaseID && this.data.folder.tag.musicbrainz.releaseGroupID) {
-				this.loadReleaseGroupAndRelease(this.data.folder.tag.musicbrainz.releaseID, this.data.folder.tag.musicbrainz.releaseGroupID);
-			} else if (this.data.folder.tag.musicbrainz.releaseID) {
-				this.loadRelease(this.data.folder.tag.musicbrainz.releaseID);
-			} else if (this.data.folder.tag.musicbrainz.releaseGroupID) {
-				this.loadReleaseGroup(this.data.folder.tag.musicbrainz.releaseGroupID);
+		if (this.data && this.data.folder && this.data.folder.tag) {
+			if (this.data.folder.tag.mbReleaseID && this.data.folder.tag.mbReleaseGroupID) {
+				this.loadReleaseGroupAndRelease(this.data.folder.tag.mbReleaseID, this.data.folder.tag.mbReleaseGroupID);
+			} else if (this.data.folder.tag.mbReleaseID) {
+				this.loadRelease(this.data.folder.tag.mbReleaseID);
+			} else if (this.data.folder.tag.mbReleaseGroupID) {
+				this.loadReleaseGroup(this.data.folder.tag.mbReleaseGroupID);
 			}
 		}
 		if (this.data && this.data.folder && !this.data.folder.artworks) {
@@ -117,9 +117,9 @@ export class AlbumImageComponent implements OnInit, OnDestroy, OnChanges {
 					const nodes = this.imagesToNodes(res);
 					this.display(nodes);
 					if (nodes.length === 0 &&
-						this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.musicbrainz && this.data.folder.tag.musicbrainz.releaseGroupID) {
+						this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.mbReleaseGroupID) {
 						this.nodes = undefined;
-						this.loadReleaseGroup(this.data.folder.tag.musicbrainz.releaseGroupID);
+						this.loadReleaseGroup(this.data.folder.tag.mbReleaseGroupID);
 					}
 				})
 				.catch(e => {

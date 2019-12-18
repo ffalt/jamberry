@@ -25,18 +25,6 @@ export class IndexGroupComponent {
 	}
 
 	navigTo(entry: IndexEntry): void {
-		switch (this.indexType) {
-			case JamObjectType.artist:
-				this.navig.toArtistID(entry.id, entry.name);
-				break;
-			case JamObjectType.folder:
-				this.navig.toFolderID(entry.id, entry.name);
-				break;
-			case JamObjectType.album:
-				this.navig.toAlbumID(entry.id, entry.name);
-				break;
-			default:
-				break;
-		}
+		this.navig.navigate([entry.link, {name: entry.name}]);
 	}
 }

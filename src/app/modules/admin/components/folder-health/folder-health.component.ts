@@ -90,7 +90,7 @@ export class FolderHealthComponent implements OnChanges {
 	}
 
 	private addArtistImageSearchSolution(folder: Jam.Folder): void {
-		if (folder.tag && folder.tag.musicbrainz && folder.tag.musicbrainz.artistID) {
+		if (folder.tag && folder.tag.mbArtistID) {
 			const sol: FolderHealthHintSolution = {
 				name: 'Search',
 				click: async () => {
@@ -102,7 +102,7 @@ export class FolderHealthComponent implements OnChanges {
 	}
 
 	private addAlbumImageSearchSolution(folder: Jam.Folder): void {
-		if (folder.tag && folder.tag.musicbrainz && (folder.tag.musicbrainz.releaseID || folder.tag.musicbrainz.releaseGroupID)) {
+		if (folder.tag && (folder.tag.mbReleaseID || folder.tag.mbReleaseGroupID)) {
 			const sol: FolderHealthHintSolution = {
 				name: 'Search',
 				click: async () => {

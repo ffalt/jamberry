@@ -16,6 +16,8 @@ import {EpisodesLoaderComponent} from './episodes-loader/episodes-loader.compone
 import {FolderMusicbrainzComponent} from './folder-mb/folder-musicbrainz.component';
 import {FolderOverviewComponent} from './folder-overview/folder-overview.component';
 import {FolderSimilarComponent} from './folder-similar/folder-similar.component';
+import {GenrePageComponent} from './genre-page/genre-page.component';
+import {GenresPageComponent} from './genres-page/genres-page.component';
 import {IndexEntryCardComponent} from './index-entry-card/index-entry-card.component';
 import {IndexGroupComponent} from './index-group/index-group.component';
 import {IndexComponent} from './index/index.component';
@@ -26,6 +28,7 @@ import {ObjGroupsViewComponent} from './obj-groups-view/obj-groups-view.componen
 import {ObjsLoaderByTypeComponent} from './obj-loader-by-type/objs-loader-by-type.component';
 import {ObjPageComponent} from './obj-page/obj-page.component';
 import {ObjPlateComponent} from './obj-plate/obj-plate.component';
+import {ObjsIndexLoaderComponent} from './objs-index-loader/objs-index-loader.component';
 import {ObjsLoaderComponent} from './objs-loader/objs-loader.component';
 import {ObjsPageComponent} from './objs-page/objs-page.component';
 import {PlaylistOverviewComponent} from './playlist-overview/playlist-overview.component';
@@ -47,7 +50,6 @@ import {TrackSimilarComponent} from './track-similar/track-similar.component';
 import {TracksLoaderByTypeComponent} from './tracks-loader-by-type/tracks-loader-by-type.component';
 import {TracksLoaderComponent} from './tracks-loader/tracks-loader.component';
 import {TracksPlaylistComponent} from './tracks-playlist/tracks-playlist.component';
-import { ObjsIndexLoaderComponent } from './objs-index-loader/objs-index-loader.component';
 
 export const entryComponents: Array<any> = [
 	ContextMenuObjComponent,
@@ -65,6 +67,8 @@ export const components: Array<any> = [
 	ArtistSimilarComponent,
 	ChatComponent,
 	CurrentPlayingComponent,
+	GenrePageComponent,
+	GenresPageComponent,
 	EpisodeListComponent,
 	EpisodesLoaderComponent,
 	EpisodeStateButtonComponent,
@@ -157,3 +161,5 @@ export * from './folder-similar/folder-similar.component';
 export * from './folder-mb/folder-musicbrainz.component';
 export * from './context-menu-simple/context-menu-simple.component';
 export * from './objs-index-loader/objs-index-loader.component';
+export * from './genres-page/genres-page.component';
+export * from './genre-page/genre-page.component';

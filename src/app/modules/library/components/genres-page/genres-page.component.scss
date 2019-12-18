@@ -1,0 +1,31 @@
+@import "globals.scss";
+
+:host {
+	.genres {
+		@include view-host();
+		.content {
+			@include view-content();
+
+			.genres-list {
+				@include track-table();
+
+				.heading, .genre {
+					@include track-table-row();
+				}
+
+				.heading {
+					@include track-table-header-row();
+				}
+
+				.genre {
+					@include track-table-data-row();
+					.title .highlight {
+						color: var(--on-background-active);
+						margin-left: $margin-xs;
+						margin-right: $margin-sm;
+					}
+				}
+			}
+		}
+	}
+}

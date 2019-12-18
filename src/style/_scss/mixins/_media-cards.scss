@@ -52,6 +52,11 @@
 		}
 	}
 	&:hover {
+
+		.fav, .date {
+			transform: translateY(0);
+		}
+
 		.footer {
 			.footer-buttons {
 				display: block;

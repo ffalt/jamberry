@@ -7,8 +7,10 @@
 		.header-start {
 			@include view-header();
 			@include view-header-slim();
+
 			.img {
 				text-align: center;
+
 				app-logo-icon {
 					height: 130px;
 					width: 130px;
@@ -41,14 +43,17 @@
 				flex-flow: row wrap;
 
 				.stats {
-					display: flex;
-					flex-flow: row wrap;
+					//display: flex;
+					//flex-flow: row wrap;
 					width: 100%;
 					background-color: var(--background-box);
 					border-radius: 4px;
 
+					display: grid;
+					grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+					grid-gap: 5px;
+
 					.stat {
-						flex-grow: 1;
 						padding: $padding;
 						margin-top: $margin;
 						text-align: center;
@@ -66,13 +71,27 @@
 							font-size: 2em;
 							font-weight: bold;
 						}
+					}
 
-						@media (max-width: $break-phone) {
+					@media (max-width: $break-pad) {
+						.stat {
+							.stat-value {
+								font-size: 1.75em;
+							}
+						}
+					}
+					@media (max-width: $break-phone) {
+						grid-template-columns: 33% 33% 33%;
+						.stat {
 							padding: $padding-sm;
+
 							.stat-value {
 								font-size: 1.5em;
 							}
 						}
+					}
+					@media (max-width: $break-watch) {
+						grid-template-columns: 50% 50%;
 					}
 				}
 

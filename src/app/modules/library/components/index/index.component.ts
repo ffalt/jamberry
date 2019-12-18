@@ -1,12 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {AppService, NavigService} from '@core/services';
-import {JamObjectType} from '@jam';
 import {Index, IndexEntry, IndexGroup} from '@shared/services';
-
-export function scrollToIndexGroup(index: number): void {
-	const elements = document.getElementById(`index-${index}`);
-	elements.scrollIntoView();
-}
 
 @Component({
 	selector: 'app-index',
@@ -29,37 +23,12 @@ export class IndexComponent {
 	}
 
 	navigTo(entry: IndexEntry): void {
-		switch (this.index.type) {
-			case JamObjectType.artist:
-				this.navig.toArtistID(entry.id, entry.name);
-				break;
-			case JamObjectType.folder:
-				this.navig.toFolderID(entry.id, entry.name);
-				break;
-			case JamObjectType.album:
-				this.navig.toAlbumID(entry.id, entry.name);
-				break;
-			case JamObjectType.series:
-				this.navig.toSeriesID(entry.id, entry.name);
-				break;
-			default:
-				break;
-		}
+		this.navig.navigate([entry.link, {name: entry.name}]);
 	}
 
 	navigToExtra(entry: IndexEntry): void {
-		switch (entry.extraMode) {
-			case JamObjectType.artist:
-				this.navig.toArtistID(entry.extraID, entry.extra);
-				break;
-			case JamObjectType.folder:
-				this.navig.toFolderID(entry.extraID, entry.extra);
-				break;
-			case JamObjectType.album:
-				this.navig.toAlbumID(entry.extraID, entry.extra);
-				break;
-			default:
-				break;
+		if (entry.extraLink) {
+			this.navig.navigate([entry.extraLink, {name: entry.name}]);
 		}
 	}
 
