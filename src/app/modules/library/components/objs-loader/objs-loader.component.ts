@@ -1,7 +1,8 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {AlbumType, Jam, JamParameters, JamService} from '@jam';
-import {JamLibraryObject, JamObjsLoader} from '@library/model/helper';
+import {JamObjsLoader} from '@library/model/loaders';
+import {JamLibraryObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {LoadMoreButtonComponent} from '@shared/components';
 

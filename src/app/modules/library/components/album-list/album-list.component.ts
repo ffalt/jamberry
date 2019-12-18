@@ -2,8 +2,8 @@ import {Component, Input} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
+import {JamAlbumObject} from '@library/model/objects';
 import {ActionsService, PodcastService} from '@shared/services';
-import {JamAlbumObject} from '../../model/helper';
 import {LibraryService} from '../../services';
 import {ContextMenuObjComponent} from '../context-menu-obj/context-menu-obj.component';
 

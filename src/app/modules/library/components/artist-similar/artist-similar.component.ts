@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
-import {JamArtistObject} from '@library/model/helper';
+import {JamArtistObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

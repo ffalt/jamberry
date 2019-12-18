@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {JamFolderObject} from '@library/model/helper';
+import {JamFolderObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';

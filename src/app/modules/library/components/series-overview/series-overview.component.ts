@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {JamAlbumObject} from '@library/model/helper';
+import {JamAlbumObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';

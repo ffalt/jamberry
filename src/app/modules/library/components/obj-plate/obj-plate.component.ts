@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {JamObjectType} from '@jam';
-import {JamLibraryObject} from '@library/model/helper';
+import {JamLibraryObject} from '@library/model/objects';
 
 @Component({
 	selector: 'app-obj-plate',

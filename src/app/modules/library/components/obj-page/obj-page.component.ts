@@ -6,13 +6,12 @@ import {JamObjectType, JamService} from '@jam';
 import {
 	JamAlbumObject,
 	JamArtistObject,
-	JamEpisodeObject, JamFolderObject,
-	JamLibraryObject,
+	JamEpisodeObject, JamFolderObject, JamLibraryObject,
 	JamPlaylistObject,
 	JamPodcastObject,
 	JamSeriesObject,
 	JamTrackObject
-} from '@library/model/helper';
+} from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {HeaderInfo, HeaderTab} from '@shared/components';
 import {ActionsService} from '@shared/services';

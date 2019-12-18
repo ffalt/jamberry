@@ -5,7 +5,7 @@ import {AlbumType, JamObjectType, JamParameters} from '@jam';
 import {LibraryService} from '@library/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {JamObjsLoader} from '../../model/helper';
+import {JamObjsLoader} from '../../model/loaders';
 
 @Component({
 	selector: 'app-objs-loader-page-by-type',

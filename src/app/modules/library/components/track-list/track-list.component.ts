@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
-import {JamTrackObject} from '@library/model/helper';
+import {JamTrackObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {ActionsService} from '@shared/services';
 import {ContextMenuObjComponent, ContextMenuObjComponentOptions} from '../context-menu-obj/context-menu-obj.component';
