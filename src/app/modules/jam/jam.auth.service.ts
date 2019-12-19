@@ -46,6 +46,7 @@ export class JamAuthService {
 			const data = await this.http.get<Jam.Session>(`${this.auth.server}${this.apiPrefix}session`, this.getHTTPOptions());
 			if (data.user) {
 				this.user = data.user;
+				this.auth.version = data.version;
 				await this.configuration.toStorage({auth: this.auth, user: this.user});
 			} else {
 				this.user = undefined;
