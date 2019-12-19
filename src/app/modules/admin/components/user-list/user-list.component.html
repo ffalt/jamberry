@@ -1,0 +1,29 @@
+<div *ngIf="users && users.length>0" class="users">
+	<div class="user heading">
+		<div class="avatar">Avatar</div>
+		<div class="title">Name</div>
+		<div class="email">Email</div>
+		<div class="role">Administrator</div>
+		<div class="role">Manage Podcasts</div>
+		<div class="role">Can Upload</div>
+		<div class="role">Can Stream</div>
+		<div class="actions">Actions</div>
+	</div>
+	<div class="user" *ngFor="let user of users" (dblclick)="editUser(user)">
+		<div class="avatar">
+			<app-coverart-image [coverArtObj]="user" [alt]="user.name" [size]="28" [round]="true"></app-coverart-image>
+		</div>
+		<div class="title">{{user.name}}</div>
+		<div class="email">{{user.email}}</div>
+		<div class="role"><i *ngIf="user.roles.admin" class="icon-checkmark"></i></div>
+		<div class="role"><i *ngIf="user.roles.podcast" class="icon-checkmark"></i></div>
+		<div class="role"><i *ngIf="user.roles.upload" class="icon-checkmark"></i></div>
+		<div class="role"><i *ngIf="user.roles.stream" class="icon-checkmark"></i></div>
+		<div class="actions">
+			<a title="Change Avatar" (click)="editUserAvatar(user)"><i class="icon-picture"></i></a>
+			<a title="Set Password" (click)="setUserPassword(user)"><i class="icon-key"></i></a>
+			<a title="Edit User" (click)="editUser(user)"><i class="icon-edit"></i></a>
+			<a title="Delete User" (click)="deleteUser(user)"><i class="icon-remove"></i></a>
+		</div>
+	</div>
+</div>

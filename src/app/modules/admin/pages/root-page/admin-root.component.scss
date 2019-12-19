@@ -11,33 +11,7 @@
 		@include view-host();
 
 		.content {
-			@include cdk-table();
 
-			.name {
-				max-width: 200px;
-			}
-
-			.error {
-				color: var(--accent);
-			}
-
-			.path {
-				font-size: $small;
-			}
-
-			.status {
-				font-size: $small;
-				max-width: 200px;
-			}
-
-			.actions {
-				font-size: $small;
-				max-width: 100px;
-
-				a {
-					margin-right: $margin-sm;
-				}
-			}
 		}
 	}
 }

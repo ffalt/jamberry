@@ -2,7 +2,7 @@
 
 :host {
 
-	.tracks {
+	.users {
 		padding: $padding;
 		font-size: 0.9em;
 	}
@@ -11,9 +11,9 @@
 		font-size: 0.9em;
 	}
 
-	.track {
+	.user {
 		display: grid;
-		grid-template-columns: 60px 2fr 1fr 1fr 50px 60px 60px 50px;
+		grid-template-columns: 60px 1fr 1fr 80px 80px 80px 80px 100px;
 		grid-gap: $padding;
 		padding: $padding-sm 0;
 		border-bottom: 1px solid var(--control-border);
@@ -27,4 +27,13 @@
 		}
 	}
 
+	.icon-checkmark {
+		color: var(--primary);
+	}
+
+	.actions {
+		a {
+			margin-right: $margin-xs;
+		}
+	}
 }

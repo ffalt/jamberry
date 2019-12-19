@@ -1,5 +1,4 @@
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CdkTableModule} from '@angular/cdk/table';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
@@ -21,7 +20,6 @@ import {pages} from './pages';
 		SharedModule,
 		FormsModule,
 		HammerModule,
-		CdkTableModule,
 		ImageCropperModule,
 		ContextMenuModule,
 		ScrollingModule,

@@ -6,7 +6,6 @@ import {Jam, RootScanStrategy} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogRootComponent} from '../../components/dialog-root/dialog-root.component';
-import {JamDataSource} from '../../model/data-source';
 
 @Component({
 	selector: 'app-admin-root',
@@ -15,8 +14,6 @@ import {JamDataSource} from '../../model/data-source';
 })
 export class AdminRootComponent implements OnInit, OnDestroy {
 	roots: Array<Jam.Root>;
-	dataSource: JamDataSource<Jam.Root>;
-	displayedColumns: Array<string> = ['name', 'path', 'strategy', 'status', 'actions'];
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -46,7 +43,6 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			roots => {
 				this.roots = (roots || []).sort((a, b) => a.name.localeCompare(b.name));
-				this.dataSource = new JamDataSource<Jam.Root>(this.roots, AdminRootComponent.getSortValue);
 			},
 			e => {
 				this.notify.error(e);
@@ -85,41 +81,8 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	editRoot(root: Jam.Root): void {
-		const edit: AdminRootServiceEditData = {
-			root,
-			name: root.name,
-			path: root.path,
-			strategy: root.strategy as RootScanStrategy
-		};
-		this.dialogOverlay.open({
-			title: 'Edit Root',
-			childComponent: DialogRootComponent,
-			data: edit,
-			onOkBtn: async () => {
-				try {
-					await this.rootService.applyDialogRoot(edit);
-				} catch (e) {
-					this.notify.error(e);
-					return Promise.reject(e);
-				}
-			},
-			onCancelBtn: async () => Promise.resolve()
-		});
-	}
-
-	deleteRoot(root: Jam.Root): void {
-		this.dialogs.confirm('Delete Root', 'Do you want to the delete the root folder?', () => {
-			this.rootService.removeRoot(root);
-		});
-	}
-
 	refreshRoots(refreshMeta?: boolean): void {
 		this.rootService.rescanRoots(refreshMeta);
-	}
-
-	refreshRoot(root: Jam.Root, refreshMeta?: boolean): void {
-		this.rootService.rescanRoot(root, refreshMeta);
 	}
 
 }

@@ -1,6 +1,10 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Jam} from '@jam';
-import {JamDataSource} from '../../model/data-source';
+
+export class FolderItem {
+	folder: Jam.Folder;
+	selected?: boolean;
+}
 
 @Component({
 	selector: 'app-admin-folder-list',
@@ -9,8 +13,7 @@ import {JamDataSource} from '../../model/data-source';
 })
 export class FolderListComponent implements OnChanges {
 	@Input() folders: Array<Jam.Folder> = [];
-	dataSource: JamDataSource<Jam.Folder>;
-	displayedColumns: Array<string> = ['name', 'artist', 'album', 'year', 'type'];
+	folderItems: Array<FolderItem> = [];
 
 	getSortValue(column: string, folder: Jam.Folder): string | number | undefined {
 		switch (column) {
@@ -28,9 +31,7 @@ export class FolderListComponent implements OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		if (this.folders) {
-			this.dataSource = new JamDataSource<Jam.Folder>(this.folders, this.getSortValue.bind(this));
-		}
+		this.folderItems = (this.folders || []).map(folder => ({folder}));
 	}
 
 }

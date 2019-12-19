@@ -1,5 +1,4 @@
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CdkTableModule} from '@angular/cdk/table';
 import {FormsModule} from '@angular/forms';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -11,7 +10,7 @@ import {ImageCropperModule} from 'ngx-image-cropper';
 import {SharedModule} from '../shared/shared.module';
 
 export const TEST_ADMIN_MODULE_IMPORTS = [
-	ScrollingModule, CdkTableModule, FormsModule, SharedModule, RouterTestingModule, NoopAnimationsModule,
+	ScrollingModule, FormsModule, SharedModule, RouterTestingModule, NoopAnimationsModule,
 	DialogOverlayModule, ImageCropperModule, ContextMenuModule, ToastModule.forRoot(), TEST_JAM_MODULE
 ];
 export const TEST_ADMIN_MODULE_PROVIDERS = [

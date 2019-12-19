@@ -1,5 +1,30 @@
 @import "globals.scss";
 
 :host {
-	@include cdk-table();
+
+	.folders {
+		padding: $padding;
+		font-size: 0.9em;
+	}
+
+	.heading {
+		font-size: 0.9em;
+	}
+
+	.folder {
+		display: grid;
+		grid-template-columns: 2fr 1fr 1fr 60px 130px;
+		grid-gap: $padding;
+		padding: $padding-sm 0;
+		border-bottom: 1px solid var(--control-border);
+
+		&:hover {
+			background-color: var(--background-hover);
+		}
+
+		&.selected {
+			background-color: var(--background-active);
+		}
+	}
+
 }

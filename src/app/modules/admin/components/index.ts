@@ -18,9 +18,11 @@ import {FolderListComponent} from './folder-list/folder-list.component';
 import {FolderTreeComponent} from './folder-tree/folder-tree.component';
 import {ImageEditOverlayContentComponent} from './image-edit-overlay-content/image-edit-overlay-content.component';
 import {InlineEditComponent} from './inline-edit/inline-edit.component';
+import {RootListComponent} from './root-list/root-list.component';
 import {SectionCardsComponent} from './section-cards/section-cards.component';
 import {TrackHealthComponent} from './track-health/track-health.component';
 import {TrackListComponent} from './track-list/track-list.component';
+import {UserListComponent} from './user-list/user-list.component';
 
 export const entryComponents: Array<any> = [
 	DialogFolderArtworkSearchComponent,
@@ -45,10 +47,12 @@ export const components: Array<any> = [
 	FolderArtworkSearchImageComponent,
 	FolderHealthComponent,
 	FolderListComponent,
+	RootListComponent,
 	FolderTreeComponent,
 	InlineEditComponent,
 	SectionCardsComponent,
 	TrackHealthComponent,
+	UserListComponent,
 	TrackListComponent
 ];
 
@@ -75,3 +79,5 @@ export * from './track-health/track-health.component';
 export * from './track-list/track-list.component';
 export * from './dialog-upload-image/dialog-upload-image.component';
 export * from './folder-artwork-search/folder-artwork-search-image.component';
+export * from './root-list/root-list.component';
+export * from './user-list/user-list.component';

@@ -57,9 +57,8 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 	}
 
 	getTrackIDs(): Array<string> {
-		return (this.tracks && this.tracks.selection && this.tracks.selection.selected && this.tracks.selection.selected.length > 0) ?
-			this.tracks.selection.selected.map(trackItem => trackItem.track.id) :
-			this.folder.tracks.map(t => t.id);
+		const selection = this.tracks.trackItems.filter(t => t.selected).map(t => t.track.id);
+		return (selection.length > 0) ? selection : this.folder.tracks.map(t => t.id);
 	}
 
 	moveTracks(): void {

@@ -4,7 +4,6 @@ import {AdminFolderHealthComponent} from './folder-page/health/admin-folder-heal
 import {AdminFolderOverviewComponent} from './folder-page/overview/admin-folder-overview.component';
 import {AdminTracksHealthComponent} from './folder-page/tracks-health/admin-tracks-health.component';
 import {AdminFolderTracksComponent} from './folder-page/tracks/admin-folder-tracks.component';
-import {AdminGenresComponent} from './genres-page/admin-genres.component';
 import {AdminRadarComponent} from './radar-page/admin-radar.component';
 import {AdminRootComponent} from './root-page/admin-root.component';
 import {AdminSettingsComponent} from './settings-page/admin-settings.component';
@@ -18,7 +17,6 @@ export const pages: Array<any> = [
 	AdminFolderOverviewComponent,
 	AdminFolderTracksComponent,
 	AdminFolderFoldersComponent,
-	AdminGenresComponent,
 	AdminRadarComponent,
 	AdminRootComponent,
 	AdminSettingsComponent,
@@ -33,7 +31,6 @@ export * from './folder-page/health/admin-folder-health.component';
 export * from './folder-page/overview/admin-folder-overview.component';
 export * from './folder-page/tracks-health/admin-tracks-health.component';
 export * from './folder-page/tracks/admin-folder-tracks.component';
-export * from './genres-page/admin-genres.component';
 export * from './radar-page/admin-radar.component';
 export * from './root-page/admin-root.component';
 export * from './settings-page/admin-settings.component';

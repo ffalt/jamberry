@@ -1,23 +1,21 @@
 import {TEST_ADMIN_MODULE_IMPORTS, TEST_ADMIN_MODULE_PROVIDERS} from '@admin/admin.module.mock';
-import {TrackListComponent} from '@admin/components';
-import {AdminGenresComponent} from '@admin/pages';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MockComponent} from 'ng-mocks';
+import {RootListComponent} from './root-list.component';
 
-describe('AdminGenresComponent', () => {
-	let component: AdminGenresComponent;
-	let fixture: ComponentFixture<AdminGenresComponent>;
+describe('FolderListComponent', () => {
+	let component: RootListComponent;
+	let fixture: ComponentFixture<RootListComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_ADMIN_MODULE_IMPORTS],
 			providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-			declarations: [AdminGenresComponent, MockComponent(TrackListComponent)]
+			declarations: [RootListComponent]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(AdminGenresComponent);
+		fixture = TestBed.createComponent(RootListComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

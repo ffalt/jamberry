@@ -7,7 +7,6 @@ import {AdminFolderHealthComponent} from './pages/folder-page/health/admin-folde
 import {AdminFolderOverviewComponent} from './pages/folder-page/overview/admin-folder-overview.component';
 import {AdminTracksHealthComponent} from './pages/folder-page/tracks-health/admin-tracks-health.component';
 import {AdminFolderTracksComponent} from './pages/folder-page/tracks/admin-folder-tracks.component';
-import {AdminGenresComponent} from './pages/genres-page/admin-genres.component';
 import {AdminRadarComponent} from './pages/radar-page/admin-radar.component';
 import {AdminRootComponent} from './pages/root-page/admin-root.component';
 import {AdminSettingsComponent} from './pages/settings-page/admin-settings.component';
@@ -34,7 +33,6 @@ export const routes: Routes = [
 				]
 			},
 			{path: 'radar', component: AdminRadarComponent, data: {name: 'Health Radar', icon: 'icon-health'}},
-			{path: 'genre', component: AdminGenresComponent, data: {name: 'Genres', icon: 'icon-genre'}},
 			{path: 'settings', component: AdminSettingsComponent, data: {name: 'Admin Settings'}}
 		]
 	}
