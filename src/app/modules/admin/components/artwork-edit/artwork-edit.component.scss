@@ -1,18 +1,25 @@
 @import "globals.scss";
 
 :host {
-	text-align: center;
 	width: 100%;
 	display: block;
+	text-align: center;
 
 	image-cropper {
 		width: 300px;
+		display: block;
+	}
+
+	.image-crop {
 		display: inline-block;
+		text-align: center;
+		margin-left: $margin-sm;
 		margin-right: $margin-sm;
 	}
 
 	.image-preview {
 		margin-left: $margin-sm;
+		margin-right: $margin-sm;
 		display: inline-block;
 
 		img {

@@ -68,8 +68,8 @@
 			<div class="section-title">Artworks</div>
 			<button class="button-on-control" (click)="uploadImage()"><i class="icon-upload-cloud"></i> Upload</button>
 			<button class="button-on-control" *ngIf="isAlbum && folder.tag &&  (folder.tag.mbReleaseID || folder.tag.mbReleaseGroupID)"
-							(click)="searchAlbumImages()" title="Album Images"><i class="icon-picture"></i> Search Art</button>
-			<button class="button-on-control" *ngIf="isArtist && folder.tag && folder.tag.mbArtistID" (click)="searchArtistImages()" title="Artist Images"><i class="icon-picture"></i> Search Art</button>
+							(click)="searchImages()" title="Album Images"><i class="icon-picture"></i> Search Art</button>
+			<button class="button-on-control" *ngIf="isArtist && folder.tag && folder.tag.mbArtistID" (click)="searchImages()" title="Artist Images"><i class="icon-picture"></i> Search Art</button>
 			<div *ngIf="folder.artworks && folder.artworks.length>0">
 				<app-admin-artwork-list [folderID]="folder.id" [artworks]="folder.artworks"></app-admin-artwork-list>
 			</div>

@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {AdminFolderService, AppService, DialogsService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '@shared/components';
 import {ImageEditOverlayContentComponent} from '../image-edit-overlay-content/image-edit-overlay-content.component';
@@ -38,7 +38,9 @@ export class ArtworkListComponent implements OnChanges {
 		private jam: JamService,
 		private notify: NotifyService,
 		private folderService: AdminFolderService,
-		private dialogOverlay: DialogOverlayService) {
+		private dialogs: DialogsService,
+		private dialogOverlay: DialogOverlayService
+	) {
 	}
 
 	trackByFn(index: number, node: ArtworkImageNode): string {
@@ -78,14 +80,16 @@ export class ArtworkListComponent implements OnChanges {
 	}
 
 	removeArtwork(node: ArtworkImageNode): void {
-		this.jam.folder.artwork_delete({id: node.artwork.id})
-			.then(item => {
-				this.nodes = this.nodes.filter(n => n !== node);
-				this.folderService.waitForQueueResult('Removing Artwork', item, [this.folderID]);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+		this.dialogs.confirm('Remove Artworks?', `Do you want to delete "${node.artwork.name}"?`, () => {
+			this.jam.folder.artwork_delete({id: node.artwork.id})
+				.then(item => {
+					this.nodes = this.nodes.filter(n => n !== node);
+					this.folderService.waitForQueueResult('Removing Artwork', item, [this.folderID]);
+				})
+				.catch(e => {
+					this.notify.error(e);
+				});
+		});
 	}
 
 	private displayArtworks(): void {

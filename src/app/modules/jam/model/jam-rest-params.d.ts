@@ -1,4 +1,5 @@
 // tslint:disable:max-file-line-count
+import {ArtworkImageType} from '@app/modules/jam';
 import {Jam} from './jam-rest-data';
 
 export declare namespace JamParameters {

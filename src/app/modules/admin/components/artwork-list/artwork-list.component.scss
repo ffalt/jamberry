@@ -7,12 +7,57 @@
 		padding-right: $padding;
 		font-size: 0.8em;
 		text-align: center;
+		width: 200px;
+
+		.artwork-img {
+			position: relative;
+			overflow: hidden;
+
+			img {
+				width: 100%;
+				height: auto;
+			}
+
+			.dims, .size, .format, .mode {
+				position: absolute;
+				padding: $padding-xs;
+				background-color: var(--background-transparent);
+				color: var(--on-background-active);
+			}
+
+			.mode {
+				top: 0;
+				left: 0;
+			}
+
+			.format {
+				bottom: 0;
+				left: 0;
+			}
+
+			.dims {
+				top: 0;
+				right: 0;
+			}
+
+			.size {
+				bottom: 0;
+				right: 0;
+			}
+		}
 	}
 
 	.artwork-types {
+		display: flex;
+		flex-direction: row;
+
+		app-inline-edit {
+			flex: 1;
+		}
+
+		.delete-button {
+			user-select: none;
+		}
 	}
 
-	.delete-button {
-		user-select: none;
-	}
 }

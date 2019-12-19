@@ -4,8 +4,7 @@ import {DialogOverlayService} from '@app/modules/dialog-overlay';
 
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {FolderHealthID, Jam, JamService} from '@jam';
-import {DialogAlbumImageComponent} from '../dialog-album-image/dialog-album-image-component';
-import {DialogArtistImageComponent} from '../dialog-artist-image/dialog-artist-image-component';
+import {DialogFolderArtworkSearchComponent} from '../dialog-folder-artwork-search/dialog-folder-artwork-search.component';
 
 export interface FolderHealthHintSolution {
 	name: string;
@@ -45,19 +44,10 @@ export class FolderHealthComponent implements OnChanges {
 		return hint.hint.id;
 	}
 
-	searchAlbumImages(folder: Jam.Folder): void {
+	searchImages(folder: Jam.Folder): void {
 		this.dialogOverlay.open({
-			title: 'Search Album Images',
-			childComponent: DialogAlbumImageComponent,
-			data: {folder},
-			panelClass: 'overlay-panel-large-buttons'
-		});
-	}
-
-	searchArtistImages(folder: Jam.Folder): void {
-		this.dialogOverlay.open({
-			title: 'Search Artist Images',
-			childComponent: DialogArtistImageComponent,
+			title: 'Search Artwork Images',
+			childComponent: DialogFolderArtworkSearchComponent,
 			data: {folder},
 			panelClass: 'overlay-panel-large-buttons'
 		});
@@ -94,7 +84,7 @@ export class FolderHealthComponent implements OnChanges {
 			const sol: FolderHealthHintSolution = {
 				name: 'Search',
 				click: async () => {
-					this.searchArtistImages(folder);
+					this.searchImages(folder);
 				}
 			};
 			this.solutions.push(sol);
@@ -106,7 +96,7 @@ export class FolderHealthComponent implements OnChanges {
 			const sol: FolderHealthHintSolution = {
 				name: 'Search',
 				click: async () => {
-					this.searchAlbumImages(folder);
+					this.searchImages(folder);
 				}
 			};
 			this.solutions.push(sol);

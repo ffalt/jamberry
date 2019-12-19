@@ -1,7 +1,6 @@
 import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-parent-view-id/admin-base-parent-view-id.component';
-import {DialogAlbumImageComponent} from '@admin/components/dialog-album-image/dialog-album-image-component';
-import {DialogArtistImageComponent} from '@admin/components/dialog-artist-image/dialog-artist-image-component';
 import {DialogChooseFolderComponent, SelectFolder} from '@admin/components/dialog-choose-folder/dialog-choose-folder.component';
+import {DialogFolderArtworkSearchComponent} from '@admin/components/dialog-folder-artwork-search/dialog-folder-artwork-search.component';
 import {DialogUploadImageComponent} from '@admin/components/dialog-upload-image/dialog-upload-image.component';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -83,15 +82,6 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 		}
 	}
 
-	searchAlbumImages(): void {
-		this.dialogOverlay.open({
-			title: 'Search Album Images',
-			childComponent: DialogAlbumImageComponent,
-			data: {folder: this.folder},
-			panelClass: 'overlay-panel-large-buttons'
-		});
-	}
-
 	uploadImage(): void {
 		this.dialogOverlay.open({
 			title: 'Upload Folder Images',
@@ -101,26 +91,13 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 		});
 	}
 
-	searchArtistImages(): void {
+	searchImages(): void {
 		this.dialogOverlay.open({
-			title: 'Search Artist Images',
-			childComponent: DialogArtistImageComponent,
+			title: 'Search Artwork Images',
+			childComponent: DialogFolderArtworkSearchComponent,
 			data: {folder: this.folder},
 			panelClass: 'overlay-panel-large-buttons'
 		});
-	}
-
-	refreshArtworks(): void {
-		if (this.folder) {
-			const folder = this.folder;
-			this.jam.folder.artworks({id: this.folder.id})
-				.then(art => {
-					folder.artworks = art;
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
-		}
 	}
 
 	removeFolder(): void {

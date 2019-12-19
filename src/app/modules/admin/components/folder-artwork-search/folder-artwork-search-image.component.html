@@ -1,22 +1,20 @@
 <div class="image-selector">
 	<div class="art-source">
 		<div class="section">
-			<a href="https://coverartarchive.org/" rel="noopener" target="_blank">
-				<app-mb-icon [size]="18"></app-mb-icon>
-				Coverart Archive</a>
+			<a [href]="searchSource.url" rel="noopener" target="_blank">{{searchSource.name}}</a>
 		</div>
 		<app-loading *ngIf="!nodes"></app-loading>
 		<div *ngIf="nodes">
 			<app-background-text-list [list]="nodes" name="Images"></app-background-text-list>
 			<div class="images">
-				<div *ngFor="let node of nodes; trackBy: trackByFn">
+				<div *ngFor="let node of nodes; trackBy: trackByFn" (click)="node.checked=!node.checked">
 					<div class="image">
-						<img alt="{{node.image.types}}" [src]="node.image.thumbnails.small"><br/>
+						<img alt="{{node.name}}" [src]="node.thumbnail"><br/>
 					</div>
 					<div class="footer">
 						<div class="footer-content">
-							<label [title]="node.image.approved | stringToggle:'Approved':'Not Approved'">
-								<input type="checkbox" [(ngModel)]="node.checked" [checked]="node.checked"> {{node.image.types}}
+							<label>
+								<input type="checkbox" [(ngModel)]="node.checked" [checked]="node.checked"> {{node.name}}
 							</label>
 						</div>
 					</div>
