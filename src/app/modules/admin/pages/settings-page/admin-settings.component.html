@@ -6,6 +6,24 @@
 		<app-loading *ngIf="!settings"></app-loading>
 		<ng-container *ngIf="settings">
 			<div>
+				<div class="section-title">Server</div>
+				<div class="section-entry">
+					<label>
+						<input type="checkbox" title="Scan all Roots on Server Start" [(ngModel)]="settings.library.scanAtStart" (ngModelChange)="onChange()"/>
+						Scan all Roots on Server Start
+					</label>
+				</div>
+			</div>
+			<div>
+				<div class="section-title">External Services</div>
+				<div class="section-entry">
+					<label>
+						<input type="checkbox" title="Allow Request to External Services" [(ngModel)]="settings.externalServices.enabled" (ngModelChange)="onChange()"/>
+						Allow Request to External Services
+					</label>
+				</div>
+			</div>
+			<div>
 				<div class="section-title">Chat</div>
 				<div class="section-entry">
 					<label for="max_messages">Maximum Number of Messages</label>
@@ -35,15 +53,6 @@
 				<div class="section-entry">
 					<label for="ignore_articles">Ignored Articles in Artist Names</label>
 					<textarea id="ignore_articles" [(ngModel)]="ignoreArticles" rows="10" cols="20" (ngModelChange)="onChange()"></textarea>
-				</div>
-			</div>
-			<div>
-				<div class="section-title">Server</div>
-				<div class="section-entry">
-					<label>
-						<input type="checkbox" title="Scan all Roots on Server Start" [(ngModel)]="settings.library.scanAtStart" (ngModelChange)="onChange()"/>
-						Scan all Roots on Server Start
-					</label>
 				</div>
 			</div>
 		</ng-container>
