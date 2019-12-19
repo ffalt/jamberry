@@ -1,5 +1,5 @@
 /* tslint:disable:max-classes-per-file */
-import {FolderType, FolderTypesAlbum, Jam, JamObjectType} from '@jam';
+import {AlbumType, FolderType, FolderTypesAlbum, Jam, JamObjectType} from '@jam';
 import {LibraryService} from '@library/services';
 import {HeaderInfo} from '@shared/components';
 import {JamObject} from '@shared/model/helpers';
@@ -90,6 +90,21 @@ export class JamAlbumObject extends JamLibraryObject {
 	}
 
 	getInfos(): Array<HeaderInfo> {
+		if (this.album.albumType === AlbumType.series) {
+			return [
+				{
+					label: 'Artist', value: this.album.artist, click: () => {
+						this.navigToParent();
+					}
+				},
+				{
+					label: 'Series', value: this.album.series, click: () => {
+						this.library.navig.toSeriesID(this.album.seriesID, this.album.series);
+					}
+				},
+				{label: 'Episode', value: this.album.seriesNr},
+			].filter(info => info.value !== undefined);
+		}
 		return [
 			{
 				label: 'Artist', value: this.album.artist, click: () => {
@@ -458,8 +473,9 @@ export class JamSeriesObject extends JamLibraryObject {
 
 	getInfos(): Array<HeaderInfo> {
 		return [
+			{label: 'Artist', value: this.series.artist, click: () => this.navigToParent()},
 			{label: 'Albums', value: this.series.albumCount},
-			{label: 'Tracks', value: this.series.trackCount},
+			// {label: 'Tracks', value: this.series.trackCount},
 			{label: 'Genre', value: this.genre}
 			// {label: 'Played', value: this.series.state.played || 0}
 		].filter(info => info.value !== undefined);
