@@ -18,8 +18,6 @@ export class CacheService {
 			'genre/list'].includes(path)) {
 			return {needsRefresh: false};
 		}
-		console.log('noCache', path);
-		// return this.services.includes(request.urlWithParams);
 	}
 
 	intercept(httpRequest: HttpRequest<any>, handler: HttpHandler): Observable<HttpEvent<any>> {
@@ -45,7 +43,6 @@ export class CacheService {
 			.pipe(
 				tap(stateEvent => {
 					if (stateEvent instanceof HttpResponse) {
-						console.log('caching', httpRequest.urlWithParams);
 						this.cachedData.set(
 							httpRequest.urlWithParams,
 							stateEvent.clone()
