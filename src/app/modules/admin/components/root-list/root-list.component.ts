@@ -1,10 +1,9 @@
-import {DialogRootComponent} from '@admin/components';
 import {Component, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminRootService, AdminRootServiceEditData, AppService, DialogsService, NotifyService} from '@core/services';
 import {Jam, RootScanStrategy} from '@jam';
-
+import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 
 @Component({
 	selector: 'app-admin-root-list',

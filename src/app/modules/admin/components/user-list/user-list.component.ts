@@ -1,4 +1,3 @@
-import {DialogAvatarComponent, DialogUserComponent, DialogUserPassComponent, UserPasswordEdit} from '@admin/components';
 import {Component, Input, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
@@ -6,6 +5,9 @@ import {AdminUserService, AdminUserServiceEditData, AppService, DialogsService, 
 import {Jam} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {DialogAvatarComponent} from '../dialog-avatar/dialog-avatar.component';
+import {DialogUserPassComponent, UserPasswordEdit} from '../dialog-user-pass/dialog-user-pass.component';
+import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 
 @Component({
 	selector: 'app-admin-user-list',

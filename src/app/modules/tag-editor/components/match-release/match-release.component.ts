@@ -70,7 +70,7 @@ class MusicbrainzSearchQuery {
 	matchings: Array<Matching> = [];
 
 	constructor(public q: JamParameters.MusicBrainzSearch) {
-		this.id = 'musicbrainz-' + JamBaseService.flattenParams(q);
+		this.id = 'musicbrainz-' + JSON.stringify(q);
 		this.name = 'MusicBrainz Search for ' +
 			Object.keys(q).filter(key => key !== 'type').map(key => `${key}: "${q[key]}"`).join(', ');
 	}
