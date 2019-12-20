@@ -1,3 +1,14 @@
+import {AdminFolderComponent} from './folder-page/admin-folder.component';
+import {AdminFolderFoldersComponent} from './folder-page/folders/admin-folder-folders.component';
+import {AdminFolderHealthComponent} from './folder-page/health/admin-folder-health.component';
+import {AdminFolderOverviewComponent} from './folder-page/overview/admin-folder-overview.component';
+import {AdminTracksHealthComponent} from './folder-page/tracks-health/admin-tracks-health.component';
+import {AdminFolderTracksComponent} from './folder-page/tracks/admin-folder-tracks.component';
+import {AdminRadarComponent} from './radar-page/admin-radar.component';
+import {AdminRootComponent} from './root-page/admin-root.component';
+import {AdminSettingsComponent} from './settings-page/admin-settings.component';
+import {AdminStartComponent} from './start-page/admin.start.component';
+import {AdminUsersComponent} from './users-page/admin-users.component';
 import {AdminBaseParentViewIdComponent} from './admin-base-parent-view-id/admin-base-parent-view-id.component';
 import {AdminBaseViewIdComponent} from './admin-base-view-id/admin-base-view-id.component';
 import {AdminQueueRequestsComponent} from './admin-queue-requests/admin-queue-requests.component';
@@ -53,7 +64,19 @@ export const components: Array<any> = [
 	SectionCardsComponent,
 	TrackHealthComponent,
 	UserListComponent,
-	TrackListComponent
+	TrackListComponent,
+	AdminFolderComponent,
+	AdminFolderComponent,
+	AdminFolderHealthComponent,
+	AdminFolderOverviewComponent,
+	AdminFolderTracksComponent,
+	AdminFolderFoldersComponent,
+	AdminRadarComponent,
+	AdminRootComponent,
+	AdminSettingsComponent,
+	AdminStartComponent,
+	AdminTracksHealthComponent,
+	AdminUsersComponent
 ];
 
 export * from './admin-base-parent-view-id/admin-base-parent-view-id.component';
@@ -81,3 +104,14 @@ export * from './dialog-upload-image/dialog-upload-image.component';
 export * from './folder-artwork-search/folder-artwork-search-image.component';
 export * from './root-list/root-list.component';
 export * from './user-list/user-list.component';
+export * from './folder-page/admin-folder.component';
+export * from './folder-page/folders/admin-folder-folders.component';
+export * from './folder-page/health/admin-folder-health.component';
+export * from './folder-page/overview/admin-folder-overview.component';
+export * from './folder-page/tracks-health/admin-tracks-health.component';
+export * from './folder-page/tracks/admin-folder-tracks.component';
+export * from './radar-page/admin-radar.component';
+export * from './root-page/admin-root.component';
+export * from './settings-page/admin-settings.component';
+export * from './start-page/admin.start.component';
+export * from './users-page/admin-users.component';

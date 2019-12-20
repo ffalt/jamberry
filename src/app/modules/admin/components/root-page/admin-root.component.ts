@@ -5,7 +5,7 @@ import {AdminRootService, AdminRootServiceEditData, AppService, DialogsService, 
 import {Jam, RootScanStrategy} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {DialogRootComponent} from '../../components/dialog-root/dialog-root.component';
+import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 
 @Component({
 	selector: 'app-admin-root',

@@ -1,10 +1,10 @@
 import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AdminFolderTagEditorComponent} from './pages/tag-editor/admin-folder-tag-editor.component';
+import {AdminFolderTagEditorPageComponent} from './components/tag-editor-page/admin-folder-tag-editor-page.component';
 
 export const routes: Routes = [
 	{
-		path: '', component: AdminFolderTagEditorComponent
+		path: '', component: AdminFolderTagEditorPageComponent
 	}
 ];
 

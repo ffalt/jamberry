@@ -4,7 +4,7 @@ import {AdminUserService, AdminUserServiceEditData, AppService, DialogsService, 
 import {Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {DialogUserComponent} from '../../components/dialog-user/dialog-user.component';
+import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 
 @Component({
 	selector: 'app-admin-users',

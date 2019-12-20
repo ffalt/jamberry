@@ -1,4 +1,4 @@
-@import "globals.scss";
+@import "src/style/globals";
 
 :host {
 	height: 100%;
@@ -6,7 +6,7 @@
 	display: block;
 	overflow: hidden;
 
-	.tracks {
+	.folders {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
@@ -19,8 +19,9 @@
 			border-bottom-style: solid;
 		}
 
-		app-admin-track-list {
+		app-admin-folder-list {
 			overflow-y: auto;
 		}
+
 	}
 }

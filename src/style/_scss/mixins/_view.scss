@@ -20,9 +20,6 @@
 @mixin view-header-slim {
 	min-height: 130px;
 
-	.info .meta .name {
-		font-size: $large;
-	}
 	@media (max-width: $break-phone) {
 		min-height: 100px;
 		padding-left: $padding;

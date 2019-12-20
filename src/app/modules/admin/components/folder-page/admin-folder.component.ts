@@ -5,7 +5,7 @@ import {Jam} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {folderSubSections} from '../../admin.types';
-import {FolderTreeComponent} from '../../components/folder-tree/folder-tree.component';
+import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
 
 @Component({
 	selector: 'app-admin-folder',

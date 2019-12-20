@@ -1,17 +1,17 @@
-import {AdminFolderFoldersComponent} from '@admin/pages/folder-page/folders/admin-folder-folders.component';
+import {AdminFolderFoldersComponent} from '@admin/components/folder-page/folders/admin-folder-folders.component';
 import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AdminComponent} from './admin.component';
-import {AdminFolderComponent} from './pages/folder-page/admin-folder.component';
-import {AdminFolderHealthComponent} from './pages/folder-page/health/admin-folder-health.component';
-import {AdminFolderOverviewComponent} from './pages/folder-page/overview/admin-folder-overview.component';
-import {AdminTracksHealthComponent} from './pages/folder-page/tracks-health/admin-tracks-health.component';
-import {AdminFolderTracksComponent} from './pages/folder-page/tracks/admin-folder-tracks.component';
-import {AdminRadarComponent} from './pages/radar-page/admin-radar.component';
-import {AdminRootComponent} from './pages/root-page/admin-root.component';
-import {AdminSettingsComponent} from './pages/settings-page/admin-settings.component';
-import {AdminStartComponent} from './pages/start-page/admin.start.component';
-import {AdminUsersComponent} from './pages/users-page/admin-users.component';
+import {AdminFolderComponent} from './components/folder-page/admin-folder.component';
+import {AdminFolderHealthComponent} from './components/folder-page/health/admin-folder-health.component';
+import {AdminFolderOverviewComponent} from './components/folder-page/overview/admin-folder-overview.component';
+import {AdminTracksHealthComponent} from './components/folder-page/tracks-health/admin-tracks-health.component';
+import {AdminFolderTracksComponent} from './components/folder-page/tracks/admin-folder-tracks.component';
+import {AdminRadarComponent} from './components/radar-page/admin-radar.component';
+import {AdminRootComponent} from './components/root-page/admin-root.component';
+import {AdminSettingsComponent} from './components/settings-page/admin-settings.component';
+import {AdminStartComponent} from './components/start-page/admin.start.component';
+import {AdminUsersComponent} from './components/users-page/admin-users.component';
 
 export const routes: Routes = [
 	{

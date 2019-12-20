@@ -15,6 +15,7 @@ import {MatchCoverartComponent} from './match-coverart/match-coverart.component'
 import {MatchReleaseComponent} from './match-release/match-release.component';
 import {ScoreBoxComponent} from './score-box/score-box.component';
 import {TagEditorComponent} from './tag-editor/tag-editor.component';
+import {AdminFolderTagEditorPageComponent} from './tag-editor-page/admin-folder-tag-editor-page.component';
 
 export const entryComponents: Array<any> = [
 	DialogTagImageComponent,
@@ -28,6 +29,7 @@ export const entryComponents: Array<any> = [
 
 export const components: Array<any> = [
 	...entryComponents,
+	AdminFolderTagEditorPageComponent,
 	CellEditorComponent,
 	CellEditorDisplayComponent,
 	ColumnToolComponent,
@@ -57,3 +59,4 @@ export * from './score-box/score-box.component';
 export * from './tag-editor/tag-editor.component';
 export * from './column-tool/column-tool.component';
 export * from './dialog-tag-lyrics/dialog-tag-lyrics.component';
+export * from './tag-editor-page/admin-folder-tag-editor-page.component';

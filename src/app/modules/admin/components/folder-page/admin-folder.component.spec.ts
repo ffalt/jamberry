@@ -1,7 +1,7 @@
 import {TEST_ADMIN_MODULE_IMPORTS, TEST_ADMIN_MODULE_PROVIDERS} from '@admin/admin.module.mock';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MockComponent} from 'ng-mocks';
-import {FolderTreeComponent} from '../../components/folder-tree/folder-tree.component';
+import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
 import {AdminFolderComponent} from './admin-folder.component';
 
 describe('AdminFoldersComponent', () => {

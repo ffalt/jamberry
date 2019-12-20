@@ -7,7 +7,6 @@ import {ContextMenuModule} from '@app/modules/context-menu';
 import {SharedModule} from '@shared/shared.module';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {components, entryComponents} from './components';
-import {pages} from './pages';
 import {pipes} from './pipes';
 import {routing} from './tag-editor.routing';
 
@@ -18,7 +17,7 @@ import {routing} from './tag-editor.routing';
 		ContextMenuModule, ScrollingModule, AutocompleteModule, routing
 	],
 	entryComponents: [...entryComponents],
-	declarations: [...components, ...pages, ...pipes],
+	declarations: [...components, ...pipes],
 	providers: []
 })
 export class TagEditorModule {

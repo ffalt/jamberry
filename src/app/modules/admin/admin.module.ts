@@ -12,7 +12,6 @@ import {AdminComponent} from './admin.component';
 import {routing} from './admin.routing';
 
 import {components, entryComponents} from './components';
-import {pages} from './pages';
 
 @NgModule({
 	imports: [
@@ -27,7 +26,7 @@ import {pages} from './pages';
 		routing
 	],
 	entryComponents: [...entryComponents],
-	declarations: [AdminComponent, ...components, ...pages],
+	declarations: [AdminComponent, ...components],
 	providers: []
 })
 export class AdminModule {
