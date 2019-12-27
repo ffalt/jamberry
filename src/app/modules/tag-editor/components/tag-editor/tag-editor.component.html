@@ -6,6 +6,7 @@
 	<ng-template contextMenuItem (execute)="editor.setAudioSeriesFrames()"><i class="icon-edit"></i> Set Fixed Audio Series Frames</ng-template>
 	<ng-template contextMenuItem (execute)="editor.setSoundtrackFrames()"><i class="icon-edit"></i> Set Fixed Soundtrack Frames</ng-template>
 	<ng-template contextMenuItem (execute)="editor.setBootlegFrames()"><i class="icon-edit"></i> Set Fixed Bootleg Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.findMissingLyrics()"><i class="icon-edit"></i> Search Missing Lyrics</ng-template>
 </context-menu>
 
 <ng-container *ngIf="folder">

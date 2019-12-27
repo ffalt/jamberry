@@ -168,8 +168,9 @@ export class TagEditor {
 		return cell.frames.length > 0 ? cell.frames[0].value.text : undefined;
 	}
 
-	async findMissingLyrics(col: RawTagEditColumn): Promise<void> {
+	async findMissingLyrics(col?: RawTagEditColumn): Promise<void> {
 		const lyricsColIndex = this.columns.findIndex(c => c.def.id === 'USLT');
+		const lyricsCol = col ? col : this.columns[lyricsColIndex];
 		const artistColIndex = this.columns.findIndex(c => c.def.id === 'TPE1');
 		const titleColIndex = this.columns.findIndex(c => c.def.id === 'TIT2');
 		for (const edit of this.edits) {
@@ -180,7 +181,7 @@ export class TagEditor {
 				if (title && artist) {
 					const res = await this.jam.metadata.lyricsovh_search({title, artist});
 					if (res && res.lyrics) {
-						this.updateEditTextCell(edit, col, res.lyrics);
+						this.updateEditTextCell(edit, lyricsCol, res.lyrics);
 					}
 				}
 			}
