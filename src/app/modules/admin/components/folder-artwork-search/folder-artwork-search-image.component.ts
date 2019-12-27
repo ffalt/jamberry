@@ -17,7 +17,6 @@ export interface ArtworkNode {
 	licence: string;
 	checked: boolean;
 	storing: boolean;
-	stored: boolean;
 	types: Array<Jam.ArtworkImageType>;
 }
 
@@ -133,7 +132,6 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 									licence: page.imageinfo[0].extmetadata.LicenseShortName.value,
 									checked: true,
 									storing: false,
-									stored: false,
 									types: [ArtworkImageType.artist]
 								};
 							}
@@ -149,6 +147,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			.then(node => {
 				this.nodes = [];
 				if (node) {
+					node.checked = true;
 					this.nodes.push(node);
 				}
 			})
@@ -159,7 +158,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	}
 
 	use(): void {
-		const node = this.nodes.find(i => i.checked && !i.storing && !i.stored);
+		const node = this.nodes.find(i => i.checked && !i.storing);
 		if (node) {
 			this.isWorking = true;
 			node.storing = true;
@@ -172,7 +171,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 					this.folderService.waitForQueueResult('Creating Artwork', info, [this.data.folder.id])
 						.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
 						node.storing = false;
-						node.stored = true;
+						node.checked = false;
 					});
 					this.use();
 				})
@@ -201,7 +200,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 				this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.release, id: musicBrainzReleaseID})
 					.then(res2 => {
 						nodes = nodes.concat(FolderArtworkSearchImageComponent.coverArtResponseToNodes(res2));
-						this.nodes = nodes;
+						this.display(nodes);
 					})
 					.catch(e => {
 						this.notify.error(e);
@@ -215,7 +214,8 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	loadReleaseGroup(musicBrainzReleaseGroupID: string): void {
 		this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.releaseGroup, id: musicBrainzReleaseGroupID})
 			.then(res => {
-				this.nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res);
+				const nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res);
+				this.display(nodes);
 			})
 			.catch(e => {
 				this.notify.error(e);
@@ -227,7 +227,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.release, id: musicBrainzReleaseID})
 				.then(res => {
 					const nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res);
-					this.nodes = nodes;
+					this.display(nodes);
 					if (nodes.length === 0 &&
 						this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.mbReleaseGroupID) {
 						this.nodes = undefined;
@@ -284,6 +284,17 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 					this.loadReleaseGroup(this.data.folder.tag.mbReleaseGroupID);
 				}
 			}
+		}
+	}
+
+	private display(nodes: Array<ArtworkNode>): void {
+		this.nodes = nodes;
+		let node = nodes.find(n => n.types.length === 1 && n.types[0] === ArtworkImageType.front);
+		if (!node) {
+			node = nodes.find(n => n.types.includes(ArtworkImageType.front));
+		}
+		if (node) {
+			this.nodes.forEach(n => n.checked = n === node);
 		}
 	}
 

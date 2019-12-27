@@ -50,6 +50,8 @@
 	.artwork-types {
 		display: flex;
 		flex-direction: row;
+		width: 100%;
+		overflow: hidden;
 
 		app-inline-edit {
 			flex: 1;
