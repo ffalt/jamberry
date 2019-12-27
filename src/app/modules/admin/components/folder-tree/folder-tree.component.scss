@@ -56,34 +56,10 @@
 			min-width: 20px;
 		}
 
-		&.collection {
-			.node-icon {
-				color: #adbced;
-			}
-		}
-
-		&.single {
-			.node-icon {
-				color: #edbfd0;
-			}
-		}
-
-		&.album {
-			.node-icon {
-				color: #bdbd9c;
-			}
-		}
-
-		&.multialbum {
-			.node-icon {
-				color: #bdaaae;
-			}
-		}
-
-		&.artist {
-			.node-icon {
-				color: #6f806e;
-			}
+		.node-type {
+			padding-left: $padding-xs;
+			font-size: 0.7em;
+			text-transform: uppercase;
 		}
 
 		&.active {

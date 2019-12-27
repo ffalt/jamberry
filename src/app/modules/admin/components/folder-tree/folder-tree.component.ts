@@ -1,12 +1,13 @@
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {AdminFolderService, AdminFolderServiceNotifyMode, AppService, NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {FolderType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 export interface TreeNode {
 	level: number;
+	color: string;
 	folder: Jam.Folder;
 	expanded: boolean;
 	isLoading: boolean;
@@ -100,6 +101,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 						folder,
 						hasChildren: folder.folderCount > 0,
 						level: 0,
+						color: this.typeToColor(folder),
 						expanded: this.expandIDs.includes(folder.id),
 						isLoading: false
 					}));
@@ -110,6 +112,26 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 			.catch(e => {
 				this.notify.error(e);
 			});
+	}
+
+	typeToColor(folder: Jam.Folder): string {
+			switch (folder.type as FolderType) {
+				case FolderType.unknown:
+					return '#ff9fAA';
+				case FolderType.artist:
+					return '#6f806e';
+				case FolderType.collection:
+					return '#adbced';
+				case FolderType.album:
+					// single #edbfd0
+					return '#bdbd9c';
+				case FolderType.multialbum:
+					return '#bdaaae';
+				case FolderType.extras:
+					return '#bdbdbd';
+				default:
+					return '';
+			}
 	}
 
 	onFolderUpdate(data: Jam.Folder): void {
@@ -174,6 +196,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 							folder,
 							hasChildren: folder.folderCount > 0,
 							level: node.level + 1,
+							color: this.typeToColor(folder),
 							expanded: this.expandIDs.includes(folder.id),
 							isLoading: false
 						}));

@@ -5,17 +5,16 @@
 <div class="tree">
 <cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="22" class="list-container list-group">
 	<ng-container *cdkVirtualFor="let node of nodes">
-		<div (click)="selectNode(node)" class="node" [style.padding-left.px]="node.level*12" [class.active]="node===selected" [class]="node.folder.type">
+		<div (click)="selectNode(node)" class="node" [style.padding-left.px]="node.level*12" [class.active]="node===selected">
 			<span class="node-toggle" (click)="toggleNode(node)" title="Subfolders: {{node.folder.folderCount}}">
 				<i *ngIf="node.isLoading" class="icon-spin icon-spinner"></i>
 				<i *ngIf="!node.isLoading && node.hasChildren" [class]="node.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
 			</span>
-			<span class="node-icon" (click)="toggleNode(node)" [title]="node.folder.type">
+			<span class="node-icon" [style.color]="node.color" (click)="toggleNode(node)" [title]="node.folder.type">
 				<i [class]="node.expanded | stringToggle:'icon-folder-open':'icon-folder'"></i>
 			</span>
-			<span [title]="node.folder.name">
-			 {{node.folder.name}} | 		 {{node.folder.type}}
-			</span>
+			<span [title]="node.folder.name">{{node.folder.name}}</span>
+			<span class="node-type">| {{node.folder.type}}</span>
 		</div>
 	</ng-container>
 </cdk-virtual-scroll-viewport>
