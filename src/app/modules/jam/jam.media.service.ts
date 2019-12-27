@@ -67,4 +67,11 @@ export class JamMediaService {
 		return this.base.binary(`download/${id}${format !== undefined ? `.${format}` : ''}`);
 	}
 
+	/**
+	 * scrobble a media file
+	 */
+	async stream_scrobble(params: JamParameters.ID): Promise<void> {
+		return this.base.requestPostDataOK('stream/scrobble', params);
+	}
+
 }
