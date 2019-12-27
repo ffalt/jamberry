@@ -1,4 +1,5 @@
-import {Injectable, NgZone, OnDestroy} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
+import {MediaSessionEvents, MediaSessionService} from '@core/services/mediasession/mediasession.service';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -6,8 +7,31 @@ import {NotifyService} from '../notify/notify.service';
 import {PushNotificationService} from '../push-notification/push-notification.service';
 import {QueueService} from '../queue/queue.service';
 import {UserStorageService} from '../userstorage/userstorage.service';
-import {PlayerEvents, SoundPlayer, SoundPlayerAudioSupport} from './player.interface';
+import {PlayerEvents, SoundPlayerAudioSupport} from './player.interface';
 import {PlayerSoundmanager2} from './player.soundmanager2';
+
+class StopWatch {
+	private startAt = 0;	// Time of last start / resume. (0 if not running)
+	private lapTime = 0;	// Time on the clock when last stopped in milliseconds
+
+	start(): void {
+		this.startAt = this.startAt ? this.startAt : Date.now();
+	}
+
+	pause(): void {
+		this.lapTime = this.startAt ? this.lapTime + Date.now() - this.startAt : this.lapTime;
+		this.startAt = 0;
+	}
+
+	reset(): void {
+		this.lapTime = 0;
+		this.startAt = 0;
+	}
+
+	time(): number {
+		return this.lapTime + (this.startAt ? Date.now() - this.startAt : 0);
+	}
+}
 
 @Injectable({
 	providedIn: 'root'
@@ -23,6 +47,8 @@ export class PlayerService implements OnDestroy {
 	audioSupport: SoundPlayerAudioSupport;
 	isPlaying = false;
 	repeatTrack = false;
+	scrobbleWatch = new StopWatch();
+	scrobbled = false;
 	protected unsubscribe = new Subject();
 	private subscribers: {
 		[key: number]: Array<(data: any) => void>;
@@ -34,12 +60,12 @@ export class PlayerService implements OnDestroy {
 		private queue: QueueService,
 		private notify: NotifyService,
 		private notification: PushNotificationService,
+		private mediasession: MediaSessionService,
 		private userStorage: UserStorageService,
-		private jam: JamService,
-		private ngZone?: NgZone
+		private jam: JamService
 	) {
-		this.subscribeSoundPlayerEvents(this.soundPlayer);
-		this.initMediaSession();
+		this.subscribeSoundPlayerEvents();
+		this.subscribeMediaSessionEvents();
 		userStorage.userChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(user => {
 			setTimeout(() => {
@@ -72,9 +98,11 @@ export class PlayerService implements OnDestroy {
 			this.syncQueueWithLocalStorage();
 		}
 		this.queue.setIndexByTrack(track);
+		this.scrobbled = false;
 		this.currentTrack = track;
 		this.currentEpisode = undefined;
 		this.currentTime = (startSeek || 0);
+		this.scrobbleWatch.reset();
 		if ((track as Jam.PodcastEpisode).podcastID) {
 			this.currentEpisode = track as Jam.PodcastEpisode;
 		}
@@ -397,13 +425,13 @@ export class PlayerService implements OnDestroy {
 		this.isPlaying = play;
 		if (play) {
 			this.startPositionStore();
+			this.scrobbleWatch.start();
 		} else {
+			this.scrobbleWatch.pause();
 			this.stopPositionStore();
 		}
 		this.syncPlayerWithLocalStorage();
-		if ('mediaSession' in navigator) {
-			navigator.mediaSession.playbackState = play ? 'playing' : (this.currentTrack ? 'paused' : 'none');
-		}
+		this.mediasession.setPlaybackState(play, !!this.currentTrack);
 	}
 
 	private loadFromStorage(): void {
@@ -431,63 +459,73 @@ export class PlayerService implements OnDestroy {
 		this.userStorage.set(PlayerService.localQueueStorageName, this.queue.tracks);
 	}
 
-	private subscribeSoundPlayerEvents(soundPlayer: SoundPlayer): void {
+	private subscribeSoundPlayerEvents(): void {
 		this.audioSupport = this.soundPlayer.getAudioSupport();
 
-		soundPlayer.on(PlayerEvents.PLAY, () => {
+		this.soundPlayer.on(PlayerEvents.PLAY, () => {
 			this.publish(PlayerEvents.PLAY, undefined);
 			this.setPlaying(true);
 		});
 
-		soundPlayer.on(PlayerEvents.TRACK, track => {
+		this.soundPlayer.on(PlayerEvents.TRACK, track => {
 			this.publish(PlayerEvents.TRACK, track);
 		});
 
-		soundPlayer.on(PlayerEvents.PLAYSTART, () => {
+		this.soundPlayer.on(PlayerEvents.PLAYSTART, () => {
 			this.publish(PlayerEvents.PLAYSTART, undefined);
 			this.setPlaying(true);
 		});
 
-		soundPlayer.on(PlayerEvents.PLAYRESUME, () => {
+		this.soundPlayer.on(PlayerEvents.PLAYRESUME, () => {
 			this.publish(PlayerEvents.PLAYRESUME, undefined);
 			this.setPlaying(true);
 		});
 
-		soundPlayer.on(PlayerEvents.PAUSE, () => {
+		this.soundPlayer.on(PlayerEvents.PAUSE, () => {
 			this.publish(PlayerEvents.PAUSE, undefined);
 			this.setPlaying(false);
 		});
 
-		soundPlayer.on(PlayerEvents.FINISH, () => {
+		this.soundPlayer.on(PlayerEvents.FINISH, () => {
 			this.publish(PlayerEvents.FINISH, undefined);
 			this.onTrackFinish();
 		});
 
-		soundPlayer.on(PlayerEvents.LOADING, val => {
+		this.soundPlayer.on(PlayerEvents.LOADING, val => {
 			this.publish(PlayerEvents.LOADING, val);
 		});
-		soundPlayer.on(PlayerEvents.BUFFERINGSTART, () => {
+		this.soundPlayer.on(PlayerEvents.BUFFERINGSTART, () => {
 			this.publish(PlayerEvents.BUFFERINGSTART, undefined);
 		});
-		soundPlayer.on(PlayerEvents.BUFFERINGEND, () => {
+		this.soundPlayer.on(PlayerEvents.BUFFERINGEND, () => {
 			this.publish(PlayerEvents.BUFFERINGEND, undefined);
 			this.totalTime = this.soundPlayer.duration();
 			this.publish(PlayerEvents.TIME, this.currentTime);
 		});
-		soundPlayer.on(PlayerEvents.SEEK, time => {
+		this.soundPlayer.on(PlayerEvents.SEEK, time => {
 			this.publish(PlayerEvents.SEEK, time);
 		});
-		soundPlayer.on(PlayerEvents.SEEKED, () => {
+		this.soundPlayer.on(PlayerEvents.SEEKED, () => {
 			this.publish(PlayerEvents.SEEKED, undefined);
 		});
-		soundPlayer.on(PlayerEvents.VOLUME, percent => {
+		this.soundPlayer.on(PlayerEvents.VOLUME, percent => {
 			this.publish(PlayerEvents.VOLUME, percent);
 		});
-		soundPlayer.on(PlayerEvents.MUTE, muted => {
+		this.soundPlayer.on(PlayerEvents.MUTE, muted => {
 			this.isMuted = muted;
 			this.publish(PlayerEvents.MUTE, muted);
 		});
-		soundPlayer.on(PlayerEvents.TIME, time => {
+		this.soundPlayer.on(PlayerEvents.TIME, time => {
+			this.currentTime = time;
+			this.totalTime = this.soundPlayer.duration();
+			const playTime = this.scrobbleWatch.time();
+			if (!this.scrobbled && (playTime >= 4 * 60 * 60 * 1000 || playTime >= this.totalTime / 2)) {
+				this.scrobbled = true;
+				console.log('scrobble');
+				this.jam.media.stream_scrobble({id: this.currentTrack.id}).catch(e => {
+					console.error(e);
+				});
+			}
 			// const rest = this.soundPlayer.duration() - time;
 			// if (rest < 30000) {
 			// 	const next = this.queue.getNext();
@@ -495,19 +533,38 @@ export class PlayerService implements OnDestroy {
 			// 		this.soundPlayer.preload(next);
 			// 	}
 			// }
-			this.currentTime = time;
-			this.totalTime = this.soundPlayer.duration();
 			this.publish(PlayerEvents.TIME, time);
 		});
-		soundPlayer.on(PlayerEvents.SPEED, speed => {
+		this.soundPlayer.on(PlayerEvents.SPEED, speed => {
 			this.publish(PlayerEvents.SPEED, speed);
 		});
-		soundPlayer.on(PlayerEvents.AUDIOERROR, () => {
+		this.soundPlayer.on(PlayerEvents.AUDIOERROR, () => {
 			this.publish(PlayerEvents.AUDIOERROR, undefined);
 			this.setPlaying(false);
 		});
-		soundPlayer.on(PlayerEvents.NOSTREAM, () => {
+		this.soundPlayer.on(PlayerEvents.NOSTREAM, () => {
 			this.publish(PlayerEvents.NOSTREAM, undefined);
+		});
+	}
+
+	private subscribeMediaSessionEvents(): void {
+		this.mediasession.on(MediaSessionEvents.PLAY, () => {
+			this.togglePlayPause();
+		});
+		this.mediasession.on(MediaSessionEvents.PAUSE, () => {
+			this.togglePlayPause();
+		});
+		this.mediasession.on(MediaSessionEvents.NEXT, () => {
+			this.next();
+		});
+		this.mediasession.on(MediaSessionEvents.PREVIOUS, () => {
+			this.previous();
+		});
+		this.mediasession.on(MediaSessionEvents.REWIND, () => {
+			this.rewind(5);
+		});
+		this.mediasession.on(MediaSessionEvents.FORWARD, () => {
+			this.forward(5);
 		});
 	}
 
@@ -520,7 +577,7 @@ export class PlayerService implements OnDestroy {
 	}
 
 	private setCurrentTrack(track: Jam.Track): void {
-		this.setMediaSession(track);
+		this.mediasession.setTrack(track);
 		this.setPushNotification(track);
 	}
 
@@ -536,62 +593,6 @@ export class PlayerService implements OnDestroy {
 					console.error(e);
 				});
 		}
-	}
-
-	private setMediaSession(track: Jam.Track): void {
-		if ('mediaSession' in navigator) {
-			const mediaSession = navigator.mediaSession;
-			const sizes = [96, 128, 192, 256, 384, 512];
-			const artwork = sizes.map(size =>
-				({
-					src: this.jam.base.image_url(track.id, size, 'png'),
-					sizes: `${size}x${size}`,
-					type: 'image/png'
-				}));
-			mediaSession.metadata = new MediaMetadata({
-				title: track.tag ? track.tag.title : track.name,
-				artist: track.tag ? track.tag.artist : undefined,
-				album: track.tag ? track.tag.album : undefined,
-				artwork
-			});
-		}
-	}
-
-	private initMediaSession(): void {
-		if ('mediaSession' in navigator) {
-			const mediaSession = navigator.mediaSession;
-			mediaSession.setActionHandler('play', () => {
-				this.ngZone.run(() => {
-					this.togglePlayPause();
-				});
-			});
-			mediaSession.setActionHandler('pause', () => {
-				this.ngZone.run(() => {
-					this.togglePlayPause();
-				});
-			});
-			mediaSession.setActionHandler('seekbackward', () => {
-				this.ngZone.run(() => {
-					this.rewind(5);
-				});
-			});
-			mediaSession.setActionHandler('seekforward', () => {
-				this.ngZone.run(() => {
-					this.forward(5);
-				});
-			});
-			mediaSession.setActionHandler('previoustrack', () => {
-				this.ngZone.run(() => {
-					this.previous();
-				});
-			});
-			mediaSession.setActionHandler('nexttrack', () => {
-				this.ngZone.run(() => {
-					this.next();
-				});
-			});
-		}
-
 	}
 
 }
