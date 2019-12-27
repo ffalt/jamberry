@@ -68,6 +68,16 @@ export class FolderHealthComponent implements OnChanges {
 		return details;
 	}
 
+	private describeImageQualityHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+		this.addAlbumImageSearchSolution(folder);
+		if (!hint.details || hint.details.length === 0) {
+			return [];
+		}
+		const details = [hint.details[0].reason];
+		details.push(`Expected: ${hint.details[0].expected} Actual: ${hint.details[0].actual}`);
+		return details;
+	}
+
 	private static describeAlbumTracksMissingHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
 		if (!hint.details || hint.details.length === 0) {
 			return [];
@@ -189,6 +199,8 @@ export class FolderHealthComponent implements OnChanges {
 			case FolderHealthID.artistImageValid:
 			case FolderHealthID.albumImageValid:
 				return FolderHealthComponent.describeImageInvalidHint(hint, folder);
+			case FolderHealthID.albumImageQuality:
+				return this.describeImageQualityHint(hint, folder);
 			default:
 				break;
 		}
