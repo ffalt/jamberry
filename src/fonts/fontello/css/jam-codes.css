@@ -102,12 +102,17 @@
 .icon-live:before { content: '\e864'; } /* '' */
 .icon-single:before { content: '\e865'; } /* '' */
 .icon-ep:before { content: '\e866'; } /* '' */
+.icon-ccw:before { content: '\e867'; } /* '' */
+.icon-cw:before { content: '\e868'; } /* '' */
+.icon-cancel:before { content: '\e869'; } /* '' */
+.icon-home:before { content: '\e86a'; } /* '' */
 .icon-info:before { content: '\f086'; } /* '' */
 .icon-menu:before { content: '\f0c9'; } /* '' */
 .icon-download-cloud:before { content: '\f0ed'; } /* '' */
 .icon-upload-cloud:before { content: '\f0ee'; } /* '' */
 .icon-health:before { content: '\f0f1'; } /* '' */
 .icon-star-half:before { content: '\f123'; } /* '' */
+.icon-ellipsis-vert:before { content: '\f142'; } /* '' */
 .icon-track:before { content: '\f144'; } /* '' */
 .icon-root:before { content: '\f1c0'; } /* '' */
 .icon-lastfm:before { content: '\f202'; } /* '' */
