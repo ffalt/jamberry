@@ -1,6 +1,6 @@
 # Jamberry
 
-html5 web frontend for jamserve
+html5 web frontend for [jamserve](https://github.com/ffalt/jamserve)
 
 ## Development server
 
