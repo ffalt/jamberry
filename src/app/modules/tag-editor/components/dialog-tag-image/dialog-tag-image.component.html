@@ -5,7 +5,6 @@
 	<image-cropper *ngIf="current.source"
 								 [maintainAspectRatio]="maintainAspectRatio"
 								 [format]="'jpeg'"
-								 [outputType]="'base64'"
 								 [imageBase64]="current.source"
 								 (cropperReady)="cropperReady()"
 								 (loadImageFailed)="loadImageFailed()"

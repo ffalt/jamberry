@@ -5,7 +5,6 @@
 	<image-cropper *ngIf="imageBase64"
 								 [imageBase64]="imageBase64"
 								 [format]="'jpeg'"
-								 [outputType]="'both'"
 								 [maintainAspectRatio]="maintainAspectRatio"
 								 (imageCropped)="imageCropped($event)"
 								 (imageLoaded)="imageLoaded()"
