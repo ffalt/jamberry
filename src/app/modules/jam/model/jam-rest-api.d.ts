@@ -1,4 +1,3 @@
-// tslint:disable:max-file-line-count
 import {Jam} from './jam-rest-data';
 import {JamParameters} from './jam-rest-params';
 
@@ -26,6 +25,7 @@ export type JamApiImageTypes = ['image/jpeg', 'image/png'];
 export type JamApiDownloadTypes = ['application/zip', 'application/tar'];
 export type JamApiStreamTypes = ['audio/mpeg', 'audio/flac', 'audio/mp4', 'audio/ogg', 'audio/x-flv'];
 export type JamApiDefaultStreamTypes = ['audio/mpeg'];
+export type JamApiSVG = ['image/svg+xml'];
 export type JamApiWaveformTypes = ['image/svg+xml', 'application/json', 'application/binary'];
 export type JamApiDefaultDownloadTypes = ['application/zip'];
 
@@ -1286,7 +1286,17 @@ export interface JamApi {
 			operationId: 'waveform.svg';
 			pathParams: JamParameters.WaveformSVG;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
-			binary: JamApiWaveformTypes;
+			binary: JamApiSVG;
+			roles: ['stream'];
+		};
+		/**
+		 * media: get peaks waveform data as json
+		 */
+		'waveform_json'?: {
+			operationId: 'waveform.json';
+			params: JamParameters.ID;
+			result: Jam.WaveFormData,
+			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 			roles: ['stream'];
 		};
 
@@ -1411,6 +1421,7 @@ export interface JamApi {
 		 */
 		'track/fav/update'?: {
 			params: JamParameters.Fav;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1418,6 +1429,7 @@ export interface JamApi {
 		 */
 		'track/rate/update'?: {
 			params: JamParameters.Rate;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1528,6 +1540,7 @@ export interface JamApi {
 		 */
 		'folder/fav/update'?: {
 			params: JamParameters.Fav;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1535,6 +1548,7 @@ export interface JamApi {
 		 */
 		'folder/rate/update'?: {
 			params: JamParameters.Rate;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1570,6 +1584,7 @@ export interface JamApi {
 		 */
 		'album/fav/update'?: {
 			params: JamParameters.Fav;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1577,6 +1592,7 @@ export interface JamApi {
 		 */
 		'album/rate/update'?: {
 			params: JamParameters.Rate;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 
@@ -1585,6 +1601,7 @@ export interface JamApi {
 		 */
 		'artist/fav/update'?: {
 			params: JamParameters.Fav;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1592,6 +1609,7 @@ export interface JamApi {
 		 */
 		'artist/rate/update'?: {
 			params: JamParameters.Rate;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 
@@ -1600,6 +1618,7 @@ export interface JamApi {
 		 */
 		'series/fav/update'?: {
 			params: JamParameters.Fav;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1607,6 +1626,7 @@ export interface JamApi {
 		 */
 		'series/rate/update'?: {
 			params: JamParameters.Rate;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 
@@ -1615,6 +1635,7 @@ export interface JamApi {
 		 */
 		'episode/fav/update'?: {
 			params: JamParameters.Fav;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1622,6 +1643,7 @@ export interface JamApi {
 		 */
 		'episode/rate/update'?: {
 			params: JamParameters.Rate;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 
@@ -1639,6 +1661,7 @@ export interface JamApi {
 		 */
 		'podcast/fav/update'?: {
 			params: JamParameters.Fav;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1646,6 +1669,7 @@ export interface JamApi {
 		 */
 		'podcast/rate/update'?: {
 			params: JamParameters.Rate;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1677,6 +1701,7 @@ export interface JamApi {
 		 */
 		'playlist/fav/update'?: {
 			params: JamParameters.Fav;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**
@@ -1684,6 +1709,7 @@ export interface JamApi {
 		 */
 		'playlist/rate/update'?: {
 			params: JamParameters.Rate;
+			result: Jam.State;
 			errors: JamApiErrorUnauthorized | JamApiErrorGeneric | JamApiErrorParameters | JamApiErrorNotFound;
 		};
 		/**

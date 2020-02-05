@@ -1,4 +1,3 @@
-// tslint:disable:max-file-line-count
 import {AcousticBrainz} from './acousticbrainz-rest-data';
 import {Acoustid} from './acoustid-rest-data';
 import {CoverArtArchive} from './coverartarchive-rest-data';
@@ -9,11 +8,15 @@ import {WikiData} from './wikidata-rest-data';
 
 export declare namespace Jam {
 
-	export type AlbumType = 'unknown' | 'album' | 'compilation' | 'live' | 'bootleg' | 'soundtrack' | 'audiobook' | 'ep' | 'single' | 'series';
+	export type AlbumType =
+		'unknown' | 'album' | 'compilation' | 'live' | 'bootleg' | 'soundtrack' |
+		'audiobook' | 'ep' | 'single' | 'series';
 	export type FolderType = 'unknown' | 'artist' | 'collection' | 'album' | 'multialbum' | 'extras';
 	export type PodcastStatusType = 'new' | 'downloading' | 'completed' | 'error';
 	export type PodcastEpisodeStatusType = 'new' | 'downloading' | 'completed' | 'error' | 'deleted';
-	export type ArtworkImageType = 'front' | 'back' | 'booklet' | 'medium' | 'tray' | 'obi' | 'spine' | 'track' | 'liner' | 'sticker' | 'poster' | 'watermark' | 'raw' | 'unedited' | 'other' | 'artist';
+	export type ArtworkImageType =
+		'front' | 'back' | 'booklet' | 'medium' | 'tray' | 'obi' | 'spine' |
+		'track' | 'liner' | 'sticker' | 'poster' | 'watermark' | 'raw' | 'unedited' | 'other' | 'artist';
 	export type RootScanStrategy = 'auto' | 'artistalbum' | 'compilation' | 'audiobook';
 	export type SessionMode = 'browser' | 'jwt' | 'subsonic';
 
@@ -199,6 +202,7 @@ export declare namespace Jam {
 		artistID?: string;
 		albumArtistID?: string;
 		albumID?: string;
+		seriesID?: string;
 	}
 
 	export interface TrackList extends ListResult {
@@ -491,23 +495,6 @@ export declare namespace Jam {
 		groups: Array<ArtistIndexGroup>;
 	}
 
-	export interface SeriesIndexEntry {
-		name: string;
-		seriesID: string;
-		trackCount: number;
-		albumCount: number;
-	}
-
-	export interface SeriesIndexGroup {
-		name: string;
-		entries: Array<SeriesIndexEntry>;
-	}
-
-	export interface SeriesIndex {
-		lastModified: number;
-		groups: Array<SeriesIndexGroup>;
-	}
-
 	/*
 	 * Playlist Data
 	 */
@@ -626,14 +613,20 @@ export declare namespace Jam {
 	 * AutoComplete Data
 	 */
 
+	export interface AutoCompleteEntry {
+		id: string;
+		name: string;
+	}
+
 	export interface AutoComplete {
-		tracks?: Array<{ id: string; name: string; }>;
-		artists?: Array<{ id: string; name: string; }>;
-		albums?: Array<{ id: string; name: string; }>;
-		folders?: Array<{ id: string; name: string; }>;
-		playlists?: Array<{ id: string; name: string; }>;
-		podcasts?: Array<{ id: string; name: string; }>;
-		episodes?: Array<{ id: string; name: string; }>;
+		tracks?: Array<AutoCompleteEntry>;
+		artists?: Array<AutoCompleteEntry>;
+		albums?: Array<AutoCompleteEntry>;
+		folders?: Array<AutoCompleteEntry>;
+		playlists?: Array<AutoCompleteEntry>;
+		podcasts?: Array<AutoCompleteEntry>;
+		episodes?: Array<AutoCompleteEntry>;
+		series?: Array<AutoCompleteEntry>;
 	}
 
 	/*
@@ -677,6 +670,27 @@ export declare namespace Jam {
 		error?: string;
 		done?: number;
 	}
+	/*
+	 * WaveForm Data
+	 */
+
+	export interface WaveFormData {
+		/** The version number of the waveform data format. */
+		version: number;
+		/** The number of waveform channels present (version 2 only). */
+		channels?: number;
+		/** Sample rate of original audio file (Hz). */
+		sample_rate: number;
+		/** Number of audio samples per waveform minimum/maximum pair. */
+		samples_per_pixel: number;
+		/** Resolution of waveform data. May be either 8 or 16. */
+		bits: number;
+		/** Length of waveform data (number of minimum and maximum value pairs per channel). */
+		length: number;
+		/** Array of minimum and maximum waveform data points, interleaved. Depending on bits, each value may be in the range -128 to +127 or -32768 to +32727. */
+		data: Array<number>;
+	}
+
 
 	/*
 	 * Metadata Data

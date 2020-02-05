@@ -19,7 +19,7 @@ export interface Auth {
 export class JamAuthService {
 	user?: Jam.SessionUser = undefined;
 	auth?: Auth = undefined;
-	readonly version = '0.1.12';
+	readonly version = '0.1.13';
 	readonly apiPrefix = '/jam/v1/';
 	checked: boolean = false;
 	loaded: boolean = false;
@@ -57,6 +57,9 @@ export class JamAuthService {
 	}
 
 	async canUseSession(server: string): Promise<boolean> {
+	    if (this.configuration.forceSessionUsage) {
+	        return true;
+	    }
 		const data = await this.http.get<Jam.Session>(`${server}${this.apiPrefix}session`, {withCredentials: false});
 		return (data.allowedCookieDomains || []).includes(this.configuration.domain());
 	}
