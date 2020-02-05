@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, HostBinding, HostListener, Input} from '@angular/core';
-import {AutocompleteControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
+import {AutocompleteControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types.d';
 
 @Component({
 	selector: 'app-autocomplete-option',

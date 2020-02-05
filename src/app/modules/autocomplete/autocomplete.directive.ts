@@ -13,7 +13,7 @@ import {
 	SimpleChanges,
 	ViewContainerRef
 } from '@angular/core';
-import {AutocompleteControl, AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
+import {AutocompleteControl, AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types.d';
 import {isArrowKeys, isDownArrowKey, isEnterKey, isEscapeKey, isLeftArrowKey, isNonCharKey, isRightArrowKey} from '@app/utils/keys';
 import {concat, fromEvent, Observable, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil, tap} from 'rxjs/operators';
