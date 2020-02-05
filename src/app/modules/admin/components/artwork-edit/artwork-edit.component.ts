@@ -3,7 +3,7 @@ import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChan
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {base64ToFile, ImageCroppedEvent} from 'ngx-image-cropper';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -54,7 +54,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	imageCropped(event: ImageCroppedEvent): void {
 		// console.log('cropped', event);
 		this.croppedImage = event.base64;
-		this.croppedImageFile = event.file;
+		this.croppedImageFile = base64ToFile(event.base64);
 	}
 
 	imageLoaded(): void {
