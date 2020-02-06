@@ -1,20 +1,20 @@
 <app-background-text-list [list]="folderItems" name="Folders"></app-background-text-list>
-<div *ngIf="folderItems && folderItems.length>0" class="folders">
-	<div class="folder heading">
-		<div class="title">Title</div>
-		<div class="artist">Artist</div>
-		<div class="album">Album</div>
-		<div class="year">Year</div>
-		<div class="type">Type</div>
-	</div>
-	<div class="folder" *ngFor="let folderItem of folderItems" (click)="folderItem.selected=!folderItem.selected" [class.selected]="folderItem.selected">
-		<div class="title"><a [routerLink]="['/admin/folder', folderItem.folder.id, 'overview']">{{folderItem.folder.name}}</a></div>
-		<div class="artist">{{folderItem.folder.tag.artist}}</div>
-		<div class="album">{{folderItem.folder.tag.album}}</div>
-		<div class="year">{{folderItem.folder.tag.year}}</div>
-		<div class="type">
+<table *ngIf="folderItems && folderItems.length>0" class="folders">
+	<tr class="folder heading">
+		<td class="title">Title</td>
+		<td class="artist">Artist</td>
+		<td class="album">Album</td>
+		<td class="year">Year</td>
+		<td class="type">Type</td>
+	</tr>
+	<tr class="folder" *ngFor="let folderItem of folderItems" (click)="folderItem.selected=!folderItem.selected" [class.selected]="folderItem.selected">
+		<td class="title"><a [routerLink]="['/admin/folder', folderItem.folder.id, 'overview']">{{folderItem.folder.name}}</a></td>
+		<td class="artist">{{folderItem.folder.tag.artist}}</td>
+		<td class="album">{{folderItem.folder.tag.album}}</td>
+		<td class="year">{{folderItem.folder.tag.year}}</td>
+		<td class="type">
 			{{folderItem.folder.type}}
 			<ng-container *ngIf="folderItem.folder.tag.albumType"> / {{folderItem.folder.tag.albumType}}</ng-container>
-		</div>
-	</div>
-</div>
+		</td>
+	</tr>
+</table>

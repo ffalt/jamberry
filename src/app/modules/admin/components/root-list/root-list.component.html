@@ -1,28 +1,28 @@
 <app-background-text-list [list]="roots" name="Roots"></app-background-text-list>
-<div *ngIf="roots && roots.length>0" class="roots">
-	<div class="root heading">
-		<div class="title">Name</div>
-		<div class="path">Path</div>
-		<div class="strategy">Strategy</div>
-		<div class="status">status</div>
-		<div class="actions">Actions</div>
-	</div>
-	<div class="root" *ngFor="let root of roots" (dblclick)="editRoot(root)">
-		<div class="title">{{root.name}}</div>
-		<div class="path">{{root.path}}</div>
-		<div class="strategy">{{root.strategy}}</div>
-		<div class="status">
+<table *ngIf="roots && roots.length>0" class="roots">
+	<tr class="root heading">
+		<td class="title">Name</td>
+		<td class="path">Path</td>
+		<td class="strategy">Strategy</td>
+		<td class="status">Status</td>
+		<td class="actions">Actions</td>
+	</tr>
+	<tr class="root" *ngFor="let root of roots" (dblclick)="editRoot(root)">
+		<td class="title">{{root.name}}</td>
+		<td class="path">{{root.path}}</td>
+		<td class="strategy">{{root.strategy}}</td>
+		<td class="status">
 			<span *ngIf="!root.status">Not scanned</span>
 			<span *ngIf="root.status && root.status.error" class="error">Error:<br>{{root.status.error}}</span>
 			<span *ngIf="root.status && !root.status.error">
 						<ng-container *ngIf="root.status.scanning">Working…</ng-container>
 						<ng-container *ngIf="!root.status.scanning">Last Change:<br>{{root.status.lastScan | date:'medium'}}</ng-container>
 					</span>
-		</div>
-		<div class="actions">
+		</td>
+		<td class="actions">
 			<a title="Rescan Root" (click)="refreshRoot(root)" appClickStop><i class="icon-rescan"></i></a>
 			<a title="Edit Root" (click)="editRoot(root)" appClickStop><i class="icon-edit"></i></a>
 			<a title="Delete Root" (click)="deleteRoot(root)" appClickStop><i class="icon-remove"></i></a>
-		</div>
-	</div>
-</div>
+		</td>
+	</tr>
+</table>

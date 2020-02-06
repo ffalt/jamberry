@@ -1,23 +1,23 @@
 <app-background-text-list [list]="tracks" name="Tracks"></app-background-text-list>
-<div *ngIf="tracks && tracks.length>0" class="tracks">
-	<div class="track heading">
-		<div class="number">Track Nr.</div>
-		<div class="title">Title</div>
-		<div class="artist">Artist</div>
-		<div class="album">Album</div>
-		<div class="format">Format</div>
-		<div class="bitrate">BitRate</div>
-		<div class="samplerate">SampleRate</div>
-		<div class="duration">Duration</div>
-	</div>
-	<div class="track" *ngFor="let trackItem of trackItems" (click)="trackItem.selected=!trackItem.selected" [class.selected]="trackItem.selected">
-		<div class="number">{{trackItem.track.tag.trackNr}}</div>
-		<div class="title">{{trackItem.track.tag.title}}</div>
-		<div class="artist">{{trackItem.track.tag.artist}}</div>
-		<div class="album">{{trackItem.track.tag.album}}</div>
-		<div class="format">{{trackItem.track.media.format}}</div>
-		<div class="bitrate">{{trackItem.track.media.bitRate}}</div>
-		<div class="samplerate">{{trackItem.track.media.sampleRate}}</div>
-		<div class="duration">{{trackItem.track.duration | duration}}</div>
-	</div>
-</div>
+<table *ngIf="tracks && tracks.length>0" class="tracks">
+	<tr class="track heading">
+		<td class="number">Track Nr.</td>
+		<td class="title">Title</td>
+		<td class="artist">Artist</td>
+		<td class="album">Album</td>
+		<td class="format">Format</td>
+		<td class="bitrate">BitRate</td>
+		<td class="samplerate">SampleRate</td>
+		<td class="duration">Duration</td>
+	</tr>
+	<tr class="track" *ngFor="let trackItem of trackItems" (click)="trackItem.selected=!trackItem.selected" [class.selected]="trackItem.selected">
+		<td class="number">{{trackItem.track.tag.trackNr}}</td>
+		<td class="title">{{trackItem.track.tag.title}}</td>
+		<td class="artist">{{trackItem.track.tag.artist}}</td>
+		<td class="album">{{trackItem.track.tag.album}}</td>
+		<td class="format">{{trackItem.track.media.format}}</td>
+		<td class="bitrate">{{trackItem.track.media.bitRate}}</td>
+		<td class="samplerate">{{trackItem.track.media.sampleRate}}</td>
+		<td class="duration">{{trackItem.track.duration | duration}}</td>
+	</tr>
+</table>

@@ -1,10 +1,14 @@
 @import "globals.scss";
 
 :host {
+	width: 100%;
+	overflow: auto;
+	display: block;
 
 	.folders {
 		padding: $padding;
 		font-size: 0.9em;
+		width: 100%;
 	}
 
 	.heading {
@@ -12,10 +16,9 @@
 	}
 
 	.folder {
-		display: grid;
-		grid-template-columns: 2fr 1fr 1fr 60px 130px;
-		grid-gap: $padding;
-		padding: $padding-sm 0;
+		td {
+			padding: $padding-xs $padding-sm;
+		}
 		border-bottom: 1px solid var(--control-border);
 
 		&:hover {

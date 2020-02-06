@@ -1,10 +1,14 @@
 @import "globals.scss";
 
 :host {
+	width: 100%;
+	overflow: auto;
+	display: block;
 
 	.users {
 		padding: $padding;
 		font-size: 0.9em;
+		width: 100%;
 	}
 
 	.heading {
@@ -12,10 +16,9 @@
 	}
 
 	.user {
-		display: grid;
-		grid-template-columns: 60px 1fr 1fr 80px 80px 80px 80px 100px;
-		grid-gap: $padding;
-		padding: $padding-sm 0;
+		td {
+			padding: $padding-xs $padding-sm;
+		}
 		border-bottom: 1px solid var(--control-border);
 
 		&:hover {
