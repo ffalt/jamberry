@@ -19,7 +19,7 @@ export interface Auth {
 export class JamAuthService {
 	user?: Jam.SessionUser = undefined;
 	auth?: Auth = undefined;
-	readonly version = '0.1.13';
+	readonly version = '0.1.14';
 	readonly apiPrefix = '/jam/v1/';
 	checked: boolean = false;
 	loaded: boolean = false;
