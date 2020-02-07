@@ -16,7 +16,7 @@ export class ObjsLoaderComponent implements OnChanges {
 	@Input() showParent: boolean = false;
 	@Input() loader: JamObjsLoader;
 	@Input() listQuery: { listType: JamParameters.ListType, albumType?: AlbumType };
-	@Input() searchQuery: { query: string, albumType?: AlbumType, genre?: string };
+	@Input() searchQuery: { query?: string, albumType?: AlbumType, genre?: string };
 	@Input() loadAll: boolean = false;
 
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore: LoadMoreButtonComponent;

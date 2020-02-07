@@ -2,11 +2,13 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {getUrlType, JamType} from '@app/utils/jam-lists';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
-import {JamObjectType, JamService} from '@jam';
+import {Jam, JamObjectType, JamService} from '@jam';
 import {
 	JamAlbumObject,
 	JamArtistObject,
-	JamEpisodeObject, JamFolderObject, JamLibraryObject,
+	JamEpisodeObject,
+	JamFolderObject,
+	JamLibraryObject,
 	JamPlaylistObject,
 	JamPodcastObject,
 	JamSeriesObject,
@@ -108,6 +110,10 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 				return new JamFolderObject(folder, this.library);
 			default:
 		}
+	}
+
+	get asPodcastEpisode(): Jam.PodcastEpisode | undefined {
+		return (this.obj as any) as Jam.PodcastEpisode;
 	}
 
 }

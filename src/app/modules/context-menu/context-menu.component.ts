@@ -47,7 +47,7 @@ export class ContextMenuComponent implements OnDestroy {
 	visibleMenuItems: Array<ContextMenuItemDirective> = [];
 	// links: Array<LinkConfig> = [];
 	item: any;
-	event: MouseEvent | KeyboardEvent;
+	event: MouseEvent | KeyboardEvent | Event;
 	protected unsubscribe = new Subject();
 
 	constructor(

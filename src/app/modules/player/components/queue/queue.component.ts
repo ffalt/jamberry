@@ -37,7 +37,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Track): void {
+	onContextMenu($event: Event, item: Jam.Track): void {
 		this.contextMenuService.open(ContextMenuQueueTrackComponent, item, $event);
 	}
 
@@ -52,9 +52,9 @@ export class QueueComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onPanStart(event: HammerInput): void {
+	onPanStart(event: Event): void {
 		this.currentSwipeElement = undefined;
-		let element = event.target;
+		let element = (event as unknown as HammerInput).target;
 		if (!element.classList.contains('track')) {
 			element = element.parentElement;
 		}
@@ -63,17 +63,19 @@ export class QueueComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onPanMove(event: HammerInput): void {
+	onPanMove(event: Event): void {
 		if (this.currentSwipeElement) {
-			this.currentSwipeElement.style.marginLeft = Math.min(Math.max(0, event.deltaX), 200).toString() + 'px';
+			const deltaX = (event as unknown as HammerInput).deltaX;
+			this.currentSwipeElement.style.marginLeft = Math.min(Math.max(0, deltaX), 200).toString() + 'px';
 		}
 	}
 
-	onPanEnd(event: HammerInput, track: Jam.Track): void {
+	onPanEnd(event: Event, track: Jam.Track): void {
 		if (this.currentSwipeElement) {
 			this.currentSwipeElement.style.marginLeft = '0px';
 			this.currentSwipeElement = undefined;
-			if (event.deltaX >= 200) {
+			const deltaX = (event as unknown as HammerInput).deltaX;
+			if (deltaX >= 200) {
 				setTimeout(() => {
 					this.queue.remove(track);
 				});
@@ -81,7 +83,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onPanCancel(event: HammerInput): void {
+	onPanCancel(event: Event): void {
 		if (this.currentSwipeElement) {
 			this.currentSwipeElement.style.marginLeft = '0px';
 			this.currentSwipeElement = undefined;

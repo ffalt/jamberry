@@ -34,12 +34,12 @@ import {CONTEXT_MENU_OPTIONS} from './context-menu.tokens';
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
 	@Input() menuItems: Array<ContextMenuItemDirective> = [];
 	@Input() item: any;
-	@Input() event: MouseEvent | KeyboardEvent;
+	@Input() event: MouseEvent | KeyboardEvent | Event;
 	@Input() parentContextMenu: ContextMenuContentComponent;
 	@Input() menuClass: string;
 	@Input() overlay: OverlayRef;
 	@Input() isLeaf = false;
-	@Output() readonly execute: EventEmitter<{ event: MouseEvent | KeyboardEvent, item: any, menuItem: ContextMenuItemDirective }> = new EventEmitter();
+	@Output() readonly execute: EventEmitter<{ event: MouseEvent | KeyboardEvent | Event, item: any, menuItem: ContextMenuItemDirective }> = new EventEmitter();
 	@Output() readonly openSubMenu: EventEmitter<ContextMenuClickEvent> = new EventEmitter();
 	@Output() readonly closeLeafMenu: EventEmitter<CloseLeafMenuEvent> = new EventEmitter();
 	@Output() readonly closeAllMenus: EventEmitter<{ event: MouseEvent }> = new EventEmitter();

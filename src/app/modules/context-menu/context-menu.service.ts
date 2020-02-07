@@ -17,7 +17,7 @@ export interface ContextMenuClickEvent {
 	anchorElementRef?: ElementRef;
 	anchorElement?: Element | EventTarget;
 	contextMenu?: ContextMenuComponent;
-	event?: MouseEvent | KeyboardEvent;
+	event?: MouseEvent | KeyboardEvent | Event;
 	parentContextMenu?: ContextMenuContentComponent;
 	item: any;
 	activeMenuItemIndex?: number;
@@ -39,12 +39,12 @@ export interface OverlayRefWithContextMenu extends OverlayRef {
 
 export interface CancelContextMenuEvent {
 	eventType: 'cancel';
-	event?: MouseEvent | KeyboardEvent;
+	event?: MouseEvent | KeyboardEvent | Event;
 }
 
 export interface ExecuteContextMenuEvent {
 	eventType: 'execute';
-	event?: MouseEvent | KeyboardEvent;
+	event?: MouseEvent | KeyboardEvent | Event;
 	item: any;
 	menuItem: ContextMenuItemDirective;
 }
@@ -75,7 +75,7 @@ export class ContextMenuService {
 	) {
 	}
 
-	open<T>(contextMenuHost: ComponentType<ContextMenuHostComponentInterface<T>>, item: any, event: MouseEvent | KeyboardEvent, opts?: T, parentEvent?: ContextMenuClickEvent): void {
+	open<T>(contextMenuHost: ComponentType<ContextMenuHostComponentInterface<T>>, item: any, event: MouseEvent | KeyboardEvent | Event, opts?: T, parentEvent?: ContextMenuClickEvent): void {
 		const templateOverlay = this.overlay.create({});
 		this.templateOverlays.push(templateOverlay);
 		const contextMenuTemplate: ComponentRef<any> = templateOverlay.attach(new ComponentPortal(contextMenuHost));

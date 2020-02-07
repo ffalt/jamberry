@@ -6,30 +6,7 @@ import {takeUntil} from 'rxjs/operators';
 import {DialogOverlayRef} from './dialog-overlay-ref.class';
 import {DialogOverlayComponent} from './dialog-overlay.component';
 import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
-
-export interface DialogOverlayDialogConfig<T> {
-	panelClass?: string;
-	hasBackdrop?: boolean;
-	backdropClass?: string;
-	title?: string;
-	data?: T;
-	childComponent?: any;
-
-	onOkBtn?(): Promise<void>;
-
-	onCancelBtn?(): Promise<void>;
-}
-
-const DEFAULT_CONFIG: DialogOverlayDialogConfig<any> = {
-	hasBackdrop: true,
-	backdropClass: 'dark-backdrop'
-};
-
-export interface DialogOverlay<T> {
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<T>>): void;
-
-	dialogResult?(): any;
-}
+import {DEFAULT_CONFIG, DialogOverlayDialogConfig} from './dialog-overlay.types';
 
 @Injectable()
 export class DialogOverlayService implements OnDestroy {

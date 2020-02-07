@@ -1,5 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {MediaSessionEvents, MediaSessionService} from '@core/services/mediasession/mediasession.service';
+import {MediaSessionEvents} from '@core/services/mediasession/mediasession.events';
+import {MediaSessionService} from '@core/services/mediasession/mediasession.service';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

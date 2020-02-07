@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import {isEscapeKey} from '@app/utils/keys';
 import {DialogOverlayRef} from './dialog-overlay-ref.class';
-import {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.service';
 import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
+import {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.types';
 
 @Component({
 	selector: 'app-dialog-overlay',

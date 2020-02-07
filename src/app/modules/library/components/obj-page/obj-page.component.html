@@ -3,7 +3,7 @@
 	<app-view-header-jam-base
 		[appBackgroundImage]="obj.id" [section]="obj.name" [sectionType]="obj.mediaType"
 		[base]="obj.base" [infos]="infos" [tabs]="tabs" (contextMenuRequest)="obj.onContextMenu($event, true)">
-		<app-episode-state-button *ngIf="isPodcastEpisode" [episode]="obj.base" [showTitle]="true"></app-episode-state-button>
+		<app-episode-state-button *ngIf="isPodcastEpisode" [episode]="asPodcastEpisode" [showTitle]="true"></app-episode-state-button>
 		<button *ngIf="!isPodcastEpisode" class="button-primary" (click)="obj.play()"><i class="icon-play"></i> Play</button>
 	</app-view-header-jam-base>
 	<div class="content">

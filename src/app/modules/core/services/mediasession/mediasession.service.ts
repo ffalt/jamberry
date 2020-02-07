@@ -1,66 +1,7 @@
 import {Injectable, NgZone} from '@angular/core';
 import {Jam, JamService} from '@jam';
-
-export class MediaSessionEvents {
-	static PLAY = 1;
-	static PAUSE = 2;
-	static REWIND = 3;
-	static FORWARD = 4;
-	static PREVIOUS = 5;
-	static NEXT = 6;
-}
-
-// Type definitions for Media Session API 1.0
-// Project: https://wicg.github.io/mediasession/
-// Definitions by: Julien CROUZET <https://github.com/jucrouzet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type MediaSessionPlaybackState = 'none' | 'paused' | 'playing';
-
-type MediaSessionAction = 'play' | 'pause' | 'seekbackward' | 'seekforward' | 'previoustrack' | 'nexttrack';
-
-interface MediaSession {
-	// Current media session playback state.
-	playbackState: MediaSessionPlaybackState;
-	// Current media session meta data.
-	metadata: MediaMetadata | null;
-
-	// Set/Unset actions handlers.
-	setActionHandler(action: MediaSessionAction, listener: (() => void) | null): void;
-}
-
-interface MediaImage {
-	// URL from which the user agent can fetch the image’s data.
-	src: string;
-	// Specify the MediaImage object’s sizes. It follows the spec of sizes attribute in HTML link element.
-	sizes?: string;
-	// A hint as to the media type of the image.
-	type?: string;
-}
-
-interface MediaMetadataInit {
-	// Media's title.
-	title?: string;
-	// Media's artist.
-	artist?: string;
-	// Media's album.
-	album?: string;
-	// Media's artwork.
-	artwork?: Array<MediaImage>;
-}
-
-declare class MediaMetadata {
-	// Media's title.
-	title: string;
-	// Media's artist.
-	artist: string;
-	// Media's album.
-	album: string;
-	// Media's artwork.
-	artwork: Array<MediaImage>;
-
-	constructor(init?: MediaMetadataInit);
-}
+import {MediaMetadata, MediaSession} from './media-metadata';
+import {MediaSessionEvents} from './mediasession.events';
 
 @Injectable({
 	providedIn: 'root'
@@ -71,7 +12,7 @@ export class MediaSessionService {
 	} = {};
 	private mediaSession?: MediaSession;
 
-	constructor(private jam: JamService, private ngZone?: NgZone) {
+	constructor(private jam: JamService, private ngZone: NgZone) {
 		if ('mediaSession' in navigator) {
 			this.mediaSession = (navigator as any).mediaSession as MediaSession;
 		}

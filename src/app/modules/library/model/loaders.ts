@@ -12,7 +12,7 @@ import {
 import {LibraryService} from '@library/services';
 
 export interface JamObjsLoaderSearchQuery {
-	query: string;
+	query?: string;
 	albumType?: AlbumType;
 	genre?: string;
 }
