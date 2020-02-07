@@ -245,7 +245,8 @@ module.exports = {
 			}
 		],
 		"no-unused-labels": "error",
-		"no-useless-constructor": "error",
+		"no-useless-constructor": "off",
+		"@typescript-eslint/no-useless-constructor": "error",
 		"no-var": "error",
 		"no-void": "error",
 		"object-shorthand": "error",
