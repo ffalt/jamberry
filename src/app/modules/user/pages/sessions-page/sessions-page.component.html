@@ -1,23 +1,6 @@
 <div class="sessions">
 	<app-view-header-slim section="Session Logins"></app-view-header-slim>
 	<div class="content" *ngIf="sessions">
-		<div class="subsonic">
-			<div class="section-title">Subsonic Token</div>
-
-			<ng-container *ngIf="isUnlocked">
-				<div *ngIf="subsonicToken">
-					<ng-container *ngIf="subsonicToken.token">{{subsonicToken.token}}</ng-container>
-					<ng-container *ngIf="!subsonicToken.token">[No Token]</ng-container>
-				</div>
-				<button class="button-primary" (click)="generateSubsonicToken()">Generate Subsonic Token</button>
-			</ng-container>
-
-			<div *ngIf="!isUnlocked">
-				<div>Enter your password to view/generate your Subsonic Token.</div>
-				<button class="button-primary" (click)="unlockSubsonicToken()">Enter Password</button>
-			</div>
-
-		</div>
 		<div class="session-list">
 			<div class="section-title">Sessions</div>
 			<div class="session" *ngFor="let session of sessions">

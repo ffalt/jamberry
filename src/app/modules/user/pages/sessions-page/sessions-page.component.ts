@@ -12,9 +12,6 @@ import {DialogPasswordComponent, PasswordEdit} from '@shared/components';
 })
 export class SessionsPageComponent implements OnInit {
 	sessions: Array<Jam.UserSession>;
-	isUnlocked: boolean = false;
-	lock: PasswordEdit = {pass: ''};
-	subsonicToken: Jam.SubsonicToken;
 
 	constructor(private jam: JamService, private auth: JamAuthService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
 	}
@@ -47,40 +44,4 @@ export class SessionsPageComponent implements OnInit {
 			});
 	}
 
-	generateSubsonicToken(): void {
-		if (!this.isUnlocked) {
-			return;
-		}
-		this.jam.user.sessions_subsonic_generate({id: this.auth.user.id, password: this.lock.pass})
-			.then(token => {
-				this.subsonicToken = token;
-				this.isUnlocked = true;
-				this.refresh();
-				this.notify.success('Token generated');
-			})
-			.catch(e => {
-				this.subsonicToken = undefined;
-				this.isUnlocked = false;
-				this.notify.error(e);
-			});
-	}
-
-	unlockSubsonicToken(): void {
-		this.dialogOverlay.open({
-			childComponent: DialogPasswordComponent,
-			data: this.lock,
-			onOkBtn: async () => {
-				try {
-					this.subsonicToken = await this.jam.user.sessions_subsonic_view({id: this.auth.user.id, password: this.lock.pass});
-					this.isUnlocked = true;
-				} catch (e) {
-					this.subsonicToken = undefined;
-					this.isUnlocked = false;
-					this.notify.error(e);
-					return Promise.reject(e);
-				}
-			},
-			onCancelBtn: async () => Promise.resolve()
-		});
-	}
 }
