@@ -27,7 +27,7 @@ export interface MediaImage {
 	type?: string;
 }
 
-export interface MediaMetadataInit {
+export interface MediaMetadata {
 	// Media's title.
 	title?: string;
 	// Media's artist.
@@ -36,17 +36,4 @@ export interface MediaMetadataInit {
 	album?: string;
 	// Media's artwork.
 	artwork?: Array<MediaImage>;
-}
-
-export declare class MediaMetadata {
-	// Media's title.
-	title: string;
-	// Media's artist.
-	artist: string;
-	// Media's album.
-	album: string;
-	// Media's artwork.
-	artwork: Array<MediaImage>;
-
-	constructor(init?: MediaMetadataInit)
 }

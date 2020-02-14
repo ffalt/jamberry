@@ -1,7 +1,19 @@
 import {Injectable, NgZone} from '@angular/core';
 import {Jam, JamService} from '@jam';
-import {MediaMetadata, MediaSession} from './media-metadata';
+import {MediaImage,  MediaMetadata, MediaSession} from './media-metadata';
 import {MediaSessionEvents} from './mediasession.events';
+
+export declare class MediaMetadataObj implements MediaMetadata {
+	// Media's title.
+	title: string;
+	// Media's artist.
+	artist: string;
+	// Media's album.
+	album: string;
+	// Media's artwork.
+	artwork: Array<MediaImage>;
+	constructor(init?: MediaMetadata)
+}
 
 @Injectable({
 	providedIn: 'root'
@@ -28,7 +40,7 @@ export class MediaSessionService {
 					sizes: `${size}x${size}`,
 					type: 'image/png'
 				}));
-			this.mediaSession.metadata = new MediaMetadata({
+			this.mediaSession.metadata = new MediaMetadataObj({
 				title: track.tag ? track.tag.title : track.name,
 				artist: track.tag ? track.tag.artist : undefined,
 				album: track.tag ? track.tag.album : undefined,
