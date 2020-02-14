@@ -80,6 +80,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 				folderSubfolders: true,
 				folderTracks: true,
 				folderParents: true,
+				folderTag: true,
 				trackTag: true,
 				trackRawTag: true
 			})
@@ -244,6 +245,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			this.notify.error(Error('Saving is in progress'));
 		}
 		const matching: ReleaseMatching = {
+			folder: this.folder,
 			matchings: this.tracks.map(t =>
 				({track: t})),
 			apply: () => {

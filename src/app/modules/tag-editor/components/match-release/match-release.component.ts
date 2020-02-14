@@ -1,16 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {ChangeDetectorRef, Component, HostBinding, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild} from '@angular/core';
 import {AppService, NotifyService} from '@core/services';
-import {
-	Jam,
-	JamBaseService,
-	JamParameters,
-	JamService,
-	LastFMLookupType,
-	MusicBrainz,
-	MusicBrainzLookupType,
-	MusicBrainzSearchType
-} from '@jam';
+import {Jam, JamParameters, JamService, LastFMLookupType, MusicBrainz, MusicBrainzLookupType, MusicBrainzSearchType} from '@jam';
 import {AcoustIDEntry, acoustidResultToList, AcoustidTree} from '../../model/acoustid.helper';
 import {
 	GenreTag,
@@ -39,6 +30,7 @@ export interface ReleaseDataMatching {
 }
 
 export interface ReleaseMatching {
+	folder: Jam.Folder;
 	matchings: Array<ReleaseDataMatching>;
 
 	apply(): void;
@@ -150,7 +142,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			if (!this.isRunning) {
 				this.isAborted = false;
 			}
-			this.start(RunType.auto);
+			// this.start(RunType.auto);
 		}
 	}
 
@@ -228,6 +220,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			const list = this.manualSearchData.getAutoCompleteAlbumList();
 			if (list.length > 0) {
 				this.manualSearchData.releaseGroup = list[0];
+			} else if (this.data.folder) {
+				this.manualSearchData.releaseGroup = this.data.folder.name;
 			}
 		}
 
@@ -417,10 +411,10 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 				if (this.shouldStop()) {
 					return;
 				}
-				// await this.acoustId();
-				// if (this.shouldStop()) {
-				// 	return;
-				// }
+				await this.acoustId();
+				if (this.shouldStop()) {
+					return;
+				}
 				await this.musicBrainzByTags();
 				break;
 			default:
@@ -637,6 +631,15 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 				artist: artists.length > 0 ? artists[0] : undefined
 			}));
 		}
+
+		if (this.data.folder && this.data.folder.tag) {
+			queries.push(new MusicbrainzSearchQuery({
+				type: MusicBrainzSearchType.releaseGroup,
+				releasegroup: this.data.folder.name,
+				artist: this.data.folder.tag.artist
+			}));
+		}
+
 		return queries;
 	}
 
