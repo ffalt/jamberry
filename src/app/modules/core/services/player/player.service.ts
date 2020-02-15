@@ -519,21 +519,16 @@ export class PlayerService implements OnDestroy {
 		this.soundPlayer.on(PlayerEvents.TIME, time => {
 			this.currentTime = time;
 			this.totalTime = this.soundPlayer.duration();
-			const playTime = this.scrobbleWatch.time();
-			if (!this.scrobbled && (playTime >= 4 * 60 * 60 * 1000 || playTime >= this.totalTime / 2)) {
-				this.scrobbled = true;
-				console.log('scrobble');
-				this.jam.media.stream_scrobble({id: this.currentTrack.id}).catch(e => {
-					console.error(e);
-				});
+			if (!this.scrobbled) {
+				const playTime = this.scrobbleWatch.time();
+				const scrobbleTime = Math.min(this.totalTime / 2, 4 * 60 * 60 * 1000);
+				if (scrobbleTime > 0 && playTime >= scrobbleTime) {
+					this.scrobbled = true;
+					this.jam.media.stream_scrobble({id: this.currentTrack.id}).catch(e => {
+						console.error(e);
+					});
+				}
 			}
-			// const rest = this.soundPlayer.duration() - time;
-			// if (rest < 30000) {
-			// 	const next = this.queue.getNext();
-			// 	if (next) {
-			// 		this.soundPlayer.preload(next);
-			// 	}
-			// }
 			this.publish(PlayerEvents.TIME, time);
 		});
 		this.soundPlayer.on(PlayerEvents.SPEED, speed => {
