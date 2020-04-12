@@ -36,7 +36,7 @@
 				"app/modules/library/*"
 			],
 			"@jam": [
-				"app/modules/jam/index"
+				"app/modules/jam/index.ts"
 			]
 		}
 	},
