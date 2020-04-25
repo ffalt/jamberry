@@ -1,14 +1,3 @@
-import {AdminFolderComponent} from './folder-page/admin-folder.component';
-import {AdminFolderFoldersComponent} from './folder-page/folders/admin-folder-folders.component';
-import {AdminFolderHealthComponent} from './folder-page/health/admin-folder-health.component';
-import {AdminFolderOverviewComponent} from './folder-page/overview/admin-folder-overview.component';
-import {AdminTracksHealthComponent} from './folder-page/tracks-health/admin-tracks-health.component';
-import {AdminFolderTracksComponent} from './folder-page/tracks/admin-folder-tracks.component';
-import {AdminRadarComponent} from './radar-page/admin-radar.component';
-import {AdminRootComponent} from './root-page/admin-root.component';
-import {AdminSettingsComponent} from './settings-page/admin-settings.component';
-import {AdminStartComponent} from './start-page/admin.start.component';
-import {AdminUsersComponent} from './users-page/admin-users.component';
 import {AdminBaseParentViewIdComponent} from './admin-base-parent-view-id/admin-base-parent-view-id.component';
 import {AdminBaseViewIdComponent} from './admin-base-view-id/admin-base-view-id.component';
 import {AdminQueueRequestsComponent} from './admin-queue-requests/admin-queue-requests.component';
@@ -26,14 +15,25 @@ import {DialogUserComponent} from './dialog-user/dialog-user.component';
 import {FolderArtworkSearchImageComponent} from './folder-artwork-search/folder-artwork-search-image.component';
 import {FolderHealthComponent} from './folder-health/folder-health.component';
 import {FolderListComponent} from './folder-list/folder-list.component';
+import {AdminFolderComponent} from './folder-page/admin-folder.component';
+import {AdminFolderFoldersComponent} from './folder-page/folders/admin-folder-folders.component';
+import {AdminFolderHealthComponent} from './folder-page/health/admin-folder-health.component';
+import {AdminFolderOverviewComponent} from './folder-page/overview/admin-folder-overview.component';
+import {AdminTracksHealthComponent} from './folder-page/tracks-health/admin-tracks-health.component';
+import {AdminFolderTracksComponent} from './folder-page/tracks/admin-folder-tracks.component';
 import {FolderTreeComponent} from './folder-tree/folder-tree.component';
 import {ImageEditOverlayContentComponent} from './image-edit-overlay-content/image-edit-overlay-content.component';
 import {InlineEditComponent} from './inline-edit/inline-edit.component';
+import {AdminRadarComponent} from './radar-page/admin-radar.component';
 import {RootListComponent} from './root-list/root-list.component';
+import {AdminRootComponent} from './root-page/admin-root.component';
 import {SectionCardsComponent} from './section-cards/section-cards.component';
+import {AdminSettingsComponent} from './settings-page/admin-settings.component';
+import {AdminStartComponent} from './start-page/admin.start.component';
 import {TrackHealthComponent} from './track-health/track-health.component';
 import {TrackListComponent} from './track-list/track-list.component';
 import {UserListComponent} from './user-list/user-list.component';
+import {AdminUsersComponent} from './users-page/admin-users.component';
 
 export const entryComponents: Array<any> = [
 	DialogFolderArtworkSearchComponent,

@@ -30,7 +30,7 @@
 		<div class="section-title">Media: {{media.format}} {{media.position}} ({{media.trackCount}} Tracks)</div>
 		<div class="track" *ngFor="let track of media.tracks">
 			<div>Track {{track.number}} - {{track.length | mediaduration}}</div>
-			<div><span class="value">{{track.title || track.position}}</span> by <span class="value">{{compactArtist(track.artistCredit)}}</span></div>
+			<div><span class="value">{{track.title || track.position}}</span> by <span class="value">{{track.artistCredit | mbArtistCredits}}</span></div>
 		</div>
 	</div>
 

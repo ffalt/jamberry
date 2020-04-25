@@ -6,13 +6,34 @@ module.exports = {
 	},
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"project": "tsconfig.json",
+		"project": "tsconfig.lint.json",
 		"sourceType": "module"
 	},
 	"plugins": [
 		"@typescript-eslint"
 	],
+	"extends": [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/eslint-recommended',
+		'plugin:@typescript-eslint/recommended'
+	],
 	"rules": {
+		"@typescript-eslint/no-inferrable-types": "off",
+		"@typescript-eslint/member-delimiter-style": [
+			"error",
+			{
+				"multiline": {
+					"delimiter": "semi",
+					"requireLast": true
+				},
+				"singleline": {
+					"delimiter": "semi",
+					"requireLast": false
+				}
+			}
+		]
+
+		/*
 		"@typescript-eslint/adjacent-overload-signatures": "error",
 		"@typescript-eslint/array-type": "error",
 		"@typescript-eslint/await-thenable": "error",
@@ -50,7 +71,6 @@ module.exports = {
 		"@typescript-eslint/no-extraneous-class": "error",
 		"@typescript-eslint/no-floating-promises": "error",
 		"@typescript-eslint/no-for-in-array": "error",
-		"@typescript-eslint/no-inferrable-types": "off",
 		"@typescript-eslint/no-misused-new": "error",
 		"@typescript-eslint/no-namespace": "off",
 		"@typescript-eslint/no-non-null-assertion": "error",
@@ -410,5 +430,6 @@ module.exports = {
 				}
 			}
 		]
+		 */
 	}
 };

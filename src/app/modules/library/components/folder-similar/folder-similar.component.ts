@@ -28,7 +28,6 @@ export class FolderSimilarComponent implements OnInit, OnDestroy {
 		if (this.route && this.route.parent) {
 			this.route.parent.params
 				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
-				console.log(params);
 				this.id = params.id;
 				this.refresh();
 			});

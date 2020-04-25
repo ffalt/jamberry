@@ -619,7 +619,10 @@ export class TagEditor {
 					icon: 'icon-down-thin',
 					title: 'Search for missing Lyrics',
 					click: () => {
-						this.findMissingLyrics(col);
+						this.findMissingLyrics(col)
+							.catch(e => {
+								console.error(e);
+							});
 					}
 				});
 			}

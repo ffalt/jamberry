@@ -11,6 +11,7 @@ import {SharedModule} from '@shared/shared.module';
 import {components, entryComponents} from './components';
 import {LibraryComponent} from './library.component';
 import {routing} from './library.routing';
+import {pipes} from './pipes';
 import {services} from './services';
 
 @NgModule({
@@ -26,7 +27,7 @@ import {services} from './services';
 		routing
 	],
 	entryComponents: [...entryComponents],
-	declarations: [LibraryComponent, ...components],
+	declarations: [LibraryComponent, ...pipes, ...components],
 	providers: [...services]
 })
 

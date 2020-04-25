@@ -1,13 +1,13 @@
 import {PortalModule} from '@angular/cdk/portal';
-import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import {HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {Injectable, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule} from '@angular/platform-browser';
+import {BrowserModule, HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {CoreModule} from '@core/core.module';
 import {ConfigurationService} from '@core/services';
-import {CacheService} from '@core/services/uri-cache/cache.service';
 import {CacheInterceptor} from '@core/services/uri-cache/cache.interceptor';
+import {CacheService} from '@core/services/uri-cache/cache.service';
 import {JamConfiguration, JamModule} from '@jam';
 import {SharedModule} from '@shared/shared.module';
 

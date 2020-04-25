@@ -2,7 +2,7 @@ const PROXY_CONFIG = [
 	{
 		context: [
 			"/api",
-			"/assets/config"
+			// "/assets/config"
 		],
 		target: "http://localhost:4040",
 		secure: false,

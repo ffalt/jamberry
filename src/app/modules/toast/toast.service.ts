@@ -3,7 +3,7 @@ import {ComponentPortal} from '@angular/cdk/portal';
 import {ComponentRef, Inject, Injectable, Injector, NgZone} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {GlobalConfig, IndividualConfig, TOAST_CONFIG, ToastPackage, ToastToken} from './toast-config';
+import {GlobalConfig, IndividualConfig, ToastPackage, ToastToken, TOAST_CONFIG} from './toast-config';
 import {ToastInjector} from './toast-injector';
 import {ToastRef} from './toast-ref';
 import {ToastComponent} from './toast.component';

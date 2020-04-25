@@ -13,7 +13,9 @@ import {
 	FolderMusicbrainzComponent,
 	FolderOverviewComponent,
 	FolderSimilarComponent,
-	ObjPageComponent, ObjsIndexLoaderComponent,
+	GenrePageComponent, GenresPageComponent,
+	ObjPageComponent,
+	ObjsIndexLoaderComponent,
 	ObjsLoaderByTypeComponent,
 	ObjsPageComponent,
 	PlaylistOverviewComponent,
@@ -25,8 +27,7 @@ import {
 	StartPageComponent,
 	TrackOverviewComponent,
 	TrackSimilarComponent,
-	TracksLoaderByTypeComponent,
-	GenresPageComponent, GenrePageComponent
+	TracksLoaderByTypeComponent
 } from '@library/components';
 import {LibraryComponent} from './library.component';
 

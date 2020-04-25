@@ -67,7 +67,47 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	navigTo(): void {
+		// override
+	}
 
+	private static picFrameToString(frame: ID3v2Frames.Pic): string {
+		return Id3v2ValuePicTypes[frame.value.pictureType] || 'image';
+	}
+
+	private static popularimeterFrameToString(frame: ID3v2Frames.Popularimeter): string {
+		return `${frame.value.rating} - ${frame.value.email} - ${frame.value.count}`;
+	}
+
+	private static boolFrameToString(frame: ID3v2Frames.Bool): string {
+		return `${frame.value.bool}`;
+	}
+
+	private static textListFrameToString(frame: ID3v2Frames.TextList): string {
+		return frame.value.list.join('\n');
+	}
+
+	private static textFrameToString(frame: ID3v2Frames.Text): string {
+		return frame.value.text;
+	}
+
+	private static idTextFrameToString(frame: ID3v2Frames.IdText): string {
+		return frame.value.text;
+	}
+
+	private static playCounterFrameToString(frame: ID3v2Frames.Num): string {
+		return `${frame.value.num}`;
+	}
+
+	private static geobFrameToString(frame: ID3v2Frames.GEOB): string {
+		return `Binary ${(frame.value && frame.value.bin ? frame.value.bin.length : 0)} bytes`;
+	}
+
+	private static idBinFrameToString(frame: ID3v2Frames.IdBin): string {
+		return `Binary ${(frame.value && frame.value.bin ? frame.value.bin.length : 0)} bytes`;
+	}
+
+	private static langDescFrameToString(frame: ID3v2Frames.LangDescText): string {
+		return frame.value.text;
 	}
 
 	private edit(): void {
@@ -112,7 +152,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			// 	case FrameType.CTOC:
 			// 	case FrameType.CHAP:
 			// 	case FrameType.Unknown:
-			// 	default:
+			default:
 			// 		return CellEditorUnknownComponent;
 		}
 	}
@@ -126,6 +166,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			this.createComponent(type);
 			this.componentRef.instance.cell = this.cell;
 			if (this.componentRef.instance.ngOnChanges) {
+				// tslint:disable-next-line:no-lifecycle-call
 				this.componentRef.instance.ngOnChanges({cell: {current: this.cell}});
 			}
 			if (this.componentRef.instance.navigBlur) {
@@ -210,25 +251,25 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		switch (this.cell.column.def.impl) {
 			case FrameType.Filename:
 			case FrameType.Text:
-				return this.textFrameToString(frame);
+				return CellEditorComponent.textFrameToString(frame);
 			case FrameType.LangDescText:
-				return this.langDescFrameToString(frame);
+				return CellEditorComponent.langDescFrameToString(frame);
 			case FrameType.IdText:
-				return this.idTextFrameToString(frame);
+				return CellEditorComponent.idTextFrameToString(frame);
 			case FrameType.Pic:
-				return this.picFrameToString(frame);
+				return CellEditorComponent.picFrameToString(frame);
 			case FrameType.TextList:
-				return this.textListFrameToString(frame);
+				return CellEditorComponent.textListFrameToString(frame);
 			case FrameType.IdBin:
-				return this.idBinFrameToString(frame);
+				return CellEditorComponent.idBinFrameToString(frame);
 			case FrameType.GEOB:
-				return this.geobFrameToString(frame);
+				return CellEditorComponent.geobFrameToString(frame);
 			case FrameType.Bool:
-				return this.boolFrameToString(frame);
+				return CellEditorComponent.boolFrameToString(frame);
 			case FrameType.Popularimeter:
-				return this.popularimeterFrameToString(frame);
+				return CellEditorComponent.popularimeterFrameToString(frame);
 			case FrameType.PlayCounter:
-				return this.playCounterFrameToString(frame);
+				return CellEditorComponent.playCounterFrameToString(frame);
 			case FrameType.MusicCDId:
 			case FrameType.EventTimingCodes:
 			case FrameType.SYLT:
@@ -245,46 +286,6 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			default:
 				return 'TODO CELLEDITOR: ' + this.cell.column.def.name;
 		}
-	}
-
-	private picFrameToString(frame: ID3v2Frames.Pic): string {
-		return Id3v2ValuePicTypes[frame.value.pictureType] || 'image';
-	}
-
-	private popularimeterFrameToString(frame: ID3v2Frames.Popularimeter): string {
-		return `${frame.value.rating} - ${frame.value.email} - ${frame.value.count}`;
-	}
-
-	private boolFrameToString(frame: ID3v2Frames.Bool): string {
-		return `${frame.value.bool}`;
-	}
-
-	private textListFrameToString(frame: ID3v2Frames.TextList): string {
-		return frame.value.list.join('\n');
-	}
-
-	private textFrameToString(frame: ID3v2Frames.Text): string {
-		return frame.value.text;
-	}
-
-	private idTextFrameToString(frame: ID3v2Frames.IdText): string {
-		return frame.value.text;
-	}
-
-	private playCounterFrameToString(frame: ID3v2Frames.Num): string {
-		return `${frame.value.num}`;
-	}
-
-	private geobFrameToString(frame: ID3v2Frames.GEOB): string {
-		return `Binary ${(frame.value && frame.value.bin ? frame.value.bin.length : 0)} bytes`;
-	}
-
-	private idBinFrameToString(frame: ID3v2Frames.IdBin): string {
-		return `Binary ${(frame.value && frame.value.bin ? frame.value.bin.length : 0)} bytes`;
-	}
-
-	private langDescFrameToString(frame: ID3v2Frames.LangDescText): string {
-		return frame.value.text;
 	}
 
 }

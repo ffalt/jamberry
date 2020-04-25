@@ -39,6 +39,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 			switch (type.id) {
 				case JamUrlType.podcasts:
 					this.hasContextMenu = this.library.jam.auth.user && this.library.jam.auth.user.roles && this.library.jam.auth.user.roles.podcast;
+					break;
 				case JamUrlType.playlists:
 					this.hasContextMenu = true;
 					break;
@@ -62,7 +63,8 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 							click: () => {
 								this.library.navig.toPodcastSearch();
 							}
-						}, {
+						},
+						{
 							text: 'Refresh Podcast Feeds',
 							icon: 'icon-rescan',
 							click: () => {

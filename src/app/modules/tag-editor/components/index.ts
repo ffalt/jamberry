@@ -14,8 +14,8 @@ import {TagEditorInlineAutocompleteComponent} from './inline-autocomplete/tag-ed
 import {MatchCoverartComponent} from './match-coverart/match-coverart.component';
 import {MatchReleaseComponent} from './match-release/match-release.component';
 import {ScoreBoxComponent} from './score-box/score-box.component';
-import {TagEditorComponent} from './tag-editor/tag-editor.component';
 import {AdminFolderTagEditorPageComponent} from './tag-editor-page/admin-folder-tag-editor-page.component';
+import {TagEditorComponent} from './tag-editor/tag-editor.component';
 
 export const entryComponents: Array<any> = [
 	DialogTagImageComponent,

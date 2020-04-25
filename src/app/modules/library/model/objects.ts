@@ -102,7 +102,7 @@ export class JamAlbumObject extends JamLibraryObject {
 						this.library.navig.toSeriesID(this.album.seriesID, this.album.series);
 					}
 				},
-				{label: 'Episode', value: this.album.seriesNr},
+				{label: 'Episode', value: this.album.seriesNr}
 			].filter(info => info.value !== undefined);
 		}
 		return [
@@ -473,7 +473,11 @@ export class JamSeriesObject extends JamLibraryObject {
 
 	getInfos(): Array<HeaderInfo> {
 		return [
-			{label: 'Artist', value: this.series.artist, click: () => this.navigToParent()},
+			{
+				label: 'Artist', value: this.series.artist, click: () => {
+					this.navigToParent();
+				}
+			},
 			{label: 'Albums', value: this.series.albumCount},
 			// {label: 'Tracks', value: this.series.trackCount},
 			{label: 'Genre', value: this.genre}

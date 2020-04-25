@@ -1,0 +1,23 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./dist/lint",
+		"types": [
+			"jest",
+			"node"
+		],
+		"module": "commonjs"
+	},
+	"files": [
+		"test-config.helper.ts",
+		"src/environments/environment.prod.ts",
+		"src/polyfills.ts"
+	],
+	"include": [
+		"**/*.spec.ts",
+		"**/*.d.ts"
+	],
+	"exclude": [
+		"local"
+	]
+}

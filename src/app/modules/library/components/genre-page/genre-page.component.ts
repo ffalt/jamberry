@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
@@ -23,7 +23,7 @@ export interface GenreTabs {
 	templateUrl: './genre-page.component.html',
 	styleUrls: ['./genre-page.component.scss']
 })
-export class GenrePageComponent implements OnInit, OnDestroy {
+export class GenrePageComponent implements OnDestroy {
 	title = 'Genre';
 	genre = '';
 	mode: string;
@@ -50,7 +50,7 @@ export class GenrePageComponent implements OnInit, OnDestroy {
 			.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
 			this.genre = params.genre;
 			this.title = `Genre: ${params.genre}`;
-			this.refresh();
+			// this.refresh();
 		});
 	}
 
@@ -61,15 +61,12 @@ export class GenrePageComponent implements OnInit, OnDestroy {
 		// this.search();
 	}
 
-	ngOnInit(): void {
-	}
-
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
 	}
 
-	private refresh(): void {
-
-	}
+	// private refresh(): void {
+		//
+	// }
 }

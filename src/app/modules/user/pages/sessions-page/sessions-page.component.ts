@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-
-import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
 import {Jam, JamAuthService, JamService} from '@jam';
-import {DialogPasswordComponent, PasswordEdit} from '@shared/components';
 
 @Component({
 	selector: 'app-sessions-page',
@@ -13,7 +10,7 @@ import {DialogPasswordComponent, PasswordEdit} from '@shared/components';
 export class SessionsPageComponent implements OnInit {
 	sessions: Array<Jam.UserSession>;
 
-	constructor(private jam: JamService, private auth: JamAuthService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
+	constructor(private jam: JamService, private auth: JamAuthService, private notify: NotifyService) {
 	}
 
 	ngOnInit(): void {

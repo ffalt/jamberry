@@ -22,7 +22,7 @@ export class FolderOverviewComponent implements OnInit, OnDestroy {
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
 		private library: LibraryService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute,
+		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
 	) {
 	}
 
