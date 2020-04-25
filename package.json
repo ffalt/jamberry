@@ -11,7 +11,7 @@
     "build": "ng build",
     "build:AOT": "ng build --aot",
     "test": "jest",
-    "test:coverage": "jest --coverage true",
+    "test:coverage": "jest --coverage",
     "eslint": "eslint  ./src --ext .ts",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
