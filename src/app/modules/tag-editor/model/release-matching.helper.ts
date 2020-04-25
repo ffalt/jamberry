@@ -43,7 +43,7 @@ function weightedMean(scores: Array<Score>): number {
 }
 
 function slugify(title: string): string {
-	return title.replace(/[ .\-()\[\]]/g, '').toLowerCase();
+	return title.replace(/[ .\-()[\]]/g, '').toLowerCase();
 }
 
 export class MatchingTrack {

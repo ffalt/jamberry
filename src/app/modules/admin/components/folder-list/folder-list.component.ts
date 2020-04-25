@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {Jam} from '@jam';
 
 export class FolderItem {
@@ -30,7 +30,7 @@ export class FolderListComponent implements OnChanges {
 		}
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(/*changes: SimpleChanges*/): void {
 		this.folderItems = (this.folders || []).map(folder => ({folder}));
 	}
 

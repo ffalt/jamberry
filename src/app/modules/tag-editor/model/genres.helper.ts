@@ -88,7 +88,7 @@ export function mergeGenres(tags: Array<GenreTag>, other: Array<GenreTag>): Arra
 	return result;
 }
 
-export function getTrackGenres(tags: Array<{ count: number; name: string; }>): Array<GenreTag> {
+export function getTrackGenres(tags: Array<{ count: number; name: string }>): Array<GenreTag> {
 	if (!tags || !tags.length) {
 		return [];
 	}
@@ -110,7 +110,7 @@ export function getTrackGenres(tags: Array<{ count: number; name: string; }>): A
 	return result.sort((a, b) => b.count - a.count);
 }
 
-export function getMusicBrainzGenres(tags: Array<{ count: number; name: string; }>): Array<GenreTag> {
+export function getMusicBrainzGenres(tags: Array<{ count: number; name: string }>): Array<GenreTag> {
 	if (!tags || !tags.length) {
 		return [];
 	}

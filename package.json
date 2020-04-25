@@ -12,7 +12,7 @@
     "build:AOT": "ng build --aot",
     "test": "jest",
     "test:coverage": "jest --coverage true",
-    "eslint": "eslint  ./src --ext .js,.ts",
+    "eslint": "eslint  ./src --ext .ts",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "clean": "rimraf dist",

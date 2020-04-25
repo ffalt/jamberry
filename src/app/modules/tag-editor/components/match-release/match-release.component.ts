@@ -93,7 +93,14 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	matchings: Array<Matching> = [];
 	matchTree = new MatchTree();
 	manual: boolean = false;
-	manualSearchData = {
+	manualSearchData: {
+		artists: Array<string>;
+		albums: Array<string>;
+		artist: string;
+		releaseGroup: string;
+		getAutoCompleteAlbumList(): Array<string>;
+		getAutoCompleteArtistList(): Array<string>;
+	} = {
 		artists: [],
 		albums: [],
 		artist: '',
@@ -125,8 +132,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	};
 
 	coverArtSearch?: MatchImageSearch;
-	current: { group: MatchReleaseGroup, release: MatchRelease };
-	genres: Array<{ tag: GenreTag, checked: boolean }>;
+	current: { group: MatchReleaseGroup; release: MatchRelease };
+	genres: Array<{ tag: GenreTag; checked: boolean }>;
 	RunType = RunType;
 
 	constructor(private app: AppService, private jam: JamService, private notify: NotifyService, private client: HttpClient, private cd: ChangeDetectorRef) {
@@ -424,7 +431,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 	private async loadGenres(group: MatchReleaseGroup, release: MatchRelease): Promise<void> {
 		this.isGenreSearchRunning = true;
-		const tracksGenres: Array<{ count: number; name: string; }> = [];
+		const tracksGenres: Array<{ count: number; name: string }> = [];
 		if (group.mbGroup.secondaryTypes) {
 			if (group.mbGroup.secondaryTypes.find(s => ['audiobook', 'audio drama', 'spokenword'].includes(s))) {
 				tracksGenres.push({count: 1, name: 'Audiobook'});
@@ -646,7 +653,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	private buildQueries(): Array<MusicbrainzSearchQuery> {
 		const queries: Array<MusicbrainzSearchQuery> = [];
 
-		const addQuery = (q: MusicbrainzSearchQuery, match: Matching) => {
+		const addQuery = (q: MusicbrainzSearchQuery, match: Matching): void => {
 			const samequery = queries.find(qu => qu.id === q.id);
 			if (samequery) {
 				samequery.matchings.push(match);
@@ -656,19 +663,17 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			queries.push(q);
 		};
 
-		const addMBQuery = (fields: JamParameters.MusicBrainzSearch, match: Matching, trackslength?: boolean) => {
+		const addMBQuery = (fields: JamParameters.MusicBrainzSearch, match: Matching, trackslength?: boolean): void => {
 			const q: JamParameters.MusicBrainzSearch = {type: fields.type};
-			for (const key in fields) {
-				if (fields.hasOwnProperty(key)) {
-					const val = (fields as any)[key];
-					if ((val === undefined) || (val === '') || (val.toString().trim() === '')) {
-						// if one is invalid, don't add
-						return;
-					}
-					const parts = val.toString().split('(');
-					if (parts.length > 0) {
-						q[key] = parts[0];
-					}
+			for (const key of Object.keys(fields)) {
+				const val = (fields as any)[key];
+				if ((val === undefined) || (val === '') || (val.toString().trim() === '')) {
+					// if one is invalid, don't add
+					return;
+				}
+				const parts = val.toString().split('(');
+				if (parts.length > 0) {
+					q[key] = parts[0];
 				}
 			}
 			if (trackslength) {

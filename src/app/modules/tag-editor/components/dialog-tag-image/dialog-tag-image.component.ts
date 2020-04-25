@@ -16,7 +16,7 @@ export interface PicEdit {
 export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	edit: PicEdit;
 	maintainAspectRatio: boolean = true;
-	current: { frame?: ID3v2Frames.Pic, source?: string } = {};
+	current: { frame?: ID3v2Frames.Pic; source?: string } = {};
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PicEdit>>): void {
 		this.edit = options.data;
@@ -48,7 +48,7 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 		event.preventDefault();
 	}
 
-	splitBase64(fullBase64: string): { mimeType: string, base64: string } {
+	splitBase64(fullBase64: string): { mimeType: string; base64: string } {
 		return {
 			mimeType: fullBase64.slice(5, fullBase64.indexOf(';')),
 			base64: fullBase64.slice(fullBase64.indexOf('base64,') + 7)
@@ -67,7 +67,7 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 		const file: File = files[0];
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
-		reader.onload = (event: any) => {
+		reader.onload = (event: any): void => {
 			const fullBase64 = event.target.result;
 			if (!this.current.frame) {
 				this.current.frame = this.buildFrame(fullBase64);
@@ -78,7 +78,7 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 			this.current.frame.value.mimeType = mimeType;
 			this.current.frame.value.bin = base64;
 		};
-		reader.onerror = e => {
+		reader.onerror = (e): void => {
 			console.error(e);
 		};
 	}

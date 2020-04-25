@@ -16,8 +16,8 @@ export class AppService {
 	smallscreen: boolean = false;
 	settings: Settings = new Settings();
 	view: {
-		currentSidebar?: SidebarProvider,
-		showQueue: false
+		currentSidebar?: SidebarProvider;
+		showQueue: false;
 	} = {
 		currentSidebar: undefined,
 		showQueue: false

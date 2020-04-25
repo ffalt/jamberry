@@ -16,19 +16,29 @@
 	},
 	"rules": {
 		"no-assign-mutated-array": false,
-		"throw-error": { "severity": "error" },
-		"no-unused-declaration": {
-			"options": [{
-				"declarations": true,
-				"ignored": {},
-				"imports": true
-			}],
+		"throw-error": {
 			"severity": "error"
 		},
-		"rxjs-no-create": {"severity": "error"},
+		"no-unused-declaration": {
+			"options": [
+				{
+					"declarations": true,
+					"ignored": {},
+					"imports": true
+				}
+			],
+			"severity": "error"
+		},
+		"rxjs-no-create": {
+			"severity": "error"
+		},
 		"rxjs-no-ignored-error": false,
-		"rxjs-ban-observables": {"severity": "error"},
-		"rxjs-no-unsafe-takeuntil": {"severity": "error"},
+		"rxjs-ban-observables": {
+			"severity": "error"
+		},
+		"rxjs-no-unsafe-takeuntil": {
+			"severity": "error"
+		},
 		"no-unused-variable": false,
 		"adjacent-overload-signatures": true,
 		"align": [
@@ -50,6 +60,7 @@
 			true,
 			"multiline"
 		],
+		"max-line-count": false,
 		"await-promise": true,
 		"ban-comma-operator": true,
 		"ban-ts-ignore": true,
@@ -111,7 +122,7 @@
 			"tabs"
 		],
 		"interface-name": [
-			true,
+			false,
 			"never-prefix"
 		],
 		"interface-over-type-literal": true,
@@ -125,7 +136,7 @@
 		],
 		"max-file-line-count": [
 			true,
-			1000
+			2000
 		],
 		"max-line-length": [
 			true,

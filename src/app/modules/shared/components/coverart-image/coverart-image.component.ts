@@ -9,7 +9,7 @@ import {ImageOverlayContentComponent} from '../image-overlay-content/image-overl
 	styleUrls: ['./coverart-image.component.scss']
 })
 export class CoverartImageComponent implements OnChanges, AfterContentInit {
-	@Input() coverArtObj: { id: string, name: string };
+	@Input() coverArtObj: { id: string; name: string };
 	@Input() alt: string = '';
 	@Input() refreshRandom: string = '';
 	@Input() size: number;

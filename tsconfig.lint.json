@@ -9,11 +9,16 @@
 		"module": "commonjs"
 	},
 	"files": [
+		"build-pre.js",
+		"jest-config.js",
+		"proxy.conf.js",
 		"test-config.helper.ts",
 		"src/environments/environment.prod.ts",
 		"src/polyfills.ts"
 	],
 	"include": [
+		"**/*.ts",
+		"**/*.js",
 		"**/*.spec.ts",
 		"**/*.d.ts"
 	],

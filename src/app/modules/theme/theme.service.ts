@@ -38,10 +38,10 @@ export class ThemeService {
 
 	private updateDom(theme: Theme): void {
 		// project properties onto the element
-		for (const key in theme.properties) {
-			if (theme.properties.hasOwnProperty(key)) {
-				this.document.body.style.setProperty(key, theme.properties[key]);
-			}
+		for (const key of Object.keys(theme.properties)) {
+			// if (theme.properties.hasOwnProperty(key)) {
+			this.document.body.style.setProperty(key, theme.properties[key]);
+			// }
 		}
 		// remove old theme
 		for (const t of this.themes) {

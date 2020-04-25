@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-	getFixed(): { server?: string; user?: string; pass?: string; } {
-		const conf: { fixed: { server: string; user: string; pass: string; } } = (document as any).jamberry_config;
+	getFixed(): { server?: string; user?: string; pass?: string } {
+		const conf: { fixed: { server: string; user: string; pass: string } } = (document as any).jamberry_config;
 		return conf && conf.fixed ? conf.fixed : {};
 	}
 

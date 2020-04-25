@@ -67,10 +67,9 @@
 		}
 
 		p {
-			margin: 0;
 			padding: 0;
 			display: inline-block;
-			margin-right: $margin-sm;
+			margin: 0 $margin-sm 0 0;
 		}
 
 		a {

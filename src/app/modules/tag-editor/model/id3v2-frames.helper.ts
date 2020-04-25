@@ -1089,7 +1089,7 @@ export const FrameCOMMSubIdsDefs: { [id: string]: string } = {
 	'': 'Default Comment'
 };
 
-export function getFrameSubIds(id: string): Array<{ subid: string, name: string }> {
+export function getFrameSubIds(id: string): Array<{ subid: string; name: string }> {
 	if (id === 'TXXX') {
 		return Object.keys(FrameTXXXSubIdsDefs).map(subid => ({subid, name: FrameTXXXSubIdsDefs[subid]}));
 	}

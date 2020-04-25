@@ -1,6 +1,5 @@
 @mixin view-content {
-	padding: $padding;
-	padding-top: 0;
+	padding: 0 $padding $padding;
 
 	.section-title {
 		text-transform: uppercase;

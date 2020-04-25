@@ -8,7 +8,7 @@ import {Component, ElementRef, HostBinding, HostListener, Input} from '@angular/
 export class SplitterComponent {
 	@Input() leftSnap: boolean = true;
 	@HostBinding('class.dragging') dragging: boolean = false;
-	private drag: { element: HTMLElement; width: number; };
+	private drag: { element: HTMLElement; width: number };
 
 	constructor(public element: ElementRef) {
 	}

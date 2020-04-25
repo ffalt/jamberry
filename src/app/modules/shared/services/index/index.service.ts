@@ -152,11 +152,12 @@ export class IndexService {
 				return buildIndexSeriesIndex(
 					await this.jam.series.index(query),
 					!this.app.smallscreen, 'Series', this.jam);
-			case JamObjectType.album:
+			case JamObjectType.album: {
 				const type = getTypeByAlbumType(query.albumType);
 				return buildIndexAlbumIndex(
 					await this.jam.album.index(query),
 					!this.app.smallscreen, type ? type.text : '', this.jam);
+			}
 			default:
 		}
 	}

@@ -98,7 +98,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 						const data = await this.http.get<{
 							batchcomplete: string;
 							query: {
-								normalized: Array<{ from: string; to: string; }>;
+								normalized: Array<{ from: string; to: string }>;
 								pages: {
 									[num: string]: {
 										ns: number;
@@ -115,12 +115,12 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 													value: string;
 													hidden: string;
 													desc: string;
-												}
-											}
+												};
+											};
 										}>;
-									}
-								}
-							}
+									};
+								};
+							};
 						}>(url).toPromise();
 						if (data && data.query.pages) {
 							const page = data.query.pages[Object.keys(data.query.pages)[0]];

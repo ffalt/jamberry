@@ -15,8 +15,8 @@ export class ObjsLoaderComponent implements OnChanges {
 	@Input() grouping: boolean = false;
 	@Input() showParent: boolean = false;
 	@Input() loader: JamObjsLoader;
-	@Input() listQuery: { listType: JamParameters.ListType, albumType?: AlbumType };
-	@Input() searchQuery: { query?: string, albumType?: AlbumType, genre?: string };
+	@Input() listQuery: { listType: JamParameters.ListType; albumType?: AlbumType };
+	@Input() searchQuery: { query?: string; albumType?: AlbumType; genre?: string };
 	@Input() loadAll: boolean = false;
 
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore: LoadMoreButtonComponent;
@@ -26,7 +26,7 @@ export class ObjsLoaderComponent implements OnChanges {
 	constructor(protected library: LibraryService, protected jam: JamService, protected notify: NotifyService) {
 	}
 
-	getObjs(requestFunc: () => Promise<{ list: Jam.ListResult, items: Array<JamLibraryObject> }>): void {
+	getObjs(requestFunc: () => Promise<{ list: Jam.ListResult; items: Array<JamLibraryObject> }>): void {
 		this.loadMore.loading = true;
 		const request = requestFunc()
 			.then(data => {

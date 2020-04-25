@@ -16,7 +16,7 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	albumType: AlbumType;
 	listType: JamParameters.ListType;
 	jamType: JamObjectType;
-	listQuery: { listType: JamParameters.ListType, albumType?: AlbumType };
+	listQuery: { listType: JamParameters.ListType; albumType?: AlbumType };
 	loader: JamObjsLoader;
 	loadAll = false;
 	valid = false;

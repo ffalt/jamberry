@@ -27,25 +27,29 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 		if (type) {
 			this.objType = type.type;
 			switch (type.type) {
-				case JamObjectType.artist:
+				case JamObjectType.artist: {
 					const artistQuery: JamParameters.ArtistIndex = {albumType: AlbumType.album};
 					this.query = artistQuery;
 					break;
-				case JamObjectType.series:
+				}
+				case JamObjectType.series: {
 					const seriesQuery: JamParameters.SeriesIndex = {albumType: AlbumType.series};
 					this.query = seriesQuery;
 					break;
-				case JamObjectType.folder:
+				}
+				case JamObjectType.folder: {
 					const folderQuery: JamParameters.FolderIndex = {level: 1};
 					this.query = folderQuery;
 					break;
-				case JamObjectType.album:
+				}
+				case JamObjectType.album: {
 					const albumQuery: JamParameters.AlbumIndex = {
 						albumType: type.albumType,
 						mbArtistID: type.albumType === AlbumType.compilation ? MUSICBRAINZ_VARIOUS_ARTISTS_ID : undefined
 					};
 					this.query = albumQuery;
 					break;
+				}
 				default:
 			}
 			this.refresh();

@@ -15,7 +15,7 @@ export interface AdminSidebarSection {
 	styleUrls: ['./admin-sidebar.component.scss']
 })
 export class AdminSidebarComponent implements OnInit, OnDestroy, SidebarProvider {
-	collapsed: { [sectionName: string]: boolean; } = {};
+	collapsed: { [sectionName: string]: boolean } = {};
 	sections: Array<AdminSidebarSection> = [];
 	showMobileNavig: boolean = false;
 

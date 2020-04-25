@@ -50,7 +50,7 @@ export interface RawTagEditColumnDef {
 
 export const FilenameColumnID = 'internal_file';
 
-export const DefaultFrameColumns: Array<{ id: string, subid?: string; width: number, force?: boolean }> = [
+export const DefaultFrameColumns: Array<{ id: string; subid?: string; width: number; force?: boolean }> = [
 	{id: FilenameColumnID, width: 200, force: true},
 	{id: 'TRCK', width: 60, force: true},
 	{id: 'TIT2', width: 200, force: true},
@@ -127,7 +127,7 @@ export const DefaultFrameColumns: Array<{ id: string, subid?: string; width: num
 	{id: 'GEOB', width: 140}
 ];
 
-export const Id3v2ValuePicTypes: { [name: string]: string; } = {
+export const Id3v2ValuePicTypes: { [name: string]: string } = {
 	0: 'Other',
 	1: '32x32 pixels \'file icon\' (PNG only)',
 	2: 'Other file icon',

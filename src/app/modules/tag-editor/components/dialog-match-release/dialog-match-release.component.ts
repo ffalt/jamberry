@@ -15,7 +15,7 @@ export class DialogMatchReleaseComponent implements DialogOverlay<ReleaseMatchin
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ReleaseMatching>>): void {
 		this.data = options.data;
-		options.data.close = () => {
+		options.data.close = (): void => {
 			reference.close();
 		};
 		reference.beforeClose()

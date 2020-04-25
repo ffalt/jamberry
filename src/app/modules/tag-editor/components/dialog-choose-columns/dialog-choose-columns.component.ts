@@ -5,7 +5,7 @@ import {RawTagEditColumn} from '../../model/tag-editor.types';
 
 export interface SelectColumns {
 	columns: Array<RawTagEditColumn>;
-	resultColumns: Array<{ frameDef: FrameDef, id: string; subid?: string }>;
+	resultColumns: Array<{ frameDef: FrameDef; id: string; subid?: string }>;
 }
 
 export interface SelectColumn {

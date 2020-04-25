@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 
@@ -53,7 +53,7 @@ export class FolderHealthComponent implements OnChanges {
 		});
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(/*changes: SimpleChanges*/): void {
 		this.display(this.folderHealth);
 	}
 

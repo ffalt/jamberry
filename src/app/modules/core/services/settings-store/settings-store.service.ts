@@ -16,7 +16,7 @@ export class SettingsStoreService implements OnDestroy {
 
 	constructor(private userStorage: UserStorageService, private pushNotificationService: PushNotificationService, private app: AppService) {
 		userStorage.userChange
-			.pipe(takeUntil(this.unsubscribe)).subscribe(user => {
+			.pipe(takeUntil(this.unsubscribe)).subscribe((/*user*/) => {
 				this.loadFromStorage();
 			});
 		this.loadFromStorage();

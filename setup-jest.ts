@@ -1,15 +1,16 @@
-import 'jest-preset-angular';
 import 'hammerjs';
+import 'jest-preset-angular';
 import 'soundmanager2/script/soundmanager2-nodebug-jsmin';
 
-/* global mocks for jsdom */
-const mock = () => {
-	let storage = new Map<string, any>();
+// global mocks for jsdom
+
+const mock = (): any => {
+	const storage = new Map<string, any>();
 	return {
-		getItem: (key: string) => storage.get(key),
-		setItem: (key: string, value: string) => storage.set(key, value || ''),
-		removeItem: (key: string) => storage.delete(key),
-		clear: () => (storage.clear())
+		getItem: (key: string): any => storage.get(key),
+		setItem: (key: string, value: string): Map<string, any> => storage.set(key, value || ''),
+		removeItem: (key: string): boolean => storage.delete(key),
+		clear: (): void => storage.clear()
 	};
 };
 

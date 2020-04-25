@@ -134,10 +134,6 @@ $content-margins: $header-height+$footer-height;
 
 	}
 
-	app-player-current-playing {
-		flex-grow: 1;
-	}
-
 	@media (max-width: $break-phone) {
 		&.expand {
 			height: auto;

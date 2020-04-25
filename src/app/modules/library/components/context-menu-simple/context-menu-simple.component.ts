@@ -3,7 +3,7 @@ import {ContextMenuHostComponentInterface} from '@app/modules/context-menu';
 import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.component';
 
 export interface ContextMenuSimpleComponentOptions {
-	entries?: Array<{ text: string, icon: string; click(): void; }>;
+	entries?: Array<{ text: string; icon: string; click(): void }>;
 }
 
 @Component({
@@ -13,7 +13,7 @@ export interface ContextMenuSimpleComponentOptions {
 })
 export class ContextMenuSimpleComponent implements ContextMenuHostComponentInterface<ContextMenuSimpleComponentOptions> {
 	@ViewChild('entriesMenu') contextMenu: ContextMenuComponent;
-	entries?: Array<{ text: string, icon: string, click(): void; }> = [];
+	entries?: Array<{ text: string; icon: string; click(): void }> = [];
 
 	initOpts(opts: ContextMenuSimpleComponentOptions): void {
 		this.entries = opts.entries;

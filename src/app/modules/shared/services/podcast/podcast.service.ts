@@ -64,9 +64,10 @@ export class PodcastService {
 		this.http.get<Array<GpodderResult>>(url)
 			.pipe(take(1))
 			.subscribe(
-				data => {
+				(data: Array<GpodderResult>) => {
 					for (const result of data) {
 						if (result.logo_url && result.logo_url.toLowerCase().startsWith('http:')) {
+							// eslint-disable-next-line @typescript-eslint/camelcase
 							result.logo_url = 'https:' + result.logo_url.slice(5);
 						}
 					}

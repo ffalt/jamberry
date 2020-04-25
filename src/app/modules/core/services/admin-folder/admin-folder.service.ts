@@ -23,7 +23,7 @@ export interface AdminChangeQueueInfoPoll {
 	providedIn: 'root'
 })
 export class AdminFolderService {
-	foldersChange = new EventEmitter<{ id: string, mode: AdminFolderServiceNotifyMode }>();
+	foldersChange = new EventEmitter<{ id: string; mode: AdminFolderServiceNotifyMode }>();
 	tracksChange = new EventEmitter<{ id: string }>();
 	current: AdminChangeQueueInfoPoll;
 	queue: Array<AdminChangeQueueInfoPoll> = [];

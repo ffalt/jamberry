@@ -117,7 +117,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		if (!this.solutions.find(sol => sol.name === 'Edit Tag')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Edit Tag',
-				click: () => {
+				click: (): void => {
 					this.router.navigate([`/admin/folder/${track.parentID}/tags`])
 						.catch(e => {
 							console.error(e);
@@ -138,7 +138,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix MP3',
 				fixable: true,
-				click: () => {
+				click: (): void => {
 					if (sol.running) {
 						return;
 					}
@@ -164,7 +164,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix Stream',
 				fixable: true,
-				click: () => {
+				click: (): void => {
 					if (sol.running) {
 						return;
 					}
@@ -188,7 +188,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 			const sol: TrackHealthHintSolution = {
 				name: 'Remove ID3v1',
 				fixable: true,
-				click: () => {
+				click: (): void => {
 					if (sol.running) {
 						return;
 					}
@@ -221,7 +221,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix Header',
 				fixable: true,
-				click: () => {
+				click: (): void => {
 					if (sol.running) {
 						return;
 					}

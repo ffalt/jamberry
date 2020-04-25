@@ -39,7 +39,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	@Input() menuClass: string;
 	@Input() overlay: OverlayRef;
 	@Input() isLeaf = false;
-	@Output() readonly execute: EventEmitter<{ event: MouseEvent | KeyboardEvent | Event, item: any, menuItem: ContextMenuItemDirective }> = new EventEmitter();
+	@Output() readonly execute: EventEmitter<{ event: MouseEvent | KeyboardEvent | Event; item: any; menuItem: ContextMenuItemDirective }> = new EventEmitter();
 	@Output() readonly openSubMenu: EventEmitter<ContextMenuClickEvent> = new EventEmitter();
 	@Output() readonly closeLeafMenu: EventEmitter<CloseLeafMenuEvent> = new EventEmitter();
 	@Output() readonly closeAllMenus: EventEmitter<{ event: MouseEvent }> = new EventEmitter();

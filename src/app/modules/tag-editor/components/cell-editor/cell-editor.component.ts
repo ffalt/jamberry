@@ -29,11 +29,12 @@ import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-
 	selector: 'app-cell-editor',
 	templateUrl: './cell-editor.component.html',
 	styleUrls: ['./cell-editor.component.scss'],
+	// eslint-disable-next-line @typescript-eslint/no-use-before-define
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent)}]
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
 	@Input() cell: RawTagEditCell;
-	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell, event: KeyboardEvent }>();
+	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell; event: KeyboardEvent }>();
 	lines: Array<string> = [];
 	inactive: boolean = true;
 
@@ -56,7 +57,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		this.edit();
 	}
 
-	onCellEditorNavigationKeyDown(data: { cell: RawTagEditCell, event: KeyboardEvent }): void {
+	onCellEditorNavigationKeyDown(data: { cell: RawTagEditCell; event: KeyboardEvent }): void {
 		this.navigKeyDownRequest.emit(data);
 	}
 

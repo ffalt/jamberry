@@ -103,7 +103,7 @@ export class TabPortalOutlet {
 		this.appRef.attachView(componentRef.hostView);
 		return {
 			tab, portal, componentRef,
-			dispose: () => {
+			dispose: (): void => {
 				this.appRef.detachView(componentRef.hostView);
 				componentRef.destroy();
 			}

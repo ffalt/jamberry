@@ -8,15 +8,6 @@
 			@include view-content();
 			padding: $padding $padding $padding-xl;
 
-			.subsonic {
-				padding-top: $padding-lg;
-				padding-bottom: $padding-lg;
-
-				button {
-					margin-top: $margin;
-				}
-			}
-
 			.session-list {
 				@include flex-table();
 

@@ -103,14 +103,11 @@
 				.match-releasegroup {
 					padding: $padding-xs $padding-xs $padding-xs $padding;
 
-					.match-releasegroup-title {
-					}
-
-					.match-releasegroup-info, .match-release-info, .match-select-release, .match-tracks-info {
+					.match-release-info, .match-tracks-info {
 						font-size: 0.8em;
 					}
 
-					.match-releasegroup-info, .match-release-info, .match-tracks-info, .match-select-releases {
+					.match-release-info, .match-tracks-info, .match-select-releases {
 						padding-top: 4px;
 					}
 

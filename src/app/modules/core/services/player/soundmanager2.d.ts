@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare var soundManager: soundmanager.SoundManager;
+declare let soundManager: soundmanager.SoundManager;
 
 declare namespace soundmanager {
 	type ScriptAccess = 'always' | 'sameDomain';
@@ -184,7 +184,7 @@ declare namespace soundmanager {
 		volume: number;
 
 		// Dynamic Properties
-		buffered: object[];
+		buffered: Array<any>;
 		bytesLoaded: number | null;
 		bytesTotal: number | null;
 		isBuffering: boolean;
@@ -220,7 +220,7 @@ declare namespace soundmanager {
 		load(options: object): SMSound;
 
 		// clearOnPosition(): void;
-		onPosition(mescOffest: number, callback: object, []): SMSound;
+		onPosition(mescOffest: number, callback: object): SMSound;
 
 		mute(): SMSound;
 

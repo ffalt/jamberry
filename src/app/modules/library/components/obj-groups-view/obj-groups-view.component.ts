@@ -13,7 +13,7 @@ export class ObjGroupsViewComponent implements OnChanges {
 	@Input() grouping: boolean = false;
 	@Input() typeName: string;
 	@Input() headline: string;
-	groups: Array<{ type: string; objs: Array<JamLibraryObject>; }>;
+	groups: Array<{ type: string; objs: Array<JamLibraryObject> }>;
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.groups = undefined;

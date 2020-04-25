@@ -393,7 +393,7 @@ export class TagEditor {
 		return upgradeKey;
 	}
 
-	upgradeDateFramesTov24Date(frames: Array<ID3v2Frames.Frame>): { newFrame: ID3v2Frames.Frame, dateFrames: Array<ID3v2Frames.Frame> } | undefined {
+	upgradeDateFramesTov24Date(frames: Array<ID3v2Frames.Frame>): { newFrame: ID3v2Frames.Frame; dateFrames: Array<ID3v2Frames.Frame> } | undefined {
 		const year = frames.find(f => ['TYER', 'TYE'].indexOf(f.id) >= 0);
 		const date = frames.find(f => ['TDAT', 'TDA'].indexOf(f.id) >= 0);
 		const time = frames.find(f => ['TIME', 'TIM'].indexOf(f.id) >= 0);
@@ -402,15 +402,15 @@ export class TagEditor {
 		}
 		const dateFrames: Array<ID3v2Frames.Frame> = [];
 		const result: Array<string> = [];
-		if (year && year.value && year.value.hasOwnProperty('text')) {
+		if (year && year.value && Object.prototype.hasOwnProperty.call(year.value, 'text')) {
 			dateFrames.push(year);
 			result.push((year as ID3v2Frames.Text).value.text);
 		}
-		if (date && date.value && date.value.hasOwnProperty('text')) {
+		if (date && date.value && Object.prototype.hasOwnProperty.call(date.value, 'text')) {
 			dateFrames.push(date);
 			result.push((date as ID3v2Frames.Text).value.text);
 		}
-		if (time && time.value && time.value.hasOwnProperty('text')) {
+		if (time && time.value && Object.prototype.hasOwnProperty.call(time.value, 'text')) {
 			dateFrames.push(time);
 			result.push((time as ID3v2Frames.Text).value.text);
 		}
@@ -424,7 +424,7 @@ export class TagEditor {
 		};
 	}
 
-	updateColumns(tracks: Array<Jam.Track>, cols: Array<{ frameDef: FrameDef, id: string; subid?: string }>): void {
+	updateColumns(tracks: Array<Jam.Track>, cols: Array<{ frameDef: FrameDef; id: string; subid?: string }>): void {
 		const removeCols: Array<RawTagEditColumn> = [];
 		const addCols: Array<RawTagEditColumn> = [];
 		for (const col of this.columns) {
@@ -474,7 +474,7 @@ export class TagEditor {
 		return name;
 	}
 
-	private static matchColumn(frame: { id: string, value?: { id?: string } }, column: { id: string; subid?: string }): boolean {
+	private static matchColumn(frame: { id: string; value?: { id?: string } }, column: { id: string; subid?: string }): boolean {
 		if (column.subid) {
 			if (!frame.value || !frame.value.id || frame.value.id !== column.subid) {
 				return false;
@@ -556,21 +556,21 @@ export class TagEditor {
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Set Track Nr by Index',
-					click: () => {
+					click: (): void => {
 						this.setColumnTrackNrByIndex(col);
 					}
 				});
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Set Track Nr by Filename',
-					click: () => {
+					click: (): void => {
 						this.setColumnTrackNrFromFile(col);
 					}
 				});
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Set Total Tracks',
-					click: () => {
+					click: (): void => {
 						this.setColumnTotalTrack(col);
 					}
 				});
@@ -578,7 +578,7 @@ export class TagEditor {
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Try find Part of Set',
-					click: () => {
+					click: (): void => {
 						this.setColumnPartOfSet(col);
 					}
 				});
@@ -586,7 +586,7 @@ export class TagEditor {
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Add Index Nr to Title',
-					click: () => {
+					click: (): void => {
 						this.addIndexToTitleCol(col);
 					}
 				});
@@ -594,7 +594,7 @@ export class TagEditor {
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Copy from Artist Column',
-					click: () => {
+					click: (): void => {
 						this.setAlbumArtistFrames(col);
 					}
 				});
@@ -602,7 +602,7 @@ export class TagEditor {
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Copy from Title Column',
-					click: () => {
+					click: (): void => {
 						this.setColumnFromTitleFrames(col);
 					}
 				});
@@ -610,7 +610,7 @@ export class TagEditor {
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Copy from Year Column',
-					click: () => {
+					click: (): void => {
 						this.setReleaseDateFromYearFrames(col);
 					}
 				});
@@ -618,7 +618,7 @@ export class TagEditor {
 				result.push({
 					icon: 'icon-down-thin',
 					title: 'Search for missing Lyrics',
-					click: () => {
+					click: (): void => {
 						this.findMissingLyrics(col)
 							.catch(e => {
 								console.error(e);
@@ -631,7 +631,7 @@ export class TagEditor {
 			result.push({
 				icon: 'icon-remove',
 				title: 'Clear all Cells in this Column',
-				click: () => {
+				click: (): void => {
 					this.clearColumn(col);
 				}
 			});
@@ -639,7 +639,7 @@ export class TagEditor {
 			result.push({
 				icon: 'icon-down-thin',
 				title: 'Set Filenames by Meta Data',
-				click: () => {
+				click: (): void => {
 					this.setColumnFilenames(col);
 				}
 			});
@@ -659,7 +659,7 @@ export class TagEditor {
 			actions: []
 		};
 		this.setColumnActions(col, id, subid, impl);
-		col.getAutoCompleteList = cell => this.getAutoCompleteList(col, cell);
+		col.getAutoCompleteList = (cell): Array<string> => this.getAutoCompleteList(col, cell);
 		return col;
 	}
 
@@ -675,7 +675,7 @@ export class TagEditor {
 			sort,
 			actions: []
 		};
-		col.getAutoCompleteList = (cell?: RawTagEditCell) => this.getAutoCompleteList(col, cell);
+		col.getAutoCompleteList = (cell?: RawTagEditCell): Array<string> => this.getAutoCompleteList(col, cell);
 		return col;
 	}
 
@@ -726,7 +726,12 @@ export class TagEditor {
 			}
 			return a.sort - b.sort;
 		});
-		const fillColumns = (track: Jam.Track, tag: Jam.RawTag, frames: Array<RawTagEditFrame>, parent: RawTagEditRow, oldRow: RawTagEditRow) =>
+		const fillColumns = (
+			track: Jam.Track,
+			tag: Jam.RawTag,
+			frames: Array<RawTagEditFrame>,
+			parent: RawTagEditRow,
+			oldRow: RawTagEditRow): Array<RawTagEditCell> =>
 			this.columns.map(col => {
 				const oldCell = oldRow ? oldRow.cells.find(c => c.column.def.id === col.def.id && c.column.def.subid === col.def.subid) : undefined;
 				return {

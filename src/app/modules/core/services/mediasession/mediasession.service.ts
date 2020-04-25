@@ -22,7 +22,7 @@ export class MediaSessionService {
 	private subscribers: {
 		[key: number]: Array<any>;
 	} = {};
-	private mediaSession?: MediaSession;
+	private readonly mediaSession?: MediaSession;
 
 	constructor(private jam: JamService, private ngZone: NgZone) {
 		if ('mediaSession' in navigator) {

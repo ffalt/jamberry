@@ -11,7 +11,7 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 	original: string = '';
 	val: string = '';
 	@Input() cell: RawTagEditCell;
-	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell, event: KeyboardEvent }>();
+	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell; event: KeyboardEvent }>();
 	@Output() readonly navigBlur = new EventEmitter<void>();
 	@Output() readonly navigChange = new EventEmitter<void>();
 	@ViewChild('inputEl', {static: true}) input: ElementRef;

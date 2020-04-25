@@ -1,5 +1,7 @@
 // THIS FILE IS GENERATED, DO NOT EDIT MANUALLY
 
+/* eslint-disable @typescript-eslint/camelcase */
+
 import {Injectable} from '@angular/core';
 
 import {JamBaseService} from './jam.base.service';

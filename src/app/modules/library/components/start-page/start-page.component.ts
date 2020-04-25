@@ -11,12 +11,12 @@ import {StartSectionItem} from '@library/components';
 })
 export class StartPageComponent implements OnInit {
 	data: {
-		artist_recent?: Array<StartSectionItem>;
-		artist_faved?: Array<StartSectionItem>;
-		album_faved?: Array<StartSectionItem>;
-		album_recent?: Array<StartSectionItem>;
+		artistRecent?: Array<StartSectionItem>;
+		artistFaved?: Array<StartSectionItem>;
+		albumFaved?: Array<StartSectionItem>;
+		albumRecent?: Array<StartSectionItem>;
 	} = {};
-	stats: Array<{ text: string, link: string, value: number }>;
+	stats: Array<{ text: string; link: string; value: number }>;
 
 	constructor(public jam: JamService, protected notify: NotifyService, public navig: NavigService) {
 	}
@@ -24,8 +24,8 @@ export class StartPageComponent implements OnInit {
 	ngOnInit(): void {
 		this.jam.artist.list({list: 'recent', amount: 5})
 			.then(data => {
-				this.data.artist_recent = data.items.map(obj => ({
-					obj, click: () => {
+				this.data.artistRecent = data.items.map(obj => ({
+					obj, click: (): void => {
 						this.navig.toArtist(obj);
 					}
 				}));
@@ -35,8 +35,8 @@ export class StartPageComponent implements OnInit {
 			});
 		this.jam.artist.list({list: 'faved', amount: 5})
 			.then(data => {
-				this.data.artist_faved = data.items.map(obj => ({
-					obj, click: () => {
+				this.data.artistFaved = data.items.map(obj => ({
+					obj, click: (): void => {
 						this.navig.toArtist(obj);
 					}
 				}));
@@ -46,8 +46,8 @@ export class StartPageComponent implements OnInit {
 			});
 		this.jam.album.list({list: 'faved', amount: 5})
 			.then(data => {
-				this.data.album_faved = data.items.map(obj => ({
-					obj, click: () => {
+				this.data.albumFaved = data.items.map(obj => ({
+					obj, click: (): void => {
 						this.navig.toAlbum(obj);
 					}
 				}));
@@ -57,8 +57,8 @@ export class StartPageComponent implements OnInit {
 			});
 		this.jam.album.list({list: 'recent', amount: 5})
 			.then(data => {
-				this.data.album_recent = data.items.map(obj => ({
-					obj, click: () => {
+				this.data.albumRecent = data.items.map(obj => ({
+					obj, click: (): void => {
 						this.navig.toAlbum(obj);
 					}
 				}));

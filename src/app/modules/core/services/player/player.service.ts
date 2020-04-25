@@ -68,7 +68,7 @@ export class PlayerService implements OnDestroy {
 		this.subscribeSoundPlayerEvents();
 		this.subscribeMediaSessionEvents();
 		userStorage.userChange
-			.pipe(takeUntil(this.unsubscribe)).subscribe(user => {
+			.pipe(takeUntil(this.unsubscribe)).subscribe((/*user*/) => {
 			setTimeout(() => {
 				this.loadFromStorage();
 			}, 0);
@@ -437,7 +437,7 @@ export class PlayerService implements OnDestroy {
 
 	private loadFromStorage(): void {
 		this.loadQueueFromStorage();
-		const current: { index: number, position: number } = this.userStorage.get(PlayerService.localPlayerStorageName);
+		const current: { index: number; position: number } = this.userStorage.get(PlayerService.localPlayerStorageName);
 		if (current) {
 			this.queue.currentIndex = current.index;
 			const track = this.queue.getCurrent();

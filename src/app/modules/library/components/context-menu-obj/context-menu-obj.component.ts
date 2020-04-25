@@ -4,7 +4,7 @@ import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.compo
 
 export interface ContextMenuObjComponentOptions {
 	hideGoto?: boolean;
-	extras?: Array<{ text: string, icon: string; click(): void; }>;
+	extras?: Array<{ text: string; icon: string; click(): void }>;
 }
 
 @Component({
@@ -14,7 +14,7 @@ export interface ContextMenuObjComponentOptions {
 })
 export class ContextMenuObjComponent implements ContextMenuHostComponentInterface<ContextMenuObjComponentOptions> {
 	@ViewChild('objMenu') contextMenu: ContextMenuComponent;
-	extras?: Array<{ text: string, icon: string, click(): void; }> = [];
+	extras?: Array<{ text: string; icon: string; click(): void }> = [];
 	showGoto: boolean = true;
 
 	initOpts(opts: ContextMenuObjComponentOptions): void {

@@ -82,7 +82,7 @@ export class AcoustidTree {
 						trackName: string;
 						trackDuration: number;
 						score: number;
-					}>
+					}>;
 				}>;
 			}>;
 		}>;

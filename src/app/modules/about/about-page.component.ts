@@ -10,7 +10,7 @@ import {JamAuthService} from '@jam';
 	styleUrls: ['./about-page.component.scss']
 })
 export class AboutPageComponent {
-	keyCmds: Array<{ name: string, desc: string }> = [];
+	keyCmds: Array<{ name: string; desc: string }> = [];
 	VERSION = VERSION;
 
 	constructor(private hotkeysService: HotkeysService, public app: AppService, public auth: JamAuthService, public player: PlayerService) {

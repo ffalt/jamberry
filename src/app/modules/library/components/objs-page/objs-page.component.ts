@@ -60,14 +60,14 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 						{
 							text: 'New Podcast',
 							icon: 'icon-list-add',
-							click: () => {
+							click: (): void => {
 								this.library.navig.toPodcastSearch();
 							}
 						},
 						{
 							text: 'Refresh Podcast Feeds',
 							icon: 'icon-rescan',
-							click: () => {
+							click: (): void => {
 								this.library.podcastService.checkPodcasts();
 							}
 						}
@@ -80,7 +80,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 						{
 							text: 'New Playlist',
 							icon: 'icon-list-add',
-							click: () => {
+							click: (): void => {
 								this.library.playlistDialogsService.newPlaylist();
 							}
 						}

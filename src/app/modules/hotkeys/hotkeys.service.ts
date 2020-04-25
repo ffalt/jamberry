@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 // tslint:disable-next-line:no-import-side-effect
 import 'mousetrap';
 import {Hotkey} from './hotkeys.model';
-import {HotkeysOptions, IHotkeyOptions} from './hotkeys.options';
+import {HotkeyOptions, HotkeysOptions} from './hotkeys.options';
 
 @Injectable()
 export class HotkeysService {
@@ -12,8 +12,8 @@ export class HotkeysService {
 
 	private _preventIn = ['INPUT', 'SELECT', 'TEXTAREA'];
 
-	constructor(@Inject(HotkeysOptions) private options: IHotkeyOptions) {
-		Mousetrap.prototype.stopCallback = (event: KeyboardEvent, element: HTMLElement, combo: string, callback: () => void) => {
+	constructor(@Inject(HotkeysOptions) private options: HotkeyOptions) {
+		Mousetrap.prototype.stopCallback = (event: KeyboardEvent, element: HTMLElement, combo: string, callback: () => void): boolean => {
 			// if the element has the class "mousetrap" then no need to stop
 			if ((` ${element.className} `).includes(' mousetrap ')) {
 				return false;

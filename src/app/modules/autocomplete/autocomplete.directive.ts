@@ -30,6 +30,19 @@ export interface AutocompleteSettings {
 	debounceTime: number;
 }
 
+export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement): Observable<MouseEvent> {
+	return fromEvent<MouseEvent>(document, 'click')
+		.pipe(
+			filter(event => {
+				const clickTarget = event.target as HTMLElement;
+				const notOrigin = clickTarget !== origin; // the input
+				const notOverlay = !!overlayRef && (!overlayRef.overlayElement.contains(clickTarget)); // the autocomplete
+				return notOrigin && notOverlay;
+			}),
+			takeUntil(overlayRef.detachments())
+		);
+}
+
 @Directive({
 	selector: '[appAutocomplete]'
 })
@@ -253,17 +266,4 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 			.withPush(false);
 	}
 
-}
-
-export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement): Observable<MouseEvent> {
-	return fromEvent<MouseEvent>(document, 'click')
-		.pipe(
-			filter(event => {
-				const clickTarget = event.target as HTMLElement;
-				const notOrigin = clickTarget !== origin; // the input
-				const notOverlay = !!overlayRef && (!overlayRef.overlayElement.contains(clickTarget)); // the autocomplete
-				return notOrigin && notOverlay;
-			}),
-			takeUntil(overlayRef.detachments())
-		);
 }

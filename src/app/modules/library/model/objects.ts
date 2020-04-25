@@ -93,12 +93,12 @@ export class JamAlbumObject extends JamLibraryObject {
 		if (this.album.albumType === AlbumType.series) {
 			return [
 				{
-					label: 'Artist', value: this.album.artist, click: () => {
+					label: 'Artist', value: this.album.artist, click: (): void => {
 						this.navigToParent();
 					}
 				},
 				{
-					label: 'Series', value: this.album.series, click: () => {
+					label: 'Series', value: this.album.series, click: (): void => {
 						this.library.navig.toSeriesID(this.album.seriesID, this.album.series);
 					}
 				},
@@ -107,7 +107,7 @@ export class JamAlbumObject extends JamLibraryObject {
 		}
 		return [
 			{
-				label: 'Artist', value: this.album.artist, click: () => {
+				label: 'Artist', value: this.album.artist, click: (): void => {
 					this.navigToParent();
 				}
 			},
@@ -297,12 +297,12 @@ export class JamPlaylistObject extends JamLibraryObject {
 		if (this.library.jam.auth.user && this.playlist && this.playlist.userID === this.library.jam.auth.user.id) {
 			extras = [
 				{
-					text: 'Edit Playlist', icon: 'icon-edit', click: () => {
+					text: 'Edit Playlist', icon: 'icon-edit', click: (): void => {
 						this.library.playlistDialogsService.editPlaylist(this.playlist);
 					}
 				},
 				{
-					text: 'Remove Playlist', icon: 'icon-remove', click: () => {
+					text: 'Remove Playlist', icon: 'icon-remove', click: (): void => {
 						this.library.playlistDialogsService.removePlaylist(this.playlist);
 					}
 				}
@@ -400,12 +400,12 @@ export class JamTrackObject extends JamLibraryObject {
 	getInfos(): Array<HeaderInfo> {
 		return [
 			{
-				label: 'Artist', value: this.track.tag.artist, click: () => {
+				label: 'Artist', value: this.track.tag.artist, click: (): void => {
 					this.library.navig.toArtistID(this.track.artistID, this.track.tag.artist);
 				}
 			},
 			{
-				label: 'Album', value: this.track.tag.album, click: () => {
+				label: 'Album', value: this.track.tag.album, click: (): void => {
 					this.library.navig.toAlbumID(this.track.albumID, this.track.tag.album);
 				}
 			},
@@ -474,7 +474,7 @@ export class JamSeriesObject extends JamLibraryObject {
 	getInfos(): Array<HeaderInfo> {
 		return [
 			{
-				label: 'Artist', value: this.series.artist, click: () => {
+				label: 'Artist', value: this.series.artist, click: (): void => {
 					this.navigToParent();
 				}
 			},
@@ -517,12 +517,12 @@ export class JamPodcastObject extends JamLibraryObject {
 			(this.library.jam.auth && this.library.jam.auth.user && this.library.jam.auth.user.roles && this.library.jam.auth.user.roles.podcast) ?
 				[
 					{
-						text: 'Refresh Podcast Feed', icon: 'icon-rescan', click: () => {
+						text: 'Refresh Podcast Feed', icon: 'icon-rescan', click: (): void => {
 							this.library.podcastService.checkPodcast(this.podcast);
 						}
 					},
 					{
-						text: 'Remove Podcast', icon: 'icon-remove', click: () => {
+						text: 'Remove Podcast', icon: 'icon-remove', click: (): void => {
 							this.library.podcastService.removePodcast(this.podcast);
 						}
 					}
@@ -611,7 +611,7 @@ export class JamEpisodeObject extends JamLibraryObject {
 	getInfos(): Array<HeaderInfo> {
 		return [
 			{
-				label: 'Podcast', value: this.episode.podcast, click: () => {
+				label: 'Podcast', value: this.episode.podcast, click: (): void => {
 					this.navigToParent();
 				}
 			},

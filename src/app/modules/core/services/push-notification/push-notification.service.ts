@@ -38,19 +38,19 @@ export class PushNotificationService implements OnDestroy {
 		return Notification.requestPermission();
 	}
 
-	async show(notify: { title: string; body: string; icon: string; silent?: boolean; autoclose: number; }): Promise<Notification | undefined> {
+	async show(notify: { title: string; body: string; icon: string; silent?: boolean; autoclose: number }): Promise<Notification | undefined> {
 		if (!this.enabled) {
 			return;
 		}
 		this.title = notify.title;
 		this.body = notify.body;
-		if (notify.hasOwnProperty('silent')) {
+		if (Object.prototype.hasOwnProperty.call(notify, 'silent')) {
 			this.silent = notify.silent;
 		}
-		if (notify.hasOwnProperty('autoclose')) {
+		if (Object.prototype.hasOwnProperty.call(notify, 'autoclose')) {
 			this.closeDelay = notify.autoclose * 1000;
 		}
-		if (notify.hasOwnProperty('icon')) {
+		if (Object.prototype.hasOwnProperty.call(notify, 'icon')) {
 			this.icon = notify.icon;
 		}
 		if (!this.checkCompatibility()) {

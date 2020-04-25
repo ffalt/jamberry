@@ -14,7 +14,7 @@ import {takeUntil} from 'rxjs/operators';
 export class AdminRadarComponent implements OnInit, OnDestroy {
 	static localStorageName = 'admin.radar';
 	folders: Array<Jam.Folder>;
-	current?: { pos: number, folder: Jam.Folder, health?: Array<Jam.TrackHealth> };
+	current?: { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> };
 	searching: boolean = false;
 	@ViewChildren(TrackHealthComponent) trackHealthComponents !: QueryList<TrackHealthComponent>;
 	protected unsubscribe = new Subject();
@@ -79,7 +79,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 			this.searching = false;
 			return;
 		}
-		const current: { pos: number, folder: Jam.Folder, health?: Array<Jam.TrackHealth> } = {
+		const current: { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> } = {
 			folder,
 			pos
 		};

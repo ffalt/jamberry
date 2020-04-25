@@ -69,7 +69,7 @@ function gramCounter(value: string, gramSize: number): { [name: string]: number 
 
 function isEmptyObject(obj: any): boolean {
 	for (const prop in obj) {
-		if (obj.hasOwnProperty(prop)) {
+		if (Object.prototype.hasOwnProperty.call(obj, prop)) {
 			return false;
 		}
 	}
@@ -131,7 +131,7 @@ export class FuzzySet {
 		// return length of items in set
 		let count = 0;
 		for (const prop in this.exactSet) {
-			if (this.exactSet.hasOwnProperty(prop)) {
+			if (Object.prototype.hasOwnProperty.call(this.exactSet, prop)) {
 				count += 1;
 			}
 		}
@@ -141,7 +141,7 @@ export class FuzzySet {
 	isEmpty(): boolean {
 		// return is set is empty
 		for (const prop in this.exactSet) {
-			if (this.exactSet.hasOwnProperty(prop)) {
+			if (Object.prototype.hasOwnProperty.call(this.exactSet, prop)) {
 				return false;
 			}
 		}
@@ -152,7 +152,7 @@ export class FuzzySet {
 		// return list of values loaded into set
 		const values = [];
 		for (const prop in this.exactSet) {
-			if (this.exactSet.hasOwnProperty(prop)) {
+			if (Object.prototype.hasOwnProperty.call(this.exactSet, prop)) {
 				values.push(this.exactSet[prop]);
 			}
 		}
@@ -184,7 +184,7 @@ export class FuzzySet {
 		let sumOfSquareGramCounts = 0;
 		let otherGramCount;
 		for (const gram in gramCounts) {
-			if (gramCounts.hasOwnProperty(gram)) {
+			if (Object.prototype.hasOwnProperty.call(gramCounts, gram)) {
 				const gramCount = gramCounts[gram];
 				sumOfSquareGramCounts += Math.pow(gramCount, 2);
 				if (gram in this.matchDict) {
@@ -249,7 +249,7 @@ export class FuzzySet {
 		const gramCounts = gramCounter(normalizedValue, gramSize);
 		let sumOfSquareGramCounts = 0;
 		for (const gram in gramCounts) {
-			if (gramCounts.hasOwnProperty(gram)) {
+			if (Object.prototype.hasOwnProperty.call(gramCounts, gram)) {
 				const gramCount = gramCounts[gram];
 				sumOfSquareGramCounts += Math.pow(gramCount, 2);
 				if (gram in this.matchDict) {

@@ -1,7 +1,7 @@
 import {FuzzySet} from './fuzzy';
 
 export function splitFilename(s: string): Array<string> {
-	return s.split(/[.,\/ -]/)
+	return s.split(/[.,\\/ -]/)
 		.map(p => p.trim())
 		.filter(p => p.length > 0);
 }
@@ -21,13 +21,13 @@ export function hasFileExtension(filename: string, exts: Array<string>): boolean
 export function replaceFileSystemChars(s: string, replace: string): string {
 	return s.toString()
 		.replace(/:/g, ' - ')
-		.replace(/[?\/!\\]/g, replace);
+		.replace(/[?/!\\]/g, replace);
 }
 
 export function replaceFolderSystemChars(s: string, replace: string): string {
 	return s.toString()
 		.replace(/:/g, ' -')
-		.replace(/[.*?\/!\\]/g, replace);
+		.replace(/[.*?/!\\]/g, replace);
 }
 
 export function findTrackNr(filename: string): number {
@@ -35,7 +35,7 @@ export function findTrackNr(filename: string): number {
 		return 0;
 	}
 	const s = stripExtension(filename);
-	const parts = s.split(/[ \-_.:;?!~,`"&|()<>{}\[\]\r\n/\\]+/)
+	const parts = s.split(/[ \-_.:;?!~,`"&|()<>{}[\]\r\n/\\]+/)
 		.map(Number)
 		.filter(p => !isNaN(p));
 	if (parts.length > 0) {

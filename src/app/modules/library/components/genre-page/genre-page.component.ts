@@ -35,7 +35,7 @@ export class GenrePageComponent implements OnDestroy {
 	currentTab: GenreTab = this.tabsObjs.artists;
 	tabs: Array<HeaderTab> = Object.keys(this.tabsObjs).map(key => {
 		const tab = this.tabsObjs[key];
-		tab.click = () => {
+		tab.click = (): void => {
 			this.setCurrentTab(tab);
 		};
 		return tab;
@@ -67,6 +67,6 @@ export class GenrePageComponent implements OnDestroy {
 	}
 
 	// private refresh(): void {
-		//
+	//
 	// }
 }

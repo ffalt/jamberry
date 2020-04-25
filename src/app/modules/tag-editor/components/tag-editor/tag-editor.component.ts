@@ -128,7 +128,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			});
 	}
 
-	onCellEditorNavigationKeyDown(data: { cell: RawTagEditCell, event: KeyboardEvent }): void {
+	onCellEditorNavigationKeyDown(data: { cell: RawTagEditCell; event: KeyboardEvent }): void {
 		if (isUpDownArrowKeys(data.event)) {
 			const rowIndex = this.editor.edits.findIndex(e => e === data.cell.parent);
 			const nextrow = this.editor.edits[rowIndex + (isDownArrowKey(data.event) ? 1 : -1)];

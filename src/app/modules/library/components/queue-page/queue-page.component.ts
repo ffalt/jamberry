@@ -20,21 +20,21 @@ export class QueuePageComponent {
 				{
 					text: 'Clear Queue',
 					icon: 'icon-remove',
-					click: () => {
+					click: (): void => {
 						this.queue.clear();
 					}
 				},
 				{
 					text: 'Shuffle Queue',
 					icon: 'icon-shuffle',
-					click: () => {
+					click: (): void => {
 						this.queue.shuffle();
 					}
 				},
 				{
 					text: 'Save Queue as Playlist',
 					icon: 'icon-playlist',
-					click: () => {
+					click: (): void => {
 						this.playlistDialogsService.newPlaylist(this.queue.tracks);
 					}
 				}

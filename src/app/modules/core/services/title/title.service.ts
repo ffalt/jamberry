@@ -22,7 +22,7 @@ export class TitleService implements OnDestroy {
 				takeUntil(this.unsubscribe)).subscribe(() => {
 				this.titles = [];
 
-				const collectRouteData = (currentroute: ActivatedRoute) => {
+				const collectRouteData = (currentroute: ActivatedRoute): void => {
 					const data = currentroute.snapshot.data;
 					if (data.name) {
 						this.titles.push(data.name);

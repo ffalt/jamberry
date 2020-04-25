@@ -1,13 +1,15 @@
 // THIS FILE IS GENERATED, DO NOT EDIT MANUALLY
 
+/* eslint-disable @typescript-eslint/camelcase */
+
 import {HttpEvent, HttpParams, HttpSentEvent} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {JamAuthService} from './jam.auth.service';
 import {JamHttpService} from './jam.http.service';
-import {JamParameters} from './model/jam-rest-params';
 import {Jam} from './model/jam-rest-data';
+import {JamParameters} from './model/jam-rest-params';
 
 @Injectable()
 export class JamBaseService {
@@ -15,7 +17,7 @@ export class JamBaseService {
 	constructor(private http: JamHttpService, private authService: JamAuthService) {
 	}
 
-	buildRequest(view: string, params: any, forDOM: boolean): { url: string, parameters: HttpParams } {
+	buildRequest(view: string, params: any, forDOM: boolean): { url: string; parameters: HttpParams } {
 		const buildParams = params || {};
 		if (forDOM && this.authService.auth.token) {
 			buildParams.bearer = this.authService.auth.token;

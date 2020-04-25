@@ -48,10 +48,6 @@
 			display: block;
 			border-right: 1px solid var(--background-border);
 			min-width: 240px;
-
-			.toogle-left {
-				display: none;
-			}
 		}
 
 		.right-content {
@@ -63,10 +59,6 @@
 			flex-flow: column nowrap;
 			position: relative;
 			overflow: hidden;
-
-			.toogle-right {
-				display: none;
-			}
 
 			.router-content {
 				width: 100%;

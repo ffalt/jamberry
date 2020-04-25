@@ -1,4 +1,4 @@
-function offset(nativeEl: HTMLElement): { width: number, height: number, top: number, left: number } {
+function offset(nativeEl: HTMLElement): { width: number; height: number; top: number; left: number } {
 	const boundingClientRect = nativeEl.getBoundingClientRect();
 	return {
 		width: boundingClientRect.width || nativeEl.offsetWidth,
@@ -31,7 +31,7 @@ function parentOffsetEl(nativeEl: HTMLElement): any {
 	return offsetParent || window.document;
 }
 
-function position(nativeEl: HTMLElement): { width: number, height: number, top: number, left: number } {
+function position(nativeEl: HTMLElement): { width: number; height: number; top: number; left: number } {
 	let offsetParentBCR = {top: 0, left: 0};
 	const elBCR = offset(nativeEl);
 	const offsetParentEl = parentOffsetEl(nativeEl);
@@ -49,7 +49,7 @@ function position(nativeEl: HTMLElement): { width: number, height: number, top: 
 	};
 }
 
-export function positionElements(hostEl: HTMLElement, targetEl: HTMLElement, positionStr: string, appendToBody = false): { top: number, left: number } {
+export function positionElements(hostEl: HTMLElement, targetEl: HTMLElement, positionStr: string, appendToBody = false): { top: number; left: number } {
 	const positionStrParts = positionStr.split('-');
 	const pos0 = positionStrParts[0];
 	const pos1 = positionStrParts[1] || 'center';
@@ -66,7 +66,7 @@ export function positionElements(hostEl: HTMLElement, targetEl: HTMLElement, pos
 		top: (): number => hostElPos.top,
 		bottom: (): number => hostElPos.top + hostElPos.height
 	};
-	let targetElPos: { top: number, left: number };
+	let targetElPos: { top: number; left: number };
 	switch (pos0) {
 		case 'right':
 			targetElPos = {

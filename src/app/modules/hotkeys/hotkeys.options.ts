@@ -1,7 +1,6 @@
 import {InjectionToken} from '@angular/core';
 
-// tslint:disable-next-line:interface-name no-empty-interface
-export interface IHotkeyOptions {
+export interface HotkeyOptions {
 }
 
-export const HotkeysOptions = new InjectionToken<IHotkeyOptions>('HotkeyOptions');
+export const HotkeysOptions = new InjectionToken<HotkeyOptions>('HotkeyOptions');

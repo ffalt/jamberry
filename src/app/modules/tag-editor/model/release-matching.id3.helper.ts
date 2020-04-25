@@ -54,9 +54,9 @@ function fillCommon(builder: ID3V24TagBuilder, match: Matching, track: MusicBrai
 	}
 
 	if (track.artistCredit && track.artistCredit.length > 0) {
-		const artists = track.artistCredit.map(ac => `${ac.artist.name} ${ac.joinphrase}`).join(' ').replace(/  /g, ' ').trim();
+		const artists = track.artistCredit.map(ac => `${ac.artist.name} ${ac.joinphrase}`).join(' ').replace(/ {2}/g, ' ').trim();
 		const sortArtists = track.artistCredit.map(ac =>
-			(ac.artist.sortName ? ac.artist.sortName : '').trim()).filter(s => s.length > 0).join(' & ').replace(/  /g, ' ').trim();
+			(ac.artist.sortName ? ac.artist.sortName : '').trim()).filter(s => s.length > 0).join(' & ').replace(/ {2}/g, ' ').trim();
 		builder
 			.artist(artists)
 			.artistSort(sortArtists)

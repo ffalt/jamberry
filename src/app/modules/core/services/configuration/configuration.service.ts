@@ -6,7 +6,7 @@ import {LocalstorageService} from '../localstorage/localstorage.service';
 import {UserStorageService} from '../userstorage/userstorage.service';
 
 export const WINDOW = new InjectionToken('window',
-	{providedIn: 'root', factory: () => window}
+	{providedIn: 'root', factory: (): Window => window}
 );
 
 @Injectable({
@@ -30,11 +30,11 @@ export class ConfigurationService extends JamConfiguration {
 		return this.clientDomain;
 	}
 
-	async fromStorage(): Promise<{ user: Jam.User, auth: Auth } | undefined> {
-		return this.localstorage.get<{ user: Jam.User, auth: Auth }>(ConfigurationService.localStorageName);
+	async fromStorage(): Promise<{ user: Jam.User; auth: Auth } | undefined> {
+		return this.localstorage.get<{ user: Jam.User; auth: Auth }>(ConfigurationService.localStorageName);
 	}
 
-	async toStorage(data: { user: Jam.User, auth: Auth } | undefined): Promise<void> {
+	async toStorage(data: { user: Jam.User; auth: Auth } | undefined): Promise<void> {
 		this.localstorage.set(ConfigurationService.localStorageName, data);
 	}
 

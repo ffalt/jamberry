@@ -76,7 +76,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	}
 
 	private registerIntersectionObserver(): void {
-		if (!!this.intersectionObserver) {
+		if (this.intersectionObserver) {
 			return;
 		}
 		this.intersectionObserver = this.deferLoadService.getObserver();
@@ -89,7 +89,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 		}
 	}
 
-	private checkForIntersection = (entries: Array<IntersectionObserverEntry>) => {
+	private checkForIntersection = (entries: Array<IntersectionObserverEntry>): void => {
 		entries.forEach((entry: IntersectionObserverEntry) => {
 			if (entry.target === this._element.nativeElement) {
 				this.manageIntersection(entry);
