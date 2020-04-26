@@ -21,7 +21,7 @@ jobs:
     - uses: actions/checkout@v2
         
     - name: Release 🚀
-      uses: ffalt/push-version-tag-action
+      uses: ffalt/push-version-tag-action@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
  
