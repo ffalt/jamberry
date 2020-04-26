@@ -22,7 +22,7 @@
     "build:prebuild": "npm run clean && node ./build-pre.js",
     "bundle-report": "npm run build:stats && webpack-bundle-analyzer --mode static dist/stats.json",
     "build:stats": "ng build --named-chunks --prod --stats-json --output-hashing=none",
-    "build:prod": "npm run build:prebuild && ng build --aot --prod --progress --base-href \"/\"",
+    "build:prod": "npm run build:prebuild && ng build --aot --prod --progress --base-href \".\"",
     "build:develop": "npm run build:prebuild && ng build --progress --base-href \"/\"",
     "build:deploy": "npm run build:prebuild && ng build --aot --prod --base-href \"/\"",
     "test:watch": "jest --watch"
