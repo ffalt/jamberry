@@ -1,0 +1,21 @@
+
+name: release
+
+on:
+  push:
+    branches: [ release ]
+  pull_request:
+    branches: [ release ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Release 🚀
+      uses: ffalt/push-version-tag-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
