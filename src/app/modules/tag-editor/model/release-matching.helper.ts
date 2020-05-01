@@ -129,7 +129,7 @@ export class MatchMedia {
 	complete: boolean = false;
 
 	constructor(public mbMedia: MusicBrainz.ReleaseMedia, allMatchings: Array<Matching>, trackStartIndex: number) {
-		this.tracks = mbMedia.tracks.map((track, i) =>
+		this.tracks = (mbMedia.tracks || []).map((track, i) =>
 			new MatchingTrack(track, allMatchings, (trackStartIndex + i)));
 	}
 
