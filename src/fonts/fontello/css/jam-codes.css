@@ -106,6 +106,8 @@
 .icon-cw:before { content: '\e868'; } /* '' */
 .icon-cancel:before { content: '\e869'; } /* '' */
 .icon-home:before { content: '\e86a'; } /* '' */
+.icon-pin-outline:before { content: '\e86b'; } /* '' */
+.icon-pin:before { content: '\e86c'; } /* '' */
 .icon-info:before { content: '\f086'; } /* '' */
 .icon-menu:before { content: '\f0c9'; } /* '' */
 .icon-download-cloud:before { content: '\f0ed'; } /* '' */

@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'jam';
-  src: url('../font/jam.eot?94792548');
-  src: url('../font/jam.eot?94792548#iefix') format('embedded-opentype'),
-       url('../font/jam.woff2?94792548') format('woff2'),
-       url('../font/jam.woff?94792548') format('woff'),
-       url('../font/jam.ttf?94792548') format('truetype'),
-       url('../font/jam.svg?94792548#jam') format('svg');
+  src: url('../font/jam.eot?70526908');
+  src: url('../font/jam.eot?70526908#iefix') format('embedded-opentype'),
+       url('../font/jam.woff2?70526908') format('woff2'),
+       url('../font/jam.woff?70526908') format('woff'),
+       url('../font/jam.ttf?70526908') format('truetype'),
+       url('../font/jam.svg?70526908#jam') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'jam';
-    src: url('../font/jam.svg?94792548#jam') format('svg');
+    src: url('../font/jam.svg?70526908#jam') format('svg');
   }
 }
 */
@@ -162,6 +162,8 @@
 .icon-cw:before { content: '\e868'; } /* '' */
 .icon-cancel:before { content: '\e869'; } /* '' */
 .icon-home:before { content: '\e86a'; } /* '' */
+.icon-pin-outline:before { content: '\e86b'; } /* '' */
+.icon-pin:before { content: '\e86c'; } /* '' */
 .icon-info:before { content: '\f086'; } /* '' */
 .icon-menu:before { content: '\f0c9'; } /* '' */
 .icon-download-cloud:before { content: '\f0ed'; } /* '' */
