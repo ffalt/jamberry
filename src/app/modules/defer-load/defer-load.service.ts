@@ -26,7 +26,7 @@ export class DeferLoadService {
 	private scrollObservable: Observable<ScrollNotifyEvent>;
 	private intersectionObserver?: IntersectionObserver;
 
-	constructor(@Inject(PLATFORM_ID) private platformId: object) {
+	constructor(@Inject(PLATFORM_ID) private platformId: any) {
 		this.isBrowser = isPlatformBrowser(this.platformId);
 		this.hasIntersectionObserver = DeferLoadService.checkIntersectionObserver();
 		const observable = this.scrollSubject.asObservable();

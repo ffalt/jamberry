@@ -1,4 +1,5 @@
-// THIS FILE IS GENERATED, DO NOT EDIT MANUALLY
+// @generated
+// This file was automatically generated and should not be edited.
 
 import {HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
@@ -17,10 +18,10 @@ export interface Auth {
 
 @Injectable()
 export class JamAuthService {
+	static readonly version = '0.2.0';
+	static readonly apiPrefix = '/jam/v1';
 	user?: Jam.SessionUser = undefined;
 	auth?: Auth = undefined;
-	readonly version = '0.1.14';
-	readonly apiPrefix = '/jam/v1/';
 	checked: boolean = false;
 	loaded: boolean = false;
 
@@ -43,7 +44,7 @@ export class JamAuthService {
 			return;
 		}
 		try {
-			const data = await this.http.get<Jam.Session>(`${this.auth.server}${this.apiPrefix}session`, this.getHTTPOptions());
+			const data = await this.http.get<Jam.Session>(`${this.auth.server}${JamAuthService.apiPrefix}/session`, this.getHTTPOptions());
 			if (data.user) {
 				this.user = data.user;
 				this.auth.version = data.version;
@@ -60,14 +61,14 @@ export class JamAuthService {
 		if (this.configuration.forceSessionUsage) {
 			return true;
 		}
-		const data = await this.http.get<Jam.Session>(`${server}${this.apiPrefix}session`, {withCredentials: false});
+		const data = await this.http.get<Jam.Session>(`${server}${JamAuthService.apiPrefix}/session`, {withCredentials: false});
 		return (data.allowedCookieDomains || []).includes(this.configuration.domain());
 	}
 
 	async login(server: string, username: string, password: string, storePassword?: boolean): Promise<void> {
 		const canUseSession = await this.canUseSession(server);
 		try {
-			const data = await this.http.post<Jam.Session>(`${server}${this.apiPrefix}login`, {
+			const data = await this.http.post<Jam.Session>(`${server}${JamAuthService.apiPrefix}/auth/login`, {
 				client: this.configuration.clientName,
 				username,
 				password,
@@ -112,10 +113,10 @@ export class JamAuthService {
 
 	async logout(): Promise<void> {
 		if (this.auth) {
-			const url = `${this.auth.server}${this.apiPrefix}logout`;
+			const url = `${this.auth.server}${JamAuthService.apiPrefix}/auth/logout`;
 			const options = this.getHTTPOptions();
 			await this.clear();
-			await this.http.post<{}>(url, {}, options);
+			await this.http.post(url, {}, options);
 		} else {
 			await this.clear();
 		}
@@ -132,19 +133,4 @@ export class JamAuthService {
 		return !!(this.user && this.auth);
 	}
 
-	userRolePodcast(): boolean {
-		return this.user && this.user.roles && this.user.roles.podcast;
-	}
-
-	userRoleAdmin(): boolean {
-		return this.user && this.user.roles && this.user.roles.admin;
-	}
-
-	userRoleUpload(): boolean {
-		return this.user && this.user.roles && this.user.roles.upload;
-	}
-
-	userRoleStream(): boolean {
-		return this.user && this.user.roles && this.user.roles.stream;
-	}
 }

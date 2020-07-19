@@ -169,7 +169,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 				filter(isEnterKey),
 				takeUntil(this.unsubscribe)
 			)
-			.subscribe((event: KeyboardEvent) => {
+			.subscribe((_: KeyboardEvent) => {
 				if (!this.isVisible) {
 					this.query = this.host.nativeElement.value;
 					this.appAutocompleteControl.autocompleteEnter(this.query);

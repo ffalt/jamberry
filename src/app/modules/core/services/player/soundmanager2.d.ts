@@ -54,6 +54,12 @@ declare namespace soundmanager {
 		duration?: number | null;
 	}
 
+	interface SoundManagerAudioFormat {
+		type: Array<string>;
+		required: boolean;
+		related?: Array<string>;
+	}
+
 	interface SoundManagerProps {
 		/**
 		 * The directory where SM2 can find the flash movies (soundmanager2.swf,
@@ -73,7 +79,7 @@ declare namespace soundmanager {
 		 * Some properties are dynamic, determined at initialisation or later
 		 * during runtime, and should be treated as read-only.
 		 */
-		readonly features?: object;
+		readonly features?: Record<string, unknown>;
 
 		flashVersion?: number;
 		// flashPollingInterval: number;
@@ -104,6 +110,8 @@ declare namespace soundmanager {
 	}
 
 	interface SoundManager extends SoundManagerProps {
+		audioFormats?: { [audioFormat: string]: SoundManagerAudioFormat };
+
 		canPlayLink(domElement: HTMLElement): boolean;
 
 		canPlayMIME(MIMEtype: string): boolean;
@@ -123,7 +131,7 @@ declare namespace soundmanager {
 
 		getSoundById(id: string): SMSound;
 
-		load(id: string, options?: object): SMSound;
+		load(id: string, options?: Record<string, unknown>): SMSound;
 
 		mute(id?: string): SMSound;
 
@@ -202,9 +210,9 @@ declare namespace soundmanager {
 		onbufferchange?: (() => void);
 		onconnect?: (() => void);
 		ondataerror?: (() => void);
-		onerror?: (() => void);
+		onerror?: ((errorCode: number, description: string) => void);
+		onload?: ((success: boolean) => void);
 		onfinish?: (() => void);
-		onload?: (() => void);
 		onpause?: (() => void);
 		onplay?: (() => void);
 		onresume?: (() => void);
@@ -217,10 +225,10 @@ declare namespace soundmanager {
 		// Methods
 		destruct(): void;
 
-		load(options: object): SMSound;
+		load(options: Record<string, unknown>): SMSound;
 
 		// clearOnPosition(): void;
-		onPosition(mescOffest: number, callback: object): SMSound;
+		onPosition(mescOffest: number, callback: (eventPosition: any) => void): SMSound;
 
 		mute(): SMSound;
 

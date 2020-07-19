@@ -33,7 +33,7 @@ function buildIndexAlbumIndex(index: Jam.AlbumIndex, expanded: boolean, name: st
 			groups: index.groups.map(g => ({
 				name: g.name,
 				expanded,
-				entries: g.entries.map(entry => ({
+				entries: g.items.map(entry => ({
 					id: entry.id,
 					link: '/library/albums/id/' + entry.id,
 					extraLink: '/library/artists/id/' + entry.artistID,
@@ -41,7 +41,7 @@ function buildIndexAlbumIndex(index: Jam.AlbumIndex, expanded: boolean, name: st
 					extra: entry.artist,
 					visible: false,
 					trackCount: entry.trackCount,
-					image: jam.base.image_url(entry.id, 200)
+					image: jam.image.imageUrl({id: entry.id, size: 200})
 				}))
 			}))
 		};
@@ -56,13 +56,13 @@ function buildIndexFolderIndex(index: Jam.FolderIndex, expanded: boolean, name: 
 			groups: index.groups.map(g => ({
 				name: g.name,
 				expanded,
-				entries: g.entries.map(entry => ({
-					id: entry.folderID,
-					link: '/library/folders/id/' + entry.folderID,
+				entries: g.items.map(entry => ({
+					id: entry.id,
+					link: '/library/folders/id/' + entry.id,
 					name: entry.name,
 					visible: false,
 					trackCount: entry.trackCount,
-					image: jam.base.image_url(entry.folderID, 200)
+					image: jam.image.imageUrl({id: entry.id, size: 200})
 				}))
 			}))
 		};
@@ -77,13 +77,13 @@ function buildIndexArtistIndex(index: Jam.ArtistIndex, expanded: boolean, name: 
 			groups: index.groups.map(g => ({
 				name: g.name,
 				expanded,
-				entries: g.entries.map(entry => ({
-					id: entry.artistID,
-					link: '/library/artists/id/' + entry.artistID,
+				entries: g.items.map(entry => ({
+					id: entry.id,
+					link: '/library/artists/id/' + entry.id,
 					name: entry.name,
 					visible: false,
 					trackCount: entry.trackCount,
-					image: jam.base.image_url(entry.artistID, 200)
+					image: jam.image.imageUrl({id: entry.id, size: 200})
 				}))
 			}))
 		};
@@ -98,13 +98,13 @@ function buildIndexSeriesIndex(seriesIndex: Jam.SeriesIndex, expanded: boolean, 
 			groups: seriesIndex.groups.map(g => ({
 				name: g.name,
 				expanded,
-				entries: g.entries.map(entry => ({
-					id: entry.seriesID,
-					link: '/library/series/id/' + entry.seriesID,
+				entries: g.items.map(entry => ({
+					id: entry.id,
+					link: '/library/series/id/' + entry.id,
 					name: entry.name,
 					visible: false,
 					trackCount: entry.trackCount,
-					image: jam.base.image_url(entry.seriesID, 200)
+					image: jam.image.imageUrl({id: entry.id, size: 200})
 				}))
 			}))
 		};
@@ -156,7 +156,7 @@ export class IndexService {
 				const type = getTypeByAlbumType(query.albumType);
 				return buildIndexAlbumIndex(
 					await this.jam.album.index(query),
-					!this.app.smallscreen, type ? type.text : '', this.jam);
+					!this.app.smallscreen, type ? type.text : 'Albums', this.jam);
 			}
 			default:
 		}

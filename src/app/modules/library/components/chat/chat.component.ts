@@ -9,7 +9,7 @@ import {Jam, JamService} from '@jam';
 })
 export class ChatComponent implements OnInit, OnDestroy {
 	msg: string = '';
-	messages: Array<Jam.ChatMessage>;
+	messages: Array<Jam.Chat>;
 	isPolling: boolean;
 	timer: any;
 
@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 			return;
 		}
 		this.isPolling = true;
-		const since = this.messages.length > 0 ? this.messages[this.messages.length - 1].time : undefined;
+		const since = this.messages.length > 0 ? this.messages[this.messages.length - 1].created : undefined;
 		this.jam.chat.list({since})
 			.then(messages => {
 				this.isPolling = false;

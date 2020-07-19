@@ -15,16 +15,16 @@
 		</div>
 	</form>
 </div>
-<div class="tracks-preview" *ngIf="playlistEdit && playlistEdit.tracks.length>0">
+<div class="tracks-preview" *ngIf="playlistEdit && playlistEdit.entries.length>0">
 	<a class="preview" (click)="showTrackPreview=!showTrackPreview">
 		<app-expand-collapse-icon [expanded]="showTrackPreview"></app-expand-collapse-icon>
 		{{showTrackPreview ? 'Hide' : 'Show'}} Tracks
 	</a>
 	<div class="tracks" *ngIf="showTrackPreview">
-		<div class="track" *ngFor="let track of playlistEdit.tracks">
-			<div class="title"><p>{{track.tag?.title || track.name}}</p><span title="Artist">{{track.tag?.artist}}</span></div>
-			<div class="length">{{track.duration|duration}}</div>
-			<div class="remove"><a title="Remove From Playlist" (click)="remove(track)"><i class="icon-remove"></i></a></div>
+		<div class="track" *ngFor="let entry of playlistEdit.entries">
+			<div class="title"><p>{{entry.tag?.title || entry.name}}</p><span title="Artist">{{entry.tag?.artist}}</span></div>
+			<div class="length">{{entry.duration|duration}}</div>
+			<div class="remove"><a title="Remove From Playlist" (click)="remove(entry)"><i class="icon-remove"></i></a></div>
 		</div>
 	</div>
 </div>

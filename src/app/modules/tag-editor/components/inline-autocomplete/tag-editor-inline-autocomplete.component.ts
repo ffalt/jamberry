@@ -46,12 +46,12 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	}
 
 	// Required forControlValueAccessor interface
-	registerOnChange(fn: (_: any) => {}): void {
+	registerOnChange(fn: (_: any) => any): void {
 		this.onChange = fn;
 	}
 
 	// Required forControlValueAccessor interface
-	registerOnTouched(fn: () => {}): void {
+	registerOnTouched(fn: () => any): void {
 		this.onTouched = fn;
 	}
 

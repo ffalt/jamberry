@@ -1,7 +1,9 @@
 const PROXY_CONFIG = [
 	{
 		context: [
+			"/jam",
 			"/api",
+			"/graphql",
 			"/assets/config"
 		],
 		target: "http://localhost:4040",

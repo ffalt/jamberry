@@ -34,8 +34,8 @@ export class SliderTimeComponent implements OnInit {
 
 	displayWaveForm(): void {
 		this.svg = undefined;
-		if (this.app.settings.showWaveform && this.player.currentTrack) {
-			this.jam.media.waveform_svg_binary(this.player.currentTrack.id, this.app.smallscreen ? 1000 : 4000)
+		if (this.app.settings.showWaveform && this.player.currentMedia) {
+			this.jam.waveform.svg({id: this.player.currentMedia.id, width: this.app.smallscreen ? 1000 : 4000})
 				.then(data => {
 					this.svg = extractSVGParts(data);
 				})

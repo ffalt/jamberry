@@ -8,7 +8,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 export interface ImageEdit {
-	artwork: Jam.ArtworkImage;
+	artwork: Jam.Artwork;
 	folderID: string;
 }
 
@@ -42,7 +42,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 
 	load(): void {
 		if (this.data) {
-			this.jam.folder.artwork_image_binary({id: this.data.artwork.id})
+			this.jam.image.imageBinary({id: this.data.artwork.id})
 				.then(data => {
 					this.imageBase64 = `data:${(this.mimeType || 'image/jpeg')};base64,${base64ArrayBuffer(data)}`;
 				}).catch(e => {
@@ -78,7 +78,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 
 	upload(): void {
 		const file = new File([this.croppedImageFile], this.data.artwork.name, {type: this.croppedImageFile.type});
-		this.jam.folder.artworkUpload_update({id: this.data.artwork.id}, file)
+		this.jam.artwork.update({id: this.data.artwork.id}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			event => {
 				if (event.type === HttpEventType.Response) {

@@ -15,7 +15,7 @@ import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/contex
 })
 export class QueueComponent implements OnInit, OnDestroy {
 	@Input() showControls: boolean = true;
-	tracks: Array<Jam.Track> = [];
+	entries: Array<Jam.MediaBase> = [];
 	protected unsubscribe = new Subject();
 	private currentSwipeElement: HTMLElement;
 
@@ -25,10 +25,10 @@ export class QueueComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.tracks = this.queue.tracks.slice(0);
+		this.entries = this.queue.entries.slice(0);
 		this.queue.queueChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-			this.tracks = this.queue.tracks.slice(0);
+			this.entries = this.queue.entries.slice(0);
 		});
 	}
 
@@ -37,12 +37,12 @@ export class QueueComponent implements OnInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	onContextMenu($event: Event, item: Jam.Track): void {
+	onContextMenu($event: Event, item: Jam.MediaBase): void {
 		this.contextMenuService.open(ContextMenuQueueTrackComponent, item, $event);
 	}
 
-	onDrop(event: CdkDragDrop<Array<Jam.Track>>): void {
-		moveItemInArray(this.queue.tracks, event.previousIndex, event.currentIndex);
+	onDrop(event: CdkDragDrop<Array<Jam.MediaBase>>): void {
+		moveItemInArray(this.queue.entries, event.previousIndex, event.currentIndex);
 		this.queue.publishChanges();
 	}
 
@@ -70,7 +70,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onPanEnd(event: Event, track: Jam.Track): void {
+	onPanEnd(event: Event, track: Jam.MediaBase): void {
 		if (this.currentSwipeElement) {
 			this.currentSwipeElement.style.marginLeft = '0px';
 			this.currentSwipeElement = undefined;
@@ -83,7 +83,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onPanCancel(event: Event): void {
+	onPanCancel(_: Event): void {
 		if (this.currentSwipeElement) {
 			this.currentSwipeElement.style.marginLeft = '0px';
 			this.currentSwipeElement = undefined;

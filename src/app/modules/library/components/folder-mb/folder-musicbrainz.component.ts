@@ -40,7 +40,7 @@ export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 		this.folder = undefined;
 		this.hasArtistID = false;
 		if (this.id) {
-			this.jam.folder.id({id: this.id, folderTag: true})
+			this.jam.folder.id({id: this.id, folderIncTag: true})
 				.then(folder => {
 					this.display(folder);
 				})

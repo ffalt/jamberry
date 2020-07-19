@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminRootService, AdminRootServiceEditData, AppService, DialogsService, NotifyService} from '@core/services';
+import {AdminRootService, AdminRootServiceEditData, AppService, NotifyService} from '@core/services';
 import {Jam, RootScanStrategy} from '@jam';
+import {DialogsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogRootComponent} from '../dialog-root/dialog-root.component';
@@ -81,8 +82,8 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	refreshRoots(refreshMeta?: boolean): void {
-		this.rootService.rescanRoots(refreshMeta);
+	refreshRoots(): void {
+		this.rootService.rescanRoots();
 	}
 
 }

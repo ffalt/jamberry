@@ -111,13 +111,13 @@ export class MatchCoverartComponent implements OnChanges {
 	private async loadCoverartImages(query: MatchImageSearch): Promise<void> {
 		if (query.mbReleaseID) {
 			this.isImageSearchRunning = true;
-			let res = await this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.release, id: query.mbReleaseID});
-			await this.loadImages(res);
+			let res = await this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.release, mbID: query.mbReleaseID});
+			await this.loadImages(res.data);
 			if (this.coverArtArchive.length === 0 && query.mbReleaseGroupID) {
 				this.images = undefined;
 				this.coverArtArchive = undefined;
-				res = await this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.releaseGroup, id: query.mbReleaseGroupID});
-				await this.loadImages(res);
+				res = await this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.releaseGroup, mbID: query.mbReleaseGroupID});
+				await this.loadImages(res.data);
 				this.isImageSearchRunning = false;
 			} else {
 				this.isImageSearchRunning = false;
@@ -131,8 +131,8 @@ export class MatchCoverartComponent implements OnChanges {
 		}
 		const imageUrl = image.image.thumbnails['500'] || image.image.thumbnails.small;
 		image.requested = true;
-		return new Promise<void>((resolve, reject) => {
-			this.client.get(imageUrl, {observe: 'response', responseType: 'arraybuffer' as 'arraybuffer'})
+		return new Promise<void>(resolve => {
+			this.client.get(imageUrl, {observe: 'response', responseType: 'arraybuffer' as const})
 				.pipe(take(1)).subscribe(resp => {
 					image.requested = false;
 					image.base64 = {

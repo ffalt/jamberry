@@ -1,23 +1,24 @@
-<div class="playlists">
-	<ul *ngIf="playlists">
+<div class="playlists" *ngIf="playlists">
+	<app-background-text *ngIf="playlists.length===0" text="No playlist available"></app-background-text>
+	<ul *ngIf="playlists.length>0" >
 		<li *ngFor="let playlist of playlists" (click)="addTo(playlist)">
 			<a>{{playlist.name}}
-				<span>Nr of Tracks: {{playlist.trackCount}}</span>
+				<span>Nr of Tracks: {{playlist.entriesCount}}</span>
 			</a>
 		</li>
 	</ul>
 </div>
-<div class="tracks-preview" *ngIf="trackList && trackList.items.length>0">
+<div class="tracks-preview" *ngIf="mediaList && mediaList.length>0">
 	<a class="preview" (click)="showTrackPreview=!showTrackPreview">
 		<app-expand-collapse-icon [expanded]="showTrackPreview"></app-expand-collapse-icon>
-		Tracks to Add: {{trackList.items.length}}
+		Tracks to Add: {{mediaList.length}}
 	</a>
 	<div class="tracks" *ngIf="showTrackPreview">
-		<div class="track" *ngFor="let track of trackList.items">
-			<div class="title">{{track.tag?.title || track.name}} <span title="Artist">{{track.tag?.artist}}</span></div>
-			<div class="length">{{track.duration|duration}}</div>
-			<div class="remove"><a title="Do not add to Playlist" (click)="remove(track)"><i class="icon-remove"></i></a></div>
+		<div class="track" *ngFor="let media of mediaList">
+			<div class="title">{{media.tag?.title || media.name}} <span title="Artist">{{media.tag?.artist}}</span></div>
+			<div class="length">{{media.duration|duration}}</div>
+			<div class="remove"><a title="Do not add to Playlist" (click)="remove(media)"><i class="icon-remove"></i></a></div>
 		</div>
 	</div>
 </div>
-<app-loading *ngIf="!playlists || !trackList"></app-loading>
+<app-loading *ngIf="!playlists || !mediaList"></app-loading>

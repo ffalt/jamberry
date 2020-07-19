@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ListTypeUrlNamesKeys} from '@app/utils/jam-lists';
-import {JamParameters} from '@jam';
+import {ListType} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./tracks-loader-by-type.component.scss']
 })
 export class TracksLoaderByTypeComponent implements OnInit, OnDestroy {
-	listType: JamParameters.ListType;
+	listType: ListType;
 	protected unsubscribe = new Subject();
 
 	constructor(protected route: ActivatedRoute) {

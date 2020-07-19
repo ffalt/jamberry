@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {Jam, JamParameters, JamService} from '@jam';
+import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
@@ -9,18 +9,18 @@ import {LoadMoreButtonComponent} from '@shared/components';
 	styleUrls: ['./episodes-loader.component.scss']
 })
 export class EpisodesLoaderComponent implements OnChanges {
-	episodes: Array<Jam.PodcastEpisode>;
-	@Input() listType: JamParameters.ListType;
+	episodes: Array<Jam.Episode>;
+	@Input() listType: ListType;
 	@Input() latest: boolean;
 	@Input() query: string;
-	@Input() queryCmd: JamParameters.EpisodeSearch;
+	@Input() queryCmd: JamParameters.EpisodeFilterArgs;
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore: LoadMoreButtonComponent;
 	private activeRequest: Promise<void>;
 
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}
 
-	getEpisodes(requestFunc: () => Promise<Jam.PodcastEpisodeList>): void {
+	getEpisodes(requestFunc: () => Promise<Jam.EpisodePage>): void {
 		this.loadMore.loading = true;
 		const request = requestFunc()
 			.then(data => {
@@ -44,10 +44,10 @@ export class EpisodesLoaderComponent implements OnChanges {
 		this.getEpisodes(() =>
 			this.jam.episode.search({
 				query: this.query,
-				offset: this.loadMore.offset,
-				amount: this.loadMore.amount,
-				trackTag: true,
-				trackState: true
+				skip: this.loadMore.skip,
+				take: this.loadMore.take,
+				episodeIncTag: true,
+				episodeIncState: true
 			})
 		);
 	}
@@ -56,34 +56,34 @@ export class EpisodesLoaderComponent implements OnChanges {
 		this.getEpisodes(() =>
 			this.jam.episode.search({
 				...this.queryCmd,
-				offset: this.loadMore.offset,
-				amount: this.loadMore.amount,
-				trackTag: true,
-				trackState: true
+				skip: this.loadMore.skip,
+				take: this.loadMore.take,
+				episodeIncTag: true,
+				episodeIncState: true
 			})
 		);
 	}
 
 	list(): void {
 		this.getEpisodes(() =>
-			this.jam.episode.list({
+			this.jam.episode.search({
 				list: this.listType,
-				trackState: true,
-				trackTag: true,
-				offset: this.loadMore.offset,
-				amount: this.loadMore.amount
+				episodeIncState: true,
+				episodeIncTag: true,
+				skip: this.loadMore.skip,
+				take: this.loadMore.take
 			}));
 	}
 
 	searchLatest(): void {
 		this.getEpisodes(() =>
 			this.jam.episode.search({
-				trackState: true,
-				trackTag: true,
-				offset: this.loadMore.offset,
-				amount: this.loadMore.amount,
-				sortField: 'date',
-				sortDescending: true
+				episodeIncState: true,
+				episodeIncTag: true,
+				skip: this.loadMore.skip,
+				take: this.loadMore.take
+				// sortField: 'date', TODO: fix sort
+				// sortDescending: true TODO: fix sort
 			}));
 	}
 
@@ -102,7 +102,7 @@ export class EpisodesLoaderComponent implements OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		this.loadMore.offset = 0;
+		this.loadMore.skip = 0;
 		this.loadMore.total = 0;
 		this.loadMore.hasMore = false;
 		this.episodes = undefined;

@@ -6,7 +6,7 @@ import {Jam, JamService, PodcastStatus} from '@jam';
 	providedIn: 'root'
 })
 export class QueueService {
-	tracks: Array<Jam.Track> = [];
+	entries: Array<Jam.MediaBase> = [];
 	currentIndex = -1;
 	repeatQueue = false;
 	queueChange = new EventEmitter<void>();
@@ -15,30 +15,30 @@ export class QueueService {
 	}
 
 	isEmpty(): boolean {
-		return this.tracks.length === 0;
+		return this.entries.length === 0;
 	}
 
 	set(tracks: Array<Jam.Track>): void {
-		this.tracks = tracks || [];
+		this.entries = tracks || [];
 		this.currentIndex = -1;
 	}
 
-	indexOfTrack(track: Jam.Track): number {
-		return this.tracks.findIndex(t => t.id === track.id);
+	indexOfTrack(mediaID: string): number {
+		return this.entries.findIndex(t => t.id === mediaID);
 	}
 
-	add(track: Jam.Track, allowDuplicates?: boolean): void {
-		if (allowDuplicates || this.indexOfTrack(track) < 0) {
-			this.tracks.push(track);
+	add(track: Jam.MediaBase, allowDuplicates?: boolean): void {
+		if (allowDuplicates || this.indexOfTrack(track.id) < 0) {
+			this.entries.push(track);
 			this.publishChanges();
 		}
 	}
 
-	addTracks(tracks: Array<Jam.Track>, allowDuplicates?: boolean): number {
+	addMedias(tracks: Array<Jam.MediaBase>, allowDuplicates?: boolean): number {
 		let added = 0;
 		tracks.forEach(track => {
-			if (allowDuplicates || this.indexOfTrack(track) < 0) {
-				this.tracks.push(track);
+			if (allowDuplicates || this.indexOfTrack(track.id) < 0) {
+				this.entries.push(track);
 				added++;
 			}
 		});
@@ -48,24 +48,24 @@ export class QueueService {
 		return added;
 	}
 
-	first(): Jam.Track | undefined {
-		if (this.tracks.length === 0) {
+	first(): Jam.MediaBase | undefined {
+		if (this.entries.length === 0) {
 			return;
 		}
 		this.currentIndex = 0;
-		return this.tracks[0];
+		return this.entries[0];
 	}
 
-	getCurrent(): Jam.Track | undefined {
-		return this.tracks[this.currentIndex];
+	getCurrent(): Jam.MediaBase | undefined {
+		return this.entries[this.currentIndex];
 	}
 
-	getNext(): Jam.Track | undefined {
-		if (this.tracks.length === 0) {
+	getNext(): Jam.MediaBase | undefined {
+		if (this.entries.length === 0) {
 			return;
 		}
 		let i = this.currentIndex;
-		if (i < this.tracks.length - 1) {
+		if (i < this.entries.length - 1) {
 			i++;
 		} else {
 			if (this.repeatQueue) {
@@ -74,14 +74,14 @@ export class QueueService {
 				return;
 			}
 		}
-		return this.tracks[i];
+		return this.entries[i];
 	}
 
-	next(): Jam.Track | undefined {
-		if (this.tracks.length === 0) {
+	next(): Jam.MediaBase | undefined {
+		if (this.entries.length === 0) {
 			return;
 		}
-		if (this.currentIndex < this.tracks.length - 1) {
+		if (this.currentIndex < this.entries.length - 1) {
 			this.currentIndex++;
 		} else {
 			if (this.repeatQueue) {
@@ -90,55 +90,55 @@ export class QueueService {
 				return;
 			}
 		}
-		return this.tracks[this.currentIndex];
+		return this.entries[this.currentIndex];
 	}
 
-	previous(): Jam.Track | undefined {
-		if (this.tracks.length === 0) {
+	previous(): Jam.MediaBase | undefined {
+		if (this.entries.length === 0) {
 			return;
 		}
 		if (this.currentIndex > 0) {
 			this.currentIndex--;
 		} else {
-			this.currentIndex = this.tracks.length - 1;
+			this.currentIndex = this.entries.length - 1;
 		}
-		return this.tracks[this.currentIndex];
+		return this.entries[this.currentIndex];
 	}
 
-	remove(track: Jam.Track): void {
-		const index = this.indexOfTrack(track);
+	remove(track: Jam.MediaBase): void {
+		const index = this.indexOfTrack(track.id);
 		if (index >= 0) {
-			this.tracks.splice(index, 1);
-			if (this.currentIndex >= this.tracks.length) {
-				this.currentIndex = this.tracks.length - 1;
+			this.entries.splice(index, 1);
+			if (this.currentIndex >= this.entries.length) {
+				this.currentIndex = this.entries.length - 1;
 			}
 			this.publishChanges();
 		}
 	}
 
 	clear(): void {
-		this.tracks = [];
+		this.entries = [];
 		this.currentIndex = -1;
 		this.publishChanges();
 	}
 
 	shuffle(): void {
-		this.tracks.sort(() => 0.5 - Math.random());
+		this.entries.sort(() => 0.5 - Math.random());
 		this.publishChanges();
 	}
 
-	isPlayed(track: Jam.Track): boolean {
-		const index = this.indexOfTrack(track);
+	isPlayed(track: Jam.MediaBase): boolean {
+		const index = this.indexOfTrack(track.id);
 		return (index < this.currentIndex);
 	}
 
-	isInQueue(track: Jam.Track): boolean {
-		const index = this.indexOfTrack(track);
+	isInQueue(track: Jam.MediaBase): boolean {
+		const index = this.indexOfTrack(track.id);
 		return (index >= 0);
 	}
 
-	setIndexByTrack(track: Jam.Track): void {
-		const index = this.indexOfTrack(track);
+	setIndexByTrack(track: Jam.MediaBase): void {
+		const index = this.indexOfTrack(track.id);
 		if (index > -1) {
 			this.currentIndex = index;
 		}
@@ -148,58 +148,69 @@ export class QueueService {
 		this.queueChange.emit();
 	}
 
-	async addEpisode(episode: Jam.PodcastEpisode): Promise<number> {
-		return this.addTracks([episode]);
+	async addEpisode(episode: Jam.Episode): Promise<number> {
+		return this.addMedias([episode]);
 	}
 
 	async addPodcast(podcast: Jam.Podcast): Promise<number> {
-		const data = await this.jam.episode.search({podcastID: podcast.id, trackTag: true, trackState: true, status: PodcastStatus.completed});
-		return this.addTracks(data.items);
+		const data = await this.jam.episode.search({
+			podcastIDs: [podcast.id],
+			statuses: [PodcastStatus.completed],
+			episodeIncTag: true,
+			episodeIncState: true
+		});
+		return this.addMedias(data.items);
 	}
 
 	async addFolder(folder: Jam.Folder): Promise<number> {
-		const data = await this.jam.folder.tracks({ids: [folder.id], recursive: true, trackTag: true, trackState: true});
-		return this.addTracks(data.items);
+		const data = await this.jam.folder.tracks({childOfID: folder.id, trackIncTag: true, trackIncState: true});
+		return this.addMedias(data.items);
 	}
 
 	async addSeries(series: Jam.Series): Promise<number> {
-		const data = await this.jam.series.tracks({ids: [series.id], trackTag: true, trackState: true});
-		return this.addTracks(data.items);
+		const data = await this.jam.series.tracks({ids: [series.id], trackIncTag: true, trackIncState: true});
+		return this.addMedias(data.items);
 	}
 
 	async addPlaylist(playlist: Jam.Playlist): Promise<number> {
-		const data = await this.jam.playlist.tracks({ids: [playlist.id], trackTag: true, trackState: true});
-		return this.addTracks(data.items);
+		const data = await this.jam.playlist.entries({
+			ids: [playlist.id],
+			trackIncTag: true,
+			trackIncState: true,
+			episodeIncTag: true,
+			episodeIncState: true
+		});
+		return this.addMedias(data.items);
 	}
 
 	async addAlbums(albums: Array<Jam.Album>): Promise<number> {
-		const data = await this.jam.album.tracks({ids: albums.map(a => a.id), trackTag: true, trackState: true});
-		return this.addTracks(data.items);
+		const data = await this.jam.album.tracks({ids: albums.map(a => a.id), trackIncTag: true, trackIncState: true});
+		return this.addMedias(data.items);
 	}
 
 	async addAlbum(album: Jam.Album): Promise<number> {
-		const data = await this.jam.album.tracks({ids: [album.id], trackTag: true, trackState: true});
-		return this.addTracks(data.items);
+		const data = await this.jam.album.tracks({ids: [album.id], trackIncTag: true, trackIncState: true});
+		return this.addMedias(data.items);
 	}
 
 	async addAlbumByID(id: string): Promise<number> {
-		const data = await this.jam.album.tracks({ids: [id], trackTag: true, trackState: true});
-		return this.addTracks(data.items);
+		const data = await this.jam.album.tracks({ids: [id], trackIncTag: true, trackIncState: true});
+		return this.addMedias(data.items);
 	}
 
 	async addArtist(artist: Jam.Artist): Promise<number> {
-		const data = await this.jam.artist.tracks({ids: [artist.id], trackTag: true, trackState: true});
-		return this.addTracks(data.items);
+		const data = await this.jam.artist.tracks({ids: [artist.id], trackIncTag: true, trackIncState: true});
+		return this.addMedias(data.items);
 	}
 
 	async addArtists(artists: Array<Jam.Artist>): Promise<number> {
-		const data = await this.jam.artist.tracks({ids: artists.map(a => a.id), trackTag: true, trackState: true});
-		return this.addTracks(data.items);
+		const data = await this.jam.artist.tracks({ids: artists.map(a => a.id), trackIncTag: true, trackIncState: true});
+		return this.addMedias(data.items);
 	}
 
 	async addArtistByID(artistID: string): Promise<number> {
-		const data = await this.jam.artist.tracks({ids: [artistID], trackTag: true, trackState: true});
-		return this.addTracks(data.items);
+		const data = await this.jam.artist.tracks({ids: [artistID], trackIncTag: true, trackIncState: true});
+		return this.addMedias(data.items);
 	}
 
 }

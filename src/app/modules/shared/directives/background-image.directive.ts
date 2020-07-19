@@ -14,7 +14,7 @@ export class BackgroundImageDirective implements OnChanges {
 	ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
 		if (changes.backgroundImageID) {
 			const id = changes.backgroundImageID.currentValue;
-			this.backgroundImage = `url(${this.jam.base.image_url(id, 400)})`;
+			this.backgroundImage = `url(${this.jam.image.imageUrl({id, size: 400})})`;
 		}
 	}
 

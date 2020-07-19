@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {DialogChoosePlaylistComponent, ExpandCollapseIconComponent, LoadingComponent} from '@shared/components';
+import {BackgroundTextComponent, DialogChoosePlaylistComponent, ExpandCollapseIconComponent, LoadingComponent} from '@shared/components';
 import {DurationPipe} from '@shared/pipes';
 import {PlaylistService} from '@shared/services';
 import {TEST_SHARED_MODULE_IMPORTS, TEST_SHARED_MODULE_PROVIDERS} from '@shared/shared.module.mock';
@@ -15,6 +15,7 @@ describe('DialogChoosePlaylistComponent', () => {
 			providers: [...TEST_SHARED_MODULE_PROVIDERS, PlaylistService],
 			declarations: [
 				DialogChoosePlaylistComponent,
+				MockComponent(BackgroundTextComponent),
 				MockComponent(LoadingComponent),
 				MockComponent(ExpandCollapseIconComponent),
 				DurationPipe

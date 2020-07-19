@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {NavigService, NotifyService} from '@core/services';
-import {AlbumType, JamService} from '@jam';
+import {AlbumType, JamService, ListType} from '@jam';
 import {StartSectionItem} from '@library/components';
 
 @Component({
@@ -22,7 +22,7 @@ export class StartPageComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.jam.artist.list({list: 'recent', amount: 5})
+		this.jam.artist.search({list: ListType.recent, take: 5})
 			.then(data => {
 				this.data.artistRecent = data.items.map(obj => ({
 					obj, click: (): void => {
@@ -33,7 +33,7 @@ export class StartPageComponent implements OnInit {
 			.catch(e => {
 				this.notify.error(e);
 			});
-		this.jam.artist.list({list: 'faved', amount: 5})
+		this.jam.artist.search({list: ListType.faved, take: 5})
 			.then(data => {
 				this.data.artistFaved = data.items.map(obj => ({
 					obj, click: (): void => {
@@ -44,7 +44,7 @@ export class StartPageComponent implements OnInit {
 			.catch(e => {
 				this.notify.error(e);
 			});
-		this.jam.album.list({list: 'faved', amount: 5})
+		this.jam.album.search({list: ListType.faved, take: 5})
 			.then(data => {
 				this.data.albumFaved = data.items.map(obj => ({
 					obj, click: (): void => {
@@ -55,7 +55,7 @@ export class StartPageComponent implements OnInit {
 			.catch(e => {
 				this.notify.error(e);
 			});
-		this.jam.album.list({list: 'recent', amount: 5})
+		this.jam.album.search({list: ListType.recent, take: 5})
 			.then(data => {
 				this.data.albumRecent = data.items.map(obj => ({
 					obj, click: (): void => {
@@ -67,7 +67,7 @@ export class StartPageComponent implements OnInit {
 				this.notify.error(e);
 			});
 
-		this.jam.various.stats({})
+		this.jam.stats.get({})
 			.then(stats => {
 				this.stats =
 					[

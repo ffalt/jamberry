@@ -156,7 +156,7 @@ function fillAcoustID(builder: ID3V24TagBuilder, match: Matching, track: MusicBr
 	}
 }
 
-export function toID3v24(match: Matching, genres: Array<string>, images: Array<MatchImageNode>): Jam.RawTag {
+export function toID3v24(match: Matching, genres: Array<string>, images: Array<MatchImageNode>): Jam.MediaTagRaw {
 	// lets have more or less the same mapping as https://picard.musicbrainz.org/docs/mappings/
 	if (!match.mbTrack) {
 		return;

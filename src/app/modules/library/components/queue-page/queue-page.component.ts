@@ -35,7 +35,7 @@ export class QueuePageComponent {
 					text: 'Save Queue as Playlist',
 					icon: 'icon-playlist',
 					click: (): void => {
-						this.playlistDialogsService.newPlaylist(this.queue.tracks);
+						this.playlistDialogsService.newPlaylist(this.queue.entries);
 					}
 				}
 			]

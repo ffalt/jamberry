@@ -8,7 +8,7 @@ export class MediadurationPipe implements PipeTransform {
 		if (value === undefined || value === null) {
 			return '';
 		}
-		return formatDuration(Number(value) / 1000);
+		return formatDuration(Number(value));
 	}
 
 }

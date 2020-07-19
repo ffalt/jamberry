@@ -15,7 +15,7 @@ export interface FolderHealthHintSolution {
 }
 
 export interface FolderHealthHint {
-	hint: Jam.HealthHint;
+	hint: Jam.FolderHealthHint;
 	details: Array<string>;
 	running?: boolean;
 }
@@ -57,7 +57,7 @@ export class FolderHealthComponent implements OnChanges {
 		this.display(this.folderHealth);
 	}
 
-	private static describeImageInvalidHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+	private static describeImageInvalidHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		if (!hint.details || hint.details.length === 0) {
 			return [];
 		}
@@ -68,7 +68,7 @@ export class FolderHealthComponent implements OnChanges {
 		return details;
 	}
 
-	private static describeAlbumTracksMissingHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+	private static describeAlbumTracksMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		if (!hint.details || hint.details.length === 0) {
 			return [];
 		}
@@ -79,7 +79,7 @@ export class FolderHealthComponent implements OnChanges {
 		return details;
 	}
 
-	private describeImageQualityHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+	private describeImageQualityHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		this.addAlbumImageSearchSolution(folder);
 		if (!hint.details || hint.details.length === 0) {
 			return [];
@@ -122,9 +122,7 @@ export class FolderHealthComponent implements OnChanges {
 						return;
 					}
 					sol.running = true;
-					const item = await this.jam.folder.name_update({
-						id: folder.id, name
-					});
+					const item = await this.jam.folder.rename({id: folder.id, name});
 					sol.running = false;
 					this.folderService.waitForQueueResult('Renaming Folder', item, [folder.id]);
 				}
@@ -148,17 +146,17 @@ export class FolderHealthComponent implements OnChanges {
 		}
 	}
 
-	private describeMBIDMissingHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+	private describeMBIDMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		this.addEditTagSolution(folder);
 		return [];
 	}
 
-	private describeAlbumTagMissingHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+	private describeAlbumTagMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		this.addEditTagSolution(folder);
 		return [`Expected: ${hint.details.map(d => d.expected).join(',')}`];
 	}
 
-	private describeNameNonConformHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+	private describeNameNonConformHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		const suggested = hint.details && hint.details.length > 0 ? hint.details[0].expected : '';
 		if (!suggested) {
 			return [];
@@ -171,17 +169,17 @@ export class FolderHealthComponent implements OnChanges {
 
 	}
 
-	private describeArtistImageMissingHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+	private describeArtistImageMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		this.addArtistImageSearchSolution(folder);
 		return [];
 	}
 
-	private describeAlbumImageMissingHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+	private describeAlbumImageMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		this.addAlbumImageSearchSolution(folder);
 		return [];
 	}
 
-	private describeHint(hint: Jam.HealthHint, folder: Jam.Folder): Array<string> {
+	private describeHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		switch (hint.id) {
 			case FolderHealthID.albumMBIDExists:
 				return this.describeMBIDMissingHint(hint, folder);

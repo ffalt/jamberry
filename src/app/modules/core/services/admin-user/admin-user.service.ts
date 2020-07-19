@@ -5,7 +5,7 @@ import {NotifyService} from '../notify/notify.service';
 
 export interface AdminUserServiceEditData {
 	user?: Jam.User;
-	edit: JamParameters.UserUpdate;
+	edit: JamParameters.UserMutateArgs;
 }
 
 @Injectable({
@@ -21,18 +21,17 @@ export class AdminUserService {
 
 	async applyDialogUser(edit: AdminUserServiceEditData): Promise<void> {
 		if (edit.user) {
-			await this.jam.user.update(edit.edit);
+			await this.jam.user.update({id: edit.user.id, ...edit.edit});
 			this.refreshUser(edit.user.id);
 		} else {
-			const params = edit.edit as JamParameters.UserNew;
-			const user = await this.jam.user.create(params);
+			const user = await this.jam.user.create(edit.edit);
 			this.users.push(user);
 			this.usersChange.emit(this.users);
 		}
 	}
 
 	async removeUser(user: Jam.User): Promise<void> {
-		await this.jam.user.delete({id: user.id});
+		await this.jam.user.remove({id: user.id});
 		this.users = this.users.filter(r => r.id !== user.id);
 		this.usersChange.emit(this.users);
 		this.userChange.emit(user.id, undefined);
@@ -67,6 +66,6 @@ export class AdminUserService {
 	}
 
 	async setPassword(userID: string, password: string, newPassword: string): Promise<void> {
-		return this.jam.user.password_update({id: userID, password, newPassword});
+		return this.jam.user.changePassword({id: userID, password, newPassword});
 	}
 }

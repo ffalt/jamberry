@@ -8,6 +8,7 @@ import {takeUntil} from 'rxjs/operators';
 
 export interface ArtworkSearch {
 	folder: Jam.Folder;
+	artworks: Array<Jam.Artwork>;
 }
 
 export interface ArtworkNode {
@@ -17,7 +18,7 @@ export interface ArtworkNode {
 	licence: string;
 	checked: boolean;
 	storing: boolean;
-	types: Array<Jam.ArtworkImageType>;
+	types: Array<ArtworkImageType>;
 }
 
 @Component({
@@ -60,10 +61,10 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 
 	refreshArtworks(): void {
 		this.isArtRefreshing = true;
-		this.jam.folder.artworks({id: this.data.folder.id})
+		this.jam.folder.artworks({parentIDs: [this.data.folder.id]})
 			.then(art => {
 				this.isArtRefreshing = false;
-				this.data.folder.artworks = art;
+				this.data.artworks = art.items;
 			})
 			.catch(e => {
 				this.isArtRefreshing = false;
@@ -71,10 +72,10 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			});
 	}
 
-	async loadWikiDataID(artistID: string): Promise<string | undefined> {
-		const mb = await this.jam.metadata.musicbrainz_lookup({type: MusicBrainzLookupType.artist, id: artistID});
-		if (mb && mb.artist && mb.artist.relations) {
-			const rel = mb.artist.relations.find(r => r.type === 'wikidata');
+	async loadWikiDataID(mbArtistID: string): Promise<string | undefined> {
+		const mb = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.artist, mbID: mbArtistID});
+		if (mb?.data?.artist?.relations) {
+			const rel = mb.data.artist.relations.find(r => r.type === 'wikidata');
 			if (rel) {
 				return rel.url.resource.split('/').pop();
 			}
@@ -82,10 +83,10 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	}
 
 	async loadWikiCommonImage(artistID: string): Promise<ArtworkNode | undefined> {
-		const id = await this.loadWikiDataID(artistID);
-		if (id) {
-			const wdata = await this.jam.metadata.wikidata_lookup({id});
-			const claimsObj = wdata.entity ? wdata.entity.claims : (wdata.data ? wdata.data.claims : undefined);
+		const wikiDataID = await this.loadWikiDataID(artistID);
+		if (wikiDataID) {
+			const wdata = await this.jam.metadata.wikidataLookup({wikiDataID});
+			const claimsObj = wdata?.data?.entity?.claims;
 			if (claimsObj) {
 				const keys = Object.keys(claimsObj);
 				for (const key of keys) {
@@ -162,8 +163,8 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		if (node) {
 			this.isWorking = true;
 			node.storing = true;
-			this.jam.folder.artwork_create({
-				id: this.data.folder.id,
+			this.jam.artwork.createByUrl({
+				folderID: this.data.folder.id,
 				url: node.image,
 				types: node.types
 			})
@@ -194,12 +195,12 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	}
 
 	loadReleaseGroupAndRelease(musicBrainzReleaseID: string, musicBrainzReleaseGroupID: string): void {
-		this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.releaseGroup, id: musicBrainzReleaseGroupID})
+		this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.releaseGroup, mbID: musicBrainzReleaseGroupID})
 			.then(res => {
-				let nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res);
-				this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.release, id: musicBrainzReleaseID})
+				let nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res.data);
+				this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.release, mbID: musicBrainzReleaseID})
 					.then(res2 => {
-						nodes = nodes.concat(FolderArtworkSearchImageComponent.coverArtResponseToNodes(res2));
+						nodes = nodes.concat(FolderArtworkSearchImageComponent.coverArtResponseToNodes(res2.data));
 						this.display(nodes);
 					})
 					.catch(e => {
@@ -212,9 +213,9 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	}
 
 	loadReleaseGroup(musicBrainzReleaseGroupID: string): void {
-		this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.releaseGroup, id: musicBrainzReleaseGroupID})
+		this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.releaseGroup, mbID: musicBrainzReleaseGroupID})
 			.then(res => {
-				const nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res);
+				const nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res.data);
 				this.display(nodes);
 			})
 			.catch(e => {
@@ -224,9 +225,9 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 
 	loadRelease(musicBrainzReleaseID: string): void {
 		if (musicBrainzReleaseID) {
-			this.jam.metadata.coverartarchive_lookup({type: CoverArtArchiveLookupType.release, id: musicBrainzReleaseID})
+			this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.release, mbID: musicBrainzReleaseID})
 				.then(res => {
-					const nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res);
+					const nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res.data);
 					this.display(nodes);
 					if (nodes.length === 0 &&
 						this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.mbReleaseGroupID) {

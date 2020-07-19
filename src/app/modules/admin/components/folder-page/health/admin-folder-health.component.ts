@@ -28,28 +28,28 @@ export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent i
 		super.ngOnInit();
 		this.folderService.foldersChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(change => {
-					if (change.id === this.id) {
-						this.refresh();
-					} else {
-						const folderHealth = this.all.find(f => f.folder.id === change.id);
-						if (folderHealth) {
-							this.jam.folder.health({id: change.id, folderTag: true})
-								.then(data => {
-									const newFolderHealth = data.find(d => d.folder.id === folderHealth.folder.id);
-									if (newFolderHealth) {
-										this.all[this.all.indexOf(folderHealth)] = newFolderHealth;
-									} else {
-										this.all = this.all.filter(fh => fh.folder.id !== folderHealth.folder.id);
-									}
-									this.reDisplay();
-								})
-								.catch(e => {
-									this.notify.error(e);
-								});
-						}
+				if (change.id === this.id) {
+					this.refresh();
+				} else {
+					const folderHealth = this.all.find(f => f.folder.id === change.id);
+					if (folderHealth) {
+						this.jam.folder.health({ids: [change.id], folderIncTag: true})
+							.then(data => {
+								const newFolderHealth = data.find(d => d.folder.id === folderHealth.folder.id);
+								if (newFolderHealth) {
+									this.all[this.all.indexOf(folderHealth)] = newFolderHealth;
+								} else {
+									this.all = this.all.filter(fh => fh.folder.id !== folderHealth.folder.id);
+								}
+								this.reDisplay();
+							})
+							.catch(e => {
+								this.notify.error(e);
+							});
 					}
 				}
-			);
+			}
+		);
 	}
 
 	ngOnDestroy(): void {
@@ -58,7 +58,7 @@ export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent i
 
 	refresh(): void {
 		this.hints = undefined;
-		this.jam.folder.health({childOfID: this.id, folderTag: true})
+		this.jam.folder.health({childOfID: this.id, folderIncTag: true})
 			.then(data => {
 				this.display(data);
 			})

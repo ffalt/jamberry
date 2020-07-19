@@ -1,6 +1,7 @@
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {Component, OnDestroy} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import {randomString} from '@app/utils/random';
 import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
@@ -35,11 +36,7 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 	}
 
 	setImageSource(): void {
-		this.userAvatar = [this.jam.base.image_url(this.user.id, 60), '?', this.randomRefreshString()].join('');
-	}
-
-	randomRefreshString(): string {
-		return Math.floor(Math.random() * (9999999)).toString();
+		this.userAvatar = [this.jam.image.imageUrl({id: this.user.id, size: 60}), '?', randomString()].join('');
 	}
 
 	// At the drag drop area
@@ -66,7 +63,7 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 		}
 		const file: File = files[0];
 
-		this.jam.user.imageUpload_update({id: this.user.id}, file)
+		this.jam.user.uploadUserImage({id: this.user.id}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
 				if (event.type === HttpEventType.UploadProgress) {
 					// const percentDone = Math.round(100 * event.loaded / event.total);

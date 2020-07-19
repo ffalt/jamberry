@@ -38,7 +38,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 			this.section = type.text;
 			switch (type.id) {
 				case JamUrlType.podcasts:
-					this.hasContextMenu = this.library.jam.auth.user && this.library.jam.auth.user.roles && this.library.jam.auth.user.roles.podcast;
+					this.hasContextMenu = this.library.jam.auth.user?.roles.podcast;
 					break;
 				case JamUrlType.playlists:
 					this.hasContextMenu = true;

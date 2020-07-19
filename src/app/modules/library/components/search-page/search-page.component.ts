@@ -71,9 +71,9 @@ export class SearchPageComponent implements AutocompleteDataControl {
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption>> {
-		const q: JamParameters.AutoComplete = {query};
+		const q: JamParameters.AutoCompleteFilterArgs = {query};
 		q[this.currentTab.id] = 10;
-		const result = await this.jam.various.autocomplete(q);
+		const result = await this.jam.autocomplete.autocomplete(q);
 		return (result[`${this.currentTab.id}s`] || []).map(data => ({data}));
 	}
 

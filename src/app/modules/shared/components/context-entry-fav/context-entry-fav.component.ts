@@ -18,10 +18,10 @@ export class ContextEntryFavComponent {
 	toggle(event: Event): void {
 		this.base.state = this.base.state || {};
 		const remove = !!this.base.state.faved;
-		this.jam.base.fav(this.baseType, {id: this.base.id, remove})
+		this.jam.state.fav({id: this.base.id, remove})
 			.then(() => {
 				this.base.state.faved = remove ? undefined : Date.now();
-				this.notify.success('Favorite ' + (remove ? 'removed' : 'added'));
+				this.notify.success(`Favorite ${this.baseType} ${remove ? 'removed' : 'added'}`);
 			}).catch(e => {
 			this.notify.error(e);
 		});

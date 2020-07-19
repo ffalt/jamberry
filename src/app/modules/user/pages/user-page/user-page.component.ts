@@ -1,10 +1,11 @@
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {Component, OnDestroy} from '@angular/core';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {randomString} from '@app/utils/random';
 
 import {AppService, NotifyService} from '@core/services';
 import {JamAuthService, JamService} from '@jam';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
 	selector: 'app-user-page',
@@ -17,7 +18,7 @@ export class UserPageComponent implements OnDestroy {
 	protected unsubscribe = new Subject();
 
 	constructor(public app: AppService, public auth: JamAuthService, private jam: JamService, private notify: NotifyService) {
-		this.refreshRandom = this.randomRefreshString();
+		this.refreshRandom = randomString();
 	}
 
 	ngOnDestroy(): void {
@@ -48,7 +49,7 @@ export class UserPageComponent implements OnDestroy {
 		}
 		const file: File = files[0];
 
-		this.jam.user.imageUpload_update({id: this.auth.user.id}, file)
+		this.jam.user.uploadUserImage({id: this.auth.user.id}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			event => {
 				if (event.type === HttpEventType.UploadProgress) {
@@ -63,14 +64,10 @@ export class UserPageComponent implements OnDestroy {
 				this.notify.error(err);
 			},
 			() => {
-				this.refreshRandom = this.randomRefreshString();
+				this.refreshRandom = randomString();
 				this.notify.success('Upload done');
 			}
 		);
-	}
-
-	randomRefreshString(): string {
-		return Math.floor(Math.random() * (9999999)).toString();
 	}
 
 	randomAvatar(): void {
@@ -78,10 +75,10 @@ export class UserPageComponent implements OnDestroy {
 			return;
 		}
 		this.refreshing = true;
-		this.jam.user.image_random({})
+		this.jam.user.generateUserImage({id: this.auth.user.id})
 			.then(() => {
 				this.refreshing = false;
-				this.refreshRandom = this.randomRefreshString();
+				this.refreshRandom = randomString();
 				this.notify.success('Image randomized');
 			})
 			.catch(e => {

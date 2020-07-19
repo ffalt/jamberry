@@ -1,6 +1,6 @@
 import {Injectable, NgZone} from '@angular/core';
-import {Jam, JamService} from '@jam';
-import {MediaImage,  MediaMetadata, MediaSession} from './media-metadata';
+import {ImageFormatType, Jam, JamService} from '@jam';
+import {MediaImage, MediaMetadata, MediaSession} from './media-metadata';
 import {MediaSessionEvents} from './mediasession.events';
 
 export declare class MediaMetadataObj implements MediaMetadata {
@@ -12,6 +12,7 @@ export declare class MediaMetadataObj implements MediaMetadata {
 	album: string;
 	// Media's artwork.
 	artwork: Array<MediaImage>;
+
 	constructor(init?: MediaMetadata)
 }
 
@@ -31,19 +32,19 @@ export class MediaSessionService {
 		this.initMediaSession();
 	}
 
-	setTrack(track: Jam.Track): void {
+	setMedia(media: Jam.MediaBase): void {
 		if (this.mediaSession) {
 			const sizes = [96, 128, 192, 256, 384, 512];
 			const artwork = sizes.map(size =>
 				({
-					src: this.jam.base.image_url(track.id, size, 'png'),
+					src: this.jam.image.imageUrl({id: media.id, size, format: ImageFormatType.png}),
 					sizes: `${size}x${size}`,
 					type: 'image/png'
 				}));
 			this.mediaSession.metadata = new MediaMetadataObj({
-				title: track.tag ? track.tag.title : track.name,
-				artist: track.tag ? track.tag.artist : undefined,
-				album: track.tag ? track.tag.album : undefined,
+				title: media.tag ? media.tag.title : media.name,
+				artist: media.tag ? media.tag.artist : undefined,
+				album: media.tag ? media.tag.album : undefined,
 				artwork
 			});
 		}

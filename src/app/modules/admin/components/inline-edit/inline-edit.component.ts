@@ -45,12 +45,12 @@ export class InlineEditComponent implements ControlValueAccessor {
 	}
 
 	// Required forControlValueAccessor interface
-	registerOnChange(fn: (_: any) => {}): void {
+	registerOnChange(fn: (_: any) => Record<string, unknown>): void {
 		this.onChange = fn;
 	}
 
 	// Required forControlValueAccessor interface
-	registerOnTouched(fn: () => {}): void {
+	registerOnTouched(fn: () => Record<string, unknown>): void {
 		this.onTouched = fn;
 	}
 

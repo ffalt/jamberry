@@ -5,8 +5,8 @@
 	<div class="date" *ngIf="obj.year">
 		<span class="year">{{obj.year}}</span>
 	</div>
-	<div class="fav" (click)="obj.toggleFav()">
-		<app-fav-icon [state]="obj.base.state"></app-fav-icon>
+	<div class="fav" (click)="toggleFav()">
+		<app-fav-icon [faved]="obj.base.state?.faved"></app-fav-icon>
 	</div>
 	<div class="footer">
 		<a class="footer-content" (click)="obj.navigTo()">

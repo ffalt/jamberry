@@ -2,7 +2,7 @@ import {ID3v2Frames, Jam} from '@jam';
 import {FilenameColumnID, RawTagEditRow} from './tag-editor.types';
 import {extractFileExtension, replaceFileSystemChars, splitFilename} from './utils';
 
-export function rebuildTag(edit: RawTagEditRow): Jam.RawTag {
+export function rebuildTag(edit: RawTagEditRow): Jam.MediaTagRaw {
 	const frames: ID3v2Frames.Frames = {};
 	for (const cell of edit.cells) {
 		if (cell.column.def.id !== FilenameColumnID) {
@@ -29,7 +29,7 @@ export function getPartOfSetID(edit: RawTagEditRow): string {
 	return `${edit.track.parentID}|${partOfSet && partOfSet.frames.length > 0 ? partOfSet.frames[0].value.text : ''}`;
 }
 
-export function formatFilenameByTag(track: Jam.Track, tag: Jam.RawTag): string {
+export function formatFilenameByTag(track: Jam.Track, tag: Jam.MediaTagRaw): string {
 	const result: Array<string> = [];
 	let start = '';
 	if (tag.frames.TPOS && tag.frames.TPOS.length > 0) {
@@ -38,9 +38,9 @@ export function formatFilenameByTag(track: Jam.Track, tag: Jam.RawTag): string {
 		const totalDiskNr = (frame.value.text || '').split('/')[1] || '99';
 		if (Number(totalDiskNr) > 1) {
 			while (diskNr.length < totalDiskNr.length) {
-				diskNr = '0' + diskNr;
+				diskNr = `0${diskNr}`;
 			}
-			start += diskNr + '-';
+			start += `${diskNr}-`;
 		}
 	}
 	if (tag.frames.TRCK && tag.frames.TRCK.length > 0) {
@@ -48,7 +48,7 @@ export function formatFilenameByTag(track: Jam.Track, tag: Jam.RawTag): string {
 		let trackNr = (frame.value.text || '').split('/')[0];
 		const totalTrackNr = (frame.value.text || '').split('/')[1] || '99';
 		while (trackNr.length < totalTrackNr.length) {
-			trackNr = '0' + trackNr;
+			trackNr = `0${trackNr}`;
 		}
 		start += trackNr;
 	}
@@ -61,6 +61,6 @@ export function formatFilenameByTag(track: Jam.Track, tag: Jam.RawTag): string {
 		const frame = tag.frames.TPE1[0];
 		result.push(frame.value.text);
 	}
-	const ext = '.' + extractFileExtension(track.name);
-	return replaceFileSystemChars(result.join(' - '), '') + ext;
+	const ext = `.${extractFileExtension(track.name)}`;
+	return `${replaceFileSystemChars(result.join(' - '), '')}${ext}`;
 }

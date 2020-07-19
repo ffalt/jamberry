@@ -12,7 +12,7 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./episode-overview.component.scss']
 })
 export class EpisodeOverviewComponent implements OnInit, OnDestroy {
-	episode: Jam.PodcastEpisode;
+	episode: Jam.Episode;
 	id: string;
 	protected unsubscribe = new Subject();
 
@@ -46,7 +46,7 @@ export class EpisodeOverviewComponent implements OnInit, OnDestroy {
 
 	refresh(): void {
 		if (this.id) {
-			this.jam.episode.id({id: this.id, trackTag: true, trackState: true, trackMedia: true})
+			this.jam.episode.id({id: this.id, episodeIncTag: true, episodeIncState: true, episodeIncMedia: true})
 				.then(episode => {
 					this.display(episode);
 				})
@@ -56,7 +56,7 @@ export class EpisodeOverviewComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	display(episode: Jam.PodcastEpisode): void {
+	display(episode: Jam.Episode): void {
 		this.episode = episode;
 	}
 }

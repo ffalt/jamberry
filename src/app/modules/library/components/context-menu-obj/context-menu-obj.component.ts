@@ -1,6 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {ContextMenuHostComponentInterface} from '@app/modules/context-menu';
-import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.component';
+import {ContextMenuComponent, ContextMenuHostComponentInterface} from '@app/modules/context-menu';
 
 export interface ContextMenuObjComponentOptions {
 	hideGoto?: boolean;

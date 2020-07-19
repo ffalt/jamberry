@@ -10,7 +10,7 @@ import {HotkeysService} from './hotkeys.service';
 	declarations: [HotkeysDirective]
 })
 export class HotkeyModule {
-	static forRoot(options: HotkeyOptions = {}): ModuleWithProviders {
+	static forRoot(options: HotkeyOptions = {}): ModuleWithProviders<HotkeyModule> {
 		return {
 			ngModule: HotkeyModule,
 			providers: [

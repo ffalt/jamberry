@@ -1,4 +1,4 @@
-<ng-container *ngIf="base && base.state">
-	<app-fav-icon [state]="base.state"></app-fav-icon>
+<ng-container *ngIf="base?.state">
+	<app-fav-icon [faved]="base.state.faved"></app-fav-icon>
 	{{base.state?.faved | stringToggle: 'Remove from' : 'Add to'}} Favorites
 </ng-container>

@@ -98,7 +98,7 @@ export class NavigService {
 		this.toTrackID(track.id, track.tag.title);
 	}
 
-	toPodcastEpisode(episode: Jam.PodcastEpisode): void {
+	toPodcastEpisode(episode: Jam.Episode): void {
 		this.toPodcastEpisodeID(episode.id, episode.name);
 	}
 

@@ -12,6 +12,7 @@
 	.navigation {
 		padding: $padding $padding 0;
 		width: 100%;
+		flex: 1;
 		background-color: var(--control);
 		color: var(--on-control);
 	}
@@ -33,6 +34,7 @@
 			display: none;
 			position: fixed;
 			z-index: 10;
+			flex: unset;
 			max-height: calc(100% - 60px);
 			flex-flow: row wrap;
 			border-bottom: 1px solid var(--control-box-border);

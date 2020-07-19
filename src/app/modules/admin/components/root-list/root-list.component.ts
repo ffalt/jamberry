@@ -1,8 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminRootService, AdminRootServiceEditData, AppService, DialogsService, NotifyService} from '@core/services';
-import {Jam, RootScanStrategy} from '@jam';
+import {AdminRootService, AdminRootServiceEditData, AppService, NotifyService} from '@core/services';
+import {Jam} from '@jam';
+import {DialogsService} from '@shared/services';
 import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 
 @Component({
@@ -24,8 +25,8 @@ export class RootListComponent {
 	) {
 	}
 
-	refreshRoot(root: Jam.Root, refreshMeta?: boolean): void {
-		this.rootService.rescanRoot(root, refreshMeta);
+	refreshRoot(root: Jam.Root): void {
+		this.rootService.rescanRoot(root);
 	}
 
 	editRoot(root: Jam.Root): void {
@@ -33,7 +34,7 @@ export class RootListComponent {
 			root,
 			name: root.name,
 			path: root.path,
-			strategy: root.strategy as RootScanStrategy
+			strategy: root.strategy
 		};
 		this.dialogOverlay.open({
 			title: 'Edit Root',

@@ -26,7 +26,7 @@ import {MatchCoverartComponent, MatchImageSearch} from '../match-coverart/match-
 
 export interface ReleaseDataMatching {
 	track: Jam.Track;
-	rawTag?: Jam.RawTag;
+	rawTag?: Jam.MediaTagRaw;
 }
 
 export interface ReleaseMatching {
@@ -61,7 +61,7 @@ class MusicbrainzSearchQuery {
 	name: string;
 	matchings: Array<Matching> = [];
 
-	constructor(public q: JamParameters.MusicBrainzSearch) {
+	constructor(public q: JamParameters.MusicBrainzSearchArgs) {
 		this.id = 'musicbrainz-' + JSON.stringify(q);
 		this.name = 'MusicBrainz Search for ' +
 			Object.keys(q).filter(key => key !== 'type').map(key => `${key}: "${q[key]}"`).join(', ');
@@ -381,7 +381,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	}
 
 	private async searchManual(): Promise<void> {
-		const q: JamParameters.MusicBrainzSearch = {type: MusicBrainzSearchType.releaseGroup};
+		const q: JamParameters.MusicBrainzSearchArgs = {type: MusicBrainzSearchType.releaseGroup};
 		if (this.manualSearchData.artist && this.manualSearchData.artist.trim().length > 0) {
 			q.artist = this.manualSearchData.artist;
 		}
@@ -439,12 +439,12 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		}
 
 		for (const match of this.data.matchings) {
-			if (match.track.tag.genre) {
-				const c = tracksGenres.find(t => t.name === match.track.tag.genre);
+			if (match.track.tag?.genres && match.track.tag.genres.length > 0) {
+				const c = tracksGenres.find(t => t.name === match.track.tag.genres[0]);
 				if (c) {
 					c.count++;
 				} else {
-					tracksGenres.push({count: 1, name: match.track.tag.genre});
+					tracksGenres.push({count: 1, name: match.track.tag.genres[0]});
 				}
 			}
 		}
@@ -457,15 +457,15 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			tags = tags.concat(group.mbGroup.tags);
 		}
 		genres = mergeGenres(genres, getMusicBrainzGenres(tags));
-		const data = await this.jam.metadata.lastfm_lookup({type: LastFMLookupType.album, id: release.mbRelease.id});
+		const data = (await this.jam.metadata.lastfmLookup({type: LastFMLookupType.album, mbID: release.mbRelease.id})).data;
 		if (data.album) {
 			genres = mergeGenres(genres, getLastFMAlbumGenres(data.album));
 		}
 		if (genres.length === 0 && release.mbRelease.artistCredit.length > 0) {
-			const artistData = await this.jam.metadata.lastfm_lookup({
+			const artistData = (await this.jam.metadata.lastfmLookup({
 				type: LastFMLookupType.artist,
-				id: release.mbRelease.artistCredit[0].artist.id
-			});
+				mbID: release.mbRelease.artistCredit[0].artist.id
+			})).data;
 			if (artistData && artistData.artist) {
 				genres = mergeGenres(genres, getLastFMArtistGenres(artistData.artist));
 			}
@@ -479,7 +479,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		for (const media of release.media) {
 			for (const track of media.tracks) {
 				if (!track.abData && track.currentMatch) {
-					const res = await this.jam.metadata.acousticbrainz_lookup({id: track.currentMatch.match.mbTrack.recording.id});
+					const res = (await this.jam.metadata.acousticbrainzLookup({mbID: track.currentMatch.match.mbTrack.recording.id})).data;
 					if (res.highlevel) {
 						const abData: ABData = {
 							genres: [],
@@ -525,7 +525,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 				if (track.currentMatch && !track.currentMatch.match.lyrics && track.mbTrack.artistCredit && track.mbTrack.artistCredit.length > 0) {
 					const artist = track.mbTrack.artistCredit[0].name;
 					const title = track.mbTrack.title;
-					track.currentMatch.match.lyrics = await this.jam.metadata.lyricsovh_search({title, artist});
+					track.currentMatch.match.lyrics = (await this.jam.metadata.lyricsovhSearch({title, artist})).data;
 				}
 			}
 		}
@@ -538,11 +538,11 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		release.isLoading = true;
 		try {
 			this.currentAction = 'Loading MusicBrainz Release: ' + release.mbRelease.id;
-			const res = await this.jam.metadata.musicbrainz_lookup({type: MusicBrainzLookupType.release, id: release.mbRelease.id});
-			if (!res.release) {
+			const res = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.release, mbID: release.mbRelease.id});
+			if (!res.data?.release) {
 				return Promise.reject(Error('Got empty data'));
 			}
-			release.setLookupRelease(res.release, this.matchings);
+			release.setLookupRelease(res.data.release, this.matchings);
 			release.loaded = true;
 			release.isLoading = false;
 		} catch (e) {
@@ -553,19 +553,19 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 	private async addReleaseGroupByReleaseID(releaseID: string): Promise<MatchReleaseGroup> {
 		this.currentAction = 'Loading MusicBrainz Release: ' + releaseID;
-		const res = await this.jam.metadata.musicbrainz_lookup({type: MusicBrainzLookupType.release, id: releaseID});
-		if (!res.release) {
+		const res = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.release, mbID: releaseID});
+		if (!res.data.release) {
 			return Promise.reject(Error('Got empty data'));
 		}
-		return this.addReleaseGroupByID(res.release.releaseGroup.id);
+		return this.addReleaseGroupByID(res.data.release.releaseGroup.id);
 	}
 
 	private async addReleaseGroupByID(releasegroupID: string): Promise<MatchReleaseGroup> {
 		let rg: MatchReleaseGroup = this.matchTree.findReleaseGroup(releasegroupID);
 		if (!rg) {
 			this.currentAction = 'Loading MusicBrainz Release Group: ' + releasegroupID;
-			const data = await this.jam.metadata.musicbrainz_lookup({type: MusicBrainzLookupType.releaseGroup, id: releasegroupID});
-			rg = this.matchTree.addReleaseGroup(data.releaseGroup);
+			const data = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.releaseGroup, mbID: releasegroupID});
+			rg = this.matchTree.addReleaseGroup(data.data.releaseGroup);
 		}
 		return rg;
 	}
@@ -579,8 +579,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			if (!match.acoustidEntries) {
 				this.currentAction = 'Checking files with AcoustID: ' + match.track.name;
 				try {
-					const data = await this.jam.metadata.acoustid_lookup({id: match.track.id});
-					match.acoustidEntries = acoustidResultToList(data, match.track);
+					const data = await this.jam.metadata.acoustidLookup({trackID: match.track.id});
+					match.acoustidEntries = acoustidResultToList(data.data, match.track);
 				} catch (e) {
 					console.error(e);
 				}
@@ -663,8 +663,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			queries.push(q);
 		};
 
-		const addMBQuery = (fields: JamParameters.MusicBrainzSearch, match: Matching, trackslength?: boolean): void => {
-			const q: JamParameters.MusicBrainzSearch = {type: fields.type};
+		const addMBQuery = (fields: JamParameters.MusicBrainzSearchArgs, match: Matching, trackslength?: boolean): void => {
+			const q: JamParameters.MusicBrainzSearchArgs = {type: fields.type};
 			for (const key of Object.keys(fields)) {
 				const val = (fields as any)[key];
 				if ((val === undefined) || (val === '') || (val.toString().trim() === '')) {
@@ -833,7 +833,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			return;
 		}
 		this.currentAction = q.name;
-		const res = await this.jam.metadata.musicbrainz_search(q.q);
+		const res = (await this.jam.metadata.musicbrainzSearch(q.q)).data;
 		if (res.releaseGroups) {
 			await this.loadByReleaseGroups(res.releaseGroups);
 		} else if (res.releases) {

@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-import {Jam} from '@jam';
 
 @Component({
 	selector: 'app-fav-icon',
@@ -7,5 +6,5 @@ import {Jam} from '@jam';
 	styleUrls: ['./fav-icon.component.scss']
 })
 export class FavIconComponent {
-	@Input() state: Jam.State;
+	@Input() faved: number | undefined;
 }

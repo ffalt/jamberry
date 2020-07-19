@@ -1,4 +1,5 @@
-// THIS FILE IS GENERATED, DO NOT EDIT MANUALLY
+// @generated
+// This file was automatically generated and should not be edited.
 
 import {HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest, HttpSentEvent} from '@angular/common/http';
 import {Injectable} from '@angular/core';
@@ -9,6 +10,7 @@ export interface HTTPOptions {
 	params?: HttpParams;
 	reportProgress?: boolean;
 	withCredentials?: boolean;
+	responseType?: 'arraybuffer' | 'text' |  'json';
 }
 
 async function handleError(e): Promise<any> {
@@ -31,7 +33,7 @@ export class JamHttpService {
 				headers: options.headers,
 				params: options.params,
 				reportProgress: options.reportProgress,
-				responseType: 'arraybuffer' as 'arraybuffer',
+				responseType: 'arraybuffer' as const,
 				withCredentials: options.withCredentials
 			};
 
@@ -44,7 +46,10 @@ export class JamHttpService {
 	async get<T>(url: string, options: HTTPOptions): Promise<T> {
 		try {
 			return await this.client.get<T>(url,
-				{params: options.params, headers: options.headers, reportProgress: options.reportProgress, withCredentials: options.withCredentials}
+				{
+					params: options.params, headers: options.headers, reportProgress: options.reportProgress,
+					withCredentials: options.withCredentials, responseType: options.responseType as 'json'
+				}
 			).toPromise();
 		} catch (e) {
 			return handleError(e);

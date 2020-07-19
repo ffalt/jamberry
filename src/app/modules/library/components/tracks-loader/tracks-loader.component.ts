@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {Jam, JamParameters, JamService} from '@jam';
+import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
@@ -13,16 +13,16 @@ export class TracksLoaderComponent implements OnChanges {
 	showPlayCount: boolean = false;
 	showPlayDate: boolean = false;
 	tracks: Array<Jam.Track>;
-	@Input() listType: JamParameters.ListType;
+	@Input() listType: ListType;
 	@Input() query: string;
-	@Input() queryCmd: JamParameters.TrackSearch;
+	@Input() queryCmd: JamParameters.TrackFilterArgs;
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore: LoadMoreButtonComponent;
 	private activeRequest: Promise<void>;
 
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}
 
-	getTracks(requestFunc: () => Promise<Jam.TrackList>): void {
+	getTracks(requestFunc: () => Promise<Jam.TrackPage>): void {
 		this.loadMore.loading = true;
 		const request = requestFunc()
 			.then(data => {
@@ -46,10 +46,10 @@ export class TracksLoaderComponent implements OnChanges {
 		this.getTracks(() =>
 			this.jam.track.search({
 				query: this.query,
-				offset: this.loadMore.offset,
-				amount: this.loadMore.amount,
-				trackTag: true,
-				trackState: true
+				skip: this.loadMore.skip,
+				take: this.loadMore.take,
+				trackIncTag: true,
+				trackIncState: true
 			})
 		);
 	}
@@ -58,22 +58,22 @@ export class TracksLoaderComponent implements OnChanges {
 		this.getTracks(() =>
 			this.jam.track.search({
 				...this.queryCmd,
-				offset: this.loadMore.offset,
-				amount: this.loadMore.amount,
-				trackTag: true,
-				trackState: true
+				skip: this.loadMore.skip,
+				take: this.loadMore.take,
+				trackIncTag: true,
+				trackIncState: true
 			})
 		);
 	}
 
 	list(): void {
 		this.getTracks(() =>
-			this.jam.track.list({
+			this.jam.track.search({
 				list: this.listType,
-				trackState: true,
-				trackTag: true,
-				offset: this.loadMore.offset,
-				amount: this.loadMore.amount
+				trackIncState: true,
+				trackIncTag: true,
+				skip: this.loadMore.skip,
+				take: this.loadMore.take
 			}));
 	}
 
@@ -90,7 +90,7 @@ export class TracksLoaderComponent implements OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		this.loadMore.offset = 0;
+		this.loadMore.skip = 0;
 		this.loadMore.total = 0;
 		this.loadMore.hasMore = false;
 		this.showRating = this.listType === 'highest';

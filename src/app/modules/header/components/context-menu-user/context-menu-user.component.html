@@ -2,7 +2,7 @@
 	<ng-template contextMenuItem (execute)="navig.toLibraryStart()"><i class="icon-browse"></i> Library</ng-template>
 	<ng-template contextMenuItem (execute)="navig.toUser()"><i class="icon-user"></i> User</ng-template>
 	<ng-template contextMenuItem (execute)="navig.toUserSettings()"><i class="icon-settings"></i> Settings</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toAdmin()" [visible]="auth.user?.roles?.admin"><i class="icon-admin"></i> Administration</ng-template>
+	<ng-template contextMenuItem (execute)="navig.toAdmin()" [visible]="auth.user?.roles.admin"><i class="icon-admin"></i> Administration</ng-template>
 	<ng-template contextMenuItem (execute)="navig.toAbout()"><i class="icon-help"></i> About</ng-template>
 	<ng-template contextMenuItem (execute)="navig.toLogout()"><i class="icon-logout"></i> Logout</ng-template>
 </context-menu>

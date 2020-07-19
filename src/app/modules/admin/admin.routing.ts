@@ -1,8 +1,8 @@
-import {AdminFolderFoldersComponent} from '@admin/components/folder-page/folders/admin-folder-folders.component';
 import {ModuleWithProviders} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AdminComponent} from './admin.component';
 import {AdminFolderComponent} from './components/folder-page/admin-folder.component';
+import {AdminFolderFoldersComponent} from './components/folder-page/folders/admin-folder-folders.component';
 import {AdminFolderHealthComponent} from './components/folder-page/health/admin-folder-health.component';
 import {AdminFolderOverviewComponent} from './components/folder-page/overview/admin-folder-overview.component';
 import {AdminTracksHealthComponent} from './components/folder-page/tracks-health/admin-tracks-health.component';
@@ -38,4 +38,4 @@ export const routes: Routes = [
 	}
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+export const routing: ModuleWithProviders<RouterModule> = RouterModule.forChild(routes);

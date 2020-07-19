@@ -3,7 +3,7 @@
 		<app-coverart-image *ngIf="visible" [coverArtObj]="obj.base" [size]="135" [alt]="obj.name" (click)="obj.navigTo()" appClickStop></app-coverart-image>
 	</div>
 	<div class="meta">
-		<app-fav-icon [state]="obj.base.state" (click)="obj.toggleFav()" appClickStop></app-fav-icon>
+		<app-fav-icon [faved]="obj.base.state?.faved" (click)="toggleFav()" appClickStop></app-fav-icon>
 		<div *ngIf="obj.year" class="year">{{obj.year}}</div>
 		<div *ngIf="showParent && obj.parent" class="artist"><a (click)="obj.navigToParent()" appClickStop>{{obj.parent}}</a></div>
 		<div class="name"><a (click)="obj.navigTo()" appClickStop>{{obj.name}}</a></div>

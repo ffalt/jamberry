@@ -3,9 +3,9 @@
 	<div>
 		<a class="art" (click)="tabService.clickPlayer()" [class.active]="tabService.playerTab.active">
 			<div>
-				<app-coverart-image *ngIf="player.currentTrack" [coverArtObj]="player.currentTrack" [size]="50" alt="Album Art" [fill]="true"></app-coverart-image>
+				<app-coverart-image *ngIf="player.currentMedia" [coverArtObj]="player.currentMedia" [size]="50" alt="Album Art" [fill]="true"></app-coverart-image>
 			</div>
-			<i class="icon-info" *ngIf="!player.currentTrack"></i>
+			<i class="icon-info" *ngIf="!player.currentMedia"></i>
 		</a>
 	</div>
 	<div class="actions">

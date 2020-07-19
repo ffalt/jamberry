@@ -1,5 +1,5 @@
 export function extractSVGParts(data: any): { path: string; viewbox: string } {
-	const svg = (new TextDecoder('utf-8')).decode(new Uint8Array(data));
+	const svg = typeof data === 'string' ? data : (new TextDecoder('utf-8')).decode(new Uint8Array(data));
 	let i = svg.indexOf('viewBox="');
 	let viewbox = svg.slice(i + 9);
 	viewbox = viewbox.slice(0, viewbox.indexOf('"'));

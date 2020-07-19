@@ -28,10 +28,10 @@ export class AlbumListComponent {
 		this.contextMenuService.open(ContextMenuObjComponent, new JamAlbumObject(item, this.library), $event);
 	}
 
-	play(episode: Jam.PodcastEpisode): void {
+	play(episode: Jam.Episode): void {
 		if (episode.status === PodcastStatus.completed) {
 			this.player.startEpisode(episode);
-		} else if (episode.status !== PodcastStatus.downloading && this.jam.auth.userRolePodcast()) {
+		} else if (episode.status !== PodcastStatus.downloading && this.jam.auth.user?.roles.podcast) {
 			this.podcastService.retrieveEpisode(episode);
 		}
 	}

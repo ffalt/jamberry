@@ -1,13 +1,15 @@
-import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-parent-view-id/admin-base-parent-view-id.component';
-import {DialogChooseFolderComponent, SelectFolder} from '@admin/components/dialog-choose-folder/dialog-choose-folder.component';
-import {DialogFolderArtworkSearchComponent} from '@admin/components/dialog-folder-artwork-search/dialog-folder-artwork-search.component';
-import {DialogUploadImageComponent} from '@admin/components/dialog-upload-image/dialog-upload-image.component';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminFolderService, AppService, DialogsService, NotifyService} from '@core/services';
-import {FolderType, FolderTypesAlbum, Jam, JamService} from '@jam';
+import {FolderTypesAlbum} from '@app/utils/jam-lists';
+import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {FolderType, Jam, JamService} from '@jam';
+import {DialogsService} from '@shared/services';
 import {takeUntil} from 'rxjs/operators';
+import {AdminBaseParentViewIdComponent} from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
+import {DialogChooseFolderComponent, SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
+import {DialogFolderArtworkSearchComponent} from '../../dialog-folder-artwork-search/dialog-folder-artwork-search.component';
+import {DialogUploadImageComponent} from '../../dialog-upload-image/dialog-upload-image.component';
 
 @Component({
 	selector: 'app-admin-folder',
@@ -48,7 +50,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			return;
 		}
 		const id = this.id;
-		this.jam.folder.name_update({id, name})
+		this.jam.folder.rename({id, name})
 			.then(item => {
 				this.folderService.waitForQueueResult('Renaming Folder', item, [id]);
 			})
@@ -61,10 +63,11 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 		if (this.id) {
 			this.jam.folder.id({
 				id: this.id,
-				folderTag: true,
-				folderParents: true,
-				folderArtworks: true,
-				folderCounts: true
+				folderIncTag: true,
+				folderIncParents: true,
+				folderIncArtworks: true,
+				folderIncChildFolderCount: true,
+				folderIncTrackCount: true
 			})
 				.then(data => {
 					this.display(data);
@@ -103,7 +106,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 	removeFolder(): void {
 		const folder = this.folder;
 		this.dialogsService.confirm('Remove Folder?', `Sure to remove Folder "${folder.name}"?`, () => {
-			this.jam.folder.delete({id: folder.id})
+			this.jam.folder.remove({id: folder.id})
 				.then(item => {
 					if (folder.parentID) {
 						this.router.navigate([`/admin/folder/${folder.parentID}/overview`])
@@ -131,7 +134,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			panelClass: 'overlay-panel-large-buttons',
 			onOkBtn: async () => {
 				try {
-					this.jam.folder.parent_update({ids: [this.folder.id], folderID: data.folder.id})
+					this.jam.folder.move({ids: [this.folder.id], newParentID: data.folder.id})
 						.then(item => {
 							this.folderService.waitForQueueResult('Moving Folder', item, [this.folder.id], [this.folder.parentID, data.folder.id]);
 						})
@@ -156,7 +159,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			return;
 		}
 		this.name = folder.name;
-		this.isAlbum = FolderTypesAlbum.includes(folder.type as FolderType);
+		this.isAlbum = FolderTypesAlbum.includes(folder.type);
 		this.isArtist = folder.type === FolderType.artist;
 	}
 

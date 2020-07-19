@@ -12,7 +12,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	private subscribers: {
 		[key: number]: Array<any>;
 	} = {};
-	private lastTrack: Jam.Track;
+	private lastMedia: Jam.MediaBase;
 	private volume: number = 50;
 	private isMute: boolean = false;
 
@@ -42,10 +42,10 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 		return this.soundObject.volume;
 	}
 
-	buildSoundObject(track: Jam.Track, position: number | undefined): soundmanager2.SMSound {
+	buildSoundObject(media: Jam.MediaBase, position: number | undefined): soundmanager2.SMSound {
 		return soundManager.createSound({
-			url: this.jam.media.stream_url(track.id),
-			id: track.id,
+			url: this.jam.stream.streamUrl({id: media.id}),
+			id: media.id,
 			volume: this.isMute ? 0 : this.volume,
 			autoLoad: true,
 			autoPlay: false,
@@ -62,8 +62,8 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 			onfinish: () => {
 				this.publish(PlayerEvents.FINISH);
 			},
-			onload: (ready: boolean) => {
-				this.publish(PlayerEvents.BUFFERINGEND, ready);
+			onload: (success: boolean) => {
+				this.publish(PlayerEvents.BUFFERINGEND, success);
 			},
 			onpause: () => {
 				this.publish(PlayerEvents.PAUSE);
@@ -84,7 +84,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 		});
 	}
 
-	initialize(track: Jam.Track, startSeek: number | undefined, paused: boolean, callback: (e?: Error) => void): void {
+	initialize(track: Jam.MediaBase, startSeek: number | undefined, paused: boolean, callback: (e?: Error) => void): void {
 		this.unloadLast();
 		let soundObject = soundManager.getSoundById(track.id);
 		if (!soundObject) {
@@ -93,7 +93,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 				callback(new Error('Error while create sound'));
 				return;
 			}
-			this.lastTrack = track;
+			this.lastMedia = track;
 		}
 		if (!paused) {
 			soundObject.play();
@@ -179,7 +179,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 		if (this.soundObject) {
 			this.soundObject.stop();
 			this.unloadLast();
-			this.lastTrack = undefined;
+			this.lastMedia = undefined;
 		}
 	}
 
@@ -204,10 +204,10 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	private unloadLast(): void {
-		if (this.lastTrack) {
-			soundManager.unload(this.lastTrack.id);
-			soundManager.destroySound(this.lastTrack.id);
-			this.lastTrack = undefined;
+		if (this.lastMedia) {
+			soundManager.unload(this.lastMedia.id);
+			soundManager.destroySound(this.lastMedia.id);
+			this.lastMedia = undefined;
 		}
 	}
 

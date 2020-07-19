@@ -1,7 +1,6 @@
 <div class="genre">
 	<app-view-header-icon-section icon="icon-genre" [section]="title" [tabs]="tabs"></app-view-header-icon-section>
 	<div class="content">
-
 		<div class="tab-content" [ngSwitch]="currentTab.id">
 			<div class="tab-pane" *ngSwitchCase="tabsObjs.albums.id">
 				<app-obj-loader [loader]="library.albumLoader" [searchQuery]="{genre:genre}"></app-obj-loader>
@@ -10,7 +9,7 @@
 				<app-obj-loader [loader]="library.artistLoader" [searchQuery]="{genre:genre}"></app-obj-loader>
 			</div>
 			<div class="tab-pane" *ngSwitchCase="tabsObjs.tracks.id">
-				<app-tracks-loader [queryCmd]="{genre:genre}"></app-tracks-loader>
+				<app-tracks-loader [queryCmd]="{genres:[genre]}"></app-tracks-loader>
 			</div>
 		</div>
 	</div>

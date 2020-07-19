@@ -5,6 +5,7 @@ import {GpodderResult, PodcastService} from '@shared/services';
 
 export interface PodcastSearchResult {
 	url: URL;
+	displayURL: string;
 	result: GpodderResult;
 }
 
@@ -55,7 +56,7 @@ export class PodcastSearchPageComponent {
 					this.buildSearchResults(data);
 					this.isSearching = false;
 				}
-			}, e => {
+			}, _ => {
 				this.isSearching = false;
 			});
 		}
@@ -86,7 +87,9 @@ export class PodcastSearchPageComponent {
 			if (!podcast.logoUrl || podcast.logoUrl.length === 0) {
 				podcast.logoUrl = result.logo_url;
 			}
-			podcast.pods.push({result, url});
+			if (!podcast.pods.find(p => p.url.toString() === url.toString())) {
+				podcast.pods.push({result, url, displayURL: url.toString()});
+			}
 		});
 		this.podcasts = Object.keys(collect).map(key => {
 			const pod = collect[key];

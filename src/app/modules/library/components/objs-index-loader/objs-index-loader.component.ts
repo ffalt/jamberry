@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {getUrlType, JamType} from '@app/utils/jam-lists';
+import {getUrlType, JamType, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@app/utils/jam-lists';
 import {NotifyService} from '@core/services';
-import {AlbumType, JamObjectType, JamParameters, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@jam';
-import {Index, IndexService} from '@shared/services';
+import {AlbumType, JamObjectType, JamParameters} from '@jam';
+import {Index, IndexService, PlaylistService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -28,24 +28,24 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 			this.objType = type.type;
 			switch (type.type) {
 				case JamObjectType.artist: {
-					const artistQuery: JamParameters.ArtistIndex = {albumType: AlbumType.album};
+					const artistQuery: JamParameters.ArtistFilterArgs = {albumTypes: [AlbumType.album]};
 					this.query = artistQuery;
 					break;
 				}
 				case JamObjectType.series: {
-					const seriesQuery: JamParameters.SeriesIndex = {albumType: AlbumType.series};
+					const seriesQuery: JamParameters.SeriesFilterArgs = {albumTypes: [AlbumType.series]};
 					this.query = seriesQuery;
 					break;
 				}
 				case JamObjectType.folder: {
-					const folderQuery: JamParameters.FolderIndex = {level: 1};
+					const folderQuery: JamParameters.FolderFilterArgs = {level: 1};
 					this.query = folderQuery;
 					break;
 				}
 				case JamObjectType.album: {
-					const albumQuery: JamParameters.AlbumIndex = {
-						albumType: type.albumType,
-						mbArtistID: type.albumType === AlbumType.compilation ? MUSICBRAINZ_VARIOUS_ARTISTS_ID : undefined
+					const albumQuery: JamParameters.AlbumFilterArgs = {
+						albumTypes: [type.albumType],
+						mbArtistIDs: type.albumType === AlbumType.compilation ? [MUSICBRAINZ_VARIOUS_ARTISTS_ID] : undefined
 					};
 					this.query = albumQuery;
 					break;

@@ -15,7 +15,7 @@ export interface TrackHealthHintSolution {
 }
 
 export interface TrackHealthHint {
-	hint: Jam.HealthHint;
+	hint: Jam.TrackHealthHint;
 	description: string;
 }
 
@@ -56,29 +56,29 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.folderService.tracksChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(change => {
-					const health = this.trackHealth;
-					if (health && health.track.id === change.id) {
-						health.health = undefined;
-						this.jam.track.health({id: health.track.id, media: true})
-							.then(data => {
-								const h = data.find(d => d.track.id === health.track.id);
-								if (h && h.health) {
-									health.track = h.track;
-									health.health = h.health;
-								} else {
-									health.health = [];
-								}
-								if (health.health.length === 0) {
-									this.resolvedEvent.emit();
-								}
-								this.display(health);
-							})
-							.catch(e => {
-								this.notify.error(e);
-							});
-					}
+				const health = this.trackHealth;
+				if (health && health.track.id === change.id) {
+					health.health = undefined;
+					this.jam.track.health({ids: [health.track.id], healthMedia: true})
+						.then(data => {
+							const h = data.find(d => d.track.id === health.track.id);
+							if (h && h.health) {
+								health.track = h.track;
+								health.health = h.health;
+							} else {
+								health.health = [];
+							}
+							if (health.health.length === 0) {
+								this.resolvedEvent.emit();
+							}
+							this.display(health);
+						})
+						.catch(e => {
+							this.notify.error(e);
+						});
 				}
-			);
+			}
+		);
 	}
 
 	fixAll(): void {
@@ -100,7 +100,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		}
 	}
 
-	private describeTagHint(hint: Jam.HealthHint, track: Jam.Track): string {
+	private describeTagHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		let description = '';
 		if (hint.id === TrackHealthID.tagValuesExists) {
 			description = (hint.details || []).map(d => d.reason.toUpperCase()).join(', ');
@@ -129,7 +129,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		return description;
 	}
 
-	private describeMp3GarbageHint(hint: Jam.HealthHint, track: Jam.Track): string {
+	private describeMp3GarbageHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		let description = '';
 		if (hint.details.length > 0) {
 			description = `${hint.details[0].reason} (${hint.details[0].actual} bytes)`;
@@ -157,7 +157,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		return description;
 	}
 
-	private describeMp3ErrorHint(hint: Jam.HealthHint, track: Jam.Track): string {
+	private describeMp3ErrorHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		const description = `Stream Errors: ${(hint.details || []).length}`;
 
 		if (!this.solutions.find(sol => sol.name === 'Fix Stream')) {
@@ -183,7 +183,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		return description;
 	}
 
-	private describeID3v1Hint(hint: Jam.HealthHint, track: Jam.Track): string {
+	private describeID3v1Hint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		if (!this.solutions.find(sol => sol.name === 'Remove ID3v1')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Remove ID3v1',
@@ -207,7 +207,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		return '';
 	}
 
-	private describeMP3HeaderHint(hint: Jam.HealthHint, track: Jam.Track): string {
+	private describeMP3HeaderHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		let description = '';
 		if (hint.id === TrackHealthID.mp3HeaderValid) {
 			description = (hint.details || []).map(d => {
@@ -240,7 +240,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		return description;
 	}
 
-	private describeHint(hint: Jam.HealthHint, track: Jam.Track): string {
+	private describeHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		switch (hint.id) {
 			case TrackHealthID.tagValuesExists:
 			case TrackHealthID.id3v2Garbage:

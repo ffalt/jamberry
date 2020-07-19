@@ -7,7 +7,7 @@ import {takeUntil} from 'rxjs/operators';
 import {PlaylistService} from '../../services/playlist/playlist.service';
 
 export interface ChoosePlaylistData {
-	getTracks(): Promise<Jam.TrackList>;
+	getMedias(): Promise<Array<Jam.MediaBase>>;
 }
 
 @Component({
@@ -18,7 +18,7 @@ export interface ChoosePlaylistData {
 export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData> {
 	data: ChoosePlaylistData;
 	playlists: Array<Jam.Playlist>;
-	trackList: Jam.TrackList;
+	mediaList: Array<Jam.MediaBase>;
 	showTrackPreview: boolean = false;
 	reference: DialogOverlayRef;
 	protected unsubscribe = new Subject();
@@ -47,16 +47,16 @@ export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlayli
 	}
 
 	async start(): Promise<void> {
-		this.trackList = await this.data.getTracks();
+		this.mediaList = await this.data.getMedias();
 	}
 
-	remove(track: Jam.Track): void {
-		this.trackList.items = this.trackList.items.filter(item => item !== track);
+	remove(track: Jam.MediaBase): void {
+		this.mediaList = this.mediaList.filter(item => item !== track);
 	}
 
 	addTo(playlist: Jam.Playlist): void {
-		if (this.trackList) {
-			this.playlistService.addToPlaylist(playlist, this.trackList.items.map(t => t.id));
+		if (this.mediaList) {
+			this.playlistService.addToPlaylist(playlist, this.mediaList.map(t => t.id));
 		}
 		this.reference.close();
 	}

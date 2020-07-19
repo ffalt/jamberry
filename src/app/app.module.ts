@@ -14,7 +14,6 @@ import {SharedModule} from '@shared/shared.module';
 import {AppComponent} from './app.component';
 import {routing} from './app.routing';
 import {guards} from './guards';
-import {pages} from './pages';
 
 import {ContextMenuModule} from './modules/context-menu';
 import {DeferLoadModule} from './modules/defer-load';
@@ -25,6 +24,7 @@ import {MainTabsModule} from './modules/main-tabs';
 import {PlayerModule} from './modules/player';
 import {darkTheme, lightTheme, ThemeModule} from './modules/theme';
 import {ToastModule} from './modules/toast';
+import {pages} from './pages';
 
 @Injectable()
 export class CustomHammerConfig extends HammerGestureConfig {

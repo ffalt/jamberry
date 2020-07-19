@@ -3,7 +3,6 @@
 		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
 		<button class="button-on-control" title="Add new Root" (click)="newRoot()"><i class="icon-list-add"></i> Add</button>
 		<button class="button-on-control" title="Rescan Roots" (click)="refreshRoots()"><i class="icon-rescan"></i> Rescan</button>
-		<button class="button-on-control" title="Rescan Roots & all meta data (artists, albums, series)" (click)="refreshRoots(true)"><i class="icon-rescan"></i> Rescan (with meta)</button>
 	</app-view-header-slim>
 	<div class="content">
 		<app-admin-root-list [roots]="roots"></app-admin-root-list>

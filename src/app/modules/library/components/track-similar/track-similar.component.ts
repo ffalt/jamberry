@@ -43,10 +43,10 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 		const id = this.id;
 		this.jam.track.similar({
 			id,
-			trackState: true,
-			trackTag: true,
-			offset: this.loadMore.offset,
-			amount: this.loadMore.amount
+			trackIncState: true,
+			trackIncTag: true,
+			skip: this.loadMore.skip,
+			take: this.loadMore.take
 		})
 			.then(data => {
 				if (this.id === id) {
@@ -64,7 +64,7 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 
 	refresh(): void {
 		this.similar = undefined;
-		this.loadMore.offset = 0;
+		this.loadMore.skip = 0;
 		this.loadSimilar();
 	}
 

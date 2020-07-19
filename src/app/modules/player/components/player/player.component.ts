@@ -19,7 +19,7 @@ export class PlayerComponent {
 	}
 
 	defaultPlay(): void {
-		if (this.player.currentTrack) {
+		if (this.player.currentMedia) {
 			this.player.togglePlayPause();
 		} else {
 			this.player.next();

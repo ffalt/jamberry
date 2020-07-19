@@ -67,7 +67,7 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 		const file: File = files[0];
 		this.isIdle = false;
 		this.isUploading = true;
-		this.jam.folder.artworkUpload_create({id: this.folder.id, types: []}, file)
+		this.jam.artwork.createByUpload({folderID: this.folder.id, types: []}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
 				if (event.type === HttpEventType.UploadProgress) {
 					// const percentDone = Math.round(100 * event.loaded / event.total);

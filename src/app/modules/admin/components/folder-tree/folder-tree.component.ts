@@ -48,7 +48,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 			change => {
 				const node = this.nodes.find(n => n.folder.id === change.id);
 				if (node) {
-					this.jam.folder.id({id: change.id, folderCounts: true}).then(folder => {
+					this.jam.folder.id({id: change.id, folderIncTrackCount: true, folderIncChildFolderCount: true}).then(folder => {
 						node.folder = folder;
 						if (change.mode === AdminFolderServiceNotifyMode.fsnRefreshChilds) {
 							if (node.expanded) {
@@ -94,7 +94,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 		if (!this.jam.auth.isLoggedIn()) {
 			return;
 		}
-		this.jam.folder.search({level: 0, folderCounts: true})
+		this.jam.folder.search({level: 0, folderIncChildFolderCount: true, folderIncTrackCount: true})
 			.then(data => {
 				this.nodes = data.items.map(folder =>
 					({
@@ -115,23 +115,23 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 	}
 
 	typeToColor(folder: Jam.Folder): string {
-			switch (folder.type as FolderType) {
-				case FolderType.unknown:
-					return '#ff9fAA';
-				case FolderType.artist:
-					return '#6f806e';
-				case FolderType.collection:
-					return '#adbced';
-				case FolderType.album:
-					// single #edbfd0
-					return '#bdbd9c';
-				case FolderType.multialbum:
-					return '#bdaaae';
-				case FolderType.extras:
-					return '#bdbdbd';
-				default:
-					return '';
-			}
+		switch (folder.type) {
+			case FolderType.unknown:
+				return '#ff9fAA';
+			case FolderType.artist:
+				return '#6f806e';
+			case FolderType.collection:
+				return '#adbced';
+			case FolderType.album:
+				// single #edbfd0
+				return '#bdbd9c';
+			case FolderType.multialbum:
+				return '#bdaaae';
+			case FolderType.extras:
+				return '#bdbdbd';
+			default:
+				return '';
+		}
 	}
 
 	onFolderUpdate(data: Jam.Folder): void {
@@ -144,7 +144,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 	selectFolderByID(id: string): void {
 		const node = this.nodes.find(n => n.folder.id === id);
 		if (!node) {
-			this.jam.folder.id({id, folderParents: true})
+			this.jam.folder.id({id, folderIncParents: true})
 				.then(folder => {
 					if (folder.parents) {
 						for (const p of folder.parents) {
@@ -187,7 +187,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 			return;
 		}
 		node.isLoading = true;
-		this.jam.folder.search({parentID: node.folder.id, folderCounts: true})
+		this.jam.folder.search({parentIDs: [node.folder.id], folderIncChildFolderCount: true, folderIncTrackCount: true})
 			.then(data => {
 				const result: Array<TreeNode> = data.items
 					.sort((a, b) => a.name.localeCompare(b.name))

@@ -31,8 +31,8 @@
 			<div><a (click)="navig.toAlbumID(track.albumID, track.tag.album)">{{track.tag?.album}}</a></div>
 		</div>
 		<div class="key-value-row">
-			<div>Genre</div>
-			<div>{{track.tag?.genre}}</div>
+			<div>Genres</div>
+			<div>{{track.tag?.genres}}</div>
 		</div>
 		<div class="key-value-row" *ngIf="track.tag.mbTrackID">
 			<div>MusicBrainz Track ID:</div>
@@ -98,7 +98,7 @@
 		</div>
 		<div class="key-value-row">
 			<div>Last Played</div>
-			<div>{{track.state?.lastplayed | date:'long'}}</div>
+			<div>{{track.state?.lastPlayed | date:'long'}}</div>
 		</div>
 		<div class="key-value-row">
 			<div>Played</div>

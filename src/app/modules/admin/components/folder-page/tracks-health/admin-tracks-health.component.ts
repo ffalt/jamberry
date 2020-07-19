@@ -54,7 +54,7 @@ export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent i
 
 	refresh(): void {
 		this.hints = undefined;
-		this.jam.track.health({parentID: this.id, media: this.mediaCheck})
+		this.jam.track.health({folderIDs: [this.id], healthMedia: this.mediaCheck})
 			.then(data => {
 				this.display(data);
 			})

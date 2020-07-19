@@ -1,4 +1,4 @@
 <app-header role="heading" class="header" *ngIf="auth.user"></app-header>
 <main role="main" class="app-content" #tabContentOutlet></main>
 <app-player class="footer" *ngIf="auth.user"></app-player>
-<app-mini-player class="mini-player" *ngIf="this.player.currentTrack"></app-mini-player>
+<app-mini-player class="mini-player" *ngIf="this.player.currentMedia"></app-mini-player>

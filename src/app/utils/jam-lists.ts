@@ -1,12 +1,8 @@
 import {UrlSegment} from '@angular/router';
-import {AlbumType, JamObjectType, JamParameters} from '@jam';
+import {AlbumType, FolderType, JamObjectType, ListType} from '@jam';
 
-export interface JamAlbumType {
-	id: AlbumType;
-	text: string;
-	link: string;
-	icon: string;
-}
+export const MUSICBRAINZ_VARIOUS_ARTISTS_ID = '89ad4ac3-39f7-470e-963a-56509c546377';
+export const MUSICBRAINZ_VARIOUS_ARTISTS_NAME = 'Various Artists';
 
 export enum JamUrlType {
 	albums = 'albums',
@@ -60,21 +56,25 @@ export const JamUrlTypes: Array<JamType> = [
 ];
 
 export function getTypeByAlbumType(albumType: string): JamType | undefined {
-	return JamUrlTypes.find(part => part.albumType === albumType);
+	return JamUrlTypes.find(part => part.albumType === albumType && part.type === JamObjectType.album);
 }
+
 export function getUrlType(val: Array<UrlSegment>): JamType | undefined {
 	const s = val.length > 0 ? val[0].path : undefined;
 	return JamUrlTypes.find(part => part.id === s);
 }
+
 export function getUrlAlbumType(val: Array<UrlSegment>): AlbumType | undefined {
 	const type = getUrlType(val);
 	return type ? type.albumType : undefined;
 }
 
-export const ListTypeUrlNamesKeys: { [key: string]: JamParameters.ListType } = {
-	random: 'random',
-	favorites: 'faved',
-	'top-rated': 'highest',
-	'most-played': 'frequent',
-	'recently-played': 'recent'
+export const ListTypeUrlNamesKeys: { [key: string]: ListType } = {
+	random: ListType.random,
+	favorites: ListType.faved,
+	'top-rated': ListType.highest,
+	'most-played': ListType.frequent,
+	'recently-played': ListType.recent
 };
+
+export const FolderTypesAlbum = [FolderType.album, FolderType.multialbum];

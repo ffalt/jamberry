@@ -50,7 +50,7 @@ export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 	}
 
 	refreshStats(): void {
-		this.jam.various.stats({})
+		this.jam.stats.get({})
 			.then(stats => {
 				this.stats = stats;
 				this.updateNavigation();

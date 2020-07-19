@@ -76,14 +76,17 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 			this.dialogOverlay.open({
 				title: this.coverArtObj.name,
 				childComponent: ImageOverlayContentComponent,
-				data: {name: this.coverArtObj.name, url: this.jam.image.url(this.coverArtObj.id)}
+				data: {
+					name: this.coverArtObj.name,
+					url: this.jam.image.imageUrl({id: this.coverArtObj.id})
+				}
 			});
 		}
 	}
 
 	private buildUrl(): void {
 		if (this.coverArtObj) {
-			let url = this.jam.base.image_url(this.coverArtObj.id, this.size);
+			let url = this.jam.image.imageUrl({id: this.coverArtObj.id, size: this.size});
 			if (this.refreshRandom) {
 				url += `${url.includes('?') ? '&' : '?'}refresh=${this.refreshRandom}`;
 			}

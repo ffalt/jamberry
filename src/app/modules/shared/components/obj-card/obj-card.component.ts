@@ -1,4 +1,4 @@
-import {Component, HostListener, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, Input} from '@angular/core';
 import {JamObject} from '@shared/model/helpers';
 
 @Component({
@@ -11,6 +11,9 @@ export class ObjCardComponent {
 	@Input() showParent: boolean;
 	visible: boolean = false;
 
+	constructor(private cdr: ChangeDetectorRef) {
+	}
+
 	@HostListener('contextmenu', ['$event'])
 	contextmenuEvent(event: MouseEvent): void {
 		this.obj.onContextMenu(event);
@@ -18,5 +21,15 @@ export class ObjCardComponent {
 
 	gotInView(): void {
 		this.visible = true;
+	}
+
+	toggleFav(): void {
+		this.obj.toggleFav()
+			.then(() => {
+				this.cdr.detectChanges();
+			})
+			.catch(e => {
+				console.error(e);
+			});
 	}
 }

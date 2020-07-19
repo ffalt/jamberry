@@ -46,13 +46,13 @@ export class FolderOverviewComponent implements OnInit, OnDestroy {
 		if (this.id) {
 			this.jam.folder.id({
 				id: this.id,
-				trackState: true,
-				trackTag: true,
-				folderParents: true,
-				folderState: true,
-				folderTag: true,
-				folderChildren: true,
-				folderInfo: true
+				trackIncState: true,
+				trackIncTag: true,
+				folderIncParents: true,
+				folderIncState: true,
+				folderIncTag: true,
+				folderIncChildren: true,
+				folderIncInfo: true
 			})
 				.then(folder => {
 					this.display(folder);

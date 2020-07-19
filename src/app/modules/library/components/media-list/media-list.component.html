@@ -1,0 +1,27 @@
+<app-background-text-list [list]="entries" name="Tracks"></app-background-text-list>
+<div *ngIf="entries && entries.length>0" class="tracks">
+	<div class="heading">
+		<div class="fav" title="Favorite Track"><i class="icon-heart-empty"></i></div>
+		<div *ngIf="showRating" class="rating" title="Rating"><i class="icon-checkmark"></i></div>
+		<div *ngIf="showPlayCount" class="play-count" title="Play Counter"><i class="icon-headphones"></i></div>
+		<div *ngIf="showPlayDate" class="play-date" title="Last Played"><i class="icon-clock"></i></div>
+		<div class="number" title="Track Number"><i class="icon-hash"></i></div>
+		<div class="title" title="Title">Track</div>
+		<div class="length" title="Duration"><i class="icon-stopwatch"></i></div>
+	</div>
+	<ng-container *ngFor="let entry of entries">
+		<div class="track" (tap)="tapTrack($event, entry)" (contextmenu)="onContextMenu($event, entry)">
+			<div class="fav"><a (click)="actions.toggleMediaBaseFav(entry)">
+				<app-fav-icon [faved]="entry.state?.faved"></app-fav-icon>
+			</a></div>
+			<div *ngIf="showRating" class="rating"><i class="icon-checkmark small-screen-icon"></i> {{entry.state?.rated}}</div>
+			<div *ngIf="showPlayCount" class="play-count"><i class="icon-headphones small-screen-icon"></i> {{entry.state?.played}}</div>
+			<div *ngIf="showPlayDate" class="play-date" title="{{entry.state?.lastPlayed | date:'long'}}"><i class="icon-clock small-screen-icon"></i> {{entry.state?.lastPlayed | ago}}</div>
+			<div class="number"><i class="icon-hash small-screen-icon"></i>
+				<ng-container *ngIf="entry.tag.discTotal>1 && entry.tag.disc">{{entry.tag.disc}}-</ng-container>
+				{{entry.tag.trackNr}}</div>
+			<div class="title"><p>{{entry.tag.title}}</p><a *ngIf="showArtist" title="Artist" (click)="navig.toArtistID(entry.artistID,entry.tag.artist)">{{entry.tag.artist}}</a></div>
+			<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{entry.duration|duration}}</div>
+		</div>
+	</ng-container>
+</div>

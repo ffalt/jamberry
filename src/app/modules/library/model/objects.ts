@@ -1,5 +1,6 @@
 /* tslint:disable:max-classes-per-file */
-import {AlbumType, FolderType, FolderTypesAlbum, Jam, JamObjectType} from '@jam';
+import {FolderTypesAlbum} from '@app/utils/jam-lists';
+import {AlbumType, FolderType, Jam, JamObjectType} from '@jam';
 import {LibraryService} from '@library/services';
 import {HeaderInfo} from '@shared/components';
 import {JamObject} from '@shared/model/helpers';
@@ -7,10 +8,11 @@ import {ContextMenuObjComponent, ContextMenuObjComponentOptions} from '../compon
 
 export abstract class JamLibraryObject extends JamObject {
 	type: JamObjectType;
-	childrenTypes?: Array<JamObjectType>;
+	childrenTypes?: Array<JamObjectType | string>;
+	media?: Array<Jam.MediaBase>;
 	tracks?: Array<Jam.Track>;
 	albums?: Array<Jam.Album>;
-	episodes?: Array<Jam.PodcastEpisode>;
+	episodes?: Array<Jam.Episode>;
 
 	protected constructor(public base: Jam.Base, protected library: LibraryService) {
 		super(base);
@@ -20,7 +22,7 @@ export abstract class JamLibraryObject extends JamObject {
 
 	abstract addToQueue(): void;
 
-	abstract loadChildren(): void;
+	abstract async loadChildren(): Promise<void>;
 
 	abstract groupType(): string;
 
@@ -39,7 +41,7 @@ export class JamAlbumObject extends JamLibraryObject {
 	constructor(public album: Jam.Album, library: LibraryService) {
 		super(album, library);
 		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.year || ''}`;
-		this.parent = album.artist;
+		this.parent = album.artistName;
 		this.mediaType = album.albumType;
 		this.genre = album.genres && album.genres.length > 0 ? album.genres.join(' / ') : undefined;
 	}
@@ -53,27 +55,25 @@ export class JamAlbumObject extends JamLibraryObject {
 	}
 
 	navigToParent(): void {
-		this.library.navig.toArtistID(this.album.artistID, this.album.artist);
+		this.library.navig.toArtistID(this.album.artistID, this.album.artistName);
 	}
 
-	toggleFav(): void {
-		this.library.actions.toggleAlbumFav(this.album);
+	async toggleFav(): Promise<void> {
+		return this.library.actions.toggleAlbumFav(this.album);
 	}
 
 	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
 		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
-	loadChildren(): void {
+	async loadChildren(): Promise<void> {
 		if (!this.tracks) {
-			const id = this.base.id;
-			this.library.jam.album.tracks({ids: [id], trackTag: true, trackState: true})
-				.then(data => {
-					this.tracks = data.items;
-				})
-				.catch(e => {
-					this.library.notify.error(e);
-				});
+			try {
+				this.tracks = (await this.library.jam.album.tracks({ids: [this.base.id], trackIncTag: true, trackIncState: true})).items;
+			} catch (e) {
+				this.tracks = [];
+				this.library.notify.error(e);
+			}
 		}
 	}
 
@@ -93,7 +93,7 @@ export class JamAlbumObject extends JamLibraryObject {
 		if (this.album.albumType === AlbumType.series) {
 			return [
 				{
-					label: 'Artist', value: this.album.artist, click: (): void => {
+					label: 'Artist', value: this.album.artistName, click: (): void => {
 						this.navigToParent();
 					}
 				},
@@ -107,7 +107,7 @@ export class JamAlbumObject extends JamLibraryObject {
 		}
 		return [
 			{
-				label: 'Artist', value: this.album.artist, click: (): void => {
+				label: 'Artist', value: this.album.artistName, click: (): void => {
 					this.navigToParent();
 				}
 			},
@@ -154,24 +154,22 @@ export class JamFolderObject extends JamLibraryObject {
 		this.library.navig.toFolderID(this.folder.parentID, '');
 	}
 
-	toggleFav(): void {
-		this.library.actions.toggleFolderFav(this.folder);
+	async toggleFav(): Promise<void> {
+		return this.library.actions.toggleFolderFav(this.folder);
 	}
 
 	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
 		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
-	loadChildren(): void {
+	async loadChildren(): Promise<void> {
 		if (!this.tracks) {
-			const id = this.base.id;
-			this.library.jam.folder.tracks({ids: [id], trackTag: true, trackState: true})
-				.then(data => {
-					this.tracks = data.items;
-				})
-				.catch(e => {
-					this.library.notify.error(e);
-				});
+			try {
+				this.tracks = (await this.library.jam.folder.tracks({ids: [this.base.id], trackIncTag: true, trackIncState: true})).items;
+			} catch (e) {
+				this.tracks = [];
+				this.library.notify.error(e);
+			}
 		}
 	}
 
@@ -188,7 +186,7 @@ export class JamFolderObject extends JamLibraryObject {
 	}
 
 	getInfos(): Array<HeaderInfo> {
-		return (FolderTypesAlbum.includes(this.folder.type as FolderType) ?
+		return (FolderTypesAlbum.includes(this.folder.type) ?
 				[
 					{label: 'Artist', value: this.folder.tag.artist},
 					{label: 'Year', value: this.folder.tag.year},
@@ -224,24 +222,21 @@ export class JamArtistObject extends JamLibraryObject {
 		//
 	}
 
-	toggleFav(): void {
-		this.library.actions.toggleArtistFav(this.artist);
+	async toggleFav(): Promise<void> {
+		return this.library.actions.toggleArtistFav(this.artist);
 	}
 
 	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
 		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
-	loadChildren(): void {
+	async loadChildren(): Promise<void> {
 		if (!this.albums) {
-			const id = this.base.id;
-			this.library.jam.artist.albums({ids: [id], albumState: true})
-				.then(data => {
-					this.albums = data.items;
-				})
-				.catch(e => {
-					this.library.notify.error(e);
-				});
+			try {
+				this.albums = (await this.library.jam.artist.albums({ids: [this.base.id], albumIncState: true})).items;
+			} catch (e) {
+				this.library.notify.error(e);
+			}
 		}
 	}
 
@@ -269,7 +264,7 @@ export class JamArtistObject extends JamLibraryObject {
 
 export class JamPlaylistObject extends JamLibraryObject {
 	type = JamObjectType.playlist;
-	childrenTypes = [JamObjectType.track];
+	childrenTypes = ['media'];
 
 	constructor(public playlist: Jam.Playlist, library: LibraryService) {
 		super(playlist, library);
@@ -288,8 +283,8 @@ export class JamPlaylistObject extends JamLibraryObject {
 		//
 	}
 
-	toggleFav(): void {
-		this.library.actions.togglePlaylistFav(this.playlist);
+	async toggleFav(): Promise<void> {
+		return this.library.actions.togglePlaylistFav(this.playlist);
 	}
 
 	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
@@ -311,16 +306,19 @@ export class JamPlaylistObject extends JamLibraryObject {
 		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {extras, hideGoto});
 	}
 
-	loadChildren(): void {
+	async loadChildren(): Promise<void> {
 		if (!this.tracks) {
-			const id = this.base.id;
-			this.library.jam.playlist.tracks({ids: [id], trackTag: true, trackState: true})
-				.then(data => {
-					this.tracks = data.items;
-				})
-				.catch(e => {
-					this.library.notify.error(e);
-				});
+			try {
+				this.media = (await this.library.jam.playlist.entries({
+					ids: [this.base.id],
+					trackIncTag: true,
+					trackIncState: true,
+					episodeIncTag: true,
+					episodeIncState: true
+				})).items;
+			} catch (e) {
+				this.library.notify.error(e);
+			}
 		}
 	}
 
@@ -349,7 +347,7 @@ export class JamTrackObject extends JamLibraryObject {
 	constructor(public track: Jam.Track, library: LibraryService) {
 		super(track, library);
 		this.name = track.tag.title || track.name;
-		this.genre = track.tag.genre;
+		this.genre = track.tag.genres ? track.tag.genres.join(' / ') : undefined;
 	}
 
 	navigTo(): void {
@@ -364,29 +362,32 @@ export class JamTrackObject extends JamLibraryObject {
 		//
 	}
 
-	toggleFav(): void {
-		this.library.actions.toggleTrackFav(this.track);
+	async toggleFav(): Promise<void> {
+		return this.library.actions.toggleMediaBaseFav(this.track);
 	}
 
 	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
 		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
-	loadChildren(): void {
+	async loadChildren(): Promise<void> {
 		if (!this.tracks) {
-			const id = this.base.id;
-			this.library.jam.playlist.tracks({ids: [id], trackTag: true, trackState: true})
-				.then(data => {
-					this.tracks = data.items;
-				})
-				.catch(e => {
-					this.library.notify.error(e);
-				});
+			try {
+				this.media = (await this.library.jam.playlist.entries({
+					ids: [this.base.id],
+					trackIncTag: true,
+					trackIncState: true,
+					episodeIncState: true,
+					episodeIncTag: true
+				})).items;
+			} catch (e) {
+				this.library.notify.error(e);
+			}
 		}
 	}
 
 	groupType(): string {
-		return this.track.tag.genre || '';
+		return this.track.tag.genres ? this.track.tag.genres.join(' / ') : '';
 	}
 
 	addToPlaylist(): void {
@@ -438,24 +439,21 @@ export class JamSeriesObject extends JamLibraryObject {
 		this.library.navig.toArtistID(this.series.artistID, this.series.artist);
 	}
 
-	toggleFav(): void {
-		this.library.actions.toggleSeriesFav(this.series);
+	async toggleFav(): Promise<void> {
+		return this.library.actions.toggleSeriesFav(this.series);
 	}
 
 	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
 		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
-	loadChildren(): void {
+	async loadChildren(): Promise<void> {
 		if (!this.albums) {
-			const id = this.base.id;
-			this.library.jam.series.albums({ids: [id], albumState: true})
-				.then(data => {
-					this.albums = data.items;
-				})
-				.catch(e => {
-					this.library.notify.error(e);
-				});
+			try {
+				this.albums = (await this.library.jam.series.albums({ids: [this.base.id], albumIncState: true})).items;
+			} catch (e) {
+				this.library.notify.error(e);
+			}
 		}
 	}
 
@@ -508,13 +506,13 @@ export class JamPodcastObject extends JamLibraryObject {
 		//
 	}
 
-	toggleFav(): void {
-		this.library.actions.togglePodcastFav(this.podcast);
+	async toggleFav(): Promise<void> {
+		return this.library.actions.togglePodcastFav(this.podcast);
 	}
 
 	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
 		const extras =
-			(this.library.jam.auth && this.library.jam.auth.user && this.library.jam.auth.user.roles && this.library.jam.auth.user.roles.podcast) ?
+			(this.library.jam.auth?.user?.roles.podcast) ?
 				[
 					{
 						text: 'Refresh Podcast Feed', icon: 'icon-rescan', click: (): void => {
@@ -531,16 +529,18 @@ export class JamPodcastObject extends JamLibraryObject {
 		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {extras, hideGoto});
 	}
 
-	loadChildren(): void {
+	async loadChildren(): Promise<void> {
 		if (!this.episodes) {
-			const id = this.base.id;
-			this.library.jam.episode.search({podcastID: id, trackTag: true, trackState: true, amount: 10})
-				.then(data => {
-					this.episodes = data.items;
-				})
-				.catch(e => {
-					this.library.notify.error(e);
-				});
+			try {
+				this.episodes = (await this.library.jam.episode.search({
+					podcastIDs: [this.base.id],
+					episodeIncTag: true,
+					episodeIncState: true,
+					take: 10
+				})).items;
+			} catch (e) {
+				this.library.notify.error(e);
+			}
 		}
 	}
 
@@ -566,10 +566,10 @@ export class JamEpisodeObject extends JamLibraryObject {
 	mediaType = JamObjectType.episode;
 	childrenTypes = [];
 
-	constructor(public episode: Jam.PodcastEpisode, library: LibraryService) {
+	constructor(public episode: Jam.Episode, library: LibraryService) {
 		super(episode, library);
 		this.name = this.episode.name;
-		this.parent = this.episode.podcast;
+		this.parent = this.episode.podcastName;
 	}
 
 	navigTo(): void {
@@ -581,18 +581,18 @@ export class JamEpisodeObject extends JamLibraryObject {
 	}
 
 	navigToParent(): void {
-		this.library.navig.toPodcastID(this.episode.podcastID, this.episode.podcast);
+		this.library.navig.toPodcastID(this.episode.podcastID, this.episode.podcastName);
 	}
 
-	toggleFav(): void {
-		this.library.actions.toggleEpisodeFav(this.episode);
+	async toggleFav(): Promise<void> {
+		return this.library.actions.toggleMediaBaseFav(this.episode);
 	}
 
 	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
 		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
-	loadChildren(): void {
+	async loadChildren(): Promise<void> {
 		//
 	}
 
@@ -611,7 +611,7 @@ export class JamEpisodeObject extends JamLibraryObject {
 	getInfos(): Array<HeaderInfo> {
 		return [
 			{
-				label: 'Podcast', value: this.episode.podcast, click: (): void => {
+				label: 'Podcast', value: this.episode.podcastName, click: (): void => {
 					this.navigToParent();
 				}
 			},

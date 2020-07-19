@@ -7,7 +7,10 @@ import {DialogRateComponent, RateEdit} from '@shared/components';
 @Injectable()
 export class ActionsService {
 
-	constructor(private jam: JamService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
+	constructor(
+		private jam: JamService, private notify: NotifyService,
+		private dialogOverlay: DialogOverlayService
+	) {
 	}
 
 	rateTrack(track: Jam.Track): void {
@@ -30,7 +33,7 @@ export class ActionsService {
 		this.rate(JamObjectType.folder, folder);
 	}
 
-	rateEpisode(episode: Jam.PodcastEpisode): void {
+	rateEpisode(episode: Jam.Episode): void {
 		this.rate(JamObjectType.episode, episode);
 	}
 
@@ -48,7 +51,7 @@ export class ActionsService {
 			data,
 			onOkBtn: async () => {
 				try {
-					await this.jam.base.rate(type, {id: base.id, rating: data.rating});
+					await this.jam.state.rate({id: base.id, rating: data.rating});
 					base.state.rated = data.rating;
 					this.notify.success('Rated ' + type);
 				} catch (e) {
@@ -59,53 +62,49 @@ export class ActionsService {
 		});
 	}
 
-	toggleFav(type: string, base: Jam.Base): void {
+	async toggleFav(type: string, base: Jam.Base): Promise<void> {
 		base.state = base.state || {};
 		const remove = !!base.state.faved;
-		this.jam.base.fav(type, {id: base.id, remove})
-			.then(() => {
-				base.state.faved = remove ? undefined : Date.now();
-				this.notify.success('Favorite ' + (remove ? 'removed' : 'added'));
-			}).catch(e => {
+		try {
+			await this.jam.state.fav({id: base.id, remove});
+			base.state.faved = remove ? undefined : Date.now();
+			this.notify.success(`Favorite ${type} ${remove ? 'removed' : 'added'}`);
+		} catch (e) {
 			this.notify.error(e);
-		});
+		}
 	}
 
-	toggleFolderFav(folder: Jam.Folder): void {
-		this.toggleFav(JamObjectType.folder, folder);
+	async toggleFolderFav(folder: Jam.Folder): Promise<void> {
+		return this.toggleFav(JamObjectType.folder, folder);
 	}
 
-	toggleTrackFav(track: Jam.Track): void {
-		this.toggleFav(JamObjectType.track, track);
+	async toggleMediaBaseFav(media: Jam.MediaBase): Promise<void> {
+		return this.toggleFav(media.objType, media);
 	}
 
-	toggleAlbumFav(album: Jam.Album): void {
-		this.toggleFav(JamObjectType.album, album);
+	async toggleAlbumFav(album: Jam.Album): Promise<void> {
+		return this.toggleFav(JamObjectType.album, album);
 	}
 
-	toggleArtistFav(artist: Jam.Artist): void {
-		this.toggleFav(JamObjectType.artist, artist);
+	async toggleArtistFav(artist: Jam.Artist): Promise<void> {
+		return this.toggleFav(JamObjectType.artist, artist);
 	}
 
-	toggleSeriesFav(series: Jam.Series): void {
-		this.toggleFav(JamObjectType.series, series);
+	async toggleSeriesFav(series: Jam.Series): Promise<void> {
+		return this.toggleFav(JamObjectType.series, series);
 	}
 
-	togglePlaylistFav(playlist: Jam.Playlist): void {
-		this.toggleFav(JamObjectType.playlist, playlist);
+	async togglePlaylistFav(playlist: Jam.Playlist): Promise<void> {
+		return this.toggleFav(JamObjectType.playlist, playlist);
 	}
 
-	togglePodcastFav(podcast: Jam.Podcast): void {
-		this.toggleFav(JamObjectType.podcast, podcast);
-	}
-
-	toggleEpisodeFav(episode: Jam.PodcastEpisode): void {
-		this.toggleFav(JamObjectType.episode, episode);
+	async togglePodcastFav(podcast: Jam.Podcast): Promise<void> {
+		return this.toggleFav(JamObjectType.podcast, podcast);
 	}
 
 	download(base: Jam.Base): void {
 		if (base) {
-			window.location.href = this.jam.media.download_url(base.id);
+			window.location.href = this.jam.download.downloadUrl({id: base.id});
 		}
 	}
 

@@ -13,7 +13,7 @@ import {ContextMenuObjComponent, ContextMenuObjComponentOptions} from '../contex
 	styleUrls: ['./episode-list.component.scss']
 })
 export class EpisodeListComponent {
-	@Input() episodes: Array<Jam.PodcastEpisode>;
+	@Input() episodes: Array<Jam.Episode>;
 	@Input() showPodcast: boolean = false;
 
 	constructor(
@@ -23,20 +23,20 @@ export class EpisodeListComponent {
 	) {
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.PodcastEpisode): void {
+	onContextMenu($event: MouseEvent, item: Jam.Episode): void {
 		this.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, new JamEpisodeObject(item, this.library), $event);
 	}
 
-	tapEpisode(event, episode: Jam.PodcastEpisode): void {
+	tapEpisode(event, episode: Jam.Episode): void {
 		if (event.tapCount === 2) {
 			this.play(episode);
 		}
 	}
 
-	play(episode: Jam.PodcastEpisode): void {
+	play(episode: Jam.Episode): void {
 		if (episode.status === PodcastStatus.completed) {
 			this.player.startEpisode(episode);
-		} else if (episode.status !== PodcastStatus.downloading && this.jam.auth.userRolePodcast()) {
+		} else if (episode.status !== PodcastStatus.downloading && this.jam.auth.user?.roles.podcast) {
 			this.podcastService.retrieveEpisode(episode);
 		}
 	}

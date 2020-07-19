@@ -27,7 +27,7 @@ export interface RawTagEditColumn {
 
 export interface RawTagEditRow {
 	track: Jam.Track;
-	tag: Jam.RawTag;
+	tag: Jam.MediaTagRaw;
 	cells: Array<RawTagEditCell>;
 	editing: boolean;
 	changed: boolean;

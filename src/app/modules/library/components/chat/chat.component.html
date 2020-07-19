@@ -2,11 +2,11 @@
 	<ng-container *ngIf="messages">
 		<div class="message" *ngFor="let message of messages; let index=index;" [class.grouped]="index>0 && messages[index-1].userID===message.userID">
 			<div>
-				<app-coverart-image class="avatar" [coverArtObj]="{id:message.userID,name:message.username}" [size]="22" [round]="true" [alt]="message.username"></app-coverart-image>
-				<div class="time">{{message.time|date:'shortTime'}}</div>
+				<app-coverart-image class="avatar" [coverArtObj]="{id:message.userID,name:message.userName}" [size]="22" [round]="true" [alt]="message.userName"></app-coverart-image>
+				<div class="time">{{message.created|date:'shortTime'}}</div>
 			</div>
 			<div>
-				<div class="username">{{message.username}}</div>
+				<div class="username">{{message.userName}}</div>
 				<div class="text">{{message.message}}</div>
 			</div>
 		</div>

@@ -3,7 +3,6 @@ import {AdminRootService} from './admin-root/admin-root.service';
 import {AdminUserService} from './admin-user/admin-user.service';
 import {AppService} from './app/app.service';
 import {ConfigurationService} from './configuration/configuration.service';
-import {DialogsService} from './dialogs/dialogs.service';
 import {LocalstorageService} from './localstorage/localstorage.service';
 import {NavigService} from './navig/navig.service';
 import {NotifyService} from './notify/notify.service';
@@ -25,7 +24,6 @@ export const services: Array<any> = [
 	NotifyService,
 	NavigService,
 	LocalstorageService,
-	DialogsService,
 	ConfigurationService,
 	AppService,
 	AdminRootService,
@@ -36,7 +34,6 @@ export const services: Array<any> = [
 
 export * from './app/app.service';
 export * from './configuration/configuration.service';
-export * from './dialogs/dialogs.service';
 export * from './localstorage/localstorage.service';
 export * from './navig/navig.service';
 export * from './notify/notify.service';

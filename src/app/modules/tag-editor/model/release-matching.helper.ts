@@ -1,5 +1,5 @@
 /* tslint:disable:max-classes-per-file */
-import {Jam, LastFM, MusicBrainz} from '@jam';
+import {Jam, LastFM, LyricsOVHResponse, MusicBrainz} from '@jam';
 import {AcoustIDEntry} from './acoustid.helper';
 import {findTrackNr, fuzzyMatch, stripExtension} from './utils';
 
@@ -11,7 +11,7 @@ export interface Matching {
 	mbGroup?: MusicBrainz.ReleaseGroup;
 	lastfm?: LastFM.Album;
 	genres?: Array<string>;
-	lyrics?: Jam.LyricsOVHResponse;
+	lyrics?: LyricsOVHResponse;
 	abdata?: ABData;
 	acoustidEntries?: Array<AcoustIDEntry>;
 }

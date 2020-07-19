@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamParameters, JamService} from '@jam';
 import {JamAlbumObject} from '@library/model/objects';
@@ -17,7 +16,7 @@ import {takeUntil} from 'rxjs/operators';
 export class ArtistOverviewComponent implements OnInit, OnDestroy {
 	artist?: Jam.Artist;
 	albums?: Array<JamAlbumObject>;
-	tracksQuery?: JamParameters.TrackSearch;
+	tracksQuery?: JamParameters.TrackFilterArgs;
 	id: string;
 	protected unsubscribe = new Subject();
 
@@ -28,7 +27,6 @@ export class ArtistOverviewComponent implements OnInit, OnDestroy {
 		protected library: LibraryService,
 		protected notify: NotifyService,
 		protected jam: JamService,
-		private contextMenuService: ContextMenuService,
 		protected route: ActivatedRoute
 	) {
 	}
@@ -57,16 +55,16 @@ export class ArtistOverviewComponent implements OnInit, OnDestroy {
 		}
 		this.jam.artist.id({
 			id: this.id,
-			artistState: true,
-			artistAlbums: true,
-			albumState: true,
-			artistInfo: true
+			artistIncState: true,
+			artistIncAlbums: true,
+			albumIncState: true,
+			artistIncInfo: true
 		})
 			.then(artist => {
 				this.artist = artist;
 				this.albums = (artist.albums || []).map(a => new JamAlbumObject(a, this.library));
 				if (this.albums.length === 0) {
-					this.tracksQuery = {artistID: this.artist.id};
+					this.tracksQuery = {artistIDs: [this.artist.id]};
 				}
 			})
 			.catch(e => {

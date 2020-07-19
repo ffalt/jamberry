@@ -41,9 +41,9 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 	load(): void {
 		this.jam.track.id({
 			id: this.id,
-			trackState: true,
-			trackTag: true,
-			trackMedia: true
+			trackIncState: true,
+			trackIncTag: true,
+			trackIncMedia: true
 		})
 			.then(track => {
 				this.display(track);
@@ -54,7 +54,7 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 	}
 
 	loadWaveForm(): void {
-		this.jam.media.waveform_binary(this.id, 'svg')
+		this.jam.waveform.svg({id: this.id, width: 2000})
 			.then(data => {
 				this.svg = extractSVGParts(data);
 			})

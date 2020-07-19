@@ -68,8 +68,8 @@ export class AdminRootService implements OnDestroy {
 		}
 	}
 
-	rescanRoot(root: Jam.Root, refreshMeta?: boolean): void {
-		this.jam.root.refresh({id: root.id, refreshMeta})
+	rescanRoot(root: Jam.Root): void {
+		this.jam.root.refresh({id: root.id})
 			.then(() => {
 				this.refreshRoot(root.id);
 			})
@@ -78,8 +78,8 @@ export class AdminRootService implements OnDestroy {
 			});
 	}
 
-	rescanRoots(refreshMeta?: boolean): void {
-		this.jam.root.refreshAll({refreshMeta})
+	rescanRoots(): void {
+		this.jam.root.refresh({})
 			.then(() => {
 				this.refreshRoots();
 			})
@@ -89,7 +89,7 @@ export class AdminRootService implements OnDestroy {
 	}
 
 	removeRoot(root: Jam.Root): void {
-		this.jam.root.delete({id: root.id})
+		this.jam.root.remove({id: root.id})
 			.then(item => {
 				this.folderService.waitForQueueResult('Removing Root', item, [])
 					.pipe(takeUntil(this.unsubscribe)).subscribe(() => {

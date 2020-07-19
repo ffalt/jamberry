@@ -1,59 +1,76 @@
-// THIS FILE IS GENERATED, DO NOT EDIT MANUALLY
+// @generated
+// This file was automatically generated and should not be edited.
 
 import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
 
-import {JamService} from './jam.service';
-
-import {JamAccessService} from './jam.access.service';
-import {JamAdminService} from './jam.admin.service';
-import {JamAlbumService} from './jam.album.service';
-import {JamArtistService} from './jam.artist.service';
 import {JamAuthService} from './jam.auth.service';
 import {JamBaseService} from './jam.base.service';
-import {JamBookmarkService} from './jam.bookmark.service';
-import {JamChatService} from './jam.chat.service';
-import {JamEpisodeService} from './jam.episode.service';
-import {JamFolderService} from './jam.folder.service';
 import {JamHttpService} from './jam.http.service';
-import {JamImageService} from './jam.image.service';
-import {JamMediaService} from './jam.media.service';
-import {JamMetadataService} from './jam.metadata.service';
-import {JamPlaylistService} from './jam.playlist.service';
-import {JamPlayqueueService} from './jam.playqueue.service';
-import {JamPodcastService} from './jam.podcast.service';
-import {JamRadioService} from './jam.radio.service';
-import {JamRootService} from './jam.root.service';
-import {JamSeriesService} from './jam.series.service';
-import {JamTrackService} from './jam.track.service';
-import {JamUserService} from './jam.user.service';
-import {JamVariousService} from './jam.various.service';
+import {JamService} from './jam.service';
+
+import {JamAdminService} from './services/jam.admin.service';
+import {JamAlbumService} from './services/jam.album.service';
+import {JamArtistService} from './services/jam.artist.service';
+import {JamArtworkService} from './services/jam.artwork.service';
+import {JamAutocompleteService} from './services/jam.autocomplete.service';
+import {JamBookmarkService} from './services/jam.bookmark.service';
+import {JamChatService} from './services/jam.chat.service';
+import {JamDownloadService} from './services/jam.download.service';
+import {JamEpisodeService} from './services/jam.episode.service';
+import {JamFolderService} from './services/jam.folder.service';
+import {JamGenreService} from './services/jam.genre.service';
+import {JamImageService} from './services/jam.image.service';
+import {JamMetaDataService} from './services/jam.metadata.service';
+import {JamNowPlayingService} from './services/jam.nowplaying.service';
+import {JamPingService} from './services/jam.ping.service';
+import {JamPlaylistService} from './services/jam.playlist.service';
+import {JamPlayQueueService} from './services/jam.playqueue.service';
+import {JamPodcastService} from './services/jam.podcast.service';
+import {JamRadioService} from './services/jam.radio.service';
+import {JamRootService} from './services/jam.root.service';
+import {JamSeriesService} from './services/jam.series.service';
+import {JamSessionService} from './services/jam.session.service';
+import {JamStateService} from './services/jam.state.service';
+import {JamStatsService} from './services/jam.stats.service';
+import {JamStreamService} from './services/jam.stream.service';
+import {JamTrackService} from './services/jam.track.service';
+import {JamUserService} from './services/jam.user.service';
+import {JamWaveformService} from './services/jam.waveform.service';
 
 export const jamProviders: Array<Provider> =
 	[
-		JamAccessService,
+		JamAuthService,
+		JamBaseService,
+		JamHttpService,
 		JamAdminService,
 		JamAlbumService,
 		JamArtistService,
-		JamAuthService,
-		JamBaseService,
+		JamArtworkService,
+		JamAutocompleteService,
 		JamBookmarkService,
 		JamChatService,
+		JamDownloadService,
 		JamEpisodeService,
 		JamFolderService,
-		JamHttpService,
+		JamGenreService,
 		JamImageService,
-		JamMediaService,
-		JamMetadataService,
+		JamMetaDataService,
+		JamNowPlayingService,
+		JamPingService,
 		JamPlaylistService,
-		JamPlayqueueService,
+		JamPlayQueueService,
 		JamPodcastService,
 		JamRadioService,
 		JamRootService,
 		JamSeriesService,
+		JamSessionService,
+		JamStateService,
+		JamStatsService,
+		JamStreamService,
 		JamTrackService,
 		JamUserService,
-		JamVariousService,
+		JamWaveformService,
 		JamService
 	];
 
@@ -68,7 +85,7 @@ export const jamProviders: Array<Provider> =
 })
 export class JamModule {
 
-	static forRoot(provider: Provider): ModuleWithProviders {
+	static forRoot(provider: Provider): ModuleWithProviders<JamModule> {
 		return {
 			ngModule: JamModule,
 			providers: [provider, ...jamProviders]

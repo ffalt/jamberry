@@ -1,8 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {getUrlType, ListTypeUrlNamesKeys} from '@app/utils/jam-lists';
-import {AlbumType, JamObjectType, JamParameters} from '@jam';
+import {randomString} from '@app/utils/random';
+import {AlbumType, JamObjectType, ListType} from '@jam';
 import {LibraryService} from '@library/services';
+import {PlaylistService, PodcastService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {JamObjsLoader} from '../../model/loaders';
@@ -14,15 +16,17 @@ import {JamObjsLoader} from '../../model/loaders';
 })
 export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	albumType: AlbumType;
-	listType: JamParameters.ListType;
+	listType: ListType;
 	jamType: JamObjectType;
-	listQuery: { listType: JamParameters.ListType; albumType?: AlbumType };
+	listQuery: { listType: ListType; albumType?: AlbumType };
 	loader: JamObjsLoader;
 	loadAll = false;
 	valid = false;
+	changeTrigger: string;
 	protected unsubscribe = new Subject();
+	protected unsubscribeRefresh = new Subject();
 
-	constructor(protected route: ActivatedRoute, public library: LibraryService) {
+	constructor(protected route: ActivatedRoute, protected playlistService: PlaylistService, protected podcastService: PodcastService, public library: LibraryService) {
 	}
 
 	ngOnInit(): void {
@@ -53,11 +57,25 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 						} else {
 							this.loadAll = true;
 						}
+						this.unsubscribeRefresh.next();
+						this.unsubscribeRefresh.complete();
+						this.playlistService.playlistsChange.pipe(takeUntil(this.unsubscribeRefresh)).subscribe(() => {
+							this.changeTrigger = randomString();
+						});
 						this.valid = true;
 						break;
 					case JamObjectType.podcast:
 						this.loader = this.library.podcastLoader;
-						this.loadAll = true;
+						if (this.listType) {
+							this.listQuery = {listType: this.listType};
+						} else {
+							this.loadAll = true;
+						}
+						this.unsubscribeRefresh.next();
+						this.unsubscribeRefresh.complete();
+						this.podcastService.podcastsChange.pipe(takeUntil(this.unsubscribeRefresh)).subscribe(() => {
+							this.changeTrigger = randomString();
+						});
 						this.valid = true;
 						break;
 					case JamObjectType.series:
@@ -85,6 +103,8 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
+		this.unsubscribeRefresh.next();
+		this.unsubscribeRefresh.complete();
 	}
 
 }

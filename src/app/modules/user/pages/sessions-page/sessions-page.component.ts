@@ -21,7 +21,7 @@ export class SessionsPageComponent implements OnInit {
 
 	remove(session: Jam.UserSession): void {
 		const id = session.id;
-		this.jam.user.sessions_delete({id})
+		this.jam.session.remove({id})
 			.then(() => {
 				this.sessions = this.sessions.filter(s => s.id !== id);
 				this.notify.success('Session Login removed');
@@ -32,7 +32,7 @@ export class SessionsPageComponent implements OnInit {
 	}
 
 	refresh(): void {
-		this.jam.user.sessions_list()
+		this.jam.session.list()
 			.then(list => {
 				this.sessions = list;
 			})

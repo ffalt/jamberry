@@ -13,14 +13,14 @@ export class PlaylistService {
 	}
 
 	async remove(playlist: Jam.Playlist): Promise<void> {
-		await this.jam.playlist.delete({id: playlist.id});
+		await this.jam.playlist.remove({id: playlist.id});
 		this.playlists = this.playlists.filter(pl => pl.id !== playlist.id);
 		this.playlistsChange.emit(this.playlists);
 		this.playlistChange.emit(playlist.id, undefined);
 	}
 
-	savePlaylist(playlist: Jam.Playlist, trackIDs: Array<string>): void {
-		this.jam.playlist.update({id: playlist.id, trackIDs})
+	savePlaylist(playlist: Jam.Playlist, mediaIDs: Array<string>): void {
+		this.jam.playlist.update({id: playlist.id, name: playlist.name, isPublic: playlist.isPublic, mediaIDs})
 			.then(() => {
 				this.notify.success('Playlist updated');
 				this.refreshPlaylist(playlist.id);
@@ -30,17 +30,25 @@ export class PlaylistService {
 			});
 	}
 
-	addToPlaylist(playlist: Jam.Playlist, newTrackIDs: Array<string>): void {
-		this.savePlaylist(playlist, (playlist.trackIDs || []).concat(newTrackIDs));
+	addToPlaylist(playlist: Jam.Playlist, newMediaIDs: Array<string>): void {
+		this.savePlaylist(playlist, (playlist.entries || []).map(entry => entry.id).concat(newMediaIDs));
 	}
 
 	removeFromPlaylist(playlist: Jam.Playlist, removeTrackIDs: Array<string>): void {
-		const trackIDs = (playlist.trackIDs || []).filter(t => removeTrackIDs.includes(t));
+		const trackIDs = (playlist.entries || []).map(entry => entry.id).filter(t => removeTrackIDs.includes(t));
 		this.savePlaylist(playlist, trackIDs);
 	}
 
 	refreshPlaylist(id: string): void {
-		this.jam.playlist.id({id, playlistTracks: true, playlistState: true, trackTag: true, trackState: true})
+		this.jam.playlist.id({
+			id,
+			playlistIncEntries: true,
+			playlistIncState: true,
+			trackIncTag: true,
+			trackIncState: true,
+			episodeIncTag: true,
+			episodeIncState: true
+		})
 			.then(playlist => {
 				const index = this.playlists.findIndex(p => p.id === id);
 				if (index < 0) {
@@ -56,13 +64,13 @@ export class PlaylistService {
 			});
 	}
 
-	async getTracks(id: string): Promise<Array<Jam.Track>> {
-		const playlist = await this.jam.playlist.id({id, playlistTracks: true});
-		return playlist.tracks || [];
+	async getTracks(id: string): Promise<Array<Jam.MediaBase>> {
+		const playlist = await this.jam.playlist.id({id, playlistIncEntries: true});
+		return (playlist.entries || []);
 	}
 
 	async getLists(): Promise<Array<Jam.Playlist>> {
-		const list = await this.jam.playlist.search({playlistState: true});
+		const list = await this.jam.playlist.search({playlistIncState: true});
 		this.playlists = list.items;
 		this.playlistsChange.emit(this.playlists);
 		return list.items;

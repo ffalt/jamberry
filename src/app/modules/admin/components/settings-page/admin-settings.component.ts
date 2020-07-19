@@ -37,7 +37,7 @@ export class AdminSettingsComponent implements OnInit {
 		const settings = this.settings;
 		settings.index.ignoreArticles = this.ignoreArticles.split('\n').map(s => s.trim()).filter(s => s.length > 0);
 		this.settings = undefined;
-		this.jam.admin.settings_update(settings)
+		this.jam.admin.settingsUpdate(settings)
 			.then(() => {
 				this.notify.success('Settings updated');
 				this.settings = settings;

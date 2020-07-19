@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {MediaSessionEvents} from '@core/services/mediasession/mediasession.events';
 import {MediaSessionService} from '@core/services/mediasession/mediasession.service';
-import {Jam, JamService, PodcastStatus} from '@jam';
+import {Jam, JamObjectType, JamService, PodcastStatus} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {NotifyService} from '../notify/notify.service';
@@ -40,8 +40,9 @@ class StopWatch {
 export class PlayerService implements OnDestroy {
 	static localPlayerStorageName = 'player';
 	static localQueueStorageName = 'queue';
-	currentEpisode: Jam.PodcastEpisode;
+	currentEpisode: Jam.Episode;
 	currentTrack: Jam.Track;
+	currentMedia: Jam.MediaBase;
 	currentTime: number | undefined = undefined;
 	totalTime: number | undefined = undefined;
 	isMuted: boolean = false;
@@ -90,26 +91,29 @@ export class PlayerService implements OnDestroy {
 		this.next();
 	}
 
-	play(track: Jam.Track, addToQueue = false, startSeek?: number, paused?: boolean): void {
-		if (startSeek === undefined && this.isPlaying && this.currentTrack && this.currentTrack.id === track.id) {
+	play(media: Jam.MediaBase, addToQueue = false, startSeek?: number, paused?: boolean): void {
+		if (startSeek === undefined && this.isPlaying && this.currentMedia && this.currentMedia.id === media.id) {
 			return;
 		}
 		if (addToQueue) {
-			this.queue.add(track);
+			this.queue.add(media);
 			this.syncQueueWithLocalStorage();
 		}
-		this.queue.setIndexByTrack(track);
+		this.queue.setIndexByTrack(media);
 		this.scrobbled = false;
-		this.currentTrack = track;
 		this.currentEpisode = undefined;
+		this.currentTrack = undefined;
+		this.currentMedia = media;
 		this.currentTime = (startSeek || 0);
 		this.scrobbleWatch.reset();
-		if ((track as Jam.PodcastEpisode).podcastID) {
-			this.currentEpisode = track as Jam.PodcastEpisode;
+		if (media.objType === JamObjectType.episode) {
+			this.currentEpisode = media as Jam.Episode;
+		} else {
+			this.currentTrack = media as Jam.Track;
 		}
-		this.soundPlayer.initialize(track, startSeek, paused, e => {
+		this.soundPlayer.initialize(media, startSeek, paused, e => {
 			if (!e) {
-				this.setCurrentTrack(track);
+				this.setCurrentMedia(media);
 				this.setPlaying(!paused);
 				this.syncPlayerWithLocalStorage();
 			} else {
@@ -119,7 +123,8 @@ export class PlayerService implements OnDestroy {
 	}
 
 	stop(): void {
-		if (this.currentTrack !== undefined) {
+		if (this.currentMedia !== undefined) {
+			this.currentMedia = undefined;
 			this.currentTrack = undefined;
 			this.currentEpisode = undefined;
 			this.soundPlayer.stop();
@@ -128,19 +133,20 @@ export class PlayerService implements OnDestroy {
 	}
 
 	onTrackFinish(): void {
-		if (!this.currentTrack) {
+		if (!this.currentMedia) {
 			return;
 		}
 		if (this.repeatTrack) {
-			this.play(this.currentTrack);
+			this.play(this.currentMedia);
 			return;
 		}
-		const track = this.queue.next();
-		if (track) {
-			this.play(track);
+		const entry = this.queue.next();
+		if (entry) {
+			this.play(entry);
 		} else {
 			this.currentTrack = undefined;
 			this.currentEpisode = undefined;
+			this.currentMedia = undefined;
 			this.currentTime = undefined;
 			this.totalTime = undefined;
 			this.queue.currentIndex = -1;
@@ -151,7 +157,7 @@ export class PlayerService implements OnDestroy {
 	}
 
 	togglePlayPause(): void {
-		if (this.currentTrack !== undefined) {
+		if (this.currentMedia !== undefined) {
 			if (!this.isPlaying) {
 				this.soundPlayer.play();
 			} else {
@@ -184,7 +190,7 @@ export class PlayerService implements OnDestroy {
 	}
 
 	seek(time: number): void {
-		if (this.currentTrack) {
+		if (this.currentMedia) {
 			this.soundPlayer.seek(time);
 			this.syncPlayerWithLocalStorage();
 		}
@@ -243,9 +249,9 @@ export class PlayerService implements OnDestroy {
 		this.subscribers[event].push(handler);
 	}
 
-	startTrack(track: Jam.Track): void {
+	startTrack(media: Jam.MediaBase): void {
 		this.queue.clear();
-		this.play(track, true);
+		this.play(media, true);
 	}
 
 	startSeries(series: Jam.Series): void {
@@ -305,7 +311,7 @@ export class PlayerService implements OnDestroy {
 
 	startTracks(tracks: Array<Jam.Track>): void {
 		this.queue.clear();
-		this.queue.addTracks(tracks);
+		this.queue.addMedias(tracks);
 		this.next();
 	}
 
@@ -343,7 +349,7 @@ export class PlayerService implements OnDestroy {
 			});
 	}
 
-	startEpisode(episode: Jam.PodcastEpisode): void {
+	startEpisode(episode: Jam.Episode): void {
 		if (episode.status === PodcastStatus.completed) {
 			this.queue.clear();
 			this.play(episode, true);
@@ -351,9 +357,9 @@ export class PlayerService implements OnDestroy {
 		}
 	}
 
-	startEpisodeSeek(episode: Jam.PodcastEpisode, seek: number): void {
+	startEpisodeSeek(episode: Jam.Episode, seek: number): void {
 		if (episode && episode.status === PodcastStatus.completed) {
-			if (this.currentTrack && this.currentTrack.id === episode.id) {
+			if (this.currentMedia && this.currentMedia.id === episode.id) {
 				this.seek(seek);
 			} else {
 				this.queue.clear();
@@ -362,7 +368,7 @@ export class PlayerService implements OnDestroy {
 		}
 	}
 
-	addEpisode(episode: Jam.PodcastEpisode): void {
+	addEpisode(episode: Jam.Episode): void {
 		if (episode.status === PodcastStatus.completed) {
 			this.resolveAddTracks(this.queue.addEpisode(episode));
 		}
@@ -432,7 +438,7 @@ export class PlayerService implements OnDestroy {
 			this.stopPositionStore();
 		}
 		this.syncPlayerWithLocalStorage();
-		this.mediasession.setPlaybackState(play, !!this.currentTrack);
+		this.mediasession.setPlaybackState(play, !!this.currentMedia);
 	}
 
 	private loadFromStorage(): void {
@@ -457,7 +463,7 @@ export class PlayerService implements OnDestroy {
 	}
 
 	private syncQueueWithLocalStorage(): void {
-		this.userStorage.set(PlayerService.localQueueStorageName, this.queue.tracks);
+		this.userStorage.set(PlayerService.localQueueStorageName, this.queue.entries);
 	}
 
 	private subscribeSoundPlayerEvents(): void {
@@ -524,7 +530,7 @@ export class PlayerService implements OnDestroy {
 				const scrobbleTime = Math.min(this.totalTime / 2, 4 * 60 * 60 * 1000);
 				if (scrobbleTime > 0 && playTime >= scrobbleTime) {
 					this.scrobbled = true;
-					this.jam.media.stream_scrobble({id: this.currentTrack.id}).catch(e => {
+					this.jam.nowplaying.scrobble({id: this.currentMedia.id}).catch(e => {
 						console.error(e);
 					});
 				}
@@ -572,18 +578,18 @@ export class PlayerService implements OnDestroy {
 		}
 	}
 
-	private setCurrentTrack(track: Jam.Track): void {
-		this.mediasession.setTrack(track);
-		this.setPushNotification(track);
+	private setCurrentMedia(media: Jam.MediaBase): void {
+		this.mediasession.setMedia(media);
+		this.setPushNotification(media);
 	}
 
-	private setPushNotification(track: Jam.Track): void {
-		if (track) {
+	private setPushNotification(media: Jam.MediaBase): void {
+		if (media) {
 			this.notification.show({
-				body: track.tag.artist,
-				title: track.tag.title,
+				body: media.tag.artist,
+				title: media.tag.title,
 				autoclose: 30,
-				icon: this.jam.base.image_url(track.id, 128)
+				icon: this.jam.image.imageUrl({id: media.id, size: 128})
 			})
 				.catch(e => {
 					console.error(e);

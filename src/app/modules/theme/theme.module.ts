@@ -16,7 +16,7 @@ export interface ThemeOptions {
 })
 
 export class ThemeModule {
-	static forRoot(options: ThemeOptions): ModuleWithProviders {
+	static forRoot(options: ThemeOptions): ModuleWithProviders<ThemeModule> {
 		return {
 			ngModule: ThemeModule,
 			providers: [

@@ -1,8 +1,9 @@
 import {Component, Input, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminUserService, AdminUserServiceEditData, AppService, DialogsService, NotifyService} from '@core/services';
+import {AdminUserService, AdminUserServiceEditData, AppService, NotifyService} from '@core/services';
 import {Jam} from '@jam';
+import {DialogsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogAvatarComponent} from '../dialog-avatar/dialog-avatar.component';
@@ -39,7 +40,6 @@ export class UserListComponent implements OnDestroy {
 			user,
 			edit: {
 				password: '',
-				id: user.id,
 				name: user.name,
 				email: user.email,
 				roleAdmin: user.roles.admin,

@@ -30,7 +30,7 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption>> {
-		const result = await this.jam.various.autocomplete({query, album: 5, artist: 5, playlist: 5, podcast: 5, track: 5, episode: 5});
+		const result = await this.jam.autocomplete.autocomplete({query, album: 5, artist: 5, playlist: 5, podcast: 5, track: 5, episode: 5});
 		const parts: Array<{ type: string; list: Array<{ id: string; name: string }> }> = [
 			{type: objTypes.artist, list: result.artists},
 			{type: objTypes.album, list: result.albums},

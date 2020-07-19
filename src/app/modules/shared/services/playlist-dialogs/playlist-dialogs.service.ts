@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {DialogsService, NotifyService} from '@core/services';
+import {NotifyService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {ChoosePlaylistData, DialogChoosePlaylistComponent, DialogPlaylistComponent} from '@shared/components';
+import {DialogsService} from '../dialogs/dialogs.service';
 import {PlaylistService} from '../playlist/playlist.service';
 
 export interface PlaylistEdit {
@@ -10,7 +11,7 @@ export interface PlaylistEdit {
 	name: string;
 	comment: string;
 	isPublic: boolean;
-	tracks: Array<Jam.Track>;
+	entries: Array<Jam.MediaBase>;
 }
 
 @Injectable()
@@ -22,12 +23,12 @@ export class PlaylistDialogsService {
 		private dialogOverlay: DialogOverlayService, private dialogsService: DialogsService) {
 	}
 
-	newPlaylist(tracks?: Array<Jam.Track>): void {
+	newPlaylist(entries?: Array<Jam.MediaBase>): void {
 		const edit: PlaylistEdit = {
 			name: '',
 			comment: '',
 			isPublic: false,
-			tracks: tracks ? tracks.slice(0) : []
+			entries: entries ? entries.slice(0) : []
 		};
 		this.dialogOverlay.open({
 			title: 'New Playlist',
@@ -59,13 +60,13 @@ export class PlaylistDialogsService {
 	}
 
 	editPlaylist(playlist: Jam.Playlist): void {
-		this.getTracks(playlist.id)
-			.then(tracks => {
+		this.getPlaylistMedias(playlist.id)
+			.then(medias => {
 				const edit: PlaylistEdit = {
 					name: playlist.name,
 					comment: playlist.comment,
 					isPublic: playlist.isPublic,
-					tracks: tracks.slice(0),
+					entries: medias.slice(0),
 					playlist
 				};
 				this.dialogOverlay.open({
@@ -90,20 +91,20 @@ export class PlaylistDialogsService {
 			});
 	}
 
-	async getTracks(id: string): Promise<Array<Jam.Track>> {
-		const playlist = await this.jam.playlist.id({id, playlistTracks: true});
-		return playlist.tracks || [];
+	async getPlaylistMedias(id: string): Promise<Array<Jam.MediaBase>> {
+		const playlist = await this.jam.playlist.id({id, playlistIncEntries: true});
+		return playlist.entries;
 	}
 
 	async applyDialogPlaylist(edit: PlaylistEdit): Promise<void> {
-		const trackIDs = edit.tracks.map(t => t.id);
+		const mediaIDs = edit.entries.map(t => t.id);
 		if (!edit.playlist) {
 			if (edit.name.length > 0) {
 				await this.jam.playlist.create({
 					name: edit.name,
 					isPublic: edit.isPublic,
 					comment: edit.comment,
-					trackIDs
+					mediaIDs
 				});
 				this.playlistService.refreshLists();
 			}
@@ -113,16 +114,14 @@ export class PlaylistDialogsService {
 				name: edit.name,
 				isPublic: edit.isPublic,
 				comment: edit.comment,
-				trackIDs
+				mediaIDs
 			});
 			this.playlistService.refreshPlaylist(edit.playlist.id);
 		}
 	}
 
-	choosePlaylist(getTracks: () => Promise<Jam.TrackList>): void {
-		const data: ChoosePlaylistData = {
-			getTracks
-		};
+	choosePlaylist(getMedias: () => Promise<Array<Jam.MediaBase>>): void {
+		const data: ChoosePlaylistData = {getMedias};
 		this.dialogOverlay.open({
 			title: 'Choose Playlist',
 			panelClass: 'overlay-panel-large',
@@ -134,47 +133,58 @@ export class PlaylistDialogsService {
 	// unify with player.addXYZ functions
 
 	addTrack(track: Jam.Track): void {
-		this.choosePlaylist(() => PlaylistDialogsService.tracksPromise([track]));
+		this.choosePlaylist(() => PlaylistDialogsService.mediasPromise([track]));
 	}
 
 	addAlbum(album: Jam.Album): void {
-		this.choosePlaylist(() => this.jam.album.tracks({ids: [album.id], trackTag: true, trackState: true}));
+		this.choosePlaylist(() => (this.jam.album.tracks({ids: [album.id], trackIncTag: true, trackIncState: true}))
+			.then(data => data.items));
 	}
 
 	addFolder(folder: Jam.Folder): void {
-		this.choosePlaylist(() => this.jam.folder.tracks({ids: [folder.id], recursive: true, trackTag: true, trackState: true}));
+		this.choosePlaylist(() => this.jam.folder.tracks({childOfID: folder.id, trackIncTag: true, trackIncState: true})
+			.then(data => data.items));
 	}
 
 	addArtist(artist: Jam.Artist): void {
-		this.choosePlaylist(() => this.jam.artist.tracks({ids: [artist.id], trackTag: true, trackState: true}));
+		this.choosePlaylist(() => this.jam.artist.tracks({ids: [artist.id], trackIncTag: true, trackIncState: true})
+			.then(data => data.items));
 	}
 
 	addPlaylist(playlist: Jam.Playlist): void {
-		this.choosePlaylist(() => this.jam.playlist.tracks({ids: [playlist.id], trackTag: true, trackState: true}));
+		this.choosePlaylist(() => this.jam.playlist.entries({
+			ids: [playlist.id],
+			trackIncTag: true,
+			trackIncState: true,
+			episodeIncTag: true,
+			episodeIncState: true
+		})
+			.then(data => data.items));
 	}
 
 	addSeries(series: Jam.Series): void {
-		this.choosePlaylist(() => this.jam.series.tracks({ids: [series.id], trackTag: true, trackState: true}));
+		this.choosePlaylist(() => this.jam.series.tracks({ids: [series.id], trackIncTag: true, trackIncState: true})
+			.then(data => data.items));
 	}
 
 	addPodcast(podcast: Jam.Podcast): void {
 		this.choosePlaylist(() => this.jam.episode.search({
-			podcastID: podcast.id,
-			trackTag: true,
-			trackState: true,
-			status: PodcastStatus.completed
-		}));
+			podcastIDs: [podcast.id],
+			episodeIncTag: true,
+			episodeIncState: true,
+			statuses: [PodcastStatus.completed]
+		}).then(data => data.items));
 	}
 
-	addEpisode(episode: Jam.PodcastEpisode): void {
+	addEpisode(episode: Jam.Episode): void {
 		if (episode.status === PodcastStatus.completed) {
-			this.choosePlaylist(() => PlaylistDialogsService.tracksPromise([episode]));
+			this.choosePlaylist(() => PlaylistDialogsService.mediasPromise([episode]));
 		}
 	}
 
-	private static async tracksPromise(tracks: Array<Jam.Track>): Promise<Jam.TrackList> {
-		return new Promise<Jam.TrackList>(resolve => {
-			resolve({items: tracks});
+	private static async mediasPromise(medias: Array<Jam.MediaBase>): Promise<Array<Jam.MediaBase>> {
+		return new Promise<Array<Jam.MediaBase>>(resolve => {
+			resolve(medias);
 		});
 	}
 

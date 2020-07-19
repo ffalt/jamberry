@@ -1,4 +1,5 @@
-import {ID3v2Frames, Jam, JamService, MUSICBRAINZ_VARIOUS_ARTISTS_NAME} from '@jam';
+import {MUSICBRAINZ_VARIOUS_ARTISTS_NAME} from '@app/utils/jam-lists';
+import {ID3v2Frames, Jam, JamService} from '@jam';
 import {Genres} from './genres.consts';
 import {FrameCOMMSubIdsDefs, FrameDef, FrameDefs, FrameTXXXSubIdsDefs, FrameType, FrameUFIDSubIdsDefs} from './id3v2-frames.helper';
 import {
@@ -179,9 +180,9 @@ export class TagEditor {
 				const artist = this.getCellText(edit.cells[artistColIndex]);
 				const title = this.getCellText(edit.cells[titleColIndex]);
 				if (title && artist) {
-					const res = await this.jam.metadata.lyricsovh_search({title, artist});
-					if (res && res.lyrics) {
-						this.updateEditTextCell(edit, lyricsCol, res.lyrics);
+					const res = await this.jam.metadata.lyricsovhSearch({title, artist});
+					if (res?.data?.lyrics) {
+						this.updateEditTextCell(edit, lyricsCol, res.data.lyrics);
 					}
 				}
 			}
@@ -330,7 +331,7 @@ export class TagEditor {
 	upgradeTrackTag(track: Jam.Track): void {
 		if (track.tagRaw && track.tagRaw.version < 4) {
 			let frames: Array<ID3v2Frames.Frame> = TagEditor.getRawTagFrames(track.tagRaw);
-			const newTag: Jam.RawTag = {
+			const newTag: Jam.MediaTagRaw = {
 				version: 4,
 				frames: {}
 			};
@@ -444,7 +445,7 @@ export class TagEditor {
 		this.buildEdits(tracks);
 	}
 
-	private static getRawTagFrames(rawTag: Jam.RawTag): Array<ID3v2Frames.Frame> {
+	private static getRawTagFrames(rawTag: Jam.MediaTagRaw): Array<ID3v2Frames.Frame> {
 		let frames: Array<ID3v2Frames.Frame> = [];
 		Object.keys(rawTag.frames).forEach(key => {
 			frames = frames.concat(rawTag.frames[key]);
@@ -728,7 +729,7 @@ export class TagEditor {
 		});
 		const fillColumns = (
 			track: Jam.Track,
-			tag: Jam.RawTag,
+			tag: Jam.MediaTagRaw,
 			frames: Array<RawTagEditFrame>,
 			parent: RawTagEditRow,
 			oldRow: RawTagEditRow): Array<RawTagEditCell> =>

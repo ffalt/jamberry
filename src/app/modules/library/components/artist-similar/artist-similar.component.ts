@@ -42,7 +42,7 @@ export class ArtistSimilarComponent implements OnInit, OnDestroy {
 		if (!this.id) {
 			return;
 		}
-		this.jam.artist.similar({id: this.id, artistState: true})
+		this.jam.artist.similar({id: this.id, artistIncState: true})
 			.then(data => {
 				this.similar = (data.items || []).map(o => new JamArtistObject(o, this.library));
 			})

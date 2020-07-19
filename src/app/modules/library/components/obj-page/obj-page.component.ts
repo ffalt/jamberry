@@ -85,43 +85,43 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 	async get(id: string): Promise<JamLibraryObject | undefined> {
 		switch (this.type.type) {
 			case JamObjectType.album: {
-				const album = await this.jam.album.id({id, albumState: true});
+				const album = await this.jam.album.id({id, albumIncState: true});
 				return new JamAlbumObject(album, this.library);
 			}
 			case JamObjectType.series: {
-				const series = await this.jam.series.id({id, seriesState: true});
+				const series = await this.jam.series.id({id, seriesIncState: true});
 				return new JamSeriesObject(series, this.library);
 			}
 			case JamObjectType.artist: {
-				const artist = await this.jam.artist.id({id, artistState: true});
+				const artist = await this.jam.artist.id({id, artistIncState: true});
 				return new JamArtistObject(artist, this.library);
 			}
 			case JamObjectType.podcast: {
-				const podcast = await this.jam.podcast.id({id, podcastState: true});
+				const podcast = await this.jam.podcast.id({id, podcastIncState: true});
 				return new JamPodcastObject(podcast, this.library);
 			}
 			case JamObjectType.playlist: {
-				const playlist = await this.jam.playlist.id({id, playlistState: true});
+				const playlist = await this.jam.playlist.id({id, playlistIncState: true});
 				return new JamPlaylistObject(playlist, this.library);
 			}
 			case JamObjectType.track: {
-				const track = await this.jam.track.id({id, trackState: true, trackTag: true});
+				const track = await this.jam.track.id({id, trackIncState: true, trackIncTag: true});
 				return new JamTrackObject(track, this.library);
 			}
 			case JamObjectType.episode: {
-				const episode = await this.jam.episode.id({id, trackState: true, trackTag: true});
+				const episode = await this.jam.episode.id({id, episodeIncState: true, episodeIncTag: true});
 				return new JamEpisodeObject(episode, this.library);
 			}
 			case JamObjectType.folder: {
-				const folder = await this.jam.folder.id({id, folderState: true, folderTag: true});
+				const folder = await this.jam.folder.id({id, folderIncState: true, folderIncTag: true});
 				return new JamFolderObject(folder, this.library);
 			}
 			default:
 		}
 	}
 
-	get asPodcastEpisode(): Jam.PodcastEpisode | undefined {
-		return (this.obj as any) as Jam.PodcastEpisode;
+	get asPodcastEpisode(): Jam.Episode | undefined {
+		return (this.obj as any) as Jam.Episode;
 	}
 
 }

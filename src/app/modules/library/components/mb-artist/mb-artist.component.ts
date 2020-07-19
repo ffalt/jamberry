@@ -31,9 +31,9 @@ export class MbArtistComponent implements OnChanges {
 
 	refresh(): void {
 		if (this.mbArtistID) {
-			this.jam.metadata.musicbrainz_lookup({type: MusicBrainzLookupType.artist, id: this.mbArtistID})
+			this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.artist, mbID: this.mbArtistID})
 				.then(data => {
-					this.display(data.artist);
+					this.display(data.data.artist);
 				})
 				.catch(e => {
 					this.notify.error(e);

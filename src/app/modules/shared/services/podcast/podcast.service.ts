@@ -2,9 +2,10 @@ import {HttpClient} from '@angular/common/http';
 import {EventEmitter, Injectable} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {Poller} from '@app/utils/poller';
-import {DialogsService, NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {NotifyService} from '@core/services';
+import {Jam, JamService, PodcastStatus} from '@jam';
 import {take} from 'rxjs/operators';
+import {DialogsService} from '../dialogs/dialogs.service';
 
 export interface GpodderResult {
 	logo_url: string;
@@ -24,11 +25,12 @@ export class PodcastService {
 	podcastChange = new Notifiers<Jam.Podcast>();
 	episodeChange = new EventEmitter<string>();
 	private podcasts: Array<Jam.Podcast> = [];
-	private episodePoll = new Poller<Jam.PodcastEpisode>((episode, cb) => {
+	private episodePoll = new Poller<Jam.Episode>((episode, cb) => {
 		this.jam.episode.status({id: episode.id})
 			.then(data => {
 				if (data.status !== 'downloading') {
 					episode.status = data.status;
+					episode.error = data.error;
 					this.episodeChange.emit(episode.id);
 					cb(false);
 				} else {
@@ -44,6 +46,7 @@ export class PodcastService {
 			.then(data => {
 				if (data.status !== 'downloading') {
 					podcast.status = data.status;
+					podcast.error = data.error;
 					podcast.lastCheck = data.lastCheck;
 					this.refreshPodcast(podcast.id);
 					cb(false);
@@ -67,7 +70,6 @@ export class PodcastService {
 				(data: Array<GpodderResult>) => {
 					for (const result of data) {
 						if (result.logo_url && result.logo_url.toLowerCase().startsWith('http:')) {
-							// eslint-disable-next-line @typescript-eslint/camelcase
 							result.logo_url = 'https:' + result.logo_url.slice(5);
 						}
 					}
@@ -98,14 +100,14 @@ export class PodcastService {
 	}
 
 	async remove(podcast: Jam.Podcast): Promise<void> {
-		await this.jam.podcast.delete({id: podcast.id});
+		await this.jam.podcast.remove({id: podcast.id});
 		this.podcasts = this.podcasts.filter(pl => pl.id !== podcast.id);
 		this.podcastsChange.emit(this.podcasts);
 		this.podcastChange.emit(podcast.id, undefined);
 	}
 
 	checkPodcasts(): void {
-		this.jam.podcast.refreshAll()
+		this.jam.podcast.refresh({})
 			.then(() => {
 				this.notify.success('Podcasts are updating');
 				this.refresh();
@@ -127,7 +129,7 @@ export class PodcastService {
 	}
 
 	refreshPodcast(id: string): void {
-		this.jam.podcast.id({id, podcastState: true, podcastEpisodes: true, trackState: true, trackTag: true, trackMedia: true})
+		this.jam.podcast.id({id, podcastIncState: true, podcastIncEpisodes: true, episodeIncState: true, episodeIncTag: true, episodeIncMedia: true})
 			.then(podcast => {
 				podcast.episodes.sort((a, b) => b.date - a.date);
 				const index = this.podcasts.findIndex(p => p.id === id);
@@ -138,7 +140,7 @@ export class PodcastService {
 				}
 				this.podcastsChange.emit(this.podcasts);
 				this.podcastChange.emit(id, podcast);
-				if (podcast.status === 'downloading') {
+				if (podcast.status === PodcastStatus.downloading) {
 					this.podcastPoll.poll(podcast);
 				}
 			})
@@ -147,8 +149,8 @@ export class PodcastService {
 			});
 	}
 
-	getTracks(id: string, cb: (episodes: Array<Jam.PodcastEpisode>) => void): void {
-		this.jam.podcast.id({id, podcastEpisodes: true, trackState: true, trackTag: true, trackMedia: true})
+	getTracks(id: string, cb: (episodes: Array<Jam.Episode>) => void): void {
+		this.jam.podcast.id({id, podcastIncEpisodes: true, episodeIncState: true, episodeIncTag: true, episodeIncMedia: true})
 			.then(podcast => {
 				cb(podcast.episodes || []);
 			})
@@ -158,12 +160,12 @@ export class PodcastService {
 	}
 
 	refresh(): void {
-		this.jam.podcast.search({podcastState: true})
+		this.jam.podcast.search({podcastIncState: true})
 			.then(data => {
 				this.podcasts = data.items;
 				this.podcastsChange.emit(this.podcasts);
 				data.items.forEach(podcast => {
-					if (podcast.status === 'downloading') {
+					if (podcast.status === PodcastStatus.downloading) {
 						this.podcastPoll.poll(podcast);
 					}
 				});
@@ -173,10 +175,10 @@ export class PodcastService {
 			});
 	}
 
-	retrieveEpisode(episode: Jam.PodcastEpisode): void {
+	retrieveEpisode(episode: Jam.Episode): void {
 		this.jam.episode.retrieve({id: episode.id})
 			.then(() => {
-				episode.status = 'downloading';
+				episode.status = PodcastStatus.downloading;
 				this.episodePoll.poll(episode);
 			})
 			.catch(e => {

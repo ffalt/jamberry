@@ -19,7 +19,7 @@ export abstract class JamObject {
 
 	abstract navigToParent(): void;
 
-	abstract toggleFav(): void;
+	abstract toggleFav(): Promise<void>;
 
 	abstract onContextMenu($event: MouseEvent, hideGoto?: boolean): void;
 

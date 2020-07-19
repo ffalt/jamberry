@@ -1,12 +1,13 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminFolderService, AppService, DialogsService, NotifyService} from '@core/services';
+import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '@shared/components';
+import {DialogsService} from '@shared/services';
 import {ImageEditOverlayContentComponent} from '../image-edit-overlay-content/image-edit-overlay-content.component';
 
 export interface ArtworkImageNode {
-	artwork: Jam.ArtworkImage;
+	artwork: Jam.Artwork;
 	name: string;
 	type: string;
 	thumbnail: string;
@@ -29,7 +30,7 @@ function extractExt(filename: string): string {
 	styleUrls: ['./artwork-list.component.scss']
 })
 export class ArtworkListComponent implements OnChanges {
-	@Input() artworks: Array<Jam.ArtworkImage>;
+	@Input() artworks: Array<Jam.Artwork>;
 	@Input() folderID: string;
 	nodes: Array<ArtworkImageNode>;
 
@@ -52,7 +53,7 @@ export class ArtworkListComponent implements OnChanges {
 	}
 
 	editArtworkName(node: ArtworkImageNode): void {
-		this.jam.folder.artwork_name_update({id: node.artwork.id, name: node.name})
+		this.jam.artwork.rename({id: node.artwork.id, newName: node.name})
 			.then(item => {
 				this.folderService.waitForQueueResult('Renaming Artwork', item, [this.folderID], []);
 			})
@@ -61,7 +62,7 @@ export class ArtworkListComponent implements OnChanges {
 			});
 	}
 
-	editArtwork(artwork: Jam.ArtworkImage): void {
+	editArtwork(artwork: Jam.Artwork): void {
 		this.dialogOverlay.open({
 			childComponent: ImageEditOverlayContentComponent,
 			title: 'Edit Image',
@@ -70,18 +71,18 @@ export class ArtworkListComponent implements OnChanges {
 		});
 	}
 
-	showArtwork(artwork: Jam.ArtworkImage): void {
+	showArtwork(artwork: Jam.Artwork): void {
 		const name = artwork.types.join(', ');
 		this.dialogOverlay.open({
 			title: name,
 			childComponent: ImageOverlayContentComponent,
-			data: {name, url: this.jam.folder.artwork_image_url({id: artwork.id})}
+			data: {name, url: this.jam.image.imageUrl({id: artwork.id})}
 		});
 	}
 
 	removeArtwork(node: ArtworkImageNode): void {
 		this.dialogs.confirm('Remove Artworks?', `Do you want to delete "${node.artwork.name}"?`, () => {
-			this.jam.folder.artwork_delete({id: node.artwork.id})
+			this.jam.artwork.remove({id: node.artwork.id})
 				.then(item => {
 					this.nodes = this.nodes.filter(n => n !== node);
 					this.folderService.waitForQueueResult('Removing Artwork', item, [this.folderID]);
@@ -100,7 +101,7 @@ export class ArtworkListComponent implements OnChanges {
 					name: extractBasename(artwork.name),
 					type: extractExt(artwork.name),
 					artwork,
-					thumbnail: this.jam.folder.artwork_image_url({id: artwork.id, size: 128})
+					thumbnail: this.jam.image.imageUrl({id: artwork.id, size: 128})
 				}));
 		}
 	}

@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {PlaylistOverviewComponent, TracksPlaylistComponent} from '@library/components';
+import {MediaPlaylistComponent, PlaylistOverviewComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
 
@@ -12,7 +12,7 @@ describe('PlaylistOverviewComponent', () => {
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
 			declarations: [
-				PlaylistOverviewComponent, MockComponent(TracksPlaylistComponent)
+				PlaylistOverviewComponent, MockComponent(MediaPlaylistComponent)
 			]
 		}).compileComponents()
 	);

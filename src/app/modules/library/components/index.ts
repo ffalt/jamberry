@@ -24,6 +24,7 @@ import {IndexComponent} from './index/index.component';
 import {MbAlbumComponent} from './mb-album/mb-album.component';
 import {MbArtistComponent} from './mb-artist/mb-artist.component';
 import {MbRelationsComponent} from './mb-relations/mb-relations.component';
+import {MediaListComponent} from './media-list/media-list.component';
 import {ObjGroupsViewComponent} from './obj-groups-view/obj-groups-view.component';
 import {ObjsLoaderByTypeComponent} from './obj-loader-by-type/objs-loader-by-type.component';
 import {ObjPageComponent} from './obj-page/obj-page.component';
@@ -49,7 +50,7 @@ import {TrackOverviewComponent} from './track-overview/track-overview.component'
 import {TrackSimilarComponent} from './track-similar/track-similar.component';
 import {TracksLoaderByTypeComponent} from './tracks-loader-by-type/tracks-loader-by-type.component';
 import {TracksLoaderComponent} from './tracks-loader/tracks-loader.component';
-import {TracksPlaylistComponent} from './tracks-playlist/tracks-playlist.component';
+import {MediaPlaylistComponent} from './tracks-playlist/media-playlist.component';
 
 export const entryComponents: Array<any> = [
 	ContextMenuObjComponent,
@@ -78,6 +79,7 @@ export const components: Array<any> = [
 	MbAlbumComponent,
 	MbArtistComponent,
 	MbRelationsComponent,
+	MediaListComponent,
 	ObjGroupsViewComponent,
 	ObjPageComponent,
 	ObjPlateComponent,
@@ -101,7 +103,7 @@ export const components: Array<any> = [
 	TrackSimilarComponent,
 	TracksLoaderByTypeComponent,
 	TracksLoaderComponent,
-	TracksPlaylistComponent,
+	MediaPlaylistComponent,
 	StartPageComponent,
 	QueuePageComponent,
 	SearchPageComponent,
@@ -150,7 +152,7 @@ export * from './track-overview/track-overview.component';
 export * from './track-similar/track-similar.component';
 export * from './tracks-loader-by-type/tracks-loader-by-type.component';
 export * from './tracks-loader/tracks-loader.component';
-export * from './tracks-playlist/tracks-playlist.component';
+export * from './tracks-playlist/media-playlist.component';
 export * from './start-page/start-page.component';
 export * from './queue-page/queue-page.component';
 export * from './search-page/search-page.component';

@@ -34,7 +34,7 @@ import {CONTEXT_MENU_OPTIONS} from './context-menu.tokens';
 	]
 })
 export class ContextMenuModule {
-	static forRoot(options?: ContextMenuOptions): ModuleWithProviders {
+	static forRoot(options?: ContextMenuOptions): ModuleWithProviders<ContextMenuModule> {
 		return {
 			ngModule: ContextMenuModule,
 			providers: [

@@ -13,8 +13,8 @@ export class DialogPlaylistComponent implements DialogOverlay<PlaylistEdit> {
 	playlistEdit: PlaylistEdit;
 	@ViewChild('playlistNameInput', {static: true}) playlistNameInput: ElementRef;
 
-	remove(track: Jam.Track): void {
-		this.playlistEdit.tracks = this.playlistEdit.tracks.filter(t => t.id !== track.id);
+	remove(track: Jam.MediaBase): void {
+		this.playlistEdit.entries = this.playlistEdit.entries.filter(t => t.id !== track.id);
 	}
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PlaylistEdit>>): void {

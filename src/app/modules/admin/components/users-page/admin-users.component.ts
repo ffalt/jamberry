@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminUserService, AdminUserServiceEditData, AppService, DialogsService, NotifyService} from '@core/services';
+import {AdminUserService, AdminUserServiceEditData, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
+import {DialogsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogUserComponent} from '../dialog-user/dialog-user.component';
@@ -69,7 +70,6 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 		const edit: AdminUserServiceEditData = {
 			edit: {
 				password: '',
-				id: '',
 				name: '',
 				email: '',
 				roleAdmin: false,

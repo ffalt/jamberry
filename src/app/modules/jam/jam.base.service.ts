@@ -1,6 +1,5 @@
-// THIS FILE IS GENERATED, DO NOT EDIT MANUALLY
-
-/* eslint-disable @typescript-eslint/camelcase */
+// @generated
+// This file was automatically generated and should not be edited.
 
 import {HttpEvent, HttpParams, HttpSentEvent} from '@angular/common/http';
 import {Injectable} from '@angular/core';
@@ -8,8 +7,6 @@ import {Observable} from 'rxjs';
 
 import {JamAuthService} from './jam.auth.service';
 import {JamHttpService} from './jam.http.service';
-import {Jam} from './model/jam-rest-data';
-import {JamParameters} from './model/jam-rest-params';
 
 @Injectable()
 export class JamBaseService {
@@ -34,7 +31,7 @@ export class JamBaseService {
 				}
 			}
 		}
-		return {url: this.authService.auth.server + this.authService.apiPrefix + view, parameters: result};
+		return {url: this.authService.auth.server + JamAuthService.apiPrefix + view, parameters: result};
 	}
 
 	buildUrl(view: string, params: any, forDOM: boolean): string {
@@ -48,13 +45,20 @@ export class JamBaseService {
 		return this.http.raw(url, {...this.authService.getHTTPOptions(), params: parameters});
 	}
 
-	async get<T>(view: string, params: any): Promise<T> {
+	async get<T>(view: string, params: any, responseType?: any): Promise<T> {
 		const {url, parameters} = this.buildRequest(view, params, false);
-		return this.http.get(url, {...this.authService.getHTTPOptions(), params: parameters});
+		return this.http.get(url, {...this.authService.getHTTPOptions(), responseType, params: parameters});
 	}
 
 	async post<T>(view: string, params: any, body: any): Promise<T> {
 		return this.http.post<T>(this.buildUrl(view, params, false), body, this.authService.getHTTPOptions());
+	}
+
+	async requestString(path: string, params: any): Promise<string> {
+		if (!this.authService.isLoggedIn()) {
+			return Promise.reject(Error('Not logged in'));
+		}
+		return this.get<string>(path, params, 'text');
 	}
 
 	async requestData<T>(path: string, params: any): Promise<T> {
@@ -72,11 +76,11 @@ export class JamBaseService {
 	}
 
 	async requestPostDataOK(path: string, params: any): Promise<void> {
-		await this.requestPostData<{}>(path, params);
+		await this.requestPostData(path, params);
 	}
 
 	async requestOK(path: string, params: any): Promise<void> {
-		await this.requestData<{}>(path, params);
+		await this.requestData(path, params);
 	}
 
 	buildRequestUrl(view: string, params?: any, forDom: boolean = true): string {
@@ -102,25 +106,4 @@ export class JamBaseService {
 		options.reportProgress = true;
 		return this.http.postObserve(url, formData, options);
 	}
-
-	async state(type: string, params: JamParameters.ID): Promise<Jam.State> {
-		return this.requestData<Jam.State>(`${type}/state`, params);
-	}
-
-	async fav(type: string, params: JamParameters.Fav): Promise<Jam.State> {
-		return this.requestPostData<Jam.State>(`${type}/fav/update`, params);
-	}
-
-	async rate(type: string, params: JamParameters.Rate): Promise<Jam.State> {
-		return this.requestPostData<Jam.State>(`${type}/rate/update`, params);
-	}
-
-	image_url(id: string, size?: number, format?: JamParameters.ImageFormatType): string {
-		if ((!id) || (id.length === 0)) {
-			return '';
-		}
-		const s = (size !== undefined ? `-${size.toString()}` : '');
-		return this.buildRequestUrl(`image/${id}${s}` + (format ? '.' + format : ''));
-	}
-
 }

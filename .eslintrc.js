@@ -13,7 +13,9 @@ module.exports = {
 		"@typescript-eslint"
 	],
 	"extends": [
-		'eslint:recommended'
+		'eslint:recommended',
+		"plugin:@typescript-eslint/eslint-recommended",
+		'plugin:@typescript-eslint/recommended',  // Uses the recommended rules from the @typescript-eslint/eslint-plugin
 	],
 	"rules": {},
 	"overrides": [
@@ -40,6 +42,7 @@ module.exports = {
 				"@typescript-eslint/no-inferrable-types": "off",
 				"@typescript-eslint/no-empty-interface": "off",
 				"@typescript-eslint/no-unused-vars": ["error", {"args": "none"}],
+				"@typescript-eslint/explicit-module-boundary-types": "off",
 				"@typescript-eslint/member-delimiter-style": [
 					"error",
 					{

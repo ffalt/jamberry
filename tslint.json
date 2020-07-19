@@ -15,6 +15,9 @@
 		]
 	},
 	"rules": {
+    "deprecation": {
+      "severity": "warning"
+    },
 		"no-assign-mutated-array": false,
 		"throw-error": {
 			"severity": "error"
@@ -39,7 +42,6 @@
 		"rxjs-no-unsafe-takeuntil": {
 			"severity": "error"
 		},
-		"no-unused-variable": false,
 		"adjacent-overload-signatures": true,
 		"align": [
 			true,

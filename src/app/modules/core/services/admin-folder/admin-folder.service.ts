@@ -82,7 +82,7 @@ export class AdminFolderService {
 		this.current = this.queue.shift();
 		if (this.current) {
 			const queryPoll = new Poller<AdminChangeQueueInfoPoll>((data, cb) => {
-				this.jam.admin.queue_id({id: data.id})
+				this.jam.admin.queueId({id: data.id})
 					.then(result => {
 						data.item = result;
 						if (result.error || result.done !== undefined) {

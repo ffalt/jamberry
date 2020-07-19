@@ -17,7 +17,7 @@ import {ReleaseMatching} from '../match-release/match-release.component';
 export interface SaveAction {
 	edit: RawTagEditRow;
 	track: Jam.Track;
-	rawTag?: Jam.RawTag;
+	rawTag?: Jam.MediaTagRaw;
 	filename?: string;
 }
 
@@ -77,12 +77,12 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		if (this.id) {
 			this.jam.folder.id({
 				id: this.id,
-				folderSubfolders: true,
-				folderTracks: true,
-				folderParents: true,
-				folderTag: true,
-				trackTag: true,
-				trackRawTag: true
+				folderIncFolders: true,
+				folderIncTracks: true,
+				folderIncParents: true,
+				folderIncTag: true,
+				trackIncTag: true,
+				trackIncRawTag: true
 			})
 				.then(data => {
 					this.display(data);
@@ -112,7 +112,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		}
 		this.canLoadRecursive = false;
 		this.tracks = undefined;
-		this.jam.track.search({childOfID: this.folder.id, trackTag: true, trackRawTag: true})
+		this.jam.track.search({childOfID: this.folder.id, trackIncTag: true, trackIncRawTag: true})
 			.then(tracks => {
 				this.tracks = tracks.items.sort((a, b) => {
 					const res = a.parentID.localeCompare(b.parentID);
@@ -295,11 +295,11 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	private async runSave(action: SaveAction, actions: Array<SaveAction>): Promise<void> {
 		try {
 			if (action.filename) {
-				const item = await this.jam.track.name_update({id: action.track.id, name: action.filename});
+				const item = await this.jam.track.rename({id: action.track.id, name: action.filename});
 				this.folderService.waitForQueueResult('Renaming Track', item, [action.track.parentID], [], [action.track.id]);
 			}
 			if (action.rawTag) {
-				const item = await this.jam.track.rawTag_update({id: action.track.id, tag: action.rawTag});
+				const item = await this.jam.track.rawTagSet({id: action.track.id, tag: action.rawTag});
 				this.folderService.waitForQueueResult('Writing Track Tag', item, [action.track.parentID], [], [action.track.id]);
 			}
 			action.edit.saving = false;

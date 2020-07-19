@@ -42,10 +42,10 @@ export class FolderSimilarComponent implements OnInit, OnDestroy {
 	refresh(): void {
 		this.similarFolders = undefined;
 		if (this.id) {
-			this.jam.folder.artist_similar({
+			this.jam.folder.artistsSimilar({
 				id: this.id,
-				folderState: true,
-				folderTag: true
+				folderIncState: true,
+				folderIncTag: true
 			})
 				.then(folders => {
 					this.display(folders);
@@ -56,7 +56,7 @@ export class FolderSimilarComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	display(folders: Jam.FolderList): void {
+	display(folders: Jam.FolderPage): void {
 		this.similarFolders = folders.items.map(o => new JamFolderObject(o, this.library));
 	}
 }

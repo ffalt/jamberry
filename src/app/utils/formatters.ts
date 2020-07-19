@@ -24,7 +24,7 @@ export function splitTime(value: number): { days: number; hours: number; minutes
 }
 
 export function formatDuration(val: number): string {
-	const time = splitTime(val);
+	const time = splitTime(val / 1000);
 	const duration: Array<string> = [];
 	if (time.days > 0) {
 		duration.push(time.days.toString() + 'd ');

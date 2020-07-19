@@ -85,7 +85,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 		};
 		this.current = current;
 		this.userStorage.set<{ folderID: string }>(AdminRadarComponent.localStorageName, {folderID: folder.id});
-		this.jam.track.health({parentID: folder.id, media: true})
+		this.jam.track.health({folderIDs: [folder.id], healthMedia: true})
 			.then(health => {
 				if (health.length > 0) {
 					current.health = health;
@@ -140,7 +140,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	}
 
 	loadFolders(): void {
-		this.jam.folder.search({types: [FolderType.album, FolderType.multialbum], folderCounts: true})
+		this.jam.folder.search({folderTypes: [FolderType.album, FolderType.multialbum], folderIncChildFolderCount: true, folderIncTrackCount: true})
 			.then(data => {
 				this.folders = data.items.filter(f => f.trackCount > 0);
 				this.loadFromStorage();
