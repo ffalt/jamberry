@@ -1,6 +1,6 @@
 <context-menu #objMenu>
-	<ng-template contextMenuItem let-obj>
-		<app-context-entry-fav [base]="obj.base" [baseType]="obj.type"></app-context-entry-fav>
+	<ng-template contextMenuItem let-obj (execute)="$event.item.toggleFav()">
+		<app-context-entry-fav [base]="obj.base"></app-context-entry-fav>
 	</ng-template>
 	<ng-template contextMenuItem let-obj>
 		<app-context-entry-rate [base]="obj.base" [baseType]="obj.type"></app-context-entry-rate>
