@@ -16,26 +16,22 @@
 
 	<div class="content">
 		<app-loading *ngIf="!folders"></app-loading>
-		<div *ngIf="folders">
+		<div *ngIf="folders && current">
+			<div class="current">
+				<span>{{current.pos + 1}} / {{folders.length}}</span>
+				<a [routerLink]="['/admin/folder', current.folder.id, 'tags']"><i class="icon-folder"></i> {{current.folder.name}}</a>
+			</div>
 
-			<ng-container *ngIf="current">
-				<div class="current">
-					<span *ngIf="current">{{current.pos + 1}} / {{folders.length}}</span>
-					<a [routerLink]="['/admin/folder', current.folder.id, 'tags']"><i class="icon-folder"></i> {{current.folder.name}}</a>
-				</div>
-
-				<ng-container *ngIf="current && current.health">
-					<div *ngFor="let trackHealth of current.health; trackBy: trackByFn" class="track">
-						<div class="meta">
-							{{trackHealth.track.name}}
-						</div>
-						<div class="track-health">
-							<app-track-health [trackHealth]="trackHealth" (resolvedEvent)="trackHealthResolved(trackHealth)"></app-track-health>
-						</div>
+			<ng-container *ngIf="current.health">
+				<div *ngFor="let trackHealth of current.health; trackBy: trackByFn" class="track">
+					<div class="meta">
+						{{trackHealth.track.name}}
 					</div>
-				</ng-container>
+					<div class="track-health">
+						<app-track-health [trackHealth]="trackHealth" (resolvedEvent)="trackHealthResolved(trackHealth)"></app-track-health>
+					</div>
+				</div>
 			</ng-container>
-
 		</div>
 	</div>
 </div>

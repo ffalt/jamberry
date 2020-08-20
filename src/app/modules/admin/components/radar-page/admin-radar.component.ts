@@ -140,9 +140,9 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	}
 
 	loadFolders(): void {
-		this.jam.folder.search({folderTypes: [FolderType.album, FolderType.multialbum], folderIncChildFolderCount: true, folderIncTrackCount: true})
+		this.jam.folder.search({folderTypes: [FolderType.album, FolderType.multialbum]})
 			.then(data => {
-				this.folders = data.items.filter(f => f.trackCount > 0);
+				this.folders = data.items;
 				this.loadFromStorage();
 			}).catch(e => {
 			this.notify.error(e);
