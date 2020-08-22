@@ -10,6 +10,10 @@
 	.users {
 		@include view-host();
 
+		.actions {
+			@include header-actions-buttons();
+		}
+
 		.content {
 			@include view-content();
 		}

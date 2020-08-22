@@ -18,8 +18,9 @@ export const routes: Routes = [
 		path: '', component: AdminComponent,
 		children: [
 			{path: '', pathMatch: 'full', component: AdminStartComponent, data: {name: 'Admin'}},
-			{path: 'user', component: AdminUsersComponent, data: {name: 'Users', icon: 'icon-user'}},
+			{path: 'settings', component: AdminSettingsComponent, data: {name: 'Admin Settings'}},
 			{path: 'root', component: AdminRootComponent, data: {name: 'Roots', icon: 'icon-root'}},
+			{path: 'user', component: AdminUsersComponent, data: {name: 'Users', icon: 'icon-user'}},
 			{path: 'folder', redirectTo: 'folder/'},
 			{
 				path: 'folder/:id', component: AdminFolderComponent, data: {id: 'folder', name: 'Folders', icon: 'icon-folder', link: 'folder'},
@@ -32,8 +33,7 @@ export const routes: Routes = [
 					{path: 'tags', loadChildren: (): Promise<any> => import('../tag-editor/tag-editor.module').then(m => m.TagEditorModule)}
 				]
 			},
-			{path: 'radar', component: AdminRadarComponent, data: {name: 'Health Radar', icon: 'icon-health'}},
-			{path: 'settings', component: AdminSettingsComponent, data: {name: 'Admin Settings'}}
+			{path: 'radar', component: AdminRadarComponent, data: {name: 'Health Radar', icon: 'icon-health'}}
 		]
 	}
 ];

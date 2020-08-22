@@ -1,7 +1,9 @@
 <div class="users">
 	<app-view-header-slim section="Users">
-		<button class="button-on-control" title="Add new User" (click)="newUser()"><i class="icon-list-add"></i> Add</button>
-		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
+		<div class="actions">
+			<button class="button-on-control" title="Refresh" (click)="refresh()"><i class="icon-reload"></i></button>
+			<button class="button-on-control" title="New User…" (click)="newUser()"><i class="icon-plus"></i></button>
+		</div>
 	</app-view-header-slim>
 	<div class="content">
 		<app-admin-user-list [users]="users"></app-admin-user-list>

@@ -13,10 +13,7 @@
 		width: 100%;
 
 		.actions {
-			padding: $padding-sm $padding;
-			border-bottom-color: var(--background-border);
-			border-bottom-width: 1px;
-			border-bottom-style: solid;
+			@include action-buttons();
 		}
 
 		app-admin-folder-list {

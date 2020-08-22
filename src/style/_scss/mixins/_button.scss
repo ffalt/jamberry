@@ -1,5 +1,5 @@
 @mixin button {
-	border-radius: 10px;
+	border-radius: 6px;
 	border-width: 1px;
 	border-style: solid;
 	padding: $padding-xs $padding;
@@ -29,4 +29,31 @@
 			width: 100%;
 		}
 	}
+}
+
+@mixin header-actions-buttons {
+	> button {
+		margin-right: $margin-xs;
+		margin-bottom: $margin-sm;
+	}
+}
+
+@mixin action-buttons {
+	padding: $padding-sm $padding 0;
+	border-bottom-color: var(--background-border);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	> button {
+		margin-right: $margin-xs;
+		margin-bottom: $margin-sm;
+	}
+
+	> label {
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-size: $x-small;
+		margin-left: $margin-xs;
+		margin-right: $margin-xs;
+	}
+
 }

@@ -8,12 +8,14 @@
 	flex-direction: column;
 
 	.actions {
-		padding: $padding-sm $padding;
+		@include action-buttons();
 	}
 
 	.load-recursive {
 		text-align: center;
 		margin-top: $margin-lg;
+		margin-left: $margin-lg;
+		margin-right: $margin-lg;
 
 		button {
 			margin-top: $margin-sm;

@@ -10,8 +10,8 @@
 	.roots {
 		@include view-host();
 
-		.content {
-
+		.actions {
+			@include header-actions-buttons();
 		}
 	}
 }

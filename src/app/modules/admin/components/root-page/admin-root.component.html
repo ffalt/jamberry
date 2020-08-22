@@ -1,8 +1,10 @@
 <div class="roots">
 	<app-view-header-slim section="Roots">
-		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
-		<button class="button-on-control" title="Add new Root" (click)="newRoot()"><i class="icon-list-add"></i> Add</button>
-		<button class="button-on-control" title="Rescan Roots" (click)="refreshRoots()"><i class="icon-rescan"></i> Rescan</button>
+		<div class="actions">
+			<button class="button-on-control" title="Refresh" (click)="refresh()"><i class="icon-reload"></i></button>
+			<button class="button-on-control" title="New Root…" (click)="newRoot()"><i class="icon-plus"></i></button>
+			<button class="button-on-control" title="Rescan all Roots" (click)="refreshRoots()"><i class="icon-rescan"></i></button>
+		</div>
 	</app-view-header-slim>
 	<div class="content">
 		<app-admin-root-list [roots]="roots"></app-admin-root-list>

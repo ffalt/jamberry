@@ -11,10 +11,7 @@
 		flex-direction: column;
 
 		.actions {
-			padding: $padding-sm $padding;
-			border-bottom-color: var(--background-border);
-			border-bottom-width: 1px;
-			border-bottom-style: solid;
+			@include action-buttons();
 		}
 
 		.health-content {

@@ -16,11 +16,9 @@
 	</div>
 
 	<div class="actions" *ngIf="tracks && tracks.length>0 && editor.edits">
-		<button class="button-on-control" title="Refresh" (click)="refresh()"><i class="icon-reload"></i> Refresh</button>
-		<button class="button-on-control" title="Match with MusicBrainz" (click)="brainz()">
-			<app-mb-icon [size]="12"></app-mb-icon>&nbsp;Match
-		</button>
-		<button class="button-on-control" *ngIf="!isSaving" title="Save" (click)="save()"><i class="icon-floppy"></i> Save</button>
+		<button class="button-on-control" title="Refresh" (click)="refresh()"><i class="icon-reload"></i></button>
+		<button class="button-on-control" title="Match with MusicBrainz" (click)="brainz()"><app-mb-icon [size]="12"></app-mb-icon></button>
+		<button class="button-on-control" *ngIf="!isSaving" title="Save" (click)="save()"><i class="icon-floppy"></i></button>
 		<button class="button-on-control" *ngIf="isSaving" title="Save"><i class="icon-spin icon-spnner"></i></button>
 		<button class="button-on-control" title="More" [contextMenu]="actionMenu" [contextMenuTriggerLeft]="true">…</button>
 	</div>

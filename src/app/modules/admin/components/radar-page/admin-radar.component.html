@@ -8,8 +8,8 @@
 			</div>
 			<div class="buttons" *ngIf="searching">
 				<button class="button-on-control" (click)="stop()"><i class="icon-stop"></i> Stop</button>
-				<button class="button-on-control"><i class="icon-spin icon-spinner"></i></button>
-			</div>
+				</div>
+
 		</ng-container>
 
 	</app-view-header-slim>
@@ -18,6 +18,7 @@
 		<app-loading *ngIf="!folders"></app-loading>
 		<div *ngIf="folders && current">
 			<div class="current">
+				<span><i *ngIf="searching" class="icon-spin icon-spinner"></i></span>
 				<span>{{current.pos + 1}} / {{folders.length}}</span>
 				<a [routerLink]="['/admin/folder', current.folder.id, 'tags']"><i class="icon-folder"></i> {{current.folder.name}}</a>
 			</div>

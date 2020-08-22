@@ -148,10 +148,14 @@ $content-margins: $header-height+$footer-height;
 		}
 		.app-content {
 			margin-top: $header-height;
-			margin-bottom: $footer-height;
 			height: auto;
 			min-height: calc(100% - #{$content-margins});
 		}
+
+		.app-content.player-active {
+			margin-bottom: $footer-height;
+		}
+
 		.mini-player {
 			display: flex;
 		}
