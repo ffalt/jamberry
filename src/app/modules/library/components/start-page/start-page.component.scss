@@ -43,8 +43,6 @@
 				flex-flow: row wrap;
 
 				.stats {
-					//display: flex;
-					//flex-flow: row wrap;
 					width: 100%;
 					background-color: var(--background-box);
 					border-radius: 4px;
@@ -81,7 +79,7 @@
 						}
 					}
 					@media (max-width: $break-phone) {
-						grid-template-columns: 33% 33% 33%;
+						grid-template-columns: repeat(3, 1fr);
 						.stat {
 							padding: $padding-sm;
 
@@ -91,7 +89,7 @@
 						}
 					}
 					@media (max-width: $break-watch) {
-						grid-template-columns: 50% 50%;
+						grid-template-columns: repeat(2, 1fr);
 					}
 				}
 
