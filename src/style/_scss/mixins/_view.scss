@@ -120,21 +120,6 @@
 			.actions {
 				display: flex;
 				flex-flow: row wrap;
-				padding-right: $padding;
-
-				button {
-					margin-right: $margin-sm;
-					margin-top: $margin-sm;
-					height: 27px;
-					font-weight: 500;
-					padding: 1px $padding 0;
-
-					i {
-						transform: scale(1.3);
-						transform-origin: center;
-					}
-				}
-
 			}
 
 		}
