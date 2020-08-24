@@ -113,13 +113,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		this.tracks = undefined;
 		this.jam.track.search({childOfID: this.folder.id, trackIncTag: true, trackIncRawTag: true, orderBy: TrackOrderFields.filename})
 			.then(tracks => {
-				this.tracks = tracks.items.sort((a, b) => {
-					const res = a.parentID.localeCompare(b.parentID);
-					if (res !== 0) {
-						return res;
-					}
-					return a.name.localeCompare(b.name);
-				});
+				this.tracks = tracks.items;
 				this.editor.build(this.tracks);
 			})
 			.catch(e => {
