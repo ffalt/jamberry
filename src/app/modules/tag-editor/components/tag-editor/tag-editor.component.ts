@@ -1,11 +1,10 @@
-
 import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChildren} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {isDownArrowKey, isLeftRightArrowKeys, isRightArrowKey, isUpDownArrowKeys} from '@app/utils/keys';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
-import {FolderType, Jam, JamService} from '@jam';
+import {FolderType, Jam, JamService, TrackOrderFields} from '@jam';
 import {TagEditor} from '../../model/tag-editor.class';
 import {FilenameColumnID, RawTagEditCell, RawTagEditColumn, RawTagEditRow} from '../../model/tag-editor.types';
 import {rebuildTag} from '../../model/tag-editor.utils';
@@ -112,7 +111,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		}
 		this.canLoadRecursive = false;
 		this.tracks = undefined;
-		this.jam.track.search({childOfID: this.folder.id, trackIncTag: true, trackIncRawTag: true})
+		this.jam.track.search({childOfID: this.folder.id, trackIncTag: true, trackIncRawTag: true, orderBy: TrackOrderFields.filename})
 			.then(tracks => {
 				this.tracks = tracks.items.sort((a, b) => {
 					const res = a.parentID.localeCompare(b.parentID);
