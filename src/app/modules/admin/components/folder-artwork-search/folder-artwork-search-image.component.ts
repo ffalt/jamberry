@@ -28,6 +28,7 @@ export interface ArtworkNode {
 })
 export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnDestroy {
 	@Input() data: ArtworkSearch;
+	artworks: Array<Jam.Artwork>;
 	nodes: Array<ArtworkNode>;
 	isWorking = false;
 	isArtRefreshing = false;
@@ -54,17 +55,21 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.search();
-		if (this.data && this.data.folder && !this.data.folder.artworks) {
-			this.refreshArtworks();
+		if (this.data && this.data.folder) {
+			if (this.data.folder.artworks) {
+				this.artworks = this.data.folder.artworks;
+			} else {
+				this.refreshArtworks();
+			}
 		}
 	}
 
 	refreshArtworks(): void {
 		this.isArtRefreshing = true;
-		this.jam.folder.artworks({parentIDs: [this.data.folder.id]})
+		this.jam.artwork.search({folderIDs: [this.data.folder.id]})
 			.then(art => {
 				this.isArtRefreshing = false;
-				this.data.artworks = art.items;
+				this.artworks = art.items;
 			})
 			.catch(e => {
 				this.isArtRefreshing = false;

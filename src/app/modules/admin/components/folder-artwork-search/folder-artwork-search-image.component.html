@@ -24,9 +24,9 @@
 		</div>
 	</div>
 	<div class="artwork">
-		<div class="current" *ngIf="data && data.folder.artworks">
+		<div class="current" *ngIf="data && artworks">
 			<div class="section">Current Images</div>
-			<app-admin-artwork-list *ngIf="!isArtRefreshing" [folderID]="data.folder.id" [artworks]="data.folder.artworks"></app-admin-artwork-list>
+			<app-admin-artwork-list *ngIf="!isArtRefreshing" [folderID]="data.folder.id" [artworks]="artworks"></app-admin-artwork-list>
 		</div>
 	</div>
 </div>
