@@ -1,9 +1,11 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {FolderHealthID, Jam, JamService} from '@jam';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {DialogFolderArtworkSearchComponent} from '../dialog-folder-artwork-search/dialog-folder-artwork-search.component';
 
 export interface FolderHealthHintSolution {
@@ -25,10 +27,11 @@ export interface FolderHealthHint {
 	templateUrl: './folder-health.component.html',
 	styleUrls: ['./folder-health.component.scss']
 })
-export class FolderHealthComponent implements OnChanges {
+export class FolderHealthComponent implements OnChanges, OnDestroy {
 	hints: Array<FolderHealthHint>;
 	solutions: Array<FolderHealthHintSolution> = [];
 	@Input() folderHealth: Jam.FolderHealth;
+	protected unsubscribe = new Subject();
 
 	constructor(
 		private app: AppService,
@@ -38,6 +41,11 @@ export class FolderHealthComponent implements OnChanges {
 		private dialogOverlay: DialogOverlayService,
 		private folderService: AdminFolderService
 	) {
+	}
+
+	ngOnDestroy(): void {
+		this.unsubscribe.next();
+		this.unsubscribe.complete();
 	}
 
 	trackByFn(index: number, hint: FolderHealthHint): string {
@@ -123,8 +131,10 @@ export class FolderHealthComponent implements OnChanges {
 					}
 					sol.running = true;
 					const item = await this.jam.folder.rename({id: folder.id, name});
-					sol.running = false;
-					this.folderService.waitForQueueResult('Renaming Folder', item, [folder.id]);
+					this.folderService.waitForQueueResult('Renaming Folder', item, [folder.id])
+						.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+						sol.running = false;
+					});
 				}
 			};
 			this.solutions.push(sol);
