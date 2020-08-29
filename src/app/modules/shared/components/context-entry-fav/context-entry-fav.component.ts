@@ -8,7 +8,7 @@ import {Jam, JamService} from '@jam';
 	styleUrls: ['./context-entry-fav.component.scss']
 })
 export class ContextEntryFavComponent {
-	@Input() base: Jam.Base;
+	@Input() base?: Jam.Base;
 
 	constructor(private notify: NotifyService, private jam: JamService) {
 	}

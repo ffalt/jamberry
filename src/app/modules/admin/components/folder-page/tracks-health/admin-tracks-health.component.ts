@@ -12,10 +12,10 @@ import {takeUntil} from 'rxjs/operators';
 })
 
 export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
-	all: Array<Jam.TrackHealth>;
-	hints: Array<Jam.TrackHealth>;
-	id: string;
-	filter: string;
+	all?: Array<Jam.TrackHealth>;
+	hints?: Array<Jam.TrackHealth>;
+	id?: string;
+	filter?: string;
 	modes: Array<string> = [];
 	mediaCheck: boolean = false;
 
@@ -54,6 +54,9 @@ export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent i
 
 	refresh(): void {
 		this.hints = undefined;
+		if (!this.id) {
+			return;
+		}
 		this.jam.track.health({folderIDs: [this.id], healthMedia: this.mediaCheck})
 			.then(data => {
 				this.display(data);
@@ -64,8 +67,8 @@ export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent i
 	}
 
 	private reDisplay(): void {
-		this.hints = !this.filter ?
-			this.all.slice(0) :
+		this.hints = !this.filter || !this.all ?
+			this.all :
 			this.all.filter(f => f.health && f.health.find(p => p.name === this.filter));
 	}
 

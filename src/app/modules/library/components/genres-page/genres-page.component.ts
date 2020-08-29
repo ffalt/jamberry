@@ -9,7 +9,7 @@ import {LibraryService} from '@library/services';
 	styleUrls: ['./genres-page.component.scss']
 })
 export class GenresPageComponent implements OnInit {
-	genres: Array<Jam.Genre>;
+	genres?: Array<Jam.Genre>;
 
 	constructor(protected jam: JamService, protected notify: NotifyService, public library: LibraryService, public navig: NavigService) {
 	}

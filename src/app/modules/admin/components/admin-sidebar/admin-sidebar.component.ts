@@ -20,12 +20,15 @@ export class AdminSidebarComponent implements OnInit, OnDestroy, SidebarProvider
 	showMobileNavig: boolean = false;
 
 	constructor(private app: AppService, private router: Router) {
-		this.sections = routes[0].children.filter(route => route.path.length > 0 && route.data && route.data.name).map(route =>
-			({
-				id: route.data && route.data.link ? route.data.link : route.path,
-				text: route.data ? route.data.name : '',
-				icon: route.data && route.data.icon ? route.data.icon : 'icon-admin'
-			}));
+		const root = routes[0];
+		this.sections = (root.children || [])
+			.filter(route => route.path && route.path.length > 0 && route.data?.name)
+			.map(route =>
+				({
+					id: route.data && route.data.link ? route.data.link : route.path,
+					text: route.data ? route.data.name : '',
+					icon: route.data && route.data.icon ? route.data.icon : 'icon-admin'
+				}));
 	}
 
 	ngOnInit(): void {

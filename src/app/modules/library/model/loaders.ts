@@ -19,7 +19,7 @@ export interface JamObjsLoaderSearchQuery {
 }
 
 export abstract class JamObjsLoader {
-	typeName: string;
+	abstract typeName: string;
 
 	constructor(protected library: LibraryService) {
 

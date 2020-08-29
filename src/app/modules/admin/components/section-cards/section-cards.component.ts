@@ -16,8 +16,9 @@ export class SectionCardsComponent {
 	sections: Array<SectionCardsSection> = [];
 
 	constructor() {
-		this.sections = routes[0].children
-			.filter(route => route.path.length > 0 && route.data && route.data.name)
+		const root = routes[0];
+		this.sections = (root.children || [])
+			.filter(route => route.path && route.path.length > 0 && route.data?.name)
 			.map(route =>
 				({
 					id: route.data && route.data.link ? route.data.link : route.path,

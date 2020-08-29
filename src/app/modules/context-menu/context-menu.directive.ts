@@ -9,14 +9,14 @@ import {ContextMenuService} from './context-menu.service';
 export class ContextMenuDirective {
 	@Input() contextMenuSubject: any;
 	@Input() contextMenuTriggerLeft: boolean = false;
-	@Input() contextMenu: ContextMenuComponent;
+	@Input() contextMenu?: ContextMenuComponent;
 
 	constructor(private contextMenuService: ContextMenuService) {
 	}
 
 	@HostListener('contextmenu', ['$event'])
 	onContextMenu(event: MouseEvent): void {
-		if (!this.contextMenu.disabled) {
+		if (this.contextMenu && !this.contextMenu.disabled) {
 			this.contextMenuService.show.next({
 				contextMenu: this.contextMenu,
 				event,
@@ -29,7 +29,7 @@ export class ContextMenuDirective {
 
 	@HostListener('click', ['$event'])
 	onContextMenuClick(event: MouseEvent): void {
-		if (this.contextMenuTriggerLeft && !this.contextMenu.disabled) {
+		if (this.contextMenuTriggerLeft && this.contextMenu && !this.contextMenu.disabled) {
 			this.contextMenuService.show.next({
 				contextMenu: this.contextMenu,
 				event,

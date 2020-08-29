@@ -6,5 +6,5 @@ import {Component, Input} from '@angular/core';
 	styleUrls: ['./background-text.component.scss']
 })
 export class BackgroundTextComponent {
-	@Input() text: string;
+	@Input() text?: string;
 }

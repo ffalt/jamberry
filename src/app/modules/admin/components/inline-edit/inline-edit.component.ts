@@ -15,7 +15,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 	encapsulation: ViewEncapsulation.None
 })
 export class InlineEditComponent implements ControlValueAccessor {
-	@ViewChild('inlineEditControl', {static: false}) inlineEditControl: ElementRef; // input DOM element
+	@ViewChild('inlineEditControl', {static: false}) inlineEditControl?: ElementRef; // input DOM element
 	@Input() placeholder: string = ''; // The type of input element
 	@Input() type: string = 'text'; // The type of input element
 	@Input() required: boolean = false; // Is input requried?
@@ -73,7 +73,11 @@ export class InlineEditComponent implements ControlValueAccessor {
 		this.preValue = value;
 		this.editing = true;
 		// Focus on the input element just as the editing begins
-		setTimeout(() => this.inlineEditControl.nativeElement.focus());
+		setTimeout(() => {
+			if (this.inlineEditControl?.nativeElement) {
+				this.inlineEditControl.nativeElement.focus();
+			}
+		});
 	}
 
 }

@@ -6,5 +6,5 @@ import {Component, Input} from '@angular/core';
 	styleUrls: ['./header-slim.component.scss']
 })
 export class HeaderSlimComponent {
-	@Input() section: string;
+	@Input() section?: string;
 }

@@ -29,7 +29,7 @@ export class UserPageComponent implements OnDestroy {
 	// At the drag drop area
 	onDropFile(event: DragEvent): void {
 		event.preventDefault();
-		this.uploadFile(event.dataTransfer.files);
+			this.uploadFile(event.dataTransfer?.files);
 	}
 
 	// At the drag drop area
@@ -43,8 +43,8 @@ export class UserPageComponent implements OnDestroy {
 		this.uploadFile(event.target.files);
 	}
 
-	uploadFile(files: FileList): void {
-		if (files.length === 0) {
+	uploadFile(files?: FileList): void {
+		if (!files || files.length === 0 || !this.auth.user) {
 			return;
 		}
 		const file: File = files[0];
@@ -71,7 +71,7 @@ export class UserPageComponent implements OnDestroy {
 	}
 
 	randomAvatar(): void {
-		if (this.refreshing) {
+		if (this.refreshing || !this.auth.user) {
 			return;
 		}
 		this.refreshing = true;

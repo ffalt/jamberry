@@ -17,15 +17,17 @@ export interface RelationGroup {
 	styleUrls: ['./mb-relations.component.scss']
 })
 export class MbRelationsComponent implements OnChanges {
-	@Input() relations: Array<MusicBrainz.Relation>;
-	urlRelationGroup: RelationGroup;
+	@Input() relations?: Array<MusicBrainz.Relation>;
+	urlRelationGroup?: RelationGroup;
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.refresh();
 	}
 
 	refresh(): void {
-		this.displayRelationGroups(this.relations);
+		if (this.relations) {
+			this.displayRelationGroups(this.relations);
+		}
 	}
 
 	displayRelationGroups(relations: Array<MusicBrainz.Relation>): void {

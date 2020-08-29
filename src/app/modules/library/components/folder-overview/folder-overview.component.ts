@@ -14,9 +14,9 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./folder-overview.component.scss']
 })
 export class FolderOverviewComponent implements OnInit, OnDestroy {
-	folder: Jam.Folder;
-	childFolders: Array<JamFolderObject>;
-	id: string;
+	id?: string;
+	folder?: Jam.Folder;
+	childFolders?: Array<JamFolderObject>;
 	protected unsubscribe = new Subject();
 
 	constructor(

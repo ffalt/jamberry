@@ -11,9 +11,9 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./album-mb.component.scss']
 })
 export class AlbumMbComponent implements OnInit, OnDestroy {
-	mbReleaseID: string;
-	album: Jam.Album;
-	id: string;
+	id?: string;
+	album?: Jam.Album;
+	mbReleaseID?: string;
 	protected unsubscribe = new Subject();
 
 	constructor(protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute) {

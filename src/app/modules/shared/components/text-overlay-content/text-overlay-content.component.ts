@@ -7,7 +7,7 @@ import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/m
 	styleUrls: ['./text-overlay-content.component.scss']
 })
 export class TextOverlayContentComponent implements DialogOverlay<string> {
-	data: string;
+	data?: string;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<string>>): void {
 		this.data = options.data;

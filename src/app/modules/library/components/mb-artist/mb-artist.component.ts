@@ -18,9 +18,9 @@ export interface ReleaseGroupGroup {
 	styleUrls: ['./mb-artist.component.scss']
 })
 export class MbArtistComponent implements OnChanges {
-	mbArtist: MusicBrainz.Artist;
+	@Input() mbArtistID?: string;
+	mbArtist?: MusicBrainz.Artist;
 	releaseGroups: Array<ReleaseGroupGroup> = [];
-	@Input() mbArtistID: string;
 
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}
@@ -43,18 +43,20 @@ export class MbArtistComponent implements OnChanges {
 
 	displayReleaseGroups(mbArtist: MusicBrainz.Artist): void {
 		this.releaseGroups = [];
-		mbArtist.releaseGroups.forEach(r => {
-			const type = [r.primaryType, ...(r.secondaryTypes || [])].join(' / ');
-			let typeGroup = this.releaseGroups.find(g => g.type === type);
-			if (!typeGroup) {
-				typeGroup = {groups: [], type};
-				this.releaseGroups.push(typeGroup);
-			}
-			typeGroup.groups.push({group: r});
-		});
+		if (mbArtist.releaseGroups) {
+			mbArtist.releaseGroups.forEach(r => {
+				const type = [r.primaryType, ...(r.secondaryTypes || [])].join(' / ');
+				let typeGroup = this.releaseGroups.find(g => g.type === type);
+				if (!typeGroup) {
+					typeGroup = {groups: [], type};
+					this.releaseGroups.push(typeGroup);
+				}
+				typeGroup.groups.push({group: r});
+			});
+		}
 		this.releaseGroups.forEach(g => {
 			g.groups.sort((a, b) =>
-				b.group.firstReleaseDate.localeCompare(a.group.firstReleaseDate));
+				(b.group.firstReleaseDate || '').localeCompare(a.group.firstReleaseDate || ''));
 		});
 		this.releaseGroups.sort((a, b) => a.type.localeCompare(b.type));
 	}

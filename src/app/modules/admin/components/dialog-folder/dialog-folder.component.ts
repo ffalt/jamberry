@@ -8,7 +8,7 @@ import {FolderEdit} from '../../admin.interface';
 	styleUrls: ['./dialog-folder.component.scss']
 })
 export class DialogFolderComponent implements DialogOverlay<FolderEdit> {
-	edit: FolderEdit;
+	edit?: FolderEdit;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<FolderEdit>>): void {
 		this.edit = options.data;

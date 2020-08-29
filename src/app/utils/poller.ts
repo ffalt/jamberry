@@ -10,11 +10,11 @@ export class Poller<T extends { id: string }> {
 			this.currentPolling[o.id] = true;
 			if (pollNow) {
 				this.pollIt(o, () => {
-					this.currentPolling[o.id] = undefined;
+					delete this.currentPolling[o.id];
 				});
 			} else {
 				this.doPoll(o, () => {
-					this.currentPolling[o.id] = undefined;
+					delete this.currentPolling[o.id];
 				});
 			}
 		}

@@ -11,9 +11,9 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./folder-musicbrainz.component.scss']
 })
 export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
-	folder: Jam.Folder;
-	hasArtistID: boolean;
-	id: string;
+	folder?: Jam.Folder;
+	id?: string;
+	hasArtistID: boolean = false;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -52,6 +52,6 @@ export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 
 	display(folder: Jam.Folder): void {
 		this.folder = folder;
-		this.hasArtistID = folder && folder.tag && !!folder.tag.mbArtistID;
+		this.hasArtistID = !!folder?.tag?.mbArtistID;
 	}
 }

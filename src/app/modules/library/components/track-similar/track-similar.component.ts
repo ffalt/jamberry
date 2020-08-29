@@ -13,9 +13,9 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./track-similar.component.scss']
 })
 export class TrackSimilarComponent implements OnInit, OnDestroy {
-	similar: Array<Jam.Track>;
-	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore: LoadMoreButtonComponent;
-	id: string;
+	id?: string;
+	similar?: Array<Jam.Track>;
+	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -41,6 +41,9 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 
 	loadSimilar(): void {
 		const id = this.id;
+		if (!id) {
+			return;
+		}
 		this.jam.track.similar({
 			id,
 			trackIncState: true,
@@ -52,7 +55,7 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 				if (this.id === id) {
 					this.similar = (this.similar || []).concat(data.items);
 					if (this.loadMore) {
-						this.loadMore.hasMore = this.similar.length < data.total;
+						this.loadMore.hasMore = this.similar.length < (data.total || 0);
 						this.loadMore.total = data.total;
 					}
 				}

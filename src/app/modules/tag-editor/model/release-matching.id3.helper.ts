@@ -9,43 +9,48 @@ function fillGenres(builder: ID3V24TagBuilder, match: Matching, genres: Array<st
 	} else if (match.track.tagRaw) {
 		const oldgenres = match.track.tagRaw.frames.TCON;
 		if (oldgenres) {
-			const oldGenresNames = oldgenres.map(f => f.value.text);
+			const oldGenresNames = oldgenres.map((f: { value: { text: string } }) => f.value.text);
 			builder.genre(oldGenresNames.slice(0, 2).join('/'));
 		}
 	}
 }
 
-function fillCommon(builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack, release: MusicBrainz.Release, group: MusicBrainz.ReleaseGroup, media: MusicBrainz.ReleaseMedia): void {
+function fillCommon(
+	builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack,
+	release: MusicBrainz.Release | undefined,
+	group: MusicBrainz.ReleaseGroup | undefined,
+	media: MusicBrainz.ReleaseMedia | undefined
+): void {
 	builder
-		.mbTrackID(track.recording.id)
-		.date(release.date)
-		.originalDate(group.firstReleaseDate)
-		.album(release.title)
-		.albumSort(release.sortName)
+		.mbTrackID(track.recording?.id)
+		.date(release?.date)
+		.originalDate(group?.firstReleaseDate)
+		.album(release?.title)
+		.albumSort(release?.sortName)
 		.title(track.title)
-		.media(media.format)
-		.track(track.position, media.trackCount)
-		.disc(media.position, release.media.length)
+		.media(media?.format)
+		.track(track.position, media?.trackCount)
+		.disc(media?.position, release?.media.length)
 		.trackLength(track.length)
-		.language(release.textRepresentation.language)
-		.script(release.textRepresentation.script)
-		.barcode(release.barcode)
-		.isrc(track.recording.isrcs && track.recording.isrcs.length > 0 ? track.recording.isrcs[0] : undefined)
-		.mbAlbumStatus(release.status ? release.status.toLowerCase() : undefined)
-		.mbAlbumReleaseCountry(release.country)
-		.mbAlbumID(release.id)
+		.language(release?.textRepresentation.language)
+		.script(release?.textRepresentation.script)
+		.barcode(release?.barcode)
+		.isrc(track.recording?.isrcs && track.recording.isrcs.length > 0 ? track.recording.isrcs[0] : undefined)
+		.mbAlbumStatus(release?.status ? release.status.toLowerCase() : undefined)
+		.mbAlbumReleaseCountry(release?.country)
+		.mbAlbumID(release?.id)
 		.mbReleaseTrackID(track.id)
-		.mbReleaseGroupID(release.releaseGroup.id)
-		.mbTrackDisambiguation(track.recording.disambiguation)
+		.mbReleaseGroupID(release?.releaseGroup.id)
+		.mbTrackDisambiguation(track.recording?.disambiguation)
 		// .work(match.tracl)
-		.asin(release.asin)
-		.discSubtitle(media.title);
-	if (track.recording.aliases && track.recording.aliases.length > 0 && track.recording.aliases[0].sortName
+		.asin(release?.asin)
+		.discSubtitle(media?.title);
+	if (track.recording?.aliases && track.recording.aliases.length > 0 && track.recording.aliases[0].sortName
 		&& track.recording.aliases[0].sortName !== track.title) {
 		builder.titleSort(track.recording.aliases[0].sortName);
 	}
 
-	const artist = release.artistCredit[0];
+	const artist = release?.artistCredit[0];
 	if (artist) {
 		builder
 			.albumArtist(artist.name)
@@ -68,7 +73,7 @@ function fillCommon(builder: ID3V24TagBuilder, match: Matching, track: MusicBrai
 			.mbArtistID(artist.artist.id);
 	}
 
-	const label = release.labelInfo[0];
+	const label = release?.labelInfo[0];
 	if (label) {
 		if (label.label) {
 			builder.label(label.label.name);
@@ -77,12 +82,12 @@ function fillCommon(builder: ID3V24TagBuilder, match: Matching, track: MusicBrai
 	}
 }
 
-function fillTypes(builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack, release: MusicBrainz.Release): void {
+function fillTypes(builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack, release: MusicBrainz.Release | undefined): void {
 	let types = [];
-	if (release.releaseGroup.primaryType) {
+	if (release?.releaseGroup.primaryType) {
 		types.push(release.releaseGroup.primaryType);
 	}
-	if (release.releaseGroup.secondaryTypes) {
+	if (release?.releaseGroup.secondaryTypes) {
 		types = types.concat(release.releaseGroup.secondaryTypes);
 	}
 	if (types.length > 0) {
@@ -129,7 +134,9 @@ function fillImages(builder: ID3V24TagBuilder, match: Matching, images: Array<Ma
 			} else if (image.image.types.includes('Back')) {
 				pictureType = 4;
 			}
-			builder.addPicture(pictureType, '', image.base64.mimeType, image.base64.base64);
+			if (image.base64) {
+				builder.addPicture(pictureType, '', image.base64.mimeType, image.base64.base64);
+			}
 		}
 	} else if (match.track.tagRaw) {
 		const oldimages = match.track.tagRaw.frames.APIC;
@@ -142,21 +149,21 @@ function fillImages(builder: ID3V24TagBuilder, match: Matching, images: Array<Ma
 }
 
 function fillMood(builder: ID3V24TagBuilder, match: Matching): void {
-	if (match.abdata && match.abdata.moods.length > 0) {
+	if (match.abdata?.moods && match.abdata.moods.length > 0) {
 		builder.mood(match.abdata.moods.join('/'));
 	}
 }
 
 function fillAcoustID(builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack): void {
-	if (match.acoustidEntries) {
-		const acoustIDEntry = match.acoustidEntries.find(item => item.recordingID === track.recording.id);
+	if (match.acoustidEntries && track.recording?.id) {
+		const acoustIDEntry = match.acoustidEntries.find(item => item.recordingID === track.recording?.id);
 		if (acoustIDEntry) {
 			builder.acoustidID(acoustIDEntry.acoustID);
 		}
 	}
 }
 
-export function toID3v24(match: Matching, genres: Array<string>, images: Array<MatchImageNode>): Jam.MediaTagRaw {
+export function toID3v24(match: Matching, genres: Array<string>, images: Array<MatchImageNode>): Jam.MediaTagRaw | undefined {
 	// lets have more or less the same mapping as https://picard.musicbrainz.org/docs/mappings/
 	if (!match.mbTrack) {
 		return;

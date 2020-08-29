@@ -14,7 +14,7 @@ function splitLines(text: string): Array<string> {
 	styleUrls: ['./info-note.component.scss']
 })
 export class InfoNoteComponent implements OnChanges {
-	@Input() info: Jam.ExtendedInfo;
+	@Input() info?: Jam.ExtendedInfo;
 	longInfo = false;
 	notes: Array<string> = [];
 

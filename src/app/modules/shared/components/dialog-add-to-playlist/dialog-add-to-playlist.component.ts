@@ -16,11 +16,11 @@ export interface ChoosePlaylistData {
 	styleUrls: ['./dialog-add-to-playlist.component.scss']
 })
 export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData> {
-	data: ChoosePlaylistData;
-	playlists: Array<Jam.Playlist>;
-	mediaList: Array<Jam.MediaBase>;
+	data?: ChoosePlaylistData;
+	playlists?: Array<Jam.Playlist>;
+	mediaList?: Array<Jam.MediaBase>;
 	showTrackPreview: boolean = false;
-	reference: DialogOverlayRef;
+	reference?: DialogOverlayRef;
 	protected unsubscribe = new Subject();
 
 	constructor(private notify: NotifyService, private playlistService: PlaylistService) {
@@ -47,17 +47,21 @@ export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlayli
 	}
 
 	async start(): Promise<void> {
-		this.mediaList = await this.data.getMedias();
+		if (this.data) {
+			this.mediaList = await this.data.getMedias();
+		}
 	}
 
 	remove(track: Jam.MediaBase): void {
-		this.mediaList = this.mediaList.filter(item => item !== track);
+		this.mediaList = this.mediaList ? this.mediaList.filter(item => item !== track) : [];
 	}
 
 	addTo(playlist: Jam.Playlist): void {
 		if (this.mediaList) {
 			this.playlistService.addToPlaylist(playlist, this.mediaList.map(t => t.id));
 		}
-		this.reference.close();
+		if (this.reference) {
+			this.reference.close();
+		}
 	}
 }

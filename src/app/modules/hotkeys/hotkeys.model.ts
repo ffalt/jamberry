@@ -16,7 +16,7 @@ export class Hotkey {
 		return this._formatted;
 	}
 
-	_formatted: Array<string>;
+	_formatted?: Array<string>;
 
 	/**
 	 * Creates a new Hotkey for Mousetrap binding

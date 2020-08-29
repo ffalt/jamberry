@@ -12,11 +12,11 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./podcast-overview.component.scss']
 })
 export class PodcastOverviewComponent implements OnInit, OnDestroy {
-	podcast: Jam.Podcast;
-	id: string;
+	id?: string;
+	podcast?: Jam.Podcast;
 	protected unsubscribe = new Subject();
-	private subList: Subscription;
-	private podcastID: string;
+	private podcastID?: string;
+	private subList?: Subscription;
 
 	constructor(
 		public podcastService: PodcastService,

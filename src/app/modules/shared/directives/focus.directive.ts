@@ -16,6 +16,7 @@ export class FocusDirective implements OnInit {
 		if (isLeftArrowKey(event)) {
 			return this.element.nativeElement.previousElementSibling;
 		}
+		return;
 	}
 
 	@HostListener('keydown', ['$event'])

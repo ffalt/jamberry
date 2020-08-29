@@ -5,8 +5,8 @@ import {JamService} from '@jam';
 	selector: '[appBackgroundImage]'
 })
 export class BackgroundImageDirective implements OnChanges {
-	@Input('appBackgroundImage') backgroundImageID: string;
-	@HostBinding('style.backgroundImage') backgroundImage: string = undefined;
+	@Input('appBackgroundImage') backgroundImageID?: string;
+	@HostBinding('style.backgroundImage') backgroundImage?: string;
 
 	constructor(private element: ElementRef, private jam: JamService) {
 	}

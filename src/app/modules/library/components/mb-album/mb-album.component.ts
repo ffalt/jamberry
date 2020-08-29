@@ -18,9 +18,9 @@ export interface MBAlbumInfoGroup {
 	styleUrls: ['./mb-album.component.scss']
 })
 export class MbAlbumComponent implements OnChanges {
-	mbAlbum: MusicBrainz.Release;
+	@Input() mbAlbumID?: string;
+	mbAlbum?: MusicBrainz.Release;
 	infoGroups: Array<MBAlbumInfoGroup> = [];
-	@Input() mbAlbumID: string;
 
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}
@@ -65,7 +65,7 @@ export class MbAlbumComponent implements OnChanges {
 				{name: 'Barcode', value: mbAlbum.barcode},
 				{name: 'ASIN', value: mbAlbum.asin},
 				{name: 'Data Quality', value: mbAlbum.quality}
-			].filter(item => !!item.value)
+			].filter(item => !!item.value) as Array<MBAlbumInfo>
 		};
 		this.infoGroups = [group];
 	}

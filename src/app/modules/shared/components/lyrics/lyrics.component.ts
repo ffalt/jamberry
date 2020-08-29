@@ -8,9 +8,9 @@ import {JamService} from '@jam';
 	styleUrls: ['./lyrics.component.scss']
 })
 export class LyricsComponent implements OnChanges {
-	@Input() trackID: string;
-	lyrics: Array<string>;
-	lyricsSource: string;
+	@Input() trackID?: string;
+	lyrics?: Array<string>;
+	lyricsSource?: string;
 
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}

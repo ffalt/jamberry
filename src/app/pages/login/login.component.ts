@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 		password: ''
 	};
 	showServer = false;
-	error: string;
-	returnUrl: string;
+	error?: string;
+	returnUrl?: string;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 		event.preventDefault();
 		this.auth.login(this.credentials.server, this.credentials.username, this.credentials.password)
 			.then(() => {
-				this.router.navigateByUrl(this.returnUrl)
+				this.router.navigateByUrl(this.returnUrl || '/library')
 					.catch(e => {
 						console.error(e);
 					});

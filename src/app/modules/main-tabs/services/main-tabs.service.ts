@@ -9,7 +9,7 @@ export class MainTabsService {
 	queueTab: TabInterface = {name: 'queue', componentClass: TabQueueComponent};
 	mainTab: TabInterface = {name: 'main', componentClass: TabMainComponent};
 	tabs = [this.mainTab, this.playerTab, this.queueTab, this.infoTab];
-	private tabPortalHost: TabPortalOutlet;
+	private tabPortalHost?: TabPortalOutlet;
 
 	get currentTabName(): Readonly<string | undefined> {
 		return this.tabPortalHost ? this.tabPortalHost.currentTabName : undefined;
@@ -25,8 +25,10 @@ export class MainTabsService {
 	}
 
 	dispose(): void {
-		this.tabPortalHost.dispose();
-		this.tabPortalHost = undefined;
+		if (this.tabPortalHost) {
+			this.tabPortalHost.dispose();
+			this.tabPortalHost = undefined;
+		}
 	}
 
 	clickInfo(): void {

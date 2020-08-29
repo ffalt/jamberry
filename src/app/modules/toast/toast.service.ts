@@ -3,7 +3,7 @@ import {ComponentPortal} from '@angular/cdk/portal';
 import {ComponentRef, Inject, Injectable, Injector, NgZone} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {GlobalConfig, IndividualConfig, ToastPackage, ToastToken, TOAST_CONFIG} from './toast-config';
+import {GlobalConfig, IndividualConfig, TOAST_CONFIG, ToastPackage, ToastToken} from './toast-config';
 import {ToastInjector} from './toast-injector';
 import {ToastRef} from './toast-ref';
 import {ToastComponent} from './toast.component';
@@ -43,30 +43,30 @@ export class ToastService {
 	}
 
 	/** show toast */
-	show(message?: string, title?: string, override: Partial<IndividualConfig> = {}, type = ''): ActiveToast<any> {
+	show(message?: string, title?: string, override: Partial<IndividualConfig> = {}, type = ''): ActiveToast<any> | undefined {
 		return this._preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show successful toast */
-	success(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> {
+	success(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
 		const type = this.toastrConfig.iconClasses.success || '';
 		return this._preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show error toast */
-	error(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> {
+	error(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
 		const type = this.toastrConfig.iconClasses.error || '';
 		return this._preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show info toast */
-	info(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> {
+	info(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
 		const type = this.toastrConfig.iconClasses.info || '';
 		return this._preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show warning toast */
-	warning(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> {
+	warning(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
 		const type = this.toastrConfig.iconClasses.warning || '';
 		return this._preBuildNotification(type, message, title, this.applyConfig(override));
 	}
@@ -125,6 +125,7 @@ export class ToastService {
 				return toast;
 			}
 		}
+		return;
 	}
 
 	/** create a clone of global config and apply individual settings */
@@ -148,10 +149,11 @@ export class ToastService {
 	 * Determines the need to run inside angular's zone then builds the toast
 	 */
 	private _preBuildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | undefined {
-		if (config.onActivateTick) {
-			return this.ngZone.run(() =>
+		if (config.onActivateTick && this.ngZone) {
+			this.ngZone.run(() =>
 				this._buildNotification(toastType, message, title, config)
 			);
+			return;
 		}
 		return this._buildNotification(toastType, message, title, config);
 	}
@@ -173,10 +175,10 @@ export class ToastService {
 	 * Creates and attaches toast data to component
 	 * returns the active toast, or in case preventDuplicates is enabled the original/non-duplicate active toast.
 	 */
-	private _buildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | null {
+	private _buildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | undefined {
 		// max opened and auto dismiss = true
 		const duplicate = this.findDuplicate(
-			message,
+			message || '',
 			this.toastrConfig.resetTimeoutOnDuplicate,
 			this.toastrConfig.countDuplicates
 		);

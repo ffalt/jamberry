@@ -6,5 +6,5 @@ import {Component, Input} from '@angular/core';
 	styleUrls: ['./info-text.component.scss']
 })
 export class InfoTextComponent {
-	@Input() info: string;
+	@Input() info?: string;
 }

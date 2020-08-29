@@ -13,6 +13,6 @@ export interface StartSectionItem {
 	styleUrls: ['./start-section.component.scss']
 })
 export class StartSectionComponent {
-	@Input() name: string;
-	@Input() list: Array<StartSectionItem>;
+	@Input() name?: string;
+	@Input() list?: Array<StartSectionItem>;
 }

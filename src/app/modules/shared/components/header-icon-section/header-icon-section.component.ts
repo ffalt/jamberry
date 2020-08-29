@@ -8,9 +8,9 @@ import {HeaderTab} from '@shared/components';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderIconSectionComponent {
-	@Input() icon: string;
-	@Input() section: string;
-	@Input() sectionType: string;
+	@Input() icon?: string;
+	@Input() section?: string;
+	@Input() sectionType?: string;
 	@Input() smallTabs: boolean = false;
 	@Input() hasContextMenu: boolean = false;
 	@Input() tabs: Array<HeaderTab> = [];

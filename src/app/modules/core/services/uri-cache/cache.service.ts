@@ -18,6 +18,7 @@ export class CacheService {
 			'genre/list'].includes(path)) {
 			return {needsRefresh: false};
 		}
+		return;
 	}
 
 	intercept(httpRequest: HttpRequest<any>, handler: HttpHandler): Observable<HttpEvent<any>> {

@@ -18,10 +18,10 @@ export interface ImageEdit {
 	styleUrls: ['./artwork-edit.component.scss']
 })
 export class ArtworkEditComponent implements OnChanges, OnDestroy {
-	@Input() data: ImageEdit;
+	@Input() data?: ImageEdit;
 	imageBase64: string = '';
-	croppedImage: string;
-	croppedImageFile: Blob;
+	croppedImage?: string;
+	croppedImageFile?: Blob;
 	mimeType: string = 'image/jpeg';
 	maintainAspectRatio: boolean = true;
 	@Output() readonly imageEdited = new EventEmitter<void>();
@@ -53,8 +53,10 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 
 	imageCropped(event: ImageCroppedEvent): void {
 		// console.log('cropped', event);
-		this.croppedImage = event.base64;
-		this.croppedImageFile = base64ToFile(event.base64);
+		if (event.base64) {
+			this.croppedImage = event.base64;
+			this.croppedImageFile = base64ToFile(event.base64);
+		}
 	}
 
 	imageLoaded(): void {
@@ -77,13 +79,16 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	}
 
 	upload(): void {
+		if (!this.croppedImageFile || !this.data) {
+			return;
+		}
+		const folderID = this.data.folderID;
 		const file = new File([this.croppedImageFile], this.data.artwork.name, {type: this.croppedImageFile.type});
 		this.jam.artwork.update({id: this.data.artwork.id}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			event => {
 				if (event.type === HttpEventType.Response) {
-					this.folderService.waitForQueueResult('Updating Folder Artwork', event.body,
-						[this.data.folderID]);
+					this.folderService.waitForQueueResult('Updating Folder Artwork', event.body, [folderID]);
 					this.imageEdited.emit();
 				} else if (event.type === HttpEventType.UploadProgress) {
 					// const percentDone = Math.round(100 * event.loaded / event.total);

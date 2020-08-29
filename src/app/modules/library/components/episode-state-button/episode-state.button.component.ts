@@ -9,7 +9,7 @@ import {ActionsService, PodcastService} from '@shared/services';
 	styleUrls: ['./episode-state.button.component.scss']
 })
 export class EpisodeStateButtonComponent {
-	@Input() episode: Jam.Episode;
+	@Input() episode?: Jam.Episode;
 	@Input() showTitle: boolean = false;
 	PodcastStatus = PodcastStatus;
 

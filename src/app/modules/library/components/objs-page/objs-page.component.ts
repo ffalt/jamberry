@@ -14,12 +14,12 @@ import {ContextMenuSimpleComponent, ContextMenuSimpleComponentOptions} from '../
 	styleUrls: ['./objs-page.component.scss']
 })
 export class ObjsPageComponent implements OnInit, OnDestroy {
-	tabs: Array<HeaderTab>;
-	type: JamType;
-	icon: string;
-	section: string;
-	sectionType: string;
-	hasContextMenu: boolean;
+	tabs?: Array<HeaderTab>;
+	type?: JamType;
+	icon?: string;
+	section?: string;
+	sectionType?: string;
+	hasContextMenu?: boolean;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -33,10 +33,10 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 			const type = getUrlType(val);
 			this.type = type;
 			this.hasContextMenu = false;
-			this.sectionType = type.category;
-			this.icon = type.icon;
-			this.section = type.text;
-			switch (type.id) {
+			this.sectionType = type?.category;
+			this.icon = type?.icon;
+			this.section = type?.text;
+			switch (type?.id) {
 				case JamUrlType.podcasts:
 					this.hasContextMenu = this.library.jam.auth.user?.roles.podcast;
 					break;
@@ -45,7 +45,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 					break;
 				default:
 			}
-			this.tabs = this.library.buildTabs(type.id);
+			this.tabs = type?.id ? this.library.buildTabs(type.id) : undefined;
 		});
 	}
 
@@ -53,7 +53,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 		if (!this.hasContextMenu) {
 			return;
 		}
-		switch (this.type.id) {
+		switch (this.type?.id) {
 			case JamUrlType.podcasts:
 				this.contextMenuService.open<ContextMenuSimpleComponentOptions>(ContextMenuSimpleComponent, item, $event, {
 					entries: [

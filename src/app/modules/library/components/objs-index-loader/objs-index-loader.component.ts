@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {getUrlType, JamType, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@app/utils/jam-lists';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamObjectType, JamParameters} from '@jam';
-import {Index, IndexService, PlaylistService} from '@shared/services';
+import {Index, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -13,15 +13,15 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./objs-index-loader.component.scss']
 })
 export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
-	index: Index;
-	objType: JamObjectType;
-	query: any;
+	index?: Index;
+	objType?: JamObjectType;
+	query?: JamParameters.ArtistFilterArgs | JamParameters.SeriesFilterArgs | JamParameters.FolderFilterArgs | JamParameters.AlbumFilterArgs;
 	protected unsubscribe = new Subject();
 
 	constructor(protected indexService: IndexService, protected notify: NotifyService, protected route: ActivatedRoute) {
 	}
 
-	request(type: JamType): void {
+	request(type?: JamType): void {
 		this.objType = undefined;
 		this.query = undefined;
 		if (type) {
@@ -44,7 +44,7 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 				}
 				case JamObjectType.album: {
 					const albumQuery: JamParameters.AlbumFilterArgs = {
-						albumTypes: [type.albumType],
+						albumTypes: type.albumType ? [type.albumType] : [],
 						mbArtistIDs: type.albumType === AlbumType.compilation ? [MUSICBRAINZ_VARIOUS_ARTISTS_ID] : undefined
 					};
 					this.query = albumQuery;
@@ -66,7 +66,7 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 		this.indexService.indexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			indexCache => {
-				if (indexCache.matches(this.objType, this.query)) {
+				if (this.objType && indexCache.matches(this.objType, this.query)) {
 					this.index = indexCache.index;
 				}
 			},

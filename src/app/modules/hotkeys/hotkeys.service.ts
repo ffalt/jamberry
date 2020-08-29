@@ -18,7 +18,7 @@ export class HotkeysService {
 			if ((` ${element.className} `).includes(' mousetrap ')) {
 				return false;
 			}
-			return (element.contentEditable && element.contentEditable === 'true');
+			return (element.contentEditable === 'true');
 		};
 		this.mousetrap = new (Mousetrap as any)();
 	}
@@ -33,7 +33,7 @@ export class HotkeysService {
 		}
 		this.remove(hotkey);
 		this.hotkeys.push(hotkey);
-		this.mousetrap.bind((hotkey).combo, (event: KeyboardEvent, combo: string) => {
+		const mousetrapFN = (event: KeyboardEvent, combo: string): any => {
 			let shouldExecute = true;
 
 			// if the callback is executed directly `hotkey.get('w').callback()`
@@ -45,7 +45,7 @@ export class HotkeysService {
 				// check if the input has a mousetrap class, and skip checking preventIn if so
 				if ((` ${target.className} `).includes(' mousetrap ')) {
 					shouldExecute = true;
-				} else if (this._preventIn.includes(nodeName) && !hotkey.allowIn.map(allow => allow.toUpperCase()).includes(nodeName)) {
+				} else if (this._preventIn.includes(nodeName) && !(hotkey.allowIn || []).map(allow => allow.toUpperCase()).includes(nodeName)) {
 					// don't execute callback if the event was fired from inside an element listed in preventIn but not in allowIn
 					shouldExecute = false;
 				}
@@ -54,7 +54,9 @@ export class HotkeysService {
 			if (shouldExecute) {
 				return (hotkey).callback.apply(this, [event, combo]);
 			}
-		}, specificEvent);
+			return;
+		};
+		this.mousetrap.bind((hotkey).combo, mousetrapFN, specificEvent);
 		return hotkey;
 	}
 
@@ -78,6 +80,7 @@ export class HotkeysService {
 			this.mousetrap.unbind((hotkey).combo);
 			return hotkey;
 		}
+		return;
 	}
 
 	get(combo?: string | Array<string>): Hotkey | Array<Hotkey> | undefined {
@@ -126,6 +129,7 @@ export class HotkeysService {
 			this.add(hotkey);
 			return this.pausedHotkeys.splice(index, 1);
 		}
+		return;
 	}
 
 	reset(): void {

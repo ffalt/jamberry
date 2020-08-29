@@ -56,12 +56,16 @@ export function positionElements(hostEl: HTMLElement, targetEl: HTMLElement, pos
 	const hostElPos = appendToBody ? offset(hostEl) : position(hostEl);
 	const targetElWidth = targetEl.offsetWidth;
 	const targetElHeight = targetEl.offsetHeight;
-	const shiftWidth = {
+	const shiftWidth: {
+		[name: string]: () => number;
+	} = {
 		center: (): number => hostElPos.left + hostElPos.width / 2 - targetElWidth / 2,
 		left: (): number => hostElPos.left,
 		right: (): number => hostElPos.left + hostElPos.width
 	};
-	const shiftHeight = {
+	const shiftHeight: {
+		[name: string]: () => number;
+	} = {
 		center: (): number => hostElPos.top + hostElPos.height / 2 - targetElHeight / 2,
 		top: (): number => hostElPos.top,
 		bottom: (): number => hostElPos.top + hostElPos.height

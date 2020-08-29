@@ -14,10 +14,10 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./artist-overview.component.scss']
 })
 export class ArtistOverviewComponent implements OnInit, OnDestroy {
+	id?: string;
 	artist?: Jam.Artist;
 	albums?: Array<JamAlbumObject>;
 	tracksQuery?: JamParameters.TrackFilterArgs;
-	id: string;
 	protected unsubscribe = new Subject();
 
 	constructor(

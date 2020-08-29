@@ -25,7 +25,7 @@ export interface AdminChangeQueueInfoPoll {
 export class AdminFolderService {
 	foldersChange = new EventEmitter<{ id: string; mode: AdminFolderServiceNotifyMode }>();
 	tracksChange = new EventEmitter<{ id: string }>();
-	current: AdminChangeQueueInfoPoll;
+	current?: AdminChangeQueueInfoPoll;
 	queue: Array<AdminChangeQueueInfoPoll> = [];
 
 	constructor(private jam: JamService, private notify: NotifyService) {
@@ -44,9 +44,10 @@ export class AdminFolderService {
 		if (!old && this.current && this.current.id === item.id) {
 			old = this.current;
 		}
-		if (old) {
+		if (old && old.notifyAfter) {
 			if (folderIDs) {
 				for (const id of folderIDs) {
+					old.folderIDs = old.folderIDs || [];
 					if (!old.folderIDs.includes(id)) {
 						old.folderIDs.push(id);
 					}
@@ -54,6 +55,7 @@ export class AdminFolderService {
 			}
 			if (refreshChildsFolderIDs) {
 				for (const id of refreshChildsFolderIDs) {
+					old.refreshChildsFolderIDs = old.refreshChildsFolderIDs || [];
 					if (!old.refreshChildsFolderIDs.includes(id)) {
 						old.refreshChildsFolderIDs.push(id);
 					}
@@ -61,13 +63,14 @@ export class AdminFolderService {
 			}
 			if (trackIDs) {
 				for (const id of trackIDs) {
+					old.trackIDs = old.trackIDs || [];
 					if (!old.trackIDs.includes(id)) {
 						old.trackIDs.push(id);
 					}
 				}
 			}
 			old.count++;
-			return;
+			return old.notifyAfter;
 		}
 		const notifyAfter = new EventEmitter<Jam.AdminChangeQueueInfo>();
 		this.queue.push({title, id: item.id, item, folderIDs, refreshChildsFolderIDs, trackIDs, count: 1, notifyAfter});
@@ -105,7 +108,7 @@ export class AdminFolderService {
 		}
 	}
 
-	private pollEnd(data: AdminChangeQueueInfoPoll, result: Jam.AdminChangeQueueInfo): void {
+	private pollEnd(data: AdminChangeQueueInfoPoll, result?: Jam.AdminChangeQueueInfo): void {
 		(data.folderIDs || []).forEach(id => {
 			this.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
 		});

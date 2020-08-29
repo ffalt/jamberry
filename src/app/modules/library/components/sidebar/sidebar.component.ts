@@ -10,9 +10,9 @@ import {SidebarListItem} from '@library/components';
 	styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
-	root: Jam.Root;
+	root?: Jam.Root;
+	stats?: Jam.Stats;
 	showMobileNavig: boolean = false;
-	stats: Jam.Stats;
 	mainList: Array<SidebarListItem> = [];
 	musicList: Array<SidebarListItem> = [];
 	spokenList: Array<SidebarListItem> = [];
@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 		this.updateNavigation();
 		this.refreshStats();
 		this.app.view.currentSidebar = this;
-		this.router.events.forEach(event => {
+		this.router.events.forEach(_ => {
 			this.showMobileNavig = false;
 		}).catch(e => {
 			console.error(e);

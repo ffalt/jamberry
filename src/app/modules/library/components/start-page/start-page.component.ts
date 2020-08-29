@@ -16,7 +16,7 @@ export class StartPageComponent implements OnInit {
 		albumFaved?: Array<StartSectionItem>;
 		albumRecent?: Array<StartSectionItem>;
 	} = {};
-	stats: Array<{ text: string; link: string; value: number }>;
+	stats?: Array<{ text: string; link: string; value: number }>;
 
 	constructor(public jam: JamService, protected notify: NotifyService, public navig: NavigService) {
 	}
@@ -76,7 +76,7 @@ export class StartPageComponent implements OnInit {
 							{type: getTypeByAlbumType(AlbumType.album), value: stats.albumTypes.album},
 							{type: getTypeByAlbumType(AlbumType.compilation), value: stats.albumTypes.compilation}
 						].map(t => ({
-							text: t.type.text, link: '/library/' + t.type.id, value: t.value
+							text: t.type?.text, link: '/library/' + t.type?.id, value: t.value
 						})),
 						{text: 'Series', link: '/library/series', value: stats.series},
 						...[
@@ -87,11 +87,11 @@ export class StartPageComponent implements OnInit {
 							{type: getTypeByAlbumType(AlbumType.ep), value: stats.albumTypes.ep},
 							{type: getTypeByAlbumType(AlbumType.single), value: stats.albumTypes.single}
 						].map(t => ({
-							text: t.type.text, link: '/library/' + t.type.id, value: t.value
+							text: t.type?.text, link: '/library/' + t.type?.id, value: t.value
 						})),
 						{text: 'Folders', link: '/library/folders', value: stats.folder},
 						{text: 'Tracks', link: '/library/tracks', value: stats.track}
-					].filter(t => t.value > 0);
+					].filter(t => t.value > 0 && t.text) as Array<{ text: string; link: string; value: number }>;
 			})
 			.catch(e => {
 				this.notify.error(e);

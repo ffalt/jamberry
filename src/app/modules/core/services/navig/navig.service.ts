@@ -95,7 +95,7 @@ export class NavigService {
 	}
 
 	toTrack(track: Jam.Track): void {
-		this.toTrackID(track.id, track.tag.title);
+		this.toTrackID(track.id, track.tag?.title || track.name);
 	}
 
 	toPodcastEpisode(episode: Jam.Episode): void {

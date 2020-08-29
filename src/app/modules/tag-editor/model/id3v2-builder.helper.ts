@@ -140,12 +140,12 @@ export class ID3V24TagBuilder {
 		return this;
 	}
 
-	originalArtist(value: string): ID3V24TagBuilder {
+	originalArtist(value?: string): ID3V24TagBuilder {
 		this.rawBuilder.text('TOPE', value);
 		return this;
 	}
 
-	originalDate(value: string): ID3V24TagBuilder {
+	originalDate(value?: string): ID3V24TagBuilder {
 		this.rawBuilder.text('TDOR', value);
 		return this;
 	}

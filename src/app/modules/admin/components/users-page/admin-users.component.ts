@@ -13,7 +13,7 @@ import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 	styleUrls: ['./admin-users.component.scss']
 })
 export class AdminUsersComponent implements OnInit, OnDestroy {
-	users: Array<Jam.User>;
+	users?: Array<Jam.User>;
 	protected unsubscribe = new Subject();
 
 	constructor(

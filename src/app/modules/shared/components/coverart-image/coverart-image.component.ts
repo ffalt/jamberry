@@ -9,16 +9,16 @@ import {ImageOverlayContentComponent} from '../image-overlay-content/image-overl
 	styleUrls: ['./coverart-image.component.scss']
 })
 export class CoverartImageComponent implements OnChanges, AfterContentInit {
-	@Input() coverArtObj: { id: string; name: string };
+	@Input() coverArtObj?: { id: string; name: string };
+	@Input() size?: number;
 	@Input() alt: string = '';
 	@Input() refreshRandom: string = '';
-	@Input() size: number;
 	@Input() allowEnlarge: boolean = false;
 	@Input() @HostBinding('class.fill') fill: boolean = false;
 	@Input() @HostBinding('class.round') round: boolean = false;
 	@Input() @HostBinding('class.border') border: boolean = true;
-	@HostBinding('style.minWidth.px') @HostBinding('style.minHeight.px') minSize: number;
-	@HostBinding('style.height.px') @HostBinding('style.width.px') hostSize: number;
+	@HostBinding('style.minWidth.px') @HostBinding('style.minHeight.px') minSize?: number;
+	@HostBinding('style.height.px') @HostBinding('style.width.px') hostSize?: number;
 	isLoaded: boolean = false;
 	imageSrc: string = '';
 	altSrc: string = '';
@@ -39,7 +39,7 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 		if (this.fill) {
 			this.minSize = undefined;
 			this.hostSize = undefined;
-		} else {
+		} else if (this.size) {
 			this.minSize = this.size - (this.border ? 2 : 0);
 			this.hostSize = this.minSize;
 		}
@@ -70,8 +70,8 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 		this.altSrc = this.alt;
 	}
 
-	showImageOverlay(event): void {
-		if (this.allowEnlarge) {
+	showImageOverlay(event: MouseEvent): void {
+		if (this.allowEnlarge && this.coverArtObj) {
 			event.stopPropagation();
 			this.dialogOverlay.open({
 				title: this.coverArtObj.name,

@@ -9,8 +9,8 @@ import {IndexEntry, IndexGroup} from '@shared/services';
 	styleUrls: ['./index-group.component.scss']
 })
 export class IndexGroupComponent {
-	@Input() indexType: JamObjectType;
-	@Input() group: IndexGroup;
+	@Input() indexType?: JamObjectType;
+	@Input() group?: IndexGroup;
 	visible: boolean = false;
 
 	constructor(public app: AppService, private navig: NavigService) {

@@ -14,7 +14,7 @@ export interface UserPasswordEdit {
 	styleUrls: ['./dialog-user-pass.component.scss']
 })
 export class DialogUserPassComponent implements DialogOverlay<UserPasswordEdit> {
-	data: UserPasswordEdit;
+	data?: UserPasswordEdit;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<UserPasswordEdit>>): void {
 		this.data = options.data;

@@ -10,8 +10,8 @@ export class ObjTooltipDirective {
 	@Input() tooltipAnimation: boolean = true;
 	@Input() tooltipPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
 
-	private tooltip: ComponentRef<ChildTooltipContentComponent>;
-	private visible: boolean;
+	private tooltip?: ComponentRef<ChildTooltipContentComponent>;
+	private visible?: boolean;
 
 	constructor(private viewContainerRef: ViewContainerRef, private compiler: Compiler, private componentFactoryResolver: ComponentFactoryResolver) {
 	}

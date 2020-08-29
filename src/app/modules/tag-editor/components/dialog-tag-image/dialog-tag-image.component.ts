@@ -14,15 +14,17 @@ export interface PicEdit {
 	styleUrls: ['./dialog-tag-image.component.scss']
 })
 export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
-	edit: PicEdit;
+	edit?: PicEdit;
 	maintainAspectRatio: boolean = true;
 	current: { frame?: ID3v2Frames.Pic; source?: string } = {};
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PicEdit>>): void {
 		this.edit = options.data;
-		this.edit.result = options.data.frames.map(frame => ({id: frame.id, value: {...frame.value}}));
-		if (this.edit.result.length > 0) {
-			this.displayFrame(this.edit.result[0]);
+		if (this.edit) {
+			this.edit.result = this.edit.frames.map(frame => ({id: frame.id, value: {...frame.value}}));
+			if (this.edit.result.length > 0) {
+				this.displayFrame(this.edit.result[0]);
+			}
 		}
 	}
 
@@ -34,7 +36,7 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 
 	onDropFile(event: DragEvent): void {
 		event.preventDefault();
-		this.uploadFile(event.dataTransfer.files);
+		this.uploadFile(event.dataTransfer?.files);
 	}
 
 	// At the file input element
@@ -60,8 +62,8 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 		return {id: 'APIC', value: {mimeType, description: '', bin: base64, pictureType: 3}};
 	}
 
-	uploadFile(files: FileList): void {
-		if (files.length === 0) {
+	uploadFile(files?: FileList): void {
+		if (!files || files.length === 0) {
 			return;
 		}
 		const file: File = files[0];
@@ -71,7 +73,9 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 			const fullBase64 = event.target.result;
 			if (!this.current.frame) {
 				this.current.frame = this.buildFrame(fullBase64);
-				this.edit.result.push(this.current.frame);
+				if (this.edit?.result) {
+					this.edit.result.push(this.current.frame);
+				}
 			}
 			this.current.source = fullBase64;
 			const {mimeType, base64} = this.splitBase64(fullBase64);
@@ -97,7 +101,7 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 
 	imageCropped(event: ImageCroppedEvent): void {
 		// console.log('imageCropped', event);
-		if (this.current) {
+		if (this.current?.frame && event.base64) {
 			const {mimeType, base64} = this.splitBase64(event.base64);
 			this.current.frame.value.mimeType = mimeType;
 			this.current.frame.value.bin = base64;

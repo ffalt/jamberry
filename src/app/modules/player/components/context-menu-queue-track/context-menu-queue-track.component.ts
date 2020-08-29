@@ -10,7 +10,7 @@ import {ActionsService} from '@shared/services';
 	styleUrls: ['./context-menu-queue-track.component.scss']
 })
 export class ContextMenuQueueTrackComponent implements ContextMenuHostComponentInterface<any> {
-	@ViewChild('queueMenu') contextMenu: ContextMenuComponent;
+	@ViewChild('queueMenu') contextMenu?: ContextMenuComponent;
 
 	constructor(
 		public navig: NavigService, public queue: QueueService, public player: PlayerService, public actions: ActionsService) {

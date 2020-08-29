@@ -16,6 +16,7 @@ export class ConfigurationService extends JamConfiguration {
 	static localStorageName = 'jam.auth';
 	clientName: string;
 	clientDomain?: string = undefined;
+	forceSessionUsage = false;
 
 	constructor(
 		private localstorage: LocalstorageService, private userStorage: UserStorageService, private app: AppService,
@@ -27,7 +28,7 @@ export class ConfigurationService extends JamConfiguration {
 	}
 
 	domain(): string {
-		return this.clientDomain;
+		return this.clientDomain || '';
 	}
 
 	async fromStorage(): Promise<{ user: Jam.User; auth: Auth } | undefined> {

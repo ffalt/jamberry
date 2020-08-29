@@ -43,7 +43,7 @@ export class ActionsService {
 
 	rate(type: JamObjectType, base: Jam.Base): void {
 		const data: RateEdit = {
-			rating: base.state.rated || 0,
+			rating: base.state?.rated || 0,
 			id: base.id
 		};
 		this.dialogOverlay.open({
@@ -51,8 +51,14 @@ export class ActionsService {
 			data,
 			onOkBtn: async () => {
 				try {
-					await this.jam.state.rate({id: base.id, rating: data.rating});
-					base.state.rated = data.rating;
+					const rating = data.rating;
+					if (rating === undefined) {
+						return;
+					}
+					await this.jam.state.rate({id: base.id, rating});
+					const state = base.state || {};
+					state.rated = rating;
+					base.state = state;
 					this.notify.success('Rated ' + type);
 				} catch (e) {
 					this.notify.error(e);

@@ -23,8 +23,8 @@ import {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.types';
 })
 export class DialogOverlayComponent implements OnInit {
 	isBusy: boolean = false;
-	childComponentRef: ComponentRef<DialogOverlay<any>>;
-	@ViewChild('overlayDialogBody', {read: ViewContainerRef, static: true}) dynamicComponentTarget: ViewContainerRef;
+	childComponentRef?: ComponentRef<DialogOverlay<any>>;
+	@ViewChild('overlayDialogBody', {read: ViewContainerRef, static: true}) dynamicComponentTarget?: ViewContainerRef;
 
 	constructor(
 		public dialogRef: DialogOverlayRef,
@@ -41,7 +41,7 @@ export class DialogOverlayComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		if (this.config.childComponent) {
+		if (this.config.childComponent && this.dynamicComponentTarget) {
 			const factory = this.componentFactoryResolver.resolveComponentFactory(this.config.childComponent);
 			this.childComponentRef = this.dynamicComponentTarget.createComponent(factory) as ComponentRef<DialogOverlay<any>>;
 			this.childComponentRef.instance.dialogInit(this.dialogRef, this.config);
@@ -55,7 +55,7 @@ export class DialogOverlayComponent implements OnInit {
 	}
 
 	ok(): void {
-		if (this.isBusy) {
+		if (this.isBusy || !this.config.onOkBtn) {
 			return;
 		}
 		this.isBusy = true;
@@ -68,7 +68,7 @@ export class DialogOverlayComponent implements OnInit {
 	}
 
 	cancel(): void {
-		if (this.isBusy) {
+		if (this.isBusy || !this.config.onCancelBtn) {
 			return;
 		}
 		this.isBusy = true;

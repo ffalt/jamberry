@@ -1720,7 +1720,7 @@ export declare namespace Jam {
 		 * Session Expiration
 		 * @TJS-type integer
 		 */
-		expires: number;
+		expires?: number;
 		/** Session Mode */
 		mode: JamEnums.SessionMode;
 		/** Session Platform */

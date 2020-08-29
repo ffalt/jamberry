@@ -41,7 +41,7 @@ export class UserListComponent implements OnDestroy {
 			edit: {
 				password: '',
 				name: user.name,
-				email: user.email,
+				email: user.email || '',
 				roleAdmin: user.roles.admin,
 				rolePodcast: user.roles.podcast,
 				roleStream: user.roles.stream,

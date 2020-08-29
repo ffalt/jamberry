@@ -42,12 +42,12 @@ export class ContextMenuComponent implements OnDestroy {
 	@Input() disabled = false;
 	@Output() readonly menuClose: EventEmitter<CloseContextMenuEvent> = new EventEmitter();
 	@Output() readonly menuOpen: EventEmitter<ContextMenuClickEvent> = new EventEmitter();
-	@ContentChildren(ContextMenuItemDirective) menuItems: QueryList<ContextMenuItemDirective>;
-	@ViewChild('menu', {static: true}) menuElement: ElementRef;
+	@ContentChildren(ContextMenuItemDirective) menuItems?: QueryList<ContextMenuItemDirective>;
+	@ViewChild('menu', {static: true}) menuElement?: ElementRef;
 	visibleMenuItems: Array<ContextMenuItemDirective> = [];
 	// links: Array<LinkConfig> = [];
-	item: any;
-	event: MouseEvent | KeyboardEvent | Event;
+	item?: any;
+	event?: MouseEvent | KeyboardEvent | Event;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -57,7 +57,7 @@ export class ContextMenuComponent implements OnDestroy {
 		@Optional() @Inject(CONTEXT_MENU_OPTIONS) private options: ContextMenuOptions
 	) {
 		if (options) {
-			this.autoFocus = options.autoFocus;
+			this.autoFocus = !!options.autoFocus;
 		}
 		_contextMenuService.show
 			.pipe(takeUntil(this.unsubscribe)).subscribe(menuEvent => {
@@ -95,7 +95,7 @@ export class ContextMenuComponent implements OnDestroy {
 	}
 
 	setVisibleMenuItems(): void {
-		this.visibleMenuItems = this.menuItems.filter(menuItem => this.isMenuItemVisible(menuItem));
+		this.visibleMenuItems = (this.menuItems || []).filter(menuItem => this.isMenuItemVisible(menuItem));
 	}
 
 	evaluateIfFunction(value: any): boolean {

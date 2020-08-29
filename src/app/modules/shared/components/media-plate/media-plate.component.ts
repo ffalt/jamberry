@@ -8,8 +8,8 @@ import {JamObject} from '@shared/model/helpers';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaPlateComponent {
-	@Input() obj: JamObject;
-	@Input() showParent: boolean;
+	@Input() obj?: JamObject;
+	@Input() showParent: boolean = false;
 	visible: boolean = false;
 
 	constructor(private cdr: ChangeDetectorRef) {
@@ -17,7 +17,9 @@ export class MediaPlateComponent {
 
 	@HostListener('contextmenu', ['$event'])
 	contextmenuEvent(event: MouseEvent): void {
-		this.obj.onContextMenu(event);
+		if (this.obj) {
+			this.obj.onContextMenu(event);
+		}
 	}
 
 	gotInView(): void {
@@ -25,6 +27,9 @@ export class MediaPlateComponent {
 	}
 
 	toggleFav(): void {
+		if (!this.obj) {
+			return;
+		}
 		this.obj.toggleFav()
 			.then(() => {
 				this.cdr.detectChanges();

@@ -13,6 +13,8 @@ export interface GenreTab extends HeaderTab {
 }
 
 export interface GenreTabs {
+	[name: string]: GenreTab;
+
 	artists: GenreTab;
 	albums: GenreTab;
 	tracks: GenreTab;
@@ -26,7 +28,7 @@ export interface GenreTabs {
 export class GenrePageComponent implements OnDestroy {
 	title = 'Genre';
 	genre = '';
-	mode: string;
+	mode?: string;
 	tabsObjs: GenreTabs = {
 		artists: {id: 'artist', label: 'Artist'},
 		albums: {id: 'album', label: 'Album'},

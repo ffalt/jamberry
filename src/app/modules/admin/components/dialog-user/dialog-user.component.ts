@@ -8,7 +8,7 @@ import {AdminUserServiceEditData} from '@core/services';
 	styleUrls: ['./dialog-user.component.scss']
 })
 export class DialogUserComponent implements DialogOverlay<AdminUserServiceEditData> {
-	edit: AdminUserServiceEditData;
+	edit?: AdminUserServiceEditData;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<AdminUserServiceEditData>>): void {
 		this.edit = options.data;

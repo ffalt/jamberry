@@ -21,7 +21,7 @@ export class AdminRootService implements OnDestroy {
 	rootsChange = new EventEmitter<Array<Jam.Root>>();
 	rootChange = new Notifiers<Jam.Root>();
 	protected unsubscribe = new Subject();
-	private roots: Array<Jam.Root>;
+	private roots: Array<Jam.Root> = [];
 	private rootPoll = new Poller<Jam.Root>((root, cb) => {
 		this.jam.root.status({id: root.id})
 			.then(data => {
@@ -52,11 +52,12 @@ export class AdminRootService implements OnDestroy {
 
 	async applyDialogRoot(edit: AdminRootServiceEditData): Promise<void> {
 		if (edit.root) {
-			const item = await this.jam.root.update({id: edit.root.id, name: edit.name, path: edit.path, strategy: edit.strategy});
+			const id = edit.root.id;
+			const item = await this.jam.root.update({id, name: edit.name, path: edit.path, strategy: edit.strategy});
 			this.folderService.waitForQueueResult('Updating Root', item, [])
 				.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
 				this.notify.success('Root updated');
-				this.refreshRoot(edit.root.id);
+				this.refreshRoot(id);
 			});
 		} else {
 			const item = await this.jam.root.create({name: edit.name, path: edit.path, strategy: edit.strategy});

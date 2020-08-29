@@ -12,7 +12,7 @@ export interface Image {
 	styleUrls: ['./image-overlay-content.scss']
 })
 export class ImageOverlayContentComponent implements DialogOverlay<Image> {
-	data: Image;
+	data?: Image;
 	loading = true;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<Image>>): void {

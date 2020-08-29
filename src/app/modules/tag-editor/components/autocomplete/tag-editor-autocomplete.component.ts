@@ -15,8 +15,8 @@ export class TagEditorAutocompleteComponent implements AutocompleteDataControl, 
 	@Input() field: string = 'text';
 	@Input() value: string = '';
 	@Input() data: any;
-	@Input() getList: (data: any) => Array<string>;
-	@Input() onAutoComplete: (query: string) => Promise<Array<string>>;
+	@Input() getList?: (data: any) => Array<string>;
+	@Input() onAutoComplete?: (query: string) => Promise<Array<string>>;
 	@Output() readonly valueChange = new EventEmitter();
 
 	ngOnChanges(changes: SimpleChanges): void {

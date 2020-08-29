@@ -6,8 +6,8 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 	styleUrls: ['./score-box.component.scss']
 })
 export class ScoreBoxComponent implements OnChanges {
-	@Input() score: number;
-	color: string;
+	@Input() score?: number;
+	color?: string;
 
 	getMatchColor(score: number): string {
 		if (score > 0.7) {
@@ -20,7 +20,7 @@ export class ScoreBoxComponent implements OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		this.color = this.getMatchColor(this.score);
+		this.color = (this.score === undefined) ? undefined : this.getMatchColor(this.score);
 	}
 
 }

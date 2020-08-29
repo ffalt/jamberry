@@ -9,8 +9,8 @@ import {Jam, JamService} from '@jam';
 })
 export class ChatComponent implements OnInit, OnDestroy {
 	msg: string = '';
-	messages: Array<Jam.Chat>;
-	isPolling: boolean;
+	messages: Array<Jam.Chat> = [];
+	isPolling: boolean = false;
 	timer: any;
 
 	constructor(protected jam: JamService, protected notify: NotifyService) {

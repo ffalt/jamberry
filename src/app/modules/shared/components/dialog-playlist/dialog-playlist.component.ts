@@ -10,11 +10,13 @@ import {PlaylistEdit} from '@shared/services';
 })
 export class DialogPlaylistComponent implements DialogOverlay<PlaylistEdit> {
 	showTrackPreview = false;
-	playlistEdit: PlaylistEdit;
-	@ViewChild('playlistNameInput', {static: true}) playlistNameInput: ElementRef;
+	playlistEdit?: PlaylistEdit;
+	@ViewChild('playlistNameInput', {static: true}) playlistNameInput?: ElementRef;
 
 	remove(track: Jam.MediaBase): void {
-		this.playlistEdit.entries = this.playlistEdit.entries.filter(t => t.id !== track.id);
+		if (this.playlistEdit) {
+			this.playlistEdit.entries = this.playlistEdit.entries.filter(t => t.id !== track.id);
+		}
 	}
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PlaylistEdit>>): void {

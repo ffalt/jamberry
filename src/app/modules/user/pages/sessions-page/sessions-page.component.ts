@@ -8,7 +8,7 @@ import {Jam, JamAuthService, JamService} from '@jam';
 	styleUrls: ['./sessions-page.component.scss']
 })
 export class SessionsPageComponent implements OnInit {
-	sessions: Array<Jam.UserSession>;
+	sessions?: Array<Jam.UserSession>;
 
 	constructor(private jam: JamService, private auth: JamAuthService, private notify: NotifyService) {
 	}
@@ -23,7 +23,9 @@ export class SessionsPageComponent implements OnInit {
 		const id = session.id;
 		this.jam.session.remove({id})
 			.then(() => {
-				this.sessions = this.sessions.filter(s => s.id !== id);
+				if (this.sessions) {
+					this.sessions = this.sessions.filter(s => s.id !== id);
+				}
 				this.notify.success('Session Login removed');
 			})
 			.catch(e => {

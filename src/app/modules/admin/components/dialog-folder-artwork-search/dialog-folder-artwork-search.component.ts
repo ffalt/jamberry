@@ -8,7 +8,7 @@ import {ArtworkSearch} from '../folder-artwork-search/folder-artwork-search-imag
 	styleUrls: ['./dialog-folder-artwork-search.component.scss']
 })
 export class DialogFolderArtworkSearchComponent implements DialogOverlay<ArtworkSearch> {
-	data: ArtworkSearch;
+	data?: ArtworkSearch;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ArtworkSearch>>): void {
 		this.data = options.data;

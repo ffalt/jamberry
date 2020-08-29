@@ -11,8 +11,8 @@ export interface Tab {
 	styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent {
-	@Input() tabs: Array<Tab>;
-	@Input() current: Tab;
+	@Input() tabs?: Array<Tab>;
+	@Input() current?: Tab;
 	@Output() readonly tabChange = new EventEmitter<Tab>();
 
 	trackByFn(index: number, tab: Tab): string {

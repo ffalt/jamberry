@@ -9,13 +9,13 @@ import {LoadMoreButtonComponent} from '@shared/components';
 	styleUrls: ['./episodes-loader.component.scss']
 })
 export class EpisodesLoaderComponent implements OnChanges {
-	episodes: Array<Jam.Episode>;
-	@Input() listType: ListType;
-	@Input() latest: boolean;
-	@Input() query: string;
-	@Input() queryCmd: JamParameters.EpisodeFilterArgs;
-	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore: LoadMoreButtonComponent;
-	private activeRequest: Promise<void>;
+	episodes?: Array<Jam.Episode>;
+	@Input() listType?: ListType;
+	@Input() latest: boolean = false;
+	@Input() query?: string;
+	@Input() queryCmd?: JamParameters.EpisodeFilterArgs;
+	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
+	private activeRequest?: Promise<void>;
 
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}
@@ -26,7 +26,7 @@ export class EpisodesLoaderComponent implements OnChanges {
 			.then(data => {
 				if (this.activeRequest === request) {
 					this.episodes = (this.episodes || []).concat(data.items);
-					this.loadMore.hasMore = data.total > this.episodes.length;
+					this.loadMore.hasMore = (data.total || 0) > this.episodes.length;
 					this.loadMore.total = data.total;
 					this.loadMore.loading = false;
 				}
@@ -90,7 +90,7 @@ export class EpisodesLoaderComponent implements OnChanges {
 	load(): void {
 		if (this.latest) {
 			this.searchLatest();
-		} else	if (this.query) {
+		} else if (this.query) {
 			this.searchText();
 		} else if (this.queryCmd) {
 			this.searchCmd();

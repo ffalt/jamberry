@@ -1,18 +1,16 @@
 import {Jam, JamService} from '@jam';
-import soundmanager2 from 'soundmanager2';
+import {SMSound, soundManager} from 'soundmanager2';
 import {PlayerEvents, SoundPlayer, SoundPlayerAudioSupport} from './player.interface';
 
-declare const soundManager: soundmanager2.SoundManager;
+// declare const soundManager: soundmanager2.SoundManager;
 
 /**
  * This class take responsibility to play audio. Just it.
  */
 export class PlayerSoundmanager2 implements SoundPlayer {
-	private soundObject: soundmanager2.SMSound;
-	private subscribers: {
-		[key: number]: Array<any>;
-	} = {};
-	private lastMedia: Jam.MediaBase;
+	private soundObject?: SMSound;
+	private subscribers: { [key: number]: Array<any> } = {};
+	private lastMedia?: Jam.MediaBase;
 	private volume: number = 50;
 	private isMute: boolean = false;
 
@@ -29,7 +27,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 
 	getAudioSupport(): SoundPlayerAudioSupport {
 		const result: SoundPlayerAudioSupport = {
-			formats: Object.keys(soundManager.audioFormats)
+			formats: Object.keys(soundManager.audioFormats || {})
 		};
 		result.formats.sort();
 		return result;
@@ -42,7 +40,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 		return this.soundObject.volume;
 	}
 
-	buildSoundObject(media: Jam.MediaBase, position: number | undefined): soundmanager2.SMSound {
+	buildSoundObject(media: Jam.MediaBase, position: number | undefined): SMSound {
 		return soundManager.createSound({
 			url: this.jam.stream.streamUrl({id: media.id}),
 			id: media.id,
@@ -155,8 +153,10 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	setSpeed(speed: number): void {
-		this.soundObject.setPlaybackRate(speed);
-		this.publish(PlayerEvents.SPEED, this.speed());
+		if (this.soundObject) {
+			this.soundObject.setPlaybackRate(speed);
+			this.publish(PlayerEvents.SPEED, this.speed());
+		}
 	}
 
 	setVolume(value: number): void {
@@ -170,7 +170,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	speed(): number {
 		if (this.soundObject) {
 			// TODO: is there no api for getting internal playbackRate?
-			return this.soundObject._iO.playbackRate;
+			return (this.soundObject as any)._iO.playbackRate;
 		}
 		return 1;
 	}

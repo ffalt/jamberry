@@ -8,7 +8,7 @@ import {ContextMenuContentComponent} from './context-menu.content.component';
 import {ContextMenuItemDirective} from './context-menu.item.directive';
 
 export interface ContextMenuHostComponentInterface<T> {
-	contextMenu: ContextMenuComponent;
+	contextMenu?: ContextMenuComponent;
 
 	initOpts?(opts: T): void;
 }
@@ -75,12 +75,15 @@ export class ContextMenuService {
 	) {
 	}
 
-	open<T>(contextMenuHost: ComponentType<ContextMenuHostComponentInterface<T>>, item: any, event: MouseEvent | KeyboardEvent | Event, opts?: T, parentEvent?: ContextMenuClickEvent): void {
+	open<T>(
+		contextMenuHost: ComponentType<ContextMenuHostComponentInterface<T>>, item: any,
+		event: MouseEvent | KeyboardEvent | Event, opts?: T, parentEvent?: ContextMenuClickEvent
+	): void {
 		const templateOverlay = this.overlay.create({});
 		this.templateOverlays.push(templateOverlay);
 		const contextMenuTemplate: ComponentRef<any> = templateOverlay.attach(new ComponentPortal(contextMenuHost));
 		const instance = contextMenuTemplate.instance as ContextMenuHostComponentInterface<T>;
-		if (instance.initOpts) {
+		if (instance.initOpts && opts) {
 			instance.initOpts(opts);
 		}
 		setTimeout(() => {
@@ -132,8 +135,7 @@ export class ContextMenuService {
 				this.destroyLeafMenu(closeLeafMenuEvent);
 			}));
 		subscriptions.add(contextMenuContent.instance.openSubMenu.asObservable()
-			.subscribe((subMenuEvent: ContextMenuContext) => {
-
+			.subscribe(subMenuEvent => {
 				this.destroySubMenus(contextMenuContent.instance);
 				if (!subMenuEvent.contextMenu) {
 					contextMenuContent.instance.isLeaf = true;
@@ -203,7 +205,7 @@ export class ContextMenuService {
 			}
 
 			const newLeaf = this.getLastAttachedOverlay();
-			if (newLeaf) {
+			if (newLeaf?.contextMenu) {
 				newLeaf.contextMenu.isLeaf = true;
 			}
 
@@ -212,12 +214,13 @@ export class ContextMenuService {
 	}
 
 	destroySubMenus(contextMenu: ContextMenuContentComponent): void {
-		const overlay = contextMenu.overlay;
-		const index = this.overlays.indexOf(overlay);
-		this.overlays.slice(index + 1).forEach(subMenuOverlay => {
-			subMenuOverlay.detach();
-			subMenuOverlay.dispose();
-		});
+		if (contextMenu.overlay) {
+			const index = this.overlays.indexOf(contextMenu.overlay);
+			this.overlays.slice(index + 1).forEach(subMenuOverlay => {
+				subMenuOverlay.detach();
+				subMenuOverlay.dispose();
+			});
+		}
 	}
 
 	isLeafMenu(contextMenuContent: ContextMenuContentComponent): boolean {

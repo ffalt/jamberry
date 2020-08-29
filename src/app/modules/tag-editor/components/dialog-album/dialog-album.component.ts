@@ -21,8 +21,9 @@ interface AlbumValueEdit {
 	styleUrls: ['./dialog-album.component.scss']
 })
 export class DialogAlbumComponent implements DialogOverlay<AlbumValuesEdit> {
-	data: AlbumValuesEdit;
+	data?: AlbumValuesEdit;
 	edit: {
+		[name: string]: AlbumValueEdit;
 		title: AlbumValueEdit;
 		artist: AlbumValueEdit;
 		albumArtist: AlbumValueEdit;

@@ -12,10 +12,10 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./dialog-upload-image.component.scss']
 })
 export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.Folder }>, OnDestroy {
-	folder: Jam.Folder;
+	folder?: Jam.Folder;
+	reference?: DialogOverlayRef;
 	isIdle: boolean = true;
 	isUploading: boolean = false;
-	reference: DialogOverlayRef;
 	protected unsubscribe = new Subject();
 
 	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
@@ -28,25 +28,32 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<{ folder: Jam.Folder }>>): void {
 		this.reference = reference;
-		this.folder = options.data.folder;
+		this.folder = options.data?.folder;
 	}
 
 	waitForCreationEnd(item: Jam.AdminChangeQueueInfo): void {
+		if (!this.folder) {
+			return;
+		}
+		const id = this.folder.id;
 		this.folderService.waitForQueueResult('Creating Artwork', item, [])
-			.pipe(takeUntil(this.unsubscribe)).subscribe((result: Jam.AdminChangeQueueInfo) => {
-			this.isIdle = true;
-			this.folderService.notifyFolderChange(this.folder.id, AdminFolderServiceNotifyMode.fsnRefresh);
-			if (!item.error) {
-				this.notify.success('Upload done');
-				this.reference.close();
-			}
-		});
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((_: Jam.AdminChangeQueueInfo) => {
+				this.isIdle = true;
+				this.folderService.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
+				if (!item.error) {
+					this.notify.success('Upload done');
+					if (this.reference) {
+						this.reference.close();
+					}
+				}
+			});
 	}
 
 	// At the drag drop area
 	onDropFile(event: DragEvent): void {
 		event.preventDefault();
-		this.uploadFile(event.dataTransfer.files);
+		this.uploadFile(event.dataTransfer?.files);
 	}
 
 	// At the drag drop area
@@ -60,8 +67,8 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 		this.uploadFile(event.target.files);
 	}
 
-	uploadFile(files: FileList): void {
-		if (files.length === 0) {
+	uploadFile(files?: FileList): void {
+		if (!files || files.length === 0 || !this.folder) {
 			return;
 		}
 		const file: File = files[0];

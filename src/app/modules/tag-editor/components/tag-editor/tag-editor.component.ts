@@ -26,16 +26,14 @@ export interface SaveAction {
 	styleUrls: ['./tag-editor.component.scss']
 })
 export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
-	folder: Jam.Folder;
-	tracks: Array<Jam.Track>;
+	folder?: Jam.Folder;
+	tracks?: Array<Jam.Track>;
 	editor: TagEditor;
 	canLoadRecursive = false;
 	activeCol?: RawTagEditColumn;
 	isSaving = false;
-	@Input() id: string;
-	@ViewChildren(CellEditor) cellEditors !: QueryList<CellEditor>;
-	// @ViewChild(CdkVirtualScrollViewport, {static: false}) viewPort: CdkVirtualScrollViewport;
-	// inverseOfTranslationTop: number = 0;
+	@Input() id?: string;
+	@ViewChildren(CellEditor) cellEditors!: QueryList<CellEditor>;
 
 	constructor(
 		private app: AppService, private folderService: AdminFolderService,
@@ -44,21 +42,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	onScroll(): void {
-		// this.inverseOfTranslationTop = this.viewPort ? -this.viewPort.getOffsetToRenderedContentStart() : 0;
-		// setTimeout(() => {
-		// 	this.inverseOfTranslationTop = this.viewPort ? -this.viewPort.getOffsetToRenderedContentStart() : 0;
-		// });
+		//
 	}
-
-	// get inverseOfTranslation(): string {
-	// const offset = this.viewPort.getOffsetToRenderedContentStart();
-
-	// if (!this.viewPort || !this.viewPort['_renderedContentOffset']) {
-	// 	return '-0px';
-	// }
-	// const offset = this.viewPort['_renderedContentOffset'];
-	// return `-${offset}px`;
-	// }
 
 	@HostListener('window:beforeunload')
 	canDeactivate(): boolean {
@@ -162,8 +147,11 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			edit.saving = true;
 			saveActions.push(this.prepareEditSave(edit));
 		}
-		this.isSaving = true;
 		const action = saveActions.shift();
+		if (!action) {
+			return;
+		}
+		this.isSaving = true;
 		this.runSave(action, saveActions)
 			.then(() => {
 				this.isSaving = false;
@@ -223,7 +211,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			data,
 			onOkBtn: async () => {
 				try {
-					this.editor.updateColumns(this.tracks, data.resultColumns);
+					if (this.tracks) {
+						this.editor.updateColumns(this.tracks, data.resultColumns);
+					}
 				} catch (e) {
 					this.notify.error(e);
 					return Promise.reject(e);
@@ -234,6 +224,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	brainz(): void {
+		if (!this.folder || !this.tracks) {
+			return;
+		}
 		if (!this.canDeactivate()) {
 			this.notify.error(Error('Saving is in progress'));
 		}
@@ -247,14 +240,18 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 						match.track.tagRaw = match.rawTag;
 					}
 				}
-				this.editor.build(this.tracks);
-				for (const match of matching.matchings) {
-					if (match.track && match.rawTag) {
-						const edit = this.editor.edits.find(e => e.track === match.track);
-						edit.changed = true;
-						for (const cell of edit.cells) {
-							if (cell.column.def.id !== FilenameColumnID) {
-								cell.changed = true;
+				if (this.tracks) {
+					this.editor.build(this.tracks);
+					for (const match of matching.matchings) {
+						if (match.track && match.rawTag) {
+							const edit = this.editor.edits.find(e => e.track === match.track);
+							if (edit) {
+								edit.changed = true;
+								for (const cell of edit.cells) {
+									if (cell.column.def.id !== FilenameColumnID) {
+										cell.changed = true;
+									}
+								}
 							}
 						}
 					}
@@ -272,6 +269,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	editAlbumValues(): void {
 		if (!this.canDeactivate()) {
 			this.notify.error(Error('Saving is in progress'));
+		}
+		if (!this.tracks) {
+			return;
 		}
 		const data: AlbumValuesEdit = {
 			tracks: this.tracks
@@ -296,7 +296,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 				this.folderService.waitForQueueResult('Writing Track Tag', item, [action.track.parentID], [], [action.track.id]);
 			}
 			action.edit.saving = false;
-			action.edit.tag = action.rawTag;
+			if (action.rawTag) {
+				action.edit.tag = action.rawTag;
+			}
 			action.edit.changed = false;
 		} catch (e) {
 			return Promise.reject(e);
@@ -309,9 +311,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 
 	private display(folder: Jam.Folder): void {
 		this.folder = folder;
-		this.tracks = folder.tracks.sort((a, b) => a.name.localeCompare(b.name));
+		this.tracks = folder.tracks || []; // .sort((a, b) => a.name.localeCompare(b.name));
 		this.editor.build(this.tracks);
-		this.canLoadRecursive = this.tracks.length === 0 && folder.folders.length > 0;
+		this.canLoadRecursive = this.tracks.length === 0 && (folder.folders || []).length > 0;
 		if (this.canLoadRecursive && folder.type === FolderType.multialbum) {
 			this.loadRecursive();
 		}

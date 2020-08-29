@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {JamAlbumObject} from '@library/model/objects';
@@ -15,9 +14,9 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./series-overview.component.scss']
 })
 export class SeriesOverviewComponent implements OnInit, OnDestroy {
-	series: Jam.Series;
-	albums: Array<JamAlbumObject>;
-	id: string;
+	id?: string;
+	series?: Jam.Series;
+	albums?: Array<JamAlbumObject>;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -27,7 +26,6 @@ export class SeriesOverviewComponent implements OnInit, OnDestroy {
 		protected library: LibraryService,
 		protected notify: NotifyService,
 		protected jam: JamService,
-		private contextMenuService: ContextMenuService,
 		protected route: ActivatedRoute
 	) {
 	}

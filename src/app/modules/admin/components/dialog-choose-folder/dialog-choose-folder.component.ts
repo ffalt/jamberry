@@ -15,16 +15,22 @@ export interface SelectFolder {
 	styleUrls: ['./dialog-choose-folder.component.scss']
 })
 export class DialogChooseFolderComponent implements DialogOverlay<SelectFolder> {
-	data: SelectFolder;
-	@ViewChild(FolderTreeComponent, {static: true}) tree: FolderTreeComponent;
+	data?: SelectFolder;
+	@ViewChild(FolderTreeComponent, {static: true}) tree?: FolderTreeComponent;
 
 	selectionChange(folder: Jam.Folder): void {
-		this.data.folder = folder;
+		if (this.data) {
+			this.data.folder = folder;
+		}
 	}
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<SelectFolder>>): void {
 		this.data = options.data;
-		this.tree.refresh();
-		this.tree.selectFolderByID(options.data.selectID);
+		if (this.tree) {
+			this.tree.refresh();
+			if (this.data?.selectID) {
+				this.tree.selectFolderByID(this.data.selectID);
+			}
+		}
 	}
 }

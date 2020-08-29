@@ -1,7 +1,4 @@
 import {FolderEdit} from '@admin/admin.interface';
-import {AdminBaseParentViewIdComponent} from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
-import {DialogChooseFolderComponent, SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
-import {DialogFolderComponent} from '../../dialog-folder/dialog-folder.component';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
@@ -9,6 +6,9 @@ import {AdminFolderService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {DialogsService} from '@shared/services';
 import {takeUntil} from 'rxjs/operators';
+import {AdminBaseParentViewIdComponent} from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
+import {DialogChooseFolderComponent, SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
+import {DialogFolderComponent} from '../../dialog-folder/dialog-folder.component';
 
 @Component({
 	selector: 'app-admin-folder-folders',
@@ -41,6 +41,9 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 
 	refresh(): void {
 		this.folder = undefined;
+		if (!this.id) {
+			return;
+		}
 		this.jam.folder.id({id: this.id, folderIncFolders: true, folderIncTag: true})
 			.then(data => {
 				this.folder = data;
@@ -51,16 +54,20 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 	}
 
 	newFolder(): void {
-		const edit: FolderEdit = {folder: this.folder, name: ''};
+		if (!this.folder) {
+			return;
+		}
+		const folder = this.folder;
+		const edit: FolderEdit = {folder, name: ''};
 		this.dialogOverlay.open({
 			childComponent: DialogFolderComponent,
 			title: 'New Folder',
 			data: edit,
 			onOkBtn: async () => {
 				try {
-					this.jam.folder.create({id: edit.folder.id, name: edit.name})
+					this.jam.folder.create({id: folder.id, name: edit.name})
 						.then(item => {
-							this.folderService.waitForQueueResult('Creating Folder', item, [], [edit.folder.id]);
+							this.folderService.waitForQueueResult('Creating Folder', item, [], [folder.id]);
 						})
 						.catch(e => {
 							this.notify.error(e);
@@ -75,10 +82,14 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 	}
 
 	moveSubfolders(): void {
+		if (!this.id || !this.folder?.folders) {
+			return;
+		}
+		const id = this.id;
 		const folderIDs = this.folder.folders.map(f => f.id);
-		const refreshID = [this.id].concat(folderIDs);
+		const refreshID = [id].concat(folderIDs);
 		const data: SelectFolder = {
-			selectID: this.id,
+			selectID: id,
 			disableIDs: refreshID
 		};
 		this.dialogOverlay.open({
@@ -88,8 +99,12 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 			panelClass: 'overlay-panel-large-buttons',
 			onOkBtn: async () => {
 				try {
-					refreshID.push(data.folder.id);
-					this.jam.folder.move({ids: folderIDs, newParentID: data.folder.id})
+					const destination = data.folder;
+					if (!destination) {
+						return;
+					}
+					refreshID.push(destination.id);
+					this.jam.folder.move({ids: folderIDs, newParentID: destination.id})
 						.then(item => {
 							this.folderService.waitForQueueResult('Moving Folders', item, [], refreshID);
 						})

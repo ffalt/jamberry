@@ -9,8 +9,8 @@ import {Jam, JamService} from '@jam';
 })
 
 export class AdminSettingsComponent implements OnInit {
-	settings: Jam.AdminSettings;
-	ignoreArticles: string;
+	settings?: Jam.AdminSettings;
+	ignoreArticles: string = '';
 
 	constructor(private app: AppService, private jam: JamService, private notify: NotifyService) {
 	}
@@ -35,6 +35,9 @@ export class AdminSettingsComponent implements OnInit {
 
 	save(): void {
 		const settings = this.settings;
+		if (!settings) {
+			return;
+		}
 		settings.index.ignoreArticles = this.ignoreArticles.split('\n').map(s => s.trim()).filter(s => s.length > 0);
 		this.settings = undefined;
 		this.jam.admin.settingsUpdate(settings)

@@ -10,7 +10,7 @@ import {HotkeysService} from './hotkeys.service';
 	providers: [HotkeysService]
 })
 export class HotkeysDirective implements OnInit, OnDestroy {
-	@Input() hotkeys: Array<{ [combo: string]: (event: KeyboardEvent, combo: string) => ExtendedKeyboardEvent }>;
+	@Input() hotkeys: Array<{ [combo: string]: (event: KeyboardEvent, combo: string) => ExtendedKeyboardEvent }> = [];
 
 	private mousetrap: MousetrapInstance;
 	private hotkeysList: Array<Hotkey> = [];

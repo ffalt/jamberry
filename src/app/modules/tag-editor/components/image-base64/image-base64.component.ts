@@ -11,8 +11,8 @@ export interface Base64Image {
 	styleUrls: ['./image-base64.component.scss']
 })
 export class ImageBase64Component implements OnChanges {
-	@Input() image: Base64Image;
-	src: string;
+	@Input() image?: Base64Image;
+	src?: string;
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.src = undefined;

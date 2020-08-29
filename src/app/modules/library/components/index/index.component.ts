@@ -8,7 +8,7 @@ import {Index, IndexEntry, IndexGroup} from '@shared/services';
 	styleUrls: ['./index.component.scss']
 })
 export class IndexComponent {
-	@Input() index: Index;
+	@Input() index?: Index;
 	@Input() viewTypeList: boolean = false;
 
 	constructor(public app: AppService, private navig: NavigService) {

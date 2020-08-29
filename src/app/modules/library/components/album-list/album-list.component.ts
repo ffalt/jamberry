@@ -13,7 +13,7 @@ import {ContextMenuObjComponent} from '../context-menu-obj/context-menu-obj.comp
 	styleUrls: ['./album-list.component.scss']
 })
 export class AlbumListComponent {
-	@Input() albums: Array<Jam.Album>;
+	@Input() albums?: Array<Jam.Album>;
 	@Input() showArtist: boolean = false;
 
 	constructor(

@@ -8,7 +8,7 @@ import {Jam} from '@jam';
 	styleUrls: ['./chapters.component.scss']
 })
 export class ChaptersComponent {
-	@Input() episode: Jam.Episode;
+	@Input() episode?: Jam.Episode;
 
 	constructor(public player: PlayerService, public queue: QueueService) {
 	}

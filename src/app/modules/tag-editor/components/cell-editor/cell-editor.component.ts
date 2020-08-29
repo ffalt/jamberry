@@ -33,14 +33,14 @@ import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent)}]
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
-	@Input() cell: RawTagEditCell;
+	@Input() cell?: RawTagEditCell;
 	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell; event: KeyboardEvent }>();
 	lines: Array<string> = [];
 	inactive: boolean = true;
 
-	@ViewChild('cellContainer', {static: false, read: ViewContainerRef}) container: ViewContainerRef;
+	@ViewChild('cellContainer', {static: false, read: ViewContainerRef}) container?: ViewContainerRef;
 	protected unsubscribe = new Subject();
-	private componentRef: ComponentRef<any>;
+	private componentRef?: ComponentRef<any>;
 
 	constructor(private dialogOverlay: DialogOverlayService, private resolver: ComponentFactoryResolver) {
 		super();
@@ -112,7 +112,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	private edit(): void {
-		switch (this.cell.column.def.impl) {
+		switch (this.cell?.column.def.impl) {
 			case FrameType.Filename:
 			case FrameType.IdText:
 			case FrameType.LangDescText:
@@ -165,21 +165,23 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		this.inactive = false;
 		setTimeout(() => {
 			this.createComponent(type);
-			this.componentRef.instance.cell = this.cell;
-			if (this.componentRef.instance.ngOnChanges) {
-				// tslint:disable-next-line:no-lifecycle-call
-				this.componentRef.instance.ngOnChanges({cell: {current: this.cell}});
-			}
-			if (this.componentRef.instance.navigBlur) {
-				this.componentRef.instance.navigBlur.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-					this.clearEdit();
-					this.inactive = true;
-				});
-			}
-			if (this.componentRef.instance.navigChange) {
-				this.componentRef.instance.navigChange.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-					this.setChanged();
-				});
+			if (this.componentRef) {
+				this.componentRef.instance.cell = this.cell;
+				if (this.componentRef.instance.ngOnChanges) {
+					// tslint:disable-next-line:no-lifecycle-call
+					this.componentRef.instance.ngOnChanges({cell: {current: this.cell}});
+				}
+				if (this.componentRef.instance.navigBlur) {
+					this.componentRef.instance.navigBlur.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+						this.clearEdit();
+						this.inactive = true;
+					});
+				}
+				if (this.componentRef.instance.navigChange) {
+					this.componentRef.instance.navigChange.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+						this.setChanged();
+					});
+				}
 			}
 		});
 	}
@@ -195,61 +197,73 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 
 	private createComponent(type: Type<any>): void {
 		this.clearEdit();
-		const factory = this.resolver.resolveComponentFactory(type);
-		this.componentRef = this.container.createComponent(factory);
+		if (this.container) {
+			const factory = this.resolver.resolveComponentFactory(type);
+			this.componentRef = this.container.createComponent(factory);
+		}
 	}
 
 	private editBool(): void {
-		if (this.cell.frames.length === 0) {
-			this.cell.frames.push({id: this.cell.column.def.id, value: {bool: false}});
+		if (this.cell) {
+			if (this.cell.frames.length === 0) {
+				this.cell.frames.push({id: this.cell.column.def.id, value: {bool: false}});
+			}
+			this.cell.frames[0].value.bool = !this.cell.frames[0].value.bool;
+			this.setChanged();
 		}
-		this.cell.frames[0].value.bool = !this.cell.frames[0].value.bool;
-		this.setChanged();
 	}
 
 	private setChanged(): void {
-		this.cell.changed = true;
-		this.cell.parent.changed = true;
-		this.display();
+		if (this.cell) {
+			this.cell.changed = true;
+			this.cell.parent.changed = true;
+			this.display();
+		}
 	}
 
 	private editPictures(): void {
-		const data: PicEdit = {frames: this.cell.frames};
-		this.dialogOverlay.open({
-			title: 'Tag Pictures',
-			childComponent: DialogTagImageComponent,
-			data,
-			onOkBtn: async () => {
-				this.cell.frames = data.result || [];
-				this.setChanged();
-				return Promise.resolve();
-			},
-			onCancelBtn: async () => Promise.resolve()
-		});
+		const cell = this.cell;
+		if (cell) {
+			const data: PicEdit = {frames: cell.frames};
+			this.dialogOverlay.open({
+				title: 'Tag Pictures',
+				childComponent: DialogTagImageComponent,
+				data,
+				onOkBtn: async () => {
+					cell.frames = data.result || [];
+					this.setChanged();
+					return Promise.resolve();
+				},
+				onCancelBtn: async () => Promise.resolve()
+			});
+		}
 	}
 
 	private editLyrics(): void {
-		const data: LyricsEdit = {frames: this.cell.frames};
-		this.dialogOverlay.open({
-			title: 'Tag Lyrics',
-			childComponent: DialogTagLyricsComponent,
-			data,
-			panelClass: 'overlay-panel-large-buttons',
-			onOkBtn: async () => {
-				this.cell.frames = data.result.filter(f => f.value.text.length > 0);
-				this.setChanged();
-				return Promise.resolve();
-			},
-			onCancelBtn: async () => Promise.resolve()
-		});
+		const cell = this.cell;
+		if (cell) {
+			const data: LyricsEdit = {frames: cell.frames};
+			this.dialogOverlay.open({
+				title: 'Tag Lyrics',
+				childComponent: DialogTagLyricsComponent,
+				data,
+				panelClass: 'overlay-panel-large-buttons',
+				onOkBtn: async () => {
+					cell.frames = data.result ? data.result.filter(f => f.value.text.length > 0) : [];
+					this.setChanged();
+					return Promise.resolve();
+				},
+				onCancelBtn: async () => Promise.resolve()
+			});
+		}
 	}
 
 	private display(): void {
-		this.lines = this.cell.frames.map(f => this.frameToString(f));
+		this.lines = this.cell ? this.cell.frames.map(f => this.frameToString(f)) : [];
 	}
 
 	private frameToString(frame: RawTagEditFrame): string {
-		switch (this.cell.column.def.impl) {
+		switch (this.cell?.column.def.impl) {
 			case FrameType.Filename:
 			case FrameType.Text:
 				return CellEditorComponent.textFrameToString(frame);
@@ -285,7 +299,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			case FrameType.CHAP:
 			case FrameType.Unknown:
 			default:
-				return 'TODO CELLEDITOR: ' + this.cell.column.def.name;
+				return 'TODO CELLEDITOR: ' + this.cell?.column.def.name;
 		}
 	}
 

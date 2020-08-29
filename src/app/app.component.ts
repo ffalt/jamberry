@@ -30,10 +30,10 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class AppComponent implements OnInit, OnDestroy {
 	@HostBinding('class.expand') get expandBody(): boolean {
-		return this.tabService.mainTab.active;
+		return !!this.tabService?.mainTab?.active;
 	}
 
-	@ViewChild('tabContentOutlet', {static: true}) tabContentOutlet: ElementRef;
+	@ViewChild('tabContentOutlet', {static: true}) tabContentOutlet?: ElementRef;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.tabService.init(
 			new TabPortalOutlet(this.tabService.tabs,
-				this.tabContentOutlet.nativeElement,
+				this.tabContentOutlet?.nativeElement,
 				this.componentFactoryResolver,
 				this.appRef,
 				this.injector)
@@ -91,8 +91,8 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	isStandaloneWebApp(): boolean {
-		// tslint:disable-next-line:no-string-literal
-		return (navigator['standalone'] === true) ||
+		const nav = navigator as any;
+		return (nav?.standalone === true) ||
 			(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
 	}
 

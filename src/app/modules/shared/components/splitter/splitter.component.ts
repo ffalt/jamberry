@@ -8,7 +8,7 @@ import {Component, ElementRef, HostBinding, HostListener, Input} from '@angular/
 export class SplitterComponent {
 	@Input() leftSnap: boolean = true;
 	@HostBinding('class.dragging') dragging: boolean = false;
-	private drag: { element: HTMLElement; width: number };
+	private drag?: { element: HTMLElement; width: number };
 
 	constructor(public element: ElementRef) {
 	}
@@ -27,30 +27,32 @@ export class SplitterComponent {
 	}
 
 	doDrag(x: number): void {
-		let offsetX = this.drag.width + x;
-		if (!this.leftSnap) {
-			offsetX = this.element.nativeElement.parentNode.offsetWidth - offsetX;
+		if (this.drag) {
+			let offsetX = this.drag.width + x;
+			if (!this.leftSnap) {
+				offsetX = this.element.nativeElement.parentNode.offsetWidth - offsetX;
+			}
+			this.drag.element.style.width = Math.max(0, offsetX).toString() + 'px';
 		}
-		this.drag.element.style.width = Math.max(0, offsetX).toString() + 'px';
 	}
 
 	@HostListener('panstart', ['$event'])
-	onPanStart(event): void {
+	onPanStart(_: Event): void {
 		this.startDrag();
 	}
 
 	@HostListener('panmove', ['$event'])
-	onPanMove(event): void {
+	onPanMove(event: { deltaX: number }): void {
 		this.doDrag(event.deltaX);
 	}
 
 	@HostListener('panend', ['$event'])
-	onPanEnd(event): void {
+	onPanEnd(_: Event): void {
 		this.stopDrag();
 	}
 
 	@HostListener('pancancel', ['$event'])
-	onPanCancel(event): void {
+	onPanCancel(_: Event): void {
 		this.stopDrag();
 	}
 

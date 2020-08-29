@@ -13,8 +13,8 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./artist-similar.component.scss']
 })
 export class ArtistSimilarComponent implements OnInit, OnDestroy {
-	similar: Array<JamArtistObject>;
-	id: string;
+	id?: string;
+	similar?: Array<JamArtistObject>;
 	protected unsubscribe = new Subject();
 
 	constructor(

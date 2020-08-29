@@ -21,7 +21,7 @@ export function serverErrorMsg(error: any): string {
 })
 export class NotifyService {
 
-	private lastError: string;
+	private lastError?: string;
 	private lastErrorTimestamp: number = 0;
 
 	constructor(private toastService: ToastService) {

@@ -10,21 +10,23 @@ import {RawTagEditCell} from '../../model/tag-editor.types';
 export class CellEditorTxtComponent implements OnChanges, AfterViewInit, AutocompleteDataControl {
 	original: string = '';
 	val: string = '';
-	@Input() cell: RawTagEditCell;
+	@Input() cell?: RawTagEditCell;
 	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell; event: KeyboardEvent }>();
 	@Output() readonly navigBlur = new EventEmitter<void>();
 	@Output() readonly navigChange = new EventEmitter<void>();
-	@ViewChild('inputEl', {static: true}) input: ElementRef;
+	@ViewChild('inputEl', {static: true}) input?: ElementRef;
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.changeCell(this.cell);
 	}
 
 	onNavigKeyDown(event: KeyboardEvent): void {
-		this.navigKeyDownRequest.emit({cell: this.cell, event});
+		if (this.cell) {
+			this.navigKeyDownRequest.emit({cell: this.cell, event});
+		}
 	}
 
-	changeCell(cell: RawTagEditCell): void {
+	changeCell(cell?: RawTagEditCell): void {
 		if (cell) {
 			this.original =
 				(cell.frames.length === 0 || !cell.frames[0].value || !cell.frames[0].value.text) ?
@@ -35,7 +37,11 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 	}
 
 	ngAfterViewInit(): void {
-		setTimeout(() => this.input.nativeElement.focus(), 0);
+		setTimeout(() => {
+			if (this.input?.nativeElement) {
+				this.input.nativeElement.focus();
+			}
+		}, 0);
 	}
 
 	onEnter(): void {
@@ -44,6 +50,9 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 	}
 
 	onChange(): void {
+		if (!this.cell) {
+			return;
+		}
 		if (this.val !== this.original) {
 			if (this.cell.frames.length === 0) {
 				this.cell.frames.push({

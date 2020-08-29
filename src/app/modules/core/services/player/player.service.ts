@@ -40,13 +40,13 @@ class StopWatch {
 export class PlayerService implements OnDestroy {
 	static localPlayerStorageName = 'player';
 	static localQueueStorageName = 'queue';
-	currentEpisode: Jam.Episode;
-	currentTrack: Jam.Track;
-	currentMedia: Jam.MediaBase;
-	currentTime: number | undefined = undefined;
-	totalTime: number | undefined = undefined;
+	currentEpisode?: Jam.Episode;
+	currentTrack?: Jam.Track;
+	currentMedia?: Jam.MediaBase;
+	audioSupport?: SoundPlayerAudioSupport;
+	currentTime?: number;
+	totalTime?: number;
 	isMuted: boolean = false;
-	audioSupport: SoundPlayerAudioSupport;
 	isPlaying = false;
 	repeatTrack = false;
 	scrobbleWatch = new StopWatch();
@@ -55,7 +55,7 @@ export class PlayerService implements OnDestroy {
 	private subscribers: {
 		[key: number]: Array<(data: any) => void>;
 	} = {};
-	private positionStoreTimer: number;
+	private positionStoreTimer?: number;
 	private soundPlayer = new PlayerSoundmanager2(this.jam);
 
 	constructor(
@@ -111,7 +111,7 @@ export class PlayerService implements OnDestroy {
 		} else {
 			this.currentTrack = media as Jam.Track;
 		}
-		this.soundPlayer.initialize(media, startSeek, paused, e => {
+		this.soundPlayer.initialize(media, startSeek, !!paused, e => {
 			if (!e) {
 				this.setCurrentMedia(media);
 				this.setPlaying(!paused);
@@ -404,6 +404,12 @@ export class PlayerService implements OnDestroy {
 		// this.notify.success(`Tracks added to queue (${trackCount})`);
 	}
 
+	currentPercent(): number {
+		return (this.currentTime === undefined || this.totalTime === undefined)
+			? 0
+			: this.currentTime * 100 / this.totalTime;
+	}
+
 	protected resolveAddTracks(promise: Promise<number>): void {
 		promise
 			.then(trackCount => {
@@ -443,7 +449,7 @@ export class PlayerService implements OnDestroy {
 
 	private loadFromStorage(): void {
 		this.loadQueueFromStorage();
-		const current: { index: number; position: number } = this.userStorage.get(PlayerService.localPlayerStorageName);
+		const current: { index: number; position: number } | undefined = this.userStorage.get(PlayerService.localPlayerStorageName);
 		if (current) {
 			this.queue.currentIndex = current.index;
 			const track = this.queue.getCurrent();
@@ -525,14 +531,15 @@ export class PlayerService implements OnDestroy {
 		this.soundPlayer.on(PlayerEvents.TIME, time => {
 			this.currentTime = time;
 			this.totalTime = this.soundPlayer.duration();
-			if (!this.scrobbled) {
+			if (!this.scrobbled && this.currentMedia?.id) {
 				const playTime = this.scrobbleWatch.time();
 				const scrobbleTime = Math.min(this.totalTime / 2, 4 * 60 * 60 * 1000);
 				if (scrobbleTime > 0 && playTime >= scrobbleTime) {
 					this.scrobbled = true;
-					this.jam.nowplaying.scrobble({id: this.currentMedia.id}).catch(e => {
-						console.error(e);
-					});
+					this.jam.nowplaying.scrobble({id: this.currentMedia.id})
+						.catch(e => {
+							console.error(e);
+						});
 				}
 			}
 			this.publish(PlayerEvents.TIME, time);
@@ -586,8 +593,8 @@ export class PlayerService implements OnDestroy {
 	private setPushNotification(media: Jam.MediaBase): void {
 		if (media) {
 			this.notification.show({
-				body: media.tag.artist,
-				title: media.tag.title,
+				body: media.tag?.artist || '[Unknown Artist]',
+				title: media.tag?.title || '[Unknown Title]',
 				autoclose: 30,
 				icon: this.jam.image.imageUrl({id: media.id, size: 128})
 			})

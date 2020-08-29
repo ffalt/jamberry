@@ -16,11 +16,11 @@ export interface HeaderInfo {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderJamBaseComponent {
-	@Input() base: Jam.Base;
-	@Input() section: string;
-	@Input() sectionType: string;
+	@Input() base?: Jam.Base;
+	@Input() section?: string;
+	@Input() sectionType?: string;
 	@Input() hasContextMenu: boolean = false;
-	@Input() tabs: Array<HeaderTab>;
+	@Input() tabs?: Array<HeaderTab>;
 	@Input() infos: Array<HeaderInfo> = [];
 	@Output() readonly contextMenuRequest = new EventEmitter<MouseEvent>();
 	@Output() readonly playRequest = new EventEmitter<MouseEvent>();

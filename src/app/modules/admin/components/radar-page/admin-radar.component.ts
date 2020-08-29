@@ -13,7 +13,7 @@ import {takeUntil} from 'rxjs/operators';
 
 export class AdminRadarComponent implements OnInit, OnDestroy {
 	static localStorageName = 'admin.radar';
-	folders: Array<Jam.Folder>;
+	folders?: Array<Jam.Folder>;
 	current?: { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> };
 	searching: boolean = false;
 	@ViewChildren(TrackHealthComponent) trackHealthComponents !: QueryList<TrackHealthComponent>;
@@ -74,7 +74,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	refresh(pos: number, continueNext: boolean): void {
 		this.current = undefined;
 		this.searching = true;
-		const folder = this.folders[pos];
+		const folder = this.folders && this.folders[pos];
 		if (!folder) {
 			this.searching = false;
 			return;
@@ -130,7 +130,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 
 	loadFromStorage(): void {
 		const o = this.userStorage.get<{ folderID: string }>(AdminRadarComponent.localStorageName);
-		if (o && o.folderID) {
+		if (o?.folderID && this.folders) {
 			const pos = this.folders.findIndex(f => f.id === o.folderID);
 			if (pos >= 0) {
 				this.current = {folder: this.folders[pos], pos};

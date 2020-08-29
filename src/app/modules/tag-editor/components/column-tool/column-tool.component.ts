@@ -8,8 +8,8 @@ import {TagEditor} from '../../model/tag-editor.class';
 	styleUrls: ['./column-tool.component.scss']
 })
 export class ColumnToolComponent {
-	@Input() editor: TagEditor;
-	@Input() activeCol: RawTagEditColumn;
+	@Input() editor?: TagEditor;
+	@Input() activeCol?: RawTagEditColumn;
 	@Output() readonly requestClose = new EventEmitter();
 	sourceColumnIndex?: number;
 	multiStr?: string;

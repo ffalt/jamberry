@@ -12,7 +12,7 @@ export interface ContextMenuSimpleComponentOptions {
 	styleUrls: ['./context-menu-simple.component.scss']
 })
 export class ContextMenuSimpleComponent implements ContextMenuHostComponentInterface<ContextMenuSimpleComponentOptions> {
-	@ViewChild('entriesMenu') contextMenu: ContextMenuComponent;
+	@ViewChild('entriesMenu') contextMenu?: ContextMenuComponent;
 	entries?: Array<{ text: string; icon: string; click(): void }> = [];
 
 	initOpts(opts: ContextMenuSimpleComponentOptions): void {

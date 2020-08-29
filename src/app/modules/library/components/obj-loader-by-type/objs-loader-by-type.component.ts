@@ -15,14 +15,14 @@ import {JamObjsLoader} from '../../model/loaders';
 	styleUrls: ['./objs-loader-by-type.component.scss']
 })
 export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
-	albumType: AlbumType;
-	listType: ListType;
-	jamType: JamObjectType;
-	listQuery: { listType: ListType; albumType?: AlbumType };
-	loader: JamObjsLoader;
+	albumType?: AlbumType;
+	listType?: ListType;
+	jamType?: JamObjectType;
+	listQuery?: { listType: ListType; albumType?: AlbumType };
+	loader?: JamObjsLoader;
+	changeTrigger?: string;
 	loadAll = false;
 	valid = false;
-	changeTrigger: string;
 	protected unsubscribe = new Subject();
 	protected unsubscribeRefresh = new Subject();
 
@@ -34,7 +34,7 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 			this.route.url
 				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
 				const type = val.length > 0 ? val[0].path : undefined;
-				this.listType = ListTypeUrlNamesKeys[type];
+				this.listType = type ? ListTypeUrlNamesKeys[type] : undefined;
 			});
 			this.route.parent.url
 				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
@@ -43,12 +43,14 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 				this.albumType = undefined;
 				this.loader = undefined;
 				const type = getUrlType(val);
-				this.jamType = type.type;
+				this.jamType = type?.type;
 				switch (this.jamType) {
 					case JamObjectType.folder:
 						this.loader = this.library.folderLoader;
-						this.listQuery = {listType: this.listType, albumType: this.albumType};
-						this.valid = true;
+						if (this.listType) {
+							this.listQuery = {listType: this.listType, albumType: this.albumType};
+							this.valid = true;
+						}
 						break;
 					case JamObjectType.playlist:
 						this.loader = this.library.playlistLoader;
@@ -80,19 +82,25 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 						break;
 					case JamObjectType.series:
 						this.loader = this.library.seriesLoader;
-						this.listQuery = {listType: this.listType, albumType: this.albumType};
-						this.valid = true;
+						if (this.listType) {
+							this.listQuery = {listType: this.listType, albumType: this.albumType};
+							this.valid = true;
+						}
 						break;
 					case JamObjectType.album:
 						this.loader = this.library.albumLoader;
-						this.albumType = type.albumType;
-						this.valid = !!this.albumType;
-						this.listQuery = {listType: this.listType, albumType: this.albumType};
+						if (this.listType) {
+							this.albumType = type?.albumType;
+							this.valid = !!this.albumType;
+							this.listQuery = {listType: this.listType, albumType: this.albumType};
+						}
 						break;
 					case JamObjectType.artist:
 						this.loader = this.library.artistLoader;
-						this.listQuery = {listType: this.listType, albumType: AlbumType.album};
-						this.valid = true;
+						if (this.listType) {
+							this.listQuery = {listType: this.listType, albumType: AlbumType.album};
+							this.valid = true;
+						}
 						break;
 					default:
 				}

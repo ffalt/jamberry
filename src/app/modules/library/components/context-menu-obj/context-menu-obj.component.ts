@@ -1,9 +1,16 @@
 import {Component, ViewChild} from '@angular/core';
 import {ContextMenuComponent, ContextMenuHostComponentInterface} from '@app/modules/context-menu';
 
+export interface ContextMenuObjComponentOptionsExtra {
+	text: string;
+	icon: string;
+
+	click(): void;
+}
+
 export interface ContextMenuObjComponentOptions {
 	hideGoto?: boolean;
-	extras?: Array<{ text: string; icon: string; click(): void }>;
+	extras?: Array<ContextMenuObjComponentOptionsExtra>;
 }
 
 @Component({
@@ -12,7 +19,7 @@ export interface ContextMenuObjComponentOptions {
 	styleUrls: ['./context-menu-obj.component.scss']
 })
 export class ContextMenuObjComponent implements ContextMenuHostComponentInterface<ContextMenuObjComponentOptions> {
-	@ViewChild('objMenu') contextMenu: ContextMenuComponent;
+	@ViewChild('objMenu') contextMenu?: ContextMenuComponent;
 	extras?: Array<{ text: string; icon: string; click(): void }> = [];
 	showGoto: boolean = true;
 

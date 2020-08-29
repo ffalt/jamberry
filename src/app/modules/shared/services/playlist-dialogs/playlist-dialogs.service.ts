@@ -64,7 +64,7 @@ export class PlaylistDialogsService {
 			.then(medias => {
 				const edit: PlaylistEdit = {
 					name: playlist.name,
-					comment: playlist.comment,
+					comment: playlist.comment || '',
 					isPublic: playlist.isPublic,
 					entries: medias.slice(0),
 					playlist
@@ -93,7 +93,7 @@ export class PlaylistDialogsService {
 
 	async getPlaylistMedias(id: string): Promise<Array<Jam.MediaBase>> {
 		const playlist = await this.jam.playlist.id({id, playlistIncEntries: true});
-		return playlist.entries;
+		return playlist?.entries || [];
 	}
 
 	async applyDialogPlaylist(edit: PlaylistEdit): Promise<void> {

@@ -8,8 +8,8 @@ import {AutocompleteControl, AutocompleteOption} from '@app/modules/autocomplete
 	styleUrls: ['./option.component.scss']
 })
 export class OptionComponent {
-	@Input() option: AutocompleteOption;
-	@Input() control: AutocompleteControl;
+	@Input() option?: AutocompleteOption;
+	@Input() control?: AutocompleteControl;
 
 	@HostBinding('class.active') get getActive(): boolean {
 		if (this.control) {
@@ -20,7 +20,7 @@ export class OptionComponent {
 
 	@HostListener('mousedown', ['$event'])
 	mouseDownEvent(event: MouseEvent): void {
-		if (this.control) {
+		if (this.control && this.option) {
 			this.control.selectOption(this.option);
 			event.stopPropagation();
 		}

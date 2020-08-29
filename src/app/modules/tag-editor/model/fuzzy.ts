@@ -15,7 +15,7 @@ function levenshtein(str1: string, str2: string): number {
 			current[j] = value;
 		}
 	}
-	return current.pop();
+	return current.pop() || 0;
 }
 
 // return an edit distance from 0 to 1
@@ -84,7 +84,7 @@ function normalizeStr(str: string): string {
 }
 
 export class FuzzySet {
-	version: '0.0.1';
+	version = '0.0.1';
 	arr: Array<string>;
 	useLevenshtein: boolean;
 	gramSizeLower: number;
@@ -108,7 +108,7 @@ export class FuzzySet {
 		});
 	}
 
-	get(value: string, defaultValue?: Array<Array<number>>): Array<Array<number>> {
+	get(value: string, defaultValue?: Array<Array<number>>): Array<Array<number>> | undefined {
 		// check for value in set, returning defaultValue or undefined if none found
 		const result = this._get(value);
 		if (!result && defaultValue) {
@@ -165,15 +165,14 @@ export class FuzzySet {
 		if (result) {
 			return [[1, result]];
 		}
-		let results = [];
 		// start with high gram size and if there are no results, go to lower gram sizes
 		for (let gramSize = this.gramSizeUpper; gramSize >= this.gramSizeLower; gramSize -= 1) {
-			results = this.__get(value, gramSize);
-			if (results) {
-				return results;
+			const res = this.__get(value, gramSize);
+			if (res) {
+				return res;
 			}
 		}
-		return undefined;
+		return;
 	}
 
 	private __get(value: string, gramSize: number): Array<Array<number>> | undefined {

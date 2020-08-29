@@ -14,7 +14,7 @@ import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
 })
 export class AdminFolderComponent implements OnInit, OnDestroy {
 	id: string = '';
-	@ViewChild(FolderTreeComponent, {static: true}) tree: FolderTreeComponent;
+	@ViewChild(FolderTreeComponent, {static: true}) tree?: FolderTreeComponent;
 	@HostBinding('class.right-active') rightActive: boolean = false;
 	protected unsubscribe = new Subject();
 	private mode: string = 'overview';
@@ -66,12 +66,16 @@ export class AdminFolderComponent implements OnInit, OnDestroy {
 				}
 			});
 		}
-		this.tree.expandIDs = this.uiState.data['app-admin-folders'] || [];
+		if (this.tree) {
+			this.tree.expandIDs = this.uiState.data['app-admin-folders'] || [];
+		}
 		this.refresh();
 	}
 
 	ngOnDestroy(): void {
-		this.uiState.data['app-admin-folders'] = this.tree.expandIDs;
+		if (this.tree) {
+			this.uiState.data['app-admin-folders'] = this.tree.expandIDs;
+		}
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
 	}

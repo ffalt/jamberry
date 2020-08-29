@@ -16,7 +16,7 @@ export class TabPortalOutlet {
 			.map((name: string) => this._activeTabs[name].componentRef.instance);
 	}
 
-	get currentTab(): Readonly<ActiveTabInterface> {
+	get currentTab(): Readonly<ActiveTabInterface | undefined> {
 		return this._currentTab;
 	}
 
@@ -64,7 +64,8 @@ export class TabPortalOutlet {
 	detach(): void {
 		const current = this._currentTab;
 		if (current !== undefined) {
-			current.portal.setAttachedHost(undefined);
+			// tslint:disable-next-line:no-null-keyword
+			current.portal.setAttachedHost(null);
 			this._currentTab = undefined;
 		}
 	}
@@ -78,7 +79,7 @@ export class TabPortalOutlet {
 			this._activeTabs[name].dispose();
 		}
 		// Remove outlet element
-		if (this.outletElement.parentNode !== undefined) {
+		if (this.outletElement?.parentNode) {
 			this.outletElement.parentNode.removeChild(this.outletElement);
 		}
 	}

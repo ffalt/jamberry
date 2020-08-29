@@ -12,14 +12,16 @@ export interface RateEdit {
 	styleUrls: ['./dialog-rate.component.scss']
 })
 export class DialogRateComponent implements DialogOverlay<RateEdit> {
-	data: RateEdit;
+	data?: RateEdit;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<RateEdit>>): void {
 		this.data = options.data;
 	}
 
 	onRated(num: number): void {
-		this.data.rating = num;
+		if (this.data) {
+			this.data.rating = num;
+		}
 	}
 
 }

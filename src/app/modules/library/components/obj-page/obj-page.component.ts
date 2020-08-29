@@ -26,10 +26,10 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./obj-page.component.scss']
 })
 export class ObjPageComponent implements OnInit, OnDestroy {
-	obj: JamLibraryObject;
-	type: JamType;
+	id?: string;
+	obj?: JamLibraryObject;
+	type?: JamType;
 	infos: Array<HeaderInfo> = [];
-	id: string;
 	tabs: Array<HeaderTab> = [];
 	isPodcastEpisode: boolean = false;
 	protected unsubscribe = new Subject();
@@ -46,7 +46,7 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 			this.route.url
 				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
 				this.type = getUrlType(val);
-				this.isPodcastEpisode = this.type && this.type.type === JamObjectType.episode;
+				this.isPodcastEpisode = this.type?.type === JamObjectType.episode;
 			});
 			this.route.params
 				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
@@ -61,11 +61,11 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	display(obj: JamLibraryObject): void {
+	display(obj?: JamLibraryObject): void {
 		this.obj = obj;
 		if (obj) {
 			this.infos = obj.getInfos();
-			this.tabs = this.library.buildIDTabs(this.type.id, this.id);
+			this.tabs = this.type?.id ? this.library.buildIDTabs(this.type.id, obj.id) : [];
 		}
 	}
 
@@ -83,7 +83,7 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 	}
 
 	async get(id: string): Promise<JamLibraryObject | undefined> {
-		switch (this.type.type) {
+		switch (this.type?.type) {
 			case JamObjectType.album: {
 				const album = await this.jam.album.id({id, albumIncState: true});
 				return new JamAlbumObject(album, this.library);
@@ -117,6 +117,7 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 				return new JamFolderObject(folder, this.library);
 			}
 			default:
+				return;
 		}
 	}
 

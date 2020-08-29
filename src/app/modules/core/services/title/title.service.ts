@@ -20,29 +20,29 @@ export class TitleService implements OnDestroy {
 			.pipe(
 				filter(event => event instanceof NavigationEnd),
 				takeUntil(this.unsubscribe)).subscribe(() => {
-				this.titles = [];
+			this.titles = [];
 
-				const collectRouteData = (currentroute: ActivatedRoute): void => {
-					const data = currentroute.snapshot.data;
-					if (data.name) {
-						this.titles.push(data.name);
-					} else if (data.names) {
-						const titleinfo = data.names.filter((info: { id: string }) => (info.id === currentroute.snapshot.params.id))[0];
-						if (titleinfo) {
-							this.titles.push(titleinfo.name);
-						}
-					} else if (currentroute.snapshot.params.name) {
-						this.titles.push(currentroute.snapshot.params.name);
+			const collectRouteData = (currentroute: ActivatedRoute): void => {
+				const data = currentroute.snapshot.data;
+				if (data.name) {
+					this.titles.push(data.name);
+				} else if (data.names) {
+					const titleinfo = data.names.filter((info: { id: string }) => (info.id === currentroute.snapshot.params.id))[0];
+					if (titleinfo) {
+						this.titles.push(titleinfo.name);
 					}
-					currentroute.children.forEach(collectRouteData);
-				};
-				route.children.forEach(collectRouteData);
-
-				this.titles.push(this.app.name);
-				if (!this.app.settings.playingTrackInTitle) {
-					this.refreshTitle();
+				} else if (currentroute.snapshot.params.name) {
+					this.titles.push(currentroute.snapshot.params.name);
 				}
-			});
+				currentroute.children.forEach(collectRouteData);
+			};
+			route.children.forEach(collectRouteData);
+
+			this.titles.push(this.app.name);
+			if (!this.app.settings.playingTrackInTitle) {
+				this.refreshTitle();
+			}
+		});
 
 		this.player.on(PlayerEvents.FINISH, () => {
 			this.refreshTitle();
@@ -65,7 +65,7 @@ export class TitleService implements OnDestroy {
 	}
 
 	refreshTitleSong(track: Jam.Track): void {
-		const title = `${track.tag.title} - ${track.tag.artist} • ${this.app.name}`;
+		const title = `${track.tag?.title || 'Unknown Title'} - ${track.tag?.artist || 'Unknown Artist'} • ${this.app.name}`;
 		this.title.setTitle(title);
 	}
 

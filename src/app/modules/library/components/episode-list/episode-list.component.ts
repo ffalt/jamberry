@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
+import {TapEvent} from '@app/utils/types';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {JamEpisodeObject} from '@library/model/objects';
@@ -13,7 +14,7 @@ import {ContextMenuObjComponent, ContextMenuObjComponentOptions} from '../contex
 	styleUrls: ['./episode-list.component.scss']
 })
 export class EpisodeListComponent {
-	@Input() episodes: Array<Jam.Episode>;
+	@Input() episodes?: Array<Jam.Episode>;
 	@Input() showPodcast: boolean = false;
 
 	constructor(
@@ -27,7 +28,7 @@ export class EpisodeListComponent {
 		this.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, new JamEpisodeObject(item, this.library), $event);
 	}
 
-	tapEpisode(event, episode: Jam.Episode): void {
+	tapEpisode(event: TapEvent, episode: Jam.Episode): void {
 		if (event.tapCount === 2) {
 			this.play(episode);
 		}

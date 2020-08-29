@@ -28,9 +28,9 @@ export interface FolderHealthHint {
 	styleUrls: ['./folder-health.component.scss']
 })
 export class FolderHealthComponent implements OnChanges, OnDestroy {
-	hints: Array<FolderHealthHint>;
+	hints?: Array<FolderHealthHint>;
 	solutions: Array<FolderHealthHintSolution> = [];
-	@Input() folderHealth: Jam.FolderHealth;
+	@Input() folderHealth?: Jam.FolderHealth;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -163,7 +163,7 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 
 	private describeAlbumTagMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		this.addEditTagSolution(folder);
-		return [`Expected: ${hint.details.map(d => d.expected).join(',')}`];
+		return hint.details ? [`Expected: ${hint.details.map(d => d.expected).join(',')}`] : [];
 	}
 
 	private describeNameNonConformHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
@@ -215,10 +215,10 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 		return [];
 	}
 
-	private display(folderHealth: Jam.FolderHealth): void {
+	private display(folderHealth?: Jam.FolderHealth): void {
 		this.hints = [];
 		this.solutions = [];
-		if (folderHealth.health) {
+		if (folderHealth?.health) {
 			this.hints = folderHealth.health.map(hint => {
 				const details = this.describeHint(hint, folderHealth.folder);
 				return {hint, details};

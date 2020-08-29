@@ -26,89 +26,93 @@ export interface Index {
 }
 
 function buildIndexAlbumIndex(index: Jam.AlbumIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
-	if (index) {
-		return {
-			type: JamObjectType.album,
-			name,
-			groups: index.groups.map(g => ({
-				name: g.name,
-				expanded,
-				entries: g.items.map(entry => ({
-					id: entry.id,
-					link: '/library/albums/id/' + entry.id,
-					extraLink: '/library/artists/id/' + entry.artistID,
-					name: entry.name,
-					extra: entry.artist,
-					visible: false,
-					trackCount: entry.trackCount,
-					image: jam.image.imageUrl({id: entry.id, size: 200})
-				}))
-			}))
-		};
+	if (!index) {
+		return;
 	}
+	return {
+		type: JamObjectType.album,
+		name,
+		groups: index.groups.map(g => ({
+			name: g.name,
+			expanded,
+			entries: g.items.map(entry => ({
+				id: entry.id,
+				link: '/library/albums/id/' + entry.id,
+				extraLink: '/library/artists/id/' + entry.artistID,
+				name: entry.name,
+				extra: entry.artist,
+				visible: false,
+				trackCount: entry.trackCount,
+				image: jam.image.imageUrl({id: entry.id, size: 200})
+			}))
+		}))
+	};
 }
 
 function buildIndexFolderIndex(index: Jam.FolderIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
-	if (index) {
-		return {
-			name,
-			type: JamObjectType.folder,
-			groups: index.groups.map(g => ({
-				name: g.name,
-				expanded,
-				entries: g.items.map(entry => ({
-					id: entry.id,
-					link: '/library/folders/id/' + entry.id,
-					name: entry.name,
-					visible: false,
-					trackCount: entry.trackCount,
-					image: jam.image.imageUrl({id: entry.id, size: 200})
-				}))
-			}))
-		};
+	if (!index) {
+		return;
 	}
+	return {
+		name,
+		type: JamObjectType.folder,
+		groups: index.groups.map(g => ({
+			name: g.name,
+			expanded,
+			entries: g.items.map(entry => ({
+				id: entry.id,
+				link: '/library/folders/id/' + entry.id,
+				name: entry.name,
+				visible: false,
+				trackCount: entry.trackCount,
+				image: jam.image.imageUrl({id: entry.id, size: 200})
+			}))
+		}))
+	};
 }
 
 function buildIndexArtistIndex(index: Jam.ArtistIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
-	if (index) {
-		return {
-			name,
-			type: JamObjectType.artist,
-			groups: index.groups.map(g => ({
-				name: g.name,
-				expanded,
-				entries: g.items.map(entry => ({
-					id: entry.id,
-					link: '/library/artists/id/' + entry.id,
-					name: entry.name,
-					visible: false,
-					trackCount: entry.trackCount,
-					image: jam.image.imageUrl({id: entry.id, size: 200})
-				}))
-			}))
-		};
+	if (!index) {
+		return;
 	}
+	return {
+		name,
+		type: JamObjectType.artist,
+		groups: index.groups.map(g => ({
+			name: g.name,
+			expanded,
+			entries: g.items.map(entry => ({
+				id: entry.id,
+				link: '/library/artists/id/' + entry.id,
+				name: entry.name,
+				visible: false,
+				trackCount: entry.trackCount,
+				image: jam.image.imageUrl({id: entry.id, size: 200})
+			}))
+		}))
+	};
 }
 
 function buildIndexSeriesIndex(seriesIndex: Jam.SeriesIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
-	if (seriesIndex) {
-		return {
-			name,
-			type: JamObjectType.series,
-			groups: seriesIndex.groups.map(g => ({
-				name: g.name,
-				expanded,
-				entries: g.items.map(entry => ({
-					id: entry.id,
-					link: '/library/series/id/' + entry.id,
-					name: entry.name,
-					visible: false,
-					trackCount: entry.trackCount,
-					image: jam.image.imageUrl({id: entry.id, size: 200})
-				}))
-			}))
-		};
+	if (!seriesIndex) {
+		return;
 	}
+	return {
+		name,
+		type: JamObjectType.series,
+		groups: seriesIndex.groups.map(g => ({
+			name: g.name,
+			expanded,
+			entries: g.items.map(entry => ({
+				id: entry.id,
+				link: '/library/series/id/' + entry.id,
+				name: entry.name,
+				visible: false,
+				trackCount: entry.trackCount,
+				image: jam.image.imageUrl({id: entry.id, size: 200})
+			}))
+		}))
+	};
 }
 
 export class IndexCache {
@@ -159,28 +163,30 @@ export class IndexService {
 					!this.app.smallscreen, type ? type.text : 'Albums', this.jam);
 			}
 			default:
+				return;
 		}
 	}
 
 	requestIndex(objType: JamObjectType, query: any): Index | undefined {
-		let item = this.findIndex(objType, query);
+		const item = this.findIndex(objType, query);
 		if (item && item.index) {
 			return item.index;
 		}
 		if (item) {
 			return; // already requested
 		}
-		item = new IndexCache(objType, query);
-		this.indexes.push(item);
+		const result = new IndexCache(objType, query);
+		this.indexes.push(result);
 		this.getIndex(objType, query)
 			.then(index => {
-				item.index = index;
-				if (item.index) {
+				result.index = index;
+				if (result.index) {
 					this.indexNotify.emit(item);
 				}
 			})
 			.catch(e => {
 				this.notify.error(e);
 			});
+		return;
 	}
 }

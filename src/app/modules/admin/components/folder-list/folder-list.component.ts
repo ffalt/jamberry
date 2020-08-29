@@ -2,8 +2,10 @@ import {Component, Input, OnChanges} from '@angular/core';
 import {Jam} from '@jam';
 
 export class FolderItem {
-	folder: Jam.Folder;
 	selected?: boolean;
+
+	constructor(public folder: Jam.Folder) {
+	}
 }
 
 @Component({
@@ -20,9 +22,9 @@ export class FolderListComponent implements OnChanges {
 			case 'name':
 				return folder.name;
 			case 'artist':
-				return folder.tag.artist;
+				return folder.tag?.artist;
 			case 'album':
-				return folder.tag.album;
+				return folder.tag?.album;
 			case 'type':
 				return folder.type;
 			default:
@@ -31,7 +33,7 @@ export class FolderListComponent implements OnChanges {
 	}
 
 	ngOnChanges(/*changes: SimpleChanges*/): void {
-		this.folderItems = (this.folders || []).map(folder => ({folder}));
+		this.folderItems = (this.folders || []).map(folder => (new FolderItem(folder)));
 	}
 
 }

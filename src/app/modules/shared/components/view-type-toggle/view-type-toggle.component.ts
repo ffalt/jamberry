@@ -7,5 +7,5 @@ import {Component, Input} from '@angular/core';
 })
 export class ViewTypeToggleComponent {
 	@Input() viewTypeList: boolean = false;
-	@Input() headline: string;
+	@Input() headline?: string;
 }

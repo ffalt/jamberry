@@ -152,7 +152,7 @@ function getLastFMGenres(tags: Array<LastFM.Tag>): Array<GenreTag> {
 }
 
 export function getLastFMAlbumGenres(album: LastFM.Album): Array<GenreTag> {
-	if (!album) {
+	if (!album.tags) {
 		return [];
 	}
 	return getLastFMGenres(album.tags);

@@ -25,9 +25,9 @@ export interface TrackHealthHint {
 	styleUrls: ['./track-health.component.scss']
 })
 export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
-	hints: Array<TrackHealthHint>;
+	hints?: Array<TrackHealthHint>;
 	solutions: Array<TrackHealthHintSolution> = [];
-	@Input() trackHealth: Jam.TrackHealth;
+	@Input() trackHealth?: Jam.TrackHealth;
 	@Output() readonly resolvedEvent = new EventEmitter<void>();
 	protected unsubscribe = new Subject();
 
@@ -58,7 +58,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 			.pipe(takeUntil(this.unsubscribe)).subscribe(change => {
 				const health = this.trackHealth;
 				if (health && health.track.id === change.id) {
-					health.health = undefined;
+					health.health = [];
 					this.jam.track.health({ids: [health.track.id], healthMedia: true})
 						.then(data => {
 							const h = data.find(d => d.track.id === health.track.id);
@@ -83,16 +83,16 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 
 	fixAll(): void {
 		for (const solution of this.solutions) {
-			if (solution.fixable && !solution.running) {
+			if (solution.fixable && !solution.running && solution.click) {
 				solution.click();
 			}
 		}
 	}
 
-	private display(trackHealth: Jam.TrackHealth): void {
+	private display(trackHealth?: Jam.TrackHealth): void {
 		this.hints = [];
 		this.solutions = [];
-		if (trackHealth.health) {
+		if (trackHealth?.health) {
 			this.hints = trackHealth.health.map(hint => {
 				const description = this.describeHint(hint, trackHealth.track);
 				return {hint, description};
@@ -131,7 +131,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 
 	private describeMp3GarbageHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		let description = '';
-		if (hint.details.length > 0) {
+		if (hint.details && hint.details.length > 0) {
 			description = `${hint.details[0].reason} (${hint.details[0].actual} bytes)`;
 		}
 		if (!this.solutions.find(sol => sol.name === 'Fix MP3')) {

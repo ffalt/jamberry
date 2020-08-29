@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
+import {Route, Router} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {JamService} from '@jam';
@@ -29,13 +29,15 @@ export class LibraryService {
 	buildTabs(section: string): Array<HeaderTab> {
 		const lib: any = this.router.config.find(r => r.path === 'library');
 		if (lib && lib._loadedConfig && lib._loadedConfig.routes) {
-			const tabSection = lib._loadedConfig.routes[0].children.find(r => r.path === section);
+			const tabSection = lib._loadedConfig.routes[0].children.find((r: Route) => r.path === section);
 			if (tabSection) {
-				return tabSection.children.filter(r => !!r.data).map(r =>
-					({
-						label: r.data.name,
-						link: {route: `/library/${section}${r.path ? '/' : ''}${r.path}`, exact: r.path.length === 0}
-					}));
+				return tabSection.children
+					.filter((r: Route) => !!r.data)
+					.map((r: Route) =>
+						({
+							label: r.data?.name,
+							link: {route: `/library/${section}${r.path ? '/' : ''}${r.path}`, exact: r.path?.length === 0}
+						}));
 			}
 		}
 		return [];
@@ -44,13 +46,16 @@ export class LibraryService {
 	buildIDTabs(section: string, id: string): Array<HeaderTab> {
 		const lib: any = this.router.config.find(r => r.path === 'library');
 		if (lib && lib._loadedConfig && lib._loadedConfig.routes) {
-			const tabSection = lib._loadedConfig.routes[0].children.find(r => r.path === section + '/id/:id');
+			const tabSection = lib._loadedConfig.routes[0].children
+				.find((r: Route) => r.path === section + '/id/:id');
 			if (tabSection) {
-				return tabSection.children.filter(r => !!r.data).map(r =>
-					({
-						label: r.data.name,
-						link: {route: `/library/${section}/id/${id}${r.path ? '/' : ''}${r.path}`, exact: r.path.length === 0}
-					}));
+				return tabSection.children
+					.filter((r: Route) => !!r.data)
+					.map((r: Route) =>
+						({
+							label: r.data?.name,
+							link: {route: `/library/${section}/id/${id}${r.path ? '/' : ''}${r.path}`, exact: r.path?.length === 0}
+						}));
 			}
 		}
 		return [];

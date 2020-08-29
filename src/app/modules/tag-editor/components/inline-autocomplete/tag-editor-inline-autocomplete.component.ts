@@ -14,19 +14,19 @@ import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomp
 	}]
 })
 export class TagEditorInlineAutocompleteComponent implements ControlValueAccessor, AutocompleteDataControl {
-	@Input() getList: (data: any) => Array<string>;
-	@Input() value: string;
-	@Input() data: any;
+	@Input() getList?: (data: any) => Array<string>;
+	@Input() value?: string;
+	@Input() data?: any;
 	@Output() readonly valueChange = new EventEmitter();
 	@Output() readonly endEditRequest = new EventEmitter();
 	@Output() readonly navigKeyDownRequest = new EventEmitter<KeyboardEvent>();
-	@ViewChild('editorStart', {static: false}) editorStartRef: ElementRef;
-	@ViewChild('editorInput', {static: false}) editorInput: ElementRef;
+	@ViewChild('editorStart', {static: false}) editorStartRef?: ElementRef;
+	@ViewChild('editorInput', {static: false}) editorInput?: ElementRef;
 
 	editing: boolean = false; // Is Component in edit mode?
 	list: Array<string> = [];
 
-	private _value: string = ''; // Private variable for input value
+	private _value?: string = ''; // Private variable for input value
 	private onChange: any = Function.prototype; // Trascend the onChange event
 	private onTouched: any = Function.prototype; // Trascend the onTouch event
 
@@ -98,7 +98,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	autocompleteSelectResult(result: AutocompleteOption): string {
 		this._value = result.data;
 		this.value = result.data;
-		return this.value;
+		return this.value || '';
 	}
 
 }

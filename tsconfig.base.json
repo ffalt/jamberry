@@ -4,12 +4,18 @@
 		"baseUrl": "./src",
 		"importHelpers": true,
 		"outDir": "./dist/out-tsc",
+		"strict": true,
 		"sourceMap": true,
 		"declaration": false,
 		"module": "es2020",
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
 		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"strictPropertyInitialization": true,
+		"strictNullChecks": true,
 		"target": "es2015",
 		"typeRoots": [
 			"node_modules/@types"

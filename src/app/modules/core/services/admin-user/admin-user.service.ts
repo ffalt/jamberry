@@ -14,7 +14,7 @@ export interface AdminUserServiceEditData {
 export class AdminUserService {
 	usersChange = new EventEmitter<Array<Jam.User>>();
 	userChange = new Notifiers<Jam.User>();
-	private users: Array<Jam.User>;
+	private users: Array<Jam.User> = [];
 
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}

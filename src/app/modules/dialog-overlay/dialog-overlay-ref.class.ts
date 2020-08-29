@@ -4,7 +4,7 @@ import {Observable, Subject} from 'rxjs';
 import {DialogOverlayComponent} from './dialog-overlay.component';
 
 export class DialogOverlayRef {
-	componentInstance: DialogOverlayComponent;
+	componentInstance?: DialogOverlayComponent;
 
 	private _beforeClose = new Subject<any>();
 	private _afterClosed = new Subject<any>();
@@ -13,6 +13,9 @@ export class DialogOverlayRef {
 	}
 
 	close(): void {
+		if (!this.componentInstance) {
+			return;
+		}
 		const result = this.componentInstance.getResult();
 		this._beforeClose.next(result);
 		this._beforeClose.complete();

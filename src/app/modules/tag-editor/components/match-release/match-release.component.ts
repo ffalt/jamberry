@@ -11,15 +11,7 @@ import {
 	getTrackGenres,
 	mergeGenres
 } from '../../model/genres.helper';
-import {
-	ABData,
-	Matching,
-	MatchingTrack,
-	MatchRelease,
-	MatchReleaseGroup,
-	MatchTree,
-	MBTrackMatching
-} from '../../model/release-matching.helper';
+import {ABData, Matching, MatchingTrack, MatchRelease, MatchReleaseGroup, MatchTree} from '../../model/release-matching.helper';
 import {toID3v24} from '../../model/release-matching.id3.helper';
 import {stripExtension} from '../../model/utils';
 import {MatchCoverartComponent, MatchImageSearch} from '../match-coverart/match-coverart.component';
@@ -64,7 +56,7 @@ class MusicbrainzSearchQuery {
 	constructor(public q: JamParameters.MusicBrainzSearchArgs) {
 		this.id = 'musicbrainz-' + JSON.stringify(q);
 		this.name = 'MusicBrainz Search for ' +
-			Object.keys(q).filter(key => key !== 'type').map(key => `${key}: "${q[key]}"`).join(', ');
+			Object.keys(q).filter(key => key !== 'type').map(key => `${key}: "${(q as any)[key]}"`).join(', ');
 	}
 }
 
@@ -81,14 +73,14 @@ export enum RunType {
 	styleUrls: ['./match-release.component.scss']
 })
 export class MatchReleaseComponent implements OnChanges, OnDestroy {
-	@Input() data: ReleaseMatching;
+	@Input() data?: ReleaseMatching;
 	isRunning: boolean = false;
 	isGenreSearchRunning: boolean = false;
 	isAborted: boolean = false;
-	currentAction: string;
+	currentAction?: string;
 	customGenre = {text: '', checked: true};
 	@HostBinding('class.right-active') rightActive: boolean = true;
-	@ViewChild(MatchCoverartComponent, {static: false}) coverArt: MatchCoverartComponent;
+	@ViewChild(MatchCoverartComponent, {static: false}) coverArt?: MatchCoverartComponent;
 
 	matchings: Array<Matching> = [];
 	matchTree = new MatchTree();
@@ -109,7 +101,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		getAutoCompleteAlbumList: () => {
 			if (this.manualSearchData.albums.length === 0) {
 				for (const match of this.matchings) {
-					const txt = (match.track.tag.album ? match.track.tag.album : '').trim();
+					const txt = (match.track?.tag?.album || '').trim();
 					if (txt.length > 0 && !this.manualSearchData.albums.includes(txt)) {
 						this.manualSearchData.albums.push(txt);
 					}
@@ -121,7 +113,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		getAutoCompleteArtistList: () => {
 			if (this.manualSearchData.artists.length === 0) {
 				for (const match of this.matchings) {
-					const txt = (match.track.tag.artist ? match.track.tag.artist : '').trim();
+					const txt = (match.track?.tag?.artist || '').trim();
 					if (txt.length > 0 && !this.manualSearchData.artists.includes(txt)) {
 						this.manualSearchData.artists.push(txt);
 					}
@@ -132,8 +124,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	};
 
 	coverArtSearch?: MatchImageSearch;
-	current: { group: MatchReleaseGroup; release: MatchRelease };
-	genres: Array<{ tag: GenreTag; checked: boolean }>;
+	current?: { group: MatchReleaseGroup; release: MatchRelease };
+	genres?: Array<{ tag: GenreTag; checked: boolean }>;
 	RunType = RunType;
 
 	constructor(private app: AppService, private jam: JamService, private notify: NotifyService, private client: HttpClient, private cd: ChangeDetectorRef) {
@@ -157,26 +149,30 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		this.isAborted = true;
 	}
 
-	allowDrop(event): void {
+	allowDrop(event: DragEvent): void {
 		event.preventDefault();
 	}
 
-	drag(event, match): void {
+	drag(event: DragEvent, match: Matching): void {
 		this.cd.markForCheck();
-		event.dataTransfer.setData('text', match.track.id);
+		if (event.dataTransfer) {
+			event.dataTransfer.setData('text', match.track.id);
+		}
 	}
 
-	drop(event, group: MatchReleaseGroup, release: MatchRelease, track: MatchingTrack): void {
+	drop(event: DragEvent, group: MatchReleaseGroup, release: MatchRelease, track: MatchingTrack): void {
 		event.preventDefault();
+		if (!event.dataTransfer) {
+			return;
+		}
 		const id = event.dataTransfer.getData('text');
 		const match = this.matchings.find(m => m.track.id === id);
-		let matching: MBTrackMatching = track.matchings.find(m => m.match.track.id === id);
+		if (!match) {
+			return;
+		}
+		let matching = track.matchings.find(m => m.match.track.id === id);
 		if (!matching) {
-			matching = {
-				match,
-				score: 1,
-				scores: []
-			};
+			matching = {match, score: 1, scores: []};
 			track.matchings.push(matching);
 		}
 		matching.score = 1;
@@ -227,7 +223,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			const list = this.manualSearchData.getAutoCompleteAlbumList();
 			if (list.length > 0) {
 				this.manualSearchData.releaseGroup = list[0];
-			} else if (this.data.folder) {
+			} else if (this.data?.folder) {
 				this.manualSearchData.releaseGroup = this.data.folder.name;
 			}
 		}
@@ -269,23 +265,25 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	}
 
 	apply(): void {
-		const genres = this.genres.filter(genre => genre.checked).map(genre => genre.tag.name);
+		const genres = (this.genres || []).filter(genre => genre.checked).map(genre => genre.tag.name);
 		if (this.customGenre.checked && this.customGenre.text.trim().length > 0) {
 			genres.push(this.customGenre.text.trim());
 		}
 		for (const match of this.matchings) {
 			match.genres = genres;
 		}
-		const images = this.coverArt ? this.coverArt.getChecked() : [];
-		for (const result of this.data.matchings) {
-			const match = this.matchings.find(m => m.track.id === result.track.id);
-			result.rawTag = match ? toID3v24(match, genres, images) : undefined;
-		}
-		if (this.data.apply) {
-			this.data.apply();
-		}
-		if (this.data.close) {
-			this.data.close();
+		if (this.data) {
+			const images = this.coverArt ? this.coverArt.getChecked() : [];
+			for (const result of this.data.matchings) {
+				const match = this.matchings.find(m => m.track.id === result.track.id);
+				result.rawTag = match ? toID3v24(match, genres, images) : undefined;
+			}
+			if (this.data.apply) {
+				this.data.apply();
+			}
+			if (this.data.close) {
+				this.data.close();
+			}
 		}
 	}
 
@@ -430,6 +428,9 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	}
 
 	private async loadGenres(group: MatchReleaseGroup, release: MatchRelease): Promise<void> {
+		if (!this.data) {
+			return;
+		}
 		this.isGenreSearchRunning = true;
 		const tracksGenres: Array<{ count: number; name: string }> = [];
 		if (group.mbGroup.secondaryTypes) {
@@ -437,19 +438,19 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 				tracksGenres.push({count: 1, name: 'Audiobook'});
 			}
 		}
-
 		for (const match of this.data.matchings) {
 			if (match.track.tag?.genres && match.track.tag.genres.length > 0) {
-				const c = tracksGenres.find(t => t.name === match.track.tag.genres[0]);
+				const name = match.track.tag.genres[0];
+				const c = tracksGenres.find(t => t.name === name);
 				if (c) {
 					c.count++;
 				} else {
-					tracksGenres.push({count: 1, name: match.track.tag.genres[0]});
+					tracksGenres.push({count: 1, name});
 				}
 			}
 		}
 		let genres = getTrackGenres(tracksGenres);
-		let tags = [];
+		let tags: Array<GenreTag> = [];
 		if (release.mbRelease.tags) {
 			tags = tags.concat(release.mbRelease.tags);
 		}
@@ -478,39 +479,38 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	private async loadAcousticBrainz(release: MatchRelease): Promise<void> {
 		for (const media of release.media) {
 			for (const track of media.tracks) {
-				if (!track.abData && track.currentMatch) {
+				if (!track.abData && track.currentMatch?.match?.mbTrack?.recording?.id) {
 					const res = (await this.jam.metadata.acousticbrainzLookup({mbID: track.currentMatch.match.mbTrack.recording.id})).data;
 					if (res.highlevel) {
-						const abData: ABData = {
-							genres: [],
-							moods: [],
-							tonal: [],
-							other: []
-						};
+						const genres: Array<string> = [];
+						const moods: Array<string> = [];
+						const tonal: Array<string> = [];
+						const other: Array<string> = [];
 						const keys = Object.keys(res.highlevel);
 						for (const key of keys) {
 							const value = res.highlevel[key].value;
 							const prop = res.highlevel[key].probability;
 							if (prop > 0.8 && !value.includes('not_')) {
 								if (key.startsWith('mood_') || key === 'timbre' || key === 'danceability') {
-									if (!abData.moods.includes(value)) {
-										abData.moods.push(value);
+									if (!moods.includes(value)) {
+										moods.push(value);
 									}
 								} else if (key.startsWith('genre_')) {
-									if (!abData.genres.includes(value)) {
-										abData.genres.push(value);
+									if (!genres.includes(value)) {
+										genres.push(value);
 									}
 								} else if (key.startsWith('tonal_') || key === 'voice_instrumental') {
-									if (!abData.tonal.includes(value)) {
-										abData.tonal.push(value);
+									if (!tonal.includes(value)) {
+										tonal.push(value);
 									}
 								} else {
-									if (!abData.other.includes(value)) {
-										abData.other.push(value);
+									if (!other.includes(value)) {
+										other.push(value);
 									}
 								}
 							}
 						}
+						const abData: ABData = {genres, moods, tonal, other};
 						track.abData = abData;
 						track.currentMatch.match.abdata = abData;
 					}
@@ -561,7 +561,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	}
 
 	private async addReleaseGroupByID(releasegroupID: string): Promise<MatchReleaseGroup> {
-		let rg: MatchReleaseGroup = this.matchTree.findReleaseGroup(releasegroupID);
+		let rg = this.matchTree.findReleaseGroup(releasegroupID);
 		if (!rg) {
 			this.currentAction = 'Loading MusicBrainz Release Group: ' + releasegroupID;
 			const data = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.releaseGroup, mbID: releasegroupID});
@@ -588,7 +588,9 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 					return;
 				}
 			}
-			list = list.concat(match.acoustidEntries);
+			if (match.acoustidEntries) {
+				list = list.concat(match.acoustidEntries);
+			}
 		}
 
 		// build best matching sorted releases tree
@@ -618,8 +620,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 	private buildQuickQueries(): Array<MusicbrainzSearchQuery> {
 		const queries: Array<MusicbrainzSearchQuery> = [];
-		const albums = [];
-		const artists = [];
+		const albums: Array<string> = [];
+		const artists: Array<string> = [];
 		for (const match of this.matchings) {
 			if (match.track.tag && match.track.tag.album) {
 				const s = cleanAlbumName(match.track.tag.album);
@@ -639,7 +641,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			}));
 		}
 
-		if (this.data.folder && this.data.folder.tag) {
+		if (this.data?.folder?.tag) {
 			queries.push(new MusicbrainzSearchQuery({
 				type: MusicBrainzSearchType.releaseGroup,
 				releasegroup: this.data.folder.name,
@@ -673,7 +675,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 				}
 				const parts = val.toString().split('(');
 				if (parts.length > 0) {
-					q[key] = parts[0];
+					(q as any)[key] = parts[0];
 				}
 			}
 			if (trackslength) {
@@ -684,29 +686,29 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 		// next we search the release group
 		for (const match of this.matchings) {
-			addMBQuery({type: MusicBrainzSearchType.releaseGroup, releasegroup: match.track.tag.album, artist: match.track.tag.artist}, match);
+			addMBQuery({type: MusicBrainzSearchType.releaseGroup, releasegroup: match.track.tag?.album, artist: match.track.tag?.artist}, match);
 		}
 
 		// check releases with track length
 		// addQuery('release', {release: tag.album, artist: tag.artist}, null, true);
 		for (const match of this.matchings) {
-			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag.album, artist: match.track.tag.artist}, match, true);
+			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag?.album, artist: match.track.tag?.artist}, match, true);
 		}
 
 		// now without track length
 		for (const match of this.matchings) {
-			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag.album, artist: match.track.tag.artist}, match);
+			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag?.album, artist: match.track.tag?.artist}, match);
 		}
 
 		// now check recordings
 		for (const match of this.matchings) {
-			if (!match.track.tag.title) {
+			if (!match.track.tag?.title) {
 				const trackname = stripExtension(match.track.name);
 				addMBQuery({
 					type: MusicBrainzSearchType.recording,
 					recording: trackname,
-					release: match.track.tag.album,
-					artist: match.track.tag.artist
+					release: match.track.tag?.album,
+					artist: match.track.tag?.artist
 				}, match);
 			} else {
 				addMBQuery({
@@ -720,10 +722,10 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 		// now get even fuzzier
 		for (const match of this.matchings) {
-			if (!match.track.tag.title) {
+			if (!match.track.tag?.title) {
 				const trackname = stripExtension(match.track.name);
-				addMBQuery({type: MusicBrainzSearchType.recording, recording: trackname, release: match.track.tag.album}, match);
-				addMBQuery({type: MusicBrainzSearchType.recording, recording: trackname, artist: match.track.tag.artist}, match);
+				addMBQuery({type: MusicBrainzSearchType.recording, recording: trackname, release: match.track.tag?.album}, match);
+				addMBQuery({type: MusicBrainzSearchType.recording, recording: trackname, artist: match.track.tag?.artist}, match);
 			} else {
 				addMBQuery({type: MusicBrainzSearchType.recording, recording: match.track.tag.title, release: match.track.tag.album}, match);
 				addMBQuery({type: MusicBrainzSearchType.recording, recording: match.track.tag.title, artist: match.track.tag.artist}, match);
@@ -732,14 +734,14 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 		// now get even more fuzzier
 		for (const match of this.matchings) {
-			addMBQuery({type: MusicBrainzSearchType.releaseGroup, releasegroup: match.track.tag.album}, match);
-			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag.album}, match, true);
-			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag.album}, match);
+			addMBQuery({type: MusicBrainzSearchType.releaseGroup, releasegroup: match.track.tag?.album}, match);
+			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag?.album}, match, true);
+			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag?.album}, match);
 		}
 
 		// the fuzziest
 		for (const match of this.matchings) {
-			if (!match.track.tag.title) {
+			if (!match.track.tag?.title) {
 				const trackname = stripExtension(match.track.name);
 				addMBQuery({type: MusicBrainzSearchType.recording, recording: trackname}, match);
 			} else {
@@ -753,8 +755,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 	private async loadBestMatchingCurrentRelease(rg: MatchReleaseGroup): Promise<void> {
 		const releases = rg.releases.sort((a, b) => {
-			const resA = Math.abs(a.totalTrack - this.matchings.length);
-			const resB = Math.abs(b.totalTrack - this.matchings.length);
+			const resA = Math.abs((a.totalTrack || 0) - this.matchings.length);
+			const resB = Math.abs((b.totalTrack || 0) - this.matchings.length);
 			if (resA === resB) {
 				return a.sortDate - b.sortDate;
 			}
@@ -875,7 +877,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 				return;
 			}
 			if (match.track.tag) {
-				let rg: MatchReleaseGroup;
+				let rg: MatchReleaseGroup | undefined;
 				if (match.track.tag.mbReleaseGroupID) {
 					rg = await this.addReleaseGroupByID(match.track.tag.mbReleaseGroupID);
 				}

@@ -7,5 +7,5 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditorDisplayComponent {
-	@Input() lines: Array<string>;
+	@Input() lines?: Array<string>;
 }

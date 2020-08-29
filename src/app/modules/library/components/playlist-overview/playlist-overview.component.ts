@@ -12,11 +12,11 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./playlist-overview.component.scss']
 })
 export class PlaylistOverviewComponent implements OnInit, OnDestroy {
-	playlist: Jam.Playlist;
-	id: string;
+	id?: string;
+	playlist?: Jam.Playlist;
 	protected unsubscribe = new Subject();
-	private playlistID: string;
-	private subList: Subscription;
+	private playlistID?: string;
+	private subList?: Subscription;
 
 	constructor(
 		public playlistService: PlaylistService,

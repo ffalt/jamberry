@@ -31,8 +31,8 @@ export class ToastComponent implements OnDestroy {
 	message?: string | undefined;
 	title?: string;
 	options: IndividualConfig;
-	duplicatesCount: number;
-	originalTimeout: number;
+	duplicatesCount?: number;
+	originalTimeout?: number;
 	/** width of progress bar */
 	width = -1;
 	/** a combination of toast type and options.toastClass */
@@ -59,7 +59,7 @@ export class ToastComponent implements OnDestroy {
 
 	private timeout: any;
 	private intervalId: any;
-	private hideTime: number;
+	private hideTime?: number;
 
 	constructor(public toastPackage: ToastPackage, protected ngZone?: NgZone) {
 		this.message = toastPackage.message;
@@ -71,16 +71,16 @@ export class ToastComponent implements OnDestroy {
 		}`;
 		toastPackage.toastRef.afterActivate()
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-				this.activateToast();
-			});
+			this.activateToast();
+		});
 		toastPackage.toastRef.manualClosed().pipe(takeUntil(this.unsubscribe))
 			.subscribe(() => {
 				this.remove();
 			});
 		toastPackage.toastRef.timeoutReset()
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-				this.resetTimeout();
-			});
+			this.resetTimeout();
+		});
 		toastPackage.toastRef.countDuplicate()
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(count => {
@@ -121,7 +121,7 @@ export class ToastComponent implements OnDestroy {
 			return;
 		}
 		const now = new Date().getTime();
-		const remaining = this.hideTime - now;
+		const remaining = (this.hideTime || 0) - now;
 		this.width = (remaining / this.options.timeOut) * 100;
 		if (this.options.progressAnimation === 'increasing') {
 			this.width = 100 - this.width;
@@ -141,8 +141,8 @@ export class ToastComponent implements OnDestroy {
 
 		this.outsideTimeout(() => {
 			this.remove();
-		}, this.originalTimeout);
-		this.options.timeOut = this.originalTimeout;
+		}, this.originalTimeout || 0);
+		this.options.timeOut = this.originalTimeout || 0;
 		this.hideTime = new Date().getTime() + (this.options.timeOut || 0);
 		this.width = -1;
 		if (this.options.progressBar) {

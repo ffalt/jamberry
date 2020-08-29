@@ -7,8 +7,9 @@ export function rebuildTag(edit: RawTagEditRow): Jam.MediaTagRaw {
 	for (const cell of edit.cells) {
 		if (cell.column.def.id !== FilenameColumnID) {
 			for (const frame of cell.frames) {
-				frames[cell.column.def.id] = frames[cell.column.def.id] || [];
-				frames[cell.column.def.id].push(frame);
+				const list = frames[cell.column.def.id] || [];
+				list.push(frame);
+				frames[cell.column.def.id] = list;
 			}
 		}
 	}
@@ -22,6 +23,7 @@ export function getTackNrFromFile(filename: string): string | undefined {
 	if (parts.length > 0) {
 		return parts[0];
 	}
+	return;
 }
 
 export function getPartOfSetID(edit: RawTagEditRow): string {

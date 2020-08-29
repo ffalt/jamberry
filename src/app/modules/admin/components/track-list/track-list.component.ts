@@ -13,7 +13,7 @@ export interface TrackItem {
 	styleUrls: ['./track-list.component.scss']
 })
 export class TrackListComponent implements OnChanges {
-	trackItems: Array<TrackItem>;
+	trackItems?: Array<TrackItem>;
 	@Input() tracks: Array<Jam.Track> = [];
 
 	constructor(private router: Router) {
@@ -22,17 +22,17 @@ export class TrackListComponent implements OnChanges {
 	getSortValue(column: string, trackItem: TrackItem): string | number | undefined {
 		switch (column) {
 			case 'number':
-				return trackItem.track.tag.trackNr;
+				return trackItem.track.tag?.trackNr;
 			case 'name':
 				return trackItem.track.name;
 			case 'artist':
-				return trackItem.track.tag.artist;
+				return trackItem.track.tag?.artist;
 			case 'album':
-				return trackItem.track.tag.album;
+				return trackItem.track.tag?.album;
 			case 'duration':
 				return trackItem.track.duration;
 			default:
-				break;
+				return;
 		}
 	}
 

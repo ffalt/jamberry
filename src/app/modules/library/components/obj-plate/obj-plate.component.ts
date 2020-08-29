@@ -8,30 +8,30 @@ import {JamLibraryObject} from '@library/model/objects';
 	styleUrls: ['./obj-plate.component.scss']
 })
 export class ObjPlateComponent implements OnChanges {
-	@Input() obj: JamLibraryObject;
+	@Input() obj?: JamLibraryObject;
 	@Input() showParent: boolean = false;
 	loading: boolean = false;
 	expanded: boolean = false;
-	hasTracks: boolean = false;
-	hasAlbums: boolean = false;
-	hasEpisodes: boolean = false;
-	hasMedia: boolean = false;
+	hasTracks?: boolean = false;
+	hasAlbums?: boolean = false;
+	hasEpisodes?: boolean = false;
+	hasMedia?: boolean = false;
 
 	ngOnChanges(changes: SimpleChanges): void {
 		this.expanded = false;
-		this.hasTracks = this.obj && this.obj.childrenTypes.includes(JamObjectType.track);
-		this.hasAlbums = this.obj && this.obj.childrenTypes.includes(JamObjectType.album);
-		this.hasEpisodes = this.obj && this.obj.childrenTypes.includes(JamObjectType.episode);
-		this.hasMedia = this.obj && this.obj.childrenTypes.includes('media');
+		this.hasTracks = this.obj?.childrenTypes && this.obj.childrenTypes.includes(JamObjectType.track);
+		this.hasAlbums = this.obj?.childrenTypes && this.obj.childrenTypes.includes(JamObjectType.album);
+		this.hasEpisodes = this.obj?.childrenTypes && this.obj.childrenTypes.includes(JamObjectType.episode);
+		this.hasMedia = this.obj?.childrenTypes && this.obj.childrenTypes.includes('media');
 		this.check();
 	}
 
 	check(): void {
-		this.loading = !(this.obj.tracks || this.obj.albums || this.obj.episodes || this.obj.media);
+		this.loading = !this.obj || !(this.obj.tracks || this.obj.albums || this.obj.episodes || this.obj.media);
 	}
 
 	toggleExpansion(): void {
-		if (this.obj.childrenTypes.length > 0) {
+		if (this.obj?.childrenTypes && this.obj.childrenTypes.length > 0) {
 			this.expanded = !this.expanded;
 			if (this.expanded) {
 				this.obj.loadChildren()

@@ -7,7 +7,7 @@ import {IndexEntry} from '@shared/services';
 	styleUrls: ['./index-entry-card.component.scss']
 })
 export class IndexEntryCardComponent {
-	@Input() entry: IndexEntry;
+	@Input() entry?: IndexEntry;
 	visible: boolean = false;
 
 	gotInView(): void {

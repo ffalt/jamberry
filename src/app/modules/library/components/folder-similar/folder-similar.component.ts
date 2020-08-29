@@ -14,8 +14,8 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./folder-similar.component.scss']
 })
 export class FolderSimilarComponent implements OnInit, OnDestroy {
-	id: string;
-	similarFolders: Array<JamFolderObject>;
+	id?: string;
+	similarFolders?: Array<JamFolderObject>;
 	protected unsubscribe = new Subject();
 
 	constructor(

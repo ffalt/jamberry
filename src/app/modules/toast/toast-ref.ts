@@ -6,7 +6,7 @@ import {Observable, Subject} from 'rxjs';
  */
 export class ToastRef<T> {
 	/** The instance of component opened into the toast. */
-	componentInstance: T;
+	componentInstance!: T;
 
 	/** Count of duplicates of this toast */
 	private duplicatesCount = 0;

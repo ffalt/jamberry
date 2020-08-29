@@ -10,14 +10,16 @@ import {ReleaseMatching} from '../match-release/match-release.component';
 	styleUrls: ['./dialog-match-release.component.scss']
 })
 export class DialogMatchReleaseComponent implements DialogOverlay<ReleaseMatching>, OnDestroy {
-	data: ReleaseMatching;
+	data?: ReleaseMatching;
 	protected unsubscribe = new Subject();
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ReleaseMatching>>): void {
 		this.data = options.data;
-		options.data.close = (): void => {
-			reference.close();
-		};
+		if (this.data) {
+			this.data.close = (): void => {
+				reference.close();
+			};
+		}
 		reference.beforeClose()
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
 			this.data = undefined;

@@ -1,5 +1,6 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Component, Input} from '@angular/core';
+import {TapEvent} from '@app/utils/types';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
@@ -10,7 +11,7 @@ import {ActionsService} from '@shared/services';
 	styleUrls: ['./media-playlist.component.scss']
 })
 export class MediaPlaylistComponent {
-	@Input() entries: Array<Jam.MediaBase>;
+	@Input() entries?: Array<Jam.MediaBase>;
 	@Input() showArtist: boolean = false;
 	@Input() showRating: boolean = false;
 	@Input() showPlayCount: boolean = false;
@@ -20,10 +21,12 @@ export class MediaPlaylistComponent {
 	}
 
 	onDrop(event: CdkDragDrop<Jam.MediaBase>): void {
-		moveItemInArray(this.entries, event.previousIndex, event.currentIndex);
+		if (this.entries) {
+			moveItemInArray(this.entries, event.previousIndex, event.currentIndex);
+		}
 	}
 
-	tapTrack(event, media: Jam.MediaBase): void {
+	tapTrack(event: TapEvent, media: Jam.MediaBase): void {
 		if (event.tapCount === 2) {
 			this.player.startTrack(media);
 		}

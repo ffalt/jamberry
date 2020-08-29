@@ -11,19 +11,19 @@ import {TagEditorComponent} from '../../components/tag-editor/tag-editor.compone
 	styleUrls: ['./admin-folder-tag-editor-page.component.scss']
 })
 export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
-	id: string;
-	@ViewChild(TagEditorComponent, {static: true}) child: TagEditorComponent;
+	id?: string;
+	@ViewChild(TagEditorComponent, {static: true}) child?: TagEditorComponent;
 	protected unsubscribe = new Subject();
 
 	constructor(private route: ActivatedRoute) {
 	}
 
 	ngOnInit(): void {
-		if (this.route.parent) {
+		if (this.route.parent?.parent?.params) {
 			this.route.parent.parent.params
 				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
-					this.id = params.id;
-				});
+				this.id = params.id;
+			});
 		}
 	}
 
@@ -33,7 +33,7 @@ export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, Com
 	}
 
 	canDeactivate(): boolean {
-		return (this.child && this.child.canDeactivate());
+		return !!(this.child && this.child.canDeactivate());
 	}
 
 }

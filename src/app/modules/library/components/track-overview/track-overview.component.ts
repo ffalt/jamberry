@@ -13,9 +13,9 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./track-overview.component.scss']
 })
 export class TrackOverviewComponent implements OnInit, OnDestroy {
-	track: Jam.Track;
-	svg: { viewbox: string; path: string };
-	id: string;
+	id?: string;
+	track?: Jam.Track;
+	svg?: { viewbox: string; path: string };
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -39,6 +39,9 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 	}
 
 	load(): void {
+		if (!this.id) {
+			return;
+		}
 		this.jam.track.id({
 			id: this.id,
 			trackIncState: true,
@@ -54,6 +57,9 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 	}
 
 	loadWaveForm(): void {
+		if (!this.id) {
+			return;
+		}
 		this.jam.waveform.svg({id: this.id, width: 2000})
 			.then(data => {
 				this.svg = extractSVGParts(data);

@@ -138,7 +138,7 @@ export class ToastPackage {
 	constructor(
 		public toastId: number,
 		public config: IndividualConfig,
-		public message: string | null | undefined,
+		public message: string | undefined,
 		public title: string | undefined,
 		public toastType: string,
 		public toastRef: ToastRef<any>,

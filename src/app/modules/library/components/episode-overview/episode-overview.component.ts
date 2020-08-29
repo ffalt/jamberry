@@ -12,8 +12,8 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./episode-overview.component.scss']
 })
 export class EpisodeOverviewComponent implements OnInit, OnDestroy {
-	episode: Jam.Episode;
-	id: string;
+	id?: string;
+	episode?: Jam.Episode;
 	protected unsubscribe = new Subject();
 
 	constructor(

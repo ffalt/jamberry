@@ -8,7 +8,8 @@ export class LocalstorageService {
 
 	get<T>(key: string): T | undefined {
 		try {
-			return JSON.parse(localStorage.getItem(this.prefix + key));
+			const data = localStorage.getItem(this.prefix + key);
+			return data ? JSON.parse(data) : undefined;
 		} catch (e) {
 			return undefined;
 		}

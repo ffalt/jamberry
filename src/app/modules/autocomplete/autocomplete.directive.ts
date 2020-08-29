@@ -47,16 +47,16 @@ export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement)
 	selector: '[appAutocomplete]'
 })
 export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, AutocompleteControl {
-	@Input() appAutocomplete: AutocompleteComponent;
-	@Input() appAutocompleteControl: AutocompleteDataControl;
-	@Input() appAutocompleteSettings: Partial<AutocompleteSettings>;
+	@Input() appAutocomplete?: AutocompleteComponent;
+	@Input() appAutocompleteControl?: AutocompleteDataControl;
+	@Input() appAutocompleteSettings?: Partial<AutocompleteSettings>;
 	@Output() readonly appAutocompleteNavigKeyDown = new EventEmitter<KeyboardEvent>();
 	isVisible: boolean = false;
 	activeIndex: number = NO_INDEX;
-	query: string;
+	query: string = '';
 	options: Array<AutocompleteOption> = [];
 	protected unsubscribe = new Subject();
-	private overlayRef: OverlayRef;
+	private overlayRef?: OverlayRef;
 	private keydown$ = new Subject<KeyboardEvent>();
 	private keyup$ = new Subject<KeyboardEvent>();
 	private settings: AutocompleteSettings = {allowEmpty: false, debounceTime: 300};
@@ -84,7 +84,9 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 
 	selectOption(option: AutocompleteOption): void {
 		this.hide();
-		this.query = this.appAutocompleteControl.autocompleteSelectResult(option);
+		if (this.appAutocompleteControl) {
+			this.query = this.appAutocompleteControl.autocompleteSelectResult(option);
+		}
 	}
 
 	@HostListener('keydown', ['$event'])
@@ -132,7 +134,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 				map(toFormControlValue),
 				debounceTime(this.settings.debounceTime),
 				concat,
-				distinctUntilChanged(),
+				distinctUntilChanged<string>(),
 				tap((query: string) => (this.query = query)),
 				filter((query: string) => this.settings.allowEmpty || query.length > 0),
 				switchMap((query: string) => this.request(query)),
@@ -172,14 +174,16 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 			.subscribe((_: KeyboardEvent) => {
 				if (!this.isVisible) {
 					this.query = this.host.nativeElement.value;
-					this.appAutocompleteControl.autocompleteEnter(this.query);
+					if (this.appAutocompleteControl) {
+						this.appAutocompleteControl.autocompleteEnter(this.query);
+					}
 					return;
 				}
 				const result = this.options[this.activeIndex];
 				this.hide();
 				if (result) {
 					this.selectOption(result);
-				} else {
+				} else if (this.appAutocompleteControl) {
 					this.appAutocompleteControl.autocompleteEnter(this.query);
 				}
 			});
@@ -212,6 +216,9 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	}
 
 	private openDropdown(): void {
+		if (!this.appAutocomplete?.rootTemplate) {
+			return;
+		}
 		this.overlayRef = this.createOverlay();
 		const template = new TemplatePortal(this.appAutocomplete.rootTemplate, this.vcr, {$implicit: this});
 		this.overlayRef.attach(template);
@@ -229,8 +236,10 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	}
 
 	private close(): void {
-		this.overlayRef.detach();
-		this.overlayRef = undefined;
+		if (this.overlayRef) {
+			this.overlayRef.detach();
+			this.overlayRef = undefined;
+		}
 		this.isCreated = false;
 	}
 

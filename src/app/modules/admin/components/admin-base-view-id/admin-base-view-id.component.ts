@@ -9,7 +9,7 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./admin-base-view-id.component.scss']
 })
 export class AdminBaseViewIdComponent implements OnInit, OnDestroy {
-	id: string;
+	id?: string;
 	protected unsubscribe = new Subject();
 
 	constructor(private route: ActivatedRoute) {

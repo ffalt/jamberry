@@ -18,7 +18,7 @@ import {DialogUploadImageComponent} from '../../dialog-upload-image/dialog-uploa
 })
 export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	name: string = '';
-	folder: Jam.Folder;
+	folder?: Jam.Folder;
 	isAlbum: boolean = false;
 	isArtist: boolean = false;
 
@@ -44,12 +44,15 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 	}
 
 	editFolderName(): void {
+		if (!this.folder) {
+			return;
+		}
 		const name = (this.name || '').trim();
 		if (name.length === 0 || name === this.folder.name) {
 			this.name = this.folder.name;
 			return;
 		}
-		const id = this.id;
+		const id = this.folder.id;
 		this.jam.folder.rename({id, name})
 			.then(item => {
 				this.folderService.waitForQueueResult('Renaming Folder', item, [id]);
@@ -105,6 +108,9 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 
 	removeFolder(): void {
 		const folder = this.folder;
+		if (!folder) {
+			return;
+		}
 		this.dialogsService.confirm('Remove Folder?', `Sure to remove Folder "${folder.name}"?`, () => {
 			this.jam.folder.remove({id: folder.id})
 				.then(item => {
@@ -123,20 +129,25 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 	}
 
 	moveFolder(): void {
-		const data: SelectFolder = {
-			selectID: this.id,
-			disableIDs: [this.id]
-		};
+		const folder = this.folder;
+		if (!folder) {
+			return;
+		}
+		const data: SelectFolder = {selectID: folder.id, disableIDs: [folder.id]};
 		this.dialogOverlay.open({
 			title: 'Move Folder to',
 			childComponent: DialogChooseFolderComponent,
 			data,
 			panelClass: 'overlay-panel-large-buttons',
 			onOkBtn: async () => {
+				const destination = data.folder;
+				if (!destination) {
+					return;
+				}
 				try {
-					this.jam.folder.move({ids: [this.folder.id], newParentID: data.folder.id})
+					this.jam.folder.move({ids: [folder.id], newParentID: destination.id})
 						.then(item => {
-							this.folderService.waitForQueueResult('Moving Folder', item, [this.folder.id], [this.folder.parentID, data.folder.id]);
+							this.folderService.waitForQueueResult('Moving Folder', item, [folder.id], (folder.parentID ? [folder.parentID] : []).concat([destination.id]));
 						})
 						.catch(e => {
 							this.notify.error(e);

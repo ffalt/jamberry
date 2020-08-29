@@ -19,5 +19,5 @@ export interface HeaderTab {
 })
 export class HeaderTabsComponent {
 	@Input() smallTabs: boolean = false;
-	@Input() tabs: Array<HeaderTab>;
+	@Input() tabs?: Array<HeaderTab>;
 }

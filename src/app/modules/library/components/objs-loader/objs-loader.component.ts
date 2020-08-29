@@ -14,15 +14,15 @@ import {LoadMoreButtonComponent} from '@shared/components';
 export class ObjsLoaderComponent implements OnChanges {
 	@Input() grouping: boolean = false;
 	@Input() showParent: boolean = false;
-	@Input() loader: JamObjsLoader;
-	@Input() listQuery: { listType: ListType; albumType?: AlbumType };
-	@Input() searchQuery: { query?: string; albumType?: AlbumType; genre?: string };
+	@Input() loader?: JamObjsLoader;
+	@Input() listQuery?: { listType: ListType; albumType?: AlbumType };
+	@Input() searchQuery?: { query?: string; albumType?: AlbumType; genre?: string };
 	@Input() loadAll: boolean = false;
-	@Input() changeTrigger: string;
+	@Input() changeTrigger?: string;
 
-	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore: LoadMoreButtonComponent;
-	objs: Array<JamLibraryObject>;
-	private activeRequest: Promise<void>;
+	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
+	objs?: Array<JamLibraryObject>;
+	private activeRequest?: Promise<void>;
 
 	constructor(protected library: LibraryService, protected jam: JamService, protected notify: NotifyService) {
 	}
@@ -33,7 +33,7 @@ export class ObjsLoaderComponent implements OnChanges {
 			.then(data => {
 				if (this.activeRequest === request) {
 					this.objs = (this.objs || []).concat(data.items || []);
-					this.loadMore.hasMore = data.list.total > this.objs.length;
+					this.loadMore.hasMore = (data.list.total || 0) > this.objs.length;
 					this.loadMore.total = data.list.total;
 					this.loadMore.loading = false;
 				}
@@ -48,15 +48,23 @@ export class ObjsLoaderComponent implements OnChanges {
 	}
 
 	load(): void {
-		if (this.searchQuery) {
-			this.getObjs(() => this.loader.search(this.searchQuery, this.loadMore.skip, this.loadMore.take));
-		} else if (this.listQuery) {
-			this.getObjs(() => this.loader.list(this.listQuery, this.loadMore.skip, this.loadMore.take));
-		} else if (this.loadAll) {
-			this.getObjs(() => this.loader.all(this.loadMore.skip, this.loadMore.take));
-		} else {
+		const loader = this.loader;
+		if (!loader) {
 			this.objs = [];
+			return;
 		}
+		const search = this.searchQuery;
+		if (search) {
+			return this.getObjs(() => loader.search(search, this.loadMore.skip, this.loadMore.take));
+		}
+		const list = this.listQuery;
+		if (list) {
+			return this.getObjs(() => loader.list(list, this.loadMore.skip, this.loadMore.take));
+		}
+		if (this.loadAll) {
+			return this.getObjs(() => loader.all(this.loadMore.skip, this.loadMore.take));
+		}
+		this.objs = [];
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {

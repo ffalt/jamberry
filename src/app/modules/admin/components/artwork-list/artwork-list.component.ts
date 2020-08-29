@@ -30,9 +30,9 @@ function extractExt(filename: string): string {
 	styleUrls: ['./artwork-list.component.scss']
 })
 export class ArtworkListComponent implements OnChanges {
-	@Input() artworks: Array<Jam.Artwork>;
-	@Input() folderID: string;
-	nodes: Array<ArtworkImageNode>;
+	@Input() artworks?: Array<Jam.Artwork>;
+	@Input() folderID?: string;
+	nodes?: Array<ArtworkImageNode>;
 
 	constructor(
 		private app: AppService,
@@ -55,7 +55,8 @@ export class ArtworkListComponent implements OnChanges {
 	editArtworkName(node: ArtworkImageNode): void {
 		this.jam.artwork.rename({id: node.artwork.id, newName: node.name})
 			.then(item => {
-				this.folderService.waitForQueueResult('Renaming Artwork', item, [this.folderID], []);
+				this.folderService.waitForQueueResult('Renaming Artwork', item,
+					this.folderID ? [this.folderID] : [], []);
 			})
 			.catch(e => {
 				this.notify.error(e);
@@ -84,8 +85,10 @@ export class ArtworkListComponent implements OnChanges {
 		this.dialogs.confirm('Remove Artworks?', `Do you want to delete "${node.artwork.name}"?`, () => {
 			this.jam.artwork.remove({id: node.artwork.id})
 				.then(item => {
-					this.nodes = this.nodes.filter(n => n !== node);
-					this.folderService.waitForQueueResult('Removing Artwork', item, [this.folderID]);
+					if (this.nodes) {
+						this.nodes = this.nodes.filter(n => n !== node);
+					}
+					this.folderService.waitForQueueResult('Removing Artwork', item, this.folderID ? [this.folderID] : []);
 				})
 				.catch(e => {
 					this.notify.error(e);

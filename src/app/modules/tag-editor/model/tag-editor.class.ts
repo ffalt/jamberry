@@ -35,7 +35,7 @@ export class TagEditor {
 		const index = this.columns.indexOf(column);
 		const cell = edit.cells[index];
 		const text = value ? value : '';
-		let frames = [];
+		let frames: Array<RawTagEditFrame> = [];
 		if (text.length > 0) {
 			frames = [{
 				id: cell.column.def.id,
@@ -62,13 +62,13 @@ export class TagEditor {
 		const folderCounts: { [id: string]: number | undefined } = {};
 		for (const edit of this.edits) {
 			const id = getPartOfSetID(edit);
-			folderCounts[id] = (folderCounts[id] ? folderCounts[id] : 0) + 1;
+			folderCounts[id] = (folderCounts[id] || 0) + 1;
 		}
 		for (const edit of this.edits) {
 			const trackNr = getTackNrFromFile(edit.track.name);
 			if (trackNr) {
 				const id = getPartOfSetID(edit);
-				const text = `${trackNr}/${folderCounts[id].toString()}`;
+				const text = `${trackNr}/${(folderCounts[id] || 0).toString()}`;
 				this.updateEditTextCell(edit, column, text);
 			}
 		}
@@ -88,12 +88,12 @@ export class TagEditor {
 		const folderAdds: { [id: string]: number | undefined } = {};
 		for (const edit of this.edits) {
 			const id = getPartOfSetID(edit);
-			folderCounts[id] = (folderCounts[id] ? folderCounts[id] : 0) + 1;
+			folderCounts[id] = (folderCounts[id] || 0) + 1;
 		}
 		for (const edit of this.edits) {
 			const id = getPartOfSetID(edit);
-			folderAdds[id] = (folderAdds[id] ? folderAdds[id] : 0) + 1;
-			const text = `${folderAdds[id].toString()}/${folderCounts[id].toString()}`;
+			folderAdds[id] = (folderAdds[id] || 0) + 1;
+			const text = `${(folderAdds[id] || 0).toString()}/${(folderCounts[id] || 0).toString()}`;
 			this.updateEditTextCell(edit, column, text);
 		}
 	}
@@ -126,12 +126,12 @@ export class TagEditor {
 	setColumnTotalTrack(column: RawTagEditColumn): void {
 		const folderCounts: { [id: string]: number | undefined } = {};
 		for (const edit of this.edits) {
-			folderCounts[edit.track.parentID] = (folderCounts[edit.track.parentID] ? folderCounts[edit.track.parentID] : 0) + 1;
+			folderCounts[edit.track.parentID] = (folderCounts[edit.track.parentID] || 0) + 1;
 		}
 		const index = this.columns.indexOf(column);
 		this.edits.forEach((edit, i) => {
 			const cell = edit.cells[index];
-			let trackNr: string;
+			let trackNr: string | undefined;
 			if (cell.frames.length > 0) {
 				trackNr = cell.frames[0].value.text.split('/')[0];
 				if (!isNaN(Number(trackNr))) {
@@ -143,7 +143,7 @@ export class TagEditor {
 			if (!trackNr) {
 				trackNr = (i + 1).toString();
 			}
-			const text = `${(trackNr || '')}/${folderCounts[edit.track.parentID].toString()}`;
+			const text = `${(trackNr || '')}/${(folderCounts[edit.track.parentID] || 0).toString()}`;
 			this.updateEditTextCell(edit, column, text);
 		});
 	}
@@ -329,8 +329,12 @@ export class TagEditor {
 	}
 
 	upgradeTrackTag(track: Jam.Track): void {
-		if (track.tagRaw && track.tagRaw.version < 4) {
-			let frames: Array<ID3v2Frames.Frame> = TagEditor.getRawTagFrames(track.tagRaw);
+		const raw = track.tagRaw;
+		if (!raw || raw.version === undefined) {
+			return;
+		}
+		if (raw.version < 4) {
+			let frames: Array<ID3v2Frames.Frame> = TagEditor.getRawTagFrames(raw);
 			const newTag: Jam.MediaTagRaw = {
 				version: 4,
 				frames: {}
@@ -455,17 +459,18 @@ export class TagEditor {
 
 	private static getFrameDefName(id: string, subid: string | undefined, framedef: FrameDef): string {
 		let name = framedef.title;
+		const subKey = subid || '';
 		if (framedef.impl === FrameType.IdText) {
-			if (id === 'TXXX' && FrameTXXXSubIdsDefs[subid]) {
-				name = FrameTXXXSubIdsDefs[subid];
-			} else if (id === 'UFID' && FrameUFIDSubIdsDefs[subid]) {
-				name = FrameUFIDSubIdsDefs[subid];
+			if (id === 'TXXX' && FrameTXXXSubIdsDefs[subKey]) {
+				name = FrameTXXXSubIdsDefs[subKey];
+			} else if (id === 'UFID' && FrameUFIDSubIdsDefs[subKey]) {
+				name = FrameUFIDSubIdsDefs[subKey];
 			} else if (subid) {
 				name += ` (${subid})`;
 			}
 		} else if (framedef.impl === FrameType.LangDescText) {
-			if (id === 'COMM' && FrameCOMMSubIdsDefs[subid]) {
-				name = FrameCOMMSubIdsDefs[subid];
+			if (id === 'COMM' && FrameCOMMSubIdsDefs[subKey]) {
+				name = FrameCOMMSubIdsDefs[subKey];
 			} else if (subid) {
 				name += ` (${subid})`;
 			}
@@ -651,7 +656,7 @@ export class TagEditor {
 	private frameDef2Column(id: string, subid: string | undefined, framedef: FrameDef, sort: number): RawTagEditColumn {
 		const name = TagEditor.getFrameDefName(id, subid, framedef);
 		let impl = framedef.impl;
-		if (id === 'UFID' && FrameUFIDSubIdsDefs[subid]) {
+		if (id === 'UFID' && FrameUFIDSubIdsDefs[subid || '']) {
 			impl = FrameType.IdText;
 		}
 		const col: RawTagEditColumn = {
@@ -729,10 +734,10 @@ export class TagEditor {
 		});
 		const fillColumns = (
 			track: Jam.Track,
-			tag: Jam.MediaTagRaw,
+			tag: Jam.MediaTagRaw | undefined,
 			frames: Array<RawTagEditFrame>,
 			parent: RawTagEditRow,
-			oldRow: RawTagEditRow): Array<RawTagEditCell> =>
+			oldRow: RawTagEditRow | undefined): Array<RawTagEditCell> =>
 			this.columns.map(col => {
 				const oldCell = oldRow ? oldRow.cells.find(c => c.column.def.id === col.def.id && c.column.def.subid === col.def.subid) : undefined;
 				return {
@@ -750,11 +755,11 @@ export class TagEditor {
 			frames.push({id: FilenameColumnID, value: {text: track.name}});
 			if (track.tagRaw) {
 				Object.keys(track.tagRaw.frames).forEach(key => {
-					frames = frames.concat(track.tagRaw.frames[key]);
+					frames = frames.concat(track.tagRaw?.frames[key] || []);
 				});
 			}
 			const oldEdit = oldEdits.find(e => e.track === track);
-			const edit = {
+			const edit: RawTagEditRow = {
 				track,
 				tag: track.tagRaw,
 				cells: [],

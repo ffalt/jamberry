@@ -11,10 +11,10 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./sidebar-index.component.scss']
 })
 export class SidebarIndexComponent implements OnInit, OnDestroy {
-	index: Index;
+	index?: Index;
+	current?: IndexGroup;
 	@Input() useMeta: boolean = true;
 	@HostBinding('class.active') collapsed: boolean = false;
-	current: IndexGroup;
 	protected unsubscribe = new Subject();
 
 	constructor(public indexService: IndexService, public notify: NotifyService) {

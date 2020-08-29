@@ -13,8 +13,8 @@ export interface TooltipInfo {
 
 })
 export class ChildTooltipContentComponent implements AfterViewInit {
-	@Input() hostElement: HTMLElement;
-	@Input() content: TooltipInfo;
+	@Input() hostElement?: HTMLElement;
+	@Input() content?: TooltipInfo;
 	@Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
 	@Input() animation: boolean = true;
 	top: number = -1000;

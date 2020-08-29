@@ -10,6 +10,8 @@ export interface SearchTab extends HeaderTab {
 }
 
 export interface SearchTabs {
+	[name: string]: SearchTab;
+
 	artists: SearchTab;
 	albums: SearchTab;
 	folders: SearchTab;
@@ -71,10 +73,10 @@ export class SearchPageComponent implements AutocompleteDataControl {
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption>> {
-		const q: JamParameters.AutoCompleteFilterArgs = {query};
+		const q: JamParameters.AutoCompleteFilterArgs & { [name: string]: number | string } = {query};
 		q[this.currentTab.id] = 10;
-		const result = await this.jam.autocomplete.autocomplete(q);
-		return (result[`${this.currentTab.id}s`] || []).map(data => ({data}));
+		const result: { [name: string]: any } = await this.jam.autocomplete.autocomplete(q);
+		return (result[`${this.currentTab.id}s`] || []).map((data: any) => ({data}));
 	}
 
 	autocompleteEnter(query: string): void {

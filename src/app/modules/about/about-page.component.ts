@@ -16,7 +16,7 @@ export class AboutPageComponent {
 	constructor(private hotkeysService: HotkeysService, public app: AppService, public auth: JamAuthService, public player: PlayerService) {
 		this.keyCmds = hotkeysService.hotkeys
 			.filter(h => h.combo.toString() !== '?')
-			.map(h => ({name: h.combo.toString(), desc: h.description.toString()}));
+			.map(h => ({name: h.combo.toString(), desc: (h.description || '').toString()}));
 	}
 
 }

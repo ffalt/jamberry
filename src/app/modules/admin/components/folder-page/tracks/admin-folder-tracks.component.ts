@@ -16,7 +16,7 @@ import {TrackListComponent} from '../../track-list/track-list.component';
 })
 export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder | undefined;
-	@ViewChild(TrackListComponent, {static: false}) tracks: TrackListComponent;
+	@ViewChild(TrackListComponent, {static: false}) tracks?: TrackListComponent;
 
 	constructor(
 		route: ActivatedRoute, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService,
@@ -58,6 +58,9 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 	}
 
 	getTrackIDs(): Array<string> {
+		if (!this.tracks?.trackItems || !this.folder?.tracks) {
+			return [];
+		}
 		const selection = this.tracks.trackItems.filter(t => t.selected).map(t => t.track.id);
 		return (selection.length > 0) ? selection : this.folder.tracks.map(t => t.id);
 	}
@@ -76,9 +79,14 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 			data,
 			panelClass: 'overlay-panel-large-buttons',
 			onOkBtn: async () => {
-				this.jam.track.move({ids, folderID: data.folder.id})
+				const destination = data.folder;
+				if (!destination) {
+					return;
+				}
+				this.jam.track.move({ids, folderID: destination.id})
 					.then(item => {
-						this.folderService.waitForQueueResult('Moving Tracks', item, [], [data.folder.id].concat(this.folder.parentID ? [this.folder.parentID] : []), ids);
+						this.folderService.waitForQueueResult('Moving Tracks', item, [],
+							[destination.id].concat(this.folder?.parentID ? [this.folder.parentID] : []), ids);
 					})
 					.catch(e => {
 						this.notify.error(e);
@@ -91,6 +99,9 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 
 	refresh(): void {
 		this.folder = undefined;
+		if (!this.id) {
+			return;
+		}
 		this.jam.folder.id({id: this.id, folderIncTracks: true, trackIncTag: true, trackIncMedia: true})
 			.then(data => {
 				this.folder = data;

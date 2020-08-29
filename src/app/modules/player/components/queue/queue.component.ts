@@ -1,6 +1,7 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
+import {TapEvent} from '@app/utils/types';
 import {NavigService, PlayerService, QueueService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
@@ -17,7 +18,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 	@Input() showControls: boolean = true;
 	entries: Array<Jam.MediaBase> = [];
 	protected unsubscribe = new Subject();
-	private currentSwipeElement: HTMLElement;
+	private currentSwipeElement?: HTMLElement;
 
 	constructor(
 		public queue: QueueService, public player: PlayerService, public navig: NavigService, public actions: ActionsService,
@@ -46,7 +47,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 		this.queue.publishChanges();
 	}
 
-	tapPlayQueuePos(event, index: number): void {
+	tapPlayQueuePos(event: TapEvent, index: number): void {
 		if (event.tapCount === 2) {
 			this.player.playQueuePos(index);
 		}
@@ -54,7 +55,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 
 	onPanStart(event: Event): void {
 		this.currentSwipeElement = undefined;
-		let element = (event as unknown as HammerInput).target;
+		let element: HTMLElement | null = (event as unknown as HammerInput).target;
 		if (!element.classList.contains('track')) {
 			element = element.parentElement;
 		}

@@ -12,12 +12,12 @@ export class TracksLoaderComponent implements OnChanges {
 	showRating: boolean = false;
 	showPlayCount: boolean = false;
 	showPlayDate: boolean = false;
-	tracks: Array<Jam.Track>;
-	@Input() listType: ListType;
-	@Input() query: string;
-	@Input() queryCmd: JamParameters.TrackFilterArgs;
-	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore: LoadMoreButtonComponent;
-	private activeRequest: Promise<void>;
+	tracks?: Array<Jam.Track>;
+	@Input() listType?: ListType;
+	@Input() query?: string;
+	@Input() queryCmd?: JamParameters.TrackFilterArgs;
+	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
+	private activeRequest?: Promise<void>;
 
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}
@@ -28,7 +28,7 @@ export class TracksLoaderComponent implements OnChanges {
 			.then(data => {
 				if (this.activeRequest === request) {
 					this.tracks = (this.tracks || []).concat(data.items);
-					this.loadMore.hasMore = data.total > this.tracks.length;
+					this.loadMore.hasMore = (data.total || 0) > this.tracks.length;
 					this.loadMore.total = data.total;
 					this.loadMore.loading = false;
 				}

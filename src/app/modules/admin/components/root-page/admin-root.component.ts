@@ -14,7 +14,7 @@ import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 	styleUrls: ['./admin-root.component.scss']
 })
 export class AdminRootComponent implements OnInit, OnDestroy {
-	roots: Array<Jam.Root>;
+	roots?: Array<Jam.Root>;
 	protected unsubscribe = new Subject();
 
 	constructor(

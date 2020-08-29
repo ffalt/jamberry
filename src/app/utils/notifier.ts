@@ -14,7 +14,7 @@ export class Notifiers<T> {
 		return !this.notifiers[id] ? 0 : this.notifiers[id].observers.length;
 	}
 
-	emit(id: string, data: T): void {
+	emit(id: string, data?: T): void {
 		if (this.notifiers[id]) {
 			this.notifiers[id].emit(data);
 		}

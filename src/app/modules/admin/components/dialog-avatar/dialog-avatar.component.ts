@@ -13,8 +13,8 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./dialog-avatar.component.scss']
 })
 export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy {
-	user: Jam.User;
-	userAvatar: string;
+	user?: Jam.User;
+	userAvatar?: string;
 	hasChanged: boolean = false;
 	protected unsubscribe = new Subject();
 
@@ -36,13 +36,13 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 	}
 
 	setImageSource(): void {
-		this.userAvatar = [this.jam.image.imageUrl({id: this.user.id, size: 60}), '?', randomString()].join('');
+		this.userAvatar = this.user ? `${this.jam.image.imageUrl({id: this.user.id, size: 60})}?${randomString()}` : undefined;
 	}
 
 	// At the drag drop area
 	onDropFile(event: DragEvent): void {
 		event.preventDefault();
-		this.uploadFile(event.dataTransfer.files);
+		this.uploadFile(event.dataTransfer?.files);
 	}
 
 	// At the drag drop area
@@ -56,8 +56,8 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 		this.uploadFile(event.target.files);
 	}
 
-	uploadFile(files: FileList): void {
-		if (files.length === 0) {
+	uploadFile(files?: FileList): void {
+		if (!files || files.length === 0 || !this.user) {
 			return;
 
 		}

@@ -8,8 +8,8 @@ import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/m
 	styleUrls: ['./image-edit-overlay-content.scss']
 })
 export class ImageEditOverlayContentComponent implements DialogOverlay<ImageEdit> {
-	data: ImageEdit;
-	reference: DialogOverlayRef;
+	data?: ImageEdit;
+	reference?: DialogOverlayRef;
 	loading = true;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ImageEdit>>): void {
@@ -18,6 +18,8 @@ export class ImageEditOverlayContentComponent implements DialogOverlay<ImageEdit
 	}
 
 	onImageEdited(): void {
-		this.reference.close();
+		if (this.reference) {
+			this.reference.close();
+		}
 	}
 }

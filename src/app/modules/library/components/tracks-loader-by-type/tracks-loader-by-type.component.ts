@@ -11,7 +11,7 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./tracks-loader-by-type.component.scss']
 })
 export class TracksLoaderByTypeComponent implements OnInit, OnDestroy {
-	listType: ListType;
+	listType?: ListType;
 	protected unsubscribe = new Subject();
 
 	constructor(protected route: ActivatedRoute) {
@@ -21,7 +21,7 @@ export class TracksLoaderByTypeComponent implements OnInit, OnDestroy {
 		this.route.url
 			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
 			const type = val.length > 0 ? val[0].path : undefined;
-			this.listType = ListTypeUrlNamesKeys[type];
+			this.listType = type ? ListTypeUrlNamesKeys[type] : undefined;
 		});
 	}
 

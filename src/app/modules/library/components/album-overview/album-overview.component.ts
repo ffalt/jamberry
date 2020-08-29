@@ -12,10 +12,10 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./album-overview.component.scss']
 })
 export class AlbumOverviewComponent implements OnInit, OnDestroy {
-	album: Jam.Album;
+	id?: string;
+	album?: Jam.Album;
 	tracks: Array<Jam.Track> = [];
 	isCompilation: boolean = false;
-	id: string;
 	protected unsubscribe = new Subject();
 
 	constructor(
@@ -42,7 +42,7 @@ export class AlbumOverviewComponent implements OnInit, OnDestroy {
 	display(album: Jam.Album): void {
 		this.album = album;
 		this.isCompilation = this.album.albumType === AlbumType.compilation;
-		this.tracks = album.tracks;
+		this.tracks = album.tracks || [];
 	}
 
 	refresh(): void {

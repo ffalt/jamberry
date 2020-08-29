@@ -24,11 +24,11 @@ export interface MatchImageNode {
 	styleUrls: ['./match-coverart.component.scss']
 })
 export class MatchCoverartComponent implements OnChanges {
-	@Input() data: MatchImageSearch;
+	@Input() data?: MatchImageSearch;
 	isImageSearchRunning: boolean = false;
 	showFrontImagesOnly: boolean = true;
-	images: Array<MatchImageNode>;
-	coverArtArchive: Array<MatchImageNode>;
+	images?: Array<MatchImageNode>;
+	coverArtArchive?: Array<MatchImageNode>;
 
 	constructor(private app: AppService, private jam: JamService, private notify: NotifyService, private client: HttpClient) {
 	}
@@ -76,8 +76,9 @@ export class MatchCoverartComponent implements OnChanges {
 					image.image = image.image.replace('http:', 'https:');
 				}
 				if (image.thumbnails) {
-					Object.keys(image.thumbnails).forEach(key => {
-						image.thumbnails[key] = image.thumbnails[key].replace('http:', 'https:');
+					const thumbs: { [name: string]: string } = image.thumbnails;
+					Object.keys(thumbs).forEach(key => {
+						thumbs[key] = thumbs[key].replace('http:', 'https:');
 					});
 				}
 				const node: MatchImageNode = {
@@ -113,7 +114,7 @@ export class MatchCoverartComponent implements OnChanges {
 			this.isImageSearchRunning = true;
 			let res = await this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.release, mbID: query.mbReleaseID});
 			await this.loadImages(res.data);
-			if (this.coverArtArchive.length === 0 && query.mbReleaseGroupID) {
+			if (this.coverArtArchive && this.coverArtArchive.length === 0 && query.mbReleaseGroupID) {
 				this.images = undefined;
 				this.coverArtArchive = undefined;
 				res = await this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.releaseGroup, mbID: query.mbReleaseGroupID});
@@ -135,10 +136,14 @@ export class MatchCoverartComponent implements OnChanges {
 			this.client.get(imageUrl, {observe: 'response', responseType: 'arraybuffer' as const})
 				.pipe(take(1)).subscribe(resp => {
 					image.requested = false;
-					image.base64 = {
-						mimeType: resp.headers.get('Content-Type'),
-						base64: base64ArrayBuffer(resp.body)
-					};
+					if (!resp.body) {
+						this.notify.error({error: 'Invalid result from https://coverartarchive.org'});
+					} else {
+						image.base64 = {
+							mimeType: resp.headers.get('Content-Type') || 'image',
+							base64: base64ArrayBuffer(resp.body)
+						};
+					}
 					resolve();
 				},
 				err => {

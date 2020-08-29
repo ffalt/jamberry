@@ -10,7 +10,7 @@ import {JamService} from '@jam';
 })
 export class SliderTimeComponent implements OnInit {
 	timePC: number = 0;
-	svg: { viewbox: string; path: string };
+	svg?: { viewbox: string; path: string };
 
 	constructor(private element: ElementRef, public player: PlayerService, public jam: JamService, private app: AppService) {
 	}
@@ -50,16 +50,19 @@ export class SliderTimeComponent implements OnInit {
 	}
 
 	calculatePositionPercentByTime(): number {
-		return this.player.currentTime * 100 / this.player.totalTime;
+		return this.player.currentPercent();
 	}
 
 	changePlaybackTime(event: any): void {
-		const width = this.element.nativeElement.getBoundingClientRect().width || 1;
-		const percent = event.offsetX / width;
-		const time = this.player.totalTime * percent;
-		setTimeout(() => {
-			this.player.seek(time);
-		}, 0);
+		const total = this.player.totalTime;
+		if (total !== undefined) {
+			const width = this.element.nativeElement.getBoundingClientRect().width || 1;
+			const percent = event.offsetX / width;
+			const time = total * percent;
+			setTimeout(() => {
+				this.player.seek(time);
+			}, 0);
+		}
 	}
 
 }

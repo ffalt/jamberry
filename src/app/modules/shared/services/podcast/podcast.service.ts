@@ -131,7 +131,6 @@ export class PodcastService {
 	refreshPodcast(id: string): void {
 		this.jam.podcast.id({id, podcastIncState: true, podcastIncEpisodes: true, episodeIncState: true, episodeIncTag: true, episodeIncMedia: true})
 			.then(podcast => {
-				podcast.episodes.sort((a, b) => b.date - a.date);
 				const index = this.podcasts.findIndex(p => p.id === id);
 				if (index < 0) {
 					this.podcasts.push(podcast);

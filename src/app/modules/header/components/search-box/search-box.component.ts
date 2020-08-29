@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {NavigService, NotifyService} from '@core/services';
-import {JamService} from '@jam';
+import {Jam, JamService} from '@jam';
 
 const objTypes = {
 	track: 'Track',
@@ -31,7 +31,7 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption>> {
 		const result = await this.jam.autocomplete.autocomplete({query, album: 5, artist: 5, playlist: 5, podcast: 5, track: 5, episode: 5});
-		const parts: Array<{ type: string; list: Array<{ id: string; name: string }> }> = [
+		const parts: Array<{ type: string; list?: Array<Jam.AutoCompleteEntry> }> = [
 			{type: objTypes.artist, list: result.artists},
 			{type: objTypes.album, list: result.albums},
 			{type: objTypes.track, list: result.tracks},

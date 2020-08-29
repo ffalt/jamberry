@@ -10,20 +10,20 @@ declare const Notification: any;
 	providedIn: 'root'
 })
 export class PushNotificationService implements OnDestroy {
-	title: string;
-	body: string;
-	icon: string;
-	sound: string;
-	data: any;
-	tag: string;
+	title?: string;
+	body?: string;
+	icon?: string;
+	sound?: string;
+	data?: any;
+	tag?: string;
 	dir: string = 'auto';
 	lang: string = 'en-US';
 	renotify: boolean = false;
 	sticky: boolean = false;
-	vibrate: Array<number>;
+	vibrate?: Array<number>;
 	noscreen: boolean = false;
 	enabled: boolean = false;
-	silent: boolean = true;
+	silent?: boolean = true;
 	closeDelay: number = 0;
 
 	checkCompatibility(): boolean {

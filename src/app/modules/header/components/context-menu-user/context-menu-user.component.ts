@@ -10,7 +10,7 @@ import {NavigService} from '@core/services';
 	styleUrls: ['./context-menu-user.component.scss']
 })
 export class ContextMenuUserComponent implements ContextMenuHostComponentInterface<any> {
-	@ViewChild('userMenu') contextMenu: ContextMenuComponent;
+	@ViewChild('userMenu') contextMenu?: ContextMenuComponent;
 
 	constructor(public navig: NavigService, public auth: JamAuthService) {
 	}

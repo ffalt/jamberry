@@ -23,7 +23,7 @@ export interface PodcastSearch {
 	styleUrls: ['./podcast-search-page.component.scss']
 })
 export class PodcastSearchPageComponent {
-	podcasts: Array<PodcastSearch>;
+	podcasts?: Array<PodcastSearch>;
 	searchValue: string = '';
 	isSearching: boolean = false;
 

@@ -9,7 +9,7 @@ import {RootScanStrategy} from '@jam';
 	styleUrls: ['./dialog-root.component.scss']
 })
 export class DialogRootComponent implements DialogOverlay<AdminRootServiceEditData> {
-	edit: AdminRootServiceEditData;
+	edit?: AdminRootServiceEditData;
 	RootScanStrategy = RootScanStrategy;
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<AdminRootServiceEditData>>): void {

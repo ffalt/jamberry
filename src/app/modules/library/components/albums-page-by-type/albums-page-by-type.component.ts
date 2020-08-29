@@ -12,8 +12,8 @@ import {takeUntil} from 'rxjs/operators';
 	styleUrls: ['./albums-page-by-type.component.scss']
 })
 export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {
-	typeInfo: JamType;
-	tabs: Array<HeaderTab>;
+	typeInfo?: JamType;
+	tabs?: Array<HeaderTab>;
 	protected unsubscribe = new Subject();
 
 	constructor(protected route: ActivatedRoute, private library: LibraryService) {

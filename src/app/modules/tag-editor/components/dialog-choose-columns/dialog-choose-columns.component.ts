@@ -23,7 +23,7 @@ export interface SelectColumn {
 	styleUrls: ['./dialog-choose-columns.component.scss']
 })
 export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns> {
-	data: SelectColumns;
+	data?: SelectColumns;
 	filteredColumns: Array<SelectColumn> = [];
 	allColumns: Array<SelectColumn> = [];
 	version = 4;
@@ -38,7 +38,9 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 	}
 
 	setResult(): void {
-		this.data.resultColumns = this.filteredColumns.filter(c => c.checked);
+		if (this.data) {
+			this.data.resultColumns = this.filteredColumns.filter(c => c.checked);
+		}
 	}
 
 	refresh(): void {
@@ -54,10 +56,11 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<SelectColumns>>): void {
 		this.data = options.data;
 		this.allColumns = [];
+		const columns = this.data?.columns || [];
 		Object.keys(FrameDefs).forEach(key => {
 			const subids = getFrameSubIds(key);
 			if (subids.length === 0) {
-				const column: RawTagEditColumn | undefined = this.data.columns.find(c => c.def.id === key);
+				const column: RawTagEditColumn | undefined = columns.find(c => c.def.id === key);
 				this.allColumns.push({
 					id: key,
 					frameDef: FrameDefs[key],
@@ -66,7 +69,7 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 				});
 			} else {
 				for (const sub of subids) {
-					const column: RawTagEditColumn | undefined = this.data.columns.find(c => c.def.id === key && c.def.subid === sub.subid);
+					const column: RawTagEditColumn | undefined = columns.find(c => c.def.id === key && c.def.subid === sub.subid);
 					this.allColumns.push({
 						id: key,
 						subid: sub.subid,

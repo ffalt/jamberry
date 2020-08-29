@@ -27,7 +27,7 @@ export interface SoundPlayerAudioSupport {
 }
 
 export interface SoundPlayer {
-	initialize(track: Jam.Track, startSeek: number | undefined, paused: boolean, callback: (e: Error) => void): void;
+	initialize(track: Jam.Track, startSeek: number | undefined, paused: boolean, callback: (e?: Error) => void): void;
 
 	getAudioSupport(): SoundPlayerAudioSupport;
 
