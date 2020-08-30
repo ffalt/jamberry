@@ -1,6 +1,10 @@
 import {Jam, JamService} from '@jam';
 import {SMSound, soundManager} from 'soundmanager2';
 import {PlayerEvents, SoundPlayer, SoundPlayerAudioSupport} from './player.interface';
+soundManager.debugMode = false;
+soundManager.forceUseGlobalHTML5Audio = true;
+soundManager.useHTML5Audio = true;
+soundManager.preferFlash = false;
 
 export class PlayerSoundmanager2 implements SoundPlayer {
 	private soundObject?: SMSound;
@@ -10,10 +14,6 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	private isMute: boolean = false;
 
 	constructor(private jam: JamService) {
-		soundManager.debugMode = false;
-		soundManager.forceUseGlobalHTML5Audio = true;
-		soundManager.useHTML5Audio = true;
-		soundManager.preferFlash = false;
 	}
 
 	duration(): number {
