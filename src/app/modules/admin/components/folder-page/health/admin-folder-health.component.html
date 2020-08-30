@@ -14,19 +14,19 @@
 					<ng-container [ngSwitch]="folderHealth.folder.type">
 						<ng-container *ngSwitchCase="'multialbum'">
 							<div class="type">Album</div>
-							<div class="name">{{folderHealth.folder.tag.album}}</div>
-							<div class="artist">{{folderHealth.folder.tag.artist}}</div>
-							<div class="year">{{folderHealth.folder.tag.year}}</div>
+							<div class="name">{{folderHealth.folder.tag?.album}}</div>
+							<div class="artist">{{folderHealth.folder.tag?.artist}}</div>
+							<div class="year">{{folderHealth.folder.tag?.year}}</div>
 						</ng-container>
 						<ng-container *ngSwitchCase="'album'">
 							<div class="type">Album</div>
-							<div class="name">{{folderHealth.folder.tag.album}}</div>
-							<div class="artist">{{folderHealth.folder.tag.artist}}</div>
-							<div class="year">{{folderHealth.folder.tag.year}}</div>
+							<div class="name">{{folderHealth.folder.tag?.album}}</div>
+							<div class="artist">{{folderHealth.folder.tag?.artist}}</div>
+							<div class="year">{{folderHealth.folder.tag?.year}}</div>
 						</ng-container>
 						<ng-container *ngSwitchCase="'artist'">
 							<div class="type">Artist</div>
-							<div class="name">{{folderHealth.folder.tag.artist}}</div>
+							<div class="name">{{folderHealth.folder.tag?.artist}}</div>
 						</ng-container>
 						<ng-container *ngSwitchCase="'collection'">
 							<div class="type">Collection</div>

@@ -30,9 +30,9 @@ export class GenrePageComponent implements OnDestroy {
 	genre = '';
 	mode?: string;
 	tabsObjs: GenreTabs = {
-		artists: {id: 'artist', label: 'Artist'},
-		albums: {id: 'album', label: 'Album'},
-		tracks: {id: 'track', label: 'Track'}
+		artists: {id: 'artist', label: 'Artist', click: () => {}},
+		albums: {id: 'album', label: 'Album', click: () => {}},
+		tracks: {id: 'track', label: 'Track', click: () => {}}
 	};
 	currentTab: GenreTab = this.tabsObjs.artists;
 	tabs: Array<HeaderTab> = Object.keys(this.tabsObjs).map(key => {

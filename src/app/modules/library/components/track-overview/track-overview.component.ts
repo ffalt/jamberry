@@ -79,4 +79,5 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 		this.track = track;
 		this.loadWaveForm();
 	}
+
 }

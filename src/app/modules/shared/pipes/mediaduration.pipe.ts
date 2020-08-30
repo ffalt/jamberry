@@ -4,7 +4,7 @@ import {formatDuration} from '@app/utils/formatters';
 @Pipe({name: 'mediaduration'})
 export class MediadurationPipe implements PipeTransform {
 
-	transform(value: string | number): string {
+	transform(value?: string | number): string {
 		if (value === undefined || value === null) {
 			return '';
 		}

@@ -11,7 +11,7 @@ export interface TrackHealthHintSolution {
 	running?: boolean;
 	fixable?: boolean;
 
-	click?(): void;
+	click(): void;
 }
 
 export interface TrackHealthHint {
@@ -262,5 +262,4 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		}
 		return '';
 	}
-
 }

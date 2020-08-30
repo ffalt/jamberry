@@ -12,15 +12,15 @@
 	<ng-container *ngFor="let track of tracks">
 		<div class="track" (tap)="tapTrack($event, track)" (contextmenu)="onContextMenu($event, track)">
 			<div class="fav"><a (click)="actions.toggleMediaBaseFav(track)">
-				<app-fav-icon [faved]="track.state.faved"></app-fav-icon>
+				<app-fav-icon [faved]="track.state?.faved"></app-fav-icon>
 			</a></div>
 			<div *ngIf="showRating" class="rating"><i class="icon-checkmark small-screen-icon"></i> {{track.state?.rated}}</div>
 			<div *ngIf="showPlayCount" class="play-count"><i class="icon-headphones small-screen-icon"></i> {{track.state?.played}}</div>
 			<div *ngIf="showPlayDate" class="play-date" title="{{track.state?.lastPlayed | date:'long'}}"><i class="icon-clock small-screen-icon"></i> {{track.state?.lastPlayed | ago}}</div>
 			<div class="number"><i class="icon-hash small-screen-icon"></i>
-				<ng-container *ngIf="track.tag.discTotal>1 && track.tag.disc">{{track.tag.disc}}-</ng-container>
-				{{track.tag.trackNr}}</div>
-			<div class="title"><p>{{track.tag.title}}</p><a *ngIf="showArtist" title="Artist" (click)="navig.toArtistID(track.artistID,track.tag.artist)">{{track.tag.artist}}</a></div>
+				<ng-container *ngIf="(track.tag?.discTotal||0)>1 && track.tag?.disc">{{track.tag?.disc}}-</ng-container>
+				{{track.tag?.trackNr}}</div>
+			<div class="title"><p>{{track.tag?.title}}</p><a *ngIf="showArtist" title="Artist" (click)="navig.toMediaArtist(track)">{{track.tag?.artist}}</a></div>
 			<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{track.duration|duration}}</div>
 		</div>
 	</ng-container>

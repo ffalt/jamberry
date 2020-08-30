@@ -450,7 +450,7 @@ export declare namespace Jam {
 	 */
 	export interface Chat {
 		/** User Name */
-		userName?: string;
+		userName: string;
 		/** User Id */
 		userID: string;
 		/**

@@ -3,7 +3,7 @@
 	<div class="url-type" *ngFor="let t of urlRelationGroup.types">
 		<span>{{t.type}}</span>
 		<div *ngFor="let rel of t.relations">
-			<a [href]="rel.url.resource" target="_blank"> {{rel.url.resource}}</a>
+			<a [href]="rel.url?.resource" target="_blank"> {{rel.url?.resource}}</a>
 		</div>
 	</div>
 </div>

@@ -6,7 +6,7 @@
 		<button class="button-on-control" (click)="removeFolder()" title="Remove Folder…"><i class="icon-trash"></i></button>
 	</div>
 	<div class="content">
-		<app-info-note *ngIf="folder.info && folder.info.description" [info]="folder.info"></app-info-note>
+		<app-info-note *ngIf="folder.info?.description" [info]="folder.info"></app-info-note>
 		<div class="properties">
 			<div>
 				<div>
@@ -18,7 +18,7 @@
 				<div>
 					<div class="label">Type</div>
 					<div>{{folder.type}}
-						<ng-container *ngIf="isAlbum"> / {{folder.tag.albumType}}</ng-container>
+						<ng-container *ngIf="isAlbum"> / {{folder.tag?.albumType}}</ng-container>
 					</div>
 				</div>
 				<div>
@@ -29,31 +29,31 @@
 					<div class="label">Folder Count</div>
 					<div>{{folder.folderCount}}</div>
 				</div>
-				<div *ngIf="folder.tag.artist">
+				<div *ngIf="folder.tag?.artist">
 					<div class="label">Artist</div>
-					<div>{{folder.tag.artist}}</div>
+					<div>{{folder.tag?.artist}}</div>
 				</div>
-				<div *ngIf="folder.tag.album">
+				<div *ngIf="folder.tag?.album">
 					<div class="label">Album</div>
-					<div>{{folder.tag.album}}</div>
+					<div>{{folder.tag?.album}}</div>
 				</div>
 			</div>
 			<div>
-				<div *ngIf="folder.tag.year">
+				<div *ngIf="folder.tag?.year">
 					<div class="label">Year</div>
-					<div> {{folder.tag.year}}</div>
+					<div> {{folder.tag?.year}}</div>
 				</div>
-				<div *ngIf="folder.tag.genres">
+				<div *ngIf="folder.tag?.genres">
 					<div class="label">Genres</div>
-					<div> {{folder.tag.genres}}</div>
+					<div> {{folder.tag?.genres}}</div>
 				</div>
-				<div *ngIf="folder.tag.mbReleaseID">
+				<div *ngIf="folder.tag?.mbReleaseID">
 					<div class="label">MB Release Id</div>
-					<div><a href="https://musicbrainz.org/release/{{folder.tag.mbReleaseID}}" target="_blank" rel="noopener">{{folder.tag.mbReleaseID}}</a></div>
+					<div><a href="https://musicbrainz.org/release/{{folder.tag?.mbReleaseID}}" target="_blank" rel="noopener">{{folder.tag?.mbReleaseID}}</a></div>
 				</div>
-				<div *ngIf="folder.tag.mbArtistID">
+				<div *ngIf="folder.tag?.mbArtistID">
 					<div class="label">MB Artist Id</div>
-					<div><a href="https://musicbrainz.org/artist/{{folder.tag.mbArtistID}}" target="_blank" rel="noopener">{{folder.tag.mbArtistID}}</a></div>
+					<div><a href="https://musicbrainz.org/artist/{{folder.tag?.mbArtistID}}" target="_blank" rel="noopener">{{folder.tag?.mbArtistID}}</a></div>
 				</div>
 				<div *ngIf="folder.parentID">
 					<div class="label">Parent Folder Id</div>

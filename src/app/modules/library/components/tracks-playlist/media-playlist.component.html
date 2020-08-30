@@ -16,13 +16,13 @@
 				<span class="grippy"></span>
 			</div>
 			<div class="fav"><a (click)="actions.toggleMediaBaseFav(media)">
-				<app-fav-icon [faved]="media.state.faved"></app-fav-icon>
+				<app-fav-icon [faved]="media.state?.faved"></app-fav-icon>
 			</a></div>
 			<div *ngIf="showRating" class="rating">{{media.state?.rated}}</div>
 			<div *ngIf="showPlayCount" class="play-count">{{media.state?.played}}</div>
 			<div *ngIf="showPlayDate" class="play-date" title="{{media.state?.lastPlayed | date:'long'}}">{{media.state?.lastPlayed | date}}</div>
-			<div class="number">{{media.tag.trackNr}}</div>
-			<div class="title"><p>{{media.tag.title}}</p><a *ngIf="showArtist" title="Artist" (click)="navig.toArtistID(media.artistID,media.tag.artist)">{{media.tag.artist}}</a></div>
+			<div class="number">{{media.tag?.trackNr}}</div>
+			<div class="title"><p>{{media.tag?.title}}</p><a *ngIf="showArtist && media.tag?.artist" title="Artist" (click)="navig.toMediaArtist(media)">{{media.tag?.artist}}</a></div>
 			<div class="length">{{media.duration|duration}}</div>
 		</div>
 	</div>

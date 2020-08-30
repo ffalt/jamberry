@@ -1,5 +1,5 @@
 <ng-template #root let-control>
-	<div class="ac-content" *ngIf="control.isVisible">
-		<ng-container *ngTemplateOutlet="content.tpl; context: {$implicit: control}"></ng-container>
+	<div class="ac-content" *ngIf="control?.tpl && control?.isVisible">
+		<ng-container *ngTemplateOutlet="content?.tpl||null; context: {$implicit: control||null}"></ng-container>
 	</div>
 </ng-template>

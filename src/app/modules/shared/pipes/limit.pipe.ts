@@ -3,9 +3,9 @@ import {Pipe, PipeTransform} from '@angular/core';
 @Pipe({name: 'limit'})
 export class LimitPipe implements PipeTransform {
 
-	transform(value: string, chars: number): string {
+	transform(value: string | undefined, chars: number): string {
 		if (!value || isNaN(chars)) {
-			return value;
+			return '';
 		}
 		if (chars <= 0) {
 			return '';

@@ -16,7 +16,7 @@ import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 	styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnDestroy {
-	@Input() users: Array<Jam.User> = [];
+	@Input() users?: Array<Jam.User> = [];
 	protected unsubscribe = new Subject();
 
 	constructor(

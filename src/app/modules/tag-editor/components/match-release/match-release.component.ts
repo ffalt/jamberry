@@ -339,8 +339,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		this.currentAction = '';
 	}
 
-	loadMoods(release: MatchRelease): void {
-		if (this.isRunning) {
+	loadMoods(release?: MatchRelease): void {
+		if (this.isRunning || !release) {
 			return;
 		}
 		this.setRunning('Searching Moods');
@@ -354,8 +354,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			});
 	}
 
-	loadLyrics(release: MatchRelease): void {
-		if (this.isRunning) {
+	loadLyrics(release?: MatchRelease): void {
+		if (this.isRunning || !release) {
 			return;
 		}
 		this.setRunning('Searching Lyrics');
@@ -372,6 +372,11 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	removeMatching(group: MatchReleaseGroup, release: MatchRelease, track: MatchingTrack): void {
 		track.currentMatch = undefined;
 		group.updateScore();
+	}
+
+	mbTrackArtistName(mbTrack?: MusicBrainz.ReleaseTrack): string {
+		const credit = mbTrack?.artistCredit ? mbTrack?.artistCredit[0] : undefined;
+		return (credit?.name || credit?.artist?.name || '?');
 	}
 
 	private shouldStop(): boolean {

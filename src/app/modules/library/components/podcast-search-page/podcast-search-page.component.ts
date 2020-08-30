@@ -37,7 +37,10 @@ export class PodcastSearchPageComponent {
 		this.searchValue = '';
 	}
 
-	subscribe(pod: PodcastSearchResult): void {
+	subscribe(pod?: PodcastSearchResult): void {
+		if (!pod) {
+			return;
+		}
 		this.jam.podcast.create({url: pod.url.toString()})
 			.then(() => {
 				this.notify.success('Podcast subscribed');

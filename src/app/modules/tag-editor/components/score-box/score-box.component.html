@@ -1,4 +1,4 @@
-<span *ngIf="score>0" title="Score: {{score | number}}">
+<span *ngIf="score" title="Score: {{score | number}}">
 	<svg xmlns="http://www.w3.org/2000/svg" width="10" height="12">
 		<rect height="12" width="10" [attr.y]="12-(score*10)" [attr.fill]="color"></rect>
 	</svg>

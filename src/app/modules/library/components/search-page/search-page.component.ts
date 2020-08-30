@@ -22,6 +22,10 @@ export interface SearchTabs {
 	tracks: SearchTab;
 }
 
+const noClick = (): void => {
+	// nop;
+};
+
 @Component({
 	selector: 'app-page-search',
 	templateUrl: './search-page.component.html',
@@ -32,14 +36,14 @@ export class SearchPageComponent implements AutocompleteDataControl {
 	value: string = '';
 	query: string = '';
 	tabsObjs: SearchTabs = {
-		artists: {id: 'artist', label: 'Artist'},
-		albums: {id: 'album', label: 'Album'},
-		folders: {id: 'folder', label: 'Folder'},
-		podcasts: {id: 'podcast', label: 'Podcast'},
-		episodes: {id: 'episode', label: 'Episodes'},
-		series: {id: 'series', label: 'Series'},
-		playlists: {id: 'playlist', label: 'Playlist'},
-		tracks: {id: 'track', label: 'Track'}
+		artists: {id: 'artist', label: 'Artist', click: noClick},
+		albums: {id: 'album', label: 'Album', click: noClick},
+		folders: {id: 'folder', label: 'Folder', click: noClick},
+		podcasts: {id: 'podcast', label: 'Podcast', click: noClick},
+		episodes: {id: 'episode', label: 'Episodes', click: noClick},
+		series: {id: 'series', label: 'Series', click: noClick},
+		playlists: {id: 'playlist', label: 'Playlist', click: noClick},
+		tracks: {id: 'track', label: 'Track', click: noClick}
 	};
 	currentTab: SearchTab = this.tabsObjs.artists;
 	tabs: Array<HeaderTab> = Object.keys(this.tabsObjs).map(key => {

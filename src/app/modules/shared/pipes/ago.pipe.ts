@@ -31,8 +31,8 @@ export class AgoPipe implements PipeTransform {
 
 	// private timer: number;
 	// constructor(private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone) {}
-	transform(value: number): string {
-		if (typeof value === 'undefined' || value === null) {
+	transform(value?: number): string {
+		if (typeof value === 'undefined' || value === null || value === undefined) {
 			return '';
 		}
 		const parsedValue = Number(value);

@@ -1,7 +1,9 @@
 <div class="mbartist" *ngIf="mbArtist">
 
 	<div class="section-title">Artist Information by
-		<a href="https://musicbrainz.org/artist/{{mbArtist.id}}" target="_blank" rel="noopener"><app-mb-icon [size]="18"></app-mb-icon> MusicBrainz</a>
+		<a href="https://musicbrainz.org/artist/{{mbArtist.id}}" target="_blank" rel="noopener">
+			<app-mb-icon [size]="18"></app-mb-icon>
+			MusicBrainz</a>
 	</div>
 
 	<div class="section">
@@ -20,7 +22,7 @@
 					<div class="info" title="MusicBrainz Page">Info</div>
 				</div>
 				<div class="releasegroup" *ngFor="let group of typeGroup.groups">
-					<div class="date">{{group.group.firstReleaseDate | slice: 0:4}}</div>
+					<div class="date">{{(group.group.firstReleaseDate || '') | slice: 0:4}}</div>
 					<div class="title">{{group.group.title}}</div>
 					<div class="info"><a href="https://musicbrainz.org/release-group/{{group.group.id}}" target="_blank" rel="noopener"><i class="icon-info"></i></a></div>
 				</div>

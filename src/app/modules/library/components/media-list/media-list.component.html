@@ -18,9 +18,9 @@
 			<div *ngIf="showPlayCount" class="play-count"><i class="icon-headphones small-screen-icon"></i> {{entry.state?.played}}</div>
 			<div *ngIf="showPlayDate" class="play-date" title="{{entry.state?.lastPlayed | date:'long'}}"><i class="icon-clock small-screen-icon"></i> {{entry.state?.lastPlayed | ago}}</div>
 			<div class="number"><i class="icon-hash small-screen-icon"></i>
-				<ng-container *ngIf="entry.tag.discTotal>1 && entry.tag.disc">{{entry.tag.disc}}-</ng-container>
-				{{entry.tag.trackNr}}</div>
-			<div class="title"><p>{{entry.tag.title}}</p><a *ngIf="showArtist" title="Artist" (click)="navig.toArtistID(entry.artistID,entry.tag.artist)">{{entry.tag.artist}}</a></div>
+				<ng-container *ngIf="(entry.tag?.discTotal||0)>1 && entry.tag?.disc">{{entry.tag?.disc}}-</ng-container>
+				{{entry.tag?.trackNr}}</div>
+			<div class="title"><p>{{entry.tag?.title}}</p><a *ngIf="showArtist" title="Artist" (click)="navig.toMediaArtist(entry)">{{entry.tag?.artist}}</a></div>
 			<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{entry.duration|duration}}</div>
 		</div>
 	</ng-container>

@@ -1,7 +1,6 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
-import {TapEvent} from '@app/utils/types';
 import {NavigService, PlayerService, QueueService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
@@ -47,7 +46,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 		this.queue.publishChanges();
 	}
 
-	tapPlayQueuePos(event: TapEvent, index: number): void {
+	tapPlayQueuePos(event: Event & { tapCount?: number }, index: number): void {
 		if (event.tapCount === 2) {
 			this.player.playQueuePos(index);
 		}

@@ -24,31 +24,31 @@
 		</div>
 		<div class="key-value-row">
 			<div>Artist</div>
-			<div><a (click)="navig.toArtistID(track.artistID, track.tag.artist)">{{track.tag?.artist}}</a></div>
+			<div><a (click)="navig.toMediaArtist(track)">{{track.tag?.artist}}</a></div>
 		</div>
 		<div class="key-value-row">
 			<div>Album</div>
-			<div><a (click)="navig.toAlbumID(track.albumID, track.tag.album)">{{track.tag?.album}}</a></div>
+			<div><a (click)="navig.toMediaAlbum(track)">{{track.tag?.album}}</a></div>
 		</div>
 		<div class="key-value-row">
 			<div>Genres</div>
 			<div>{{track.tag?.genres}}</div>
 		</div>
-		<div class="key-value-row" *ngIf="track.tag.mbTrackID">
+		<div class="key-value-row" *ngIf="track.tag?.mbTrackID">
 			<div>MusicBrainz Track ID:</div>
-			<div><a href="https://musicbrainz.org/track/{{track.tag.mbTrackID}}" target="_blank" rel="noopener">{{track.tag.mbTrackID}}</a></div>
+			<div><a href="https://musicbrainz.org/track/{{track.tag?.mbTrackID}}" target="_blank" rel="noopener">{{track.tag?.mbTrackID}}</a></div>
 		</div>
-		<div class="key-value-row" *ngIf="track.tag.mbReleaseID">
+		<div class="key-value-row" *ngIf="track.tag?.mbReleaseID">
 			<div>MusicBrainz Album ID:</div>
-			<div><a href="https://musicbrainz.org/release/{{track.tag.mbReleaseID}}" target="_blank" rel="noopener">{{track.tag.mbReleaseID}}</a></div>
+			<div><a href="https://musicbrainz.org/release/{{track.tag?.mbReleaseID}}" target="_blank" rel="noopener">{{track.tag?.mbReleaseID}}</a></div>
 		</div>
-		<div class="key-value-row" *ngIf="track.tag.mbReleaseGroupID">
+		<div class="key-value-row" *ngIf="track.tag?.mbReleaseGroupID">
 			<div>MusicBrainz Release Group ID:</div>
-			<div><a href="https://musicbrainz.org/release-group/{{track.tag.mbReleaseGroupID}}" target="_blank" rel="noopener">{{track.tag.mbReleaseGroupID}}</a></div>
+			<div><a href="https://musicbrainz.org/release-group/{{track.tag?.mbReleaseGroupID}}" target="_blank" rel="noopener">{{track.tag?.mbReleaseGroupID}}</a></div>
 		</div>
-		<div class="key-value-row" *ngIf="track.tag.mbArtistID">
+		<div class="key-value-row" *ngIf="track.tag?.mbArtistID">
 			<div>MusicBrainz Artist ID:</div>
-			<div><a href="https://musicbrainz.org/artist/{{track.tag.mbArtistID}}" target="_blank" rel="noopener">{{track.tag.mbArtistID}}</a></div>
+			<div><a href="https://musicbrainz.org/artist/{{track.tag?.mbArtistID}}" target="_blank" rel="noopener">{{track.tag?.mbArtistID}}</a></div>
 		</div>
 	</div>
 	<div>
@@ -69,9 +69,9 @@
 			<div>Duration</div>
 			<div>{{track.duration | duration}}</div>
 		</div>
-		<div class="key-value-row" *ngIf="track.media.bitRate">
+		<div class="key-value-row" *ngIf="track.media?.bitRate">
 			<div>BitRate</div>
-			<div>{{track.media.bitRate}}</div>
+			<div>{{track.media?.bitRate}}</div>
 		</div>
 		<div class="key-value-row">
 			<div>SampleRate</div>

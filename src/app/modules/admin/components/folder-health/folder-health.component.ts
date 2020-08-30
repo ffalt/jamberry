@@ -13,7 +13,7 @@ export interface FolderHealthHintSolution {
 	running?: boolean;
 	fixable?: boolean;
 
-	click?(): Promise<void>;
+	click(): Promise<void>;
 }
 
 export interface FolderHealthHint {
@@ -225,4 +225,5 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 			});
 		}
 	}
+
 }

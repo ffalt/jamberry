@@ -8,7 +8,7 @@ export interface HeaderTab {
 	};
 	active?: boolean;
 
-	click?(): void;
+	click(): void;
 }
 
 @Component({

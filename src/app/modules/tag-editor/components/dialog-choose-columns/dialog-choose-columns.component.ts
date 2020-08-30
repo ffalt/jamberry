@@ -27,7 +27,7 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 	filteredColumns: Array<SelectColumn> = [];
 	allColumns: Array<SelectColumn> = [];
 	version = 4;
-	urls = {
+	urls: { [version: number]: string } = {
 		2: 'http://id3.org/id3v2-00',
 		3: 'http://id3.org/id3v2.3.0',
 		4: 'http://id3.org/id3v2.4.0-frames'

@@ -26,10 +26,10 @@
 			<div>
 				<div class="section-title">Permissions:</div>
 				<div class="roles">
-					<div *ngIf="auth.user?.roles.stream"><i class="icon-checkmark"></i> Stream Audio</div>
-					<div *ngIf="auth.user?.roles.podcast"><i class="icon-checkmark"></i> Manage Podcasts</div>
-					<div *ngIf="auth.user?.roles.upload"><i class="icon-checkmark"></i> Upload Audio</div>
-					<div *ngIf="auth.user?.roles.admin"><i class="icon-checkmark"></i> Server Administration</div>
+					<div *ngIf="auth.user?.roles?.stream"><i class="icon-checkmark"></i> Stream Audio</div>
+					<div *ngIf="auth.user?.roles?.podcast"><i class="icon-checkmark"></i> Manage Podcasts</div>
+					<div *ngIf="auth.user?.roles?.upload"><i class="icon-checkmark"></i> Upload Audio</div>
+					<div *ngIf="auth.user?.roles?.admin"><i class="icon-checkmark"></i> Server Administration</div>
 				</div>
 			</div>
 		</div>

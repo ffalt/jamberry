@@ -181,7 +181,7 @@ export class IndexService {
 			.then(index => {
 				result.index = index;
 				if (result.index) {
-					this.indexNotify.emit(item);
+					this.indexNotify.emit(result);
 				}
 			})
 			.catch(e => {

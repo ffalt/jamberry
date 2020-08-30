@@ -6,5 +6,5 @@ import {Component, Input} from '@angular/core';
 	styleUrls: ['./fav-icon.component.scss']
 })
 export class FavIconComponent {
-	@Input() faved: number | undefined;
+	@Input() faved?: number;
 }

@@ -12,7 +12,7 @@ import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 	styleUrls: ['./root-list.component.scss']
 })
 export class RootListComponent {
-	@Input() roots: Array<Jam.Root> = [];
+	@Input() roots?: Array<Jam.Root> = [];
 
 	constructor(
 		private router: Router,

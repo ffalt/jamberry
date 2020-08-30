@@ -3,8 +3,8 @@
 	<div class="actions">
 		<button class="button-on-control" title="Refresh" (click)="refresh()"><i class="icon-reload"></i></button>
 		<button class="button-on-control" title="New Folder…" (click)="newFolder()"><i class="icon-plus"></i></button>
-		<button *ngIf="folder?.folders?.length>0" class="button-on-control" title="Move Subfolders…" (click)="moveSubfolders()"><i class="icon-right-bold"></i></button>
+		<button *ngIf="folder?.folders?.length" class="button-on-control" title="Move Subfolders…" (click)="moveSubfolders()"><i class="icon-right-bold"></i></button>
 	</div>
 	<app-background-text-list [list]="folder.folders" name="Folders"></app-background-text-list>
-	<app-admin-folder-list *ngIf="folder.folders.length>0" [folders]="folder.folders"></app-admin-folder-list>
+	<app-admin-folder-list *ngIf="folder.folders?.length" [folders]="folder.folders"></app-admin-folder-list>
 </div>

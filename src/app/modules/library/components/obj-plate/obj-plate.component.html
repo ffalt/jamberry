@@ -1,9 +1,9 @@
 <app-media-plate *ngIf="obj" [obj]="obj" [showParent]="showParent" (click)="toggleExpansion()"></app-media-plate>
 <ng-container *ngIf="expanded">
 	<app-loading *ngIf="loading" [time]="100"></app-loading>
-	<app-media-list *ngIf="hasMedia" [entries]="obj.media" [showArtist]="showParent"></app-media-list>
-	<app-track-list *ngIf="hasTracks" [tracks]="obj.tracks" [showArtist]="showParent"></app-track-list>
-	<app-episode-list *ngIf="hasEpisodes" [episodes]="obj.episodes"></app-episode-list>
-	<app-album-list *ngIf="hasAlbums" [albums]="obj.albums"></app-album-list>
+	<app-media-list *ngIf="hasMedia" [entries]="obj?.media" [showArtist]="showParent"></app-media-list>
+	<app-track-list *ngIf="hasTracks" [tracks]="obj?.tracks" [showArtist]="showParent"></app-track-list>
+	<app-episode-list *ngIf="hasEpisodes" [episodes]="obj?.episodes"></app-episode-list>
+	<app-album-list *ngIf="hasAlbums" [albums]="obj?.albums"></app-album-list>
 </ng-container>
 

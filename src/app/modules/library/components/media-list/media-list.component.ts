@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {ContextMenuService} from '@app/modules/context-menu';
-import {TapEvent} from '@app/utils/types';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamObjectType} from '@jam';
 import {JamEpisodeObject, JamTrackObject} from '@library/model/objects';
@@ -31,7 +30,7 @@ export class MediaListComponent {
 		this.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, obj, $event);
 	}
 
-	tapTrack(event: TapEvent, track: Jam.MediaBase): void {
+	tapTrack(event: Event & { tapCount?: number }, track: Jam.MediaBase): void {
 		if (event.tapCount === 2) {
 			this.player.startTrack(track);
 		}

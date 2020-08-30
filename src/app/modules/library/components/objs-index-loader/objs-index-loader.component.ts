@@ -66,7 +66,7 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 		this.indexService.indexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			indexCache => {
-				if (this.objType && indexCache.matches(this.objType, this.query)) {
+				if (indexCache && this.objType && indexCache.matches(this.objType, this.query)) {
 					this.index = indexCache.index;
 				}
 			},

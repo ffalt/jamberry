@@ -5,10 +5,10 @@
 		</div>
 		<div class="meta">
 			<app-fav-icon (click)="actions.toggleMediaBaseFav(player.currentTrack)" [faved]="player.currentTrack.state?.faved"></app-fav-icon>
-			<div class="year">{{player.currentTrack.tag.year}}</div>
-			<div class="name" (click)="navig.toTrackID(player.currentTrack.id,player.currentTrack.tag.title)"><a>{{player.currentTrack.tag.title}}</a></div>
-			<div class="album" (click)="navig.toAlbumID(player.currentTrack.albumID, player.currentTrack.tag.album)"><a>{{player.currentTrack.tag.album}}</a></div>
-			<div class="artist" (click)="navig.toArtistID(player.currentTrack.artistID, player.currentTrack.tag.artist)"><a>{{player.currentTrack.tag.artist}}</a></div>
+			<div class="year">{{player.currentTrack.tag?.year}}</div>
+			<div class="name" (click)="navig.toTrack(player.currentTrack)"><a>{{player.currentTrack.tag?.title}}</a></div>
+			<div class="album" (click)="navig.toMediaAlbum(player.currentTrack)"><a>{{player.currentTrack.tag?.album}}</a></div>
+			<div class="artist" (click)="navig.toMediaArtist(player.currentTrack)"><a>{{player.currentTrack.tag?.artist}}</a></div>
 			<div class="actions">
 				<a class="more" (click)="onContextMenu($event, player.currentTrack)">…</a>
 			</div>

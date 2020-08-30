@@ -1,6 +1,6 @@
 <ul class="tabs" *ngIf="tabs && tabs.length>1" [class.mini]="smallTabs">
 	<ng-container *ngFor="let tab of tabs">
-		<li *ngIf="tab.link" [routerLink]="[tab.link.route]" [routerLinkActiveOptions]="{exact:tab.link.exact}" routerLinkActive="active"><a>{{tab.label}}</a></li>
+		<li *ngIf="tab.link" [routerLink]="[tab.link.route]" [routerLinkActiveOptions]="{exact:!!tab.link.exact}" routerLinkActive="active"><a>{{tab.label}}</a></li>
 		<li *ngIf="!tab.link" [class.active]="tab.active" (click)="tab.click()"><a>{{tab.label}}</a></li>
 	</ng-container>
 </ul>

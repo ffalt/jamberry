@@ -6,7 +6,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 	styleUrls: ['./rate.component.scss']
 })
 export class RateComponent implements OnInit, OnChanges {
-	@Input() rating: number = 0;
+	@Input() rating?: number = 0;
 	@Output() readonly hasRated = new EventEmitter<number>();
 	maxScore = 5;
 	range: Array<string> = [];
@@ -48,7 +48,7 @@ export class RateComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		this.marked = this.rating - 1;
+		this.marked = (this.rating || 0) - 1;
 		this.updateUI();
 	}
 

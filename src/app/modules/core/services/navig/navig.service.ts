@@ -124,4 +124,16 @@ export class NavigService {
 		});
 	}
 
+	toMediaArtist(media: Jam.MediaBase): void {
+		if (media.artistID) {
+			this.toArtistID(media.artistID, media.tag?.artist || '');
+		}
+	}
+
+	toMediaAlbum(media: Jam.MediaBase): void {
+		if (media.albumID) {
+			this.toAlbumID(media.albumID, media.tag?.album || '');
+		}
+	}
+
 }

@@ -1,4 +1,4 @@
-<div *ngIf="activeCol" class="column-tools">
+<div *ngIf="activeCol && editor" class="column-tools">
 	<div class="column-tools-title">
 		<div class="close-panel"><a (click)="close()" class="close"></a></div>
 		Current Column: <span>{{activeCol.def.name}}</span>
@@ -8,7 +8,7 @@
 			Column Text
 			<div class="input-box">
 				<app-tag-editor-autocomplete [(value)]="multiStr" [getList]="activeCol.getAutoCompleteList"></app-tag-editor-autocomplete>
-				</div>
+			</div>
 			<button class="button-on-background" (click)="editor.setColumnText(activeCol, multiStr)">Set</button>
 			<button class="button-on-background" (click)="editor.appendColumnText(activeCol, multiStr)">Append</button>
 			<button class="button-on-background" (click)="editor.removeColumnText(activeCol, multiStr)">Remove</button>
@@ -20,8 +20,8 @@
 					<option *ngFor="let col of editor.columns; let i=index;" [value]="i">{{col.def.name}}</option>
 				</select>
 			</div>
-			<button class="button-on-background" (click)="editor.copyColumn(sourceColumnIndex,activeCol)">Copy</button>
-			<button class="button-on-background" (click)="editor.appendFromColumn(sourceColumnIndex,activeCol)">Append</button>
+			<button class="button-on-background" (click)="editor.copyColumn(sourceColumnIndex, activeCol)">Copy</button>
+			<button class="button-on-background" (click)="editor.appendFromColumn(sourceColumnIndex, activeCol)">Append</button>
 			<button class="button-on-background" (click)="editor.insertFromColumn(sourceColumnIndex,0, activeCol)">Insert at
 				<input type="number">
 			</button>

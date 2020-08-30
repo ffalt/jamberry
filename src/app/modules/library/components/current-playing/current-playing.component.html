@@ -3,9 +3,9 @@
 		<app-coverart-image [coverArtObj]="player.currentTrack" [size]="50" alt="Album Art"></app-coverart-image>
 	</div>
 	<div class="song">
-		<a title="Track" (click)="navig.toTrackID(player.currentTrack.id,player.currentTrack.tag.title)">{{player.currentTrack.tag?.title|limit:60}}</a>
-		<a title="Album" (click)="navig.toAlbumID(player.currentTrack.albumID, player.currentTrack.tag.album)">{{player.currentTrack.tag?.album|limit:40}}</a>
-		<a title="Artist" (click)="navig.toArtistID(player.currentTrack.artistID, player.currentTrack.tag.artist)">{{player.currentTrack.tag?.artist|limit:40}}</a>
+		<a title="Track" (click)="navig.toTrack(player.currentTrack)">{{player.currentTrack.tag?.title|limit:60}}</a>
+		<a title="Album" (click)="navig.toMediaAlbum(player.currentTrack)">{{player.currentTrack.tag?.album|limit:40}}</a>
+		<a title="Artist" (click)="navig.toMediaArtist(player.currentTrack)">{{player.currentTrack.tag?.artist|limit:40}}</a>
 	</div>
 	<div class="fav">
 		<a title="Toggle Track as Favorite" (click)="actions.toggleMediaBaseFav(player.currentTrack)"><i [class]="player.currentTrack.state?.faved | stringToggle:'icon-heart-full':'icon-heart-empty'"></i></a>
