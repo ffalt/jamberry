@@ -31,7 +31,7 @@ export class JamBaseService {
 				}
 			}
 		}
-		return {url: this.authService.auth?.server + JamAuthService.apiPrefix + view, parameters: result};
+		return {url: `${this.authService.auth?.server}${JamAuthService.apiPrefix}${view}`, parameters: result};
 	}
 
 	buildUrl(view: string, params: any, forDOM: boolean): string {

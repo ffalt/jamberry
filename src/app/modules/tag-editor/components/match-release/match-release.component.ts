@@ -374,11 +374,6 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		group.updateScore();
 	}
 
-	mbTrackArtistName(mbTrack?: MusicBrainz.ReleaseTrack): string {
-		const credit = mbTrack?.artistCredit ? mbTrack?.artistCredit[0] : undefined;
-		return (credit?.name || credit?.artist?.name || '?');
-	}
-
 	private shouldStop(): boolean {
 		return (this.matchTree.enough(this.matchings.length) || this.isAborted);
 	}

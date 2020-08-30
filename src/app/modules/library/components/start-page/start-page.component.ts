@@ -76,7 +76,7 @@ export class StartPageComponent implements OnInit {
 							{type: getTypeByAlbumType(AlbumType.album), value: stats.albumTypes.album},
 							{type: getTypeByAlbumType(AlbumType.compilation), value: stats.albumTypes.compilation}
 						].map(t => ({
-							text: t.type?.text, link: '/library/' + t.type?.id, value: t.value
+							text: t.type?.text, link: `/library/${t.type?.id}`, value: t.value
 						})),
 						{text: 'Series', link: '/library/series', value: stats.series},
 						...[
@@ -87,7 +87,7 @@ export class StartPageComponent implements OnInit {
 							{type: getTypeByAlbumType(AlbumType.ep), value: stats.albumTypes.ep},
 							{type: getTypeByAlbumType(AlbumType.single), value: stats.albumTypes.single}
 						].map(t => ({
-							text: t.type?.text, link: '/library/' + t.type?.id, value: t.value
+							text: t.type?.text, link: `/library/${t.type?.id}`, value: t.value
 						})),
 						{text: 'Folders', link: '/library/folders', value: stats.folder},
 						{text: 'Tracks', link: '/library/tracks', value: stats.track}

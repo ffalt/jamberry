@@ -75,6 +75,47 @@ export class MatchingTrack {
 
 	private createScores(match: Matching, matchIndex: number): Array<Score> {
 		const scores: Array<Score> = [];
+		this.scoreTitle(match, scores);
+		this.scoreTrackNr(match, scores);
+		this.scoreDuration(match, scores);
+		this.scoreAcoustid(match, scores);
+		scores.push({name: 'index', score: matchIndex === this.index ? 1 : 0, weight: 0.1});
+		return scores;
+	}
+
+	private scoreAcoustid(match: Matching, scores: Array<Score>): void {
+		if (match.acoustidEntries && this.mbTrack.recording?.id) {
+			const id = this.mbTrack.recording.id;
+			const acoustIDEntry = match.acoustidEntries.find(item => item.recordingID === id);
+			if (acoustIDEntry) {
+				scores.push({name: 'acoustid', score: acoustIDEntry.score, weight: 1});
+			}
+		}
+	}
+
+	private scoreDuration(match: Matching, scores: Array<Score>): void {
+		if (this.mbTrack.length !== undefined) {
+			const lengthDiff = Math.abs((Math.round(match.track.duration || 0) * 1000) - (this.mbTrack.length || 0));
+			let durationScore = 0;
+			if (lengthDiff === 0) {
+				durationScore = 1;
+			} else if (lengthDiff < 1000) {
+				durationScore = 0.8;
+			} else if (lengthDiff < 10000) {
+				durationScore = 0.2;
+			}
+			scores.push({name: 'duration', score: durationScore, weight: 0.2});
+		}
+	}
+
+	private scoreTrackNr(match: Matching, scores: Array<Score>): void {
+		const trackNr = match.track.tag?.trackNr || findTrackNr(match.track.name);
+		if (trackNr > 0) {
+			scores.push({name: 'trackNr', score: (trackNr === this.mbTrack.position) ? 1 : 0, weight: 0.2});
+		}
+	}
+
+	private scoreTitle(match: Matching, scores: Array<Score>): void {
 		const title = match.track.tag?.title || stripExtension(match.track.name);
 		if (title && title.trim().length > 0) {
 			const titles = [slugify(this.mbTrack.title || this.mbTrack.recording?.title || 'Unknown')];
@@ -88,33 +129,7 @@ export class MatchingTrack {
 				scores.push({name: 'title', score: scoredTitles[0].score, weight: 1});
 			}
 		}
-		const trackNr = match.track.tag?.trackNr || findTrackNr(match.track.name);
-		if (trackNr > 0) {
-			scores.push({name: 'trackNr', score: (trackNr === this.mbTrack.position) ? 1 : 0, weight: 0.2});
-		}
-		if (this.mbTrack.length !== undefined) {
-			const lengthDiff = Math.abs((Math.round(match.track.duration || 0) * 1000) - (this.mbTrack.length || 0));
-			let durationScore = 0;
-			if (lengthDiff === 0) {
-				durationScore = 1;
-			} else if (lengthDiff < 1000) {
-				durationScore = 0.8;
-			} else if (lengthDiff < 10000) {
-				durationScore = 0.2;
-			}
-			scores.push({name: 'duration', score: durationScore, weight: 0.2});
-		}
-		if (match.acoustidEntries && this.mbTrack.recording?.id) {
-			const id = this.mbTrack.recording.id;
-			const acoustIDEntry = match.acoustidEntries.find(item => item.recordingID === id);
-			if (acoustIDEntry) {
-				scores.push({name: 'acoustid', score: acoustIDEntry.score, weight: 1});
-			}
-		}
-		scores.push({name: 'index', score: matchIndex === this.index ? 1 : 0, weight: 0.1});
-		return scores;
 	}
-
 }
 
 function buildSortDate(s?: string): number {

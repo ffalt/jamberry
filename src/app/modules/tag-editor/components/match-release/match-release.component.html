@@ -16,7 +16,7 @@
 					<div *ngIf="match.mbTrack">
 						<span class="label">TrackNr:</span>&nbsp;<span class="currentRelease">{{match.mbTrack.position}}</span>&nbsp;
 						<span class="label">Title:</span>&nbsp;<span class="value">{{match.mbTrack.title || '?'}}</span>&nbsp;
-						<span class="label">Artist:</span>&nbsp;<span class="value">{{mbTrackArtistName(match.mbTrack)}}</span>&nbsp;
+						<span class="label">Artist:</span>&nbsp;<span class="value">{{match.mbTrack.artistCredit | mbArtistCredits}}</span>&nbsp;
 						<span class="label">Album:</span>&nbsp;<span class="value">{{match.mbRelease?.title || '?'}}</span>&nbsp;
 						<div *ngIf="match.abdata">
 							<span class="label">Moods:</span>&nbsp;<span class="value">{{match.abdata.moods}}</span>
@@ -110,7 +110,7 @@
 						</div>
 						<div *ngIf="media.expanded || group.currentRelease.media.length<2">
 							<div class="match-track-info" [ngClass]="{missing:!track.currentMatch}" *ngFor="let track of media.tracks" (drop)="drop($event, group, group.currentRelease, track)" (dragover)="allowDrop($event)">
-								{{track.mbTrack.position}} - {{track.mbTrack.title}} - {{mbTrackArtistName(track.mbTrack)}}
+								{{track.mbTrack.position}} - {{track.mbTrack.title}} - {{track.mbTrack.artistCredit | mbArtistCredits}}
 								<div *ngIf="track.currentMatch" title="Score: {{track.currentMatch.score | number}} {{track.currentMatch.scores|json}}">
 									<app-score-box [score]="track.currentMatch.score"></app-score-box>
 									<a title="Remove Matching" (click)="removeMatching(group,group.currentRelease,track)"><i class="icon-trash"></i></a>

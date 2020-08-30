@@ -299,7 +299,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			case FrameType.CHAP:
 			case FrameType.Unknown:
 			default:
-				return 'TODO CELLEDITOR: ' + this.cell?.column.def.name;
+				return `TODO CELLEDITOR: ${this.cell?.column.def.name}`;
 		}
 	}
 

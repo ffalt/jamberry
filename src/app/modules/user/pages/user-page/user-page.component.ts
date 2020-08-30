@@ -29,7 +29,7 @@ export class UserPageComponent implements OnDestroy {
 	// At the drag drop area
 	onDropFile(event: DragEvent): void {
 		event.preventDefault();
-			this.uploadFile(event.dataTransfer?.files);
+		this.uploadFile(event.dataTransfer?.files);
 	}
 
 	// At the drag drop area

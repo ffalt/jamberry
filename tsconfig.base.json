@@ -11,11 +11,13 @@
 		"moduleResolution": "node",
 		"emitDecoratorMetadata": true,
 		"noImplicitReturns": true,
+		"noImplicitAny": true,
 		"noFallthroughCasesInSwitch": true,
 		"experimentalDecorators": true,
 		"forceConsistentCasingInFileNames": true,
 		"strictPropertyInitialization": true,
 		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
 		"strictNullChecks": true,
 		"target": "es2015",
 		"typeRoots": [

@@ -2,11 +2,6 @@ import {Jam, JamService} from '@jam';
 import {SMSound, soundManager} from 'soundmanager2';
 import {PlayerEvents, SoundPlayer, SoundPlayerAudioSupport} from './player.interface';
 
-// declare const soundManager: soundmanager2.SoundManager;
-
-/**
- * This class take responsibility to play audio. Just it.
- */
 export class PlayerSoundmanager2 implements SoundPlayer {
 	private soundObject?: SMSound;
 	private subscribers: { [key: number]: Array<any> } = {};

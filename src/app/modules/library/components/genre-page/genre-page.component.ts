@@ -20,6 +20,10 @@ export interface GenreTabs {
 	tracks: GenreTab;
 }
 
+const noClick = (): void => {
+	// nop
+};
+
 @Component({
 	selector: 'app-page-genre',
 	templateUrl: './genre-page.component.html',
@@ -30,9 +34,9 @@ export class GenrePageComponent implements OnDestroy {
 	genre = '';
 	mode?: string;
 	tabsObjs: GenreTabs = {
-		artists: {id: 'artist', label: 'Artist', click: () => {}},
-		albums: {id: 'album', label: 'Album', click: () => {}},
-		tracks: {id: 'track', label: 'Track', click: () => {}}
+		artists: {id: 'artist', label: 'Artist', click: noClick},
+		albums: {id: 'album', label: 'Album', click: noClick},
+		tracks: {id: 'track', label: 'Track', click: noClick}
 	};
 	currentTab: GenreTab = this.tabsObjs.artists;
 	tabs: Array<HeaderTab> = Object.keys(this.tabsObjs).map(key => {

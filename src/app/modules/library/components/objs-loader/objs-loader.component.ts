@@ -55,14 +55,17 @@ export class ObjsLoaderComponent implements OnChanges {
 		}
 		const search = this.searchQuery;
 		if (search) {
-			return this.getObjs(() => loader.search(search, this.loadMore.skip, this.loadMore.take));
+			this.getObjs(() => loader.search(search, this.loadMore.skip, this.loadMore.take));
+			return;
 		}
 		const list = this.listQuery;
 		if (list) {
-			return this.getObjs(() => loader.list(list, this.loadMore.skip, this.loadMore.take));
+			this.getObjs(() => loader.list(list, this.loadMore.skip, this.loadMore.take));
+			return;
 		}
 		if (this.loadAll) {
-			return this.getObjs(() => loader.all(this.loadMore.skip, this.loadMore.take));
+			this.getObjs(() => loader.all(this.loadMore.skip, this.loadMore.take));
+			return;
 		}
 		this.objs = [];
 	}
