@@ -1,8 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {StartSectionComponent} from '@library/components';
-import {StartSectionsComponent} from './start-sections.component';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
+import {StartSectionsComponent} from './start-sections.component';
 
 describe('StartSectionsComponent', () => {
 	let component: StartSectionsComponent;
