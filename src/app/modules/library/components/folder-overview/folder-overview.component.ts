@@ -52,7 +52,9 @@ export class FolderOverviewComponent implements OnInit, OnDestroy {
 				folderIncState: true,
 				folderIncTag: true,
 				folderIncChildren: true,
-				folderIncInfo: true
+				folderIncInfo: true,
+				folderChildIncTag: true,
+				folderChildIncState: true
 			})
 				.then(folder => {
 					this.display(folder);

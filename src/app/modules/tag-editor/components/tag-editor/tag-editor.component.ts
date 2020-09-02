@@ -66,7 +66,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 				folderIncParents: true,
 				folderIncTag: true,
 				trackIncTag: true,
-				trackIncRawTag: true
+				trackIncRawTag: true,
+				folderChildIncTag: true
 			})
 				.then(data => {
 					this.display(data);
