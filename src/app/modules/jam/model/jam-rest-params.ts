@@ -1714,9 +1714,13 @@ export declare namespace JamParameters {
 		lang?: string;
 	}
 
-	export interface ID {		id: string;	}
+	export interface ID {
+		id: string;
+	}
 
-	export interface MaybeID {		id?: string;	}
+	export interface MaybeID {
+		id?: string;
+	}
 
 	export type AlbumIdArgs = IncludesArtistArgs & IncludesTrackArgs & IncludesAlbumChildrenArgs & IncludesAlbumArgs & ID;
 

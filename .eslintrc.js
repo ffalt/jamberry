@@ -37,6 +37,7 @@ module.exports = {
 				'plugin:@typescript-eslint/recommended'
 			],
 			"rules": {
+				"@typescript-eslint/no-namespace": [2, {"allowDeclarations": true}],
 				"@typescript-eslint/interface-name-prefix": "off",
 				"@typescript-eslint/no-explicit-any": "off",
 				"@typescript-eslint/no-inferrable-types": "off",
