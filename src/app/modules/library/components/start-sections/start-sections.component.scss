@@ -1,0 +1,17 @@
+@import "globals.scss";
+
+:host {
+	.section-content {
+		display: flex;
+		flex-flow: row wrap;
+
+		> app-start-section {
+			margin-top: $margin;
+			width: 50%;
+			padding-right: $padding-sm;
+			@media (max-width: $break-phone) {
+				width: 100%;
+			}
+		}
+	}
+}

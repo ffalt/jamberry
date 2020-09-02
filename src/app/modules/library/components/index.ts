@@ -44,6 +44,8 @@ import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {StartPageComponent} from './start-page/start-page.component';
 import {StartSectionComponent} from './start-section/start-section.component';
+import {StartSectionsComponent} from './start-sections/start-sections.component';
+import {StartStatsComponent} from './start-stats/start-stats.component';
 import {TabsComponent} from './tabs/tabs.component';
 import {TrackListComponent} from './track-list/track-list.component';
 import {TrackOverviewComponent} from './track-overview/track-overview.component';
@@ -97,6 +99,8 @@ export const components: Array<any> = [
 	SidebarListComponent,
 	SidebarRightComponent,
 	StartSectionComponent,
+	StartSectionsComponent,
+	StartStatsComponent,
 	TabsComponent,
 	TrackListComponent,
 	TrackOverviewComponent,
@@ -165,3 +169,5 @@ export * from './context-menu-simple/context-menu-simple.component';
 export * from './objs-index-loader/objs-index-loader.component';
 export * from './genres-page/genres-page.component';
 export * from './genre-page/genre-page.component';
+export * from './start-sections/start-sections.component';
+export * from './start-stats/start-stats.component';
