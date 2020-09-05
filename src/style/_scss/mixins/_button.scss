@@ -2,10 +2,11 @@
 	border-radius: 6px;
 	border-width: 1px;
 	border-style: solid;
-	padding: $padding-xs $padding;
+	padding: ($padding-xs * 1.4) $padding;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-size: $x-small;
+	line-height: $x-small;
 	outline: none;
 	cursor: pointer;
 	overflow: hidden;

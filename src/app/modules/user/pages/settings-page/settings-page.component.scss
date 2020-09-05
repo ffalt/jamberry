@@ -5,9 +5,8 @@
 		@include view-host();
 
 		.content {
-			padding: $padding $padding $padding-xl;
 			@include view-content();
-
+			padding: $padding $padding $padding-xl;
 			label {
 				display: block;
 				padding-bottom: $padding;
@@ -28,7 +27,8 @@
 
 			label.select {
 				width: auto;
-				padding-bottom: 0;
+				padding-top: 4px;
+				padding-bottom: 4px;
 
 				input {
 					margin-right: $margin-sm;

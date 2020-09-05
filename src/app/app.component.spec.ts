@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterTestingModule} from '@angular/router/testing';
+import {themeConfig} from '@app/app.module';
 import {AuthCanActivateGuard} from '@app/guards';
 import {HeaderModule} from '@app/modules/header';
 import {HotkeyModule} from '@app/modules/hotkeys';
@@ -11,7 +12,7 @@ import {ToastModule} from '@app/modules/toast';
 import {TEST_JAM_MODULE} from '@core/jam.module.mock';
 import {SharedModule} from '@shared/shared.module';
 import {AppComponent} from './app.component';
-import {darkTheme, lightTheme, ThemeModule} from './modules/theme';
+import {ThemeModule} from './modules/theme';
 
 describe('AppComponent', () => {
 	let component: AppComponent;
@@ -21,10 +22,7 @@ describe('AppComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [
 				NoopAnimationsModule,
-				ThemeModule.forRoot({
-					themes: [lightTheme, darkTheme],
-					active: 'dark'
-				}),
+				ThemeModule.forRoot(themeConfig),
 				HeaderModule, PlayerModule, SharedModule, MainTabsModule,
 				RouterTestingModule, HotkeyModule.forRoot(),
 				ToastModule.forRoot(), TEST_JAM_MODULE

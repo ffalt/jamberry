@@ -4,6 +4,7 @@ import {Injectable, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule, HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {blackTheme} from '@app/modules/theme/theme.black';
 import {CoreModule} from '@core/core.module';
 import {ConfigurationService} from '@core/services';
 import {CacheInterceptor} from '@core/services/uri-cache/cache.interceptor';
@@ -35,8 +36,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
 	} as any;
 }
 
-const themeConfig = {
-	themes: [lightTheme, darkTheme],
+export const themeConfig = {
+	themes: [lightTheme, darkTheme, blackTheme],
 	active: 'dark'
 };
 

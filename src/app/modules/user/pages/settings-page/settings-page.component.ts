@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {themeConfig} from '@app/app.module';
 
 import {AppService, PlayerService, SettingsStoreService} from '@core/services';
 
@@ -9,6 +10,7 @@ import {AppService, PlayerService, SettingsStoreService} from '@core/services';
 	styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent {
+	themes = themeConfig.themes;
 
 	constructor(private router: Router, public app: AppService, private settings: SettingsStoreService, public player: PlayerService) {
 	}
