@@ -349,6 +349,8 @@ export declare namespace JamParameters {
 		 * @minimum 0
 		 */
 		since?: number;
+		/** filter by User Ids */
+		userIDs?: Array<string>;
 	}
 
 	export interface BookmarkOrderArgs extends OrderByArgs {
@@ -1487,6 +1489,8 @@ export declare namespace JamParameters {
 		expiresTo?: number;
 		/** filter by session mode */
 		mode?: JamEnums.SessionMode;
+		/** filter by User Ids */
+		userIDs?: Array<string>;
 	}
 
 	export interface SessionOrderArgs extends OrderByArgs {
