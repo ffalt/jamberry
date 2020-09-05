@@ -52,7 +52,6 @@
     "@angular/cli": "10.1.0",
     "@angular/compiler-cli": "10.1.0",
     "@angular/language-service": "10.1.0",
-    "@briebug/jest-schematic": "2.2.0",
     "@types/hammerjs": "2.0.36",
     "@types/jest": "26.0.13",
     "@types/mousetrap": "1.6.3",
