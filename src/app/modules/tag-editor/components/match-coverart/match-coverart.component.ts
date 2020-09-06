@@ -149,7 +149,7 @@ export class MatchCoverartComponent implements OnChanges {
 				err => {
 					image.requested = false;
 					if (err.status === 0) {
-						this.notify.error({error: 'Could not reach server https://coverartarchive.org'});
+						this.notify.error({error: 'Server https://coverartarchive.org cannot be reached'});
 						return;
 					}
 					this.notify.error(err);

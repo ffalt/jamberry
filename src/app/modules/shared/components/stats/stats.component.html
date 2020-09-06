@@ -1,0 +1,4 @@
+<div class="stat" *ngFor="let stat of stats" [routerLink]="[stat.link]">
+	<div class="stat-title">{{stat.text}}</div>
+	<div class="stat-value">{{stat.value}}</div>
+</div>

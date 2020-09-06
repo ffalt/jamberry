@@ -77,7 +77,7 @@ export class PodcastService {
 				},
 				err => {
 					if (err.status === 0) {
-						this.notify.error({error: 'Could not reach server https://gpodder.net'});
+						this.notify.error({error: 'Server https://gpodder.net cannot be reached'});
 						onError(err);
 						return;
 					}

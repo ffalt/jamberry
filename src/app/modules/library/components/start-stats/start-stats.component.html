@@ -1,9 +1,4 @@
 <div class="section">Library Stats</div>
-<div class="section-content" *ngIf="stats">
-	<div class="stats">
-		<div class="stat" *ngFor="let stat of stats" [routerLink]="[stat.link]">
-			<div class="stat-title">{{stat.text}}</div>
-			<div class="stat-value">{{stat.value}}</div>
-		</div>
-	</div>
+<div class="section-content">
+	<app-stats [stats]="stats"></app-stats>
 </div>

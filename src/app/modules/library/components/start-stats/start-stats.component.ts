@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {NavigService, NotifyService} from '@core/services';
 import {AlbumType, JamService} from '@jam';
+import {filterStats, StatsList} from '@shared/components';
 
 @Component({
 	selector: 'app-start-stats',
@@ -9,7 +10,7 @@ import {AlbumType, JamService} from '@jam';
 	styleUrls: ['./start-stats.component.scss']
 })
 export class StartStatsComponent implements OnInit {
-	stats?: Array<{ text: string; link: string; value: number }>;
+	stats?: StatsList;
 
 	constructor(public jam: JamService, protected notify: NotifyService, public navig: NavigService) {
 	}
@@ -17,7 +18,7 @@ export class StartStatsComponent implements OnInit {
 	ngOnInit(): void {
 		this.jam.stats.get({})
 			.then(stats => {
-				this.stats =
+				this.stats = filterStats(
 					[
 						{text: 'Artists', link: '/library/artists', value: stats.artistTypes.album},
 						...[
@@ -39,7 +40,7 @@ export class StartStatsComponent implements OnInit {
 						})),
 						{text: 'Folders', link: '/library/folders', value: stats.folder},
 						{text: 'Tracks', link: '/library/tracks', value: stats.track}
-					].filter(t => t.value > 0 && t.text) as Array<{ text: string; link: string; value: number }>;
+					]);
 			})
 			.catch(e => {
 				this.notify.error(e);

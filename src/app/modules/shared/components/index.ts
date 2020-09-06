@@ -29,6 +29,7 @@ import {ObjCardComponent} from './obj-card/obj-card.component';
 import {ChildTooltipContentComponent} from './obj-tooltip-content/child-tooltip-content.component';
 import {RateComponent} from './rate/rate.component';
 import {SplitterComponent} from './splitter/splitter.component';
+import {StatsComponent} from './stats/stats.component';
 import {TextOverlayContentComponent} from './text-overlay-content/text-overlay-content.component';
 import {ViewTypeToggleComponent} from './view-type-toggle/view-type-toggle.component';
 
@@ -68,6 +69,7 @@ export const components: Array<any> = [
 	MusicbrainzIconComponent,
 	RateComponent,
 	SplitterComponent,
+	StatsComponent,
 	ChaptersComponent,
 	ViewTypeToggleComponent
 ];
@@ -105,3 +107,4 @@ export * from './header-jambase/header-jambase.component';
 export * from './info-text/info-text.component';
 export * from './media-plate/media-plate.component';
 export * from './obj-card/obj-card.component';
+export * from './stats/stats.component';

@@ -5,7 +5,7 @@ export const blackTheme: Theme = {
 	properties: {
 
 		'--background': '#000',
-		'--background-hover': '#303030',
+		'--background-hover': '#1c1c1c',
 		'--background-active': '#32332e',
 		'--background-border': '#242424',
 		'--background-box': '#0c0c0c',
