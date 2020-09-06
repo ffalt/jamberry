@@ -10,10 +10,9 @@ import {filterStats, StatsList} from '@shared/components';
 	styleUrls: ['./user-stats.component.scss']
 })
 export class UserStatsComponent implements OnInit {
-	stats?: Jam.UserStats;
-	base?: StatsList;
-	favorites?: StatsList;
-	played?: StatsList;
+	base: StatsList = [];
+	favorites: StatsList = [];
+	played: StatsList = [];
 
 	constructor(private jam: JamService, private auth: JamAuthService, private notify: NotifyService) {
 	}
@@ -27,7 +26,6 @@ export class UserStatsComponent implements OnInit {
 	refresh(): void {
 		this.jam.stats.user()
 			.then(stats => {
-				this.stats = stats;
 				this.favorites = UserStatsComponent.buildStats(stats.favorite, '/favorites');
 				this.played = UserStatsComponent.buildStats(stats.played, '/recently-played');
 				this.base = filterStats([
