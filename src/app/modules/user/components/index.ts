@@ -1,6 +1,6 @@
-import {UserStatsComponent} from './user-stats/user-stats.component';
 import {UserAvatarComponent} from './user-avatar/user-avatar.component';
 import {UserSidebarComponent} from './user-sidebar/user-sidebar.component';
+import {UserStatsComponent} from './user-stats/user-stats.component';
 
 export const components: Array<any> = [
 	UserSidebarComponent,
