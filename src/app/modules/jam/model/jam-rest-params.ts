@@ -1205,6 +1205,11 @@ export declare namespace JamParameters {
 		take?: number;
 	}
 
+	export interface PlaylistEntryFilterArgs {
+		/** filter by Playlist Ids */
+		playlistIDs?: Array<string>;
+	}
+
 	export interface PlaylistEntryOrderArgs extends OrderByArgs {
 		/** order by field */
 		orderBy?: JamEnums.PlaylistEntryOrderFields;
@@ -1738,11 +1743,11 @@ export declare namespace JamParameters {
 
 	export type AlbumSimilarTracksArgs = IncludesTrackArgs & PageArgs & ID;
 
-	export type ArtistIdArgs = IncludesSeriesArgs & IncludesAlbumArgs & IncludesTrackArgs & IncludesArtistChildrenArgs & IncludesArtistArgs & ID;
+	export type ArtistIdArgs = ID & IncludesArtistArgs & IncludesArtistChildrenArgs & IncludesTrackArgs & IncludesAlbumArgs & IncludesSeriesArgs;
 
 	export type ArtistSearchArgs = PageArgs & IncludesArtistArgs & IncludesArtistChildrenArgs & IncludesTrackArgs & IncludesAlbumArgs & IncludesSeriesArgs & ArtistFilterArgs & ArtistOrderArgs & ListArgs;
 
-	export type ArtistSimilarArgs = IncludesArtistArgs & PageArgs & ID;
+	export type ArtistSimilarArgs = ID & PageArgs & IncludesArtistArgs;
 
 	export type ArtistSimilarTracksArgs = IncludesTrackArgs & PageArgs & ID;
 
@@ -1818,7 +1823,7 @@ export declare namespace JamParameters {
 
 	export type PlaylistEntriesArgs = PlaylistEntryOrderArgs & PlaylistFilterArgs & IncludesEpisodeArgs & IncludesTrackArgs & PageArgs;
 
-	export type GenreListArgs = PageArgs & GenreFilterArgs;
+	export type GenreListArgs = GenreFilterArgs & PageArgs;
 
 	export type DownloadDownloadArgs = DownloadArgs & ID;
 
