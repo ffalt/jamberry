@@ -1125,6 +1125,8 @@ export declare namespace JamParameters {
 	export interface ListArgs {
 		/** filter by special list */
 		list?: JamEnums.ListType;
+		/** seed for random list */
+		seed?: string;
 	}
 
 	export interface LyricsOVHSearchArgs {
@@ -1735,19 +1737,19 @@ export declare namespace JamParameters {
 		id?: string;
 	}
 
-	export type AlbumIdArgs = ID & IncludesAlbumArgs & IncludesAlbumChildrenArgs & IncludesTrackArgs & IncludesArtistArgs;
+	export type AlbumIdArgs = IncludesArtistArgs & IncludesTrackArgs & IncludesAlbumChildrenArgs & IncludesAlbumArgs & ID;
 
-	export type AlbumSearchArgs = PageArgs & IncludesAlbumArgs & IncludesAlbumChildrenArgs & IncludesTrackArgs & IncludesArtistArgs & AlbumFilterArgs & AlbumOrderArgs & ListArgs;
+	export type AlbumSearchArgs = ListArgs & AlbumOrderArgs & AlbumFilterArgs & IncludesArtistArgs & IncludesTrackArgs & IncludesAlbumChildrenArgs & IncludesAlbumArgs & PageArgs;
 
 	export type AlbumTracksArgs = TrackOrderArgs & AlbumFilterArgs & IncludesTrackArgs & PageArgs;
 
 	export type AlbumSimilarTracksArgs = IncludesTrackArgs & PageArgs & ID;
 
-	export type ArtistIdArgs = ID & IncludesArtistArgs & IncludesArtistChildrenArgs & IncludesTrackArgs & IncludesAlbumArgs & IncludesSeriesArgs;
+	export type ArtistIdArgs = IncludesSeriesArgs & IncludesAlbumArgs & IncludesTrackArgs & IncludesArtistChildrenArgs & IncludesArtistArgs & ID;
 
-	export type ArtistSearchArgs = PageArgs & IncludesArtistArgs & IncludesArtistChildrenArgs & IncludesTrackArgs & IncludesAlbumArgs & IncludesSeriesArgs & ArtistFilterArgs & ArtistOrderArgs & ListArgs;
+	export type ArtistSearchArgs = ListArgs & ArtistOrderArgs & ArtistFilterArgs & IncludesSeriesArgs & IncludesAlbumArgs & IncludesTrackArgs & IncludesArtistChildrenArgs & IncludesArtistArgs & PageArgs;
 
-	export type ArtistSimilarArgs = ID & PageArgs & IncludesArtistArgs;
+	export type ArtistSimilarArgs = IncludesArtistArgs & PageArgs & ID;
 
 	export type ArtistSimilarTracksArgs = IncludesTrackArgs & PageArgs & ID;
 
