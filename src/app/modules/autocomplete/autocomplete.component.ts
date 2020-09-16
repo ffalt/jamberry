@@ -8,6 +8,6 @@ import {AutocompleteContentDirective} from './autocomplete-content.directive';
 	styleUrls: ['./autocomplete.component.scss']
 })
 export class AutocompleteComponent {
-	@ViewChild('root', {static: true}) rootTemplate?: TemplateRef<any>;
-	@ContentChild(AutocompleteContentDirective, {static: true}) content?: AutocompleteContentDirective;
+	@ViewChild('root', {static: true}) rootTemplate!: TemplateRef<any>;
+	@ContentChild(AutocompleteContentDirective, {static: true}) content!: AutocompleteContentDirective;
 }
