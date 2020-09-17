@@ -1,21 +1,22 @@
-name: ci
+name: test
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
 
 jobs:
   build:
-    name: CI
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Use Node.js
+        uses: actions/setup-node@v1
         with:
           node-version: 14.x
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-ci-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-modules-test-${{ hashFiles('**/package-lock.json') }}
       - run: npm install
       - run: npm run test
