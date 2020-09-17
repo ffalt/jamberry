@@ -34,7 +34,6 @@ jobs:
           REPO: ${{ github.repository }}
 
       - name: Deploy to Release Branch 🚀
-        if: steps.check.outputs.changed == 'true'
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
