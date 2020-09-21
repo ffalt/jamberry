@@ -18,7 +18,7 @@ export interface Auth {
 
 @Injectable()
 export class JamAuthService {
-	static readonly version = '0.2.0';
+	static readonly version = '0.2.1';
 	static readonly apiPrefix = '/jam/v1';
 	user?: Jam.SessionUser = undefined;
 	auth?: Auth = undefined;

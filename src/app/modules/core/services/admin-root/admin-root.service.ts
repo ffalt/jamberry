@@ -79,6 +79,16 @@ export class AdminRootService implements OnDestroy {
 			});
 	}
 
+	refreshRootMeta(root: Jam.Root): void {
+		this.jam.root.refreshMeta({id: root.id})
+			.then(() => {
+				this.refreshRoot(root.id);
+			})
+			.catch(e => {
+				this.notify.error(e);
+			});
+	}
+
 	rescanRoots(): void {
 		this.jam.root.refresh({})
 			.then(() => {

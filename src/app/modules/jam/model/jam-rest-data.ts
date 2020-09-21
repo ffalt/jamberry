@@ -130,7 +130,9 @@ export declare namespace Jam {
 		trackCount?: number;
 		/** List of Track Ids */
 		trackIDs?: Array<string>;
-		/** List of Genres */
+		/** Genre Ids */
+		genreIDs?: Array<string>;
+		/** Genres */
 		genres?: Array<string>;
 		/**
 		 * Album Release Year
@@ -172,7 +174,7 @@ export declare namespace Jam {
 		id: string;
 		/** Name */
 		name: string;
-		/** Name */
+		/** Artist */
 		artist: string;
 		/** Artist Id */
 		artistID: string;
@@ -221,7 +223,9 @@ export declare namespace Jam {
 	export interface ArtistBase extends Base {
 		/** List of Album Type */
 		albumTypes: Array<JamEnums.AlbumType>;
-		/** List of Genres */
+		/** Genre Ids */
+		genreIDs?: Array<string>;
+		/** Genres */
 		genres?: Array<string>;
 		/** MusicBrainz Artist Id */
 		mbArtistID?: string;
@@ -724,9 +728,7 @@ export declare namespace Jam {
 	/*
 	 * Genre
 	 */
-	export interface Genre {
-		/** Name */
-		name: string;
+	export interface Genre extends Base {
 		/**
 		 * Album Count
 		 * @TJS-type integer
@@ -745,18 +747,6 @@ export declare namespace Jam {
 		 * @minimum 0
 		 */
 		artistCount: number;
-		/**
-		 * Series Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
-		seriesCount: number;
-		/**
-		 * Folder Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
-		folderCount: number;
 	}
 
 	/*
@@ -773,12 +763,40 @@ export declare namespace Jam {
 	}
 
 	/*
-	 * Playlist Index Group
+	 * Genre Index Entry
+	 */
+	export interface GenreIndexEntry {
+		/** ID */
+		id: string;
+		/** Name */
+		name: string;
+		/**
+		 * Track Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		trackCount: number;
+		/**
+		 * Artist Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		artistCount: number;
+		/**
+		 * Album Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		albumCount: number;
+	}
+
+	/*
+	 * Genre Index Group
 	 */
 	export interface GenreIndexGroup {
 		/** Genre Group Name */
 		name: string;
-		items: Array<Genre>;
+		items: Array<GenreIndexEntry>;
 	}
 
 	/*
@@ -837,6 +855,10 @@ export declare namespace Jam {
 		albumID?: string;
 		/** Series Id */
 		seriesID?: string;
+		/** Genre Ids */
+		genreIDs?: Array<string>;
+		/** Genres */
+		genres?: Array<string>;
 	}
 
 	/*
