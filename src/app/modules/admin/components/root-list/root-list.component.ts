@@ -29,6 +29,10 @@ export class RootListComponent {
 		this.rootService.rescanRoot(root);
 	}
 
+	refreshRootMeta(root: Jam.Root): void {
+		this.rootService.refreshRootMeta(root);
+	}
+
 	editRoot(root: Jam.Root): void {
 		const edit: AdminRootServiceEditData = {
 			root,
