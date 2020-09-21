@@ -45,4 +45,7 @@ export class NotifyService {
 		}
 	}
 
+	info(s: string): void {
+		this.toastService.info(s, 'Info', {timeOut: 10000});
+	}
 }

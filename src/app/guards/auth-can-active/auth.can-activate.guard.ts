@@ -22,6 +22,9 @@ export class AuthCanActivateGuard implements CanActivate {
 			this.notify.error(e);
 			return false;
 		}
+		if (this.auth.auth && this.auth.auth?.version !== JamAuthService.version) {
+			this.notify.info(`The Server API version ${this.auth.auth?.version} is different to the Client version ${JamAuthService.version}. Errors may happen. Good luck!`);
+		}
 		if (!this.auth.isLoggedIn()) {
 			this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}})
 				.catch(e => {
