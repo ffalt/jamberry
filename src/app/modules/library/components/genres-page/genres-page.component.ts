@@ -15,7 +15,7 @@ export class GenresPageComponent implements OnInit {
 	}
 
 	loadGenres(): void {
-		this.jam.genre.list({})
+		this.jam.genre.search({})
 			.then(data => {
 				this.genres = data.items;
 			})

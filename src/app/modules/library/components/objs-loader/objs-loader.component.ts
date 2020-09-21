@@ -16,7 +16,7 @@ export class ObjsLoaderComponent implements OnChanges {
 	@Input() showParent: boolean = false;
 	@Input() loader?: JamObjsLoader;
 	@Input() listQuery?: { listType: ListType; albumType?: AlbumType };
-	@Input() searchQuery?: { query?: string; albumType?: AlbumType; genre?: string };
+	@Input() searchQuery?: { query?: string; albumType?: AlbumType; genre?: string; genreID?: string };
 	@Input() loadAll: boolean = false;
 	@Input() changeTrigger?: string;
 

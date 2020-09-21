@@ -22,6 +22,10 @@ export class NavigService {
 		this.navigate([`/library/playlists/id/${id}`, {name}]);
 	}
 
+	toGenreID(id: string, name: string): void {
+		this.navigate([`/library/genres/id/${id}`, {name}]);
+	}
+
 	toPodcastID(id: string, name: string): void {
 		this.navigate([`/library/podcasts/id/${id}`, {name}]);
 	}
@@ -78,12 +82,8 @@ export class NavigService {
 		this.navigate(['/logout']);
 	}
 
-	toGenreID(genre: string): void {
-		this.navigate([`/library/genres/id/${genre}`]);
-	}
-
 	toGenre(genre: Jam.Genre): void {
-		this.toGenreID(genre.name);
+		this.toGenreID(genre.id, genre.name);
 	}
 
 	toPodcast(podcast: Jam.Podcast): void {

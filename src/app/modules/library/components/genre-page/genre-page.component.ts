@@ -32,6 +32,7 @@ const noClick = (): void => {
 export class GenrePageComponent implements OnDestroy {
 	title = 'Genre';
 	genre = '';
+	genreID?: string;
 	mode?: string;
 	tabsObjs: GenreTabs = {
 		artists: {id: 'artist', label: 'Artist', click: noClick},
@@ -54,8 +55,10 @@ export class GenrePageComponent implements OnDestroy {
 	) {
 		this.route.params
 			.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
-			this.genre = params.genre;
-			this.title = `Genre: ${params.genre}`;
+			this.genre = params.name;
+			this.title = `Genre: ${params.name}`;
+			this.genreID = params.id;
+			// TODO: load genre by id if param.name is empty
 			// this.refresh();
 		});
 	}

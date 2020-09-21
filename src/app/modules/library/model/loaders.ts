@@ -16,6 +16,7 @@ export interface JamObjsLoaderSearchQuery {
 	query?: string;
 	albumType?: AlbumType;
 	genre?: string;
+	genreID?: string;
 }
 
 export abstract class JamObjsLoader {
@@ -39,6 +40,7 @@ export class AlbumsLoader extends JamObjsLoader {
 		const list = await this.library.jam.album.search({
 			query: query.query,
 			genres: query.genre ? [query.genre] : undefined,
+			genreIDs: query.genreID ? [query.genreID] : undefined,
 			skip,
 			take,
 			albumIncState: true
@@ -70,6 +72,7 @@ export class ArtistsLoader extends JamObjsLoader {
 		const list = await this.library.jam.artist.search({
 			query: query.query,
 			genres: query.genre ? [query.genre] : undefined,
+			genreIDs: query.genreID ? [query.genreID] : undefined,
 			skip, take, artistIncState: true
 		});
 		return {list, items: list.items.map(o => new JamArtistObject(o, this.library))};
