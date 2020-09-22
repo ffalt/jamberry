@@ -3,7 +3,15 @@ import {Route, Router} from '@angular/router';
 import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {JamService} from '@jam';
-import {AlbumsLoader, ArtistsLoader, FoldersLoader, PlaylistsLoader, PodcastsLoader, SeriesLoader} from '@library/model/loaders';
+import {
+	AlbumsLoader,
+	ArtistsLoader,
+	FoldersLoader,
+	GenresLoader,
+	PlaylistsLoader,
+	PodcastsLoader,
+	SeriesLoader
+} from '@library/model/loaders';
 import {HeaderTab} from '@shared/components';
 import {ActionsService, PlaylistDialogsService, PodcastService} from '@shared/services';
 
@@ -12,6 +20,7 @@ export class LibraryService {
 	folderLoader = new FoldersLoader(this);
 	albumLoader = new AlbumsLoader(this);
 	artistLoader = new ArtistsLoader(this);
+	genreLoader = new GenresLoader(this);
 	playlistLoader = new PlaylistsLoader(this);
 	podcastLoader = new PodcastsLoader(this);
 	seriesLoader = new SeriesLoader(this);

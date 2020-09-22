@@ -20,3 +20,9 @@ https://www.svgrepo.com/svg/98711/music-disc
 
 icon-single
 https://svgsilh.com/image/3259403.html
+
+icon-artist
+https://www.freepik.com/free-icon/mic_890445.htm
+
+icon-broom
+https://www.flaticon.com/free-icon/broom_3050809

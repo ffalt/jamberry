@@ -57,6 +57,7 @@ export class ArtistOverviewComponent implements OnInit, OnDestroy {
 			id: this.id,
 			artistIncState: true,
 			artistIncAlbums: true,
+			artistIncGenres: true,
 			albumIncState: true,
 			artistIncInfo: true
 		})

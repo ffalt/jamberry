@@ -17,7 +17,6 @@ import {FolderMusicbrainzComponent} from './folder-mb/folder-musicbrainz.compone
 import {FolderOverviewComponent} from './folder-overview/folder-overview.component';
 import {FolderSimilarComponent} from './folder-similar/folder-similar.component';
 import {GenrePageComponent} from './genre-page/genre-page.component';
-import {GenresPageComponent} from './genres-page/genres-page.component';
 import {IndexEntryCardComponent} from './index-entry-card/index-entry-card.component';
 import {IndexGroupComponent} from './index-group/index-group.component';
 import {IndexComponent} from './index/index.component';
@@ -71,7 +70,6 @@ export const components: Array<any> = [
 	ChatComponent,
 	CurrentPlayingComponent,
 	GenrePageComponent,
-	GenresPageComponent,
 	EpisodeListComponent,
 	EpisodesLoaderComponent,
 	EpisodeStateButtonComponent,
@@ -167,7 +165,6 @@ export * from './folder-similar/folder-similar.component';
 export * from './folder-mb/folder-musicbrainz.component';
 export * from './context-menu-simple/context-menu-simple.component';
 export * from './objs-index-loader/objs-index-loader.component';
-export * from './genres-page/genres-page.component';
 export * from './genre-page/genre-page.component';
 export * from './start-sections/start-sections.component';
 export * from './start-stats/start-stats.component';

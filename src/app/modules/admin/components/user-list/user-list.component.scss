@@ -11,11 +11,8 @@
 		width: 100%;
 	}
 
-	.heading {
-		font-size: 0.9em;
-	}
-
 	.user {
+		height: 60px;
 		td {
 			padding: $padding-xs $padding-sm;
 		}
@@ -28,6 +25,11 @@
 		&.selected {
 			background-color: var(--background-active);
 		}
+	}
+
+	.heading {
+		font-size: 0.9em;
+		height: 40px;
 	}
 
 	.icon-checkmark {

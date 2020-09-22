@@ -47,7 +47,7 @@ export class JamAlbumObject extends JamLibraryObject {
 		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.year || ''}`;
 		this.parent = album.artistName;
 		this.mediaType = album.albumType;
-		this.genre = album.genres && album.genres.length > 0 ? album.genres.join(' / ') : undefined;
+		this.genre = album.genres?.length ? album.genres.map(g => g.name).join(' / ') : undefined;
 	}
 
 	navigTo(): void {
@@ -131,7 +131,7 @@ export class JamFolderObject extends JamLibraryObject {
 		super(folder, library);
 		this.name = folder.name;
 		this.mediaType = folder.type;
-		this.genre = folder.tag && folder.tag.genres && folder.tag.genres.length > 0 ? folder.tag.genres.join(' / ') : undefined;
+		this.genre = folder?.tag?.genres?.length ? folder.tag.genres.join(' / ') : undefined;
 		switch (folder.type) {
 			case FolderType.artist:
 				this.name = folder.tag?.artist || '[Unknown Artist]';
@@ -213,7 +213,7 @@ export class JamArtistObject extends JamLibraryObject {
 	constructor(public artist: Jam.Artist, library: LibraryService) {
 		super(artist, library);
 		this.name = this.artist.name;
-		this.genre = artist.genres && artist.genres.length > 0 ? artist.genres.join(' / ') : undefined;
+		this.genre = artist.genres?.length ? artist.genres.map(g => g.name).join(' / ') : undefined;
 	}
 
 	navigTo(): void {
@@ -420,6 +420,51 @@ export class JamTrackObject extends JamLibraryObject {
 			// {label: 'Played', value: this.track.state.played || 0}
 		].filter(info => info.value !== undefined) as Array<HeaderInfo>;
 	}
+}
+
+export class JamGenreObject extends JamLibraryObject {
+	type = JamObjectType.genre;
+	childrenTypes = [];
+
+	constructor(public genreObj: Jam.Genre, library: LibraryService) {
+		super(genreObj, library);
+	}
+
+	navigTo(): void {
+		this.library.navig.toGenre(this.genreObj);
+	}
+
+	play(): void {
+	}
+
+	navigToParent(): void {
+	}
+
+	async toggleFav(): Promise<void> {
+		return this.library.actions.toggleGenreFav(this.genreObj);
+	}
+
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
+	}
+
+	async loadChildren(): Promise<void> {
+	}
+
+	groupType(): string {
+		return '';
+	}
+
+	addToPlaylist(): void {
+	}
+
+	addToQueue(): void {
+	}
+
+	getInfos(): Array<HeaderInfo> {
+		return [];
+	}
+
 }
 
 export class JamSeriesObject extends JamLibraryObject {

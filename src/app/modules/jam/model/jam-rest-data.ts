@@ -130,10 +130,8 @@ export declare namespace Jam {
 		trackCount?: number;
 		/** List of Track Ids */
 		trackIDs?: Array<string>;
-		/** Genre Ids */
-		genreIDs?: Array<string>;
 		/** Genres */
-		genres?: Array<string>;
+		genres?: Array<GenreBase>;
 		/**
 		 * Album Release Year
 		 * @TJS-type integer
@@ -223,10 +221,8 @@ export declare namespace Jam {
 	export interface ArtistBase extends Base {
 		/** List of Album Type */
 		albumTypes: Array<JamEnums.AlbumType>;
-		/** Genre Ids */
-		genreIDs?: Array<string>;
 		/** Genres */
-		genres?: Array<string>;
+		genres?: Array<GenreBase>;
 		/** MusicBrainz Artist Id */
 		mbArtistID?: string;
 		/**
@@ -610,6 +606,8 @@ export declare namespace Jam {
 		 * @minimum 0
 		 */
 		artworkCount?: number;
+		/** Genres */
+		genres?: Array<GenreBase>;
 		/** Folder Meta Information */
 		tag?: FolderTag;
 		/** List of Track Ids */
@@ -728,7 +726,7 @@ export declare namespace Jam {
 	/*
 	 * Genre
 	 */
-	export interface Genre extends Base {
+	export interface Genre extends GenreBase {
 		/**
 		 * Album Count
 		 * @TJS-type integer
@@ -747,6 +745,18 @@ export declare namespace Jam {
 		 * @minimum 0
 		 */
 		artistCount: number;
+		/**
+		 * Folder Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		folderCount: number;
+	}
+
+	/*
+	 * Genre
+	 */
+	export interface GenreBase extends Base {
 	}
 
 	/*
@@ -788,6 +798,12 @@ export declare namespace Jam {
 		 * @minimum 0
 		 */
 		albumCount: number;
+		/**
+		 * Folder Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		folderCount: number;
 	}
 
 	/*
@@ -855,10 +871,8 @@ export declare namespace Jam {
 		albumID?: string;
 		/** Series Id */
 		seriesID?: string;
-		/** Genre Ids */
-		genreIDs?: Array<string>;
 		/** Genres */
-		genres?: Array<string>;
+		genres?: Array<GenreBase>;
 	}
 
 	/*

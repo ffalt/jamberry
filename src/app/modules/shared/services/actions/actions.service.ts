@@ -92,6 +92,10 @@ export class ActionsService {
 		return this.toggleFav(JamObjectType.album, album);
 	}
 
+	async toggleGenreFav(genre: Jam.Genre): Promise<void> {
+		return this.toggleFav(JamObjectType.genre, genre);
+	}
+
 	async toggleArtistFav(artist: Jam.Artist): Promise<void> {
 		return this.toggleFav(JamObjectType.artist, artist);
 	}

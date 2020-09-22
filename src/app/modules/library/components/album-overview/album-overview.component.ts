@@ -49,7 +49,14 @@ export class AlbumOverviewComponent implements OnInit, OnDestroy {
 		this.album = undefined;
 		this.tracks = [];
 		if (this.id) {
-			this.jam.album.id({id: this.id, trackIncState: true, trackIncTag: true, albumIncTracks: true, albumIncInfo: true})
+			this.jam.album.id({
+				id: this.id,
+				trackIncState: true,
+				trackIncTag: true,
+				albumIncGenres: true,
+				albumIncTracks: true,
+				albumIncInfo: true
+			})
 				.then(album => {
 					this.display(album);
 				})

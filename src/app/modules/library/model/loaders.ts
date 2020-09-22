@@ -5,6 +5,7 @@ import {
 	JamAlbumObject,
 	JamArtistObject,
 	JamFolderObject,
+	JamGenreObject,
 	JamLibraryObject,
 	JamPlaylistObject,
 	JamPodcastObject,
@@ -130,6 +131,25 @@ export class PlaylistsLoader extends JamObjsLoader {
 	async list(listQuery: { listType: ListType; albumType?: AlbumType }, skip?: number, take?: number): Promise<{ list: Jam.PlaylistPage; items: Array<JamLibraryObject> }> {
 		const list = await this.library.jam.playlist.search({list: listQuery.listType, skip, take, playlistIncState: true});
 		return {list, items: list.items.map(o => new JamPlaylistObject(o, this.library))};
+	}
+}
+
+export class GenresLoader extends JamObjsLoader {
+	typeName = 'Genres';
+
+	async search(query: JamObjsLoaderSearchQuery, skip?: number, take?: number): Promise<{ list: Jam.GenrePage; items: Array<JamLibraryObject> }> {
+		const list = await this.library.jam.genre.search({query: query.query, skip, take, genreState: true});
+		return {list, items: list.items.map(o => new JamGenreObject(o, this.library))};
+	}
+
+	async all(skip?: number, take?: number): Promise<{ list: Jam.GenrePage; items: Array<JamLibraryObject> }> {
+		const list = await this.library.jam.genre.search({skip, take, genreState: true});
+		return {list, items: list.items.map(o => new JamGenreObject(o, this.library))};
+	}
+
+	async list(listQuery: { listType: ListType }, skip?: number, take?: number): Promise<{ list: Jam.GenrePage; items: Array<JamLibraryObject> }> {
+		const list = await this.library.jam.genre.search({list: listQuery.listType, skip, take, genreState: true});
+		return {list, items: list.items.map(o => new JamGenreObject(o, this.library))};
 	}
 }
 

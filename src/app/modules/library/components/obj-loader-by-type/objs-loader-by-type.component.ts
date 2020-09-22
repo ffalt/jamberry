@@ -102,6 +102,13 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 							this.valid = true;
 						}
 						break;
+					case JamObjectType.genre:
+						this.loader = this.library.genreLoader;
+						if (this.listType) {
+							this.listQuery = {listType: this.listType};
+							this.valid = true;
+						}
+						break;
 					default:
 				}
 			});

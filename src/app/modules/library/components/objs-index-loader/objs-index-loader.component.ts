@@ -42,6 +42,11 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 					this.query = folderQuery;
 					break;
 				}
+				case JamObjectType.genre: {
+					const genreQuery: JamParameters.GenreFilterArgs = {};
+					this.query = genreQuery;
+					break;
+				}
 				case JamObjectType.album: {
 					const albumQuery: JamParameters.AlbumFilterArgs = {
 						albumTypes: type.albumType ? [type.albumType] : [],

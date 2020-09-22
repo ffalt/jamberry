@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'jam';
-  src: url('../font/jam.eot?50965863');
-  src: url('../font/jam.eot?50965863#iefix') format('embedded-opentype'),
-       url('../font/jam.woff2?50965863') format('woff2'),
-       url('../font/jam.woff?50965863') format('woff'),
-       url('../font/jam.ttf?50965863') format('truetype'),
-       url('../font/jam.svg?50965863#jam') format('svg');
+  src: url('../font/jam.eot?35693309');
+  src: url('../font/jam.eot?35693309#iefix') format('embedded-opentype'),
+       url('../font/jam.woff2?35693309') format('woff2'),
+       url('../font/jam.woff?35693309') format('woff'),
+       url('../font/jam.ttf?35693309') format('truetype'),
+       url('../font/jam.svg?35693309#jam') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,46 +15,46 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'jam';
-    src: url('../font/jam.svg?50965863#jam') format('svg');
+    src: url('../font/jam.svg?35693309#jam') format('svg');
   }
 }
 */
- 
+
  [class^="icon-"]:before, [class*=" icon-"]:before {
   font-family: "jam";
   font-style: normal;
   font-weight: normal;
   speak: never;
- 
+
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
   margin-right: .2em;
   text-align: center;
   /* opacity: .8; */
- 
+
   /* For safety - reset parent styles, that can break glyph codes*/
   font-variant: normal;
   text-transform: none;
- 
+
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
- 
+
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
   margin-left: .2em;
- 
+
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
- 
+
   /* Font smoothing. That was taken from TWBS */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
- 
+
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
- 
+
 .icon-view-tiles:before { content: '\e800'; } /* '' */
 .icon-view-details:before { content: '\e801'; } /* '' */
 .icon-view-lines:before { content: '\e802'; } /* '' */
@@ -97,7 +97,7 @@
 .icon-browse:before { content: '\e827'; } /* '' */
 .icon-download:before { content: '\e828'; } /* '' */
 .icon-user:before { content: '\e829'; } /* '' */
-.icon-artist:before { content: '\e82a'; } /* '' */
+.icon-artist-alt:before { content: '\e82a'; } /* '' */
 .icon-play-1:before { content: '\e82b'; } /* '' */
 .icon-queue:before { content: '\e82c'; } /* '' */
 .icon-pause:before { content: '\e82d'; } /* '' */
@@ -165,6 +165,8 @@
 .icon-pin-outline:before { content: '\e86b'; } /* '' */
 .icon-pin:before { content: '\e86c'; } /* '' */
 .icon-bookmark:before { content: '\e86d'; } /* '' */
+.icon-artist:before { content: '\e86e'; } /* '' */
+.icon-broom:before { content: '\e86f'; } /* '' */
 .icon-info:before { content: '\f086'; } /* '' */
 .icon-menu:before { content: '\f0c9'; } /* '' */
 .icon-download-cloud:before { content: '\f0ed'; } /* '' */

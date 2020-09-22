@@ -17,6 +17,7 @@ export enum JamUrlType {
 	eps = 'eps',
 	singles = 'singles',
 	playlists = 'playlists',
+	genres = 'genres',
 	folders = 'folders',
 	tracks = 'tracks',
 	episodes = 'episodes'
@@ -50,6 +51,7 @@ export const JamUrlTypes: Array<JamType> = [
 	{id: JamUrlType.artists, text: 'Artists', icon: 'icon-artist', type: JamObjectType.artist},
 	{id: JamUrlType.podcasts, text: 'Podcasts', icon: 'icon-podcasts', type: JamObjectType.podcast},
 	{id: JamUrlType.playlists, text: 'Playlists', icon: 'icon-playlist', type: JamObjectType.playlist},
+	{id: JamUrlType.genres, text: 'Genres', icon: 'icon-genre', type: JamObjectType.genre},
 	{id: JamUrlType.folders, text: 'Folders', icon: 'icon-folder', type: JamObjectType.folder},
 	{id: JamUrlType.tracks, text: 'Tracks', icon: 'icon-track', type: JamObjectType.track},
 	{id: JamUrlType.episodes, text: 'Episodes', icon: 'icon-episodes', type: JamObjectType.episode}

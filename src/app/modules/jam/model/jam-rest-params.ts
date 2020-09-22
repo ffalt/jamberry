@@ -628,12 +628,6 @@ export declare namespace JamParameters {
 		 */
 		albumIncInfo?: boolean;
 		/**
-		 * include genre ids on album(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
-		albumIncGenreIDs?: boolean;
-		/**
 		 * include genre on album(s)
 		 * @TJS-type boolean
 		 * @default false
@@ -705,12 +699,6 @@ export declare namespace JamParameters {
 		 * @default false
 		 */
 		artistIncInfo?: boolean;
-		/**
-		 * include genre ids on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
-		artistIncGenreIDs?: boolean;
 		/**
 		 * include genre on artist(s)
 		 * @TJS-type boolean
@@ -834,6 +822,12 @@ export declare namespace JamParameters {
 		 * @default false
 		 */
 		folderIncTrackCount?: boolean;
+		/**
+		 * include genre on folder(s)
+		 * @TJS-type boolean
+		 * @default false
+		 */
+		folderIncGenres?: boolean;
 		/**
 		 * include artwork count on folder(s)
 		 * @TJS-type boolean
@@ -1158,12 +1152,6 @@ export declare namespace JamParameters {
 		 * @default false
 		 */
 		trackIncRawTag?: boolean;
-		/**
-		 * include genre ids on track(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
-		trackIncGenreIDs?: boolean;
 		/**
 		 * include genre on track(s)
 		 * @TJS-type boolean

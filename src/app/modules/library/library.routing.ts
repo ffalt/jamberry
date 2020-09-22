@@ -14,7 +14,6 @@ import {
 	FolderOverviewComponent,
 	FolderSimilarComponent,
 	GenrePageComponent,
-	GenresPageComponent,
 	ObjPageComponent,
 	ObjsIndexLoaderComponent,
 	ObjsLoaderByTypeComponent,
@@ -339,9 +338,13 @@ export const routes: Routes = [
 
 			{path: 'search', component: SearchPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Search'}},
 			{path: 'queue', component: QueuePageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Queue'}},
-			{path: 'genres', component: GenresPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Genres'}},
+
 			{path: 'genres/id/:id', component: GenrePageComponent, canActivate: [AuthCanActivateGuard]},
-			{path: 'genres/id/:id/:type', component: GenrePageComponent, canActivate: [AuthCanActivateGuard]}
+			{path: 'genres/id/:id/:type', component: GenrePageComponent, canActivate: [AuthCanActivateGuard]},
+			{
+				path: 'genres', component: ObjsPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Genres'},
+				children: objsListRoutes
+			}
 		]
 	}
 ];

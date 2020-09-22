@@ -37,8 +37,8 @@ function buildIndexAlbumIndex(index: Jam.AlbumIndex, expanded: boolean, name: st
 			expanded,
 			entries: g.items.map(entry => ({
 				id: entry.id,
-				link: '/library/albums/id/' + entry.id,
-				extraLink: '/library/artists/id/' + entry.artistID,
+				link: `/library/albums/id/${entry.id}`,
+				extraLink: `/library/artists/id/${entry.artistID}`,
 				name: entry.name,
 				extra: entry.artist,
 				visible: false,
@@ -61,7 +61,7 @@ function buildIndexFolderIndex(index: Jam.FolderIndex, expanded: boolean, name: 
 			expanded,
 			entries: g.items.map(entry => ({
 				id: entry.id,
-				link: '/library/folders/id/' + entry.id,
+				link: `/library/folders/id/${entry.id}`,
 				name: entry.name,
 				visible: false,
 				trackCount: entry.trackCount,
@@ -83,7 +83,7 @@ function buildIndexArtistIndex(index: Jam.ArtistIndex, expanded: boolean, name: 
 			expanded,
 			entries: g.items.map(entry => ({
 				id: entry.id,
-				link: '/library/artists/id/' + entry.id,
+				link: `/library/artists/id/${entry.id}`,
 				name: entry.name,
 				visible: false,
 				trackCount: entry.trackCount,
@@ -105,7 +105,29 @@ function buildIndexSeriesIndex(seriesIndex: Jam.SeriesIndex, expanded: boolean, 
 			expanded,
 			entries: g.items.map(entry => ({
 				id: entry.id,
-				link: '/library/series/id/' + entry.id,
+				link: `/library/series/id/${entry.id}`,
+				name: entry.name,
+				visible: false,
+				trackCount: entry.trackCount,
+				image: jam.image.imageUrl({id: entry.id, size: 200})
+			}))
+		}))
+	};
+}
+
+function buildIndexGenreIndex(genreIndex: Jam.GenreIndex, expanded: boolean, name: string, jam: JamService): Index | undefined {
+	if (!genreIndex) {
+		return;
+	}
+	return {
+		name,
+		type: JamObjectType.genre,
+		groups: genreIndex.groups.map(g => ({
+			name: g.name,
+			expanded,
+			entries: g.items.map(entry => ({
+				id: entry.id,
+				link: `/library/genres/id/${entry.id}`,
 				name: entry.name,
 				visible: false,
 				trackCount: entry.trackCount,
@@ -156,6 +178,10 @@ export class IndexService {
 				return buildIndexSeriesIndex(
 					await this.jam.series.index(query),
 					!this.app.smallscreen, 'Series', this.jam);
+			case JamObjectType.genre:
+				return buildIndexGenreIndex(
+					await this.jam.genre.index(query),
+					!this.app.smallscreen, 'Genres', this.jam);
 			case JamObjectType.album: {
 				const type = getTypeByAlbumType(query.albumType);
 				return buildIndexAlbumIndex(
