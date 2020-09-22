@@ -1,6 +1,6 @@
 {
   "name": "jamberry",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": "ffalt",
   "license": "MIT",
   "description": "a html5 jamserve web player",
@@ -16,7 +16,7 @@
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "clean": "rimraf dist",
-    "release": "standard-version",
+    "release": "standard-version -a",
     "update:angular": "ng update @angular/cli @angular/core",
     "build:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
     "build:prebuild": "npm run clean && npm run build:version",
