@@ -51,7 +51,7 @@
   },
   "standard-version": {
     "scripts": {
-      "postbump": "node ./build-pre.js"
+      "postbump": "node ./build-pre.js && git add ./src/environments/version.ts"
     }
   },
   "devDependencies": {

@@ -9,8 +9,7 @@ async function updateVersion() {
 	const result = await fs.promises.readFile(versionFilePath);
 	if (result.toString() !== src) {
 		await fs.promises.writeFile(versionFilePath, src, {flag: "w"});
-		console.log(`Updating application version ${appVersion}`);
-		console.log(`Writing version module to ${versionFilePath}\n`);
+		console.log(`Writing ${appVersion} version module to ${versionFilePath}\n`);
 	}
 }
 
