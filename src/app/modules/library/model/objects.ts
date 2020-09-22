@@ -435,9 +435,11 @@ export class JamGenreObject extends JamLibraryObject {
 	}
 
 	play(): void {
+		//
 	}
 
 	navigToParent(): void {
+		//
 	}
 
 	async toggleFav(): Promise<void> {
@@ -449,6 +451,7 @@ export class JamGenreObject extends JamLibraryObject {
 	}
 
 	async loadChildren(): Promise<void> {
+		//
 	}
 
 	groupType(): string {
@@ -456,9 +459,11 @@ export class JamGenreObject extends JamLibraryObject {
 	}
 
 	addToPlaylist(): void {
+		//
 	}
 
 	addToQueue(): void {
+		//
 	}
 
 	getInfos(): Array<HeaderInfo> {
