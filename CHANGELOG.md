@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.3](https://github.com/ffalt/jamberry/compare/v0.4.2...v0.4.3) (2020-09-23)
+
+
+### Bug Fixes
+
+* **mediasession:** extending global MediaMetaData obj no longer works, just declare it where it's used ([b3362ee](https://github.com/ffalt/jamberry/commit/b3362eecf4fd978b224c3b81241e593f71e50f1c))
+
 ### [0.4.2](https://github.com/ffalt/jamberry/compare/v0.4.0...v0.4.2) (2020-09-22)
 
 
