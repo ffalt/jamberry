@@ -19,6 +19,7 @@
     "release": "standard-version -a",
     "update:angular": "ng update @angular/cli @angular/core",
     "build:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
+    "build:releaselog": "conventional-changelog -p angular -r 2 -o RELEASELOG.md",
     "build:prebuild": "npm run clean && npm run build:version",
     "build:version": "node ./build-pre.js",
     "bundle-report": "npm run build:stats && webpack-bundle-analyzer --mode static dist/stats.json",
@@ -47,7 +48,7 @@
     "rxjs": "6.6.3",
     "soundmanager2": "2.97.20170602",
     "tslib": "2.0.1",
-    "zone.js": "0.10.3"
+    "zone.js": "0.11.1"
   },
   "standard-version": {
     "scripts": {
