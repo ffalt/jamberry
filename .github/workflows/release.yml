@@ -23,6 +23,9 @@ jobs:
         run: |
           npm install
 
+      - name: Test
+        run: npm run test
+
       - name: Build
         run: |
           npm run build:deploy
@@ -51,7 +54,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body_path: RELEASELOG.md
+          bodyFile: :/RELEASELOG.md
           draft: false
           prerelease: false
 
