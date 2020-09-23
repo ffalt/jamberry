@@ -1,19 +1,49 @@
 import {Injectable, NgZone} from '@angular/core';
 import {ImageFormatType, Jam, JamService} from '@jam';
-import {MediaImage, MediaMetadata, MediaSession} from './media-metadata';
 import {MediaSessionEvents} from './mediasession.events';
 
-export declare class MediaMetadataObj implements MediaMetadata {
-	// Media's title.
-	title: string;
-	// Media's artist.
-	artist: string;
-	// Media's album.
-	album: string;
-	// Media's artwork.
-	artwork: Array<MediaImage>;
+export type MediaSessionPlaybackState = 'none' | 'paused' | 'playing';
 
-	constructor(init?: MediaMetadata)
+export type MediaSessionAction = 'play' | 'pause' | 'seekbackward' | 'seekforward' | 'previoustrack' | 'nexttrack';
+
+export interface MediaSession {
+	// Current media session playback state.
+	playbackState: MediaSessionPlaybackState;
+	// Current media session meta data.
+	metadata: MediaMetadata | null;
+
+	// Set/Unset actions handlers.
+	setActionHandler(action: MediaSessionAction, listener: (() => void) | null): void;
+}
+
+export interface MediaImage {
+	// URL from which the user agent can fetch the image’s data.
+	src: string;
+	// Specify the MediaImage object’s sizes. It follows the spec of sizes attribute in HTML link element.
+	sizes?: string;
+	// A hint as to the media type of the image.
+	type?: string;
+}
+
+export interface MediaMetadataInit {
+	title?: string;
+	artist?: string;
+	album?: string;
+	artwork?: Array<MediaImage>;
+}
+
+export declare class MediaMetadata {
+	// Media's title.
+	title?: string;
+	// Media's artist.
+	artist?: string;
+	// Media's album.
+	album?: string;
+	// Media's artwork.
+	artwork?: Array<MediaImage>;
+
+	// tslint:disable-next-line:unnecessary-constructor
+	constructor(options: MediaMetadataInit);
 }
 
 @Injectable({
@@ -41,7 +71,7 @@ export class MediaSessionService {
 					sizes: `${size}x${size}`,
 					type: 'image/png'
 				}));
-			this.mediaSession.metadata = new MediaMetadataObj({
+			this.mediaSession.metadata = new MediaMetadata({
 				title: media.tag ? media.tag.title : media.name,
 				artist: media.tag ? media.tag.artist : undefined,
 				album: media.tag ? media.tag.album : undefined,
