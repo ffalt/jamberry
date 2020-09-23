@@ -17,4 +17,4 @@ jobs:
           node-version: 14.x
       - run: npm install
       - run: npm run build:releaselog
-      - run: tail -n 100 ./RELASELOG.md
+      - run: tail -n 100 ./RELEASELOG.md
