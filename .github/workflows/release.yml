@@ -27,11 +27,9 @@ jobs:
         run: |
           npm run build:deploy
 
-      - name: Build Changelog message
-        id: changelog
-        uses: scottbrenner/generate-changelog-action@1.0.1
-        env:
-          REPO: ${{ github.repository }}
+      - name: Generate Releaselog
+        run: |
+          npm run build:releaselog
 
       - name: Deploy to Release Branch 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
@@ -53,8 +51,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: |
-            ${{ steps.changelog.outputs.changelog }}
+          body_path: RELEASELOG.md
           draft: false
           prerelease: false
 
