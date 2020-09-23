@@ -19,7 +19,7 @@
     "release": "standard-version -a",
     "update:angular": "ng update @angular/cli @angular/core",
     "build:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1",
-    "build:releaselog": "conventional-changelog -p angular -r 1 -o RELEASELOG.md",
+    "build:releaselog": "conventional-changelog -p angular -r 2 -o RELEASELOG.md",
     "build:prebuild": "npm run clean && npm run build:version",
     "build:version": "node ./build-pre.js",
     "bundle-report": "npm run build:stats && webpack-bundle-analyzer --mode static dist/stats.json",
