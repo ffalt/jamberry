@@ -1,6 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-// tslint:disable-next-line:no-import-side-effect
-import 'mousetrap';
+import * as Mousetrap from 'mousetrap';
 import {Hotkey} from './hotkeys.model';
 import {HotkeyOptions, HotkeysOptions} from './hotkeys.options';
 
@@ -8,7 +7,7 @@ import {HotkeyOptions, HotkeysOptions} from './hotkeys.options';
 export class HotkeysService {
 	hotkeys: Array<Hotkey> = [];
 	pausedHotkeys: Array<Hotkey> = [];
-	mousetrap: MousetrapInstance;
+	mousetrap: Mousetrap.MousetrapInstance;
 
 	private _preventIn = ['INPUT', 'SELECT', 'TEXTAREA'];
 

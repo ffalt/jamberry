@@ -1,6 +1,5 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
-// tslint:disable-next-line:no-import-side-effect
-import 'mousetrap';
+import * as Mousetrap from 'mousetrap';
 import {ExtendedKeyboardEvent, Hotkey} from './hotkeys.model';
 import {HotkeysService} from './hotkeys.service';
 
@@ -12,7 +11,7 @@ import {HotkeysService} from './hotkeys.service';
 export class HotkeysDirective implements OnInit, OnDestroy {
 	@Input() hotkeys: Array<{ [combo: string]: (event: KeyboardEvent, combo: string) => ExtendedKeyboardEvent }> = [];
 
-	private mousetrap: MousetrapInstance;
+	private mousetrap: Mousetrap.MousetrapInstance;
 	private hotkeysList: Array<Hotkey> = [];
 	private oldHotkeys: Array<Hotkey> = [];
 
