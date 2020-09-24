@@ -3,7 +3,7 @@
 :host {
 	width: 100%;
 	@include slider(32px, 4px);
-	vertical-align: center;
+	vertical-align: middle;
 
 	.waveform {
 		position: absolute;
