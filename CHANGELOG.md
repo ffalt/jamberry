@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.4](https://github.com/ffalt/jamberry/compare/v0.4.3...v0.4.4) (2020-09-24)
+
+
+### Features
+
+* **podcast discover:** use jam api & gpodder scaled images ([a262a3f](https://github.com/ffalt/jamberry/commit/a262a3f4921747903af919f30623fbbb3c8c0b79))
+
+
+### Bug Fixes
+
+* **css:** invalid vertical-align value ([adcc46d](https://github.com/ffalt/jamberry/commit/adcc46d5274744786400a45df52be656667f3071))
+
 ### [0.4.3](https://github.com/ffalt/jamberry/compare/v0.4.2...v0.4.3) (2020-09-23)
 
 
