@@ -4,20 +4,7 @@ import {Notifiers} from '@app/utils/notifier';
 import {Poller} from '@app/utils/poller';
 import {NotifyService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
-import {take} from 'rxjs/operators';
 import {DialogsService} from '../dialogs/dialogs.service';
-
-export interface GpodderResult {
-	logo_url: string;
-	scaled_logo_url: string;
-	title: string;
-	mygpo_link: string;
-	url: string;
-	description: string;
-	subscribers: number;
-	subscribers_last_week: number;
-	website: string;
-}
 
 @Injectable()
 export class PodcastService {
@@ -62,31 +49,6 @@ export class PodcastService {
 	constructor(private jam: JamService, private http: HttpClient, private notify: NotifyService, private dialogsService: DialogsService) {
 	}
 
-	searchPodcast(query: string, cb: (data: Array<GpodderResult>) => void, onError: (error: Error) => void): void {
-		const url = `https://gpodder.net/search.json?q=${query}`;
-		this.http.get<Array<GpodderResult>>(url)
-			.pipe(take(1))
-			.subscribe(
-				(data: Array<GpodderResult>) => {
-					for (const result of data) {
-						if (result.logo_url && result.logo_url.toLowerCase().startsWith('http:')) {
-							result.logo_url = 'https:' + result.logo_url.slice(5);
-						}
-					}
-					cb(data);
-				},
-				err => {
-					if (err.status === 0) {
-						this.notify.error({error: 'Server https://gpodder.net cannot be reached'});
-						onError(err);
-						return;
-					}
-					onError(err);
-					this.notify.error(err);
-				}
-			);
-	}
-
 	removePodcast(podcast: Jam.Podcast): void {
 		this.dialogsService.confirm('Remove Podcast', 'Do you want to remove the podcast?', () => {
 			this.remove(podcast)
@@ -129,7 +91,14 @@ export class PodcastService {
 	}
 
 	refreshPodcast(id: string): void {
-		this.jam.podcast.id({id, podcastIncState: true, podcastIncEpisodes: true, episodeIncState: true, episodeIncTag: true, episodeIncMedia: true})
+		this.jam.podcast.id({
+			id,
+			podcastIncState: true,
+			podcastIncEpisodes: true,
+			episodeIncState: true,
+			episodeIncTag: true,
+			episodeIncMedia: true
+		})
 			.then(podcast => {
 				const index = this.podcasts.findIndex(p => p.id === id);
 				if (index < 0) {

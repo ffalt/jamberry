@@ -1,12 +1,13 @@
 import {Component} from '@angular/core';
 import {AppService, NavigService, NotifyService} from '@core/services';
-import {JamService} from '@jam';
-import {GpodderResult, PodcastService} from '@shared/services';
+import {Jam, JamService} from '@jam';
+import {PodcastService} from '@shared/services';
+import PodcastDiscover = Jam.PodcastDiscover;
 
 export interface PodcastSearchResult {
 	url: URL;
 	displayURL: string;
-	result: GpodderResult;
+	result: PodcastDiscover;
 }
 
 export interface PodcastSearch {
@@ -54,18 +55,20 @@ export class PodcastSearchPageComponent {
 		this.podcasts = undefined;
 		if (query && query.length > 0) {
 			this.isSearching = true;
-			this.podcastService.searchPodcast(query, data => {
-				if (this.searchValue === query) {
-					this.buildSearchResults(data);
-					this.isSearching = false;
-				}
-			}, _ => {
+			this.jam.podcast.discover({query})
+				.then(data => {
+					if (this.searchValue === query) {
+						this.buildSearchResults(data);
+						this.isSearching = false;
+					}
+				}).catch(e => {
 				this.isSearching = false;
+				this.notify.error(e);
 			});
 		}
 	}
 
-	private buildSearchResults(data: Array<GpodderResult>): void {
+	private buildSearchResults(data: Array<PodcastDiscover>): void {
 		const collect: {
 			[name: string]: PodcastSearch;
 		} = {};
@@ -78,7 +81,7 @@ export class PodcastSearchPageComponent {
 			if (!podcast) {
 				podcast = {
 					name: result.title,
-					logoUrl: result.logo_url,
+					logoUrl: result.scaled_logo_url,
 					description: result.description,
 					pods: []
 				};
@@ -88,7 +91,7 @@ export class PodcastSearchPageComponent {
 				podcast.description = result.description;
 			}
 			if (!podcast.logoUrl || podcast.logoUrl.length === 0) {
-				podcast.logoUrl = result.logo_url;
+				podcast.logoUrl = result.scaled_logo_url;
 			}
 			if (!podcast.pods.find(p => p.url.toString() === url.toString())) {
 				podcast.pods.push({result, url, displayURL: url.toString()});

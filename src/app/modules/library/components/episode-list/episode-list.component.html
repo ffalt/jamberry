@@ -15,7 +15,7 @@
 			<app-episode-state-button [episode]="episode"></app-episode-state-button>
 		</div>
 		<div class="date">{{episode.date | date}}</div>
-		<div class="title"><a class="title-link" (click)="navig.toPodcastEpisode(episode)">{{episode.name}}</a><a *ngIf="showPodcast" title="Podcast" (click)="navig.toPodcastID(episode.podcastID,episode.podcastName)">{{episode.podcast}}</a></div>
+		<div class="title"><a class="title-link" (click)="navig.toPodcastEpisode(episode)">{{episode.name}}</a><a *ngIf="showPodcast" title="Podcast" (click)="navig.toPodcastID(episode.podcastID,episode.podcastName)">{{episode.podcastName}}</a></div>
 		<div class="length"><i class="icon-stopwatch small-screen-icon" *ngIf="episode.duration>0"></i> {{episode.duration|duration}}</div>
 	</div>
 </div>

@@ -1342,6 +1342,16 @@ export declare namespace JamParameters {
 		url: string;
 	}
 
+	export interface PodcastDiscoverArgs {
+		/** search podcast by name */
+		query: string;
+	}
+
+	export interface PodcastDiscoverByTagArgs {
+		/** search podcast by tag */
+		tag: string;
+	}
+
 	export interface PodcastFilterArgs {
 		/** filter by Search Query */
 		query?: string;
@@ -1795,7 +1805,7 @@ export declare namespace JamParameters {
 
 	export type AlbumIdArgs = IncludesArtistArgs & IncludesTrackArgs & IncludesAlbumChildrenArgs & IncludesAlbumArgs & ID;
 
-	export type AlbumSearchArgs = ListArgs & AlbumOrderArgs & AlbumFilterArgs & IncludesArtistArgs & IncludesTrackArgs & IncludesAlbumChildrenArgs & IncludesAlbumArgs & PageArgs;
+	export type AlbumSearchArgs = PageArgs & IncludesAlbumArgs & IncludesAlbumChildrenArgs & IncludesTrackArgs & IncludesArtistArgs & AlbumFilterArgs & AlbumOrderArgs & ListArgs;
 
 	export type AlbumTracksArgs = TrackOrderArgs & AlbumFilterArgs & IncludesTrackArgs & PageArgs;
 
@@ -1803,7 +1813,7 @@ export declare namespace JamParameters {
 
 	export type ArtistIdArgs = IncludesSeriesArgs & IncludesAlbumArgs & IncludesTrackArgs & IncludesArtistChildrenArgs & IncludesArtistArgs & ID;
 
-	export type ArtistSearchArgs = ListArgs & ArtistOrderArgs & ArtistFilterArgs & IncludesSeriesArgs & IncludesAlbumArgs & IncludesTrackArgs & IncludesArtistChildrenArgs & IncludesArtistArgs & PageArgs;
+	export type ArtistSearchArgs = PageArgs & IncludesArtistArgs & IncludesArtistChildrenArgs & IncludesTrackArgs & IncludesAlbumArgs & IncludesSeriesArgs & ArtistFilterArgs & ArtistOrderArgs & ListArgs;
 
 	export type ArtistSimilarArgs = IncludesArtistArgs & PageArgs & ID;
 
@@ -1825,7 +1835,7 @@ export declare namespace JamParameters {
 
 	export type EpisodeIdArgs = IncludesPodcastArgs & IncludesEpisodeParentArgs & IncludesEpisodeArgs & ID;
 
-	export type EpisodeSearchArgs = ListArgs & EpisodeOrderArgs & EpisodeFilterArgs & IncludesPodcastArgs & IncludesEpisodeParentArgs & IncludesEpisodeArgs & PageArgs;
+	export type EpisodeSearchArgs = PageArgs & IncludesEpisodeArgs & IncludesEpisodeParentArgs & IncludesPodcastArgs & EpisodeFilterArgs & EpisodeOrderArgs & ListArgs;
 
 	export type FolderIdArgs = IncludesArtworkArgs & IncludesTrackArgs & IncludesFolderChildrenArgs & IncludesFolderArgs & ID;
 
@@ -1843,11 +1853,13 @@ export declare namespace JamParameters {
 
 	export type FolderHealthArgs = IncludesFolderArgs & FolderFilterArgs;
 
-	export type PodcastIdArgs = IncludesEpisodeArgs & IncludesPodcastChildrenArgs & IncludesPodcastArgs & ID;
+	export type PodcastIdArgs = ID & IncludesPodcastArgs & IncludesPodcastChildrenArgs & IncludesEpisodeArgs;
 
-	export type PodcastSearchArgs = ListArgs & PodcastOrderArgs & PodcastFilterArgs & IncludesEpisodeArgs & IncludesPodcastChildrenArgs & IncludesPodcastArgs & PageArgs;
+	export type PodcastSearchArgs = PageArgs & IncludesPodcastArgs & IncludesPodcastChildrenArgs & IncludesEpisodeArgs & PodcastFilterArgs & PodcastOrderArgs & ListArgs;
 
 	export type PodcastEpisodesArgs = EpisodeOrderArgs & PodcastFilterArgs & IncludesEpisodeArgs & PageArgs;
+
+	export type PodcastPodcastsDiscoverByTagArgs = PageArgs & PodcastDiscoverByTagArgs;
 
 	export type RadioIdArgs = IncludesRadioArgs & ID;
 
