@@ -55,7 +55,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 	onPanStart(event: Event): void {
 		this.currentSwipeElement = undefined;
 		let element: HTMLElement | null = (event as unknown as HammerInput).target;
-		if (!element.classList.contains('track')) {
+		if (element && !element.classList.contains('track')) {
 			element = element.parentElement;
 		}
 		if (element && element.classList.contains('track')) {

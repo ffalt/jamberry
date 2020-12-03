@@ -30,5 +30,6 @@ export const routes: Routes = [
 ];
 
 export const routing: ModuleWithProviders<RouterModule> = RouterModule.forRoot(routes, {
-	scrollPositionRestoration: 'enabled'
+    scrollPositionRestoration: 'enabled',
+    relativeLinkResolution: 'legacy'
 });

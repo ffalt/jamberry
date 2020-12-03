@@ -4,6 +4,7 @@
 		"outDir": "./dist/spec",
 		"types": [
 			"jest",
+			"hammerjs",
 			"node"
 		],
 		"module": "commonjs"
