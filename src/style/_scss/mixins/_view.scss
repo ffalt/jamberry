@@ -193,6 +193,9 @@
 		.info .header-infos .more {
 			visibility: inherit;
 		}
+		.navigation {
+			margin: -1px;
+		}
 	}
 
 	@media (max-width: $break-phone) {
