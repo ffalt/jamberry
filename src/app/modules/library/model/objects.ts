@@ -26,7 +26,7 @@ export abstract class JamLibraryObject extends JamObject {
 
 	abstract addToQueue(): void;
 
-	abstract async loadChildren(): Promise<void>;
+	abstract loadChildren(): Promise<void>;
 
 	abstract groupType(): string;
 
