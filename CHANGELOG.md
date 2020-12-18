@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5](https://github.com/ffalt/jamberry/compare/v0.4.4...v0.4.5) (2020-12-18)
+
+
+### Features
+
+* **meta:** use proxy coverartarchive request to avoid csp violations ([f3a5470](https://github.com/ffalt/jamberry/commit/f3a54708323cd2ac23f314c983c046587e4f91f6))
+
 ### [0.4.4](https://github.com/ffalt/jamberry/compare/v0.4.3...v0.4.4) (2020-09-24)
 
 
