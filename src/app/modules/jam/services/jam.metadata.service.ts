@@ -63,6 +63,20 @@ export class JamMetaDataService {
 	}
 
 	/**
+	 * Get CoverArtArchive image // Rights needed: stream
+	 */
+	coverartarchiveImageUrl(params: JamParameters.CoverArtArchiveImageArgs): string {
+		return this.base.buildRequestUrl('/metadata/coverartarchive/image', params);
+	}
+
+	/**
+	 * Get CoverArtArchive image // Rights needed: stream
+	 */
+	async coverartarchiveImageBinary(params: JamParameters.CoverArtArchiveImageArgs): Promise<ArrayBuffer> {
+		return this.base.binary('/metadata/coverartarchive/image', params);
+	}
+
+	/**
 	 * Search Wikipedia Summary data // Rights needed: stream
 	 */
 	async wikipediaSummarySearch(params: JamParameters.WikipediaSummaryArgs): Promise<Jam.MetaDataResult> {

@@ -223,10 +223,10 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	loadReleaseGroupAndRelease(musicBrainzReleaseID: string, musicBrainzReleaseGroupID: string): void {
 		this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.releaseGroup, mbID: musicBrainzReleaseGroupID})
 			.then(res => {
-				let nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res.data);
+				let nodes = this.coverArtResponseToNodes(res.data);
 				this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.release, mbID: musicBrainzReleaseID})
 					.then(res2 => {
-						nodes = nodes.concat(FolderArtworkSearchImageComponent.coverArtResponseToNodes(res2.data));
+						nodes = nodes.concat(this.coverArtResponseToNodes(res2.data));
 						this.display(nodes);
 					})
 					.catch(e => {
@@ -241,7 +241,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	loadReleaseGroup(musicBrainzReleaseGroupID: string): void {
 		this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.releaseGroup, mbID: musicBrainzReleaseGroupID})
 			.then(res => {
-				const nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res.data);
+				const nodes = this.coverArtResponseToNodes(res.data);
 				this.display(nodes);
 			})
 			.catch(e => {
@@ -253,7 +253,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		if (musicBrainzReleaseID) {
 			this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.release, mbID: musicBrainzReleaseID})
 				.then(res => {
-					const nodes = FolderArtworkSearchImageComponent.coverArtResponseToNodes(res.data);
+					const nodes = this.coverArtResponseToNodes(res.data);
 					this.display(nodes);
 					if (nodes.length === 0 &&
 						this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.mbReleaseGroupID) {
@@ -267,21 +267,15 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		}
 	}
 
-	private static coverArtResponseToNodes(result: CoverArtArchive.Response): Array<ArtworkNode> {
+	private coverArtResponseToNodes(result: CoverArtArchive.Response): Array<ArtworkNode> {
 		if (result.images) {
 			return result.images.map(image => {
 				if (image.types.length === 0) {
 					image.types.push('Other');
 				}
-				if (image.image) {
-					image.image = image.image.replace('http:', 'https:');
-				}
-				if (image.thumbnails && image.thumbnails.small) {
-					image.thumbnails.small = image.thumbnails.small.replace('http:', 'https:');
-				}
 				return {
 					name: (image.types || []).join('/').toLowerCase(),
-					thumbnail: image.thumbnails.small,
+					thumbnail: this.jam.metadata.coverartarchiveImageUrl({url: image.thumbnails.small}),
 					licence: '',
 					image: image.image,
 					types: (image.types || []).map(s => s.toLowerCase() as ArtworkImageType),

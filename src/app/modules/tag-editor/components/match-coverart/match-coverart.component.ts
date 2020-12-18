@@ -30,7 +30,7 @@ export class MatchCoverartComponent implements OnChanges {
 	images?: Array<MatchImageNode>;
 	coverArtArchive?: Array<MatchImageNode>;
 
-	constructor(private app: AppService, private jam: JamService, private notify: NotifyService, private client: HttpClient) {
+	constructor(private app: AppService, private jam: JamService, private notify: NotifyService) {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -132,30 +132,21 @@ export class MatchCoverartComponent implements OnChanges {
 		}
 		const imageUrl = image.image.thumbnails['500'] || image.image.thumbnails.small;
 		image.requested = true;
-		return new Promise<void>(resolve => {
-			this.client.get(imageUrl, {observe: 'response', responseType: 'arraybuffer' as const})
-				.pipe(take(1)).subscribe(resp => {
-					image.requested = false;
-					if (!resp.body) {
-						this.notify.error({error: 'Invalid result from https://coverartarchive.org'});
-					} else {
-						image.base64 = {
-							mimeType: resp.headers.get('Content-Type') || 'image',
-							base64: base64ArrayBuffer(resp.body)
-						};
-					}
-					resolve();
-				},
-				err => {
-					image.requested = false;
-					if (err.status === 0) {
-						this.notify.error({error: 'Server https://coverartarchive.org cannot be reached'});
-						return;
-					}
-					this.notify.error(err);
-					resolve();
-				});
-		});
+		let bin: ArrayBuffer | undefined;
+		try {
+			bin = await this.jam.metadata.coverartarchiveImageBinary({url: imageUrl});
+		} catch (e) {
+			//
+		}
+		image.requested = false;
+		if (!bin) {
+			this.notify.error({error: 'Invalid result from https://coverartarchive.org'});
+		} else {
+			image.base64 = {
+				mimeType: 'image',
+				base64: base64ArrayBuffer(bin)
+			};
+		}
 	}
 
 }
