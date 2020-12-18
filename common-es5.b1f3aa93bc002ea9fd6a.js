@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{JffP:function(n,o,t){"use strict";function r(){return Math.floor(9999999*Math.random()).toString()}t.d(o,"a",(function(){return r}))}}]);
