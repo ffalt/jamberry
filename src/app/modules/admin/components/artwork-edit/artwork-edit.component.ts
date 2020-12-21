@@ -44,7 +44,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 		if (this.data) {
 			this.jam.image.imageBinary({id: this.data.artwork.id})
 				.then(data => {
-					this.imageBase64 = `data:${(data.mimeType || 'image/jpeg')};base64,${base64ArrayBuffer(data.buffer)}`;
+					this.imageBase64 = `data:${(data.contentType || 'image/jpeg')};base64,${base64ArrayBuffer(data.buffer)}`;
 				}).catch(e => {
 				this.notify.error(e);
 			});

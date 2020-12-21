@@ -130,11 +130,9 @@ export class MatchCoverartComponent implements OnChanges {
 		}
 		const imageUrl = image.image.thumbnails['500'] || image.image.thumbnails.small;
 		image.requested = true;
-		let bin: { buffer: ArrayBuffer; mimeType: string } | undefined;
+		let bin: { buffer: ArrayBuffer; contentType: string } | undefined;
 		try {
-			bin = await this.jam.metadata.coverartarchiveImageBinary({
-				url: imageUrl
-			});
+			bin = await this.jam.metadata.coverartarchiveImageBinary({url: imageUrl});
 		} catch (e) {
 			console.error(e);
 		}
@@ -142,10 +140,7 @@ export class MatchCoverartComponent implements OnChanges {
 		if (!bin) {
 			this.notify.error({error: 'Invalid result from https://coverartarchive.org'});
 		} else {
-			image.base64 = {
-				mimeType: bin.mimeType,
-				base64: base64ArrayBuffer(bin.buffer)
-			};
+			image.base64 = {mimeType: bin.contentType, base64: base64ArrayBuffer(bin.buffer)};
 		}
 	}
 

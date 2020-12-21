@@ -27,14 +27,14 @@ export class JamHttpService {
 	constructor(public client: HttpClient) {
 	}
 
-	async raw(url: string, options: HTTPOptions): Promise<{ buffer: ArrayBuffer; mimeType: string }> {
+	async raw(url: string, options: HTTPOptions): Promise<{ buffer: ArrayBuffer; contentType: string }> {
 		try {
-			return new Promise<{ buffer: ArrayBuffer; mimeType: string }>((resolve, reject) => {
+			return new Promise<{ buffer: ArrayBuffer; contentType: string }>((resolve, reject) => {
 				this.client.get<ArrayBuffer>(url, {
 					headers: options.headers,
 					params: options.params,
 					reportProgress: options.reportProgress,
-					responseType: 'arraybuffer' as 'json', // TODO: why is angular not detecting overload type for {responseType: 'arraybuffer', observe: 'response'}
+					responseType: 'arraybuffer' as 'json', // angular not detecting overload type for {responseType: 'arraybuffer', observe: 'response'}
 					withCredentials: options.withCredentials,
 					observe: 'response'
 				})
@@ -42,7 +42,7 @@ export class JamHttpService {
 						if (!res || !res.body) {
 							return reject(new Error('Invalid Binary Server Response'));
 						}
-						resolve({buffer: res.body as ArrayBuffer, mimeType: res.headers.get('content-type') || 'invalid'});
+						resolve({buffer: res.body as ArrayBuffer, contentType: res.headers.get('content-type') || 'invalid'});
 					});
 			});
 		} catch (e) {

@@ -72,7 +72,7 @@ export class JamMetaDataService {
 	/**
 	 * Get CoverArtArchive image // Rights needed: stream
 	 */
-	async coverartarchiveImageBinary(params: JamParameters.CoverArtArchiveImageArgs): Promise<{ buffer: ArrayBuffer; mimeType: string }> {
+	async coverartarchiveImageBinary(params: JamParameters.CoverArtArchiveImageArgs): Promise<{ buffer: ArrayBuffer; contentType: string }> {
 		return this.base.binary('/metadata/coverartarchive/image', params);
 	}
 
