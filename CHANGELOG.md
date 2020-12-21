@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.6](https://github.com/ffalt/jamberry/compare/v0.4.5...v0.4.6) (2020-12-21)
+
+
+### Bug Fixes
+
+* **api:** if downloading binary via js, include content-type into return result ([ccb1f52](https://github.com/ffalt/jamberry/commit/ccb1f520083ba17727a035316a92a7d7932f7879))
+* **api:** if downloading binary via js, include content-type into return result ([da77a21](https://github.com/ffalt/jamberry/commit/da77a21c22e80ed353b8a3bacf1451e011415afa))
+
 ### [0.4.5](https://github.com/ffalt/jamberry/compare/v0.4.4...v0.4.5) (2020-12-18)
 
 
