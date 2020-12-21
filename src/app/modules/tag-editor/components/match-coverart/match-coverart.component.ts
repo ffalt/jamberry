@@ -1,9 +1,7 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AppService, NotifyService} from '@core/services';
 import {CoverArtArchive, CoverArtArchiveLookupType, JamService} from '@jam';
-import {take} from 'rxjs/operators';
 import {Base64Image} from '../image-base64/image-base64.component';
 
 export interface MatchImageSearch {
@@ -132,19 +130,21 @@ export class MatchCoverartComponent implements OnChanges {
 		}
 		const imageUrl = image.image.thumbnails['500'] || image.image.thumbnails.small;
 		image.requested = true;
-		let bin: ArrayBuffer | undefined;
+		let bin: { buffer: ArrayBuffer; mimeType: string } | undefined;
 		try {
-			bin = await this.jam.metadata.coverartarchiveImageBinary({url: imageUrl});
+			bin = await this.jam.metadata.coverartarchiveImageBinary({
+				url: imageUrl
+			});
 		} catch (e) {
-			//
+			console.error(e);
 		}
 		image.requested = false;
 		if (!bin) {
 			this.notify.error({error: 'Invalid result from https://coverartarchive.org'});
 		} else {
 			image.base64 = {
-				mimeType: 'image',
-				base64: base64ArrayBuffer(bin)
+				mimeType: bin.mimeType,
+				base64: base64ArrayBuffer(bin.buffer)
 			};
 		}
 	}
