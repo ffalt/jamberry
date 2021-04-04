@@ -137,7 +137,9 @@ export class PlayerService implements OnDestroy {
 			return;
 		}
 		if (this.repeatTrack) {
-			this.play(this.currentMedia);
+			const media = this.currentMedia;
+			this.currentMedia = undefined;
+			this.play(media);
 			return;
 		}
 		const entry = this.queue.next();
