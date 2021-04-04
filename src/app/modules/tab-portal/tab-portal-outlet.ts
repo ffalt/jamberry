@@ -12,22 +12,22 @@ export class TabPortalOutlet {
 	 */
 	get activeComponents(): Array<TabComponent> {
 		return Object
-			.keys(this._activeTabs)
-			.map((name: string) => this._activeTabs[name].componentRef.instance);
+			.keys(this.activeTabs)
+			.map((name: string) => this.activeTabs[name].componentRef.instance);
 	}
 
 	get currentTab(): Readonly<ActiveTabInterface | undefined> {
-		return this._currentTab;
+		return this.curTab;
 	}
 
 	get currentTabName(): Readonly<string | undefined> {
-		return this._currentTab ? this._currentTab.tab.name : undefined;
+		return this.curTab ? this.curTab.tab.name : undefined;
 	}
 
 	// Active tabs that have been instantiated
-	private _activeTabs: { [name: string]: ActiveTabInterface } = {};
+	private activeTabs: { [name: string]: ActiveTabInterface } = {};
 	// The current tab
-	private _currentTab: ActiveTabInterface | undefined;
+	private curTab: ActiveTabInterface | undefined;
 
 	constructor(
 		public availableTabs: Array<TabInterface>,
@@ -45,7 +45,7 @@ export class TabPortalOutlet {
 	}
 
 	switchToTab(tab: TabInterface): void {
-		if (this._currentTab && this._currentTab.tab.name === tab.name) {
+		if (this.curTab && this.curTab.tab.name === tab.name) {
 			return;
 		}
 		this.availableTabs.forEach(t => t.active = false);
@@ -57,16 +57,15 @@ export class TabPortalOutlet {
 		// At this point the component has been instantiated, so we move it to the location in the DOM where we want it to be rendered.
 		this.outletElement.innerHTML = '';
 		this.outletElement.appendChild(TabPortalOutlet.getComponentRootNode(instance.componentRef));
-		this._currentTab = instance;
+		this.curTab = instance;
 		instance.componentRef.instance.onActivate();
 	}
 
 	detach(): void {
-		const current = this._currentTab;
+		const current = this.curTab;
 		if (current !== undefined) {
-			// tslint:disable-next-line:no-null-keyword
 			current.portal.setAttachedHost(null);
-			this._currentTab = undefined;
+			this.curTab = undefined;
 		}
 	}
 
@@ -75,8 +74,8 @@ export class TabPortalOutlet {
 	 */
 	dispose(): void {
 		// Dispose all active tabs
-		for (const name of Object.keys(this._activeTabs)) {
-			this._activeTabs[name].dispose();
+		for (const name of Object.keys(this.activeTabs)) {
+			this.activeTabs[name].dispose();
 		}
 		// Remove outlet element
 		if (this.outletElement?.parentNode) {
@@ -90,10 +89,10 @@ export class TabPortalOutlet {
 	}
 
 	private activateInstance(tab: TabInterface): ActiveTabInterface {
-		if (!this._activeTabs[tab.name]) {
-			this._activeTabs[tab.name] = this.createComponent(tab);
+		if (!this.activeTabs[tab.name]) {
+			this.activeTabs[tab.name] = this.createComponent(tab);
 		}
-		return this._activeTabs[tab.name] || undefined;
+		return this.activeTabs[tab.name] || undefined;
 	}
 
 	private createComponent(tab: TabInterface): ActiveTabInterface {

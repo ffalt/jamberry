@@ -9,27 +9,27 @@ export const routes: Routes = [
 	{
 		path: 'library',
 		canActivate: [AuthCanActivateGuard],
-		loadChildren: (): Promise<any> => import('./modules/library/library.module').then(m => m.LibraryModule)
+		loadChildren: async (): Promise<any> => import('./modules/library/library.module').then(m => m.LibraryModule)
 	},
 	{
 		path: 'admin',
 		canActivate: [AuthCanActivateGuard],
-		loadChildren: (): Promise<any> => import('./modules/admin/admin.module').then(m => m.AdminModule)
+		loadChildren: async (): Promise<any> => import('./modules/admin/admin.module').then(m => m.AdminModule)
 	},
 	{
 		path: 'user',
 		canActivate: [AuthCanActivateGuard],
-		loadChildren: (): Promise<any> => import('./modules/user/user.module').then(m => m.UserModule)
+		loadChildren: async (): Promise<any> => import('./modules/user/user.module').then(m => m.UserModule)
 	},
 	{
 		path: 'about',
 		canActivate: [AuthCanActivateGuard],
-		loadChildren: (): Promise<any> => import('./modules/about/about-page.module').then(m => m.AboutPageModule)
+		loadChildren: async (): Promise<any> => import('./modules/about/about-page.module').then(m => m.AboutPageModule)
 	},
 	{path: '**', redirectTo: 'library'}
 ];
 
 export const routing: ModuleWithProviders<RouterModule> = RouterModule.forRoot(routes, {
-    scrollPositionRestoration: 'enabled',
-    relativeLinkResolution: 'legacy'
+	scrollPositionRestoration: 'enabled',
+	relativeLinkResolution: 'legacy'
 });

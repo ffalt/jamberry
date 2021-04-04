@@ -1,5 +1,5 @@
 export function padTime(val: number): string {
-	return (val <= 9) ? '0' + val.toString() : val.toString();
+	return (val <= 9) ? `0${val.toString()}` : val.toString();
 }
 
 export function splitTime(value: number): { days: number; hours: number; minutes: number; seconds: number } {
@@ -27,17 +27,17 @@ export function formatDuration(val: number): string {
 	const time = splitTime(val / 1000);
 	const duration: Array<string> = [];
 	if (time.days > 0) {
-		duration.push(time.days.toString() + 'd ');
+		duration.push(`${time.days.toString()  }d `);
 	}
 	if (time.hours > 0) {
 		if (duration.length > 0) {
-			duration.push(padTime(time.hours) + ':');
+			duration.push(`${padTime(time.hours)  }:`);
 		} else {
-			duration.push(time.hours.toString() + ':');
+			duration.push(`${time.hours.toString()  }:`);
 		}
 	}
 	duration.push(padTime(time.minutes));
-	duration.push(':' + padTime(time.seconds));
+	duration.push(`:${  padTime(time.seconds)}`);
 	return duration.join('');
 }
 
@@ -45,7 +45,7 @@ export function formatBitrate(value?: number | string | undefined): string {
 	if (value === undefined || value === null) {
 		return '';
 	}
-	return Number(value).toString() + ' Kbps';
+	return `${Number(value).toString()  } Kbps`;
 }
 
 export function formatFileSize(value?: number | string | undefined): string {

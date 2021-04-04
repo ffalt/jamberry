@@ -26,7 +26,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	editing: boolean = false; // Is Component in edit mode?
 	list: Array<string> = [];
 
-	private _value?: string = ''; // Private variable for input value
+	private autoCompleteValue?: string = ''; // Private variable for input value
 	private onChange: any = Function.prototype; // Trascend the onChange event
 	private onTouched: any = Function.prototype; // Trascend the onTouch event
 
@@ -42,7 +42,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 
 	// Required for ControlValueAccessor interface
 	writeValue(value: any): void {
-		this._value = value;
+		this.autoCompleteValue = value;
 	}
 
 	// Required forControlValueAccessor interface
@@ -57,7 +57,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 
 	// Do stuff when the input element loses focus
 	onBlur(): void {
-		if (this._value !== this.value) {
+		if (this.autoCompleteValue !== this.value) {
 			this.valueChange.emit(this.value);
 		}
 		this.editing = false;
@@ -73,7 +73,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	editValue(): void {
 		this.list = [];
 		this.editing = true;
-		this._value = this.value;
+		this.autoCompleteValue = this.value;
 		if (this.getList) {
 			this.list = this.getList(this.data);
 		}
@@ -96,7 +96,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	}
 
 	autocompleteSelectResult(result: AutocompleteOption): string {
-		this._value = result.data;
+		this.autoCompleteValue = result.data;
 		this.value = result.data;
 		return this.value || '';
 	}

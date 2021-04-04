@@ -66,7 +66,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 	onPanMove(event: Event): void {
 		if (this.currentSwipeElement) {
 			const deltaX = (event as unknown as HammerInput).deltaX;
-			this.currentSwipeElement.style.marginLeft = Math.min(Math.max(0, deltaX), 200).toString() + 'px';
+			this.currentSwipeElement.style.marginLeft = `${Math.min(Math.max(0, deltaX), 200).toString()}px`;
 		}
 	}
 

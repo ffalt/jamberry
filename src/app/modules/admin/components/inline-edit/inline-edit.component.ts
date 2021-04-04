@@ -11,7 +11,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 		multi: true
 	}],
 	styleUrls: ['./inline-edit.component.scss'],
-	// tslint:disable-next-line:use-component-view-encapsulation
+	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None
 })
 export class InlineEditComponent implements ControlValueAccessor {
@@ -22,26 +22,26 @@ export class InlineEditComponent implements ControlValueAccessor {
 	@Input() disabled: boolean = false; // Is input disabled?
 	@Output() readonly endEditRequest = new EventEmitter();
 	editing: boolean = false; // Is Component in edit mode?
-	private _value: string = ''; // Private variable for input value
+	private editValue: string = ''; // Private variable for input value
 	private preValue: string = ''; // The value before clicking to edit
 	private onChange: any = Function.prototype; // Trascend the onChange event
 	private onTouched: any = Function.prototype; // Trascend the onTouch event
 
 	// Control Value Accessors for ngModel
 	get value(): any {
-		return this._value;
+		return this.editValue;
 	}
 
 	set value(v: any) {
-		if (v !== this._value) {
-			this._value = v;
+		if (v !== this.editValue) {
+			this.editValue = v;
 			this.onChange(v);
 		}
 	}
 
 	// Required for ControlValueAccessor interface
 	writeValue(value: any): void {
-		this._value = value;
+		this.editValue = value;
 	}
 
 	// Required forControlValueAccessor interface

@@ -12,77 +12,77 @@ export class ToastRef<T> {
 	private duplicatesCount = 0;
 
 	/** Subject for notifying the user that the toast has finished closing. */
-	private _afterClosed = new Subject<any>();
+	private afterClosedSubj = new Subject<any>();
 	/** triggered when toast is activated */
-	private _activate = new Subject<any>();
+	private activateSubj = new Subject<any>();
 	/** notifies the toast that it should close before the timeout */
-	private _manualClose = new Subject<any>();
+	private manualCloseSubj = new Subject<any>();
 	/** notifies the toast that it should reset the timeouts */
-	private _resetTimeout = new Subject<any>();
+	private resetTimeoutSubj = new Subject<any>();
 	/** notifies the toast that it should count a duplicate toast */
-	private _countDuplicate = new Subject<number>();
+	private countDuplicateSubj = new Subject<number>();
 
-	constructor(private _overlayRef: OverlayRef) {
+	constructor(private overlayRef: OverlayRef) {
 	}
 
 	manualClose(): void {
-		this._manualClose.next();
-		this._manualClose.complete();
+		this.manualCloseSubj.next();
+		this.manualCloseSubj.complete();
 	}
 
 	manualClosed(): Observable<any> {
-		return this._manualClose.asObservable();
+		return this.manualCloseSubj.asObservable();
 	}
 
 	timeoutReset(): Observable<any> {
-		return this._resetTimeout.asObservable();
+		return this.resetTimeoutSubj.asObservable();
 	}
 
 	countDuplicate(): Observable<number> {
-		return this._countDuplicate.asObservable();
+		return this.countDuplicateSubj.asObservable();
 	}
 
 	/**
 	 * Close the toast.
 	 */
 	close(): void {
-		this._overlayRef.detach();
-		this._afterClosed.next();
-		this._manualClose.next();
-		this._afterClosed.complete();
-		this._manualClose.complete();
-		this._activate.complete();
-		this._resetTimeout.complete();
-		this._countDuplicate.complete();
+		this.overlayRef.detach();
+		this.afterClosedSubj.next();
+		this.manualCloseSubj.next();
+		this.afterClosedSubj.complete();
+		this.manualCloseSubj.complete();
+		this.activateSubj.complete();
+		this.resetTimeoutSubj.complete();
+		this.countDuplicateSubj.complete();
 	}
 
 	/** Gets an observable that is notified when the toast is finished closing. */
 	afterClosed(): Observable<any> {
-		return this._afterClosed.asObservable();
+		return this.afterClosedSubj.asObservable();
 	}
 
 	isInactive(): boolean {
-		return this._activate.isStopped;
+		return this.activateSubj.isStopped;
 	}
 
 	activate(): void {
-		this._activate.next();
-		this._activate.complete();
+		this.activateSubj.next();
+		this.activateSubj.complete();
 	}
 
 	/** Gets an observable that is notified when the toast has started opening. */
 	afterActivate(): Observable<any> {
-		return this._activate.asObservable();
+		return this.activateSubj.asObservable();
 	}
 
 	/** Reset the toast timouts and count duplicates */
 	onDuplicate(resetTimeout: boolean, countDuplicate: boolean): void {
 		if (resetTimeout) {
-			this._resetTimeout.next();
+			this.resetTimeoutSubj.next();
 		}
 		if (countDuplicate) {
 			this.duplicatesCount++;
-			this._countDuplicate.next(this.duplicatesCount);
+			this.countDuplicateSubj.next(this.duplicatesCount);
 		}
 	}
 }

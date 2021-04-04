@@ -91,7 +91,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 					return Promise.reject(e);
 				}
 			},
-			onCancelBtn: () => Promise.resolve()
+			onCancelBtn: async () => Promise.resolve()
 		});
 	}
 

@@ -1,5 +1,5 @@
 import 'hammerjs';
-import 'jest-preset-angular';
+import 'jest-preset-angular/setup-jest';
 import 'soundmanager2/script/soundmanager2-nodebug-jsmin';
 
 // global mocks for jsdom

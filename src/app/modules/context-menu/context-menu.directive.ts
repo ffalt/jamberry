@@ -3,7 +3,7 @@ import {ContextMenuComponent} from './context-menu.component';
 import {ContextMenuService} from './context-menu.service';
 
 @Directive({
-	// tslint:disable-next-line:directive-selector
+	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: '[contextMenu]'
 })
 export class ContextMenuDirective {

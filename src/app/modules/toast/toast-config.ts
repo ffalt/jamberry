@@ -132,8 +132,8 @@ export interface GlobalConfig extends IndividualConfig {
  * Everything a toast needs to launch
  */
 export class ToastPackage {
-	private _onTap = new Subject<any>();
-	private _onAction = new Subject<any>();
+	private onTapSubj = new Subject<any>();
+	private onActionSubj = new Subject<any>();
 
 	constructor(
 		public toastId: number,
@@ -147,34 +147,34 @@ export class ToastPackage {
 		// TODO: no unsubscription, memleak ?
 		this.toastRef.afterClosed()
 			.subscribe(() => {
-			this._onAction.complete();
-			this._onTap.complete();
+			this.onActionSubj.complete();
+			this.onTapSubj.complete();
 		});
 	}
 
 	/** Fired on click */
 	triggerTap(): void {
-		this._onTap.next();
+		this.onTapSubj.next();
 		if (this.config.tapToDismiss) {
-			this._onTap.complete();
+			this.onTapSubj.complete();
 		}
 	}
 
 	onTap(): Observable<any> {
-		return this._onTap.asObservable();
+		return this.onTapSubj.asObservable();
 	}
 
 	/** available for use in custom toast */
 	triggerAction(action?: any): void {
-		this._onAction.next(action);
+		this.onActionSubj.next(action);
 	}
 
 	onAction(): Observable<any> {
-		return this._onAction.asObservable();
+		return this.onActionSubj.asObservable();
 	}
 }
 
-/* tslint:disable:no-empty-interface */
+/* eslint-disable @typescript-eslint/no-empty-interface */
 /** @deprecated use GlobalConfig */
 export interface GlobalToastrConfig extends GlobalConfig {
 }

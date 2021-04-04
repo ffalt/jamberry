@@ -167,8 +167,9 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			this.createComponent(type);
 			if (this.componentRef) {
 				this.componentRef.instance.cell = this.cell;
+				// eslint-disable-next-line @angular-eslint/no-lifecycle-call
 				if (this.componentRef.instance.ngOnChanges) {
-					// tslint:disable-next-line:no-lifecycle-call
+					// eslint-disable-next-line @angular-eslint/no-lifecycle-call
 					this.componentRef.instance.ngOnChanges({cell: {current: this.cell}});
 				}
 				if (this.componentRef.instance.navigBlur) {
@@ -262,6 +263,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		this.lines = this.cell ? this.cell.frames.map(f => this.frameToString(f)) : [];
 	}
 
+	// eslint-disable-next-line complexity
 	private frameToString(frame: RawTagEditFrame): string {
 		switch (this.cell?.column.def.impl) {
 			case FrameType.Filename:

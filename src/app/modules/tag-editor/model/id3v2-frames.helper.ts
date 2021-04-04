@@ -1,6 +1,6 @@
-/* tslint:disable:object-literal-key-quotes */
+/* eslint-disable quote-props */
 
-/* tslint:disable:max-file-line-count */
+/* eslint-disable max-lines */
 
 export interface FrameDef {
 	title: string;

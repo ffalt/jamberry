@@ -54,9 +54,8 @@ class MusicbrainzSearchQuery {
 	matchings: Array<Matching> = [];
 
 	constructor(public q: JamParameters.MusicBrainzSearchArgs) {
-		this.id = 'musicbrainz-' + JSON.stringify(q);
-		this.name = 'MusicBrainz Search for ' +
-			Object.keys(q).filter(key => key !== 'type').map(key => `${key}: "${(q as any)[key]}"`).join(', ');
+		this.id = `musicbrainz-${JSON.stringify(q)}`;
+		this.name = `MusicBrainz Search for ${Object.keys(q).filter(key => key !== 'type').map(key => `${key}: "${(q as any)[key]}"`).join(', ')}`;
 	}
 }
 
@@ -537,7 +536,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		}
 		release.isLoading = true;
 		try {
-			this.currentAction = 'Loading MusicBrainz Release: ' + release.mbRelease.id;
+			this.currentAction = `Loading MusicBrainz Release: ${release.mbRelease.id}`;
 			const res = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.release, mbID: release.mbRelease.id});
 			if (!res.data?.release) {
 				return Promise.reject(Error('Got empty data'));
@@ -552,7 +551,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	}
 
 	private async addReleaseGroupByReleaseID(releaseID: string): Promise<MatchReleaseGroup> {
-		this.currentAction = 'Loading MusicBrainz Release: ' + releaseID;
+		this.currentAction = `Loading MusicBrainz Release: ${releaseID}`;
 		const res = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.release, mbID: releaseID});
 		if (!res.data.release) {
 			return Promise.reject(Error('Got empty data'));
@@ -563,7 +562,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	private async addReleaseGroupByID(releasegroupID: string): Promise<MatchReleaseGroup> {
 		let rg = this.matchTree.findReleaseGroup(releasegroupID);
 		if (!rg) {
-			this.currentAction = 'Loading MusicBrainz Release Group: ' + releasegroupID;
+			this.currentAction = `Loading MusicBrainz Release Group: ${releasegroupID}`;
 			const data = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.releaseGroup, mbID: releasegroupID});
 			rg = this.matchTree.addReleaseGroup(data.data.releaseGroup);
 		}
@@ -577,7 +576,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		let list: Array<AcoustIDEntry> = [];
 		for (const match of this.matchings) {
 			if (!match.acoustidEntries) {
-				this.currentAction = 'Checking files with AcoustID: ' + match.track.name;
+				this.currentAction = `Checking files with AcoustID: ${match.track.name}`;
 				try {
 					const data = await this.jam.metadata.acoustidLookup({trackID: match.track.id});
 					match.acoustidEntries = acoustidResultToList(data.data, match.track);

@@ -1,4 +1,4 @@
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 import {Jam, LastFM, LyricsOVHResponse, MusicBrainz} from '@jam';
 import {AcoustIDEntry} from './acoustid.helper';
 import {findTrackNr, fuzzyMatch, stripExtension} from './utils';

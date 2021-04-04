@@ -14,7 +14,7 @@ export class LimitPipe implements PipeTransform {
 			return value;
 		}
 		const result = value.slice(0, chars - 1).trim();
-		return result + '…';
+		return `${result}…`;
 	}
 
 }

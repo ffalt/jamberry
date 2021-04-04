@@ -26,7 +26,7 @@ import {CloseLeafMenuEvent, ContextMenuClickEvent} from './context-menu.service'
 import {CONTEXT_MENU_OPTIONS} from './context-menu.tokens';
 
 @Component({
-	// tslint:disable-next-line:component-selector
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'context-menu-content',
 	styleUrls: ['./context-menu.content.component.scss'],
 	templateUrl: './context-menu.content.component.html'

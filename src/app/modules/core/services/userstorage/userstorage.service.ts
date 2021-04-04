@@ -19,14 +19,14 @@ export class UserStorageService {
 		if (!this.userSuffix) {
 			return;
 		}
-		return this.localStorageService.get<T>((this.userSuffix ? this.userSuffix + '.' : '') + key);
+		return this.localStorageService.get<T>((this.userSuffix ? `${this.userSuffix  }.` : '') + key);
 	}
 
 	set<T>(key: string, data: T): void {
 		if (!this.userSuffix) {
 			return;
 		}
-		this.localStorageService.set<T>((this.userSuffix ? this.userSuffix + '.' : '') + key, data);
+		this.localStorageService.set<T>((this.userSuffix ? `${this.userSuffix}.` : '') + key, data);
 	}
 
 	notifyUserChange(user?: Jam.SessionUser): void {

@@ -67,31 +67,31 @@ export class AgoPipe implements PipeTransform {
 			return 'a minute ago';
 		}
 		if (minutes <= 45) {
-			return minutes.toString() + ' minutes ago';
+			return `${minutes.toString()  } minutes ago`;
 		}
 		if (minutes <= 90) {
 			return 'an hour ago';
 		}
 		if (hours <= 22) {
-			return hours.toString() + ' hours ago';
+			return `${hours.toString()  } hours ago`;
 		}
 		if (hours <= 36) {
 			return 'a day ago';
 		}
 		if (days <= 25) {
-			return days.toString() + ' days ago';
+			return `${days.toString()  } days ago`;
 		}
 		if (days <= 45) {
 			return 'a month ago';
 		}
 		if (days <= 345) {
-			return months.toString() + ' months ago';
+			return `${months.toString()  } months ago`;
 		}
 		if (days <= 545) {
 			return 'a year ago';
 		}
 		// (days > 545)
-		return years.toString() + ' years ago';
+		return `${years.toString()  } years ago`;
 	}
 
 	//  ngOnDestroy(): void {

@@ -23,7 +23,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	// tslint:disable-next-line:component-selector
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'body',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']

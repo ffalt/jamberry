@@ -173,8 +173,8 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 		}
 		this.addRenameSolution(folder, suggested);
 		return [
-			'Current: ' + folder.name,
-			'Suggested Name: ' + suggested
+			`Current: ${folder.name}`,
+			`Suggested Name: ${suggested}`
 		];
 
 	}

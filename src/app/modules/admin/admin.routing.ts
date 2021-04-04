@@ -30,7 +30,7 @@ export const routes: Routes = [
 					{path: 'sub-folders', component: AdminFolderFoldersComponent},
 					{path: 'tracks', component: AdminFolderTracksComponent},
 					{path: 'tracks-health', component: AdminTracksHealthComponent},
-					{path: 'tags', loadChildren: (): Promise<any> => import('../tag-editor/tag-editor.module').then(m => m.TagEditorModule)}
+					{path: 'tags', loadChildren: async (): Promise<any> => import('../tag-editor/tag-editor.module').then(m => m.TagEditorModule)}
 				]
 			},
 			{path: 'radar', component: AdminRadarComponent, data: {name: 'Health Radar', icon: 'icon-health'}}

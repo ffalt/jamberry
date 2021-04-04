@@ -133,26 +133,26 @@ export class PlaylistDialogsService {
 	// unify with player.addXYZ functions
 
 	addTrack(track: Jam.Track): void {
-		this.choosePlaylist(() => PlaylistDialogsService.mediasPromise([track]));
+		this.choosePlaylist(async () => PlaylistDialogsService.mediasPromise([track]));
 	}
 
 	addAlbum(album: Jam.Album): void {
-		this.choosePlaylist(() => (this.jam.album.tracks({ids: [album.id], trackIncTag: true, trackIncState: true}))
+		this.choosePlaylist(async () => (this.jam.album.tracks({ids: [album.id], trackIncTag: true, trackIncState: true}))
 			.then(data => data.items));
 	}
 
 	addFolder(folder: Jam.Folder): void {
-		this.choosePlaylist(() => this.jam.folder.tracks({childOfID: folder.id, trackIncTag: true, trackIncState: true})
+		this.choosePlaylist(async () => this.jam.folder.tracks({childOfID: folder.id, trackIncTag: true, trackIncState: true})
 			.then(data => data.items));
 	}
 
 	addArtist(artist: Jam.Artist): void {
-		this.choosePlaylist(() => this.jam.artist.tracks({ids: [artist.id], trackIncTag: true, trackIncState: true})
+		this.choosePlaylist(async () => this.jam.artist.tracks({ids: [artist.id], trackIncTag: true, trackIncState: true})
 			.then(data => data.items));
 	}
 
 	addPlaylist(playlist: Jam.Playlist): void {
-		this.choosePlaylist(() => this.jam.playlist.entries({
+		this.choosePlaylist(async () => this.jam.playlist.entries({
 			ids: [playlist.id],
 			trackIncTag: true,
 			trackIncState: true,
@@ -163,12 +163,12 @@ export class PlaylistDialogsService {
 	}
 
 	addSeries(series: Jam.Series): void {
-		this.choosePlaylist(() => this.jam.series.tracks({ids: [series.id], trackIncTag: true, trackIncState: true})
+		this.choosePlaylist(async () => this.jam.series.tracks({ids: [series.id], trackIncTag: true, trackIncState: true})
 			.then(data => data.items));
 	}
 
 	addPodcast(podcast: Jam.Podcast): void {
-		this.choosePlaylist(() => this.jam.episode.search({
+		this.choosePlaylist(async () => this.jam.episode.search({
 			podcastIDs: [podcast.id],
 			episodeIncTag: true,
 			episodeIncState: true,
@@ -178,7 +178,7 @@ export class PlaylistDialogsService {
 
 	addEpisode(episode: Jam.Episode): void {
 		if (episode.status === PodcastStatus.completed) {
-			this.choosePlaylist(() => PlaylistDialogsService.mediasPromise([episode]));
+			this.choosePlaylist(async () => PlaylistDialogsService.mediasPromise([episode]));
 		}
 	}
 

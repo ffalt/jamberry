@@ -6,8 +6,8 @@ import {DialogOverlayComponent} from './dialog-overlay.component';
 export class DialogOverlayRef {
 	componentInstance?: DialogOverlayComponent;
 
-	private _beforeClose = new Subject<any>();
-	private _afterClosed = new Subject<any>();
+	private beforeCloseSubj = new Subject<any>();
+	private afterClosedSubj = new Subject<any>();
 
 	constructor(private overlayRef: OverlayRef) {
 	}
@@ -17,20 +17,20 @@ export class DialogOverlayRef {
 			return;
 		}
 		const result = this.componentInstance.getResult();
-		this._beforeClose.next(result);
-		this._beforeClose.complete();
+		this.beforeCloseSubj.next(result);
+		this.beforeCloseSubj.complete();
 		this.overlayRef.detachBackdrop();
 		this.overlayRef.dispose();
-		this._afterClosed.next(result);
-		this._afterClosed.complete();
+		this.afterClosedSubj.next(result);
+		this.afterClosedSubj.complete();
 		this.componentInstance = undefined;
 	}
 
 	afterClosed(): Observable<any> {
-		return this._afterClosed.asObservable();
+		return this.afterClosedSubj.asObservable();
 	}
 
 	beforeClose(): Observable<any> {
-		return this._beforeClose.asObservable();
+		return this.beforeCloseSubj.asObservable();
 	}
 }

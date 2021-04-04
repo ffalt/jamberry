@@ -1,4 +1,4 @@
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 import {MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@app/utils/jam-lists';
 import {AlbumType, Jam, ListType} from '@jam';
 import {

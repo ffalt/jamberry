@@ -8,7 +8,7 @@ import {IndividualConfig, ToastPackage} from './toast-config';
 	selector: 'app-toast-component',
 	templateUrl: './toast.component.html',
 	styleUrls: ['./toast.component.scss'],
-	// tslint:disable-next-line:use-component-view-encapsulation
+	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None,
 	animations: [
 		trigger('flyInOut', [

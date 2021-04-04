@@ -9,7 +9,7 @@ export class HotkeysService {
 	pausedHotkeys: Array<Hotkey> = [];
 	mousetrap: Mousetrap.MousetrapInstance;
 
-	private _preventIn = ['INPUT', 'SELECT', 'TEXTAREA'];
+	private preventIn = ['INPUT', 'SELECT', 'TEXTAREA'];
 
 	constructor(@Inject(HotkeysOptions) private options: HotkeyOptions) {
 		Mousetrap.prototype.stopCallback = (event: KeyboardEvent, element: HTMLElement, combo: string, callback: () => void): boolean => {
@@ -44,7 +44,7 @@ export class HotkeysService {
 				// check if the input has a mousetrap class, and skip checking preventIn if so
 				if ((` ${target.className} `).includes(' mousetrap ')) {
 					shouldExecute = true;
-				} else if (this._preventIn.includes(nodeName) && !(hotkey.allowIn || []).map(allow => allow.toUpperCase()).includes(nodeName)) {
+				} else if (this.preventIn.includes(nodeName) && !(hotkey.allowIn || []).map(allow => allow.toUpperCase()).includes(nodeName)) {
 					// don't execute callback if the event was fired from inside an element listed in preventIn but not in allowIn
 					shouldExecute = false;
 				}

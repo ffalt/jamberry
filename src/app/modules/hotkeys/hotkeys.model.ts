@@ -5,18 +5,18 @@ export interface ExtendedKeyboardEvent extends KeyboardEvent {
 export class Hotkey {
 
 	get formatted(): Array<string> {
-		if (!this._formatted) {
+		if (!this.formattedVal) {
 			const combo: string = this.combo[0];
 			const sequence: Array<string> = combo.split(/[\s]/);
 			for (let i = 0; i < sequence.length; i++) {
 				sequence[i] = Hotkey.symbolize(sequence[i]);
 			}
-			this._formatted = sequence;
+			this.formattedVal = sequence;
 		}
-		return this._formatted;
+		return this.formattedVal;
 	}
 
-	_formatted?: Array<string>;
+	formattedVal?: Array<string>;
 
 	/**
 	 * Creates a new Hotkey for Mousetrap binding

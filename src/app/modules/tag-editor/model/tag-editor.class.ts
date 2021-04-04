@@ -673,7 +673,7 @@ export class TagEditor {
 		const col: RawTagEditColumn = {
 			def: {
 				id: frame.id,
-				name: frame.id + (frame.value && frame.value.id ? ' - ' + (frame.value.id as string) : ''),
+				name: frame.id + (frame.value && frame.value.id ? ` - ${frame.value.id as string}` : ''),
 				subid: frame.value && frame.value.id ? frame.value.id : undefined,
 				width: sort >= 0 ? DefaultFrameColumns[sort].width : 100,
 				impl: FrameType.Unknown

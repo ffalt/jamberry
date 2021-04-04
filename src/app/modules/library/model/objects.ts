@@ -1,4 +1,4 @@
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 import {FolderTypesAlbum} from '@app/utils/jam-lists';
 import {AlbumType, FolderType, Jam, JamObjectType} from '@jam';
 import {LibraryService} from '@library/services';

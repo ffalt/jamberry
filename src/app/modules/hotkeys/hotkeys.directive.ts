@@ -4,7 +4,7 @@ import {ExtendedKeyboardEvent, Hotkey} from './hotkeys.model';
 import {HotkeysService} from './hotkeys.service';
 
 @Directive({
-	// tslint:disable-next-line:directive-selector
+	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: '[hotkeys]',
 	providers: [HotkeysService]
 })
@@ -15,18 +15,18 @@ export class HotkeysDirective implements OnInit, OnDestroy {
 	private hotkeysList: Array<Hotkey> = [];
 	private oldHotkeys: Array<Hotkey> = [];
 
-	constructor(private _hotkeysService: HotkeysService, private _elementRef: ElementRef) {
-		this.mousetrap = new Mousetrap(this._elementRef.nativeElement); // Bind hotkeys to the current element (and any children)
+	constructor(private hotkeysService: HotkeysService, private elementRef: ElementRef) {
+		this.mousetrap = new Mousetrap(this.elementRef.nativeElement); // Bind hotkeys to the current element (and any children)
 	}
 
 	ngOnInit(): void {
 		for (const hotkey of this.hotkeys) {
 			const combo = Object.keys(hotkey)[0];
 			const hotkeyObj: Hotkey = new Hotkey(combo, hotkey[combo]);
-			const oldHotkey: Hotkey = this._hotkeysService.get(combo) as Hotkey;
+			const oldHotkey: Hotkey = this.hotkeysService.get(combo) as Hotkey;
 			if (oldHotkey !== null) { // We let the user overwrite callbacks temporarily if you specify it in HTML
 				this.oldHotkeys.push(oldHotkey);
-				this._hotkeysService.remove(oldHotkey);
+				this.hotkeysService.remove(oldHotkey);
 			}
 			this.hotkeysList.push(hotkeyObj);
 			this.mousetrap.bind(hotkeyObj.combo, hotkeyObj.callback);
@@ -37,7 +37,7 @@ export class HotkeysDirective implements OnInit, OnDestroy {
 		for (const hotkey of this.hotkeysList) {
 			this.mousetrap.unbind(hotkey.combo);
 		}
-		this._hotkeysService.add(this.oldHotkeys);
+		this.hotkeysService.add(this.oldHotkeys);
 	}
 
 }

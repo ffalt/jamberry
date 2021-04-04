@@ -41,7 +41,7 @@ export class EpisodesLoaderComponent implements OnChanges {
 	}
 
 	searchText(): void {
-		this.getEpisodes(() =>
+		this.getEpisodes(async () =>
 			this.jam.episode.search({
 				query: this.query,
 				skip: this.loadMore.skip,
@@ -53,7 +53,7 @@ export class EpisodesLoaderComponent implements OnChanges {
 	}
 
 	searchCmd(): void {
-		this.getEpisodes(() =>
+		this.getEpisodes(async () =>
 			this.jam.episode.search({
 				...this.queryCmd,
 				skip: this.loadMore.skip,
@@ -65,7 +65,7 @@ export class EpisodesLoaderComponent implements OnChanges {
 	}
 
 	list(): void {
-		this.getEpisodes(() =>
+		this.getEpisodes(async () =>
 			this.jam.episode.search({
 				list: this.listType,
 				episodeIncState: true,
@@ -76,7 +76,7 @@ export class EpisodesLoaderComponent implements OnChanges {
 	}
 
 	searchLatest(): void {
-		this.getEpisodes(() =>
+		this.getEpisodes(async () =>
 			this.jam.episode.search({
 				episodeIncState: true,
 				episodeIncTag: true,

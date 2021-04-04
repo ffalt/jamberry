@@ -145,7 +145,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'podcasts/search',
-				loadChildren: (): Promise<any> => import('./components/podcast-search-page/podcast-search-page.module').then(m => m.PodcastSearchPageModule),
+				loadChildren: async (): Promise<any> => import('./components/podcast-search-page/podcast-search-page.module').then(m => m.PodcastSearchPageModule),
 				canActivate: [AuthCanActivateGuard]
 			},
 			{

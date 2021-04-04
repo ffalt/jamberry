@@ -18,7 +18,7 @@ import {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.types';
 	selector: 'app-dialog-overlay',
 	templateUrl: './dialog-overlay.component.html',
 	styleUrls: ['./dialog-overlay.component.scss'],
-	// tslint:disable-next-line:use-component-view-encapsulation
+	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None
 })
 export class DialogOverlayComponent implements OnInit {

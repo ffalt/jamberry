@@ -29,9 +29,9 @@ export interface LinkConfig {
 }
 
 @Component({
-	// tslint:disable-next-line:use-component-view-encapsulation
+	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None,
-	// tslint:disable-next-line:component-selector
+	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'context-menu',
 	styleUrls: ['./context-menu.component.scss'],
 	template: ''
@@ -51,7 +51,7 @@ export class ContextMenuComponent implements OnDestroy {
 	protected unsubscribe = new Subject();
 
 	constructor(
-		private _contextMenuService: ContextMenuService,
+		private contextMenuService: ContextMenuService,
 		private changeDetector: ChangeDetectorRef,
 		private elementRef: ElementRef,
 		@Optional() @Inject(CONTEXT_MENU_OPTIONS) private options: ContextMenuOptions
@@ -59,7 +59,7 @@ export class ContextMenuComponent implements OnDestroy {
 		if (options) {
 			this.autoFocus = !!options.autoFocus;
 		}
-		_contextMenuService.show
+		contextMenuService.show
 			.pipe(takeUntil(this.unsubscribe)).subscribe(menuEvent => {
 			this.onMenuEvent(menuEvent);
 		});
@@ -81,8 +81,8 @@ export class ContextMenuComponent implements OnDestroy {
 		this.event = event;
 		this.item = item;
 		this.setVisibleMenuItems();
-		this._contextMenuService.openContextMenu({...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass});
-		this._contextMenuService.close.asObservable()
+		this.contextMenuService.openContextMenu({...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass});
+		this.contextMenuService.close.asObservable()
 			.pipe(first(),
 				takeUntil(this.unsubscribe)).subscribe(closeEvent => {
 			this.menuClose.emit(closeEvent);

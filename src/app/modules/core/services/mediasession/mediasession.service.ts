@@ -42,7 +42,6 @@ export declare class MediaMetadata {
 	// Media's artwork.
 	artwork?: Array<MediaImage>;
 
-	// tslint:disable-next-line:unnecessary-constructor
 	constructor(options: MediaMetadataInit);
 }
 

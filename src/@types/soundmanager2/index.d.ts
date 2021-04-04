@@ -1,4 +1,4 @@
-/* tslint:disable:max-classes-per-file */
+/* eslint-disable max-classes-per-file */
 // Type definitions for soundmanager2 2.97
 // Project: https://github.com/scottschiller/SoundManager2, http://www.schillmania.com/projects/soundmanager2
 // Definitions by: Elton Lee <https://github.com/elton2048>
@@ -271,6 +271,7 @@ declare module 'soundmanager2' {
 	}
 
 	export interface GetInstance {
+		// eslint-disable-next-line @typescript-eslint/prefer-function-type
 		(): SoundManager;
 	}
 

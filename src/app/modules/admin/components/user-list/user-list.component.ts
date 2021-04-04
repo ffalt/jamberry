@@ -61,7 +61,7 @@ export class UserListComponent implements OnDestroy {
 					return Promise.reject(e);
 				}
 			},
-			onCancelBtn: () => Promise.resolve()
+			onCancelBtn: async () => Promise.resolve()
 		});
 
 	}
@@ -92,7 +92,7 @@ export class UserListComponent implements OnDestroy {
 					return Promise.reject(e);
 				}
 			},
-			onCancelBtn: () => Promise.resolve()
+			onCancelBtn: async () => Promise.resolve()
 		});
 	}
 

@@ -31,7 +31,7 @@ export class ID3V2RawBuilder {
 
 	nrAndTotal(key: string, value: number | string | undefined, total: number | string | undefined): ID3V2RawBuilder {
 		if (value) {
-			const text = value.toString() + (total ? '/' + total.toString() : '');
+			const text = value.toString() + (total ? `/${total.toString()}` : '');
 			const frame: ID3v2Frames.Text = {id: key, value: {text}};
 			this.frameValues[key] = [frame];
 		}

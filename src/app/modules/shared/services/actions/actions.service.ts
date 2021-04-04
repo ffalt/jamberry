@@ -59,7 +59,7 @@ export class ActionsService {
 					const state = base.state || {};
 					state.rated = rating;
 					base.state = state;
-					this.notify.success('Rated ' + type);
+					this.notify.success(`Rated ${type}`);
 				} catch (e) {
 					this.notify.error(e);
 					return Promise.reject(e);

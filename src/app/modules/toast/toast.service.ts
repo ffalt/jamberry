@@ -35,7 +35,7 @@ export class ToastService {
 	previousToastMessage: string | undefined;
 	private index = 0;
 
-	constructor(@Inject(TOAST_CONFIG) token: ToastToken, private overlay: Overlay, private _injector: Injector, private ngZone?: NgZone) {
+	constructor(@Inject(TOAST_CONFIG) token: ToastToken, private overlay: Overlay, private injector: Injector, private ngZone?: NgZone) {
 		this.toastrConfig = {...token.default, ...token.config};
 		if (token.config.iconClasses) {
 			this.toastrConfig.iconClasses = {...token.default.iconClasses, ...token.config.iconClasses};
@@ -44,31 +44,31 @@ export class ToastService {
 
 	/** show toast */
 	show(message?: string, title?: string, override: Partial<IndividualConfig> = {}, type = ''): ActiveToast<any> | undefined {
-		return this._preBuildNotification(type, message, title, this.applyConfig(override));
+		return this.preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show successful toast */
 	success(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
 		const type = this.toastrConfig.iconClasses.success || '';
-		return this._preBuildNotification(type, message, title, this.applyConfig(override));
+		return this.preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show error toast */
 	error(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
 		const type = this.toastrConfig.iconClasses.error || '';
-		return this._preBuildNotification(type, message, title, this.applyConfig(override));
+		return this.preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show info toast */
 	info(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
 		const type = this.toastrConfig.iconClasses.info || '';
-		return this._preBuildNotification(type, message, title, this.applyConfig(override));
+		return this.preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show warning toast */
 	warning(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
 		const type = this.toastrConfig.iconClasses.warning || '';
-		return this._preBuildNotification(type, message, title, this.applyConfig(override));
+		return this.preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/**
@@ -92,7 +92,7 @@ export class ToastService {
 	 * Remove and destroy a single toast by id
 	 */
 	remove(toastId: number): boolean {
-		const found = this._findToast(toastId);
+		const found = this.findToast(toastId);
 		if (!found) {
 			return false;
 		}
@@ -136,7 +136,7 @@ export class ToastService {
 	/**
 	 * Find toast object by id
 	 */
-	private _findToast(toastId: number): { index: number; activeToast: ActiveToast<any> } | undefined {
+	private findToast(toastId: number): { index: number; activeToast: ActiveToast<any> } | undefined {
 		for (let i = 0; i < this.toasts.length; i++) {
 			if (this.toasts[i].toastId === toastId) {
 				return {index: i, activeToast: this.toasts[i]};
@@ -148,14 +148,14 @@ export class ToastService {
 	/**
 	 * Determines the need to run inside angular's zone then builds the toast
 	 */
-	private _preBuildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | undefined {
+	private preBuildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | undefined {
 		if (config.onActivateTick && this.ngZone) {
 			this.ngZone.run(() =>
-				this._buildNotification(toastType, message, title, config)
+				this.buildNotification(toastType, message, title, config)
 			);
 			return;
 		}
-		return this._buildNotification(toastType, message, title, config);
+		return this.buildNotification(toastType, message, title, config);
 	}
 
 	private getOverlayConfig(config: GlobalConfig): OverlayConfig {
@@ -175,14 +175,14 @@ export class ToastService {
 	 * Creates and attaches toast data to component
 	 * returns the active toast, or in case preventDuplicates is enabled the original/non-duplicate active toast.
 	 */
-	private _buildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | undefined {
+	private buildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | undefined {
 		// max opened and auto dismiss = true
 		const duplicate = this.findDuplicate(
 			message || '',
 			this.toastrConfig.resetTimeoutOnDuplicate,
 			this.toastrConfig.countDuplicates
 		);
-		if (message && this.toastrConfig.preventDuplicates && duplicate !== null) {
+		if (message && this.toastrConfig.preventDuplicates && duplicate !== undefined) {
 			return duplicate;
 		}
 
@@ -204,7 +204,7 @@ export class ToastService {
 		const toastPackage = new ToastPackage(this.index, config, message, title, toastType, toastRef, () => {
 			this.remove(toastPackage.toastId);
 		});
-		const toastInjector = new ToastInjector(toastPackage, this._injector);
+		const toastInjector = new ToastInjector(toastPackage, this.injector);
 		const containerPortal = new ComponentPortal(ToastComponent, undefined, toastInjector);
 		const containerRef: ComponentRef<ToastComponent> = overlayRef.attach(containerPortal);
 		toastRef.componentInstance = containerRef.instance;

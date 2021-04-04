@@ -43,7 +43,7 @@ export class TracksLoaderComponent implements OnChanges {
 	}
 
 	searchText(): void {
-		this.getTracks(() =>
+		this.getTracks(async () =>
 			this.jam.track.search({
 				query: this.query,
 				skip: this.loadMore.skip,
@@ -55,7 +55,7 @@ export class TracksLoaderComponent implements OnChanges {
 	}
 
 	searchCmd(): void {
-		this.getTracks(() =>
+		this.getTracks(async () =>
 			this.jam.track.search({
 				...this.queryCmd,
 				skip: this.loadMore.skip,
@@ -67,7 +67,7 @@ export class TracksLoaderComponent implements OnChanges {
 	}
 
 	list(): void {
-		this.getTracks(() =>
+		this.getTracks(async () =>
 			this.jam.track.search({
 				list: this.listType,
 				trackIncState: true,

@@ -3,7 +3,7 @@ import {Directive, EventEmitter, Input, Output, TemplateRef} from '@angular/core
 import {ContextMenuClickEvent} from './context-menu.service';
 
 @Directive({
-	// tslint:disable-next-line:directive-selector
+	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: '[contextMenuItem]'
 })
 export class ContextMenuItemDirective implements Highlightable {

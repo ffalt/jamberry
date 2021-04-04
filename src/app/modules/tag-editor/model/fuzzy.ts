@@ -5,7 +5,7 @@ function levenshtein(str1: string, str2: string): number {
 	let value;
 	for (let i = 0; i <= str2.length; i++) {
 		for (let j = 0; j <= str1.length; j++) {
-			// tslint:disable-next-line:prefer-conditional-expression
+			// eslint-disable-next-line
 			if (i && j) {
 				value = (str1.charAt(j - 1) === str2.charAt(i - 1)) ? prev : Math.min(current[j], current[j - 1], prev) + 1;
 			} else {
@@ -36,9 +36,9 @@ function distance(str1: string, str2: string): number {
 }
 
 function iterateGrams(value: string, gramSize: number): Array<string> {
-	const _nonWordRe = /[^\w, ]+/;
+	const nonWordRe = /[^\w, ]+/;
 	const gs = gramSize || 2;
-	const simplified = `-${value.toLowerCase().replace(_nonWordRe, '')}-`;
+	const simplified = `-${value.toLowerCase().replace(nonWordRe, '')}-`;
 // const lenDiff = gs - simplified.length;
 	const results = [];
 // let val = value;
@@ -110,7 +110,7 @@ export class FuzzySet {
 
 	get(value: string, defaultValue?: Array<Array<number>>): Array<Array<number>> | undefined {
 		// check for value in set, returning defaultValue or undefined if none found
-		const result = this._get(value);
+		const result = this.getVal(value);
 		if (!result && defaultValue) {
 			return defaultValue;
 		}
@@ -123,7 +123,7 @@ export class FuzzySet {
 			return;
 		}
 		for (let i = this.gramSizeLower; i < this.gramSizeUpper + 1; i += 1) {
-			this._add(value, i);
+			this.addVal(value, i);
 		}
 	}
 
@@ -159,7 +159,7 @@ export class FuzzySet {
 		return values;
 	}
 
-	private _get(value: string): Array<Array<number>> | undefined {
+	private getVal(value: string): Array<Array<number>> | undefined {
 		const normalizedValue = normalizeStr(value);
 		const result = this.exactSet[normalizedValue];
 		if (result) {
@@ -167,7 +167,7 @@ export class FuzzySet {
 		}
 		// start with high gram size and if there are no results, go to lower gram sizes
 		for (let gramSize = this.gramSizeUpper; gramSize >= this.gramSizeLower; gramSize -= 1) {
-			const res = this.__get(value, gramSize);
+			const res = this.getValGram(value, gramSize);
 			if (res) {
 				return res;
 			}
@@ -175,7 +175,7 @@ export class FuzzySet {
 		return;
 	}
 
-	private __get(value: string, gramSize: number): Array<Array<number>> | undefined {
+	private getValGram(value: string, gramSize: number): Array<Array<number>> | undefined {
 		const normalizedValue = normalizeStr(value);
 		const matches: { [num: string]: number } = {};
 		const gramCounts = gramCounter(normalizedValue, gramSize);
@@ -240,7 +240,7 @@ export class FuzzySet {
 		return newResults;
 	}
 
-	private _add(value: string, gramSize: number): void {
+	private addVal(value: string, gramSize: number): void {
 		const normalizedValue = normalizeStr(value);
 		const items = this.items[gramSize] || [];
 		const index = items.length;

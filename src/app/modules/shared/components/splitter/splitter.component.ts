@@ -32,7 +32,7 @@ export class SplitterComponent {
 			if (!this.leftSnap) {
 				offsetX = this.element.nativeElement.parentNode.offsetWidth - offsetX;
 			}
-			this.drag.element.style.width = Math.max(0, offsetX).toString() + 'px';
+			this.drag.element.style.width = `${Math.max(0, offsetX).toString()  }px`;
 		}
 	}
 
