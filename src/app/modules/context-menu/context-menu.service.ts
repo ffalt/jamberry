@@ -243,7 +243,7 @@ export class ContextMenuService {
 
 		const positionStrategy = this.overlay.position().flexibleConnectedTo(
 			anchorElementRef || (new ElementRef(anchorElement || this.fakeElement)))
-			.withFlexibleDimensions(false)
+			.withFlexibleDimensions(true)
 			.withPositions([
 				{
 					originX: 'center',

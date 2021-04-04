@@ -26,9 +26,7 @@ export class HeaderComponent {
 
 	toggleMobileNavig(): void {
 		this.tabService.switchToMain();
-		if (this.app.view.currentSidebar) {
-			this.app.view.currentSidebar.toggleMobileNavig();
-		}
+		this.app.view.currentSidebar?.toggleMobileNavig();
 	}
 
 	onUserContextMenu(event: MouseEvent): void {
