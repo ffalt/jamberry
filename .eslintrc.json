@@ -193,6 +193,7 @@
 				"no-sparse-arrays": "error",
 				"no-template-curly-in-string": "error",
 				"no-useless-constructor": "off",
+				"id-blacklist": "off",
 				"no-void": "error",
 				"padding-line-between-statements": [
 					"off",
