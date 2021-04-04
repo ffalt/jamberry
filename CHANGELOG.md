@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.7](https://github.com-ffalt///compare/v0.4.6...v0.4.7) (2021-04-04)
+
+
+### Bug Fixes
+
+* **player:** repeat track did not repeat track ([19a928c](https://github.com-ffalt///commit/19a928c23021a5cedf111716fcd6a63b76dd0f02))
+
 ### [0.4.6](https://github.com/ffalt/jamberry/compare/v0.4.5...v0.4.6) (2020-12-21)
 
 
