@@ -2,6 +2,7 @@
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"outDir": "./dist/spec",
+		"emitDecoratorMetadata": true,
 		"types": [
 			"jest",
 			"hammerjs",
