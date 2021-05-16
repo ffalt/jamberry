@@ -46,11 +46,9 @@
             ],
             "aot": false,
             "vendorChunk": true,
-            "extractLicenses": true,
             "buildOptimizer": false,
             "sourceMap": true,
-            "optimization": false,
-            "namedChunks": false
+            "optimization": false
           },
           "configurations": {
             "production": {
