@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.9](https://github.com-ffalt///compare/v0.4.8...v0.4.9) (2021-05-17)
+
+
+### Bug Fixes
+
+* **angular & csp:** inlined css uses inlined js, use external css ([c09c03d](https://github.com-ffalt///commit/c09c03d782259829c39717426664be0d14bd8bdd))
+* **overlays:** cdk-overlay-pane must have pointer-events enabled ([25917d9](https://github.com-ffalt///commit/25917d9ce9e3b8653ffc070700fbf7870ae9d5e7))
+
 ### [0.4.8](https://github.com-ffalt///compare/v0.4.7...v0.4.8) (2021-05-16)
 
 ### [0.4.7](https://github.com-ffalt///compare/v0.4.6...v0.4.7) (2021-04-04)
