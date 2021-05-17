@@ -58,8 +58,15 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
+              "optimization": {
+								"fonts": false,
+								"scripts": true,
+								"styles": {
+									"minify": true,
+									"inlineCritical": false
+								}
+							},
+							"outputHashing": "all",
               "sourceMap": false,
               "aot": true,
               "vendorChunk": false,
