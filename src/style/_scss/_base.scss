@@ -213,10 +213,10 @@ $cdk-z-index-overlay: 1000;
 	height: 100%;
 }
 
-
 .cdk-overlay-pane {
 	max-height: 100%;
 	overflow: auto;
+	pointer-events: visible;
 }
 
 .ngx-autocomplete {
