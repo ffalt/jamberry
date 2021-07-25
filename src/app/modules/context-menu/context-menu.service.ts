@@ -86,16 +86,18 @@ export class ContextMenuService {
 		if (instance.initOpts && opts) {
 			instance.initOpts(opts);
 		}
+		const config = {
+			contextMenu: instance.contextMenu,
+			event,
+			item,
+			anchorElement: parentEvent ? parentEvent.anchorElement : undefined,
+			anchorElementRef: parentEvent ? parentEvent.anchorElementRef : undefined,
+			activeMenuItemIndex: parentEvent ? parentEvent.activeMenuItemIndex : undefined,
+			parentContextMenu: parentEvent ? parentEvent.parentContextMenu : undefined
+		};
+		console.log('menu config', config);
 		setTimeout(() => {
-			this.show.next({
-				contextMenu: instance.contextMenu,
-				event,
-				item,
-				anchorElement: parentEvent ? parentEvent.anchorElement : undefined,
-				anchorElementRef: parentEvent ? parentEvent.anchorElementRef : undefined,
-				activeMenuItemIndex: parentEvent ? parentEvent.activeMenuItemIndex : undefined,
-				parentContextMenu: parentEvent ? parentEvent.parentContextMenu : undefined
-			});
+			this.show.next(config);
 		});
 		event.preventDefault();
 		event.stopPropagation();
@@ -241,8 +243,10 @@ export class ContextMenuService {
 		});
 		this.closeAllContextMenus({eventType: 'cancel', event});
 
-		const positionStrategy = this.overlay.position().flexibleConnectedTo(
-			anchorElementRef || (new ElementRef(anchorElement || this.fakeElement)))
+		const origin = anchorElementRef?.nativeElement || (new ElementRef(anchorElement || this.fakeElement));
+		// console.log('context menu with origin', origin);
+		const positionStrategy = this.overlay.position()
+			.flexibleConnectedTo(origin)
 			.withFlexibleDimensions(true)
 			.withPositions([
 				{

@@ -1,4 +1,4 @@
-import {Directive, HostListener, Input} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input} from '@angular/core';
 import {ContextMenuComponent} from './context-menu.component';
 import {ContextMenuService} from './context-menu.service';
 
@@ -11,7 +11,7 @@ export class ContextMenuDirective {
 	@Input() contextMenuTriggerLeft: boolean = false;
 	@Input() contextMenu?: ContextMenuComponent;
 
-	constructor(private contextMenuService: ContextMenuService) {
+	constructor(private elementRef: ElementRef, private contextMenuService: ContextMenuService) {
 	}
 
 	@HostListener('contextmenu', ['$event'])
@@ -20,6 +20,7 @@ export class ContextMenuDirective {
 			this.contextMenuService.show.next({
 				contextMenu: this.contextMenu,
 				event,
+				anchorElementRef: this.elementRef,
 				item: this.contextMenuSubject
 			});
 			event.preventDefault();
@@ -33,6 +34,7 @@ export class ContextMenuDirective {
 			this.contextMenuService.show.next({
 				contextMenu: this.contextMenu,
 				event,
+				anchorElementRef: this.elementRef,
 				item: this.contextMenuSubject
 			});
 			event.preventDefault();
