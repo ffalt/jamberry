@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.11](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.10...v0.4.11) (2021-07-31)
+
+
+### Features
+
+* **images:** request images in webp format ([6bbb1e7](https://github.com-ffalt/ffalt/jamberry/commit/6bbb1e7686ecf5d24ea60af75eda4f6d1202eb07))
+
 ### [0.4.10](https://github.com-ffalt///compare/v0.4.9...v0.4.10) (2021-07-31)
 
 
