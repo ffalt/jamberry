@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {ImageFormatType, Jam, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '@shared/components';
 import {DialogsService} from '@shared/services';
 import {ImageEditOverlayContentComponent} from '../image-edit-overlay-content/image-edit-overlay-content.component';
@@ -104,7 +104,7 @@ export class ArtworkListComponent implements OnChanges {
 					name: extractBasename(artwork.name),
 					type: extractExt(artwork.name),
 					artwork,
-					thumbnail: this.jam.image.imageUrl({id: artwork.id, size: 128})
+					thumbnail: this.jam.image.imageUrl({id: artwork.id, size: 128, format: ImageFormatType.webp})
 				}));
 		}
 	}

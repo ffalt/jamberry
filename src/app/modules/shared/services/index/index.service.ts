@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {AppService, NotifyService} from '@core/services';
-import {Jam, JamObjectType, JamService} from '@jam';
+import {ImageFormatType, Jam, JamObjectType, JamService} from '@jam';
 
 export interface IndexEntry {
 	id: string;
@@ -43,7 +43,7 @@ function buildIndexAlbumIndex(index: Jam.AlbumIndex, expanded: boolean, name: st
 				extra: entry.artist,
 				visible: false,
 				trackCount: entry.trackCount,
-				image: jam.image.imageUrl({id: entry.id, size: 200})
+				image: jam.image.imageUrl({id: entry.id, size: 200, format: ImageFormatType.webp})
 			}))
 		}))
 	};
@@ -65,7 +65,7 @@ function buildIndexFolderIndex(index: Jam.FolderIndex, expanded: boolean, name: 
 				name: entry.name,
 				visible: false,
 				trackCount: entry.trackCount,
-				image: jam.image.imageUrl({id: entry.id, size: 200})
+				image: jam.image.imageUrl({id: entry.id, size: 200, format: ImageFormatType.webp})
 			}))
 		}))
 	};
@@ -87,7 +87,7 @@ function buildIndexArtistIndex(index: Jam.ArtistIndex, expanded: boolean, name: 
 				name: entry.name,
 				visible: false,
 				trackCount: entry.trackCount,
-				image: jam.image.imageUrl({id: entry.id, size: 200})
+				image: jam.image.imageUrl({id: entry.id, size: 200, format: ImageFormatType.webp})
 			}))
 		}))
 	};
@@ -109,7 +109,7 @@ function buildIndexSeriesIndex(seriesIndex: Jam.SeriesIndex, expanded: boolean, 
 				name: entry.name,
 				visible: false,
 				trackCount: entry.trackCount,
-				image: jam.image.imageUrl({id: entry.id, size: 200})
+				image: jam.image.imageUrl({id: entry.id, size: 200, format: ImageFormatType.webp})
 			}))
 		}))
 	};
@@ -131,7 +131,7 @@ function buildIndexGenreIndex(genreIndex: Jam.GenreIndex, expanded: boolean, nam
 				name: entry.name,
 				visible: false,
 				trackCount: entry.trackCount,
-				image: jam.image.imageUrl({id: entry.id, size: 200})
+				image: jam.image.imageUrl({id: entry.id, size: 200, format: ImageFormatType.webp})
 			}))
 		}))
 	};

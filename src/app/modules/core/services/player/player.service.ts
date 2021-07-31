@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {MediaSessionEvents} from '@core/services/mediasession/mediasession.events';
 import {MediaSessionService} from '@core/services/mediasession/mediasession.service';
-import {Jam, JamObjectType, JamService, PodcastStatus} from '@jam';
+import {ImageFormatType, Jam, JamObjectType, JamService, PodcastStatus} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {NotifyService} from '../notify/notify.service';
@@ -598,7 +598,7 @@ export class PlayerService implements OnDestroy {
 				body: media.tag?.artist || '[Unknown Artist]',
 				title: media.tag?.title || '[Unknown Title]',
 				autoclose: 30,
-				icon: this.jam.image.imageUrl({id: media.id, size: 128})
+				icon: this.jam.image.imageUrl({id: media.id, size: 128, format: ImageFormatType.webp})
 			})
 				.catch(e => {
 					console.error(e);

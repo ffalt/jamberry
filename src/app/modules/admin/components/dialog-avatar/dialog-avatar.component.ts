@@ -3,7 +3,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {randomString} from '@app/utils/random';
 import {NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {ImageFormatType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -36,7 +36,7 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 	}
 
 	setImageSource(): void {
-		this.userAvatar = this.user ? `${this.jam.image.imageUrl({id: this.user.id, size: 60})}?${randomString()}` : undefined;
+		this.userAvatar = this.user ? `${this.jam.image.imageUrl({id: this.user.id, size: 60, format: ImageFormatType.webp})}?${randomString()}` : undefined;
 	}
 
 	// At the drag drop area

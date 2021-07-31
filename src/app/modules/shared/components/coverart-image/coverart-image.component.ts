@@ -1,6 +1,6 @@
 import {AfterContentInit, Component, ElementRef, HostBinding, Input, OnChanges, SimpleChange} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {JamService} from '@jam';
+import {ImageFormatType, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '../image-overlay-content/image-overlay-content.component';
 
 @Component({
@@ -86,7 +86,7 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 
 	private buildUrl(): void {
 		if (this.coverArtObj) {
-			let url = this.jam.image.imageUrl({id: this.coverArtObj.id, size: this.size});
+			let url = this.jam.image.imageUrl({id: this.coverArtObj.id, size: this.size, format: ImageFormatType.webp});
 			if (this.refreshRandom) {
 				url += `${url.includes('?') ? '&' : '?'}refresh=${this.refreshRandom}`;
 			}
