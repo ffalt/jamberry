@@ -1,5 +1,7 @@
+@use "sass:math";
+
 @mixin slider($slider-height, $slider-progress-height) {
-	$slider-progress-top: (($slider-height - $slider-progress-height) / 2) - 1px;
+	$slider-progress-top: math.div($slider-height - $slider-progress-height, 2) - 1px;
 	$slider-handle-height: ($slider-height - $slider-progress-height);
 	.slider {
 		height: $slider-height;
@@ -42,8 +44,8 @@
 				position: absolute;
 				width: $slider-handle-height;
 				height: $slider-handle-height;
-				top: - ($slider-handle-height / 2) + 1px;
-				right: - ($slider-handle-height / 2);
+				top: -  math.div($slider-handle-height, 2) + 1px;
+				right: -  math.div($slider-handle-height, 2);
 				border-radius: 50%;
 				cursor: default;
 				z-index: 3;

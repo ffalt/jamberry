@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AutocompleteModule} from '@app/modules/autocomplete';
-import {ContextMenuModule} from '@app/modules/context-menu';
+import {ContextMenuModule} from 'ngx-contextmenu';
 import {SharedModule} from '@shared/shared.module';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import {components, entryComponents} from './components';

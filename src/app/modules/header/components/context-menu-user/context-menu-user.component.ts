@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
-import {ContextMenuHostComponentInterface} from '@app/modules/context-menu';
-import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.component';
 import {JamAuthService} from '@app/modules/jam';
 import {NavigService} from '@core/services';
+import {ContextMenuHostComponentInterface} from '@shared/services';
+import {ContextMenuComponent} from 'ngx-contextmenu';
 
 @Component({
 	selector: 'app-context-menu-user',

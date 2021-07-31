@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {HammerModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
-import {ContextMenuModule} from '@app/modules/context-menu';
+import {ContextMenuModule} from 'ngx-contextmenu';
 import {SharedModule} from '@shared/shared.module';
 import {components, entryComponents} from './components';
 

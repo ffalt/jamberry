@@ -1,8 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Route, Router} from '@angular/router';
-import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {JamService} from '@jam';
+import {
+	ContextMenuObjComponent,
+	ContextMenuObjComponentOptions,
+	ContextMenuSimpleComponent,
+	ContextMenuSimpleComponentOptions
+} from '@library/components';
 import {
 	AlbumsLoader,
 	ArtistsLoader,
@@ -12,8 +17,9 @@ import {
 	PodcastsLoader,
 	SeriesLoader
 } from '@library/model/loaders';
+import {JamLibraryObject} from '@library/model/objects';
 import {HeaderTab} from '@shared/components';
-import {ActionsService, PlaylistDialogsService, PodcastService} from '@shared/services';
+import {ActionsService, MenuService, PlaylistDialogsService, PodcastService} from '@shared/services';
 
 @Injectable()
 export class LibraryService {
@@ -27,7 +33,7 @@ export class LibraryService {
 
 	constructor(
 		public navig: NavigService, public actions: ActionsService,
-		public player: PlayerService, public contextMenuService: ContextMenuService,
+		public player: PlayerService, public menuService: MenuService,
 		public jam: JamService, public notify: NotifyService,
 		public playlistDialogsService: PlaylistDialogsService,
 		public podcastService: PodcastService,
@@ -73,4 +79,13 @@ export class LibraryService {
 		}
 		return [];
 	}
+
+	openJamObjectMenu(item: JamLibraryObject, event: MouseEvent | KeyboardEvent, options?: ContextMenuObjComponentOptions) {
+		this.menuService.openMenuComponent<ContextMenuObjComponentOptions>(ContextMenuObjComponent, item, event, options);
+	}
+
+	openSimpleMenu(entries: Array<any>, event: MouseEvent | KeyboardEvent) {
+		this.menuService.openMenuComponent<ContextMenuSimpleComponentOptions>(ContextMenuSimpleComponent, undefined, event, {entries});
+	}
+
 }

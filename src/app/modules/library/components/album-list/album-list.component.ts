@@ -1,11 +1,9 @@
 import {Component, Input} from '@angular/core';
-import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {JamAlbumObject} from '@library/model/objects';
 import {ActionsService, PodcastService} from '@shared/services';
 import {LibraryService} from '../../services';
-import {ContextMenuObjComponent} from '../context-menu-obj/context-menu-obj.component';
 
 @Component({
 	selector: 'app-album-list',
@@ -19,13 +17,12 @@ export class AlbumListComponent {
 	constructor(
 		private library: LibraryService,
 		public jam: JamService, public player: PlayerService, public podcastService: PodcastService,
-		public actions: ActionsService, public navig: NavigService,
-		private contextMenuService: ContextMenuService
+		public actions: ActionsService, public navig: NavigService
 	) {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Album): void {
-		this.contextMenuService.open(ContextMenuObjComponent, new JamAlbumObject(item, this.library), $event);
+		this.library.openJamObjectMenu(new JamAlbumObject(item, this.library), $event);
 	}
 
 	play(episode: Jam.Episode): void {

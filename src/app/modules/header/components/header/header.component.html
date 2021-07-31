@@ -4,7 +4,6 @@
 	<app-logo-icon></app-logo-icon>
 	{{app.name}}</a></div>
 <app-search-box class="search"></app-search-box>
-<div class="user" title="User Menu" *ngIf="auth.user && auth.user.name" (click)="onUserContextMenu($event)">
+<div class="user" title="User Menu" *ngIf="auth.user && auth.user.name" (click)="onContextMenu($event)">
 	<app-coverart-image [coverArtObj]="auth.user" [size]="28" [round]="true"></app-coverart-image>
 </div>
-

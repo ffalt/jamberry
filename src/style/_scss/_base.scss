@@ -203,6 +203,7 @@ select {
 }
 
 $cdk-z-index-overlay: 1000;
+
 .cdk-overlay-container {
 	position: fixed;
 	z-index: $cdk-z-index-overlay;
@@ -233,3 +234,34 @@ $cdk-z-index-overlay: 1000;
 	position: absolute;
 	z-index: $cdk-z-index-overlay;
 }
+
+.ngx-contextmenu {
+	.dropdown-menu {
+		background-color: var(--control);
+		color: var(--on-control);
+		box-shadow: var(--control-box-shadow);
+		border: 1px solid var(--control-box-border);
+		padding: 0;
+	}
+
+	li {
+		display: block;
+		border-top: 1px solid var(--control-box-border);
+
+		&:first-child {
+			border-top: none;
+		}
+	}
+
+	a {
+		color: var(--on-background);
+		display: block;
+		padding: 0.5em 1em;
+
+		&:hover {
+			background-color: var(--control-hover);
+			color: var(--on-control-hover);
+		}
+	}
+}
+

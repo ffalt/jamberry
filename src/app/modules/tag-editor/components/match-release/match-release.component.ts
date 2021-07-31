@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {ChangeDetectorRef, Component, HostBinding, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild} from '@angular/core';
 import {AppService, NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, LastFMLookupType, MusicBrainz, MusicBrainzLookupType, MusicBrainzSearchType} from '@jam';
+import {ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 import {AcoustIDEntry, acoustidResultToList, AcoustidTree} from '../../model/acoustid.helper';
 import {
 	GenreTag,
@@ -80,6 +81,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	customGenre = {text: '', checked: true};
 	@HostBinding('class.right-active') rightActive: boolean = true;
 	@ViewChild(MatchCoverartComponent, {static: false}) coverArt?: MatchCoverartComponent;
+	@ViewChild('actionMenu', {static: false}) public actionMenu?: ContextMenuComponent;
 
 	matchings: Array<Matching> = [];
 	matchTree = new MatchTree();
@@ -127,7 +129,9 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	genres?: Array<{ tag: GenreTag; checked: boolean }>;
 	RunType = RunType;
 
-	constructor(private app: AppService, private jam: JamService, private notify: NotifyService, private client: HttpClient, private cd: ChangeDetectorRef) {
+	constructor(private app: AppService, private jam: JamService, private notify: NotifyService,
+							private contextMenuService: ContextMenuService,
+							private client: HttpClient, private cd: ChangeDetectorRef) {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -371,6 +375,16 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	removeMatching(group: MatchReleaseGroup, release: MatchRelease, track: MatchingTrack): void {
 		track.currentMatch = undefined;
 		group.updateScore();
+	}
+
+	onContextMenu($event: MouseEvent | KeyboardEvent) {
+		this.contextMenuService.show.next({
+			contextMenu: this.actionMenu,
+			event: $event,
+			item: undefined
+		});
+		$event.preventDefault();
+		$event.stopPropagation();
 	}
 
 	private shouldStop(): boolean {

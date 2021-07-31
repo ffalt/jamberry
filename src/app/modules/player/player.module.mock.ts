@@ -3,7 +3,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CommonModule} from '@angular/common';
 import {HammerModule} from '@angular/platform-browser';
 import {RouterTestingModule} from '@angular/router/testing';
-import {ContextMenuModule} from '@app/modules/context-menu';
+import {MenuService} from '@shared/services';
+import {ContextMenuModule} from 'ngx-contextmenu';
 import {DialogOverlayModule} from '@app/modules/dialog-overlay';
 import {MainTabsService} from '@app/modules/main-tabs/services';
 import {ToastModule} from '@app/modules/toast';
@@ -16,12 +17,12 @@ export const TEST_PLAYER_MODULE_IMPORTS = [
 	ScrollingModule,
 	DragDropModule,
 	HammerModule,
-	ContextMenuModule,
+	ContextMenuModule.forRoot(),
 	SharedModule,
 	DialogOverlayModule,
 	ToastModule.forRoot(),
 	TEST_JAM_MODULE
 ];
 export const TEST_PLAYER_MODULE_PROVIDERS = [
-	MainTabsService
+	MainTabsService, MenuService
 ];

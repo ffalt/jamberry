@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
-import {ContextMenuHostComponentInterface} from '@app/modules/context-menu';
-import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.component';
+import {ContextMenuHostComponentInterface} from '@shared/services';
+import {ContextMenuComponent} from 'ngx-contextmenu';
 
 export interface ContextMenuSimpleComponentOptions {
 	entries?: Array<{ text: string; icon: string; click(): void }>;

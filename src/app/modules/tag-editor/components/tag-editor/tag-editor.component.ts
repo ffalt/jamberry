@@ -1,10 +1,11 @@
-import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChildren} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {isDownArrowKey, isLeftRightArrowKeys, isRightArrowKey, isUpDownArrowKeys} from '@app/utils/keys';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {FolderType, Jam, JamService, TrackOrderFields} from '@jam';
+import {ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
 import {TagEditor} from '../../model/tag-editor.class';
 import {FilenameColumnID, RawTagEditCell, RawTagEditColumn, RawTagEditRow} from '../../model/tag-editor.types';
 import {rebuildTag} from '../../model/tag-editor.utils';
@@ -34,9 +35,10 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	isSaving = false;
 	@Input() id?: string;
 	@ViewChildren(CellEditor) cellEditors!: QueryList<CellEditor>;
+	@ViewChild('actionMenu', {static: false}) public actionMenu?: ContextMenuComponent;
 
 	constructor(
-		private app: AppService, private folderService: AdminFolderService,
+		private app: AppService, private folderService: AdminFolderService,	private contextMenuService: ContextMenuService,
 		private jam: JamService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
 		this.editor = new TagEditor(jam);
 	}
@@ -284,6 +286,16 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			onOkBtn: async () => Promise.resolve(),
 			onCancelBtn: async () => Promise.resolve()
 		});
+	}
+
+	onContextMenu($event: MouseEvent) {
+		this.contextMenuService.show.next({
+			contextMenu: this.actionMenu,
+			event: $event,
+			item: undefined
+		});
+		$event.preventDefault();
+		$event.stopPropagation();
 	}
 
 	private async runSave(action: SaveAction, actions: Array<SaveAction>): Promise<void> {

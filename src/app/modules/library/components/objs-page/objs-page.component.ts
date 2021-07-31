@@ -1,12 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ContextMenuService} from '@app/modules/context-menu';
 import {getUrlType, JamType, JamUrlType} from '@app/utils/jam-lists';
 import {LibraryService} from '@library/services';
 import {HeaderTab} from '@shared/components';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ContextMenuSimpleComponent, ContextMenuSimpleComponentOptions} from '../context-menu-simple/context-menu-simple.component';
 
 @Component({
 	selector: 'app-page-objs',
@@ -22,9 +20,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 	hasContextMenu: boolean = false;
 	protected unsubscribe = new Subject();
 
-	constructor(
-		private library: LibraryService, protected route: ActivatedRoute,
-		private contextMenuService: ContextMenuService) {
+	constructor(private library: LibraryService, protected route: ActivatedRoute) {
 	}
 
 	ngOnInit(): void {
@@ -55,8 +51,8 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 		}
 		switch (this.type?.id) {
 			case JamUrlType.podcasts:
-				this.contextMenuService.open<ContextMenuSimpleComponentOptions>(ContextMenuSimpleComponent, item, $event, {
-					entries: [
+				this.library.openSimpleMenu(
+					[
 						{
 							text: 'New Podcast',
 							icon: 'icon-list-add',
@@ -71,12 +67,13 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 								this.library.podcastService.checkPodcasts();
 							}
 						}
-					]
-				});
+					],
+					$event
+				);
 				break;
 			case JamUrlType.playlists:
-				this.contextMenuService.open<ContextMenuSimpleComponentOptions>(ContextMenuSimpleComponent, item, $event, {
-					entries: [
+				this.library.openSimpleMenu(
+					[
 						{
 							text: 'New Playlist',
 							icon: 'icon-list-add',
@@ -84,8 +81,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 								this.library.playlistDialogsService.newPlaylist();
 							}
 						}
-					]
-				});
+					], $event);
 				break;
 			default:
 		}

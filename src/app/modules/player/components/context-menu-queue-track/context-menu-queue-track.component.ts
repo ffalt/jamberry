@@ -1,8 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
-import {ContextMenuHostComponentInterface} from '@app/modules/context-menu';
-import {ContextMenuComponent} from '@app/modules/context-menu/context-menu.component';
 import {NavigService, PlayerService, QueueService} from '@core/services';
-import {ActionsService} from '@shared/services';
+import {ActionsService, ContextMenuHostComponentInterface} from '@shared/services';
+import {ContextMenuComponent} from 'ngx-contextmenu';
 
 @Component({
 	selector: 'app-context-menu-queue-track',
@@ -12,9 +11,7 @@ import {ActionsService} from '@shared/services';
 export class ContextMenuQueueTrackComponent implements ContextMenuHostComponentInterface<any> {
 	@ViewChild('queueMenu') contextMenu?: ContextMenuComponent;
 
-	constructor(
-		public navig: NavigService, public queue: QueueService, public player: PlayerService, public actions: ActionsService) {
-
+	constructor(public navig: NavigService, public queue: QueueService, public player: PlayerService, public actions: ActionsService) {
 	}
 
 }

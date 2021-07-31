@@ -15,6 +15,7 @@ module.exports = {
 	},
 	modulePathIgnorePatterns: ['<rootDir>/local/', '<rootDir>/resources', '<rootDir>/dist'],
 	transformIgnorePatterns: ['node_modules/(?!(jest-test))'],
+	testRunner: 'jest-jasmine2', // for ng-mocks
 	globals: {
 		'ts-jest': {
 			...tsJestPreset,

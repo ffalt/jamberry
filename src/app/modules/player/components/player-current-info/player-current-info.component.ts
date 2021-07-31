@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ContextMenuService} from '@app/modules/context-menu';
+import {ContextMenuService} from 'ngx-contextmenu';
 import {TabComponent} from '@app/modules/tab-portal';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
@@ -23,7 +23,7 @@ export class PlayerCurrentInfoComponent implements TabComponent {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.Track): void {
-		this.contextMenuService.open(ContextMenuQueueTrackComponent, item, $event);
+		//TODO: context-menu this.contextMenuService.open(ContextMenuQueueTrackComponent, item, $event);
 	}
 
 }

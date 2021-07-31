@@ -1,14 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import {FolderTypesAlbum} from '@app/utils/jam-lists';
 import {AlbumType, FolderType, Jam, JamObjectType} from '@jam';
-import {LibraryService} from '@library/services';
 import {HeaderInfo} from '@shared/components';
 import {JamObject} from '@shared/model/helpers';
-import {
-	ContextMenuObjComponent,
-	ContextMenuObjComponentOptions,
-	ContextMenuObjComponentOptionsExtra
-} from '../components/context-menu-obj/context-menu-obj.component';
+import {LibraryService} from '../services/library/library.service';
+import {ContextMenuObjComponentOptionsExtra} from '../components/context-menu-obj/context-menu-obj.component';
 
 export abstract class JamLibraryObject extends JamObject {
 	abstract type: JamObjectType;
@@ -34,6 +30,10 @@ export abstract class JamLibraryObject extends JamObject {
 
 	download(): void {
 		this.library.actions.download(this.base);
+	}
+
+	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+		this.library.openJamObjectMenu(this, $event, {hideGoto});
 	}
 
 }
@@ -64,10 +64,6 @@ export class JamAlbumObject extends JamLibraryObject {
 
 	async toggleFav(): Promise<void> {
 		return this.library.actions.toggleAlbumFav(this.album);
-	}
-
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
-		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	async loadChildren(): Promise<void> {
@@ -164,10 +160,6 @@ export class JamFolderObject extends JamLibraryObject {
 		return this.library.actions.toggleFolderFav(this.folder);
 	}
 
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
-		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
-	}
-
 	async loadChildren(): Promise<void> {
 		if (!this.tracks) {
 			try {
@@ -230,10 +222,6 @@ export class JamArtistObject extends JamLibraryObject {
 
 	async toggleFav(): Promise<void> {
 		return this.library.actions.toggleArtistFav(this.artist);
-	}
-
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
-		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	async loadChildren(): Promise<void> {
@@ -309,7 +297,7 @@ export class JamPlaylistObject extends JamLibraryObject {
 				}
 			];
 		}
-		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {extras, hideGoto});
+		this.library.openJamObjectMenu(this, $event, {extras, hideGoto});
 	}
 
 	async loadChildren(): Promise<void> {
@@ -370,10 +358,6 @@ export class JamTrackObject extends JamLibraryObject {
 
 	async toggleFav(): Promise<void> {
 		return this.library.actions.toggleMediaBaseFav(this.track);
-	}
-
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
-		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	async loadChildren(): Promise<void> {
@@ -446,10 +430,6 @@ export class JamGenreObject extends JamLibraryObject {
 		return this.library.actions.toggleGenreFav(this.genreObj);
 	}
 
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
-		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
-	}
-
 	async loadChildren(): Promise<void> {
 		//
 	}
@@ -497,10 +477,6 @@ export class JamSeriesObject extends JamLibraryObject {
 
 	async toggleFav(): Promise<void> {
 		return this.library.actions.toggleSeriesFav(this.series);
-	}
-
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
-		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	async loadChildren(): Promise<void> {
@@ -567,22 +543,19 @@ export class JamPodcastObject extends JamLibraryObject {
 	}
 
 	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
-		const extras =
-			(this.library.jam.auth?.user?.roles.podcast) ?
-				[
-					{
-						text: 'Refresh Podcast Feed', icon: 'icon-rescan', click: (): void => {
-							this.library.podcastService.checkPodcast(this.podcast);
-						}
-					},
-					{
-						text: 'Remove Podcast', icon: 'icon-remove', click: (): void => {
-							this.library.podcastService.removePodcast(this.podcast);
-						}
-					}
-				] :
-				[];
-		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {extras, hideGoto});
+		const extras = (this.library.jam.auth?.user?.roles.podcast) ? [
+			{
+				text: 'Refresh Podcast Feed', icon: 'icon-rescan', click: (): void => {
+					this.library.podcastService.checkPodcast(this.podcast);
+				}
+			},
+			{
+				text: 'Remove Podcast', icon: 'icon-remove', click: (): void => {
+					this.library.podcastService.removePodcast(this.podcast);
+				}
+			}
+		] : [];
+		this.library.openJamObjectMenu(this, $event, {extras, hideGoto});
 	}
 
 	async loadChildren(): Promise<void> {
@@ -642,10 +615,6 @@ export class JamEpisodeObject extends JamLibraryObject {
 
 	async toggleFav(): Promise<void> {
 		return this.library.actions.toggleMediaBaseFav(this.episode);
-	}
-
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
-		this.library.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, this, $event, {hideGoto});
 	}
 
 	async loadChildren(): Promise<void> {

@@ -147,7 +147,7 @@
 	<div *ngIf="!manual" class="match-actions">
 		<div *ngIf="!isRunning">
 			<button (click)="start(RunType.auto)" class="button-on-control button-with-add-on">Auto Match</button>
-			<button [contextMenu]="actionMenu" [contextMenuTriggerLeft]="true" class="button-on-control button-add-on">&nbsp;…&nbsp;</button>
+			<button (click)="onContextMenu($event)" class="button-on-control button-add-on">&nbsp;…&nbsp;</button>
 		</div>
 		<div *ngIf="isRunning">
 			<button (click)="stop()" class="button-accent">Stop</button>

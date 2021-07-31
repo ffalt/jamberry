@@ -1,11 +1,9 @@
 import {Component, Input} from '@angular/core';
-import {ContextMenuService} from '@app/modules/context-menu';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamObjectType} from '@jam';
 import {JamEpisodeObject, JamTrackObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {ActionsService} from '@shared/services';
-import {ContextMenuObjComponent, ContextMenuObjComponentOptions} from '../context-menu-obj/context-menu-obj.component';
 
 @Component({
 	selector: 'app-media-list',
@@ -19,15 +17,12 @@ export class MediaListComponent {
 	@Input() showPlayCount: boolean = false;
 	@Input() showPlayDate: boolean = false;
 
-	constructor(
-		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		private contextMenuService: ContextMenuService, private library: LibraryService
-	) {
+	constructor(private library: LibraryService, public navig: NavigService, public player: PlayerService, public actions: ActionsService) {
 	}
 
 	onContextMenu($event: MouseEvent, item: Jam.MediaBase): void {
 		const obj = item.objType === JamObjectType.track ? new JamTrackObject(item as Jam.Track, this.library) : new JamEpisodeObject(item as Jam.Episode, this.library);
-		this.contextMenuService.open<ContextMenuObjComponentOptions>(ContextMenuObjComponent, obj, $event);
+		this.library.openJamObjectMenu(obj, $event);
 	}
 
 	tapTrack(event: Event & { tapCount?: number }, track: Jam.MediaBase): void {

@@ -11,12 +11,11 @@ import {CacheInterceptor} from '@core/services/uri-cache/cache.interceptor';
 import {CacheService} from '@core/services/uri-cache/cache.service';
 import {JamConfiguration, JamModule} from '@jam';
 import {SharedModule} from '@shared/shared.module';
-
+import { ContextMenuModule } from 'ngx-contextmenu';
 import {AppComponent} from './app.component';
 import {routing} from './app.routing';
 import {guards} from './guards';
 
-import {ContextMenuModule} from './modules/context-menu';
 import {DeferLoadModule} from './modules/defer-load';
 import {DialogOverlayModule} from './modules/dialog-overlay';
 import {HeaderModule} from './modules/header';
