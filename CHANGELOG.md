@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.10](https://github.com-ffalt///compare/v0.4.9...v0.4.10) (2021-07-31)
+
+
+### Bug Fixes
+
+* **overlays:** anchorElement for cdk-overlay context menu ([7058167](https://github.com-ffalt///commit/7058167b963924db674d751097cefe54e3ee441c))
+
 ### [0.4.9](https://github.com-ffalt///compare/v0.4.8...v0.4.9) (2021-05-17)
 
 
