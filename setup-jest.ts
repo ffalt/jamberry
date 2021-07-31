@@ -2,8 +2,10 @@ import 'hammerjs';
 import 'jest-preset-angular/setup-jest';
 import 'soundmanager2/script/soundmanager2-nodebug-jsmin';
 
-// global mocks for jsdom
+console.error = () => {
+};
 
+// global mocks for jsdom
 const mock = (): any => {
 	const storage = new Map<string, any>();
 	return {
