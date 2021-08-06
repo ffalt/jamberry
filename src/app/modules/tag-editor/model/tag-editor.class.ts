@@ -1,4 +1,4 @@
-import {MUSICBRAINZ_VARIOUS_ARTISTS_NAME} from '@app/utils/jam-lists';
+import {MUSICBRAINZ_VARIOUS_ARTISTS_ID, MUSICBRAINZ_VARIOUS_ARTISTS_NAME} from '@app/utils/jam-lists';
 import {ID3v2Frames, Jam, JamService} from '@jam';
 import {Genres} from './genres.consts';
 import {FrameCOMMSubIdsDefs, FrameDef, FrameDefs, FrameTXXXSubIdsDefs, FrameType, FrameUFIDSubIdsDefs} from './id3v2-frames.helper';
@@ -169,26 +169,6 @@ export class TagEditor {
 		return cell.frames.length > 0 ? cell.frames[0].value.text : undefined;
 	}
 
-	async findMissingLyrics(col?: RawTagEditColumn): Promise<void> {
-		const lyricsColIndex = this.columns.findIndex(c => c.def.id === 'USLT');
-		const lyricsCol = col ? col : this.columns[lyricsColIndex];
-		const artistColIndex = this.columns.findIndex(c => c.def.id === 'TPE1');
-		const titleColIndex = this.columns.findIndex(c => c.def.id === 'TIT2');
-		for (const edit of this.edits) {
-			const lyrics = this.getCellText(edit.cells[lyricsColIndex]);
-			if (!lyrics) {
-				const artist = this.getCellText(edit.cells[artistColIndex]);
-				const title = this.getCellText(edit.cells[titleColIndex]);
-				if (title && artist) {
-					const res = await this.jam.metadata.lyricsovhSearch({title, artist});
-					if (res?.data?.lyrics) {
-						this.updateEditTextCell(edit, lyricsCol, res.data.lyrics);
-					}
-				}
-			}
-		}
-	}
-
 	insertFromColumn(sourceColIndex: number, pos: number, column: RawTagEditColumn): void {
 		const index = this.columns.indexOf(column);
 		if (sourceColIndex >= 0) {
@@ -263,55 +243,72 @@ export class TagEditor {
 		}
 	}
 
-	setAudiobookFrames(): void {
-		const genreCol = this.columns.find(c => c.def.id === 'TCON');
-		const albumTypeCol = this.columns.find(c => c.def.id === 'TXXX' && c.def.subid === 'MusicBrainz Album Type');
+	async findMissingLyrics(tracks: Array<Jam.Track> = []): Promise<void> {
+		const lyricsCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.USLT, id: 'USLT'});
+		const artistCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TPE1, id: 'TPE1'});
+		const titleCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TIT2, id: 'TIT2'});
+		const lyricsColIndex = this.columns.indexOf(lyricsCol);
+		const artistColIndex = this.columns.indexOf(artistCol);
+		const titleColIndex = this.columns.indexOf(titleCol);
 		for (const edit of this.edits) {
-			if (genreCol) {
-				this.updateEditTextCell(edit, genreCol, 'Audiobook');
-			}
-			if (albumTypeCol) {
-				this.updateEditTextCell(edit, albumTypeCol, 'album/audiobook');
+			const lyrics = this.getCellText(edit.cells[lyricsColIndex]);
+			if (!lyrics) {
+				const artist = this.getCellText(edit.cells[artistColIndex]);
+				const title = this.getCellText(edit.cells[titleColIndex]);
+				if (title && artist) {
+					const res = await this.jam.metadata.lyricsovhSearch({title, artist});
+					if (res?.data?.lyrics) {
+						this.updateEditTextCell(edit, lyricsCol, res.data.lyrics);
+					}
+				}
 			}
 		}
 	}
 
-	setAudioSeriesFrames(): void {
-		const genreCol = this.columns.find(c => c.def.id === 'TCON');
-		const albumTypeCol = this.columns.find(c => c.def.id === 'TXXX' && c.def.subid === 'MusicBrainz Album Type');
+	setAudiobookFrames(tracks: Array<Jam.Track>): void {
+		const genreCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TCON, id: 'TCON'});
+		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
 		for (const edit of this.edits) {
-			if (genreCol) {
-				this.updateEditTextCell(edit, genreCol, 'Audio Series');
-			}
-			if (albumTypeCol) {
-				this.updateEditTextCell(edit, albumTypeCol, 'album/audiodrama');
-			}
+			this.updateEditTextCell(edit, genreCol, 'Audiobook');
+			this.updateEditTextCell(edit, albumTypeCol, 'album/audiobook');
 		}
 	}
 
-	setSoundtrackFrames(): void {
-		const genreCol = this.columns.find(c => c.def.id === 'TCON');
-		const albumTypeCol = this.columns.find(c => c.def.id === 'TXXX' && c.def.subid === 'MusicBrainz Album Type');
+	setAudioSeriesFrames(tracks: Array<Jam.Track>): void {
+		const genreCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TCON, id: 'TCON'});
+		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
 		for (const edit of this.edits) {
-			if (genreCol) {
-				this.updateEditTextCell(edit, genreCol, 'Soundtrack');
-			}
-			if (albumTypeCol) {
-				this.updateEditTextCell(edit, albumTypeCol, 'album/soundtrack');
-			}
+			this.updateEditTextCell(edit, genreCol, 'Audio Series');
+			this.updateEditTextCell(edit, albumTypeCol, 'album/audiodrama');
 		}
 	}
 
-	setBootlegFrames(): void {
-		const albumStatusCol = this.columns.find(c => c.def.id === 'TXXX' && c.def.subid === 'MusicBrainz Album Status');
-		const albumTypeCol = this.columns.find(c => c.def.id === 'TXXX' && c.def.subid === 'MusicBrainz Album Type');
+	setSoundtrackFrames(tracks: Array<Jam.Track>): void {
+		const genreCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TCON, id: 'TCON'});
+		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
 		for (const edit of this.edits) {
-			if (albumStatusCol) {
-				this.updateEditTextCell(edit, albumStatusCol, 'bootleg');
-			}
-			if (albumTypeCol) {
-				this.updateEditTextCell(edit, albumTypeCol, 'album/live');
-			}
+			this.updateEditTextCell(edit, genreCol, 'Soundtrack');
+			this.updateEditTextCell(edit, albumTypeCol, 'album/soundtrack');
+		}
+	}
+
+	setVariousArtistFrames(tracks: Array<Jam.Track>): void {
+		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
+		const mbArtistIdCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Artist Id'});
+		const albumArtistCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TPE2, id: 'TPE2'});
+		for (const edit of this.edits) {
+			this.updateEditTextCell(edit, albumTypeCol, 'album/compilation');
+			this.updateEditTextCell(edit, albumArtistCol, MUSICBRAINZ_VARIOUS_ARTISTS_NAME);
+			this.updateEditTextCell(edit, mbArtistIdCol, MUSICBRAINZ_VARIOUS_ARTISTS_ID);
+		}
+	}
+
+	setBootlegFrames(tracks: Array<Jam.Track>): void {
+		const albumStatusCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Status'});
+		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
+		for (const edit of this.edits) {
+			this.updateEditTextCell(edit, albumStatusCol, 'bootleg');
+			this.updateEditTextCell(edit, albumTypeCol, 'album/live');
 		}
 	}
 
@@ -427,6 +424,20 @@ export class TagEditor {
 			},
 			dateFrames
 		};
+	}
+
+	findOrAddColumn(tracks: Array<Jam.Track>, col: { frameDef: FrameDef; id: string; subid?: string }): RawTagEditColumn {
+		const exists = this.columns.find(c => c.def.id === col.id && c.def.subid === col.subid);
+		if (exists) {
+			return exists;
+		}
+		const newCol = this.frameDef2Column(col.id, col.subid, col.frameDef, DefaultFrameColumns.findIndex(c => TagEditor.matchColumn({
+			id: col.id,
+			value: col.subid ? {id: col.subid} : undefined
+		}, c)));
+		this.columns.push(newCol);
+		this.buildEdits(tracks);
+		return newCol;
 	}
 
 	updateColumns(tracks: Array<Jam.Track>, cols: Array<{ frameDef: FrameDef; id: string; subid?: string }>): void {
@@ -625,7 +636,7 @@ export class TagEditor {
 					icon: 'icon-down-thin',
 					title: 'Search for missing Lyrics',
 					click: (): void => {
-						this.findMissingLyrics(col)
+						this.findMissingLyrics()
 							.catch(e => {
 								console.error(e);
 							});
