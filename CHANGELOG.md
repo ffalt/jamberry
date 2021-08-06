@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.12](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.11...v0.4.12) (2021-08-06)
+
+
+### Features
+
+* **tag-editor:** add set-compilation cmd ([1b56941](https://github.com-ffalt/ffalt/jamberry/commit/1b5694106d266db1d64842e1ebf2ca0ce990d8dd))
+
 ### [0.4.11](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.10...v0.4.11) (2021-07-31)
 
 
