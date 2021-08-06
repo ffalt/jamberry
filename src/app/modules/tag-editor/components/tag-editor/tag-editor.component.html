@@ -1,12 +1,12 @@
 <app-loading *ngIf="!folder"></app-loading>
 
 <context-menu #actionMenu>
-	<ng-template contextMenuItem (execute)="editor.setAudiobookFrames(tracks)"><i class="icon-edit"></i> Set Audiobook Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.setAudioSeriesFrames(tracks)"><i class="icon-edit"></i> Set Audio Series Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.setSoundtrackFrames(tracks)"><i class="icon-edit"></i> Set Soundtrack Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.setBootlegFrames(tracks)"><i class="icon-edit"></i> Set Bootleg Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.setVariousArtistFrames(tracks)"><i class="icon-edit"></i> Set Various Artists Compilation Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.findMissingLyrics(tracks)"><i class="icon-edit"></i> Search & Fill Missing Lyrics Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setAudiobookFrames(this.tracks)"><i class="icon-edit"></i> Set Audiobook Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setAudioSeriesFrames(this.tracks)"><i class="icon-edit"></i> Set Audio Series Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setSoundtrackFrames(this.tracks)"><i class="icon-edit"></i> Set Soundtrack Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setBootlegFrames(this.tracks)"><i class="icon-edit"></i> Set Bootleg Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setVariousArtistFrames(this.tracks)"><i class="icon-edit"></i> Set Various Artists Compilation Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.findMissingLyrics(this.tracks)"><i class="icon-edit"></i> Search & Fill Missing Lyrics Frames</ng-template>
 </context-menu>
 
 <ng-container *ngIf="folder">

@@ -265,7 +265,7 @@ export class TagEditor {
 		}
 	}
 
-	setAudiobookFrames(tracks: Array<Jam.Track>): void {
+	setAudiobookFrames(tracks: Array<Jam.Track> = []): void {
 		const genreCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TCON, id: 'TCON'});
 		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
 		for (const edit of this.edits) {
@@ -274,7 +274,7 @@ export class TagEditor {
 		}
 	}
 
-	setAudioSeriesFrames(tracks: Array<Jam.Track>): void {
+	setAudioSeriesFrames(tracks: Array<Jam.Track> = []): void {
 		const genreCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TCON, id: 'TCON'});
 		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
 		for (const edit of this.edits) {
@@ -283,7 +283,7 @@ export class TagEditor {
 		}
 	}
 
-	setSoundtrackFrames(tracks: Array<Jam.Track>): void {
+	setSoundtrackFrames(tracks: Array<Jam.Track> = []): void {
 		const genreCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TCON, id: 'TCON'});
 		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
 		for (const edit of this.edits) {
@@ -292,7 +292,7 @@ export class TagEditor {
 		}
 	}
 
-	setVariousArtistFrames(tracks: Array<Jam.Track>): void {
+	setVariousArtistFrames(tracks: Array<Jam.Track> = []): void {
 		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
 		const mbArtistIdCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Artist Id'});
 		const albumArtistCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TPE2, id: 'TPE2'});
@@ -303,7 +303,7 @@ export class TagEditor {
 		}
 	}
 
-	setBootlegFrames(tracks: Array<Jam.Track>): void {
+	setBootlegFrames(tracks: Array<Jam.Track> = []): void {
 		const albumStatusCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Status'});
 		const albumTypeCol = this.findOrAddColumn(tracks, {frameDef: FrameDefs.TXXX, id: 'TXXX', subid: 'MusicBrainz Album Type'});
 		for (const edit of this.edits) {
