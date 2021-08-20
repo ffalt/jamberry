@@ -1,12 +1,12 @@
-<div class="left">
+<aside class="left">
 	<app-sidebar></app-sidebar>
-</div>
+</aside>
 <app-splitter class="split-pane-divider-left"></app-splitter>
-<div class="middle">
+<main role="main" class="middle">
 	<router-outlet></router-outlet>
-</div>
+</main>
 <app-splitter class="split-pane-divider-right" [leftSnap]="false"></app-splitter>
-<div class="right">
+<aside class="right">
 	<app-sidebar-right></app-sidebar-right>
-</div>
+</aside>
 

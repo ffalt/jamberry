@@ -51,6 +51,11 @@
 			padding-left: $padding-sm;
 		}
 
+		&:hover, &:focus {
+			app-coverart-image {
+				border: 1px solid var(--on-control-hover);
+			}
+		}
 	}
 
 	.sandwich, .back {
@@ -69,7 +74,6 @@
 	.sandwich {
 		display: none;
 	}
-
 
 	@media (max-width: $break-pad) {
 		.sandwich {

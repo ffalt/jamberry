@@ -5,6 +5,12 @@
 	flex-flow: column wrap;
 	margin-bottom: $margin;
 
+	.index-list-content {
+		padding: 0;
+		list-style: none;
+		margin: 0;
+	}
+
 	.header {
 		color: var(--on-control-ambient);
 		font-size: $x-small;
@@ -13,15 +19,18 @@
 		margin-bottom: $margin-xs;
 		cursor: pointer;
 
-		&:hover {
-			color: var(--on-control-ambient-hover);
-			border-right-color: var(--primary);
-		}
-
 		&:after {
 			font-family: $icon-font-family;
 			content: $icon-font-chevron-down-char;
 			padding-left: 4px;
+		}
+
+		&:hover {
+			color: var(--on-control-ambient-hover);
+
+			&:after {
+				color: var(--primary);
+			}
 		}
 
 		border-right-width: 3px;
@@ -55,13 +64,17 @@
 			border-right-color: var(--primary);
 		}
 
+		&:focus {
+			border-right-color: var(--secondary);
+		}
+
 		&.active {
 			color: var(--on-control-hover);
 			transform: scale(1.1);
 		}
 	}
 
-	.active {
+	&.active {
 		.header {
 			&:after {
 				content: $icon-font-chevron-up-char;

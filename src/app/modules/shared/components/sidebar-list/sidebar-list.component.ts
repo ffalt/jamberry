@@ -4,6 +4,9 @@ export interface SidebarListItem {
 	name: string;
 	icon: string;
 	link: string;
+	options?: {
+		exact: boolean;
+	};
 }
 
 @Component({
@@ -23,5 +26,9 @@ export class SidebarListComponent {
 
 	trackByFn(index: number, node: SidebarListItem): string {
 		return node.link;
+	}
+
+	toggle() {
+		this.collapsed = !this.collapsed;
 	}
 }

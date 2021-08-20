@@ -14,7 +14,7 @@
 			<div class="label">{{item.label}}</div>
 			<div class="count" [class.clickable]="item.click" (click)="clickItem(item)">{{item.value}}</div>
 		</ng-container>
-		<a class="more" (click)="contextmenuEvent($event)">…</a>
+		<a class="more" (click)="contextmenuEvent($event)" (keydown.enter)="contextmenuEvent($event)" tabindex="0">…</a>
 	</div>
 </div>
 <app-view-header-tabs class="navigation" [tabs]="tabs"></app-view-header-tabs>

@@ -1,16 +1,16 @@
 <ng-container *ngIf="obj">
 	<div class="art" (appDeferLoad)="gotInView()">
-		<app-coverart-image *ngIf="visible" [coverArtObj]="obj.base" [size]="135" [alt]="obj.name" (click)="obj.navigTo()" appClickStop></app-coverart-image>
+		<app-coverart-image *ngIf="visible" [coverArtObj]="obj.base" [size]="135" [alt]="obj.name" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()" appClickStop></app-coverart-image>
 	</div>
 	<div class="meta">
-		<app-fav-icon [faved]="obj.base.state?.faved" (click)="toggleFav()" appClickStop></app-fav-icon>
+		<app-fav-icon [faved]="obj.base.state?.faved" (click)="toggleFav()" (keydown.enter)="toggleFav()" tabindex="0" appClickStop></app-fav-icon>
 		<div *ngIf="obj.year" class="year">{{obj.year}}</div>
-		<div *ngIf="showParent && obj.parent" class="artist"><a (click)="obj.navigToParent()" appClickStop>{{obj.parent}}</a></div>
-		<div class="name"><a (click)="obj.navigTo()" appClickStop>{{obj.name}}</a></div>
+		<div *ngIf="showParent && obj.parent" class="artist"><a (click)="obj.navigToParent()" (keydown.enter)="obj.navigToParent()" tabindex="0" appClickStop>{{obj.parent}}</a></div>
+		<div class="name"><a (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()" tabindex="0" appClickStop>{{obj.name}}</a></div>
 		<div class="type">{{obj.mediaType}}</div>
 		<div class="actions">
-			<button class="button-primary" (click)="obj.play()" appClickStop><i class="icon-play"></i> Play</button>
-			<a (click)="obj.onContextMenu($event)" appClickStop>…</a>
+			<button class="button-primary" (click)="obj.play()" (keydown.enter)="obj.play()" tabindex="0" appClickStop><i class="icon-play" aria-hidden="true"></i> Play</button>
+			<a (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)" tabindex="0" appClickStop title="Menu">…</a>
 		</div>
 	</div>
 </ng-container>

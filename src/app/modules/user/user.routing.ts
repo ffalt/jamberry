@@ -12,7 +12,12 @@ export const routes: Routes = [
 		children: [
 			{path: '', pathMatch: 'full', component: UserPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'User'}},
 			{path: 'settings', component: SettingsPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Settings'}},
-			{path: 'sessions', component: SessionsPageComponent, canActivate: [AuthCanActivateGuard], data: {name: 'Sessions'}}
+			{
+				path: 'sessions',
+				component: SessionsPageComponent,
+				canActivate: [AuthCanActivateGuard],
+				data: {name: 'Sessions', icon: 'icon-laptop'}
+			}
 		]
 	}
 ];

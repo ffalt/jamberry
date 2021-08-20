@@ -1,4 +1,4 @@
-<section class="playing" *ngIf="player.currentTrack">
+<section class="playing" *ngIf="player.currentTrack" tabindex="0">
 	<div class="art">
 		<app-coverart-image [coverArtObj]="player.currentTrack" [size]="50" alt="Album Art"></app-coverart-image>
 	</div>
@@ -11,7 +11,7 @@
 		<a title="Toggle Track as Favorite" (click)="actions.toggleMediaBaseFav(player.currentTrack)"><i [class]="player.currentTrack.state?.faved | stringToggle:'icon-heart-full':'icon-heart-empty'"></i></a>
 	</div>
 </section>
-<section class="playing" *ngIf="player.currentEpisode">
+<section class="playing" *ngIf="player.currentEpisode" tabindex="0">
 	<div class="art">
 		<app-coverart-image [coverArtObj]="player.currentEpisode" [size]="50" alt="Album Art"></app-coverart-image>
 	</div>

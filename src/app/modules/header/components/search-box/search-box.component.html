@@ -8,5 +8,7 @@
 		</ng-container>
 	</ng-template>
 </app-autocomplete>
-<input autocomplete="off" type="text" name="query" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this">
-<i class="icon-search"></i>
+<label class="visually-hidden" for="header-search-box">Search</label>
+<input id="header-search-box" autocomplete="off" type="text" name="query"
+			 aria-label="Search" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this">
+<i class="icon-search" aria-hidden="true"></i>

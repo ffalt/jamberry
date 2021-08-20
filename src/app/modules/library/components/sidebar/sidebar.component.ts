@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppService, NotifyService, SidebarProvider} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {SidebarListItem} from '@library/components';
+import {SidebarListItem} from '@shared/components';
 
 @Component({
 	selector: 'app-sidebar',

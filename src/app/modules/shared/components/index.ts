@@ -32,6 +32,7 @@ import {SplitterComponent} from './splitter/splitter.component';
 import {StatsComponent} from './stats/stats.component';
 import {TextOverlayContentComponent} from './text-overlay-content/text-overlay-content.component';
 import {ViewTypeToggleComponent} from './view-type-toggle/view-type-toggle.component';
+import {SidebarListComponent} from './sidebar-list/sidebar-list.component';
 
 export const entryComponents: Array<any> = [
 	ChildTooltipContentComponent,
@@ -68,6 +69,7 @@ export const components: Array<any> = [
 	MediaPlateComponent,
 	MusicbrainzIconComponent,
 	RateComponent,
+	SidebarListComponent,
 	SplitterComponent,
 	StatsComponent,
 	ChaptersComponent,
@@ -108,3 +110,4 @@ export * from './info-text/info-text.component';
 export * from './media-plate/media-plate.component';
 export * from './obj-card/obj-card.component';
 export * from './stats/stats.component';
+export * from './sidebar-list/sidebar-list.component';

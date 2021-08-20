@@ -15,90 +15,7 @@
 		overflow-x: hidden;
 		background-color: var(--control);
 		color: var(--on-control);
-
-		.list {
-
-			display: flex;
-			flex-flow: column wrap;
-			margin-bottom: $margin;
-
-			.header {
-				color: var(--on-control-ambient);
-				font-size: $x-small;
-				text-transform: uppercase;
-				letter-spacing: 1px;
-				margin-bottom: $margin-xs;
-				cursor: pointer;
-
-				&:hover {
-					color: var(--on-control-ambient-hover);
-					border-right-color: var(--primary);
-				}
-
-				&:after {
-					font-family: $icon-font-family;
-					content: $icon-font-chevron-down-char;
-					padding-left: 4px;
-				}
-
-				border-right-width: 3px;
-				border-right-style: solid;
-				border-right-color: transparent;
-			}
-
-			.item {
-				color: var(--on-control);
-				padding: $padding-xs 0;
-				display: flex;
-				flex-flow: row nowrap;
-				align-items: center;
-				border-right-width: 3px;
-				border-right-style: solid;
-				border-right-color: transparent;
-				transition: all .1s ease-in-out;
-				transform-origin: left center;
-
-				app-coverart-image {
-					margin-right: 6px;
-				}
-
-				i {
-					width: 25px;
-					display: block;
-				}
-
-				&:hover {
-					color: var(--on-control-hover);
-					border-right-color: var(--primary);
-				}
-
-				&.active {
-					transform: scale(1.1);
-				}
-			}
-
-			.list {
-				margin-top: 8px;
-				padding-left: 4px;
-
-				.header {
-					color: var(--on-control);
-					font-size: $small;
-					font-weight: bold;
-				}
-			}
-		}
-
-		.active {
-			.header {
-				&:after {
-					content: $icon-font-chevron-up-char;
-				}
-			}
-		}
-
 	}
-
 
 	@media (max-width: $break-pad) {
 		height: auto;
@@ -114,22 +31,6 @@
 
 			&.show {
 				display: flex;
-			}
-
-			.index-list {
-				display: none;
-			}
-
-			.list {
-				flex: 1;
-
-				.header {
-					border-right-width: 0;
-
-					&:after {
-						content: '';
-					}
-				}
 			}
 		}
 

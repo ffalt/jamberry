@@ -4,13 +4,17 @@
 			<app-coverart-image [coverArtObj]="player.currentTrack" [size]="135" [alt]="player.currentTrack.name"></app-coverart-image>
 		</div>
 		<div class="meta">
-			<app-fav-icon (click)="actions.toggleMediaBaseFav(player.currentTrack)" [faved]="player.currentTrack.state?.faved"></app-fav-icon>
+			<app-fav-icon (click)="actions.toggleMediaBaseFav(player.currentTrack)" (keydown.enter)="actions.toggleMediaBaseFav(player.currentTrack)"
+										[faved]="player.currentTrack.state?.faved" tabindex="0"></app-fav-icon>
 			<div class="year">{{player.currentTrack.tag?.year}}</div>
-			<div class="name" (click)="navig.toTrack(player.currentTrack)"><a>{{player.currentTrack.tag?.title}}</a></div>
-			<div class="album" (click)="navig.toMediaAlbum(player.currentTrack)"><a>{{player.currentTrack.tag?.album}}</a></div>
-			<div class="artist" (click)="navig.toMediaArtist(player.currentTrack)"><a>{{player.currentTrack.tag?.artist}}</a></div>
+			<a class="name" (click)="navig.toTrack(player.currentTrack)" (keydown.enter)="navig.toTrack(player.currentTrack)"
+				 tabindex="0"><a>{{player.currentTrack.tag?.title}}</a></a>
+			<a class="album" (click)="navig.toMediaAlbum(player.currentTrack)" (keydown.enter)="navig.toMediaAlbum(player.currentTrack)"
+				 tabindex="0"><a>{{player.currentTrack.tag?.album}}</a></a>
+			<a class="artist" (click)="navig.toMediaArtist(player.currentTrack)" (keydown.enter)="navig.toMediaArtist(player.currentTrack)"
+				 tabindex="0"><a>{{player.currentTrack.tag?.artist}}</a></a>
 			<div class="actions">
-				<a class="more" (click)="onContextMenu($event, player.currentTrack)">…</a>
+				<a class="more" (click)="onContextMenu($event, player.currentTrack)" (keydown.enter)="onContextMenu($event, player.currentTrack)" tabindex="0" title="Menu">…</a>
 			</div>
 		</div>
 	</div>
@@ -22,10 +26,18 @@
 			<app-coverart-image [coverArtObj]="player.currentEpisode" [size]="135" [alt]="player.currentEpisode.name"></app-coverart-image>
 		</div>
 		<div class="meta">
-			<app-fav-icon [faved]="player.currentEpisode.state?.faved"></app-fav-icon>
+			<app-fav-icon (click)="actions.toggleMediaBaseFav(player.currentEpisode)"
+										(keydown.enter)="actions.toggleMediaBaseFav(player.currentEpisode)"
+										[faved]="player.currentEpisode.state?.faved" tabindex="0"></app-fav-icon>
 			<div class="year">{{player.currentEpisode.date | date}}</div>
-			<div class="name" (click)="navig.toPodcastEpisode(player.currentEpisode)"><a>{{player.currentEpisode.tag ? player.currentEpisode.tag.title : player.currentEpisode.name}}</a></div>
-			<div class="album" (click)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)"><a>{{player.currentEpisode.podcast}}</a></div>
+			<a class="name"
+				 (click)="navig.toPodcastEpisode(player.currentEpisode)"
+				 (keydown.enter)="navig.toPodcastEpisode(player.currentEpisode)"
+				 tabindex="0">{{player.currentEpisode.tag ? player.currentEpisode.tag.title : player.currentEpisode.name}}</a>
+			<a class="album"
+				 (click)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)"
+				 (keydown.enter)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)"
+				 tabindex="0">{{player.currentEpisode.podcast}}</a>
 			<div class="artist">{{player.currentEpisode.author}}</div>
 			<div class="actions"></div>
 		</div>

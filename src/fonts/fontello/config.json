@@ -7,12 +7,6 @@
   "ascent": 850,
   "glyphs": [
     {
-      "uid": "76f961b11f65300838a5a78856aca30f",
-      "css": "view-tiles",
-      "code": 59392,
-      "src": "elusive"
-    },
-    {
       "uid": "50e664a6f12199784c02600b2ccfd60a",
       "css": "view-details",
       "code": 59393,
@@ -809,6 +803,18 @@
       "search": [
         "broom"
       ]
+    },
+    {
+      "uid": "93faa7cec68bf69ec455bbab61e58e48",
+      "css": "view-tiles",
+      "code": 59504,
+      "src": "elusive"
+    },
+    {
+      "uid": "949f56916cd9c4f45ef76cc604f02e2e",
+      "css": "laptop",
+      "code": 59392,
+      "src": "elusive"
     }
   ]
 }

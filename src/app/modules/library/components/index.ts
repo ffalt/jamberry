@@ -38,7 +38,6 @@ import {QueuePageComponent} from './queue-page/queue-page.component';
 import {SearchPageComponent} from './search-page/search-page.component';
 import {SeriesOverviewComponent} from './series-overview/series-overview.component';
 import {SidebarIndexComponent} from './sidebar-index/sidebar-index.component';
-import {SidebarListComponent} from './sidebar-list/sidebar-list.component';
 import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {StartPageComponent} from './start-page/start-page.component';
@@ -94,7 +93,6 @@ export const components: Array<any> = [
 	SeriesOverviewComponent,
 	SidebarComponent,
 	SidebarIndexComponent,
-	SidebarListComponent,
 	SidebarRightComponent,
 	StartSectionComponent,
 	StartSectionsComponent,
@@ -144,7 +142,6 @@ export * from './podcast-overview/podcast-overview.component';
 export * from './podcasts-latest-episodes/podcasts-latest-episodes.component';
 export * from './series-overview/series-overview.component';
 export * from './sidebar-index/sidebar-index.component';
-export * from './sidebar-list/sidebar-list.component';
 export * from './sidebar-right/sidebar-right.component';
 export * from './sidebar/sidebar.component';
 export * from './start-section/start-section.component';

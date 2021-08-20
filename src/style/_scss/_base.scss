@@ -246,7 +246,7 @@ $cdk-z-index-overlay: 1000;
 
 	li {
 		display: block;
-		border-top: 1px solid var(--control-box-border);
+		border-top: 1px solid var(--control-border);
 
 		&:first-child {
 			border-top: none;
@@ -265,3 +265,18 @@ $cdk-z-index-overlay: 1000;
 	}
 }
 
+.visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+button {
+	background-color: transparent;
+	border: none;
+}

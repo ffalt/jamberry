@@ -1,13 +1,13 @@
 <div class="start-section">{{name}}</div>
 <div class="start-items" *ngIf="list && list.length">
-	<div *ngFor="let item of list" class="start-item" (click)="item.click()">
+	<a *ngFor="let item of list" class="start-item" (click)="item.click()" (keydown.enter)="item.click()" tabindex="0">
 		<div class="image">
 			<app-coverart-image [coverArtObj]="item.obj" [size]="80" [alt]="item.obj.name" [fill]="true"></app-coverart-image>
 		</div>
-		<div class="title">
+		<span class="title">
 			{{item.obj.name | limit:90}}
-		</div>
-	</div>
+		</span>
+	</a>
 </div>
 <div class="none" *ngIf="list && list.length===0">
 	[ None ]

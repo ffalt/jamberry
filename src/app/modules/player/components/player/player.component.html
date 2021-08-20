@@ -1,9 +1,9 @@
 <div class="player">
 	<div class="actions">
-		<a (click)="player.previous()" title="Previous Track"><i class="icon-fast-backward"></i></a>
-		<a *ngIf="!player.isPlaying" class="play" (click)="defaultPlay()" title="Play"><i class="icon-play"></i></a>
-		<a *ngIf="player.isPlaying" class="play" (click)="player.togglePlayPause()" title="Pause"><i class="icon-pause"></i></a>
-		<a (click)="player.next()" title="Next Track"><i class="icon-fast-forward"></i></a>
+		<button (click)="player.previous()" title="Previous Track"><i class="icon-fast-backward" aria-hidden="true"></i></button>
+		<button *ngIf="!player.isPlaying" class="play" (click)="defaultPlay()" title="Play"><i class="icon-play" aria-hidden="true"></i></button>
+		<button *ngIf="player.isPlaying" class="play" (click)="player.togglePlayPause()" title="Pause"><i class="icon-pause" aria-hidden="true"></i></button>
+		<button (click)="player.next()" title="Next Track"><i class="icon-fast-forward" aria-hidden="true"></i></button>
 	</div>
 
 	<div class="progress">

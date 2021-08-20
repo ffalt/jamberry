@@ -1,13 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppService, SidebarProvider} from '@core/services';
+import {SidebarListItem} from '@shared/components';
 import {routes} from '../../admin.routing';
-
-export interface AdminSidebarSection {
-	id: string;
-	text: string;
-	icon: string;
-}
 
 @Component({
 	selector: 'app-admin-sidebar',
@@ -15,8 +10,7 @@ export interface AdminSidebarSection {
 	styleUrls: ['./admin-sidebar.component.scss']
 })
 export class AdminSidebarComponent implements OnInit, OnDestroy, SidebarProvider {
-	collapsed: { [sectionName: string]: boolean } = {};
-	sections: Array<AdminSidebarSection> = [];
+	sections: Array<SidebarListItem> = [];
 	showMobileNavig: boolean = false;
 
 	constructor(private app: AppService, private router: Router) {
@@ -25,8 +19,8 @@ export class AdminSidebarComponent implements OnInit, OnDestroy, SidebarProvider
 			.filter(route => route.path && route.path.length > 0 && route.data?.name)
 			.map(route =>
 				({
-					id: route.data && route.data.link ? route.data.link : route.path,
-					text: route.data ? route.data.name : '',
+					link: `/admin${route.data && route.data.link ? route.data.link : route.path}`,
+					name: route.data ? route.data.name : '',
 					icon: route.data && route.data.icon ? route.data.icon : 'icon-admin'
 				}));
 	}
@@ -44,12 +38,11 @@ export class AdminSidebarComponent implements OnInit, OnDestroy, SidebarProvider
 		this.app.view.currentSidebar = undefined;
 	}
 
-	trackByFn(index: number, section: AdminSidebarSection): string {
-		return section.id;
+	onNavigate(): void {
+		this.showMobileNavig = false;
 	}
 
 	toggleMobileNavig(): void {
 		this.showMobileNavig = !this.showMobileNavig;
 	}
-
 }

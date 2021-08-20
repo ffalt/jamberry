@@ -1,11 +1,6 @@
-<section class="navigation" [class.show]="showMobileNavig">
+<nav class="navigation" [class.show]="showMobileNavig">
 	<app-sidebar-list [entries]="mainList" listName="Main" (navigate)="onNavigate()"></app-sidebar-list>
 	<app-sidebar-list [entries]="spokenList" listName="Spoken" (navigate)="onNavigate()"></app-sidebar-list>
 	<app-sidebar-list [entries]="musicList" listName="Music" (navigate)="onNavigate()"></app-sidebar-list>
-</section>
-
-<!--<section class="index">-->
-<!--	<app-sidebar-index></app-sidebar-index>-->
-<!--</section>-->
-
+</nav>
 <app-current-playing></app-current-playing>

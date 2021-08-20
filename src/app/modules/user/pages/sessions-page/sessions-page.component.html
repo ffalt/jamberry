@@ -16,7 +16,7 @@
 					<span class="label">valid until:</span><br/>
 					{{session.expires | date:'long'}}
 				</div>
-				<div class="remove"><a title="Remove this login" (click)="remove(session)"><i class="icon-remove"></i></a></div>
+				<div class="remove"><button title="Remove this login" (click)="remove(session)"><i class="icon-remove" aria-hidden="true"></i></button></div>
 			</div>
 		</div>
 	</div>
