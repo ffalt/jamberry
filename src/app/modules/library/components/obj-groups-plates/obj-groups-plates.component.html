@@ -1,0 +1,6 @@
+<ng-container *ngFor="let group of groups">
+	<div class="group">{{group.type}}</div>
+	<div class="plates">
+		<app-obj-plate *ngFor="let obj of group.objs" [obj]="obj" [showParent]="showParent"></app-obj-plate>
+	</div>
+</ng-container>

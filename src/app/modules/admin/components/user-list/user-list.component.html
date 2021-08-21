@@ -1,4 +1,4 @@
-<table *ngIf="users && users.length>0" class="users">
+<table *ngIf="users && users.length>0" class="users" appFocusKeyList>
 	<tr class="user heading">
 		<td class="avatar">Avatar</td>
 		<td class="title">Name</td>
@@ -9,21 +9,23 @@
 		<td class="role">Can Stream</td>
 		<td class="actions">Actions</td>
 	</tr>
-	<tr class="user" *ngFor="let user of users" (dblclick)="editUser(user)">
+	<tr class="user" *ngFor="let user of users" (dblclick)="editUser(user)" (keydown.enter)="editUser(user)" appFocusKeyListItem>
 		<td class="avatar">
 			<app-coverart-image [coverArtObj]="user" [alt]="user.name" [size]="28" [round]="true"></app-coverart-image>
 		</td>
 		<td class="title">{{user.name}}</td>
 		<td class="email">{{user.email}}</td>
-		<td class="role"><i *ngIf="user.roles.admin" class="icon-checkmark"></i></td>
-		<td class="role"><i *ngIf="user.roles.podcast" class="icon-checkmark"></i></td>
-		<td class="role"><i *ngIf="user.roles.upload" class="icon-checkmark"></i></td>
-		<td class="role"><i *ngIf="user.roles.stream" class="icon-checkmark"></i></td>
+		<td class="role"><i *ngIf="user.roles.admin" class="icon-checkmark" aria-hidden="true"></i><span *ngIf="user.roles.admin" class="visually-hidden">Is Admin</span></td>
+		<td class="role"><i *ngIf="user.roles.podcast" class="icon-checkmark" aria-hidden="true"></i><span *ngIf="user.roles.admin" class="visually-hidden">Can manage podcast</span></td>
+		<td class="role"><i *ngIf="user.roles.upload" class="icon-checkmark" aria-hidden="true"></i><span *ngIf="user.roles.admin" class="visually-hidden">Can upload</span></td>
+		<td class="role"><i *ngIf="user.roles.stream" class="icon-checkmark" aria-hidden="true"></i><span *ngIf="user.roles.stream" class="visually-hidden">Can stream</span></td>
 		<td class="actions">
-			<a title="Change Avatar" (click)="editUserAvatar(user)"><i class="icon-picture"></i></a>
-			<a title="Set Password" (click)="setUserPassword(user)"><i class="icon-key"></i></a>
-			<a title="Edit User" (click)="editUser(user)"><i class="icon-edit"></i></a>
-			<a title="Delete User" (click)="deleteUser(user)"><i class="icon-remove"></i></a>
+			<div class="action-buttons">
+				<button title="Change Avatar" (click)="editUserAvatar(user)"><i class="icon-picture" aria-hidden="true"></i></button>
+				<button title="Set Password" (click)="setUserPassword(user)"><i class="icon-key" aria-hidden="true"></i></button>
+				<button title="Edit User" (click)="editUser(user)"><i class="icon-edit" aria-hidden="true"></i></button>
+				<button title="Delete User" (click)="deleteUser(user)"><i class="icon-remove" aria-hidden="true"></i></button>
+			</div>
 		</td>
 	</tr>
 </table>

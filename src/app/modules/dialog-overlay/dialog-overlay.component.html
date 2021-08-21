@@ -1,15 +1,15 @@
 <div class="overlay-content">
 	<div class="overlay-title">{{ config.title }}</div>
 	<div class="close-panel">
-		<a (click)="close()" class="close"></a>
+		<button (click)="close()" class="close"><span class="visually-hidden">Close</span></button>
 	</div>
 	<div class="overlay-body">
 		<ng-container #overlayDialogBody></ng-container>
 	</div>
 	<ng-container *ngIf="config.onOkBtn || config.onCancelBtn">
 		<div class="overlay-buttons" [class.disabled]="isBusy">
-			<a class="ok" *ngIf="config.onOkBtn" (click)="ok()">OK</a>
-			<a class="cancel" *ngIf="config.onCancelBtn" (click)="cancel()">Cancel</a>
+			<button class="ok" *ngIf="config.onOkBtn" (click)="ok()">OK</button>
+			<button class="cancel" *ngIf="config.onCancelBtn" (click)="cancel()">Cancel</button>
 		</div>
 	</ng-container>
 </div>

@@ -17,18 +17,21 @@ import {FolderMusicbrainzComponent} from './folder-mb/folder-musicbrainz.compone
 import {FolderOverviewComponent} from './folder-overview/folder-overview.component';
 import {FolderSimilarComponent} from './folder-similar/folder-similar.component';
 import {GenrePageComponent} from './genre-page/genre-page.component';
+import {IndexComponent} from './index/index.component';
 import {IndexEntryCardComponent} from './index-entry-card/index-entry-card.component';
 import {IndexGroupComponent} from './index-group/index-group.component';
-import {IndexComponent} from './index/index.component';
 import {MbAlbumComponent} from './mb-album/mb-album.component';
 import {MbArtistComponent} from './mb-artist/mb-artist.component';
 import {MbRelationsComponent} from './mb-relations/mb-relations.component';
 import {MediaListComponent} from './media-list/media-list.component';
+import {MediaPlaylistComponent} from './tracks-playlist/media-playlist.component';
+import {ObjGroupsCardsComponent} from './obj-groups-cards/obj-groups-cards.component';
+import {ObjGroupsPlatesComponent} from './obj-groups-plates/obj-groups-plates.component';
 import {ObjGroupsViewComponent} from './obj-groups-view/obj-groups-view.component';
-import {ObjsLoaderByTypeComponent} from './obj-loader-by-type/objs-loader-by-type.component';
 import {ObjPageComponent} from './obj-page/obj-page.component';
 import {ObjPlateComponent} from './obj-plate/obj-plate.component';
 import {ObjsIndexLoaderComponent} from './objs-index-loader/objs-index-loader.component';
+import {ObjsLoaderByTypeComponent} from './obj-loader-by-type/objs-loader-by-type.component';
 import {ObjsLoaderComponent} from './objs-loader/objs-loader.component';
 import {ObjsPageComponent} from './objs-page/objs-page.component';
 import {PlaylistOverviewComponent} from './playlist-overview/playlist-overview.component';
@@ -38,8 +41,8 @@ import {QueuePageComponent} from './queue-page/queue-page.component';
 import {SearchPageComponent} from './search-page/search-page.component';
 import {SeriesOverviewComponent} from './series-overview/series-overview.component';
 import {SidebarIndexComponent} from './sidebar-index/sidebar-index.component';
-import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
 import {SidebarLibraryComponent} from './sidebar/sidebar-library.component';
+import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
 import {StartPageComponent} from './start-page/start-page.component';
 import {StartSectionComponent} from './start-section/start-section.component';
 import {StartSectionsComponent} from './start-sections/start-sections.component';
@@ -50,7 +53,6 @@ import {TrackOverviewComponent} from './track-overview/track-overview.component'
 import {TrackSimilarComponent} from './track-similar/track-similar.component';
 import {TracksLoaderByTypeComponent} from './tracks-loader-by-type/tracks-loader-by-type.component';
 import {TracksLoaderComponent} from './tracks-loader/tracks-loader.component';
-import {MediaPlaylistComponent} from './tracks-playlist/media-playlist.component';
 
 export const entryComponents: Array<any> = [
 	ContextMenuObjComponent,
@@ -68,10 +70,14 @@ export const components: Array<any> = [
 	ArtistSimilarComponent,
 	ChatComponent,
 	CurrentPlayingComponent,
-	GenrePageComponent,
 	EpisodeListComponent,
-	EpisodesLoaderComponent,
+	EpisodeOverviewComponent,
 	EpisodeStateButtonComponent,
+	EpisodesLoaderComponent,
+	FolderMusicbrainzComponent,
+	FolderOverviewComponent,
+	FolderSimilarComponent,
+	GenrePageComponent,
 	IndexComponent,
 	IndexEntryCardComponent,
 	IndexGroupComponent,
@@ -79,21 +85,26 @@ export const components: Array<any> = [
 	MbArtistComponent,
 	MbRelationsComponent,
 	MediaListComponent,
+	MediaPlaylistComponent,
+	ObjGroupsCardsComponent,
+	ObjGroupsPlatesComponent,
 	ObjGroupsViewComponent,
 	ObjPageComponent,
 	ObjPlateComponent,
+	ObjsIndexLoaderComponent,
 	ObjsLoaderByTypeComponent,
 	ObjsLoaderComponent,
 	ObjsPageComponent,
-	ObjsIndexLoaderComponent,
 	PlaylistOverviewComponent,
-	EpisodeOverviewComponent,
 	PodcastOverviewComponent,
 	PodcastsLatestEpisodesComponent,
+	QueuePageComponent,
+	SearchPageComponent,
 	SeriesOverviewComponent,
-	SidebarLibraryComponent,
 	SidebarIndexComponent,
+	SidebarLibraryComponent,
 	SidebarRightComponent,
+	StartPageComponent,
 	StartSectionComponent,
 	StartSectionsComponent,
 	StartStatsComponent,
@@ -102,14 +113,7 @@ export const components: Array<any> = [
 	TrackOverviewComponent,
 	TrackSimilarComponent,
 	TracksLoaderByTypeComponent,
-	TracksLoaderComponent,
-	MediaPlaylistComponent,
-	StartPageComponent,
-	QueuePageComponent,
-	SearchPageComponent,
-	FolderOverviewComponent,
-	FolderSimilarComponent,
-	FolderMusicbrainzComponent
+	TracksLoaderComponent
 ];
 
 export * from './album-list/album-list.component';
@@ -165,3 +169,5 @@ export * from './objs-index-loader/objs-index-loader.component';
 export * from './genre-page/genre-page.component';
 export * from './start-sections/start-sections.component';
 export * from './start-stats/start-stats.component';
+export * from './obj-groups-plates/obj-groups-plates.component';
+export * from './obj-groups-cards/obj-groups-cards.component';

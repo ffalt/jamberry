@@ -14,7 +14,7 @@
 			<div class="footer-subline" *ngIf="showParent && obj.parent">{{obj.parent | limit:50}}</div>
 		</a>
 		<div class="footer-buttons">
-			<button class="button-primary" (click)="obj.play()"><i class="icon-play"></i> Play</button>
+			<button class="button-primary" (click)="obj.play()" tabindex="-1"><i class="icon-play" aria-hidden="true"></i> Play</button>
 			<a (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)" tabindex="0">…</a>
 		</div>
 	</div>

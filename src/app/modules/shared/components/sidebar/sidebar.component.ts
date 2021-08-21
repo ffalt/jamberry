@@ -25,7 +25,7 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 	@Input() listName: string = '';
 	@HostBinding('class.active') collapsed: boolean = false;
 	@ViewChildren(SidebarListComponent) items!: QueryList<SidebarListComponent>;
-	@HostBinding('tabindex') tabindex = '0';
+	@HostBinding() tabindex = '0';
 	showMobileNavig: boolean = false;
 	private keyManager: FocusKeyManager<SidebarListItemComponent> | undefined;
 

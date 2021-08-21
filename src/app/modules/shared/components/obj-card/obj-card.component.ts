@@ -1,4 +1,5 @@
-import {ChangeDetectorRef, Component, HostListener, Input} from '@angular/core';
+import {FocusableOption} from '@angular/cdk/a11y';
+import {ChangeDetectorRef, Component, ElementRef, HostBinding, HostListener, Input} from '@angular/core';
 import {JamObject} from '@shared/model/helpers';
 
 @Component({
@@ -6,16 +7,22 @@ import {JamObject} from '@shared/model/helpers';
 	templateUrl: './obj-card.component.html',
 	styleUrls: ['./obj-card.component.scss']
 })
-export class ObjCardComponent {
+export class ObjCardComponent implements FocusableOption {
 	@Input() obj?: JamObject;
 	@Input() showParent: boolean = false;
 	visible: boolean = false;
+	@HostBinding() tabindex = -1;
 
-	constructor(private cdr: ChangeDetectorRef) {
+	constructor(private cdr: ChangeDetectorRef, protected element: ElementRef) {
 	}
 
+	focus() {
+		this.element.nativeElement.focus();
+	}
+
+	@HostListener('keydown.enter', ['$event'])
 	@HostListener('contextmenu', ['$event'])
-	contextmenuEvent(event: MouseEvent): void {
+	contextmenuEvent(event: MouseEvent | KeyboardEvent): void {
 		if (this.obj) {
 			this.obj.onContextMenu(event);
 		}

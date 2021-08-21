@@ -1,5 +1,5 @@
 <app-background-text-list [list]="roots" name="Roots"></app-background-text-list>
-<table *ngIf="roots && roots.length>0" class="roots">
+<table *ngIf="roots && roots.length>0" class="roots" appFocusKeyList>
 	<tr class="root heading">
 		<td class="title">Name</td>
 		<td class="path">Path</td>
@@ -7,7 +7,7 @@
 		<td class="status">Status</td>
 		<td class="actions">Actions</td>
 	</tr>
-	<tr class="root" *ngFor="let root of roots" (dblclick)="editRoot(root)">
+	<tr class="root" *ngFor="let root of roots" (dblclick)="editRoot(root)" (keydown.enter)="editRoot(root)" appFocusKeyListItem>
 		<td class="title">{{root.name}}</td>
 		<td class="path">{{root.path}}</td>
 		<td class="strategy">{{root.strategy}}</td>
@@ -20,10 +20,12 @@
 					</span>
 		</td>
 		<td class="actions">
-			<a title="Rescan Root" (click)="refreshRoot(root)" appClickStop><i class="icon-rescan"></i></a>
-			<a title="Refresh Root Meta" (click)="refreshRootMeta(root)" appClickStop><i class="icon-broom"></i></a>
-			<a title="Edit Root" (click)="editRoot(root)" appClickStop><i class="icon-edit"></i></a>
-			<a title="Delete Root" (click)="deleteRoot(root)" appClickStop><i class="icon-remove"></i></a>
+			<div class="action-buttons">
+				<button title="Rescan Root" (click)="refreshRoot(root)" appClickStop><i class="icon-rescan" aria-hidden="true"></i></button>
+				<button title="Refresh Root Meta" (click)="refreshRootMeta(root)" appClickStop><i class="icon-broom" aria-hidden="true"></i></button>
+				<button title="Edit Root" (click)="editRoot(root)" appClickStop><i class="icon-edit" aria-hidden="true"></i></button>
+				<button title="Delete Root" (click)="deleteRoot(root)" appClickStop><i class="icon-remove" aria-hidden="true"></i></button>
+			</div>
 		</td>
 	</tr>
 </table>

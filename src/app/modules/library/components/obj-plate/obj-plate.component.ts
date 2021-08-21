@@ -1,15 +1,19 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {FocusableOption} from '@angular/cdk/a11y';
+import {Component, HostBinding, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {JamObjectType} from '@jam';
 import {JamLibraryObject} from '@library/model/objects';
+import {MediaPlateComponent} from '@shared/components';
 
 @Component({
 	selector: 'app-obj-plate',
 	templateUrl: './obj-plate.component.html',
 	styleUrls: ['./obj-plate.component.scss']
 })
-export class ObjPlateComponent implements OnChanges {
+export class ObjPlateComponent implements OnChanges, FocusableOption {
 	@Input() obj?: JamLibraryObject;
 	@Input() showParent: boolean = false;
+	@ViewChild(MediaPlateComponent, {static: false}) plate?: MediaPlateComponent;
+	@HostBinding() tabindex = -1;
 	loading: boolean = false;
 	expanded: boolean = false;
 	hasTracks?: boolean = false;
@@ -24,6 +28,11 @@ export class ObjPlateComponent implements OnChanges {
 		this.hasEpisodes = this.obj?.childrenTypes && this.obj.childrenTypes.includes(JamObjectType.episode);
 		this.hasMedia = this.obj?.childrenTypes && this.obj.childrenTypes.includes('media');
 		this.check();
+	}
+
+	focus() {
+		console.log('FOCUS!');
+		this.plate?.focus();
 	}
 
 	check(): void {

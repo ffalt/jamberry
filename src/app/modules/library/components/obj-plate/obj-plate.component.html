@@ -1,4 +1,8 @@
-<app-media-plate *ngIf="obj" [obj]="obj" [showParent]="showParent" (click)="toggleExpansion()"></app-media-plate>
+<app-media-plate *ngIf="obj" [obj]="obj" [showParent]="showParent"
+								 (click)="toggleExpansion()"
+								 (keydown.arrowLeft)="toggleExpansion()"
+								 (keydown.arrowRight)="toggleExpansion()"
+></app-media-plate>
 <ng-container *ngIf="expanded">
 	<app-loading *ngIf="loading" [time]="100"></app-loading>
 	<app-media-list *ngIf="hasMedia" [entries]="obj?.media" [showArtist]="showParent"></app-media-list>

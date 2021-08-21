@@ -1,16 +1,20 @@
 <div class="actions">
 	<span class="name">Folders</span>
-	<button class="button-on-control" title="Refresh Folder Tree" (click)="refresh()"><i class="icon-reload"></i></button>
+	<button class="button-on-control" title="Refresh Folder Tree" (click)="refresh()"><i class="icon-reload" aria-hidden="true"></i></button>
 </div>
-<div class="tree">
+<div class="tree" appFocusKeyList>
 <cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="22" class="list-container list-group">
 	<ng-container *cdkVirtualFor="let node of nodes">
-		<div (click)="selectNode(node)" class="node" [style.padding-left.px]="node.level*12" [class.active]="node===selected">
-			<span class="node-toggle" (click)="toggleNode(node)" title="Subfolders: {{node.folder.folderCount}}">
+		<div (click)="selectNode(node)" class="node" [style.padding-left.px]="node.level*12" [class.active]="node===selected"
+				 (keydown.enter)="selectNode(node)"
+				 (keydown.arrowRight)="toggleNode(node)"
+				 (keydown.arrowLeft)="toggleNode(node)"
+				 appFocusKeyListItem>
+			<span class="node-toggle" (click)="toggleNode(node)" (keydown.enter)="toggleNode(node)" title="Subfolders: {{node.folder.folderCount}}">
 				<i *ngIf="node.isLoading" class="icon-spin icon-spinner"></i>
 				<i *ngIf="!node.isLoading && node.hasChildren" [class]="node.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
 			</span>
-			<span class="node-icon" [style.color]="node.color" (click)="toggleNode(node)" [title]="node.folder.type">
+			<span class="node-icon" [style.color]="node.color" (click)="toggleNode(node)" (keydown.enter)="toggleNode(node)" [title]="node.folder.type">
 				<i [class]="node.expanded | stringToggle:'icon-folder-open':'icon-folder'"></i>
 			</span>
 			<span [title]="node.folder.name">{{node.folder.name}}</span>

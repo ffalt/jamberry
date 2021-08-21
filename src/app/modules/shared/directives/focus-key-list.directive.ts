@@ -36,7 +36,6 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 
 	@HostListener('keydown', ['$event'])
 	onKeydown(event: KeyboardEvent) {
-		console.log(event, this.components);
 		this.keyManager?.onKeydown(event);
 	}
 }

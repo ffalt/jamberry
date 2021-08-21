@@ -35,7 +35,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 	.overlay-buttons {
 		display: flex;
 
-		> a {
+		> a, > button {
 			position: relative;
 			display: inline-block;
 			padding: 8px 0;
@@ -82,7 +82,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 		}
 
 		&.disabled {
-			> a {
+			> a, > button {
 				background-color: var(--on-control-ambient-disabled);
 			}
 		}

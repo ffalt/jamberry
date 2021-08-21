@@ -57,7 +57,9 @@ export class InlineEditComponent implements ControlValueAccessor {
 	// Do stuff when the input element loses focus
 	onBlur($event: Event): void {
 		this.editing = false;
-		this.endEditRequest.emit();
+		if (this.preValue !== this.editValue) {
+			this.endEditRequest.emit();
+		}
 	}
 
 	apply(): void {

@@ -1,5 +1,5 @@
 <app-background-text-list [list]="albums" name="Albums"></app-background-text-list>
-<div *ngIf="albums && albums.length>0" class="albums">
+<div *ngIf="albums && albums.length>0" class="albums" appFocusKeyList>
 	<div class="heading">
 		<div class="fav" title="Favorite"><i class="icon-heart-empty"></i></div>
 		<div class="date" title="Year/Number"><i class="icon-hash"></i></div>
@@ -7,13 +7,14 @@
 		<div class="info">Type</div>
 		<div class="length" title="Duration"><i class="icon-stopwatch"></i></div>
 	</div>
-	<div class="album" *ngFor="let album of albums" (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)">
-		<div class="fav"><a (click)="actions.toggleAlbumFav(album)">
+	<div class="album" *ngFor="let album of albums" (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)" appFocusKeyListItem>
+		<div class="fav"><button (click)="actions.toggleAlbumFav(album)">
 			<app-fav-icon [faved]="album.state?.faved"></app-fav-icon>
-		</a></div>
+		</button></div>
 		<div class="date">{{album.seriesNr ? album.seriesNr : album.year}}</div>
-		<div class="title"><a class="title-link" (click)="navig.toAlbum(album)">{{album.name}}</a>
-			<a *ngIf="showArtist" title="Artist" (click)="navig.toArtistID(album.artistID,album.artistName)">{{album.artist}}</a>
+		<div class="title"><a class="title-link" (click)="navig.toAlbum(album)" (keydown.enter)="navig.toAlbum(album)">{{album.name}}</a>
+			<a *ngIf="showArtist" title="Artist" (click)="navig.toArtistID(album.artistID,album.artistName)"
+				 (keydown.enter)="navig.toArtistID(album.artistID,album.artistName)">{{album.artist}}</a>
 		</div>
 		<div class="info">{{album.albumType}}</div>
 		<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{album.duration|duration}}</div>

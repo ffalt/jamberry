@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Input} from '@angular/core';
+import {FocusableOption} from '@angular/cdk/a11y';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, HostListener, Input} from '@angular/core';
 import {JamObject} from '@shared/model/helpers';
 
 @Component({
@@ -7,19 +8,25 @@ import {JamObject} from '@shared/model/helpers';
 	styleUrls: ['./media-plate.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MediaPlateComponent {
+export class MediaPlateComponent implements FocusableOption {
 	@Input() obj?: JamObject;
 	@Input() showParent: boolean = false;
+	@HostBinding() tabindex = -1;
 	visible: boolean = false;
 
-	constructor(private cdr: ChangeDetectorRef) {
+	constructor(private cdr: ChangeDetectorRef, protected element: ElementRef) {
 	}
 
+	@HostListener('keydown.enter', ['$event'])
 	@HostListener('contextmenu', ['$event'])
-	contextmenuEvent(event: MouseEvent): void {
+	contextmenuEvent(event: MouseEvent | KeyboardEvent): void {
 		if (this.obj) {
 			this.obj.onContextMenu(event);
 		}
+	}
+
+	focus() {
+		this.element.nativeElement.focus();
 	}
 
 	gotInView(): void {
