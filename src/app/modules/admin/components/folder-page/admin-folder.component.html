@@ -1,14 +1,14 @@
-<div class="toggle" (click)="rightActive=!rightActive">
+<button class="toggle" (click)="rightActive=!rightActive">
 	<a *ngIf="!rightActive"><i class="icon-right"></i> Show Folder Tools</a>
 	<a *ngIf="rightActive"><i class="icon-left"></i> Show Folder Tree</a>
-</div>
+</button>
 <div class="content">
 	<div class="left-content">
 		<app-admin-folder-tree (selectionChange)="selectionChange($event)"></app-admin-folder-tree>
 	</div>
 	<app-splitter></app-splitter>
 	<div class="right-content">
-		<div class="navigation" *ngIf="id">
+		<nav class="navigation" *ngIf="id">
 			<ul class="tabs">
 				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'overview']"><a>Overview</a></li>
 				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'tracks']"><a>Tracks</a></li>
@@ -17,7 +17,7 @@
 				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'health']"><a>Health</a></li>
 				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'tracks-health']"><a>Track Health</a></li>
 			</ul>
-		</div>
+		</nav>
 		<div class="router-content">
 			<router-outlet></router-outlet>
 		</div>

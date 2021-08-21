@@ -1,8 +1,8 @@
 <div *ngIf="edit">
 	<form>
 		<div class="user-form-control">
-			<label>Name</label>
-			<input type="text" name="folder-name" [(ngModel)]="edit.name" [ngModelOptions]="{standalone: true}"/>
+			<label for="dialog-folder-edit">Name</label>
+			<input id="dialog-folder-edit" type="text" name="folder-name" [(ngModel)]="edit.name" [ngModelOptions]="{standalone: true}"/>
 		</div>
 	</form>
 </div>

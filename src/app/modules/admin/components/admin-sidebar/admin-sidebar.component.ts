@@ -20,7 +20,6 @@ export class AdminSidebarComponent {
 					name: route.data ? route.data.name : '',
 					icon: route.data && route.data.icon ? route.data.icon : 'icon-admin'
 				}));
-		console.log(entries);
 		this.sections = [{name: 'Administration', entries}];
 	}
 

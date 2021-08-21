@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CurrentPlayingComponent, SidebarLibraryComponent, SidebarIndexComponent, SidebarListComponent} from '@library/components';
+import {CurrentPlayingComponent, SidebarLibraryComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
+import {SidebarComponent} from '@shared/components';
 import {MockComponent} from 'ng-mocks';
 
 describe('SidebarComponent', () => {
@@ -13,8 +14,6 @@ describe('SidebarComponent', () => {
 			providers: [...TEST_LIBRARY_PROVIDERS],
 			declarations: [
 				SidebarLibraryComponent,
-				MockComponent(SidebarListComponent),
-				MockComponent(SidebarIndexComponent),
 				MockComponent(CurrentPlayingComponent)
 			]
 		}).compileComponents()

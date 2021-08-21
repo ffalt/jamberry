@@ -1,12 +1,12 @@
 <div *ngIf="edit">
 	<form>
 		<div class="user-form-control">
-			<label>Name</label>
-			<input type="text" name="username" [(ngModel)]="edit.edit.name" [ngModelOptions]="{standalone: true}"/>
+			<label for="user-name">Name</label>
+			<input id="user-name" type="text" name="username" [(ngModel)]="edit.edit.name" [ngModelOptions]="{standalone: true}"/>
 		</div>
 		<div class="user-form-control">
-			<label>Email</label>
-			<input type="email" name="mail" [(ngModel)]="edit.edit.email" [ngModelOptions]="{standalone: true}"/>
+			<label for="user-mail">Email</label>
+			<input id="user-mail" type="email" name="mail" [(ngModel)]="edit.edit.email" [ngModelOptions]="{standalone: true}"/>
 		</div>
 		<div class="user-form-section">Roles</div>
 		<div class="user-form-roles">
@@ -31,8 +31,8 @@
 		<div class="user-form-control">
 			<!-- dummy input, so password managers dont fill user name in random text inputs above-->
 			<input class="dummy" #name type="text" name="user" autocomplete="username"/>
-			<label class="label-pass">Your Admin Password</label>
-			<input name="pass" type="password" [(ngModel)]="edit.edit.password" [ngModelOptions]="{standalone: true}" autocomplete="password"/>
+			<label for="admin-pass" class="label-pass">Your Admin Password</label>
+			<input id="admin-pass" name="pass" type="password" [(ngModel)]="edit.edit.password" [ngModelOptions]="{standalone: true}" autocomplete="password"/>
 		</div>
 	</form>
 </div>

@@ -8,8 +8,8 @@
 		<input id="root-path" type="text" [(ngModel)]="edit.path" [ngModelOptions]="{standalone: true}"/>
 	</div>
 	<div class="root-form-control">
-		<label>Scan Strategy</label>
-		<fieldset>
+		<label for="strategy">Scan Strategy</label>
+		<fieldset id="strategy">
 			<label class="select"><input type="radio" name="strategy" [(ngModel)]="edit.strategy" [value]="RootScanStrategy.auto"> Auto</label>
 			<label class="select"><input type="radio" name="strategy" [(ngModel)]="edit.strategy" [value]="RootScanStrategy.artistalbum"> Artist/Album</label>
 			<label class="select"><input type="radio" name="strategy" [(ngModel)]="edit.strategy" [value]="RootScanStrategy.compilation"> Compilations</label>

@@ -6,9 +6,9 @@
 		<app-loading *ngIf="!nodes"></app-loading>
 		<div *ngIf="nodes">
 			<app-background-text-list [list]="nodes" name="Images"></app-background-text-list>
-			<div class="images">
-				<div *ngFor="let node of nodes; trackBy: trackByFn">
-					<div class="image" (click)="node.checked=!node.checked">
+			<div class="images" appFocusKeyList>
+				<div *ngFor="let node of nodes; trackBy: trackByFn" (keydown.enter)="node.checked=!node.checked" appFocusKeyListItem>
+					<div class="image" (click)="node.checked=!node.checked" (keydown.enter)="node.checked=!node.checked">
 						<img alt="{{node.name}}" [src]="node.thumbnail">
 					</div>
 					<div class="footer">

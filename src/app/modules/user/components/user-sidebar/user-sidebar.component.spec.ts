@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {AppService} from '@core/services';
+import {SidebarComponent} from '@shared/components';
+import {MockComponent} from 'ng-mocks';
 import {UserSidebarComponent} from './user-sidebar.component';
 
 describe('UserSidebarComponent', () => {
@@ -9,9 +9,9 @@ describe('UserSidebarComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [RouterTestingModule],
-			providers: [AppService],
-			declarations: [UserSidebarComponent]
+			imports: [],
+			providers: [],
+			declarations: [UserSidebarComponent, MockComponent(SidebarComponent)]
 		}).compileComponents()
 	);
 
