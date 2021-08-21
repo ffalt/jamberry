@@ -1,8 +1,6 @@
-<a role="button" class="header" (click)="toggle()" (keydown.enter)="toggle()">{{listName}}</a>
+<a role="button" class="header" (click)="toggle()" (keydown.enter)="toggle()">{{list.name}}</a>
 <ul class="index-list-content" *ngIf="!collapsed">
-	<li *ngFor="let entry of entries; trackBy:trackByFn">
-		<a [routerLink]="entry.link" [routerLinkActiveOptions]="entry.options || {exact: false}" routerLinkActive="active" class="item" (click)="clickEntry(entry)" (keydown.enter)="clickEntry(entry)" tabindex="0">
-			<i [class]="entry.icon" aria-hidden="true"></i> {{entry.name}}
-		</a>
+	<li *ngFor="let entry of list.entries; trackBy:trackByFn">
+		<app-sidebar-list-item [entry]="entry" (navigate)="onNavigate()"></app-sidebar-list-item>
 	</li>
 </ul>

@@ -16,7 +16,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	folders?: Array<Jam.Folder>;
 	current?: { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> };
 	searching: boolean = false;
-	@ViewChildren(TrackHealthComponent) trackHealthComponents !: QueryList<TrackHealthComponent>;
+	@ViewChildren(TrackHealthComponent) trackHealthComponents!: QueryList<TrackHealthComponent>;
 	protected unsubscribe = new Subject();
 
 	constructor(

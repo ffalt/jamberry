@@ -1,12 +1,9 @@
-import {Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, Output, QueryList, ViewChildren} from '@angular/core';
+import {SidebarListItem, SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
 
-export interface SidebarListItem {
+export interface SidebarList {
 	name: string;
-	icon: string;
-	link: string;
-	options?: {
-		exact: boolean;
-	};
+	entries: Array<SidebarListItem>;
 }
 
 @Component({
@@ -15,17 +12,17 @@ export interface SidebarListItem {
 	styleUrls: ['./sidebar-list.component.scss']
 })
 export class SidebarListComponent {
-	@Input() entries: Array<SidebarListItem> = [];
-	@Input() listName: string = '';
+	@Input() list!: SidebarList;
 	@HostBinding('class.active') collapsed: boolean = false;
 	@Output() readonly navigate: EventEmitter<void> = new EventEmitter();
-
-	clickEntry(entry: SidebarListItem): void {
-		this.navigate.emit();
-	}
+	@ViewChildren(SidebarListItemComponent) items!: QueryList<SidebarListItemComponent>;
 
 	trackByFn(index: number, node: SidebarListItem): string {
 		return node.link;
+	}
+
+	onNavigate(): void {
+		this.navigate.emit();
 	}
 
 	toggle() {

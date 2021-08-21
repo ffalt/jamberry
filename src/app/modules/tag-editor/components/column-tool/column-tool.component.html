@@ -1,6 +1,6 @@
 <div *ngIf="activeCol && editor" class="column-tools">
 	<div class="column-tools-title">
-		<div class="close-panel"><a (click)="close()" class="close"></a></div>
+		<div class="close-panel"><a (click)="close()" (keydown.enter)="close()" class="close" tabindex="0" title="Close"><i aria-hidden="true"></i></a></div>
 		Current Column: <span>{{activeCol.def.name}}</span>
 	</div>
 	<div class="column-tool-content">

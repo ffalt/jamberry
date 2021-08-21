@@ -1,21 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AppService, NotifyService, SidebarProvider} from '@core/services';
+import {AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {SidebarListItem} from '@shared/components';
+import {SidebarList, SidebarListItem} from '@shared/components';
 
 @Component({
-	selector: 'app-sidebar',
-	templateUrl: './sidebar.component.html',
-	styleUrls: ['./sidebar.component.scss']
+	selector: 'app-libary-sidebar',
+	templateUrl: './sidebar-library.component.html',
+	styleUrls: ['./sidebar-library.component.scss']
 })
-export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
+export class SidebarLibraryComponent implements OnInit {
 	root?: Jam.Root;
 	stats?: Jam.Stats;
-	showMobileNavig: boolean = false;
 	mainList: Array<SidebarListItem> = [];
 	musicList: Array<SidebarListItem> = [];
 	spokenList: Array<SidebarListItem> = [];
+	sections: Array<SidebarList> = [];
 
 	constructor(
 		public app: AppService,
@@ -29,24 +29,6 @@ export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 	ngOnInit(): void {
 		this.updateNavigation();
 		this.refreshStats();
-		this.app.view.currentSidebar = this;
-		this.router.events.forEach(_ => {
-			this.showMobileNavig = false;
-		}).catch(e => {
-			console.error(e);
-		});
-	}
-
-	onNavigate(): void {
-		this.showMobileNavig = false;
-	}
-
-	ngOnDestroy(): void {
-		this.app.view.currentSidebar = undefined;
-	}
-
-	toggleMobileNavig(): void {
-		this.showMobileNavig = !this.showMobileNavig;
 	}
 
 	refreshStats(): void {
@@ -87,6 +69,12 @@ export class SidebarComponent implements OnInit, OnDestroy, SidebarProvider {
 		}
 		this.musicList.push({link: '/library/tracks', name: 'Tracks', icon: 'icon-track'});
 		this.musicList.push({link: '/library/folders', name: 'Folders', icon: 'icon-folder'});
+
+		this.sections = [
+			{name: 'Main', entries: this.mainList},
+			{name: 'Spoken', entries: this.spokenList},
+			{name: 'Music', entries: this.musicList}
+		];
 	}
 
 }

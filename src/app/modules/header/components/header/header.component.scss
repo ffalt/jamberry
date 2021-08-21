@@ -1,16 +1,19 @@
 @import "globals.scss";
 
 :host {
-	background-color: var(--control);
-	color: var(--on-control-ambient);
-	padding: $padding-sm;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: var(--control-border);
-	width: 100%;
-	display: flex;
-	flex-flow: row nowrap;
-	align-items: center;
+
+	header {
+		background-color: var(--control);
+		color: var(--on-control-ambient);
+		padding: $padding-sm;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+		border-bottom-color: var(--control-border);
+		width: 100%;
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+	}
 
 	.logo {
 		padding-left: $padding-xs;

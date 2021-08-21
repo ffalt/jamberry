@@ -1,4 +1,4 @@
-<div class="player">
+<section class="player" role="status">
 	<div class="actions">
 		<button (click)="player.previous()" title="Previous Track"><i class="icon-fast-backward" aria-hidden="true"></i></button>
 		<button *ngIf="!player.isPlaying" class="play" (click)="defaultPlay()" title="Play"><i class="icon-play" aria-hidden="true"></i></button>
@@ -44,4 +44,4 @@
 		</div>
 
 	</div>
-</div>
+</section>

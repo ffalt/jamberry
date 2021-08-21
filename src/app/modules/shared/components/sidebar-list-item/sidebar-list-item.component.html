@@ -1,0 +1,6 @@
+<a
+	class="item" #item
+	[routerLink]="entry.link" [routerLinkActiveOptions]="entry.options || {exact: false}" routerLinkActive="active"
+	(click)="clickEntry()" (keydown.enter)="clickEntry()" tabindex="-1">
+	<i [class]="entry.icon" aria-hidden="true"></i> {{entry.name}}
+</a>

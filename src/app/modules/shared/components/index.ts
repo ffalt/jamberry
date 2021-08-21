@@ -1,3 +1,5 @@
+import {SidebarListItemComponent} from '@shared/components/sidebar-list-item/sidebar-list-item.component';
+import {SidebarComponent} from '@shared/components/sidebar/sidebar.component';
 import {BackgroundTextListComponent} from './background-text-list/background-text-list.component';
 import {BackgroundTextComponent} from './background-text/background-text.component';
 import {ChaptersComponent} from './chapters/chapters.component';
@@ -69,7 +71,9 @@ export const components: Array<any> = [
 	MediaPlateComponent,
 	MusicbrainzIconComponent,
 	RateComponent,
+	SidebarComponent,
 	SidebarListComponent,
+	SidebarListItemComponent,
 	SplitterComponent,
 	StatsComponent,
 	ChaptersComponent,
@@ -111,3 +115,5 @@ export * from './media-plate/media-plate.component';
 export * from './obj-card/obj-card.component';
 export * from './stats/stats.component';
 export * from './sidebar-list/sidebar-list.component';
+export * from './sidebar-list-item/sidebar-list-item.component';
+export * from './sidebar/sidebar.component';

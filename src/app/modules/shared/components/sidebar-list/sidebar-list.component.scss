@@ -18,6 +18,7 @@
 		letter-spacing: 1px;
 		margin-bottom: $margin-xs;
 		cursor: pointer;
+		user-select: none;
 
 		&:after {
 			font-family: $icon-font-family;
@@ -38,42 +39,6 @@
 		border-right-color: transparent;
 	}
 
-	.item {
-		color: var(--on-control);
-		padding: $padding-xs 0;
-		display: flex;
-		flex-flow: row nowrap;
-		align-items: center;
-		border-right-width: 3px;
-		border-right-style: solid;
-		border-right-color: transparent;
-		transition: all .1s ease-in-out;
-		transform-origin: left center;
-
-		app-coverart-image {
-			margin-right: 6px;
-		}
-
-		i {
-			width: 25px;
-			display: block;
-		}
-
-		&:hover {
-			color: var(--on-control-hover);
-			border-right-color: var(--primary);
-		}
-
-		&:focus {
-			border-right-color: var(--secondary);
-		}
-
-		&.active {
-			color: var(--on-control-hover);
-			transform: scale(1.1);
-		}
-	}
-
 	&.active {
 		.header {
 			&:after {
@@ -89,13 +54,6 @@
 
 			&:after {
 				content: '';
-			}
-		}
-		.item {
-			line-height: 1.5em;
-
-			&:hover {
-				border-right-width: 0;
 			}
 		}
 	}

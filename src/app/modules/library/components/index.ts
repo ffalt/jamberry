@@ -39,7 +39,7 @@ import {SearchPageComponent} from './search-page/search-page.component';
 import {SeriesOverviewComponent} from './series-overview/series-overview.component';
 import {SidebarIndexComponent} from './sidebar-index/sidebar-index.component';
 import {SidebarRightComponent} from './sidebar-right/sidebar-right.component';
-import {SidebarComponent} from './sidebar/sidebar.component';
+import {SidebarLibraryComponent} from './sidebar/sidebar-library.component';
 import {StartPageComponent} from './start-page/start-page.component';
 import {StartSectionComponent} from './start-section/start-section.component';
 import {StartSectionsComponent} from './start-sections/start-sections.component';
@@ -91,7 +91,7 @@ export const components: Array<any> = [
 	PodcastOverviewComponent,
 	PodcastsLatestEpisodesComponent,
 	SeriesOverviewComponent,
-	SidebarComponent,
+	SidebarLibraryComponent,
 	SidebarIndexComponent,
 	SidebarRightComponent,
 	StartSectionComponent,
@@ -143,7 +143,7 @@ export * from './podcasts-latest-episodes/podcasts-latest-episodes.component';
 export * from './series-overview/series-overview.component';
 export * from './sidebar-index/sidebar-index.component';
 export * from './sidebar-right/sidebar-right.component';
-export * from './sidebar/sidebar.component';
+export * from './sidebar/sidebar-library.component';
 export * from './start-section/start-section.component';
 export * from './tabs/tabs.component';
 export * from './track-list/track-list.component';

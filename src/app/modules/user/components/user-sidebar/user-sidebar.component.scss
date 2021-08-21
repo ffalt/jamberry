@@ -1,38 +1,7 @@
 @import "globals.scss";
 
 :host {
-	position: relative;
-	flex: 0 1 100%;
-	display: flex;
-	flex-direction: column;
+	width: 100%;
 	height: 100%;
-
-	.navigation {
-		padding: $padding;
-		flex-grow: 1;
-		width: 100%;
-		overflow-y: auto;
-		overflow-x: hidden;
-		background-color: var(--control);
-		color: var(--on-control);
-	}
-
-	@media (max-width: $break-pad) {
-		height: auto;
-
-		.navigation {
-			display: none;
-			position: fixed;
-			z-index: 10;
-			max-height: calc(100% - 60px);
-			overflow-y: auto;
-			flex-flow: row wrap;
-			border-bottom: 1px solid var(--control-box-border);
-
-			&.show {
-				display: flex;
-			}
-		}
-
-	}
+	display: block;
 }

@@ -21,9 +21,13 @@
 						</ng-container>
 						{{index + 1}}
 					</div>
-					<div class="title"><p>{{entry.tag ? entry.tag.title : entry.name}}</p><a *ngIf="entry.tag && entry.tag.artist" (click)="navig.toArtistID(entry.artistID,entry.tag.artist)">{{entry.tag.artist}}</a></div>
+					<div class="title"><p>{{entry.tag ? entry.tag.title : entry.name}}</p>
+						<a *ngIf="entry.tag && entry.tag.artist"
+							 (click)="navig.toArtistID(entry.artistID,entry.tag.artist)"
+							 (keydown.enter)="navig.toArtistID(entry.artistID,entry.tag.artist)"
+						tabindex="0">{{entry.tag.artist}}</a></div>
 					<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{entry.duration|duration}}</div>
-					<div class="remove"><a title="Remove From Queue" (click)="queue.remove(entry)" appClickStop><i class="icon-remove"></i></a></div>
+					<div class="remove"><a title="Remove From Queue" (click)="queue.remove(entry)" (keydown.enter)="queue.remove(entry)" tabindex="0" appClickStop><i class="icon-remove"></i></a></div>
 				</div>
 			</div>
 		</cdk-virtual-scroll-viewport>
@@ -31,7 +35,7 @@
 </div>
 
 <div *ngIf="showControls" class="queue-actions" [class.disabled]="!entries || entries.length===0">
-	<button class="queue-action" (click)="queue.clear()" title="Clear Queue"><i class="icon-remove"></i> Clear</button>
-	<button class="queue-action" (click)="queue.shuffle()" title="Randomize Order of Tracks"><i class="icon-shuffle"></i> Shuffle</button>
-<!--	<button class="queue-action" (click)="newPlaylist(tracks)" title="Save to new Playlist"><i class="icon-playlist"></i> Save as</button>-->
+	<button class="queue-action" (click)="queue.clear()" title="Clear Queue"><i class="icon-remove" aria-hidden="true"></i> Clear</button>
+	<button class="queue-action" (click)="queue.shuffle()" title="Randomize Order of Tracks"><i class="icon-shuffle" aria-hidden="true"></i> Shuffle</button>
+	<!--	<button class="queue-action" (click)="newPlaylist(tracks)" title="Save to new Playlist"><i class="icon-playlist" aria-hidden="true"></i> Save as</button>-->
 </div>
