@@ -41,6 +41,7 @@
 }
 
 @mixin flex-table-data-row {
+	margin-bottom: 1px;
 	border-top-width: 1px;
 	border-top-style: solid;
 	border-bottom-width: 0;

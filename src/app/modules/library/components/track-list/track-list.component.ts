@@ -27,6 +27,10 @@ export class TrackListComponent {
 		this.library.openJamObjectMenu(new JamTrackObject(item, this.library), $event);
 	}
 
+	playTrack(track: Jam.Track): void {
+		this.player.startTrack(track);
+	}
+
 	tapTrack(event: Event & { tapCount?: number }, track: Jam.Track): void {
 		if (event.tapCount === 2) {
 			this.player.startTrack(track);

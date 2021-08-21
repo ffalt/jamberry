@@ -64,7 +64,7 @@ export function ConfigurationServiceFactory(service: ConfigurationService): JamC
 		ThemeModule.forRoot(themeConfig),
 		HotkeyModule.forRoot(),
 		ToastModule.forRoot(),
-		ContextMenuModule.forRoot(),
+		ContextMenuModule.forRoot({autoFocus: true}),
 		DialogOverlayModule,
 		MainTabsModule,
 		PortalModule,

@@ -1,4 +1,4 @@
-<nav class="navigation" [class.show]="showMobileNavig">
+<nav class="navigation" [class.show]="showMobileNavig" tabindex="-1">
 	<app-sidebar-list *ngFor="let section of sections; trackBy:trackByFn" [list]="section" (navigate)="onNavigate()"></app-sidebar-list>
 </nav>
 <ng-content></ng-content>
