@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ContextMenuService} from 'ngx-contextmenu';
+import {ContextMenuService} from '@app/modules/ngx-contextmenu';
 import {TabComponent} from '@app/modules/tab-portal';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';

@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HammerModule} from '@angular/platform-browser';
 import {AutocompleteModule} from '@app/modules/autocomplete';
-import {ContextMenuModule} from 'ngx-contextmenu';
+import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {SharedModule} from '@shared/shared.module';
 import {ImageCropperModule} from 'ngx-image-cropper';
 

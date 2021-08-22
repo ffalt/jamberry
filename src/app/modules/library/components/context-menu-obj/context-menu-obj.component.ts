@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ContextMenuHostComponentInterface} from '@shared/services';
-import {ContextMenuComponent} from 'ngx-contextmenu';
+import {ContextMenuComponent} from '@app/modules/ngx-contextmenu';
 
 export interface ContextMenuObjComponentOptionsExtra {
 	text: string;

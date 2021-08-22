@@ -10,7 +10,7 @@ import {TEST_JAM_MODULE} from '@core/jam.module.mock';
 import {LibraryService} from '@library/services';
 import {IndexService, PlaylistService, PodcastService} from '@shared/services';
 import {SharedModule} from '@shared/shared.module';
-import {ContextMenuModule} from 'ngx-contextmenu';
+import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 
 export const TEST_LIBRARY_IMPORTS = [
 	FormsModule,

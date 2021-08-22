@@ -1,6 +1,9 @@
 @import "globals.scss";
 
 :host {
-	@include input-box-content();
-	display: flex;
+	form {
+		@include input-box-content();
+		display: flex;
+		flex-wrap: nowrap;
+	}
 }

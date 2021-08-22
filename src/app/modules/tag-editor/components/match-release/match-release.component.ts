@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {ChangeDetectorRef, Component, HostBinding, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild} from '@angular/core';
 import {AppService, NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, LastFMLookupType, MusicBrainz, MusicBrainzLookupType, MusicBrainzSearchType} from '@jam';
-import {ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
+import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
 import {AcoustIDEntry, acoustidResultToList, AcoustidTree} from '../../model/acoustid.helper';
 import {
 	GenreTag,

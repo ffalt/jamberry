@@ -1,0 +1,18 @@
+<div class="dropdown open show ngx-contextmenu" [ngClass]="menuClass">
+	<ul #menu class="dropdown-menu show" style="position: static; float: none;" role="menu" tabindex="0" cdkTrapFocus>
+		<li
+			#li
+			*ngFor="let menuItem of menuItems; let i = index"
+			[class.disabled]="!menuItem.isEnabled"
+			[class.divider]="menuItem.divider"
+			[class.dropdown-divider]="menuItem.divider"
+			[class.active]="menuItem.isActive && menuItem.isEnabled"
+			[attr.role]="menuItem.divider ? 'separator' : undefined"
+		>
+			<context-menu-content-item [item]="item" [menuItem]="menuItem"
+																 (itemSelect)="onMenuItemSelect($event)"
+																 (openSubmenu)="onOpenSubMenu($event)"
+			></context-menu-content-item>
+		</li>
+	</ul>
+</div>

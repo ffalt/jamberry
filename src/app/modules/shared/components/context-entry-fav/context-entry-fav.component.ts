@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {Jam} from '@jam';
 
 @Component({
 	selector: 'app-context-entry-fav',
@@ -9,8 +8,4 @@ import {Jam, JamService} from '@jam';
 })
 export class ContextEntryFavComponent {
 	@Input() base?: Jam.Base;
-
-	constructor(private notify: NotifyService, private jam: JamService) {
-	}
-
 }

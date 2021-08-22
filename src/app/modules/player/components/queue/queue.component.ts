@@ -45,6 +45,10 @@ export class QueueComponent implements OnInit, OnDestroy {
 		this.queue.publishChanges();
 	}
 
+	playQueuePos(index: number): void {
+		this.player.playQueuePos(index);
+	}
+
 	tapPlayQueuePos(event: Event & { tapCount?: number }, index: number): void {
 		if (event.tapCount === 2) {
 			this.player.playQueuePos(index);

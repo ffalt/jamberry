@@ -36,7 +36,6 @@
 		app-tag-editor-autocomplete {
 			flex: 1;
 			border: none;
-			outline: none;
 			min-height: 24px;
 			height: 24px;
 			background-color: var(--input);
@@ -46,7 +45,6 @@
 		select {
 			flex: 1;
 			border: none;
-			outline: none;
 			height: 24px;
 			background-color: var(--input);
 			color: var(--on-input);

@@ -279,4 +279,11 @@ $cdk-z-index-overlay: 1000;
 button {
 	background-color: transparent;
 	border: none;
+	&:focus {
+		outline: 1px dotted var(--secondary);
+	}
+}
+
+:focus {
+	outline: 1px dotted var(--secondary);
 }

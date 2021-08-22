@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {HammerModule} from '@angular/platform-browser';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MenuService} from '@shared/services';
-import {ContextMenuModule} from 'ngx-contextmenu';
+import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {DialogOverlayModule} from '@app/modules/dialog-overlay';
 import {MainTabsService} from '@app/modules/main-tabs/services';
 import {ToastModule} from '@app/modules/toast';

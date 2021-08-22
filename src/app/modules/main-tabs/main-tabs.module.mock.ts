@@ -6,7 +6,7 @@ import {ToastModule} from '@app/modules/toast';
 import {TEST_JAM_MODULE} from '@core/jam.module.mock';
 import {MenuService} from '@shared/services';
 import {SharedModule} from '@shared/shared.module';
-import {ContextMenuModule} from 'ngx-contextmenu';
+import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 
 export const TEST_MAINTABS_IMPORTS = [
 	FormsModule,

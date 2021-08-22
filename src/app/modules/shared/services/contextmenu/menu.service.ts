@@ -1,7 +1,7 @@
 import {Overlay, OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
 import {ComponentRef, Injectable} from '@angular/core';
-import {ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
+import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
 
 export interface ContextMenuHostComponentInterface<T> {
 	contextMenu?: ContextMenuComponent;
@@ -26,7 +26,7 @@ export class MenuService {
 			instance.initOpts(options);
 		}
 		setTimeout(() => {
-			const config = {contextMenu: instance.contextMenu, event, item};
+			const config = {contextMenu: instance.contextMenu, event, item, anchorElement: event.target as HTMLElement};
 			this.contextMenuService.show.next(config);
 			const subscription = this.contextMenuService.close.subscribe(() => {
 				this.cleanUp();

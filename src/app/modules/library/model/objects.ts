@@ -3,8 +3,8 @@ import {FolderTypesAlbum} from '@app/utils/jam-lists';
 import {AlbumType, FolderType, Jam, JamObjectType} from '@jam';
 import {HeaderInfo} from '@shared/components';
 import {JamObject} from '@shared/model/helpers';
-import {LibraryService} from '../services/library/library.service';
 import {ContextMenuObjComponentOptionsExtra} from '../components/context-menu-obj/context-menu-obj.component';
+import {LibraryService} from '../services/library/library.service';
 
 export abstract class JamLibraryObject extends JamObject {
 	abstract type: JamObjectType;

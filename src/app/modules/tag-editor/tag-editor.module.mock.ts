@@ -6,7 +6,7 @@ import {DialogOverlayModule} from '@app/modules/dialog-overlay';
 import {ToastModule} from '@app/modules/toast';
 import {TEST_JAM_MODULE} from '@core/jam.module.mock';
 import {SharedModule} from '@shared/shared.module';
-import {ContextMenuModule} from 'ngx-contextmenu';
+import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {AutocompleteModule} from '../autocomplete';
 
 export const TEST_TAGEDITOR_MODULE_IMPORTS = [

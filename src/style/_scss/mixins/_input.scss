@@ -10,7 +10,6 @@
 	input {
 		flex: 1;
 		border: none;
-		outline: none;
 		min-height: 20px;
 		min-width: 50px;
 		background-color: var(--input);
@@ -41,7 +40,6 @@
 		input {
 			flex: 1;
 			border: none;
-			outline: none;
 			min-height: 20px;
 			background-color: var(--input);
 			color: var(--on-input);

@@ -5,7 +5,7 @@ import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-ed
 import {isDownArrowKey, isLeftRightArrowKeys, isRightArrowKey, isUpDownArrowKeys} from '@app/utils/keys';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {FolderType, Jam, JamService, TrackOrderFields} from '@jam';
-import {ContextMenuComponent, ContextMenuService} from 'ngx-contextmenu';
+import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
 import {TagEditor} from '../../model/tag-editor.class';
 import {FilenameColumnID, RawTagEditCell, RawTagEditColumn, RawTagEditRow} from '../../model/tag-editor.types';
 import {rebuildTag} from '../../model/tag-editor.utils';

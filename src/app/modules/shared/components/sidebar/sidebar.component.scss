@@ -5,6 +5,7 @@
 	flex-flow: column wrap;
 	margin-bottom: $margin;
 	height: 100%;
+	padding: 1px;
 
 	.navigation {
 		padding: $padding;
@@ -15,4 +16,22 @@
 		background-color: var(--control);
 		color: var(--on-control);
 	}
+
+	@media (max-width: $break-pad) {
+		display: none;
+
+		.navigation {
+			position: fixed;
+			z-index: 10;
+			flex: unset;
+			max-height: calc(100% - 60px);
+			flex-flow: row wrap;
+			border-bottom: 1px solid var(--control-box-border);
+		}
+
+		&.show {
+			display: flex;
+		}
+	}
+
 }

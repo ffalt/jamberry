@@ -3,7 +3,7 @@
 :host {
 	flex-direction: column;
 
-	a {
+	button {
 		font-size: $x-large;
 		color: var(--on-control-ambient);
 		border-radius: 5px;
@@ -21,6 +21,12 @@
 		&.active {
 			color: var(--on-control-active);
 			background-color: var(--control-active);
+		}
+
+		&:disabled {
+			color: var(--on-control-ambient-disabled);
+			cursor: default;
+			background-color: transparent;
 		}
 	}
 

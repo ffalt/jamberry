@@ -10,22 +10,17 @@
 
 	> li {
 		position: relative;
-		display: flex;
-		padding: $padding-sm $padding;
+		display: block;
 		margin-bottom: -1px;
-		cursor: pointer;
 		flex: 1;
 		align-self: stretch;
-		text-align: center;
 		border-top-width: 4px;
 		border-top-style: solid;
 		border-top-color: transparent;
 		border-bottom-width: 4px;
 		border-bottom-style: solid;
 		border-bottom-color: transparent;
-		align-items: center;
-		align-content: center;
-		justify-content: center;
+		padding: 0;
 
 		&:hover {
 			background-color: var(--control-hover);
@@ -40,17 +35,22 @@
 		}
 
 		> a {
+			padding: $padding-sm 0;
+			text-align: center;
+			align-items: center;
+			align-content: center;
+			justify-content: center;
 			margin-right: 2px;
 			line-height: 1.42857143;
 			border-radius: 4px 4px 0 0;
 			position: relative;
-			display: block;
+			display: flex;
 			cursor: pointer;
-			padding: 2px 0;
 			border: none;
 			font-size: $small;
 			text-transform: uppercase;
 			letter-spacing: 0.5px;
+			height: 100%;
 
 			color: var(--on-control);
 			user-select: none;

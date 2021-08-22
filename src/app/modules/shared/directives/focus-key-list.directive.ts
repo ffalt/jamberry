@@ -9,8 +9,8 @@ import {FocusKeyListItemDirective} from './focus-key-list-item.directive';
 })
 export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 	@Input() withWrap = true;
-	@HostBinding() tabindex = '0';
-	@HostBinding('attr.role') role = 'list';
+	@Input() @HostBinding('attr.tabindex') settabindex?: string = '0';
+	@Input() @HostBinding('attr.role') listRole = 'list';
 	@ContentChildren(FocusKeyListItemDirective, {descendants: true}) components!: QueryList<FocusKeyListItemDirective>;
 	protected keyManager?: FocusKeyManager<FocusKeyListItemDirective>;
 	protected unsubscribe = new Subject();

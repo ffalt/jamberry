@@ -1,5 +1,5 @@
 import {FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterContentInit, Component, HostBinding, HostListener, Input, OnDestroy, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, HostListener, Input, OnDestroy, QueryList, ViewChildren} from '@angular/core';
 import {JamLibraryObject} from '@library/model/objects';
 import {ObjCardComponent} from '@shared/components';
 import {Subject} from 'rxjs';
@@ -15,7 +15,7 @@ interface ObjCardsGroupsView {
 	templateUrl: './obj-groups-cards.component.html',
 	styleUrls: ['./obj-groups-cards.component.scss']
 })
-export class ObjGroupsCardsComponent implements AfterContentInit, OnDestroy {
+export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 	@Input() groups?: Array<ObjCardsGroupsView>;
 	@Input() showParent: boolean = false;
 	@ViewChildren(ObjCardComponent) cards!: QueryList<ObjCardComponent>;
@@ -29,7 +29,7 @@ export class ObjGroupsCardsComponent implements AfterContentInit, OnDestroy {
 		this.keyManager?.onKeydown(event);
 	}
 
-	ngAfterContentInit() {
+	ngAfterViewInit() {
 		this.processKeyList();
 		this.cards.changes.pipe(takeUntil(this.unsubscribe)).subscribe(_ => {
 			this.processKeyList();

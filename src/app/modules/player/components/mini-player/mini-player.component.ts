@@ -12,12 +12,11 @@ export class MiniPlayerComponent {
 	constructor(public app: AppService, public player: PlayerService, public queue: QueueService, public tabService: MainTabsService) {
 	}
 
-	defaultPlay(): void {
-		if (this.player.currentMedia) {
+	togglePlayPause() {
+		if (this.player.isPlaying || this.player.currentMedia) {
 			this.player.togglePlayPause();
 		} else {
 			this.player.next();
 		}
 	}
-
 }

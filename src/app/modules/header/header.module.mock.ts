@@ -3,7 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AutocompleteModule} from '@app/modules/autocomplete';
 import {MenuService} from '@shared/services';
-import {ContextMenuModule} from 'ngx-contextmenu';
+import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {MainTabsService} from '@app/modules/main-tabs/services';
 import {ToastModule} from '@app/modules/toast';
 import {TEST_JAM_MODULE} from '@core/jam.module.mock';

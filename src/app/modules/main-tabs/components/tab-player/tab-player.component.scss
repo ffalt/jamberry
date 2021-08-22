@@ -31,13 +31,13 @@
 				}
 			}
 
-			app-volume-slider, app-speed-slider {
-				display: block;
-				flex: 1;
-				margin-left: $margin;
-				margin-top: $margin-xs;
-			}
+		}
 
+		app-volume-slider, app-speed-slider {
+			display: block;
+			flex: 1;
+			margin-left: $margin;
+			margin-top: $margin-xs;
 		}
 
 		.progress {

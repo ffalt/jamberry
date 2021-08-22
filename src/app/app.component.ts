@@ -17,6 +17,7 @@ import {Hotkey, HotkeysService} from '@app/modules/hotkeys';
 import {MainTabsService} from '@app/modules/main-tabs/services';
 import {TabPortalOutlet} from '@app/modules/tab-portal';
 import {ThemeService} from '@app/modules/theme';
+import {HOTKEYS} from '@app/utils/keys';
 import {AppService, PlayerService, SettingsStoreService, TitleService} from '@core/services';
 import {JamAuthService} from '@jam';
 import {Subject} from 'rxjs';
@@ -124,40 +125,40 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	private setKeyboardShortcuts(): void {
-		this.hotkeysService.add(new Hotkey('space', (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.playPause.shortcut, (event: KeyboardEvent): boolean => {
 			this.player.togglePlayPause();
 			return false; // Prevent bubbling
-		}, undefined, 'Play / Pause'));
+		}, undefined, HOTKEYS.playPause.name));
 
-		this.hotkeysService.add(new Hotkey('right', (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.nextTrack.shortcut, (event: KeyboardEvent): boolean => {
 			this.player.next();
 			return false; // Prevent bubbling
-		}, undefined, 'Next Track'));
+		}, undefined, HOTKEYS.nextTrack.name));
 
-		this.hotkeysService.add(new Hotkey('left', (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.previousTrack.shortcut, (event: KeyboardEvent): boolean => {
 			this.player.previous();
 			return false; // Prevent bubbling
-		}, undefined, 'Previous Track'));
+		}, undefined, HOTKEYS.previousTrack.name));
 
-		this.hotkeysService.add(new Hotkey('+', (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.volumeUp.shortcut, (event: KeyboardEvent): boolean => {
 			this.player.volumeUp();
 			return false; // Prevent bubbling
-		}, undefined, 'Volume Up'));
+		}, undefined, HOTKEYS.volumeUp.name));
 
-		this.hotkeysService.add(new Hotkey('shift+right', (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.forward.shortcut, (event: KeyboardEvent): boolean => {
 			this.player.forward(10);
 			return false; // Prevent bubbling
-		}, undefined, 'Forward 10 seconds'));
+		}, undefined, HOTKEYS.forward.name));
 
-		this.hotkeysService.add(new Hotkey('shift+left', (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.rewind.shortcut, (event: KeyboardEvent): boolean => {
 			this.player.rewind(10);
 			return false; // Prevent bubbling
-		}, undefined, 'Rewind 10 seconds'));
+		}, undefined, HOTKEYS.rewind.name));
 
-		this.hotkeysService.add(new Hotkey('-', (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.volumeDown.shortcut, (event: KeyboardEvent): boolean => {
 			this.player.volumeDown();
 			return false; // Prevent bubbling
-		}, undefined, 'Volume Down'));
+		}, undefined, HOTKEYS.volumeDown.name));
 
 		// this.hotkeysService.add(new Hotkey('q', (event: KeyboardEvent): boolean => {
 		// 	this.player.showQueue = !this.player.showQueue;

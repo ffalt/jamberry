@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, HostBinding, HostListener, OnInit} from '@angular/core';
 import {PlayerEvents, PlayerService} from '@core/services';
 
 @Component({
@@ -8,9 +8,20 @@ import {PlayerEvents, PlayerService} from '@core/services';
 })
 export class SliderVolumeComponent implements OnInit {
 	volumePC: number = 50;
+	@HostBinding() tabindex = '0';
 	private volume: number = 0;
 
 	constructor(private player: PlayerService, private element: ElementRef) {
+	}
+
+	@HostListener('keydown.arrowLeft', ['$event'])
+	volumeDown(event: KeyboardEvent) {
+		this.player.volumeDown();
+	}
+
+	@HostListener('keydown.arrowRight', ['$event'])
+	volumeUp(event: KeyboardEvent) {
+		this.player.volumeUp();
 	}
 
 	ngOnInit(): void {

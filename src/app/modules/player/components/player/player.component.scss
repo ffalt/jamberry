@@ -18,9 +18,27 @@
 		background-color: var(--control);
 		color: var(--on-control-ambient);
 
-		.actions {
+		button {
+			color: var(--on-control-ambient);
+			cursor: pointer;
+			border: 1px solid transparent;
 
-			width: 8%;
+			&.active {
+				color: var(--on-background-active);
+				border: 1px solid var(--control-active);
+			}
+
+			&:hover {
+				color: var(--on-control-ambient-hover);
+			}
+
+			&:disabled {
+				color: var(--on-control-ambient-disabled);
+				cursor: default;
+			}
+		}
+
+		.actions {
 			display: flex;
 			flex-flow: row nowrap;
 			justify-content: space-between;
@@ -28,11 +46,6 @@
 
 			button {
 				font-size: $x-large;
-				color: var(--on-control-ambient);
-
-				&:hover {
-					color: var(--on-control-ambient-hover);
-				}
 			}
 
 			.play {
@@ -41,8 +54,8 @@
 		}
 
 		.progress {
-			width: 68%;
-			padding: 0 $padding-lg;
+			flex: 1;
+			padding: 0 $padding;
 			font-size: $x-small;
 
 			display: flex;
@@ -63,10 +76,6 @@
 		}
 
 		.options {
-
-			width: 24%;
-
-			padding-right: $padding;
 			display: flex;
 
 			.player-controls {
@@ -74,24 +83,29 @@
 				margin-right: $margin;
 				text-align: right;
 				flex: 1;
+				flex-wrap: nowrap;
 				white-space: nowrap;
+				display: flex;
+				justify-items: center;
+				align-items: center;
+			}
 
-				.player-control {
-					margin-right: $padding-xs;
-					font-size: 1.5em;
-					border-radius: 2px;
-					border: 1px solid transparent;
-					line-height: 1.5em;
+			.player-control {
+				margin-right: $padding-xs;
+				font-size: 1.5em;
+				border-radius: 2px;
+				line-height: 1.5em;
 
-					&.active {
-						color: var(--on-background-active);
-						border: 1px solid var(--background-border);
-					}
-
-					&.button-queue {
-						display: none;
-					}
+				&.button-queue {
+					display: none;
 				}
+			}
+
+			app-volume-slider, app-speed-slider {
+				display: block;
+				flex: 1;
+				min-width: 70px;
+				margin-right: $padding-xs;
 			}
 
 			.volume {
@@ -104,7 +118,7 @@
 
 				> div {
 					display: flex;
-					flex-flow: row wrap;
+					flex-flow: row nowrap;
 					align-items: center;
 					width: 100%;
 				}
@@ -119,12 +133,6 @@
 					}
 				}
 
-				app-volume-slider, app-speed-slider {
-					display: block;
-					width: calc(100% - 58px);
-					margin-left: 10px;
-					margin-right: 10px;
-				}
 
 			}
 
@@ -132,38 +140,16 @@
 
 		@media (max-width: $break-desktop-large) {
 
-			.actions {
-				width: 15%;
-			}
-
-			.progress {
-				width: 55%;
-			}
-
 			.options {
-				width: 30%;
-
-				.player-controls {
-					.player-control.button-queue {
-						display: inline;
-					}
+				.player-control.button-queue {
+					display: inline;
 				}
 			}
-
 		}
 
 		@media (max-width: $break-notebook) {
 
-			.actions {
-				width: 15%;
-			}
-
-			.progress {
-				width: 45%;
-			}
-
 			.options {
-				width: 40%;
 				padding-left: $padding;
 			}
 
@@ -184,8 +170,12 @@
 				padding-left: 0;
 				flex: none;
 
-				.volume {
-					width: 25%;
+				.player-slider-controls {
+					flex: 1;
+				}
+
+				> .player-controls {
+					flex: inherit;
 				}
 			}
 
@@ -216,37 +206,6 @@
 
 	}
 
-	app-queue {
-		border-top: 1px solid var(--control-box-border);
-		width: 100%;
-		height: 600px;
-		overflow-y: auto;
-		display: none;
-
-		@media (max-width: $break-desktop-large) {
-			display: flex;
-		}
-		@media (max-height: 1200px) {
-			height: 500px;
-		}
-		@media (max-height: 800px) {
-			height: 300px;
-		}
-		@media (max-height: 400px) {
-			height: 200px;
-		}
-	}
-
-	app-current-playing {
-		display: none;
-	}
-
-	@media (max-width: $break-pad) {
-		app-current-playing {
-			display: block;
-		}
-	}
-
 	@media (max-width: $break-phone) {
 		border-top: 1px solid var(--background-border);
 
@@ -258,28 +217,11 @@
 			}
 
 			.options {
-				.volume {
-
-					.player-speed {
-						margin-top: $margin;
-					}
-				}
-
-				.player-controls {
-					.player-control.button-queue, .player-control.button-info {
-						display: none;
-					}
+				.player-control.button-queue, .player-control.button-info {
+					display: none;
 				}
 			}
 
-		}
-
-		app-current-playing {
-			&::ng-deep .playing {
-				border-top: 1px solid var(--control-box-border);
-			}
-
-			display: none;
 		}
 
 	}

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AutocompleteModule} from '@app/modules/autocomplete';
-import {ContextMenuModule} from 'ngx-contextmenu';
+import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {DeferLoadModule} from '@app/modules/defer-load';
 import {PlayerModule} from '@app/modules/player';
 import {SharedModule} from '@shared/shared.module';

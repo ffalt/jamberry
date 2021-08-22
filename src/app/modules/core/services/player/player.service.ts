@@ -86,6 +86,10 @@ export class PlayerService implements OnDestroy {
 		this.unsubscribe.complete();
 	}
 
+	get empty(): Readonly<boolean> {
+		return !(this.currentTrack || this.currentEpisode);
+	}
+
 	playQueuePos(index: number): void {
 		this.queue.currentIndex = index - 1;
 		this.next();

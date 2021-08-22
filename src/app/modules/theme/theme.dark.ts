@@ -19,7 +19,7 @@ export const darkTheme: Theme = {
 		'--control-hover': '#575757',
 		'--control-active': '#58594f',
 		'--control-box-shadow': '0 -1px 0 rgba(0, 0, 0, 0.15) inset',
-		'--control-box-border': '#AAAAAA',
+		'--control-box-border': '#696969',
 		'--control-border': '#1a1a1a',
 		'--on-control': '#C8C8C8',
 		'--on-control-hover': '#fff',

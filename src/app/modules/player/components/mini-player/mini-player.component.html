@@ -1,20 +1,19 @@
 <app-mini-time-slider [class.hidden]="tabService.playerTab.active"></app-mini-time-slider>
 <div class="buttons">
 	<div>
-		<a class="art" (click)="tabService.clickPlayer()" [class.active]="tabService.playerTab.active">
+		<button class="art" (click)="tabService.clickPlayer()" [class.active]="tabService.playerTab.active">
 			<div>
 				<app-coverart-image *ngIf="player.currentMedia" [coverArtObj]="player.currentMedia" [size]="50" alt="Album Art" [fill]="true"></app-coverart-image>
 			</div>
-			<i class="icon-info" *ngIf="!player.currentMedia"></i>
-		</a>
+			<i class="icon-info" *ngIf="!player.currentMedia" aria-hidden="true"></i>
+		</button>
 	</div>
 	<div class="actions">
-		<a (click)="player.previous()" title="Previous Track"><i class="icon-fast-backward"></i></a>
-		<a *ngIf="!player.isPlaying" class="play" (click)="defaultPlay()" title="Play"><i class="icon-play"></i></a>
-		<a *ngIf="player.isPlaying" class="play" (click)="player.togglePlayPause()" title="Pause"><i class="icon-pause"></i></a>
-		<a (click)="player.next()" title="Next Track"><i class="icon-fast-forward"></i></a>
+		<button (click)="player.previous()" [disabled]="!queue.hasPrevious" title="Previous Track"><i class="icon-fast-backward" aria-hidden="true"></i></button>
+		<button class="play" (click)="togglePlayPause()" [title]="player.isPlaying | stringToggle : 'Pause' : 'Play'"><i [class]="player.isPlaying | stringToggle : 'icon-pause' : 'icon-play'" aria-hidden="true"></i></button>
+		<button (click)="player.next()" [disabled]="!queue.hasNext" title="Next Track"><i class="icon-fast-forward" aria-hidden="true"></i></button>
 	</div>
 	<div>
-		<a (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active"><i class="icon-queue"></i></a>
+		<button (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active"><i class="icon-queue" aria-hidden="true"></i></button>
 	</div>
 </div>

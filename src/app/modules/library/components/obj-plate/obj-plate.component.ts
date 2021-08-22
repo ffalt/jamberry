@@ -31,7 +31,6 @@ export class ObjPlateComponent implements OnChanges, FocusableOption {
 	}
 
 	focus() {
-		console.log('FOCUS!');
 		this.plate?.focus();
 	}
 

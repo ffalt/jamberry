@@ -14,8 +14,16 @@ export class QueueService {
 	constructor(private jam: JamService) {
 	}
 
-	isEmpty(): boolean {
+	get isEmpty(): boolean {
 		return this.entries.length === 0;
+	}
+
+	get hasPrevious(): boolean {
+		return this.currentIndex > 0 && this.entries.length > 1;
+	}
+
+	get hasNext(): boolean {
+		return !!this.getNext();
 	}
 
 	set(tracks: Array<Jam.Track>): void {

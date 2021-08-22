@@ -1,16 +1,17 @@
 <app-background-text *ngIf="!entries || entries.length===0" text="No Tracks in Queue"></app-background-text>
-<div class="tracks-wrapper">
+<div class="tracks-wrapper" appFocusKeyList [settabindex]="entries.length===0?'':'0'">
 	<ng-container *ngIf="entries && entries.length>0">
 		<cdk-virtual-scroll-viewport style="height: 100%; width:100%;" [itemSize]="60">
 			<div class="tracks" cdkDropList [cdkDropListData]="entries" (cdkDropListDropped)="onDrop($event)">
 				<div class="track" *cdkVirtualFor="let entry of entries; let index = index"
 						 (tap)="tapPlayQueuePos($event, index)"
+						 (keydown.enter)="playQueuePos(index)"
 						 (panstart)="onPanStart($event)"
 						 (panmove)="onPanMove($event)"
 						 (panend)="onPanEnd($event, entry)"
 						 (pancancel)="onPanCancel($event)"
 						 (contextmenu)="onContextMenu($event, entry)"
-						 cdkDrag>
+						 cdkDrag appFocusKeyListItem>
 					<div class="handle" cdkDragHandle><span class="grippy"></span></div>
 					<div class="number">
 						<ng-container *ngIf="player.currentMedia && player.currentMedia.id===entry.id">
@@ -25,7 +26,7 @@
 						<a *ngIf="entry.tag && entry.tag.artist"
 							 (click)="navig.toArtistID(entry.artistID,entry.tag.artist)"
 							 (keydown.enter)="navig.toArtistID(entry.artistID,entry.tag.artist)"
-						tabindex="0">{{entry.tag.artist}}</a></div>
+							 tabindex="0">{{entry.tag.artist}}</a></div>
 					<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{entry.duration|duration}}</div>
 					<div class="remove"><a title="Remove From Queue" (click)="queue.remove(entry)" (keydown.enter)="queue.remove(entry)" tabindex="0" appClickStop><i class="icon-remove"></i></a></div>
 				</div>

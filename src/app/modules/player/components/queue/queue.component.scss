@@ -12,6 +12,7 @@
 		overflow-y: auto;
 		overflow-x: hidden;
 		background-color: var(--background);
+		margin: 1px;
 	}
 
 	cdk-virtual-scroll-viewport {
@@ -81,6 +82,7 @@
 			border-color: var(--control);
 			color: var(--on-control);
 			flex: 1;
+			margin: 1px;
 		}
 	}
 }

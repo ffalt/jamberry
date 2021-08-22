@@ -25,8 +25,7 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 	@Input() listName: string = '';
 	@HostBinding('class.active') collapsed: boolean = false;
 	@ViewChildren(SidebarListComponent) items!: QueryList<SidebarListComponent>;
-	@HostBinding() tabindex = '0';
-	showMobileNavig: boolean = false;
+	@HostBinding('class.show') showMobileNavig: boolean = false;
 	private keyManager: FocusKeyManager<SidebarListItemComponent> | undefined;
 
 	constructor(public app: AppService, protected router: Router) {
@@ -53,9 +52,7 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 		this.showMobileNavig = false;
 	}
 
-	@HostListener('keydown.arrowUp', ['$event'])
-	@HostListener('keydown.arrowDown', ['$event'])
-	manage(event: KeyboardEvent) {
+	manageKey(event: KeyboardEvent) {
 		this.keyManager?.onKeydown(event);
 	}
 

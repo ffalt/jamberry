@@ -17,7 +17,16 @@
 
 	.logo {
 		padding-left: $padding-xs;
-		padding-right: $padding-lg;
+		padding-right: $padding-xs;
+		margin-right: $padding-xs;
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: center;
+
+		.logo-name {
+			padding-left: $padding-xs;
+		}
 
 		a {
 			color: var(--on-control);
@@ -31,7 +40,6 @@
 		}
 
 		app-logo-icon {
-			padding-top: 2px;
 			height: 30px;
 			width: 30px;
 		}
@@ -83,16 +91,23 @@
 			display: inline-block;
 		}
 		.search {
-			min-width: 0;
-			display: flex;
 			margin-right: $margin;
-			overflow: hidden;
 		}
 	}
 
 	@media (max-width: $break-phone) {
+		.logo {
+			padding-left: $padding-xs;
+			padding-right: $padding-xs;
+		}
+
+		.logo-name {
+			display: none;
+		}
+
 		.search {
 			flex: 1;
+			overflow: hidden;
 			margin-right: $margin-xs;
 		}
 	}

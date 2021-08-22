@@ -29,7 +29,7 @@ export class HeaderComponent {
 		this.app.view.currentSidebar?.toggleMobileNavig();
 	}
 
-	onContextMenu($event: MouseEvent): void {
+	onContextMenu($event: MouseEvent | KeyboardEvent): void {
 		this.menuService.openMenuComponent(ContextMenuUserComponent, undefined, $event);
 	}
 

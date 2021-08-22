@@ -59,7 +59,6 @@ export class GenrePageComponent implements OnDestroy {
 			this.title = `Genre: ${params.name}`;
 			this.genreID = params.id;
 			// TODO: load genre by id if param.name is empty
-			// this.refresh();
 		});
 	}
 
@@ -67,15 +66,10 @@ export class GenrePageComponent implements OnDestroy {
 		this.currentTab = tab;
 		this.tabs.forEach(t => t.active = false);
 		tab.active = true;
-		// this.search();
 	}
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
 	}
-
-	// private refresh(): void {
-	//
-	// }
 }
