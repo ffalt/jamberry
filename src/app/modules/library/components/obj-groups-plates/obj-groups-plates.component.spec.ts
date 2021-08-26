@@ -2,25 +2,25 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ObjPlateComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
 import {MockComponent} from 'ng-mocks';
-import {ObjPlatesComponent} from './obj-groups-view.component';
+import {ObjGroupsPlatesComponent} from './obj-groups-plates.component';
 
-describe('ObjGroupsViewComponent', () => {
-	let component: ObjPlatesComponent;
-	let fixture: ComponentFixture<ObjPlatesComponent>;
+describe('ObjGroupsPlatesComponent', () => {
+	let component: ObjGroupsPlatesComponent;
+	let fixture: ComponentFixture<ObjGroupsPlatesComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
 			declarations: [
-				ObjPlatesComponent,
+				ObjGroupsPlatesComponent,
 				MockComponent(ObjPlateComponent)
 			]
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(ObjPlatesComponent);
+		fixture = TestBed.createComponent(ObjGroupsPlatesComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

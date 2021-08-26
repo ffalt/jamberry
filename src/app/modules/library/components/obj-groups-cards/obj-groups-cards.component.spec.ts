@@ -1,10 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ObjPlateComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
-import {MockComponent} from 'ng-mocks';
-import {ObjGroupsCardsComponent} from './obj-groups-view.component';
+import {ObjGroupsCardsComponent} from './obj-groups-cards.component';
 
-describe('ObjGroupsViewComponent', () => {
+describe('ObjGroupsCardsComponent', () => {
 	let component: ObjGroupsCardsComponent;
 	let fixture: ComponentFixture<ObjGroupsCardsComponent>;
 
@@ -13,8 +11,7 @@ describe('ObjGroupsViewComponent', () => {
 			imports: [...TEST_LIBRARY_IMPORTS],
 			providers: [...TEST_LIBRARY_PROVIDERS],
 			declarations: [
-				ObjGroupsCardsComponent,
-				MockComponent(ObjPlateComponent)
+				ObjGroupsCardsComponent
 			]
 		}).compileComponents()
 	);
