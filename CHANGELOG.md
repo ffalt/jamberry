@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.13](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.12...v0.4.13) (2021-10-13)
+
+
+### Features
+
+* **accessibility:** sidebar keyboard navigation ([02e0de0](https://github.com-ffalt/ffalt/jamberry/commit/02e0de0b3778bd3be6f1a576833ac0d27ae7dbf9))
+* **accessibility:** start using semantic html, support tab & keyboard navigation ([ff3d5dd](https://github.com-ffalt/ffalt/jamberry/commit/ff3d5dd662f1fc1de21298b6260f1d943ce2a292))
+* **accessibility:** support keyboard navigation in queue, menus, player, tabs ([2db2db6](https://github.com-ffalt/ffalt/jamberry/commit/2db2db66a83dd10288e1928f13d5f7704eb17c47))
+* **accessibility:** support tab & keyboard navigation ([db358db](https://github.com-ffalt/ffalt/jamberry/commit/db358dbaa45f5975d3bde2fe04bd94b0397b5fd8))
+* **accessibility:** tracklist & indexlist keyboard navigation ([baf8ec6](https://github.com-ffalt/ffalt/jamberry/commit/baf8ec641870dac1fd4c91828fc114a9441c4f8d))
+* **accessibility:** using semantic html, support tab & keyboard navigation ([7bfb4b2](https://github.com-ffalt/ffalt/jamberry/commit/7bfb4b221251c547c6ea43ec4b75fa273ce86c61))
+
 ### [0.4.12](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.11...v0.4.12) (2021-08-06)
 
 
