@@ -81,7 +81,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	customGenre = {text: '', checked: true};
 	@HostBinding('class.right-active') rightActive: boolean = true;
 	@ViewChild(MatchCoverartComponent, {static: false}) coverArt?: MatchCoverartComponent;
-	@ViewChild('actionMenu', {static: false}) public actionMenu?: ContextMenuComponent;
+	@ViewChild('actionMenu', {static: false}) actionMenu?: ContextMenuComponent;
 
 	matchings: Array<Matching> = [];
 	matchTree = new MatchTree();

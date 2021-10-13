@@ -1,5 +1,5 @@
 import {FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, HostBinding, HostListener, Input, OnDestroy, QueryList, ViewChildren,} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, HostListener, Input, OnDestroy, QueryList, ViewChildren} from '@angular/core';
 import {JamLibraryObject} from '@library/model/objects';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

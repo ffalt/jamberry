@@ -27,6 +27,11 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
+	@HostListener('keydown', ['$event'])
+	onKeydown(event: KeyboardEvent) {
+		this.keyManager?.onKeydown(event);
+	}
+
 	private processKeyList() {
 		this.keyManager = new FocusKeyManager<FocusKeyListItemDirective>(this.components);
 		if (this.withWrap) {
@@ -34,8 +39,4 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 		}
 	}
 
-	@HostListener('keydown', ['$event'])
-	onKeydown(event: KeyboardEvent) {
-		this.keyManager?.onKeydown(event);
-	}
 }
