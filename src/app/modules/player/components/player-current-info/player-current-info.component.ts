@@ -4,7 +4,6 @@ import {TabComponent} from '@app/modules/tab-portal';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
-import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/context-menu-queue-track.component';
 
 @Component({
 	selector: 'app-player-current-info',
@@ -22,7 +21,7 @@ export class PlayerCurrentInfoComponent implements TabComponent {
 		//
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Track): void {
+	onContextMenu($event: Event, item: Jam.Track): void {
 		//TODO: context-menu this.contextMenuService.open(ContextMenuQueueTrackComponent, item, $event);
 	}
 

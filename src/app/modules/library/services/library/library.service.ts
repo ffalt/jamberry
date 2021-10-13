@@ -80,11 +80,11 @@ export class LibraryService {
 		return [];
 	}
 
-	openJamObjectMenu(item: JamLibraryObject, event: MouseEvent | KeyboardEvent, options?: ContextMenuObjComponentOptions) {
+	openJamObjectMenu(item: JamLibraryObject, event: Event, options?: ContextMenuObjComponentOptions) {
 		this.menuService.openMenuComponent<ContextMenuObjComponentOptions>(ContextMenuObjComponent, item, event, options);
 	}
 
-	openSimpleMenu(entries: Array<any>, event: MouseEvent | KeyboardEvent) {
+	openSimpleMenu(entries: Array<any>, event: Event) {
 		this.menuService.openMenuComponent<ContextMenuSimpleComponentOptions>(ContextMenuSimpleComponent, undefined, event, {entries});
 	}
 

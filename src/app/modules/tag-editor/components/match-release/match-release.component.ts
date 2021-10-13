@@ -377,7 +377,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		group.updateScore();
 	}
 
-	onContextMenu($event: MouseEvent | KeyboardEvent) {
+	onContextMenu($event: Event) {
 		this.contextMenuService.show.next({
 			contextMenu: this.actionMenu,
 			event: $event,

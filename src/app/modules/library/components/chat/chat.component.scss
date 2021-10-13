@@ -59,11 +59,11 @@
 
 		@include input-box();
 
-		.input-box {
+		.input-box, input {
 			width: 100%;
 		}
 
-		a {
+		button {
 			margin-left: $margin-sm;
 		}
 	}

@@ -14,7 +14,7 @@ export class ContextMenuAttachDirective {
 	}
 
 	@HostListener('contextmenu', ['$event'])
-	onContextMenu(event: MouseEvent | KeyboardEvent): void {
+	onContextMenu(event: Event): void {
 		if (!this.contextMenu.disabled) {
 			this.contextMenuService.show.next({
 				contextMenu: this.contextMenu,

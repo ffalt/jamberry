@@ -19,7 +19,7 @@ export class MediaPlateComponent implements FocusableOption {
 
 	@HostListener('keydown.enter', ['$event'])
 	@HostListener('contextmenu', ['$event'])
-	contextmenuEvent(event: MouseEvent | KeyboardEvent): void {
+	contextmenuEvent(event: Event): void {
 		if (this.obj) {
 			this.obj.onContextMenu(event);
 		}

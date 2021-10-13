@@ -2,10 +2,10 @@
 	<div class="title" (click)="group.expanded=!group.expanded">{{group.name}}</div>
 	<div class="index-cards" *ngIf="group.expanded">
 		<ng-container *ngIf="!visible">
-			<div class="index-card-placeholder" *ngFor="let entry of group.entries; trackBy: trackByEntryFn" (click)="navigTo(entry)" (keydown.enter)="navigTo(entry)" appFocusKeyListItem></div>
+			<div class="index-card-placeholder" *ngFor="let entry of group.entries; trackBy: trackByEntryFn" (clickenter)="navigTo(entry)" appFocusKeyListItem></div>
 		</ng-container>
 		<ng-container *ngIf="visible">
-			<app-index-entry-card *ngFor="let entry of group.entries; trackBy: trackByEntryFn" [entry]="entry" (click)="navigTo(entry)" (keydown.enter)="navigTo(entry)" appFocusKeyListItem></app-index-entry-card>
+			<app-index-entry-card *ngFor="let entry of group.entries; trackBy: trackByEntryFn" [entry]="entry" (clickenter)="navigTo(entry)" appFocusKeyListItem></app-index-entry-card>
 		</ng-container>
 	</div>
 </div>

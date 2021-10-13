@@ -21,6 +21,6 @@ export abstract class JamObject {
 
 	abstract toggleFav(): Promise<void>;
 
-	abstract onContextMenu($event: MouseEvent | KeyboardEvent, hideGoto?: boolean): void;
+	abstract onContextMenu($event: Event | Event, hideGoto?: boolean): void;
 
 }

@@ -1,3 +1,4 @@
+import {ClickKeyEnterDirective} from './click-enterkey.directive';
 import {AutofocusDirective} from './autofocus.directive';
 import {BackgroundImageDirective} from './background-image.directive';
 import {ClickStopDirective} from './click-stop.directive';
@@ -10,6 +11,7 @@ export const directives: Array<any> = [
 	AutofocusDirective,
 	BackgroundImageDirective,
 	ClickStopDirective,
+	ClickKeyEnterDirective,
 	FocusDirective,
 	FocusKeyListItemDirective,
 	FocusKeyListDirective,
@@ -23,3 +25,4 @@ export * from './focus.directive';
 export * from './obj-tooltip.directive';
 export * from './focus-key-list-item.directive';
 export * from './focus-key-list.directive';
+export * from './click-enterkey.directive';

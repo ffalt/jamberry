@@ -12,9 +12,8 @@
 			<app-fav-icon [faved]="album.state?.faved"></app-fav-icon>
 		</button></div>
 		<div class="date">{{album.seriesNr ? album.seriesNr : album.year}}</div>
-		<div class="title"><a class="title-link" (click)="navig.toAlbum(album)" (keydown.enter)="navig.toAlbum(album)">{{album.name}}</a>
-			<a *ngIf="showArtist" title="Artist" (click)="navig.toArtistID(album.artistID,album.artistName)"
-				 (keydown.enter)="navig.toArtistID(album.artistID,album.artistName)">{{album.artist}}</a>
+		<div class="title"><a class="title-link" (clickenter)="navig.toAlbum(album)">{{album.name}}</a>
+			<a *ngIf="showArtist" title="Artist" (clickenter)="navig.toArtistID(album.artistID,album.artistName)">{{album.artist}}</a>
 		</div>
 		<div class="info">{{album.albumType}}</div>
 		<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{album.duration|duration}}</div>

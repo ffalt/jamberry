@@ -21,7 +21,7 @@ export class EpisodeListComponent {
 	) {
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Episode): void {
+	onContextMenu($event: Event, item: Jam.Episode): void {
 		this.library.openJamObjectMenu(new JamEpisodeObject(item, this.library), $event);
 	}
 

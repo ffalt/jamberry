@@ -10,7 +10,7 @@ import {ContextMenuItemDirective} from './contextmenu.item.directive';
 export interface IContextMenuClickEvent {
 	anchorElement?: Element | EventTarget;
 	contextMenu?: ContextMenuComponent;
-	event?: MouseEvent | KeyboardEvent;
+	event?: Event;
 	parentContextMenu?: ContextMenuContentComponent;
 	item: any;
 	activeMenuItemIndex?: number;
@@ -23,7 +23,7 @@ export interface IContextMenuContext extends IContextMenuClickEvent {
 
 export interface CloseLeafMenuEvent {
 	exceptRootMenu?: boolean;
-	event?: MouseEvent | KeyboardEvent;
+	event?: Event;
 }
 
 export interface OverlayRefWithContextMenu extends OverlayRef {
@@ -32,12 +32,12 @@ export interface OverlayRefWithContextMenu extends OverlayRef {
 
 export interface CancelContextMenuEvent {
 	eventType: 'cancel';
-	event?: MouseEvent | KeyboardEvent;
+	event?: Event;
 }
 
 export interface ExecuteContextMenuEvent {
 	eventType: 'execute';
-	event?: MouseEvent | KeyboardEvent;
+	event?: Event;
 	item: any;
 	menuItem: ContextMenuItemDirective;
 }

@@ -36,7 +36,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	onContextMenu($event: MouseEvent | KeyboardEvent, item: Jam.MediaBase): void {
+	onContextMenu($event: Event, item: Jam.MediaBase): void {
 		this.menuService.openMenuComponent(ContextMenuQueueTrackComponent, item, $event);
 	}
 

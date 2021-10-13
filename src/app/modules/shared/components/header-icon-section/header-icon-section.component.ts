@@ -14,10 +14,10 @@ export class HeaderIconSectionComponent {
 	@Input() smallTabs: boolean = false;
 	@Input() hasContextMenu: boolean = false;
 	@Input() tabs?: Array<HeaderTab> = [];
-	@Output() readonly contextMenuRequest = new EventEmitter<MouseEvent | KeyboardEvent>();
+	@Output() readonly contextMenuRequest = new EventEmitter<Event>();
 
 	@HostListener('contextmenu', ['$event'])
-	contextmenuEvent(event: MouseEvent | KeyboardEvent): void {
+	contextmenuEvent(event: Event): void {
 		this.contextMenuRequest.emit(event);
 	}
 }

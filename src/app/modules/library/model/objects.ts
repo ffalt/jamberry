@@ -32,7 +32,7 @@ export abstract class JamLibraryObject extends JamObject {
 		this.library.actions.download(this.base);
 	}
 
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+	onContextMenu($event: Event, hideGoto?: boolean): void {
 		this.library.openJamObjectMenu(this, $event, {hideGoto});
 	}
 
@@ -281,7 +281,7 @@ export class JamPlaylistObject extends JamLibraryObject {
 		return this.library.actions.togglePlaylistFav(this.playlist);
 	}
 
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+	onContextMenu($event: Event, hideGoto?: boolean): void {
 		let extras: Array<ContextMenuObjComponentOptionsExtra> = [];
 		if (this.playlist?.userID === this.library.jam.auth?.user?.id) {
 			extras = [
@@ -542,7 +542,7 @@ export class JamPodcastObject extends JamLibraryObject {
 		return this.library.actions.togglePodcastFav(this.podcast);
 	}
 
-	onContextMenu($event: MouseEvent, hideGoto?: boolean): void {
+	onContextMenu($event: Event, hideGoto?: boolean): void {
 		const extras = (this.library.jam.auth?.user?.roles.podcast) ? [
 			{
 				text: 'Refresh Podcast Feed', icon: 'icon-rescan', click: (): void => {

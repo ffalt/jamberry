@@ -17,7 +17,7 @@ export class MenuService {
 							private contextMenuService: ContextMenuService) {
 	}
 
-	openMenuComponent<T>(contextMenuHost: ComponentType<ContextMenuHostComponentInterface<T>>, item: any, event: MouseEvent | KeyboardEvent, options?: T) {
+	openMenuComponent<T>(contextMenuHost: ComponentType<ContextMenuHostComponentInterface<T>>, item: any, event: Event, options?: T) {
 		const templateOverlay = this.overlay.create({});
 		this.templateOverlays.push(templateOverlay);
 		const contextMenuTemplate: ComponentRef<any> = templateOverlay.attach(new ComponentPortal(contextMenuHost));

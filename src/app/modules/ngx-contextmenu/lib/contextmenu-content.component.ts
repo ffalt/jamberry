@@ -35,13 +35,13 @@ const ARROW_LEFT_KEYCODE = 37;
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
 	@Input() menuItems: Array<ContextMenuItemDirective> = [];
 	@Input() item: any;
-	@Input() event?: MouseEvent | KeyboardEvent;
+	@Input() event?: Event;
 	@Input() parentContextMenu?: ContextMenuContentComponent;
 	@Input() menuClass?: string;
 	@Input() overlay?: OverlayRef;
 	@Input() isLeaf: boolean = false;
 	@Output() readonly execute: EventEmitter<{
-		event?: MouseEvent | KeyboardEvent;
+		event?: Event;
 		item: any;
 		menuItem: ContextMenuItemDirective;
 	}> = new EventEmitter();
@@ -163,7 +163,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		this.closeAllMenus.emit({event});
 	}
 
-	onOpenSubMenu(context: { menuItem: ContextMenuItemDirective; event: MouseEvent | KeyboardEvent }): void {
+	onOpenSubMenu(context: { menuItem: ContextMenuItemDirective; event: Event }): void {
 		const anchorElementRef = this.menuItemElements.toArray()[this.keyManager.activeItemIndex || -1];
 		const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
 		this.openSubMenu.emit({
@@ -175,7 +175,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		});
 	}
 
-	onMenuItemSelect(context: { menuItem: ContextMenuItemDirective; event: MouseEvent | KeyboardEvent }): void {
+	onMenuItemSelect(context: { menuItem: ContextMenuItemDirective; event: Event }): void {
 		if (!context.menuItem.subMenu) {
 			context.menuItem.triggerExecute(this.item, context.event);
 		} else {
@@ -183,7 +183,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		}
 	}
 
-	private cancelEvent(event: MouseEvent | KeyboardEvent): void {
+	private cancelEvent(event: Event): void {
 		if (!event) {
 			return;
 		}

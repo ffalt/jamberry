@@ -20,7 +20,7 @@ export class MediaListComponent {
 	constructor(private library: LibraryService, public navig: NavigService, public player: PlayerService, public actions: ActionsService) {
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.MediaBase): void {
+	onContextMenu($event: Event, item: Jam.MediaBase): void {
 		const obj = item.objType === JamObjectType.track ? new JamTrackObject(item as Jam.Track, this.library) : new JamEpisodeObject(item as Jam.Episode, this.library);
 		this.library.openJamObjectMenu(obj, $event);
 	}

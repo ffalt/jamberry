@@ -11,7 +11,7 @@ export class ContextMenuItemDirective implements Highlightable {
 	@Input() enabled: boolean | ((item: any) => boolean) = true;
 	@Input() passive = false;
 	@Input() visible: boolean | ((item: any) => boolean) = true;
-	@Output() readonly execute: EventEmitter<{ event?: MouseEvent | KeyboardEvent; item: any }> = new EventEmitter();
+	@Output() readonly execute: EventEmitter<{ event?: Event; item: any }> = new EventEmitter();
 
 	currentItem: any;
 	isActive = false;
@@ -48,7 +48,7 @@ export class ContextMenuItemDirective implements Highlightable {
 		this.isActive = false;
 	}
 
-	triggerExecute(item: any, $event?: MouseEvent | KeyboardEvent): void {
+	triggerExecute(item: any, $event?: Event): void {
 		if (this.isEnabled) {
 			this.execute.emit({event: $event, item});
 		}

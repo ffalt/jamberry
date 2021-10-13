@@ -22,15 +22,15 @@ export class HeaderJamBaseComponent {
 	@Input() hasContextMenu: boolean = false;
 	@Input() tabs?: Array<HeaderTab>;
 	@Input() infos: Array<HeaderInfo> = [];
-	@Output() readonly contextMenuRequest = new EventEmitter<MouseEvent | KeyboardEvent>();
-	@Output() readonly playRequest = new EventEmitter<MouseEvent | KeyboardEvent>();
+	@Output() readonly contextMenuRequest = new EventEmitter<Event | Event>();
+	@Output() readonly playRequest = new EventEmitter<Event>();
 
 	@HostListener('contextmenu', ['$event'])
-	contextmenuEvent(event: MouseEvent | KeyboardEvent): void {
+	contextmenuEvent(event: Event | Event): void {
 		this.contextMenuRequest.emit(event);
 	}
 
-	playEvent(event: MouseEvent | KeyboardEvent): void {
+	playEvent(event: Event): void {
 		this.contextMenuRequest.emit(event);
 	}
 

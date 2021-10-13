@@ -23,7 +23,7 @@ export class TrackListComponent {
 	) {
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Track): void {
+	onContextMenu($event: Event, item: Jam.Track): void {
 		this.library.openJamObjectMenu(new JamTrackObject(item, this.library), $event);
 	}
 

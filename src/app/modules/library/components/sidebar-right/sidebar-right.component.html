@@ -1,7 +1,7 @@
 <div class="navigation">
 	<ul class="tabs" listRole="tablist" appFocusKeyList>
-		<li [class.active]="currentTab==='queue'" (click)="currentTab='queue'" (keydown.enter)="currentTab='queue'" listRole="tab" appFocusKeyListItem><a>Queue</a></li>
-		<li [class.active]="currentTab==='chat'" (click)="currentTab='chat'" (keydown.enter)="currentTab='chat'" listRole="tab" appFocusKeyListItem><a>Chat</a></li>
+		<li [class.active]="currentTab==='queue'" (clickenter)="currentTab='queue'" listRole="tab" appFocusKeyListItem><a>Queue</a></li>
+		<li [class.active]="currentTab==='chat'" (clickenter)="currentTab='chat'" listRole="tab" appFocusKeyListItem><a>Chat</a></li>
 	</ul>
 </div>
 <div class="content">

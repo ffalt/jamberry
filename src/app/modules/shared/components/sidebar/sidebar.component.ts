@@ -1,15 +1,5 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {
-	AfterViewInit,
-	Component,
-	HostBinding,
-	HostListener,
-	Input,
-	OnDestroy,
-	OnInit,
-	QueryList,
-	ViewChildren
-} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppService, SidebarProvider} from '@core/services';
 import {SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
@@ -52,8 +42,8 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 		this.showMobileNavig = false;
 	}
 
-	manageKey(event: KeyboardEvent) {
-		this.keyManager?.onKeydown(event);
+	manageKey(event: Event) {
+		this.keyManager?.onKeydown(event as KeyboardEvent);
 	}
 
 	ngAfterViewInit(): void {

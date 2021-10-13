@@ -21,7 +21,7 @@ export class AlbumListComponent {
 	) {
 	}
 
-	onContextMenu($event: MouseEvent, item: Jam.Album): void {
+	onContextMenu($event: Event, item: Jam.Album): void {
 		this.library.openJamObjectMenu(new JamAlbumObject(item, this.library), $event);
 	}
 

@@ -12,8 +12,8 @@ export class ContextMenuContentItemComponent implements FocusableOption {
 	@Input() menuItem!: ContextMenuItemDirective;
 	@Input() item!: any;
 	@ViewChild('content', {static: false}) itemRef?: ElementRef;
-	@Output() readonly itemSelect = new EventEmitter<{ event: MouseEvent | KeyboardEvent; menuItem: ContextMenuItemDirective }>();
-	@Output() readonly openSubmenu = new EventEmitter<{ event: MouseEvent | KeyboardEvent; menuItem: ContextMenuItemDirective }>();
+	@Output() readonly itemSelect = new EventEmitter<{ event: Event; menuItem: ContextMenuItemDirective }>();
+	@Output() readonly openSubmenu = new EventEmitter<{ event: Event; menuItem: ContextMenuItemDirective }>();
 
 	stopEvent($event: MouseEvent) {
 		$event.stopPropagation();
@@ -23,13 +23,13 @@ export class ContextMenuContentItemComponent implements FocusableOption {
 		this.itemRef?.nativeElement.focus();
 	}
 
-	onMenuItemSelect(event: MouseEvent | KeyboardEvent): void {
+	onMenuItemSelect(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
 		this.itemSelect.emit({event, menuItem: this.menuItem});
 	}
 
-	onOpenSubMenu(event: MouseEvent | KeyboardEvent): void {
+	onOpenSubMenu(event: Event): void {
 		this.openSubmenu.emit({event, menuItem: this.menuItem});
 	}
 }

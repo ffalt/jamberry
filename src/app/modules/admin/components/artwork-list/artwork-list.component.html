@@ -1,7 +1,7 @@
 <div appFocusKeyList>
 	<div class="artwork" *ngFor="let art of nodes; trackBy: trackByFn" (keydown.enter)="editArtwork(art.artwork)" appFocusKeyListItem>
 		<div class="artwork-img">
-			<img [src]="art.thumbnail" (click)="editArtwork(art.artwork)" (keydown.enter)="editArtwork(art.artwork)" alt="Artwork">
+			<img [src]="art.thumbnail" (clickenter)="editArtwork(art.artwork)" alt="Artwork">
 			<div class="mode">{{art.artwork.types}}</div>
 			<div class="format">{{art.artwork.format}}</div>
 			<div class="dims">{{art.artwork.width}}x{{art.artwork.height}}</div>
@@ -9,7 +9,7 @@
 		</div>
 		<div class="artwork-types">
 			<app-inline-edit [(ngModel)]="art.name" (endEditRequest)="editArtworkName(art)" type="text"></app-inline-edit>
-			<a class="delete-button" (click)="removeArtwork(art)" (keydown.enter)="removeArtwork(art)" title="Delete Image"><i class="icon-trash" aria-hidden="true"></i></a>
+			<a class="delete-button" (clickenter)="removeArtwork(art)" title="Delete Image"><i class="icon-trash" aria-hidden="true"></i></a>
 		</div>
 	</div>
 </div>

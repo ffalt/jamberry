@@ -16,5 +16,5 @@
 	<div class="input-box">
 		<input type="text" name="message" autocomplete="none" [(ngModel)]="msg" placeholder="Enter Chat Message" (keydown.enter)="post()">
 	</div>
-	<a (click)="post()">Send</a>
+	<button (click)="post()" class="button-on-control">Send</button>
 </div>

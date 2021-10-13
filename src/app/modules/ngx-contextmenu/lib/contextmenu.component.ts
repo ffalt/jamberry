@@ -40,7 +40,7 @@ export class ContextMenuComponent implements OnDestroy {
 	visibleMenuItems: Array<ContextMenuItemDirective> = [];
 
 	item: any;
-	event?: MouseEvent | KeyboardEvent;
+	event?: Event;
 	private subscription: Subscription = new Subscription();
 
 	constructor(
