@@ -3,6 +3,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 export interface Base64Image {
 	base64: string;
 	mimeType: string;
+	title: string;
 }
 
 @Component({

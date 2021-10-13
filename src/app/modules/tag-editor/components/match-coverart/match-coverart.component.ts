@@ -140,7 +140,7 @@ export class MatchCoverartComponent implements OnChanges {
 		if (!bin) {
 			this.notify.error({error: 'Invalid result from https://coverartarchive.org'});
 		} else {
-			image.base64 = {mimeType: bin.contentType, base64: base64ArrayBuffer(bin.buffer)};
+			image.base64 = {title: imageUrl, mimeType: bin.contentType, base64: base64ArrayBuffer(bin.buffer)};
 		}
 	}
 

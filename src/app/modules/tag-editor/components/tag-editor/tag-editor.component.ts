@@ -35,7 +35,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	isSaving = false;
 	@Input() id?: string;
 	@ViewChildren(CellEditor) cellEditors!: QueryList<CellEditor>;
-	@ViewChild('actionMenu', {static: false}) public actionMenu?: ContextMenuComponent;
+	@ViewChild('actionMenu', {static: false}) actionMenu?: ContextMenuComponent;
 
 	constructor(
 		private app: AppService, private folderService: AdminFolderService,	private contextMenuService: ContextMenuService,
