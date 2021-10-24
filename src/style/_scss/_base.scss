@@ -280,10 +280,10 @@ button {
 	background-color: transparent;
 	border: none;
 	&:focus {
-		outline: 1px dotted var(--secondary);
+		outline: 1px dotted var(--control-box-border);
 	}
 }
 
-:focus {
-	outline: 1px dotted var(--secondary);
-}
+//:focus {
+//	outline: 1px dotted var(--control-box-border);
+//}
