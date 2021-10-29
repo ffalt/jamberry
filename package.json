@@ -28,7 +28,10 @@
     "build:deploy": "npm run build:prebuild && npm run build:prod",
     "test:watch": "jest --watch"
   },
-  "private": true,
+	"engines": {
+		"node": ">=16"
+	},
+	"private": true,
   "dependencies": {
     "@angular/animations": "12.2.11",
     "@angular/cdk": "12.2.9",
