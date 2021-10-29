@@ -214,7 +214,6 @@
           "error",
           "never"
         ],
-        "unicorn/filename-case": "error",
         "yoda": "error",
         "@typescript-eslint/member-ordering": [
           "error",

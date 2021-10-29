@@ -14,7 +14,7 @@ module.exports = {
 		"@jam": "<rootDir>/src/app/modules/jam/index"
 	},
 	modulePathIgnorePatterns: ['<rootDir>/local/', '<rootDir>/resources', '<rootDir>/dist'],
-	transformIgnorePatterns: ['node_modules/(?!(jest-test))'],
+	transformIgnorePatterns: ['node_modules/(?!(jest-test))', "/local/", "/dist/"],
 	testRunner: 'jest-jasmine2', // for ng-mocks
 	globals: {
 		'ts-jest': {
