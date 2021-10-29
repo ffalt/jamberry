@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.14](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.13...v0.4.14) (2021-10-29)
+
+
+### Bug Fixes
+
+* **theme:** remove debugging focus color ([cb431fe](https://github.com-ffalt/ffalt/jamberry/commit/cb431fe8b3b7b42259df67e81c30ec5f0ce6bfc6))
+
 ### [0.4.13](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.12...v0.4.13) (2021-10-13)
 
 
