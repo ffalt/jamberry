@@ -10,10 +10,11 @@ describe('AutocompleteComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule, AutocompleteModule, OverlayModule],
-			providers: [],
-			declarations: [TagEditorAutocompleteComponent]
-		}).compileComponents()
+    imports: [FormsModule, AutocompleteModule, OverlayModule],
+    providers: [],
+    declarations: [TagEditorAutocompleteComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

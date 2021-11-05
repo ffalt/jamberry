@@ -8,10 +8,11 @@ describe('MediaListComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [MediaListComponent]
-		}).compileComponents()
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [MediaListComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

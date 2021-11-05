@@ -47,7 +47,7 @@ export class RootListComponent {
 			onOkBtn: async () => {
 				try {
 					await this.rootService.applyDialogRoot(edit);
-				} catch (e) {
+				} catch (e: any) {
 					this.notify.error(e);
 					return Promise.reject(e);
 				}

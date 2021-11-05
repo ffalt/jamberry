@@ -10,10 +10,11 @@ describe('DialogMatchReleaseComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
-			providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
-			declarations: [DialogMatchReleaseComponent, MockComponent(MatchReleaseComponent)]
-		}).compileComponents()
+    imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
+    providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
+    declarations: [DialogMatchReleaseComponent, MockComponent(MatchReleaseComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

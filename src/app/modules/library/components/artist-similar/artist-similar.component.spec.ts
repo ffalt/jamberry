@@ -9,10 +9,11 @@ describe('ArtistSimilarComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [ArtistSimilarComponent, MockComponent(ObjGroupsViewComponent)]
-		}).compileComponents()
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [ArtistSimilarComponent, MockComponent(ObjGroupsViewComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

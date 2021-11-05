@@ -5,9 +5,10 @@ import {NavigService} from './navig.service';
 describe('NavigService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [RouterTestingModule],
-			providers: [NavigService]
-		});
+    imports: [RouterTestingModule],
+    providers: [NavigService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([NavigService], (service: NavigService) => {

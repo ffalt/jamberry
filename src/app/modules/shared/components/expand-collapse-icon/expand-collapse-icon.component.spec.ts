@@ -8,8 +8,9 @@ describe('ExpandCollapseIconComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [ExpandCollapseIconComponent, StringTogglePipe]
-		}).compileComponents()
+    declarations: [ExpandCollapseIconComponent, StringTogglePipe],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

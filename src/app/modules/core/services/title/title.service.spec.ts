@@ -8,9 +8,10 @@ import {TitleService} from './title.service';
 describe('TitleService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [RouterTestingModule, ToastModule.forRoot(), TEST_JAM_MODULE],
-			providers: []
-		});
+    imports: [RouterTestingModule, ToastModule.forRoot(), TEST_JAM_MODULE],
+    providers: [],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([TitleService], (service: TitleService) => {

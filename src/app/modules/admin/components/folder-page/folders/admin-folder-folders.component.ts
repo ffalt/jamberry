@@ -72,7 +72,7 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 						.catch(e => {
 							this.notify.error(e);
 						});
-				} catch (e) {
+				} catch (e: any) {
 					this.notify.error(e);
 					return Promise.reject(e);
 				}
@@ -111,7 +111,7 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 						.catch(e => {
 							this.notify.error(e);
 						});
-				} catch (e) {
+				} catch (e: any) {
 					this.notify.error(e);
 					return Promise.reject(e);
 				}

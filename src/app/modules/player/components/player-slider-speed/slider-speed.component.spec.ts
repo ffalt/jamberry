@@ -8,10 +8,11 @@ describe('SliderSpeedComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_PLAYER_MODULE_IMPORTS],
-			providers: [...TEST_PLAYER_MODULE_PROVIDERS],
-			declarations: [SliderSpeedComponent]
-		}).compileComponents()
+    imports: [...TEST_PLAYER_MODULE_IMPORTS],
+    providers: [...TEST_PLAYER_MODULE_PROVIDERS],
+    declarations: [SliderSpeedComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

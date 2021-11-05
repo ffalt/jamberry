@@ -20,16 +20,17 @@ describe('AppComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [
-				NoopAnimationsModule,
-				ThemeModule.forRoot(themeConfig),
-				HeaderModule, PlayerModule, SharedModule, MainTabsModule,
-				RouterTestingModule, HotkeyModule.forRoot(),
-				ToastModule.forRoot(), TEST_JAM_MODULE
-			],
-			providers: [MainTabsService, AuthCanActivateGuard],
-			declarations: [AppComponent]
-		}).compileComponents()
+    imports: [
+        NoopAnimationsModule,
+        ThemeModule.forRoot(themeConfig),
+        HeaderModule, PlayerModule, SharedModule, MainTabsModule,
+        RouterTestingModule, HotkeyModule.forRoot(),
+        ToastModule.forRoot(), TEST_JAM_MODULE
+    ],
+    providers: [MainTabsService, AuthCanActivateGuard],
+    declarations: [AppComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

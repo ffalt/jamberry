@@ -10,9 +10,10 @@ describe('ImageEditOverlayContentComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule, ImageCropperModule],
-			declarations: [ImageEditOverlayContentComponent, ArtworkEditComponent]
-		}).compileComponents()
+    imports: [FormsModule, ImageCropperModule],
+    declarations: [ImageEditOverlayContentComponent, ArtworkEditComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

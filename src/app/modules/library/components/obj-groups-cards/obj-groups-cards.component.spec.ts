@@ -8,12 +8,13 @@ describe('ObjGroupsCardsComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [
-				ObjGroupsCardsComponent
-			]
-		}).compileComponents()
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [
+        ObjGroupsCardsComponent
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

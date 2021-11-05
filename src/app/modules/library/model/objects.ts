@@ -70,7 +70,7 @@ export class JamAlbumObject extends JamLibraryObject {
 		if (!this.tracks) {
 			try {
 				this.tracks = (await this.library.jam.album.tracks({ids: [this.base.id], trackIncTag: true, trackIncState: true})).items;
-			} catch (e) {
+			} catch (e: any) {
 				this.tracks = [];
 				this.library.notify.error(e);
 			}
@@ -164,7 +164,7 @@ export class JamFolderObject extends JamLibraryObject {
 		if (!this.tracks) {
 			try {
 				this.tracks = (await this.library.jam.folder.tracks({ids: [this.base.id], trackIncTag: true, trackIncState: true})).items;
-			} catch (e) {
+			} catch (e: any) {
 				this.tracks = [];
 				this.library.notify.error(e);
 			}
@@ -228,7 +228,7 @@ export class JamArtistObject extends JamLibraryObject {
 		if (!this.albums) {
 			try {
 				this.albums = (await this.library.jam.artist.albums({ids: [this.base.id], albumIncState: true})).items;
-			} catch (e) {
+			} catch (e: any) {
 				this.library.notify.error(e);
 			}
 		}
@@ -310,7 +310,7 @@ export class JamPlaylistObject extends JamLibraryObject {
 					episodeIncTag: true,
 					episodeIncState: true
 				})).items;
-			} catch (e) {
+			} catch (e: any) {
 				this.library.notify.error(e);
 			}
 		}
@@ -370,7 +370,7 @@ export class JamTrackObject extends JamLibraryObject {
 					episodeIncState: true,
 					episodeIncTag: true
 				})).items;
-			} catch (e) {
+			} catch (e: any) {
 				this.library.notify.error(e);
 			}
 		}
@@ -483,7 +483,7 @@ export class JamSeriesObject extends JamLibraryObject {
 		if (!this.albums) {
 			try {
 				this.albums = (await this.library.jam.series.albums({ids: [this.base.id], albumIncState: true})).items;
-			} catch (e) {
+			} catch (e: any) {
 				this.library.notify.error(e);
 			}
 		}
@@ -567,7 +567,7 @@ export class JamPodcastObject extends JamLibraryObject {
 					episodeIncState: true,
 					take: 10
 				})).items;
-			} catch (e) {
+			} catch (e: any) {
 				this.library.notify.error(e);
 			}
 		}

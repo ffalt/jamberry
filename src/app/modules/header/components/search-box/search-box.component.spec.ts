@@ -8,10 +8,11 @@ describe('SearchBoxComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_HEADER_MODULE_IMPORTS],
-			providers: [...TEST_HEADER_MODULE_PROVIDERS],
-			declarations: [SearchBoxComponent]
-		}).compileComponents()
+    imports: [...TEST_HEADER_MODULE_IMPORTS],
+    providers: [...TEST_HEADER_MODULE_PROVIDERS],
+    declarations: [SearchBoxComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

@@ -10,10 +10,11 @@ describe('DialogAlbumComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
-			providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
-			declarations: [DialogAlbumComponent, MockComponent(TagEditorAutocompleteComponent)]
-		}).compileComponents()
+    imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
+    providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
+    declarations: [DialogAlbumComponent, MockComponent(TagEditorAutocompleteComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

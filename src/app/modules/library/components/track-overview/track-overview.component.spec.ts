@@ -8,10 +8,11 @@ describe('TrackOverviewComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [TrackOverviewComponent]
-		}).compileComponents()
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [TrackOverviewComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

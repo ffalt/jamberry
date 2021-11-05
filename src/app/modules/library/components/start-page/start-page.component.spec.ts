@@ -9,10 +9,11 @@ describe('StartPageComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [StartPageComponent, MockComponent(StartSectionsComponent), MockComponent(StartStatsComponent)]
-		}).compileComponents()
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [StartPageComponent, MockComponent(StartSectionsComponent), MockComponent(StartStatsComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

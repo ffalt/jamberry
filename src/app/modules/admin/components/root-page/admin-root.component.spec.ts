@@ -10,10 +10,11 @@ describe('AdminRootComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_ADMIN_MODULE_IMPORTS],
-			providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-			declarations: [AdminRootComponent, MockComponent(RootListComponent)]
-		}).compileComponents()
+    imports: [...TEST_ADMIN_MODULE_IMPORTS],
+    providers: [...TEST_ADMIN_MODULE_PROVIDERS],
+    declarations: [AdminRootComponent, MockComponent(RootListComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

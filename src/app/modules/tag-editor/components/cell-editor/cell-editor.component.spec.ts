@@ -11,13 +11,14 @@ describe('CellEditorComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [DialogOverlayModule],
-			declarations: [
-				CellEditorComponent,
-				MockComponent(CellEditorDisplayComponent),
-				MockComponent(CellEditorTxtComponent)
-			]
-		}).compileComponents()
+    imports: [DialogOverlayModule],
+    declarations: [
+        CellEditorComponent,
+        MockComponent(CellEditorDisplayComponent),
+        MockComponent(CellEditorTxtComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

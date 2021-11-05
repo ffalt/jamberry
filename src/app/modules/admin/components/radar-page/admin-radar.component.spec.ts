@@ -10,10 +10,11 @@ describe('AdminRadarComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_ADMIN_MODULE_IMPORTS],
-			providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-			declarations: [AdminRadarComponent, MockComponent(TrackHealthComponent)]
-		}).compileComponents()
+    imports: [...TEST_ADMIN_MODULE_IMPORTS],
+    providers: [...TEST_ADMIN_MODULE_PROVIDERS],
+    declarations: [AdminRadarComponent, MockComponent(TrackHealthComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

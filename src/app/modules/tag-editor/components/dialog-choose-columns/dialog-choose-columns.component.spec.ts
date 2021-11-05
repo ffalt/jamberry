@@ -8,10 +8,11 @@ describe('DialogChooseColumnsComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
-			providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
-			declarations: [DialogChooseColumnsComponent]
-		}).compileComponents()
+    imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
+    providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
+    declarations: [DialogChooseColumnsComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

@@ -10,10 +10,11 @@ describe('ArtworkListComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_ADMIN_MODULE_IMPORTS],
-			providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-			declarations: [ArtworkListComponent, MockComponent(InlineEditComponent)]
-		}).compileComponents()
+    imports: [...TEST_ADMIN_MODULE_IMPORTS],
+    providers: [...TEST_ADMIN_MODULE_PROVIDERS],
+    declarations: [ArtworkListComponent, MockComponent(InlineEditComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

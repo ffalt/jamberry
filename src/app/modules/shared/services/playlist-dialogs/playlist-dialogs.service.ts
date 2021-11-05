@@ -38,7 +38,7 @@ export class PlaylistDialogsService {
 				try {
 					await this.applyDialogPlaylist(edit);
 					this.notify.success('Playlist created');
-				} catch (e) {
+				} catch (e: any) {
 					this.notify.error(e);
 					return Promise.reject(e);
 				}
@@ -77,7 +77,7 @@ export class PlaylistDialogsService {
 							try {
 								await this.applyDialogPlaylist(edit);
 								this.notify.success('Playlist updated');
-							} catch (e) {
+							} catch (e: any) {
 								this.notify.error(e);
 								return Promise.reject(e);
 							}

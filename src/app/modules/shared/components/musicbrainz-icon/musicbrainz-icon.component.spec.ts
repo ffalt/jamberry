@@ -7,10 +7,11 @@ describe('MusicbrainzIconComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [],
-			providers: [],
-			declarations: [MusicbrainzIconComponent]
-		}).compileComponents()
+    imports: [],
+    providers: [],
+    declarations: [MusicbrainzIconComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

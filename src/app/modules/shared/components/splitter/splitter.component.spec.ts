@@ -8,8 +8,9 @@ describe('SplitterComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [SplitterComponent]
-		}).compileComponents()
+    declarations: [SplitterComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

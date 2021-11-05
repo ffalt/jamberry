@@ -217,7 +217,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 					if (this.tracks) {
 						this.editor.updateColumns(this.tracks, data.resultColumns);
 					}
-				} catch (e) {
+				} catch (e: any) {
 					this.notify.error(e);
 					return Promise.reject(e);
 				}
@@ -313,7 +313,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 				action.edit.tag = action.rawTag;
 			}
 			action.edit.changed = false;
-		} catch (e) {
+		} catch (e: any) {
 			return Promise.reject(e);
 		}
 		const next = actions.shift();

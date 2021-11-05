@@ -11,10 +11,11 @@ describe('CellEditorTxtComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule, AutocompleteModule],
-			providers: [],
-			declarations: [CellEditorDisplayComponent, TagEditorAutocompleteComponent, TagEditorInlineAutocompleteComponent]
-		}).compileComponents()
+    imports: [FormsModule, AutocompleteModule],
+    providers: [],
+    declarations: [CellEditorDisplayComponent, TagEditorAutocompleteComponent, TagEditorInlineAutocompleteComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

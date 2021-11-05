@@ -86,7 +86,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 				try {
 					await this.userService.applyDialogUser(edit);
 					this.notify.success('User created');
-				} catch (e) {
+				} catch (e: any) {
 					this.notify.error(e);
 					return Promise.reject(e);
 				}

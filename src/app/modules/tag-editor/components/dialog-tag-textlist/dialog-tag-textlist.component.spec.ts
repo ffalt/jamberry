@@ -8,9 +8,10 @@ describe('DialogTagTextlistComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule],
-			declarations: [DialogTagTextlistComponent]
-		}).compileComponents()
+    imports: [FormsModule],
+    declarations: [DialogTagTextlistComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

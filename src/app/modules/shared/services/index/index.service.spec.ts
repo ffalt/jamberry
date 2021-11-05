@@ -5,9 +5,10 @@ import {IndexService} from './index.service';
 describe('IndexService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS]
-		});
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([IndexService], (service: IndexService) => {

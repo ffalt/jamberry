@@ -8,10 +8,11 @@ describe('AdminSettingsComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_ADMIN_MODULE_IMPORTS],
-			providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-			declarations: [AdminSettingsComponent]
-		}).compileComponents()
+    imports: [...TEST_ADMIN_MODULE_IMPORTS],
+    providers: [...TEST_ADMIN_MODULE_PROVIDERS],
+    declarations: [AdminSettingsComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

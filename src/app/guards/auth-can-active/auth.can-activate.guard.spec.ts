@@ -8,9 +8,10 @@ import {AuthCanActivateGuard} from './auth.can-activate.guard';
 describe('AuthGuard', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [SharedModule, RouterTestingModule, ToastModule.forRoot(), TEST_JAM_MODULE],
-			providers: [AuthCanActivateGuard]
-		});
+    imports: [SharedModule, RouterTestingModule, ToastModule.forRoot(), TEST_JAM_MODULE],
+    providers: [AuthCanActivateGuard],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should create', inject([AuthCanActivateGuard], (guard: AuthCanActivateGuard) => {

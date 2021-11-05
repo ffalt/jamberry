@@ -10,16 +10,17 @@ describe('ObjPlateComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [
-				ObjPlateComponent,
-				MockComponent(EpisodeListComponent),
-				MockComponent(AlbumListComponent),
-				MockComponent(TrackListComponent),
-				MockComponent(MediaListComponent)
-			]
-		}).compileComponents()
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [
+        ObjPlateComponent,
+        MockComponent(EpisodeListComponent),
+        MockComponent(AlbumListComponent),
+        MockComponent(TrackListComponent),
+        MockComponent(MediaListComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

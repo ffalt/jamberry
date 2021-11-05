@@ -11,14 +11,15 @@ describe('ContextEntryFavComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_SHARED_MODULE_IMPORTS],
-			providers: [...TEST_SHARED_MODULE_PROVIDERS],
-			declarations: [
-				ContextEntryFavComponent,
-				MockComponent(FavIconComponent),
-				StringTogglePipe
-			]
-		}).compileComponents()
+    imports: [...TEST_SHARED_MODULE_IMPORTS],
+    providers: [...TEST_SHARED_MODULE_PROVIDERS],
+    declarations: [
+        ContextEntryFavComponent,
+        MockComponent(FavIconComponent),
+        StringTogglePipe
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

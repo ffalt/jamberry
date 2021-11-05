@@ -8,10 +8,11 @@ describe('PlayerCurrentInfoComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_PLAYER_MODULE_IMPORTS],
-			providers: [...TEST_PLAYER_MODULE_PROVIDERS],
-			declarations: [PlayerCurrentInfoComponent]
-		}).compileComponents());
+    imports: [...TEST_PLAYER_MODULE_IMPORTS],
+    providers: [...TEST_PLAYER_MODULE_PROVIDERS],
+    declarations: [PlayerCurrentInfoComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents());
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(PlayerCurrentInfoComponent);

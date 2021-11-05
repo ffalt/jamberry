@@ -10,14 +10,15 @@ describe('AdminFolderOverviewComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule(
 			{
-				imports: [...TEST_ADMIN_MODULE_IMPORTS],
-				providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-				declarations: [
-					AdminFolderOverviewComponent,
-					MockComponent(ArtworkListComponent),
-					MockComponent(InlineEditComponent)
-				]
-			}
+    imports: [...TEST_ADMIN_MODULE_IMPORTS],
+    providers: [...TEST_ADMIN_MODULE_PROVIDERS],
+    declarations: [
+        AdminFolderOverviewComponent,
+        MockComponent(ArtworkListComponent),
+        MockComponent(InlineEditComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}
 		).compileComponents()
 	);
 

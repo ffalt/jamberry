@@ -7,8 +7,9 @@ describe('BackgroundTextComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [HeaderSlimComponent]
-		}).compileComponents()
+    declarations: [HeaderSlimComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

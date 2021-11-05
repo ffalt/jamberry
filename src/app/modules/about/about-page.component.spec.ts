@@ -12,10 +12,11 @@ describe('AboutPageComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [HotkeyModule.forRoot(), ToastModule.forRoot(), TEST_JAM_MODULE],
-			providers: [HotkeysService],
-			declarations: [AboutPageComponent, MockComponent(HeaderSlimComponent)]
-		}).compileComponents()
+    imports: [HotkeyModule.forRoot(), ToastModule.forRoot(), TEST_JAM_MODULE],
+    providers: [HotkeysService],
+    declarations: [AboutPageComponent, MockComponent(HeaderSlimComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

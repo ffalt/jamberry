@@ -11,10 +11,11 @@ describe('AdminFolderTracksComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule(
 			{
-				imports: [...TEST_ADMIN_MODULE_IMPORTS],
-				providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-				declarations: [AdminFolderTracksComponent, MockComponent(TrackListComponent)]
-			}
+    imports: [...TEST_ADMIN_MODULE_IMPORTS],
+    providers: [...TEST_ADMIN_MODULE_PROVIDERS],
+    declarations: [AdminFolderTracksComponent, MockComponent(TrackListComponent)],
+    teardown: { destroyAfterEach: false }
+}
 		).compileComponents()
 	);
 

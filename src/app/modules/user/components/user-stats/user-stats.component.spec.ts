@@ -8,10 +8,11 @@ describe('UserStatsComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_USER_MODULE_IMPORTS],
-			providers: [...TEST_USER_MODULE_PROVIDERS],
-			declarations: [UserStatsComponent]
-		}).compileComponents()
+    imports: [...TEST_USER_MODULE_IMPORTS],
+    providers: [...TEST_USER_MODULE_PROVIDERS],
+    declarations: [UserStatsComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

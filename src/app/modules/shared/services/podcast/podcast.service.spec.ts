@@ -5,9 +5,10 @@ import {PodcastService} from './podcast.service';
 describe('PodcastService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS]
-		});
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([PodcastService], (service: PodcastService) => {

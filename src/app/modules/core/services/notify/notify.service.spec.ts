@@ -5,9 +5,10 @@ import {NotifyService} from './notify.service';
 describe('NotifyService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [ToastModule.forRoot()],
-			providers: [NotifyService]
-		});
+    imports: [ToastModule.forRoot()],
+    providers: [NotifyService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([NotifyService], (service: NotifyService) => {

@@ -9,10 +9,11 @@ describe('PodcastsPageLatestComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [PodcastsLatestEpisodesComponent, MockComponent(EpisodesLoaderComponent)]
-		})
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [PodcastsLatestEpisodesComponent, MockComponent(EpisodesLoaderComponent)],
+    teardown: { destroyAfterEach: false }
+})
 			.compileComponents()
 	);
 

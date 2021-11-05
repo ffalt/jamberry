@@ -10,15 +10,16 @@ describe('ObjCardComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_SHARED_MODULE_IMPORTS],
-			providers: [...TEST_SHARED_MODULE_PROVIDERS],
-			declarations: [
-				ObjCardComponent,
-				MockComponent(CoverartImageComponent),
-				MockComponent(FavIconComponent),
-				MockPipe(LimitPipe)
-			]
-		}).compileComponents()
+    imports: [...TEST_SHARED_MODULE_IMPORTS],
+    providers: [...TEST_SHARED_MODULE_PROVIDERS],
+    declarations: [
+        ObjCardComponent,
+        MockComponent(CoverartImageComponent),
+        MockComponent(FavIconComponent),
+        MockPipe(LimitPipe)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

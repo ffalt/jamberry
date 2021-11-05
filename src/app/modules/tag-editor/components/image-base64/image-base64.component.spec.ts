@@ -6,7 +6,10 @@ describe('ImageBase64Component', () => {
 	let fixture: ComponentFixture<ImageBase64Component>;
 
 	beforeEach(async () =>
-		TestBed.configureTestingModule({declarations: [ImageBase64Component]}).compileComponents()
+		TestBed.configureTestingModule({
+    declarations: [ImageBase64Component],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

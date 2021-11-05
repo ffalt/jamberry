@@ -10,7 +10,7 @@ export type ConfigureFn = (testBed: typeof TestBed) => void;
 export const configureTests = async (
 	configure: ConfigureFn,
 	compilerOptions: CompilerOptions = {}
-): Promise<any> => {
+) => {
 	const compilerConfig: CompilerOptions = {
 		preserveWhitespaces: false,
 		...compilerOptions

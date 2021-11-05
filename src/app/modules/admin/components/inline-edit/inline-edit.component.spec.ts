@@ -8,9 +8,10 @@ describe('InlineEditComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule],
-			declarations: [InlineEditComponent]
-		}).compileComponents()
+    imports: [FormsModule],
+    declarations: [InlineEditComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

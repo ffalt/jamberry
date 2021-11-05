@@ -558,7 +558,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			release.setLookupRelease(res.data.release, this.matchings);
 			release.loaded = true;
 			release.isLoading = false;
-		} catch (e) {
+		} catch (e: any) {
 			release.isLoading = false;
 			return Promise.reject(e);
 		}
@@ -594,7 +594,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 				try {
 					const data = await this.jam.metadata.acoustidLookup({trackID: match.track.id});
 					match.acoustidEntries = acoustidResultToList(data.data, match.track);
-				} catch (e) {
+				} catch (e: any) {
 					console.error(e);
 				}
 				if (this.isAborted) {

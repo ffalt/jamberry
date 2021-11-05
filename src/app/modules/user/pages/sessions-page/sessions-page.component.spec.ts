@@ -8,10 +8,11 @@ describe('SessionsPageComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_USER_MODULE_IMPORTS],
-			providers: [...TEST_USER_MODULE_PROVIDERS],
-			declarations: [SessionsPageComponent]
-		}).compileComponents()
+    imports: [...TEST_USER_MODULE_IMPORTS],
+    providers: [...TEST_USER_MODULE_PROVIDERS],
+    declarations: [SessionsPageComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

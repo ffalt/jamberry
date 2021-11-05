@@ -7,8 +7,9 @@ describe('LoadMoreButtonComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [LoadMoreButtonComponent]
-		}).compileComponents()
+    declarations: [LoadMoreButtonComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

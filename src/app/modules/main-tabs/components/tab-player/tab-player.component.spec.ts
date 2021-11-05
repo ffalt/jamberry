@@ -8,10 +8,11 @@ describe('TabPlayerComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_MAINTABS_IMPORTS],
-			providers: [...TEST_MAINTABS_PROVIDERS],
-			declarations: [TabPlayerComponent]
-		}).compileComponents());
+    imports: [...TEST_MAINTABS_IMPORTS],
+    providers: [...TEST_MAINTABS_PROVIDERS],
+    declarations: [TabPlayerComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents());
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(TabPlayerComponent);

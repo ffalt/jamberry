@@ -13,10 +13,11 @@ describe('UserComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule, RouterTestingModule, SharedModule],
-			providers: [AppService],
-			declarations: [UserComponent, UserSidebarComponent]
-		}).compileComponents()
+    imports: [FormsModule, RouterTestingModule, SharedModule],
+    providers: [AppService],
+    declarations: [UserComponent, UserSidebarComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

@@ -8,10 +8,11 @@ describe('UserAvatarComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_USER_MODULE_IMPORTS],
-			providers: [...TEST_USER_MODULE_PROVIDERS],
-			declarations: [UserAvatarComponent]
-		}).compileComponents()
+    imports: [...TEST_USER_MODULE_IMPORTS],
+    providers: [...TEST_USER_MODULE_PROVIDERS],
+    declarations: [UserAvatarComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

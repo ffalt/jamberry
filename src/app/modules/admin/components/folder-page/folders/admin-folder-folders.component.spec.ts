@@ -10,10 +10,11 @@ describe('AdminFolderFoldersComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule(
 			{
-				imports: [...TEST_ADMIN_MODULE_IMPORTS],
-				providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-				declarations: [AdminFolderFoldersComponent, MockComponent(FolderListComponent), MockComponent(FolderHealthComponent)]
-			}
+    imports: [...TEST_ADMIN_MODULE_IMPORTS],
+    providers: [...TEST_ADMIN_MODULE_PROVIDERS],
+    declarations: [AdminFolderFoldersComponent, MockComponent(FolderListComponent), MockComponent(FolderHealthComponent)],
+    teardown: { destroyAfterEach: false }
+}
 		).compileComponents()
 	);
 

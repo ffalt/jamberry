@@ -9,12 +9,13 @@ describe('HeaderJamBaseComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [
-				HeaderJamBaseComponent,
-				MockComponent(CoverartImageComponent),
-				MockComponent(HeaderTabsComponent)
-			]
-		}).compileComponents()
+    declarations: [
+        HeaderJamBaseComponent,
+        MockComponent(CoverartImageComponent),
+        MockComponent(HeaderTabsComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

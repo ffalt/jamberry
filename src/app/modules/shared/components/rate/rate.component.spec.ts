@@ -8,9 +8,10 @@ describe('RateComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule],
-			declarations: [RateComponent]
-		}).compileComponents()
+    imports: [FormsModule],
+    declarations: [RateComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

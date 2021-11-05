@@ -18,7 +18,7 @@ export class AuthCanActivateGuard implements CanActivate {
 		}
 		try {
 			await this.auth.check();
-		} catch (e) {
+		} catch (e: any) {
 			this.notify.error(e);
 			return false;
 		}

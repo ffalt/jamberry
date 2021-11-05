@@ -56,7 +56,7 @@ export class UserListComponent implements OnDestroy {
 				try {
 					await this.userService.applyDialogUser(edit);
 					this.notify.success('User edited');
-				} catch (e) {
+				} catch (e: any) {
 					this.notify.error(e);
 					return Promise.reject(e);
 				}
@@ -87,7 +87,7 @@ export class UserListComponent implements OnDestroy {
 				try {
 					await this.userService.setPassword(user.id, edit.password, edit.newPassword);
 					this.notify.success('Password changed');
-				} catch (e) {
+				} catch (e: any) {
 					this.notify.error(e);
 					return Promise.reject(e);
 				}

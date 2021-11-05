@@ -10,14 +10,15 @@ describe('UserPageComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_USER_MODULE_IMPORTS],
-			providers: [...TEST_USER_MODULE_PROVIDERS],
-			declarations: [
-				UserPageComponent,
-				MockComponent(UserAvatarComponent),
-				MockComponent(UserStatsComponent)
-			]
-		}).compileComponents()
+    imports: [...TEST_USER_MODULE_IMPORTS],
+    providers: [...TEST_USER_MODULE_PROVIDERS],
+    declarations: [
+        UserPageComponent,
+        MockComponent(UserAvatarComponent),
+        MockComponent(UserStatsComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

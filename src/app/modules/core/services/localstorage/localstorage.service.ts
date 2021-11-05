@@ -10,7 +10,7 @@ export class LocalstorageService {
 		try {
 			const data = localStorage.getItem(this.prefix + key);
 			return data ? JSON.parse(data) : undefined;
-		} catch (e) {
+		} catch (e: any) {
 			return undefined;
 		}
 	}

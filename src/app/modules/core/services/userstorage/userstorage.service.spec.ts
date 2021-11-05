@@ -3,7 +3,10 @@ import {LocalstorageService, UserStorageService} from '@core/services';
 
 describe('UserStorageService', () => {
 	beforeEach(() => {
-		TestBed.configureTestingModule({providers: [UserStorageService, LocalstorageService]});
+		TestBed.configureTestingModule({
+    providers: [UserStorageService, LocalstorageService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([UserStorageService], (service: UserStorageService) => {

@@ -103,7 +103,7 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 				.concat((result.folders || []).map(o => ({type: objTypes.folder, ...o})));
 			this.loading--;
 			return data;
-		} catch (e) {
+		} catch (e: any) {
 			this.loading--;
 			this.notify.error(e);
 			return [];

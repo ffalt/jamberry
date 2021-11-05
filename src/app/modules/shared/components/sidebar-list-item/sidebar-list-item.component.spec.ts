@@ -8,10 +8,11 @@ describe('SidebarListComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_SHARED_MODULE_IMPORTS],
-			providers: [...TEST_SHARED_MODULE_PROVIDERS],
-			declarations: [SidebarListItemComponent]
-		}).compileComponents()
+    imports: [...TEST_SHARED_MODULE_IMPORTS],
+    providers: [...TEST_SHARED_MODULE_PROVIDERS],
+    declarations: [SidebarListItemComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

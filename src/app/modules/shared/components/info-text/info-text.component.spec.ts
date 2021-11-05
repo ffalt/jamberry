@@ -6,7 +6,10 @@ describe('InfoTextComponent', () => {
 	let fixture: ComponentFixture<InfoTextComponent>;
 
 	beforeEach(async () =>
-		TestBed.configureTestingModule({declarations: [InfoTextComponent]}).compileComponents()
+		TestBed.configureTestingModule({
+    declarations: [InfoTextComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

@@ -1,10 +1,8 @@
-// https://github.com/thymikee/jest-preset-angular#brief-explanation-of-config
-const tsJestPreset = require('jest-preset-angular/jest-preset').globals['ts-jest'];
+require('jest-preset-angular/ngcc-jest-processor');
 
+/** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
 	preset: 'jest-preset-angular',
-	roots: ['.'],
-	setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 	moduleNameMapper: {
 		"@app/(.*)": "<rootDir>/src/app/$1",
 		"@core/(.*)": "<rootDir>/src/app/modules/core/$1",
@@ -13,13 +11,6 @@ module.exports = {
 		"@library/(.*)": "<rootDir>/src/app/modules/library/$1",
 		"@jam": "<rootDir>/src/app/modules/jam/index"
 	},
-	modulePathIgnorePatterns: ['<rootDir>/local/', '<rootDir>/resources', '<rootDir>/dist'],
-	transformIgnorePatterns: ['node_modules/(?!(jest-test))', "/local/", "/dist/"],
-	testRunner: 'jest-jasmine2', // for ng-mocks
-	globals: {
-		'ts-jest': {
-			...tsJestPreset,
-			tsconfig: 'tsconfig.spec.json'
-		}
-	}
+	testPathIgnorePatterns: ["/node_modules/", "<rootDir>/local/", "<rootDir>/dist/"],
+	setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 };

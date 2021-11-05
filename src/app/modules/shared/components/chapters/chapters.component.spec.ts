@@ -9,10 +9,11 @@ describe('ChaptersComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_SHARED_MODULE_IMPORTS],
-			providers: [...TEST_SHARED_MODULE_PROVIDERS],
-			declarations: [ChaptersComponent, MediadurationPipe]
-		})
+    imports: [...TEST_SHARED_MODULE_IMPORTS],
+    providers: [...TEST_SHARED_MODULE_PROVIDERS],
+    declarations: [ChaptersComponent, MediadurationPipe],
+    teardown: { destroyAfterEach: false }
+})
 			.compileComponents()
 	);
 

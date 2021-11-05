@@ -11,16 +11,17 @@ describe('DialogChoosePlaylistComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_SHARED_MODULE_IMPORTS],
-			providers: [...TEST_SHARED_MODULE_PROVIDERS, PlaylistService],
-			declarations: [
-				DialogChoosePlaylistComponent,
-				MockComponent(BackgroundTextComponent),
-				MockComponent(LoadingComponent),
-				MockComponent(ExpandCollapseIconComponent),
-				DurationPipe
-			]
-		}).compileComponents()
+    imports: [...TEST_SHARED_MODULE_IMPORTS],
+    providers: [...TEST_SHARED_MODULE_PROVIDERS, PlaylistService],
+    declarations: [
+        DialogChoosePlaylistComponent,
+        MockComponent(BackgroundTextComponent),
+        MockComponent(LoadingComponent),
+        MockComponent(ExpandCollapseIconComponent),
+        DurationPipe
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

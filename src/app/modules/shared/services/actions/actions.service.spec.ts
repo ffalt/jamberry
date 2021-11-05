@@ -5,9 +5,10 @@ import {ActionsService} from './actions.service';
 describe('ActionsService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [TEST_SHARED_MODULE_IMPORTS],
-			providers: [ActionsService]
-		});
+    imports: [TEST_SHARED_MODULE_IMPORTS],
+    providers: [ActionsService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([ActionsService], (service: ActionsService) => {

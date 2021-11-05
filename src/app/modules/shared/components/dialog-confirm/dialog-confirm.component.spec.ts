@@ -6,7 +6,10 @@ describe('DialogConfirmComponent', () => {
 	let fixture: ComponentFixture<DialogConfirmComponent>;
 
 	beforeEach(async () =>
-		TestBed.configureTestingModule({declarations: [DialogConfirmComponent]}).compileComponents()
+		TestBed.configureTestingModule({
+    declarations: [DialogConfirmComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

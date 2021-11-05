@@ -6,7 +6,10 @@ describe('ImageOverlayContentComponent', () => {
 	let fixture: ComponentFixture<ImageOverlayContentComponent>;
 
 	beforeEach(async () =>
-		TestBed.configureTestingModule({declarations: [ImageOverlayContentComponent]}).compileComponents()
+		TestBed.configureTestingModule({
+    declarations: [ImageOverlayContentComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

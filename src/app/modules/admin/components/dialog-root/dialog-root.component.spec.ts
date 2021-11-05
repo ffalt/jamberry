@@ -8,9 +8,10 @@ describe('DialogRootComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule],
-			declarations: [DialogRootComponent]
-		}).compileComponents()
+    imports: [FormsModule],
+    declarations: [DialogRootComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

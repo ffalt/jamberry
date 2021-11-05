@@ -8,8 +8,9 @@ describe('FavStarComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [FavIconComponent, StringTogglePipe]
-		}).compileComponents()
+    declarations: [FavIconComponent, StringTogglePipe],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

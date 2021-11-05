@@ -14,10 +14,11 @@ describe('PodcastSearchPageComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [SharedModule, FormsModule, RouterTestingModule, DialogOverlayModule, ToastModule.forRoot(), TEST_JAM_MODULE],
-			providers: [PodcastService],
-			declarations: [PodcastSearchPageComponent]
-		}).compileComponents()
+    imports: [SharedModule, FormsModule, RouterTestingModule, DialogOverlayModule, ToastModule.forRoot(), TEST_JAM_MODULE],
+    providers: [PodcastService],
+    declarations: [PodcastSearchPageComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

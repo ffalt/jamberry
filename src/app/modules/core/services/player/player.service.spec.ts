@@ -6,9 +6,10 @@ import {PlayerService, PushNotificationService, QueueService} from '@core/servic
 describe('PlayerService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [ToastModule.forRoot(), TEST_JAM_MODULE],
-			providers: [QueueService, PushNotificationService]
-		});
+    imports: [ToastModule.forRoot(), TEST_JAM_MODULE],
+    providers: [QueueService, PushNotificationService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([PlayerService], (service: PlayerService) => {

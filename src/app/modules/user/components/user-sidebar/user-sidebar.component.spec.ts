@@ -9,10 +9,11 @@ describe('UserSidebarComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [],
-			providers: [],
-			declarations: [UserSidebarComponent, MockComponent(SidebarComponent)]
-		}).compileComponents()
+    imports: [],
+    providers: [],
+    declarations: [UserSidebarComponent, MockComponent(SidebarComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

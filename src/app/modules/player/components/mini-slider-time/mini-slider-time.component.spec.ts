@@ -8,10 +8,11 @@ describe('MiniSliderTimeComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_PLAYER_MODULE_IMPORTS],
-			providers: [...TEST_PLAYER_MODULE_PROVIDERS],
-			declarations: [MiniSliderTimeComponent]
-		}).compileComponents()
+    imports: [...TEST_PLAYER_MODULE_IMPORTS],
+    providers: [...TEST_PLAYER_MODULE_PROVIDERS],
+    declarations: [MiniSliderTimeComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

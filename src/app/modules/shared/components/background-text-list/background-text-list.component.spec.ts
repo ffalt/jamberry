@@ -8,8 +8,9 @@ describe('LoadingListComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [BackgroundTextListComponent, BackgroundTextComponent]
-		}).compileComponents()
+    declarations: [BackgroundTextListComponent, BackgroundTextComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

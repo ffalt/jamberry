@@ -5,9 +5,10 @@ import {DialogOverlayService} from './dialog-overlay.service';
 describe('DialogOverlayService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [OverlayModule],
-			providers: [DialogOverlayService]
-		});
+    imports: [OverlayModule],
+    providers: [DialogOverlayService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([DialogOverlayService], (service: DialogOverlayService) => {

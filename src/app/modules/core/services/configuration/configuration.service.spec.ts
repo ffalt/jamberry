@@ -5,9 +5,10 @@ import {ConfigurationService} from '@core/services';
 describe('ConfigurationService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [TEST_JAM_MODULE],
-			providers: [ConfigurationService]
-		});
+    imports: [TEST_JAM_MODULE],
+    providers: [ConfigurationService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([ConfigurationService], (service: ConfigurationService) => {

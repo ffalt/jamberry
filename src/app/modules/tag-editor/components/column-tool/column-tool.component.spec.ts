@@ -11,14 +11,15 @@ describe('ColumnToolComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule(
 			{
-				imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
-				providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
-				declarations: [
-					ColumnToolComponent,
-					MockComponent(CellEditorComponent),
-					MockComponent(TagEditorAutocompleteComponent)
-				]
-			}
+    imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
+    providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
+    declarations: [
+        ColumnToolComponent,
+        MockComponent(CellEditorComponent),
+        MockComponent(TagEditorAutocompleteComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}
 		).compileComponents()
 	);
 

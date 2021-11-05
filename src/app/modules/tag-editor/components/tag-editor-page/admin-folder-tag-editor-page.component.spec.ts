@@ -11,13 +11,14 @@ describe('AdminFolderTagEditorComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule(
 			{
-				imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
-				providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
-				declarations: [
-					AdminFolderTagEditorPageComponent,
-					MockComponent(TagEditorComponent)
-				]
-			}
+    imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
+    providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
+    declarations: [
+        AdminFolderTagEditorPageComponent,
+        MockComponent(TagEditorComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}
 		).compileComponents()
 	);
 

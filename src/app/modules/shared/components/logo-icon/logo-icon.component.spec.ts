@@ -7,10 +7,11 @@ describe('LogoIconComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [],
-			providers: [],
-			declarations: [LogoIconComponent]
-		}).compileComponents()
+    imports: [],
+    providers: [],
+    declarations: [LogoIconComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

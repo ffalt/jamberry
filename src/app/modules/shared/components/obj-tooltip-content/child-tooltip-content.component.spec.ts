@@ -6,7 +6,10 @@ describe('ChildTooltipContentComponent', () => {
 	let fixture: ComponentFixture<ChildTooltipContentComponent>;
 
 	beforeEach(async () =>
-		TestBed.configureTestingModule({declarations: [ChildTooltipContentComponent]}).compileComponents()
+		TestBed.configureTestingModule({
+    declarations: [ChildTooltipContentComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

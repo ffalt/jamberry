@@ -6,7 +6,10 @@ describe('ScoreBoxComponent', () => {
 	let fixture: ComponentFixture<ScoreBoxComponent>;
 
 	beforeEach(async () =>
-		TestBed.configureTestingModule({declarations: [ScoreBoxComponent]}).compileComponents()
+		TestBed.configureTestingModule({
+    declarations: [ScoreBoxComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

@@ -8,9 +8,10 @@ describe('DialogPasswordComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule],
-			declarations: [DialogPasswordComponent]
-		}).compileComponents()
+    imports: [FormsModule],
+    declarations: [DialogPasswordComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

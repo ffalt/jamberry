@@ -8,10 +8,11 @@ describe('TabQueueComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_MAINTABS_IMPORTS],
-			providers: [...TEST_MAINTABS_PROVIDERS],
-			declarations: [TabQueueComponent]
-		}).compileComponents());
+    imports: [...TEST_MAINTABS_IMPORTS],
+    providers: [...TEST_MAINTABS_PROVIDERS],
+    declarations: [TabQueueComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents());
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(TabQueueComponent);

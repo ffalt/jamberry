@@ -8,9 +8,10 @@ describe('DialogTagLyricsComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule],
-			declarations: [DialogTagLyricsComponent]
-		}).compileComponents()
+    imports: [FormsModule],
+    declarations: [DialogTagLyricsComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

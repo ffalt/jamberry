@@ -12,10 +12,11 @@ describe('LoginComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule, RouterTestingModule, SharedModule, ToastModule.forRoot(), TEST_JAM_MODULE],
-			providers: [],
-			declarations: [LoginComponent]
-		}).compileComponents());
+    imports: [FormsModule, RouterTestingModule, SharedModule, ToastModule.forRoot(), TEST_JAM_MODULE],
+    providers: [],
+    declarations: [LoginComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents());
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(LoginComponent);

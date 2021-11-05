@@ -5,8 +5,9 @@ import {SettingsStoreService} from './settings-store.service';
 describe('SettingsStoreService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			providers: [SettingsStoreService, AppService, UserStorageService, PushNotificationService, LocalstorageService]
-		});
+    providers: [SettingsStoreService, AppService, UserStorageService, PushNotificationService, LocalstorageService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([SettingsStoreService], (service: SettingsStoreService) => {

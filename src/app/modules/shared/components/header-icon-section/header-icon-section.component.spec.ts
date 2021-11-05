@@ -9,12 +9,13 @@ describe('HeaderIconSectionComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [
-				HeaderIconSectionComponent,
-				MockComponent(HeaderTabsComponent),
-				MockComponent(IconartImageComponent)
-			]
-		}).compileComponents()
+    declarations: [
+        HeaderIconSectionComponent,
+        MockComponent(HeaderTabsComponent),
+        MockComponent(IconartImageComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

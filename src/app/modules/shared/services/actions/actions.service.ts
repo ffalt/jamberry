@@ -60,7 +60,7 @@ export class ActionsService {
 					state.rated = rating;
 					base.state = state;
 					this.notify.success(`Rated ${type}`);
-				} catch (e) {
+				} catch (e: any) {
 					this.notify.error(e);
 					return Promise.reject(e);
 				}
@@ -75,7 +75,7 @@ export class ActionsService {
 			await this.jam.state.fav({id: base.id, remove});
 			base.state.faved = remove ? undefined : Date.now();
 			this.notify.success(`Favorite ${type} ${remove ? 'removed' : 'added'}`);
-		} catch (e) {
+		} catch (e: any) {
 			this.notify.error(e);
 		}
 	}

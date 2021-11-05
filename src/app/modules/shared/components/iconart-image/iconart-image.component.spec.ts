@@ -7,8 +7,9 @@ describe('IconartImageComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			declarations: [IconartImageComponent]
-		}).compileComponents()
+    declarations: [IconartImageComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

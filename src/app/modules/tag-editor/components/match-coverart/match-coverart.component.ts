@@ -133,7 +133,7 @@ export class MatchCoverartComponent implements OnChanges {
 		let bin: { buffer: ArrayBuffer; contentType: string } | undefined;
 		try {
 			bin = await this.jam.metadata.coverartarchiveImageBinary({url: imageUrl});
-		} catch (e) {
+		} catch (e: any) {
 			console.error(e);
 		}
 		image.requested = false;

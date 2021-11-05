@@ -10,9 +10,10 @@ describe('DialogTagImageComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule, ImageCropperModule],
-			declarations: [DialogTagImageComponent, ImageBase64Component]
-		}).compileComponents()
+    imports: [FormsModule, ImageCropperModule],
+    declarations: [DialogTagImageComponent, ImageBase64Component],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

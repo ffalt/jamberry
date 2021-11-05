@@ -10,14 +10,15 @@ describe('ObjGroupsViewComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [
-				ObjGroupsViewComponent,
-				MockComponent(ObjGroupsCardsComponent),
-				MockComponent(ObjGroupsPlatesComponent)
-			]
-		}).compileComponents()
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [
+        ObjGroupsViewComponent,
+        MockComponent(ObjGroupsCardsComponent),
+        MockComponent(ObjGroupsPlatesComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

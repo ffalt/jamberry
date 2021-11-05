@@ -8,10 +8,11 @@ describe('StartSectionComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [StartSectionComponent]
-		})
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [StartSectionComponent],
+    teardown: { destroyAfterEach: false }
+})
 			.compileComponents());
 
 	beforeEach(() => {

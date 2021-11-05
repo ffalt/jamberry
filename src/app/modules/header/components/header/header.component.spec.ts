@@ -10,10 +10,11 @@ describe('HeaderComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_HEADER_MODULE_IMPORTS],
-			providers: [...TEST_HEADER_MODULE_PROVIDERS],
-			declarations: [HeaderComponent, MockComponent(SearchBoxComponent)]
-		}).compileComponents()
+    imports: [...TEST_HEADER_MODULE_IMPORTS],
+    providers: [...TEST_HEADER_MODULE_PROVIDERS],
+    declarations: [HeaderComponent, MockComponent(SearchBoxComponent)],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

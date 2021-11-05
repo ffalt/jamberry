@@ -9,9 +9,10 @@ describe('DialogRateComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [FormsModule],
-			declarations: [DialogRateComponent, RateComponent]
-		}).compileComponents()
+    imports: [FormsModule],
+    declarations: [DialogRateComponent, RateComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

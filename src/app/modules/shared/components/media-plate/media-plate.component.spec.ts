@@ -10,14 +10,15 @@ describe('MediaPlateComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_SHARED_MODULE_IMPORTS],
-			providers: [...TEST_SHARED_MODULE_PROVIDERS],
-			declarations: [
-				MediaPlateComponent,
-				MockComponent(FavIconComponent),
-				MockComponent(CoverartImageComponent)
-			]
-		}).compileComponents()
+    imports: [...TEST_SHARED_MODULE_IMPORTS],
+    providers: [...TEST_SHARED_MODULE_PROVIDERS],
+    declarations: [
+        MediaPlateComponent,
+        MockComponent(FavIconComponent),
+        MockComponent(CoverartImageComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

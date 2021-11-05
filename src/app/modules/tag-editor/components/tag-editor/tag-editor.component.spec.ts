@@ -12,15 +12,16 @@ describe('TagEditorComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule(
 			{
-				imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
-				providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
-				declarations: [
-					TagEditorComponent,
-					MockComponent(CellEditorComponent),
-					MockComponent(ColumnToolComponent),
-					MockComponent(TagEditorAutocompleteComponent)
-				]
-			}
+    imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
+    providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
+    declarations: [
+        TagEditorComponent,
+        MockComponent(CellEditorComponent),
+        MockComponent(ColumnToolComponent),
+        MockComponent(TagEditorAutocompleteComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}
 		).compileComponents()
 	);
 

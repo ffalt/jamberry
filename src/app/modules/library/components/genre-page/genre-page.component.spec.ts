@@ -10,15 +10,16 @@ describe('SearchComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_LIBRARY_IMPORTS],
-			providers: [...TEST_LIBRARY_PROVIDERS],
-			declarations: [
-				GenrePageComponent,
-				MockComponent(ObjsLoaderComponent),
-				MockComponent(TracksLoaderComponent),
-				MockComponent(EpisodesLoaderComponent)
-			]
-		}).compileComponents()
+    imports: [...TEST_LIBRARY_IMPORTS],
+    providers: [...TEST_LIBRARY_PROVIDERS],
+    declarations: [
+        GenrePageComponent,
+        MockComponent(ObjsLoaderComponent),
+        MockComponent(TracksLoaderComponent),
+        MockComponent(EpisodesLoaderComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

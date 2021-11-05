@@ -3,7 +3,10 @@ import {PushNotificationService} from './push-notification.service';
 
 describe('PushNotificationService', () => {
 	beforeEach(() => {
-		TestBed.configureTestingModule({providers: [PushNotificationService]});
+		TestBed.configureTestingModule({
+    providers: [PushNotificationService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([PushNotificationService], (service: PushNotificationService) => {

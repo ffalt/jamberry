@@ -9,12 +9,13 @@ describe('MiniPlayerComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_PLAYER_MODULE_IMPORTS],
-			providers: [...TEST_PLAYER_MODULE_PROVIDERS],
-			declarations: [
-				MiniPlayerComponent, MockComponent(MiniSliderTimeComponent)
-			]
-		}).compileComponents()
+    imports: [...TEST_PLAYER_MODULE_IMPORTS],
+    providers: [...TEST_PLAYER_MODULE_PROVIDERS],
+    declarations: [
+        MiniPlayerComponent, MockComponent(MiniSliderTimeComponent)
+    ],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

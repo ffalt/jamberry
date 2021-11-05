@@ -6,9 +6,10 @@ import {DialogsService} from './dialogs.service';
 describe('DialogsService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [RouterTestingModule, DialogOverlayModule],
-			providers: [DialogsService]
-		});
+    imports: [RouterTestingModule, DialogOverlayModule],
+    providers: [DialogsService],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([DialogsService], (service: DialogsService) => {

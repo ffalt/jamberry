@@ -6,7 +6,10 @@ describe('TextOverlayContentComponent', () => {
 	let fixture: ComponentFixture<TextOverlayContentComponent>;
 
 	beforeEach(async () =>
-		TestBed.configureTestingModule({declarations: [TextOverlayContentComponent]}).compileComponents()
+		TestBed.configureTestingModule({
+    declarations: [TextOverlayContentComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {

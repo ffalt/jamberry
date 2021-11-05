@@ -8,10 +8,11 @@ describe('LyricsComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [...TEST_SHARED_MODULE_IMPORTS],
-			providers: [...TEST_SHARED_MODULE_PROVIDERS],
-			declarations: [LyricsComponent]
-		})
+    imports: [...TEST_SHARED_MODULE_IMPORTS],
+    providers: [...TEST_SHARED_MODULE_PROVIDERS],
+    declarations: [LyricsComponent],
+    teardown: { destroyAfterEach: false }
+})
 			.compileComponents());
 
 	beforeEach(() => {

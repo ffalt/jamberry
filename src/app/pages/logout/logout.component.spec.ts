@@ -10,10 +10,11 @@ describe('LogoutComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [RouterTestingModule, ToastModule.forRoot(), TEST_JAM_MODULE],
-			providers: [],
-			declarations: [LogoutComponent]
-		}).compileComponents());
+    imports: [RouterTestingModule, ToastModule.forRoot(), TEST_JAM_MODULE],
+    providers: [],
+    declarations: [LogoutComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents());
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(LogoutComponent);

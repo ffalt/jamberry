@@ -6,9 +6,10 @@ import {QueueService} from './queue.service';
 describe('QueueService', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [ToastModule.forRoot(), TEST_JAM_MODULE],
-			providers: []
-		});
+    imports: [ToastModule.forRoot(), TEST_JAM_MODULE],
+    providers: [],
+    teardown: { destroyAfterEach: false }
+});
 	});
 
 	it('should be created', inject([QueueService], (service: QueueService) => {

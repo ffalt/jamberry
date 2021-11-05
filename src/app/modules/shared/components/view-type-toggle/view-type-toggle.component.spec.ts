@@ -7,10 +7,11 @@ describe('ViewTypeToggleComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-			imports: [],
-			providers: [],
-			declarations: [ViewTypeToggleComponent]
-		}).compileComponents()
+    imports: [],
+    providers: [],
+    declarations: [ViewTypeToggleComponent],
+    teardown: { destroyAfterEach: false }
+}).compileComponents()
 	);
 
 	beforeEach(() => {
