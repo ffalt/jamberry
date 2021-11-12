@@ -76,7 +76,6 @@ export class MediaSessionService {
 				album: media.tag ? media.tag.album : undefined,
 				artwork
 			};
-			console.log(state);
 			this.mediaSession.metadata = new MediaMetadata(state);
 		}
 	}
@@ -89,16 +88,13 @@ export class MediaSessionService {
 				playbackRate: playbackRate || 1.0,
 				position: (position || 0) / 1000
 			};
-			console.log(state);
 			navigator.mediaSession.setPositionState(state);
 		}
 	};
 
 	setPlaybackState(playing: boolean, paused: boolean): void {
 		if (this.mediaSession) {
-			const state = playing ? 'playing' : (paused ? 'paused' : 'none');
-			console.log(state);
-			this.mediaSession.playbackState = state;
+			this.mediaSession.playbackState = playing ? 'playing' : (paused ? 'paused' : 'none');
 		}
 	}
 
