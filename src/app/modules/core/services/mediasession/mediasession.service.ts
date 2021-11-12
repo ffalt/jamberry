@@ -4,7 +4,7 @@ import {MediaSessionEvents} from './mediasession.events';
 
 export type MediaSessionPlaybackState = 'none' | 'paused' | 'playing';
 
-export type MediaSessionAction = 'play' | 'pause' | 'seekbackward' | 'seekforward' | 'previoustrack' | 'nexttrack';
+export type MediaSessionAction = 'play' | 'pause' | 'seekbackward' | 'seekforward' | 'previoustrack' | 'nexttrack' | 'seekto' | 'stop';
 
 export interface MediaSession {
 	// Current media session playback state.
@@ -13,7 +13,7 @@ export interface MediaSession {
 	metadata: MediaMetadata | null;
 
 	// Set/Unset actions handlers.
-	setActionHandler(action: MediaSessionAction, listener: (() => void) | null): void;
+	setActionHandler(action: MediaSessionAction, listener: ((event: any) => void) | null): void;
 }
 
 export interface MediaImage {
@@ -70,18 +70,35 @@ export class MediaSessionService {
 					sizes: `${size}x${size}`,
 					type: 'image/png'
 				}));
-			this.mediaSession.metadata = new MediaMetadata({
+			const state = {
 				title: media.tag ? media.tag.title : media.name,
 				artist: media.tag ? media.tag.artist : undefined,
 				album: media.tag ? media.tag.album : undefined,
 				artwork
-			});
+			};
+			console.log(state);
+			this.mediaSession.metadata = new MediaMetadata(state);
 		}
 	}
 
+	updatePositionState = (duration?: number, playbackRate?: number, position?: number) => {
+		if (this.mediaSession && 'setPositionState' in navigator.mediaSession) {
+			/* Position state (supported since Chrome 81) */
+			const state = {
+				duration: (duration || 0) / 1000,
+				playbackRate: playbackRate || 1.0,
+				position: (position || 0) / 1000
+			};
+			console.log(state);
+			navigator.mediaSession.setPositionState(state);
+		}
+	};
+
 	setPlaybackState(playing: boolean, paused: boolean): void {
 		if (this.mediaSession) {
-			this.mediaSession.playbackState = playing ? 'playing' : (paused ? 'paused' : 'none');
+			const state = playing ? 'playing' : (paused ? 'paused' : 'none');
+			console.log(state);
+			this.mediaSession.playbackState = state;
 		}
 	}
 
@@ -122,6 +139,26 @@ export class MediaSessionService {
 					this.publish(MediaSessionEvents.FORWARD);
 				});
 			});
+			try {
+				this.mediaSession.setActionHandler('stop', () => {
+					/* Stop (supported since Chrome 77) */
+					this.ngZone.run(() => {
+						this.publish(MediaSessionEvents.STOP);
+					});
+				});
+			} catch (error) {
+				console.warn('Warning! The "stop" media session action is not supported.');
+			}
+			try {
+				this.mediaSession.setActionHandler('seekto', event => {
+					/* Seek To (supported since Chrome 78) */
+					this.ngZone.run(() => {
+						this.publish(MediaSessionEvents.SEEK, {fastSeek: event.fastSeek, seekTime: event.seekTime});
+					});
+				});
+			} catch (error) {
+				console.warn('Warning! The "seekto" media session action is not supported.');
+			}
 			this.mediaSession.setActionHandler('previoustrack', () => {
 				this.ngZone.run(() => {
 					this.publish(MediaSessionEvents.PREVIOUS);

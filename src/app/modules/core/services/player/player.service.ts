@@ -548,6 +548,7 @@ export class PlayerService implements OnDestroy {
 						});
 				}
 			}
+			this.mediasession.updatePositionState(this.totalTime, this.getSpeed(), this.currentTime);
 			this.publish(PlayerEvents.TIME, time);
 		});
 		this.soundPlayer.on(PlayerEvents.SPEED, speed => {
@@ -580,6 +581,12 @@ export class PlayerService implements OnDestroy {
 		});
 		this.mediasession.on(MediaSessionEvents.FORWARD, () => {
 			this.forward(5);
+		});
+		this.mediasession.on(MediaSessionEvents.STOP, () => {
+			this.stop();
+		});
+		this.mediasession.on(MediaSessionEvents.SEEK, (event: { seekTime: number; fastSeek: boolean }) => {
+			this.seek(event.seekTime * 1000);
 		});
 	}
 
