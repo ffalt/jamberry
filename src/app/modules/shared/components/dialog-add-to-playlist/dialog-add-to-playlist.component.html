@@ -1,8 +1,8 @@
 <div class="playlists" *ngIf="playlists">
 	<app-background-text *ngIf="playlists.length===0" text="No playlist available"></app-background-text>
 	<ul *ngIf="playlists.length>0" >
-		<li *ngFor="let playlist of playlists" (click)="addTo(playlist)">
-			<a>{{playlist.name}}
+		<li *ngFor="let playlist of playlists">
+			<a (click)="addTo(playlist)">{{playlist.name}}
 				<span>Nr of Tracks: {{playlist.entriesCount}}</span>
 			</a>
 		</li>
