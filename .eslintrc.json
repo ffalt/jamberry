@@ -1,8 +1,5 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
   "overrides": [
     {
       "files": [
@@ -25,7 +22,7 @@
         "eslint-plugin-no-null"
       ],
       "rules": {
-        "@angular-eslint/component-max-inline-declarations": "error",
+			  "@angular-eslint/component-max-inline-declarations": "error",
         "@angular-eslint/component-selector": [
           "error",
           {
@@ -72,7 +69,6 @@
         "@typescript-eslint/no-for-in-array": "error",
         "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/no-namespace": "off",
-        "no-param-reassign": "error",
         "@typescript-eslint/no-require-imports": "error",
         "@typescript-eslint/no-this-alias": "error",
         "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
@@ -102,7 +98,81 @@
           }
         ],
         "@typescript-eslint/unbound-method": "error",
-        "arrow-body-style": [
+				"@typescript-eslint/no-useless-constructor": "error",
+				"@typescript-eslint/member-ordering": [
+					"error",
+					{
+						"default": [
+							"public-static-field",
+							"protected-static-field",
+							"private-static-field",
+							"public-instance-field",
+							"protected-instance-field",
+							"private-instance-field",
+							"public-constructor",
+							"protected-constructor",
+							"private-constructor",
+							"public-static-method",
+							"public-instance-method",
+							"protected-static-method",
+							"protected-instance-method",
+							"private-static-method",
+							"private-instance-method"
+						]
+					}
+				],
+				"@typescript-eslint/naming-convention": [
+					"error",
+					{
+						"selector": "property",
+						"format": [
+							"camelCase",
+							"PascalCase",
+							"snake_case",
+							"UPPER_CASE"
+						]
+					}
+				],
+				"import/no-default-export": "error",
+				"import/no-extraneous-dependencies": "off",
+				"import/no-internal-modules": [
+					"error",
+					{
+						"allow": [
+							"@app/*",
+							"@admin/*",
+							"@core/*",
+							"@shared/*",
+							"@library/*",
+							"@jam/*",
+							"core-js/*",
+							"zone.js/*",
+							"rxjs/*",
+							"@angular/platform-browser-dynamic/*",
+							"@angular/platform-browser/*",
+							"@angular/common/*",
+							"@angular/cdk/*",
+							"@angular/router/*",
+							"@angular/material/*",
+							"@angular/core/testing/*"
+						]
+					}
+				],
+				"import/no-unassigned-import": "error",
+				"import/order": "error",
+				"import/no-deprecated": "off",
+				"jsdoc/no-types": "off",
+				"jsdoc/check-alignment": "off",
+				"jsdoc/newline-after-description": "off",
+				"rxjs/no-create": "error",
+				"rxjs/no-unsafe-takeuntil": "error",
+				"prefer-arrow/prefer-arrow-functions": [
+					"error",
+					{
+						"allowStandaloneDeclarations": true
+					}
+				],
+				"arrow-body-style": [
           "error",
           "as-needed"
         ],
@@ -126,42 +196,7 @@
           }
         ],
         "default-case": "error",
-        "import/no-default-export": "error",
-        "import/no-extraneous-dependencies": "error",
-        "@typescript-eslint/no-useless-constructor": "error",
-        "prefer-arrow/prefer-arrow-functions": [
-          "error",
-          {
-            "allowStandaloneDeclarations": true
-          }
-        ],
-        "import/no-internal-modules": [
-          "error",
-          {
-            "allow": [
-              "@app/*",
-              "@admin/*",
-              "@core/*",
-              "@shared/*",
-              "@library/*",
-              "@jam/*",
-              "core-js/*",
-              "zone.js/*",
-              "rxjs/*",
-              "@angular/platform-browser-dynamic/*",
-              "@angular/platform-browser/*",
-              "@angular/common/*",
-              "@angular/cdk/*",
-              "@angular/router/*",
-              "@angular/material/*",
-              "@angular/core/testing/*"
-            ]
-          }
-        ],
-        "import/no-unassigned-import": "error",
-        "import/order": "error",
-        "jsdoc/no-types": "off",
-        "max-classes-per-file": [
+				"max-classes-per-file": [
           "error",
           2
         ],
@@ -176,7 +211,8 @@
           2000
         ],
         "newline-per-chained-call": "off",
-        "no-duplicate-case": "error",
+				"no-param-reassign": "error",
+				"no-duplicate-case": "error",
         "no-duplicate-imports": "error",
         "no-empty": "error",
         "no-extra-bind": "error",
@@ -208,48 +244,11 @@
         ],
         "prefer-object-spread": "error",
         "prefer-template": "error",
-        "rxjs/no-create": "error",
-        "rxjs/no-unsafe-takeuntil": "error",
-        "space-in-parens": [
+				"space-in-parens": [
           "error",
           "never"
         ],
-        "yoda": "error",
-        "@typescript-eslint/member-ordering": [
-          "error",
-          {
-            "default": [
-              "public-static-field",
-              "protected-static-field",
-              "private-static-field",
-              "public-instance-field",
-              "protected-instance-field",
-              "private-instance-field",
-              "public-constructor",
-              "protected-constructor",
-              "private-constructor",
-              "public-static-method",
-              "public-instance-method",
-              "protected-static-method",
-              "protected-instance-method",
-              "private-static-method",
-              "private-instance-method"
-            ]
-          }
-        ],
-        "jsdoc/newline-after-description": "off",
-        "@typescript-eslint/naming-convention": [
-          "error",
-          {
-            "selector": "property",
-            "format": [
-              "camelCase",
-              "PascalCase",
-              "snake_case",
-              "UPPER_CASE"
-            ]
-          }
-        ]
+        "yoda": "error"
       }
     },
     {
