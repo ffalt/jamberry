@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.15](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.14...v0.4.15) (2021-11-14)
+
+
+### Features
+
+* **mediasession:** support new actions seek, stop, update position ([ada0060](https://github.com-ffalt/ffalt/jamberry/commit/ada00603aa2ef8ae5bc7d069f817eb46b3cb7374))
+
 ### [0.4.14](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.13...v0.4.14) (2021-10-29)
 
 
