@@ -8,16 +8,15 @@ import {components, entryComponents} from './components';
 import {MainTabsService} from './services/main-tabs.service';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		RouterModule,
-		SharedModule,
-		PlayerModule
-	],
-	declarations: [...components],
-	exports: [...components],
-	entryComponents: [...entryComponents],
-	providers: [MainTabsService]
+    imports: [
+        CommonModule,
+        RouterModule,
+        SharedModule,
+        PlayerModule
+    ],
+    declarations: [...components],
+    exports: [...components],
+    providers: [MainTabsService]
 })
 export class MainTabsModule {
 }

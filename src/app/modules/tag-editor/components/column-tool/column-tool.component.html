@@ -22,9 +22,10 @@
 			</div>
 			<button class="button-on-background" (click)="editor.copyColumn(sourceColumnIndex, activeCol)">Copy</button>
 			<button class="button-on-background" (click)="editor.appendFromColumn(sourceColumnIndex, activeCol)">Append</button>
-			<button class="button-on-background" (click)="editor.insertFromColumn(sourceColumnIndex,0, activeCol)">Insert at
+			<div class="button-with-add-on button-insert-at">
+				<button class="button-on-background" (click)="editor.insertFromColumn(sourceColumnIndex,0, activeCol)">Insert at</button>
 				<input type="number">
-			</button>
+			</div>
 		</div>
 		<div class="column-tool" *ngFor="let action of activeCol.actions">
 			{{action.title}}<br/>

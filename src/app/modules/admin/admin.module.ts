@@ -14,20 +14,19 @@ import {routing} from './admin.routing';
 import {components, entryComponents} from './components';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		SharedModule,
-		FormsModule,
-		HammerModule,
-		ImageCropperModule,
-		ContextMenuModule,
-		ScrollingModule,
-		AutocompleteModule,
-		routing
-	],
-	entryComponents: [...entryComponents],
-	declarations: [AdminComponent, ...components],
-	providers: []
+    imports: [
+        CommonModule,
+        SharedModule,
+        FormsModule,
+        HammerModule,
+        ImageCropperModule,
+        ContextMenuModule,
+        ScrollingModule,
+        AutocompleteModule,
+        routing
+    ],
+    declarations: [AdminComponent, ...components],
+    providers: []
 })
 export class AdminModule {
 }

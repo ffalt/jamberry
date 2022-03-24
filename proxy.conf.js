@@ -1,15 +1,12 @@
-const PROXY_CONFIG = [
+module.exports = [
 	{
 		context: [
 			"/jam",
 			"/api",
-			"/graphql",
-			"/assets/config"
+			"/graphql"
 		],
 		target: "http://localhost:4040",
 		secure: false,
 		"logLevel": "debug"
 	}
 ];
-
-module.exports = PROXY_CONFIG;

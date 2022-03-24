@@ -22,6 +22,7 @@
 			padding-top: $padding;
 			padding-left: $padding;
 			padding-right: $padding;
+
 			span {
 				color: var(--on-control-active);
 			}
@@ -31,6 +32,15 @@
 
 		.input-box {
 			display: flex;
+		}
+
+		.button-insert-at {
+			display: inline-flex;
+
+			input {
+				width: 50px;
+				border-color: var(--on-control-ambient);
+			}
 		}
 
 		app-tag-editor-autocomplete {

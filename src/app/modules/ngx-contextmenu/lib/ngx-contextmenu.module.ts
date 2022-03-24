@@ -12,26 +12,23 @@ import {ContextMenuService} from './contextmenu.service';
 import {CONTEXT_MENU_OPTIONS} from './contextmenu.tokens';
 
 @NgModule({
-	declarations: [
-		ContextMenuAttachDirective,
-		ContextMenuComponent,
-		ContextMenuContentComponent,
-		ContextMenuContentItemComponent,
-		ContextMenuItemDirective
-	],
-	entryComponents: [
-		ContextMenuContentComponent
-	],
-	exports: [
-		ContextMenuAttachDirective,
-		ContextMenuComponent,
-		ContextMenuItemDirective
-	],
-	imports: [
-		CommonModule,
-		A11yModule,
-		OverlayModule
-	]
+    declarations: [
+        ContextMenuAttachDirective,
+        ContextMenuComponent,
+        ContextMenuContentComponent,
+        ContextMenuContentItemComponent,
+        ContextMenuItemDirective
+    ],
+    exports: [
+        ContextMenuAttachDirective,
+        ContextMenuComponent,
+        ContextMenuItemDirective
+    ],
+    imports: [
+        CommonModule,
+        A11yModule,
+        OverlayModule
+    ]
 })
 export class ContextMenuModule {
 	static forRoot(options?: IContextMenuOptions): ModuleWithProviders<ContextMenuModule> {

@@ -11,14 +11,13 @@ import {pipes} from './pipes';
 import {routing} from './tag-editor.routing';
 
 @NgModule({
-	imports: [
-		CommonModule, SharedModule, FormsModule,
-		ImageCropperModule,
-		ContextMenuModule, ScrollingModule, AutocompleteModule, routing
-	],
-	entryComponents: [...entryComponents],
-	declarations: [...components, ...pipes],
-	providers: []
+    imports: [
+        CommonModule, SharedModule, FormsModule,
+        ImageCropperModule,
+        ContextMenuModule, ScrollingModule, AutocompleteModule, routing
+    ],
+    declarations: [...components, ...pipes],
+    providers: []
 })
 export class TagEditorModule {
 }

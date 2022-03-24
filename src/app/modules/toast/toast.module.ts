@@ -11,13 +11,12 @@ export const DefaultGlobalConfig: GlobalConfig = {
 };
 
 @NgModule({
-	imports: [
-		CommonModule,
-		OverlayModule
-	],
-	declarations: [ToastComponent, ToastContainerDirective],
-	exports: [ToastComponent],
-	entryComponents: [ToastComponent]
+    imports: [
+        CommonModule,
+        OverlayModule
+    ],
+    declarations: [ToastComponent, ToastContainerDirective],
+    exports: [ToastComponent]
 })
 export class ToastModule {
 	static forRoot(config: Partial<GlobalConfig> = {}): ModuleWithProviders<ToastModule> {

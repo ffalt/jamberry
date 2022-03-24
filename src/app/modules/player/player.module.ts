@@ -9,19 +9,18 @@ import {SharedModule} from '@shared/shared.module';
 import {components, entryComponents} from './components';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		RouterModule,
-		ScrollingModule,
-		DragDropModule,
-		HammerModule,
-		ContextMenuModule,
-		SharedModule
-	],
-	declarations: [...components],
-	exports: [...components],
-	entryComponents: [...entryComponents],
-	providers: []
+    imports: [
+        CommonModule,
+        RouterModule,
+        ScrollingModule,
+        DragDropModule,
+        HammerModule,
+        ContextMenuModule,
+        SharedModule
+    ],
+    declarations: [...components],
+    exports: [...components],
+    providers: []
 })
 export class PlayerModule {
 }

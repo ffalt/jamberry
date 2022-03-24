@@ -14,20 +14,19 @@ import {routing} from './library.routing';
 import {services} from './services';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		SharedModule,
-		FormsModule,
-		ContextMenuModule,
-		DeferLoadModule,
-		DragDropModule,
-		PlayerModule,
-		AutocompleteModule,
-		routing
-	],
-	entryComponents: [...entryComponents],
-	declarations: [LibraryComponent, ...components],
-	providers: [...services]
+    imports: [
+        CommonModule,
+        SharedModule,
+        FormsModule,
+        ContextMenuModule,
+        DeferLoadModule,
+        DragDropModule,
+        PlayerModule,
+        AutocompleteModule,
+        routing
+    ],
+    declarations: [LibraryComponent, ...components],
+    providers: [...services]
 })
 
 export class LibraryModule {
