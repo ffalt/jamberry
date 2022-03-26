@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.16](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.15...v0.4.16) (2022-03-26)
+
+
+### Bug Fixes
+
+* **playlist-dialog:** add missing entry styling ([f40c023](https://github.com-ffalt/ffalt/jamberry/commit/f40c023784ad8891542d299596e1101140019b72))
+
 ### [0.4.15](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.14...v0.4.15) (2021-11-14)
 
 
