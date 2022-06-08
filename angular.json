@@ -80,7 +80,7 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
+                  "maximumWarning": "8kb",
                   "maximumError": "12kb"
                 }
               ]
@@ -142,7 +142,6 @@
       }
     }
   },
-  "defaultProject": "jamberry",
   "cli": {
     "analytics": false
   }

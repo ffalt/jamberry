@@ -3,10 +3,8 @@ import {TabMainComponent} from './tab-main/tab-main.component';
 import {TabPlayerComponent} from './tab-player/tab-player.component';
 import {TabQueueComponent} from './tab-queue/tab-queue.component';
 
-export const entryComponents: Array<any> = [TabMainComponent, TabPlayerComponent, TabQueueComponent, TabInfoComponent];
-
 export const components: Array<any> = [
-	...entryComponents
+	TabMainComponent, TabPlayerComponent, TabQueueComponent, TabInfoComponent
 ];
 
 export * from './tab-main/tab-main.component';

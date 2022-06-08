@@ -8,7 +8,7 @@ import {DeferLoadModule} from '@app/modules/defer-load';
 import {PlayerModule} from '@app/modules/player';
 import {SharedModule} from '@shared/shared.module';
 
-import {components, entryComponents} from './components';
+import {components} from './components';
 import {LibraryComponent} from './library.component';
 import {routing} from './library.routing';
 import {services} from './services';

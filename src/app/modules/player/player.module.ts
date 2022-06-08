@@ -6,7 +6,7 @@ import {HammerModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {SharedModule} from '@shared/shared.module';
-import {components, entryComponents} from './components';
+import {components} from './components';
 
 @NgModule({
     imports: [

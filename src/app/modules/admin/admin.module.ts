@@ -11,7 +11,7 @@ import {ImageCropperModule} from 'ngx-image-cropper';
 import {AdminComponent} from './admin.component';
 import {routing} from './admin.routing';
 
-import {components, entryComponents} from './components';
+import {components} from './components';
 
 @NgModule({
     imports: [

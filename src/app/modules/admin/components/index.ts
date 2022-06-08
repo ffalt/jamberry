@@ -35,7 +35,7 @@ import {TrackListComponent} from './track-list/track-list.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {AdminUsersComponent} from './users-page/admin-users.component';
 
-export const entryComponents: Array<any> = [
+export const components: Array<any> = [
 	DialogFolderArtworkSearchComponent,
 	DialogAvatarComponent,
 	DialogChooseFolderComponent,
@@ -44,11 +44,7 @@ export const entryComponents: Array<any> = [
 	DialogRootComponent,
 	DialogUserComponent,
 	DialogUserPassComponent,
-	ImageEditOverlayContentComponent
-];
-
-export const components: Array<any> = [
-	...entryComponents,
+	ImageEditOverlayContentComponent,
 	AdminBaseViewIdComponent,
 	AdminBaseParentViewIdComponent,
 	AdminQueueRequestsComponent,

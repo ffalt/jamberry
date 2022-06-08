@@ -17,18 +17,14 @@ import {ScoreBoxComponent} from './score-box/score-box.component';
 import {AdminFolderTagEditorPageComponent} from './tag-editor-page/admin-folder-tag-editor-page.component';
 import {TagEditorComponent} from './tag-editor/tag-editor.component';
 
-export const entryComponents: Array<any> = [
+export const components: Array<any> = [
 	DialogTagImageComponent,
 	DialogAlbumComponent,
 	DialogChooseColumnsComponent,
 	DialogMatchReleaseComponent,
 	DialogTagLyricsComponent,
 	DialogTagTextlistComponent,
-	CellEditorTxtComponent
-];
-
-export const components: Array<any> = [
-	...entryComponents,
+	CellEditorTxtComponent,
 	AdminFolderTagEditorPageComponent,
 	CellEditorComponent,
 	CellEditorDisplayComponent,

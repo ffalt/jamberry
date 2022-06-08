@@ -54,13 +54,9 @@ import {TrackSimilarComponent} from './track-similar/track-similar.component';
 import {TracksLoaderByTypeComponent} from './tracks-loader-by-type/tracks-loader-by-type.component';
 import {TracksLoaderComponent} from './tracks-loader/tracks-loader.component';
 
-export const entryComponents: Array<any> = [
-	ContextMenuObjComponent,
-	ContextMenuSimpleComponent
-];
-
 export const components: Array<any> = [
-	...entryComponents,
+	ContextMenuObjComponent,
+	ContextMenuSimpleComponent,
 	AlbumListComponent,
 	AlbumMbComponent,
 	AlbumOverviewComponent,

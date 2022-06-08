@@ -6,7 +6,7 @@ import {AutocompleteModule} from '@app/modules/autocomplete';
 import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {SharedModule} from '@shared/shared.module';
 import {ImageCropperModule} from 'ngx-image-cropper';
-import {components, entryComponents} from './components';
+import {components} from './components';
 import {pipes} from './pipes';
 import {routing} from './tag-editor.routing';
 

@@ -8,12 +8,8 @@ import {SliderVolumeComponent} from './player-slider-volume/slider-volume.compon
 import {PlayerComponent} from './player/player.component';
 import {QueueComponent} from './queue/queue.component';
 
-export const entryComponents: Array<any> = [
-	ContextMenuQueueTrackComponent
-];
-
 export const components: Array<any> = [
-	...entryComponents,
+	ContextMenuQueueTrackComponent,
 	MiniPlayerComponent,
 	MiniSliderTimeComponent,
 	PlayerComponent,

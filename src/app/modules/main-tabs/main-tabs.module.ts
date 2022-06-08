@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 
 import {PlayerModule} from '@app/modules/player/player.module';
 import {SharedModule} from '@shared/shared.module';
-import {components, entryComponents} from './components';
+import {components} from './components';
 import {MainTabsService} from './services/main-tabs.service';
 
 @NgModule({

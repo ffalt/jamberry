@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {DeferLoadModule} from '@app/modules/defer-load';
 
-import {components, entryComponents} from './components';
+import {components} from './components';
 import {directives} from './directives';
 import {pipes} from './pipes';
 import {services} from './services';

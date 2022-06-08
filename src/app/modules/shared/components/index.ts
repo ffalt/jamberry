@@ -36,18 +36,14 @@ import {TextOverlayContentComponent} from './text-overlay-content/text-overlay-c
 import {ViewTypeToggleComponent} from './view-type-toggle/view-type-toggle.component';
 import {SidebarListComponent} from './sidebar-list/sidebar-list.component';
 
-export const entryComponents: Array<any> = [
+export const components: Array<any> = [
 	ChildTooltipContentComponent,
 	DialogPasswordComponent,
 	DialogPlaylistComponent,
 	DialogChoosePlaylistComponent,
 	DialogRateComponent,
 	ImageOverlayContentComponent,
-	TextOverlayContentComponent
-];
-
-export const components: Array<any> = [
-	...entryComponents,
+	TextOverlayContentComponent,
 	BackgroundTextComponent,
 	BackgroundTextListComponent,
 	CoverartImageComponent,
