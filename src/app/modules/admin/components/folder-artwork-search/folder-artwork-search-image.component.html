@@ -13,10 +13,10 @@
 					</div>
 					<div class="footer">
 						<div class="footer-content">
-							<label>
+							<form><label>
 								<i *ngIf="node.storing" class="icon-spin icon-spinner"></i>
 								<input *ngIf="!node.storing" type="checkbox" [(ngModel)]="node.checked" [checked]="node.checked"> {{node.name}}
-							</label>
+							</label></form>
 						</div>
 					</div>
 				</div>

@@ -1,5 +1,5 @@
 /* eslint-disable quote-props */
-
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable max-lines */
 
 export interface FrameDef {

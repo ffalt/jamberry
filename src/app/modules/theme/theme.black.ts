@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {Theme} from './theme.model';
 
 export const blackTheme: Theme = {

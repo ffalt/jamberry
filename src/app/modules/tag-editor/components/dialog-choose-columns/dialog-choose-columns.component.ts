@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import {Component} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {FrameDef, FrameDefs, getFrameSubIds} from '../../model/id3v2-frames.helper';

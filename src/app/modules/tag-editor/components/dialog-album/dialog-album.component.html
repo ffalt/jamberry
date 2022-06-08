@@ -1,8 +1,8 @@
 <div>
 	<form>
 		<div class="user-form-control" *ngFor="let ed of edits">
-			<input type="checkbox" [(ngModel)]="ed.enabled" [ngModelOptions]="{standalone: true}"/>
-			<label>{{ed.title}}</label>
+			<label><input type="checkbox" [(ngModel)]="ed.enabled" [ngModelOptions]="{standalone: true}"/>
+			{{ed.title}}</label>
 			<app-tag-editor-autocomplete [(value)]="ed.value" [getList]="ed.getList" [standalone]="true"></app-tag-editor-autocomplete>
 		</div>
 	</form>
