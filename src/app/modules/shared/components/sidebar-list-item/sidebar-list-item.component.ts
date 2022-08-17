@@ -16,7 +16,7 @@ export interface SidebarListItem {
 	styleUrls: ['./sidebar-list-item.component.scss']
 })
 export class SidebarListItemComponent implements FocusableOption {
-	@Input() entry!: SidebarListItem;
+	@Input() entry?: SidebarListItem;
 	@Output() readonly navigate: EventEmitter<void> = new EventEmitter();
 	@ViewChild('item', {static: true}) element?: ElementRef;
 

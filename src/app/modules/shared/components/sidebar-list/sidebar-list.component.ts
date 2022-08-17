@@ -12,7 +12,7 @@ export interface SidebarList {
 	styleUrls: ['./sidebar-list.component.scss']
 })
 export class SidebarListComponent {
-	@Input() list!: SidebarList;
+	@Input() list?: SidebarList;
 	@HostBinding('class.active') collapsed: boolean = false;
 	@Output() readonly navigate: EventEmitter<void> = new EventEmitter();
 	@ViewChildren(SidebarListItemComponent) items!: QueryList<SidebarListItemComponent>;
