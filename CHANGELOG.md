@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.17](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.16...v0.4.17) (2022-09-19)
+
+
+### Features
+
+* **series:** sort series extras into own group ([e20972a](https://github.com-ffalt/ffalt/jamberry/commit/e20972ac8031e164c9357b70d5bd05c8a6d9c480))
+
+
+### Bug Fixes
+
+* **angular:** use unique component selector ([89b58cc](https://github.com-ffalt/ffalt/jamberry/commit/89b58cc7fccb10cbaac102314c8e9f13ee9573e1))
+
 ### [0.4.16](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.15...v0.4.16) (2022-03-26)
 
 
