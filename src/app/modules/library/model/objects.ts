@@ -41,12 +41,17 @@ export abstract class JamLibraryObject extends JamObject {
 export class JamAlbumObject extends JamLibraryObject {
 	type = JamObjectType.album;
 	childrenTypes = [JamObjectType.track];
+	group: string;
 
 	constructor(public album: Jam.Album, library: LibraryService) {
 		super(album, library);
 		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.year || ''}`;
 		this.parent = album.artistName;
 		this.mediaType = album.albumType;
+		this.group = album.albumType;
+		if ((album.albumType === AlbumType.series) && isNaN((album.seriesNr || '') as any)) {
+			this.group = `${album.albumType} Extras`;
+		}
 		this.genre = album.genres?.length ? album.genres.map(g => g.name).join(' / ') : undefined;
 	}
 
@@ -78,7 +83,7 @@ export class JamAlbumObject extends JamLibraryObject {
 	}
 
 	groupType(): string {
-		return this.album.albumType;
+		return this.group;
 	}
 
 	addToPlaylist(): void {
