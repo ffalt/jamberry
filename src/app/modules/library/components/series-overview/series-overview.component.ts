@@ -9,7 +9,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-artist-overview',
+	selector: 'app-series-overview',
 	templateUrl: './series-overview.component.html',
 	styleUrls: ['./series-overview.component.scss']
 })
