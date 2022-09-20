@@ -3,10 +3,27 @@ module.exports = [
 		context: [
 			"/jam",
 			"/api",
-			"/graphql"
+			"/graphql",
+			'/assets/config'
 		],
-		target: "http://localhost:4040",
 		secure: false,
-		"logLevel": "debug"
+		logLevel: "debug",
+		target: "http://localhost:4040",
+		bypass: function (request, response, proxyOptions) {
+			if (request.url === '/assets/config/config.js') {
+				config_json = {
+					name: 'Jam Debug',
+					fixed: {
+						server: 'http://localhost:4200',
+						user: 'admin',
+						pass: 'admin'
+					}
+				};
+				response.type('text/javascript');
+				response.end(`document.jamberry_config = ${JSON.stringify(config_json)};`);
+				return true;
+			}
+			return null;
+		}
 	}
 ];
