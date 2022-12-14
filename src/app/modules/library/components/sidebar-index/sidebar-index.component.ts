@@ -15,7 +15,7 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 	current?: IndexGroup;
 	@Input() useMeta: boolean = true;
 	@HostBinding('class.active') collapsed: boolean = false;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(public indexService: IndexService, public notify: NotifyService) {
 	}

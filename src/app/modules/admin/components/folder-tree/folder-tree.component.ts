@@ -37,7 +37,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 	@Input() autoSelect: boolean = false;
 	@Output() readonly selectionChange = new EventEmitter<Jam.Folder>();
 	@ViewChild(CdkVirtualScrollViewport, {static: true}) viewport?: CdkVirtualScrollViewport;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(private app: AppService, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
 	}

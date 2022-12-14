@@ -13,7 +13,7 @@ import {PlayerService} from '../player/player.service';
 })
 export class TitleService implements OnDestroy {
 	titles: Array<string> = [];
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(private router: Router, public app: AppService, public player: PlayerService, private route: ActivatedRoute, public title: Title) {
 		router.events

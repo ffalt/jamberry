@@ -18,7 +18,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 	section?: string;
 	sectionType?: string;
 	hasContextMenu: boolean = false;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(private library: LibraryService, protected route: ActivatedRoute) {
 	}

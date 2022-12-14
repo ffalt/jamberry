@@ -15,7 +15,7 @@ import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 })
 export class AdminRootComponent implements OnInit, OnDestroy {
 	roots?: Array<Jam.Root>;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		private router: Router,

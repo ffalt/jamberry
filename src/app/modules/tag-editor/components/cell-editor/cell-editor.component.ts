@@ -33,13 +33,13 @@ import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent)}]
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
-	@Input() cell?: RawTagEditCell;
+	@Input() cell?: RawTagEditCell = undefined;
 	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell; event: KeyboardEvent }>();
 	lines: Array<string> = [];
 	inactive: boolean = true;
 
 	@ViewChild('cellContainer', {static: false, read: ViewContainerRef}) container?: ViewContainerRef;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 	private componentRef?: ComponentRef<any>;
 
 	constructor(private dialogOverlay: DialogOverlayService, private resolver: ComponentFactoryResolver) {

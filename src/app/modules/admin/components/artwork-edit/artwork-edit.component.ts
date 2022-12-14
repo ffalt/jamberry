@@ -25,7 +25,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	mimeType: string = 'image/jpeg';
 	maintainAspectRatio: boolean = true;
 	@Output() readonly imageEdited = new EventEmitter<void>();
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		private app: AppService,

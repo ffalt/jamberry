@@ -17,7 +17,7 @@ export class SeriesOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	series?: Jam.Series;
 	albums?: Array<JamAlbumObject>;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		public navig: NavigService,

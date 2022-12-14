@@ -16,7 +16,7 @@ import {takeUntil} from 'rxjs/operators';
 export class FolderSimilarComponent implements OnInit, OnDestroy {
 	id?: string;
 	similarFolders?: Array<JamFolderObject>;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,

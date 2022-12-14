@@ -16,7 +16,7 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 	reference?: DialogOverlayRef;
 	isIdle: boolean = true;
 	isUploading: boolean = false;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
 	}

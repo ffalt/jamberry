@@ -14,7 +14,7 @@ import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 })
 export class AdminUsersComponent implements OnInit, OnDestroy {
 	users?: Array<Jam.User>;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		private app: AppService,

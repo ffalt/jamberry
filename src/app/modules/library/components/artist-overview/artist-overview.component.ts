@@ -18,7 +18,7 @@ export class ArtistOverviewComponent implements OnInit, OnDestroy {
 	artist?: Jam.Artist;
 	albums?: Array<JamAlbumObject>;
 	tracksQuery?: JamParameters.TrackFilterArgs;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		public navig: NavigService,

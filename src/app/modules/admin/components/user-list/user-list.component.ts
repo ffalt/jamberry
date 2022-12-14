@@ -17,7 +17,7 @@ import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 })
 export class UserListComponent implements OnDestroy {
 	@Input() users?: Array<Jam.User> = [];
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		private router: Router,

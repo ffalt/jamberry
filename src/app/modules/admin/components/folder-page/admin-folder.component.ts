@@ -16,7 +16,7 @@ export class AdminFolderComponent implements OnInit, OnDestroy {
 	id: string = '';
 	@ViewChild(FolderTreeComponent, {static: true}) tree?: FolderTreeComponent;
 	@HostBinding('class.right-active') rightActive: boolean = false;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 	private mode: string = 'overview';
 
 	constructor(private route: ActivatedRoute, private router: Router, private uiState: UiStateService) {

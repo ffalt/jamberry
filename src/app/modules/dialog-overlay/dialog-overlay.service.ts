@@ -26,7 +26,7 @@ export class PortalInjector implements Injector {
 
 @Injectable()
 export class DialogOverlayService implements OnDestroy {
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(private injector: Injector, private overlay: Overlay) {
 	}

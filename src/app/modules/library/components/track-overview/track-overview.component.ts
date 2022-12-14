@@ -16,7 +16,7 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	track?: Jam.Track;
 	svg?: { viewbox: string; path: string };
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,

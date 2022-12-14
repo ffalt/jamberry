@@ -31,7 +31,7 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 	hints?: Array<FolderHealthHint>;
 	solutions: Array<FolderHealthHintSolution> = [];
 	@Input() folderHealth?: Jam.FolderHealth;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		private app: AppService,

@@ -14,7 +14,7 @@ import {takeUntil} from 'rxjs/operators';
 export class PodcastOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	podcast?: Jam.Podcast;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 	private podcastID?: string;
 	private subList?: Subscription;
 

@@ -29,7 +29,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	solutions: Array<TrackHealthHintSolution> = [];
 	@Input() trackHealth?: Jam.TrackHealth;
 	@Output() readonly resolvedEvent = new EventEmitter<void>();
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		private app: AppService,

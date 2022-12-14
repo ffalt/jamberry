@@ -55,7 +55,7 @@ export class ToastComponent implements OnDestroy {
 		return 'inherit';
 	}
 
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	private timeout: any;
 	private intervalId: any;

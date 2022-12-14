@@ -14,7 +14,7 @@ export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 	folder?: Jam.Folder;
 	id?: string;
 	hasArtistID: boolean = false;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute

@@ -132,7 +132,7 @@ export interface GlobalConfig extends IndividualConfig {
  * Everything a toast needs to launch
  */
 export class ToastPackage {
-	private onTapSubj = new Subject<any>();
+	private onTapSubj = new Subject<void>();
 	private onActionSubj = new Subject<any>();
 
 	constructor(

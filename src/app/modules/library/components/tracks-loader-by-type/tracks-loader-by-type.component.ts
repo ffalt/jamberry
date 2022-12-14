@@ -12,7 +12,7 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class TracksLoaderByTypeComponent implements OnInit, OnDestroy {
 	listType?: ListType;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(protected route: ActivatedRoute) {
 	}

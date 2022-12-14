@@ -20,7 +20,7 @@ export interface AdminRootServiceEditData {
 export class AdminRootService implements OnDestroy {
 	rootsChange = new EventEmitter<Array<Jam.Root>>();
 	rootChange = new Notifiers<Jam.Root>();
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 	private roots: Array<Jam.Root> = [];
 	private rootPoll = new Poller<Jam.Root>((root, cb) => {
 		this.jam.root.status({id: root.id})

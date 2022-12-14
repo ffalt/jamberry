@@ -16,7 +16,7 @@ export class AlbumOverviewComponent implements OnInit, OnDestroy {
 	album?: Jam.Album;
 	tracks: Array<Jam.Track> = [];
 	isCompilation: boolean = false;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,

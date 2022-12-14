@@ -14,7 +14,7 @@ export class AlbumMbComponent implements OnInit, OnDestroy {
 	id?: string;
 	album?: Jam.Album;
 	mbReleaseID?: string;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute) {
 	}

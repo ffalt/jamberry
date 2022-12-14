@@ -17,7 +17,7 @@ export class FolderOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	folder?: Jam.Folder;
 	childFolders?: Array<JamFolderObject>;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,

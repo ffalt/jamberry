@@ -47,7 +47,7 @@ export class GenrePageComponent implements OnDestroy {
 		};
 		return tab;
 	});
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		protected jam: JamService, protected notify: NotifyService, public library: LibraryService,

@@ -14,7 +14,7 @@ import {takeUntil} from 'rxjs/operators';
 export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {
 	typeInfo?: JamType;
 	tabs?: Array<HeaderTab>;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(protected route: ActivatedRoute, private library: LibraryService) {
 	}

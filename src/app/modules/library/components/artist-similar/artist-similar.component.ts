@@ -15,7 +15,7 @@ import {takeUntil} from 'rxjs/operators';
 export class ArtistSimilarComponent implements OnInit, OnDestroy {
 	id?: string;
 	similar?: Array<JamArtistObject>;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		private library: LibraryService,

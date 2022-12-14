@@ -12,13 +12,13 @@ export class ToastRef<T> {
 	private duplicatesCount = 0;
 
 	/** Subject for notifying the user that the toast has finished closing. */
-	private afterClosedSubj = new Subject<any>();
+	private afterClosedSubj = new Subject<void>();
 	/** triggered when toast is activated */
-	private activateSubj = new Subject<any>();
+	private activateSubj = new Subject<void>();
 	/** notifies the toast that it should close before the timeout */
-	private manualCloseSubj = new Subject<any>();
+	private manualCloseSubj = new Subject<void>();
 	/** notifies the toast that it should reset the timeouts */
-	private resetTimeoutSubj = new Subject<any>();
+	private resetTimeoutSubj = new Subject<void>();
 	/** notifies the toast that it should count a duplicate toast */
 	private countDuplicateSubj = new Subject<number>();
 

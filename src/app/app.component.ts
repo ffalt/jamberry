@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	@ViewChild('tabContentOutlet', {static: true}) tabContentOutlet?: ElementRef;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		public player: PlayerService,

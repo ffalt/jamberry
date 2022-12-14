@@ -32,7 +32,7 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 	infos: Array<HeaderInfo> = [];
 	tabs: Array<HeaderTab> = [];
 	isPodcastEpisode: boolean = false;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		private library: LibraryService,

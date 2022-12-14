@@ -12,7 +12,7 @@ import {UserStorageService} from '../userstorage/userstorage.service';
 export class SettingsStoreService implements OnDestroy {
 	private static localstorageName = 'settings';
 	settingsChange = new EventEmitter<void>();
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(private userStorage: UserStorageService, private pushNotificationService: PushNotificationService, private app: AppService) {
 		userStorage.userChange

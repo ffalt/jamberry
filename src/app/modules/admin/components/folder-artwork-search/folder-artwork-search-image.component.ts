@@ -49,7 +49,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		name: '',
 		url: ''
 	};
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService, private http: HttpClient) {
 	}

@@ -12,9 +12,9 @@ import {takeUntil} from 'rxjs/operators';
 })
 
 export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
+	// id?: string; declared in AdminBaseParentViewIdComponent
 	all?: Array<Jam.TrackHealth>;
 	hints?: Array<Jam.TrackHealth>;
-	id?: string;
 	filter?: string;
 	modes: Array<string> = [];
 	mediaCheck: boolean = false;

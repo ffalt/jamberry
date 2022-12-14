@@ -51,7 +51,7 @@ export class PlayerService implements OnDestroy {
 	repeatTrack = false;
 	scrobbleWatch = new StopWatch();
 	scrobbled = false;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 	private subscribers: {
 		[key: number]: Array<(data: any) => void>;
 	} = {};

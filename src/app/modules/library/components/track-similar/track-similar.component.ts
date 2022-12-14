@@ -16,7 +16,7 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 	id?: string;
 	similar?: Array<Jam.Track>;
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(
 		public navig: NavigService, public player: PlayerService, public actions: ActionsService,

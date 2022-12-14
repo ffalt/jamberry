@@ -14,7 +14,7 @@ import {takeUntil} from 'rxjs/operators';
 export class PlaylistOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	playlist?: Jam.Playlist;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 	private playlistID?: string;
 	private subList?: Subscription;
 

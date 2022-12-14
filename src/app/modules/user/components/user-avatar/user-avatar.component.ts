@@ -15,7 +15,7 @@ import {takeUntil} from 'rxjs/operators';
 export class UserAvatarComponent implements OnDestroy {
 	refreshRandom: string;
 	refreshing: boolean = false;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(public app: AppService, public auth: JamAuthService, private jam: JamService, private notify: NotifyService) {
 		this.refreshRandom = randomString();

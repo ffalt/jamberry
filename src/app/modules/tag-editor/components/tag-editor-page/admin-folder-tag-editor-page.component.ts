@@ -13,7 +13,7 @@ import {TagEditorComponent} from '../../components/tag-editor/tag-editor.compone
 export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
 	id?: string;
 	@ViewChild(TagEditorComponent, {static: true}) child?: TagEditorComponent;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(private route: ActivatedRoute) {
 	}

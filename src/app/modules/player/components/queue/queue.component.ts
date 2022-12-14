@@ -15,7 +15,7 @@ import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/contex
 export class QueueComponent implements OnInit, OnDestroy {
 	@Input() showControls: boolean = true;
 	entries: Array<Jam.MediaBase> = [];
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 	private currentSwipeElement?: HTMLElement;
 
 	constructor(

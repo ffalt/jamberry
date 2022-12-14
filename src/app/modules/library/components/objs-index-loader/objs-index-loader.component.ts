@@ -16,7 +16,7 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 	index?: Index;
 	objType?: JamObjectType;
 	query?: JamParameters.ArtistFilterArgs | JamParameters.SeriesFilterArgs | JamParameters.FolderFilterArgs | JamParameters.AlbumFilterArgs;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(protected indexService: IndexService, protected notify: NotifyService, protected route: ActivatedRoute) {
 	}

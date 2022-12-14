@@ -7,8 +7,8 @@ import {LocalstorageService} from '../localstorage/localstorage.service';
 	providedIn: 'root'
 })
 export class UserStorageService {
-	userChange: Observable<Jam.SessionUser>;
-	private subjectUser = new Subject<Jam.SessionUser>();
+	userChange: Observable<Jam.SessionUser | undefined>;
+	private subjectUser = new Subject<Jam.SessionUser | undefined>();
 	private userSuffix?: string;
 
 	constructor(private localStorageService: LocalstorageService) {
@@ -19,7 +19,7 @@ export class UserStorageService {
 		if (!this.userSuffix) {
 			return;
 		}
-		return this.localStorageService.get<T>((this.userSuffix ? `${this.userSuffix  }.` : '') + key);
+		return this.localStorageService.get<T>((this.userSuffix ? `${this.userSuffix}.` : '') + key);
 	}
 
 	set<T>(key: string, data: T): void {

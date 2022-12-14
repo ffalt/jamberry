@@ -10,7 +10,7 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	id?: string;
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 
 	constructor(private route: ActivatedRoute) {
 

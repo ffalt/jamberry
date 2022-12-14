@@ -23,8 +23,8 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	changeTrigger?: string;
 	loadAll = false;
 	valid = false;
-	protected unsubscribe = new Subject();
-	protected unsubscribeRefresh = new Subject();
+	protected unsubscribe = new Subject<void>();
+	protected unsubscribeRefresh = new Subject<void>();
 
 	constructor(protected route: ActivatedRoute, protected playlistService: PlaylistService, protected podcastService: PodcastService, public library: LibraryService) {
 	}

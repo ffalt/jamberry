@@ -55,7 +55,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	activeIndex: number = NO_INDEX;
 	query: string = '';
 	options: Array<AutocompleteOption> = [];
-	protected unsubscribe = new Subject();
+	protected unsubscribe = new Subject<void>();
 	private overlayRef?: OverlayRef;
 	private keydown$ = new Subject<KeyboardEvent>();
 	private keyup$ = new Subject<KeyboardEvent>();
