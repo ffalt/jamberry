@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [0.4.19](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.17...v0.4.19) (2023-01-13)
+
+
+### Features
+
+* **dev:** autofill debug login via proxy config.js ([9041578](https://github.com-ffalt/ffalt/jamberry/commit/9041578eed09485e9fb2d420bdf981c65cac94ef))
+* **series:** enable grouping ([5cd35b8](https://github.com-ffalt/ffalt/jamberry/commit/5cd35b82505422638f49980eb8c0f8fe7c14c597))
+
 ### [0.4.18](https://github.com/ffalt/jamberry/compare/v0.4.17...v0.4.18) (2022-12-13)
 
 
