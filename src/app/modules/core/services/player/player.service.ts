@@ -56,7 +56,7 @@ export class PlayerService implements OnDestroy {
 		[key: number]: Array<(data: any) => void>;
 	} = {};
 	private positionStoreTimer?: number;
-	private soundPlayer = new PlayerSoundmanager2(this.jam);
+	private soundPlayer: PlayerSoundmanager2;
 
 	constructor(
 		private queue: QueueService,
@@ -66,6 +66,7 @@ export class PlayerService implements OnDestroy {
 		private userStorage: UserStorageService,
 		private jam: JamService
 	) {
+		this.soundPlayer = new PlayerSoundmanager2(jam);
 		this.subscribeSoundPlayerEvents();
 		this.subscribeMediaSessionEvents();
 		userStorage.userChange
