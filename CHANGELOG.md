@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [0.4.20](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.19...v0.4.20) (2023-01-14)
+
+
+### Bug Fixes
+
+* **services:** don't init class variable with constructor parameter ([b1338fb](https://github.com-ffalt/ffalt/jamberry/commit/b1338fbce7368f1d13949f17814ed069a49d2b78))
+
 ### [0.4.19](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.17...v0.4.19) (2023-01-13)
 
 chore(angular: bump angular to 15.1.0
