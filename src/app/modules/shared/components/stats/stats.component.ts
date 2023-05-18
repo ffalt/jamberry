@@ -13,4 +13,9 @@ export function filterStats(data: Array<{ text?: string; link?: string; value?: 
 })
 export class StatsComponent {
 	@Input() stats: StatsList = [];
+
+	trackByFn(index: number, value: { text: string; link: string; value: number }): string {
+		return value.text + value.link;
+	}
+
 }

@@ -1,6 +1,6 @@
 <div class="start-section">{{name}}</div>
 <div *ngIf="list && list.length" class="start-items">
-	<a *ngFor="let item of list" class="start-item" tabindex="0" (clickenter)="item.click()">
+	<a *ngFor="let item of list; trackBy:trackByFn" class="start-item" tabindex="0" (clickenter)="item.click()">
 		<div class="image">
 			<app-coverart-image [coverArtObj]="item.obj" [size]="80" [alt]="item.obj.name" [fill]="true"></app-coverart-image>
 		</div>

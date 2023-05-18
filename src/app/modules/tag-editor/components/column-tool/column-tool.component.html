@@ -17,7 +17,7 @@
 			Column Source
 			<div class="input-box">
 				<select [(ngModel)]="sourceColumnIndex">
-					<option *ngFor="let col of editor.columns; let i=index;" [value]="i">{{col.def.name}}</option>
+					<option *ngFor="let col of editor.columns; trackBy:trackColumnFn; let i=index;" [value]="i">{{col.def.name}}</option>
 				</select>
 			</div>
 			<button class="button-on-background" (click)="editor.copyColumn(sourceColumnIndex, activeCol)">Copy</button>
@@ -27,7 +27,7 @@
 				<input type="number">
 			</div>
 		</div>
-		<div *ngFor="let action of activeCol.actions" class="column-tool">
+		<div *ngFor="let action of activeCol.actions; trackBy: trackByActionFn" class="column-tool">
 			{{action.title}}<br/>
 			<button class="button-on-background" (click)="action.click()"><i class="icon-down-thin"></i></button>
 		</div>

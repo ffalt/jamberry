@@ -10,7 +10,7 @@
 		<td class="samplerate">SampleRate</td>
 		<td class="duration">Duration</td>
 	</tr>
-	<tr *ngFor="let trackItem of trackItems" class="track" [class.selected]="trackItem.selected" (click)="trackItem.selected=!trackItem.selected">
+	<tr *ngFor="let trackItem of trackItems; trackBy: trackByFn" class="track" [class.selected]="trackItem.selected" (click)="trackItem.selected=!trackItem.selected">
 		<td class="number">{{trackItem.track.tag?.trackNr}}</td>
 		<td class="title">{{trackItem.track.tag?.title}}</td>
 		<td class="artist">{{trackItem.track.tag?.artist}}</td>

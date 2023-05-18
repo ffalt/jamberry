@@ -8,4 +8,9 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 })
 export class CellEditorDisplayComponent {
 	@Input() lines?: Array<string>;
+
+	trackByFn(index: number, value: string): string {
+		return index.toString();
+	}
+
 }

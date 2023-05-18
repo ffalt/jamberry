@@ -1,0 +1,8 @@
+@import "globals.scss";
+
+:host {
+	.track {
+		@include track-table-data-row();
+		@include track-table-row();
+	}
+}

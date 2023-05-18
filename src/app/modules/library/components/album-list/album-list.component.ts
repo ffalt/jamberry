@@ -21,6 +21,10 @@ export class AlbumListComponent {
 	) {
 	}
 
+	trackByFn(index: number, value: Jam.Album): string {
+		return value.id;
+	}
+
 	onContextMenu($event: Event, item: Jam.Album): void {
 		this.library.openJamObjectMenu(new JamAlbumObject(item, this.library), $event);
 	}

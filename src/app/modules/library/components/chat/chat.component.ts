@@ -16,6 +16,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 	constructor(protected jam: JamService, protected notify: NotifyService) {
 	}
 
+	trackByFn(index: number, value: Jam.Chat): string {
+		return `${index}${value.userID}`;
+	}
+
 	poll(): void {
 		if (this.isPolling) {
 			return;

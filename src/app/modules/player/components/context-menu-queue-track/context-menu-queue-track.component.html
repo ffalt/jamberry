@@ -1,8 +1,8 @@
 <context-menu #queueMenu>
-	<ng-template contextMenuItem let-track>
+	<ng-template contextMenuItem let-track="track">
 		<app-context-entry-fav [base]="track"></app-context-entry-fav>
 	</ng-template>
-	<ng-template contextMenuItem let-track>
+	<ng-template contextMenuItem let-track="track">
 		<app-context-entry-rate baseType="track" [base]="track"></app-context-entry-rate>
 	</ng-template>
 	<ng-template contextMenuItem (execute)="queue.remove($event.item)"><i class="icon-list-add"></i> Remove From Queue</ng-template>

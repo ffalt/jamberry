@@ -9,7 +9,7 @@
 		<td class="role">Can Stream</td>
 		<td class="actions">Actions</td>
 	</tr>
-	<tr *ngFor="let user of users" class="user" appFocusKeyListItem (dblclick)="editUser(user)" (keydown.enter)="editUser(user)">
+	<tr *ngFor="let user of users; trackBy: trackByFn" class="user" appFocusKeyListItem (dblclick)="editUser(user)" (keydown.enter)="editUser(user)">
 		<td class="avatar">
 			<app-coverart-image [coverArtObj]="user" [alt]="user.name" [size]="28" [round]="true"></app-coverart-image>
 		</td>

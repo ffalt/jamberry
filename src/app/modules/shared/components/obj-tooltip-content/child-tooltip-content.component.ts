@@ -25,6 +25,10 @@ export class ChildTooltipContentComponent implements AfterViewInit {
 	constructor(private element: ElementRef, private cdr: ChangeDetectorRef) {
 	}
 
+	trackByFn(index: number, value: { key: string; value: string }): string {
+		return value.key;
+	}
+
 	ngAfterViewInit(): void {
 		this.show();
 		this.cdr.detectChanges();

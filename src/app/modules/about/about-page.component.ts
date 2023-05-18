@@ -19,4 +19,12 @@ export class AboutPageComponent {
 			.map(h => ({name: h.combo.toString(), desc: (h.description || '').toString()}));
 	}
 
+	trackByKeyCmdFn(index: number, value: { name: string; desc: string }): string {
+		return value.name;
+	}
+
+	trackByFormatFn(index: number, format: string): string {
+		return format;
+	}
+
 }

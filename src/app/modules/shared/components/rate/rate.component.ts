@@ -13,6 +13,10 @@ export class RateComponent implements OnInit, OnChanges {
 	marked = -1;
 	allowHalf: boolean = false;
 
+	trackByFn(index: number): string {
+		return index.toString();
+	}
+
 	ngOnInit(): void {
 		this.updateUI();
 	}

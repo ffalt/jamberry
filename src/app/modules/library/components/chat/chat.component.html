@@ -1,6 +1,6 @@
 <div class="messages">
 	<ng-container *ngIf="messages">
-		<div *ngFor="let message of messages; let index=index;" class="message" [class.grouped]="index>0 && messages[index-1].userID===message.userID">
+		<div *ngFor="let message of messages; trackBy:trackByFn; let index=index;" class="message" [class.grouped]="index>0 && messages[index-1].userID===message.userID">
 			<div>
 				<app-coverart-image class="avatar" [coverArtObj]="{id:message.userID,name:message.userName}" [size]="22" [round]="true" [alt]="message.userName"></app-coverart-image>
 				<div class="time">{{message.created|date:'shortTime'}}</div>

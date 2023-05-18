@@ -39,7 +39,7 @@
 			<div class="section-title">Your Browser</div>
 			<div class="key-value-row">
 				<div>Supported Audio Formats</div>
-				<div *ngIf="player.audioSupport?.formats"><span *ngFor="let format of player.audioSupport?.formats">{{format}}</span></div>
+				<div *ngIf="player.audioSupport?.formats"><span *ngFor="let format of player.audioSupport?.formats; trackBy: trackByFormatFn">{{format}}</span></div>
 			</div>
 		</div>
 		<div *ngIf="auth.auth">
@@ -55,7 +55,7 @@
 		</div>
 		<div>
 			<div class="section-title">Keyboard Shortcuts</div>
-			<div *ngFor="let kcmd of keyCmds" class="key-value-row">
+			<div *ngFor="let kcmd of keyCmds; trackBy: trackByKeyCmdFn" class="key-value-row">
 				<div>{{kcmd.desc}}</div>
 				<div>{{kcmd.name}}</div>
 			</div>

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {RawTagEditColumn} from '@app/modules/tag-editor/model/tag-editor.types';
+import {RawTagEditColumn, RawTagEditColumnAction} from '@app/modules/tag-editor/model/tag-editor.types';
 import {TagEditor} from '../../model/tag-editor.class';
 
 @Component({
@@ -13,6 +13,14 @@ export class ColumnToolComponent {
 	@Output() readonly requestClose = new EventEmitter();
 	sourceColumnIndex: number = 0;
 	multiStr: string = '';
+
+	trackColumnFn(index: number, value: RawTagEditColumn): string {
+		return value.def.id;
+	}
+
+	trackByActionFn(index: number, value: RawTagEditColumnAction): string {
+		return value.title;
+	}
 
 	close(): void {
 		this.requestClose.emit();

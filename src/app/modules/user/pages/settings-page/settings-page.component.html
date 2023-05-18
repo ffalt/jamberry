@@ -4,7 +4,7 @@
 		<div class="section-title">Design</div>
 		<div>
 			<fieldset>
-				<label *ngFor="let theme of themes" class="select"><input type="radio" name="theme" [value]="theme.name" [(ngModel)]="app.settings.theme" (ngModelChange)="onChange()">{{theme.name | titlecase}}</label>
+				<label *ngFor="let theme of themes; trackBy: trackByThemeFn" class="select"><input type="radio" name="theme" [value]="theme.name" [(ngModel)]="app.settings.theme" (ngModelChange)="onChange()">{{theme.name | titlecase}}</label>
 			</fieldset>
 		</div>
 		<div class="section-title">Player</div>

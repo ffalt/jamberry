@@ -50,6 +50,10 @@ export class DialogAlbumComponent implements DialogOverlay<AlbumValuesEdit> {
 		return o;
 	});
 
+	trackByFn(index: number, value: AlbumValueEdit): string {
+		return value.title;
+	}
+
 	getAutoCompleteList(edit: AlbumValueEdit): Array<string> {
 		return edit.autocomplete;
 	}

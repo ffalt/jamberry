@@ -29,4 +29,8 @@ export class ContextMenuObjComponent implements ContextMenuHostComponentInterfac
 		this.extras = opts ? opts.extras : [];
 	}
 
+	trackByFn(index: number, value: { text: string; icon: string; click(): void }): string {
+		return index.toString();// value.text;
+	}
+
 }

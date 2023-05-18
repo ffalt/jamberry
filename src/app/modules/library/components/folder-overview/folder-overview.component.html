@@ -2,7 +2,7 @@
 <ng-container *ngIf="folder">
 	<div class="section-title">Navigation</div>
 	<ul *ngIf="folder.parents && folder.parents.length>0" class="breadcrumb">
-		<li *ngFor="let p of folder.parents"><a (click)="navig.toFolderID(p.id,p.name)">{{p.name}}</a></li>
+		<li *ngFor="let p of folder.parents; trackBy: trackByFn"><a (click)="navig.toFolderID(p.id,p.name)">{{p.name}}</a></li>
 		<li>{{folder.name}}</li>
 	</ul>
 	<div *ngIf="folder.info" class="info">

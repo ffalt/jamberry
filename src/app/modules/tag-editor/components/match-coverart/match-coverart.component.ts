@@ -31,6 +31,10 @@ export class MatchCoverartComponent implements OnChanges {
 	constructor(private app: AppService, private jam: JamService, private notify: NotifyService) {
 	}
 
+	trackByFn(index: number, value: MatchImageNode): string {
+		return value.image.id;
+	}
+
 	ngOnChanges(): void {
 		if (this.data) {
 			this.loadCoverartImages(this.data).catch(e => {

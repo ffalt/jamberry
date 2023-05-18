@@ -1,10 +1,10 @@
 <context-menu #objMenu>
 	<ng-template *ngIf="showGoto" contextMenuItem (execute)="$event.item.navigTo()"><i class="icon-view-details"></i> Navigate to</ng-template>
 	<ng-template contextMenuItem (execute)="$event.item.play()"><i class="icon-play"></i> Play</ng-template>
-	<ng-template contextMenuItem let-item (execute)="$event.item.toggleFav()">
+	<ng-template contextMenuItem let-item="item" (execute)="$event.item.toggleFav()">
 		<app-context-entry-fav [base]="item.base"></app-context-entry-fav>
 	</ng-template>
-	<ng-template contextMenuItem let-item>
+	<ng-template contextMenuItem let-item="item">
 		<app-context-entry-rate [base]="item.base" [baseType]="item.type"></app-context-entry-rate>
 	</ng-template>
 	<ng-template contextMenuItem (execute)="$event.item.addToPlaylist()"><i class="icon-playlist"></i> Add To Playlist</ng-template>

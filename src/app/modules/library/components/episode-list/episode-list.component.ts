@@ -21,6 +21,10 @@ export class EpisodeListComponent {
 	) {
 	}
 
+	trackByFn(index: number, value: Jam.Episode): string {
+		return value.id;
+	}
+
 	onContextMenu($event: Event, item: Jam.Episode): void {
 		this.library.openJamObjectMenu(new JamEpisodeObject(item, this.library), $event);
 	}

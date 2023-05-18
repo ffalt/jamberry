@@ -7,7 +7,7 @@
 		<div class="info">Type</div>
 		<div class="length" title="Duration"><i class="icon-stopwatch"></i></div>
 	</div>
-	<div *ngFor="let album of albums" class="album" appFocusKeyListItem (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)">
+	<div *ngFor="let album of albums; trackBy: trackByFn" class="album" appFocusKeyListItem (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)">
 		<div class="fav"><button (click)="actions.toggleAlbumFav(album)">
 			<app-fav-icon [faved]="album.state?.faved"></app-fav-icon>
 		</button></div>

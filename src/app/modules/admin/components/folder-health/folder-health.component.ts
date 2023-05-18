@@ -48,6 +48,14 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
+	trackBySolutionFn(index: number, value: FolderHealthHintSolution): string {
+		return value.name;
+	}
+
+	trackByDetailFn(index: number, value: string): string {
+		return value;
+	}
+
 	trackByFn(index: number, hint: FolderHealthHint): string {
 		return hint.hint.id;
 	}

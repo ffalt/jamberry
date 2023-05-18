@@ -7,7 +7,7 @@
 		<td class="status">Status</td>
 		<td class="actions">Actions</td>
 	</tr>
-	<tr *ngFor="let root of roots" class="root" appFocusKeyListItem (dblclick)="editRoot(root)" (keydown.enter)="editRoot(root)">
+	<tr *ngFor="let root of roots; trackBy: trackByFn" class="root" appFocusKeyListItem (dblclick)="editRoot(root)" (keydown.enter)="editRoot(root)">
 		<td class="title">{{root.name}}</td>
 		<td class="path">{{root.path}}</td>
 		<td class="strategy">{{root.strategy}}</td>

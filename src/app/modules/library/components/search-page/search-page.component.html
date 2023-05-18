@@ -1,5 +1,5 @@
 <app-autocomplete #autocomplete="appAutocomplete">
-	<ng-template appAutocompleteContent let-control>
+	<ng-template appAutocompleteContent let-control="control">
 		<app-autocomplete-option *ngFor="let option of control.options" [option]="option" [control]="control">
 			<span [innerHTML]="option.data.name | highlight: control.query"></span>
 		</app-autocomplete-option>

@@ -1,7 +1,7 @@
 import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamObjectType} from '@jam';
-import {Index, IndexGroup, IndexService} from '@shared/services';
+import {Index, IndexEntry, IndexGroup, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -18,6 +18,14 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 	protected unsubscribe = new Subject<void>();
 
 	constructor(public indexService: IndexService, public notify: NotifyService) {
+	}
+
+	trackByGroupFn(index: number, value: IndexGroup): string {
+		return value.name;
+	}
+
+	trackByEntryFn(index: number, value: IndexEntry): string {
+		return value.id;
 	}
 
 	ngOnInit(): void {

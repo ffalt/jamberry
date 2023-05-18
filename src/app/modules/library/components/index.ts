@@ -25,6 +25,7 @@ import {MbArtistComponent} from './mb-artist/mb-artist.component';
 import {MbRelationsComponent} from './mb-relations/mb-relations.component';
 import {MediaListComponent} from './media-list/media-list.component';
 import {MediaPlaylistComponent} from './tracks-playlist/media-playlist.component';
+import {MediaPlaylistItemComponent} from './tracks-playlist-item/media-playlist-item.component';
 import {ObjGroupsCardsComponent} from './obj-groups-cards/obj-groups-cards.component';
 import {ObjGroupsPlatesComponent} from './obj-groups-plates/obj-groups-plates.component';
 import {ObjGroupsViewComponent} from './obj-groups-view/obj-groups-view.component';
@@ -82,6 +83,7 @@ export const components: Array<any> = [
 	MbRelationsComponent,
 	MediaListComponent,
 	MediaPlaylistComponent,
+	MediaPlaylistItemComponent,
 	ObjGroupsCardsComponent,
 	ObjGroupsPlatesComponent,
 	ObjGroupsViewComponent,
@@ -152,6 +154,7 @@ export * from './track-similar/track-similar.component';
 export * from './tracks-loader-by-type/tracks-loader-by-type.component';
 export * from './tracks-loader/tracks-loader.component';
 export * from './tracks-playlist/media-playlist.component';
+export * from './tracks-playlist-item/media-playlist-item.component';
 export * from './start-page/start-page.component';
 export * from './queue-page/queue-page.component';
 export * from './search-page/search-page.component';

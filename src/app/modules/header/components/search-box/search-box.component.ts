@@ -25,6 +25,10 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 	constructor(private jam: JamService, private notify: NotifyService, private navig: NavigService) {
 	}
 
+	trackByFn(index: number): string {
+		return index.toString();
+	}
+
 	autocompleteEnter(): void {
 		// nada
 	}

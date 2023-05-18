@@ -25,6 +25,10 @@ export class RootListComponent {
 	) {
 	}
 
+	trackByFn(index: number, value: Jam.Root): string {
+		return value.id;
+	}
+
 	refreshRoot(root: Jam.Root): void {
 		this.rootService.rescanRoot(root);
 	}

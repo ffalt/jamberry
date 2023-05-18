@@ -17,6 +17,10 @@ export class FolderListComponent implements OnChanges {
 	@Input() folders: Array<Jam.Folder> = [];
 	folderItems: Array<FolderItem> = [];
 
+	trackByFn(index: number, value: FolderItem): string {
+		return value.folder.id;
+	}
+
 	getSortValue(column: string, folder: Jam.Folder): string | number | undefined {
 		switch (column) {
 			case 'name':

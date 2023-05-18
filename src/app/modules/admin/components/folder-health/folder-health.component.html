@@ -7,10 +7,10 @@
 	<div *ngIf="hints.length===0" class="hint">No Hints</div>
 	<div *ngFor="let hint of hints; trackBy: trackByFn"class="hint">
 		<i class="icon-warning"></i> {{hint.hint.name}}
-		<div *ngFor="let detail of hint.details" class="details">{{detail}}</div>
+		<div *ngFor="let detail of hint.details; trackBy: trackByDetailFn" class="details">{{detail}}</div>
 	</div>
 	<div class="solutions">
-		<button *ngFor="let sol of solutions" class="button-on-background" (click)="sol.click()">
+		<button *ngFor="let sol of solutions; trackBy: trackBySolutionFn" class="button-on-background" (click)="sol.click()">
 			<i *ngIf="sol.running" class="icon-spin icon-spinner"></i>
 			<ng-container *ngIf="!sol.running">{{sol.name}}</ng-container>
 		</button>

@@ -1,5 +1,5 @@
 <div appFocusKeyList>
-	<div *ngFor="let art of nodes; trackBy: trackByFn"class="artwork" appFocusKeyListItem (keydown.enter)="editArtwork(art.artwork)">
+	<div *ngFor="let art of nodes; trackBy: trackByFn" class="artwork" appFocusKeyListItem (keydown.enter)="editArtwork(art.artwork)">
 		<div class="artwork-img">
 			<img alt="Artwork" [src]="art.thumbnail" (clickenter)="editArtwork(art.artwork)">
 			<div class="mode">{{art.artwork.types}}</div>

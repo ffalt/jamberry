@@ -23,6 +23,10 @@ export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent i
 		super(route);
 	}
 
+	trackByFn(index: number, value: Jam.TrackHealth): string {
+		return value.track.id;
+	}
+
 	onFilterChange(): void {
 		this.reDisplay();
 	}

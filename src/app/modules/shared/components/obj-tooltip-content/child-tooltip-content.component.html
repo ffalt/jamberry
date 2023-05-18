@@ -3,7 +3,7 @@
 	<div class="tooltip-inner">
 		<ng-content></ng-content>
 		<table *ngIf="content">
-			<tr *ngFor="let item of content.items">
+			<tr *ngFor="let item of content.items; trackBy: trackByFn">
 				<td class="tooltip-table-left">{{item.key}}</td>
 				<td class="tooltip-table-right">{{item.value}}</td>
 			</tr>

@@ -12,7 +12,7 @@
 	<div class="content">
 		<app-loading *ngIf="!hints"></app-loading>
 		<app-background-text-list name="Track Health Issues" [list]="hints"></app-background-text-list>
-		<div *ngFor="let trackHealth of hints" class="track">
+		<div *ngFor="let trackHealth of hints; trackBy: trackByFn" class="track">
 			<div class="meta">
 				{{trackHealth.track.name}}
 			</div>

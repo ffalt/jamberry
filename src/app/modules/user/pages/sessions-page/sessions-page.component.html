@@ -3,7 +3,7 @@
 	<div *ngIf="sessions" class="content">
 		<div class="session-list">
 			<div class="section-title">Sessions</div>
-			<div *ngFor="let session of sessions" class="session">
+			<div *ngFor="let session of sessions; trackBy:trackByFn" class="session">
 				<div class="agent">
 					{{session.agent}}<br/>
 					{{session.os}}

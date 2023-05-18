@@ -9,7 +9,7 @@
 	<div *ngIf="images && !isImageSearchRunning" class="match-images">
 		<app-background-text-list name="Images" [list]="images"></app-background-text-list>
 		<div class="media-cards">
-			<div *ngFor="let node of images" class="media-card no-hover">
+			<div *ngFor="let node of images; trackBy: trackByFn" class="media-card no-hover">
 				<ng-container *ngIf="node.base64">
 					<div class="image">
 						<app-image-base64 [image]="node.base64"></app-image-base64>
