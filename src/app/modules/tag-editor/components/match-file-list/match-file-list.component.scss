@@ -1,0 +1,35 @@
+@import "globals.scss";
+
+:host {
+	.match-file-list {
+		@include track-table();
+
+		.match-file-list-header {
+			text-align: center;
+			padding-bottom: $padding-xs;
+		}
+
+		.match-file {
+			@include track-table-row();
+			@include track-table-data-row();
+			padding-left: 0;
+
+			.title {
+				span {
+					font-size: $x-small;
+
+					&.value {
+						color: var(--on-background-active);
+						padding-right: $padding-xs;
+					}
+				}
+			}
+		}
+
+		@media (max-width: $break-pad) {
+			.handle {
+				display: none;
+			}
+		}
+	}
+}

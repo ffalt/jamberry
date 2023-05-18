@@ -1,22 +1,22 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MatchReleaseComponent,} from '@app/modules/tag-editor/components';
+import {MatchFileListComponent} from '@app/modules/tag-editor/components/match-file-list/match-file-list.component';
 import {TEST_TAGEDITOR_MODULE_IMPORTS, TEST_TAGEDITOR_MODULE_PROVIDERS} from '@app/modules/tag-editor/tag-editor.module.mock';
 
 describe('MatchReleaseComponent', () => {
-	let component: MatchReleaseComponent;
-	let fixture: ComponentFixture<MatchReleaseComponent>;
+	let component: MatchFileListComponent;
+	let fixture: ComponentFixture<MatchFileListComponent>;
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_TAGEDITOR_MODULE_IMPORTS],
 			providers: [...TEST_TAGEDITOR_MODULE_PROVIDERS],
-			declarations: [MatchReleaseComponent],
+			declarations: [MatchFileListComponent],
 			teardown: {destroyAfterEach: false}
 		}).compileComponents()
 	);
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(MatchReleaseComponent);
+		fixture = TestBed.createComponent(MatchFileListComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

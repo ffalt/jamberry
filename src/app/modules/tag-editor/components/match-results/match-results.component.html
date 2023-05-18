@@ -1,0 +1,72 @@
+<div *ngIf="matcher" class="match-results">
+	<div *ngFor="let group of matcher.matchTree.groups" class="match-releasegroup">
+		<div class="match-releasegroup-title">
+			<span class="value">{{group.mbGroup.title}}</span>
+		</div>
+		<div *ngIf="group.currentRelease" class="match-release-info">
+			<span class="label">Score:</span>
+			<span class="value"><app-score-box [score]="group.currentRelease.score"></app-score-box></span>
+			<span class="label">Artist: </span> <span *ngIf="group.mbGroup.artistCredit" class="value">{{group.mbGroup.artistCredit[0].name}}</span>
+			<span class="label">Type: </span> <span class="value">{{group.mbGroup.primaryType}}
+			<ng-container *ngIf="group.mbGroup.secondaryTypes"><ng-container *ngFor="let t of group.mbGroup.secondaryTypes">/{{t}}</ng-container></ng-container></span><br/>
+			<span class="label">Date:</span> <span class="value">{{group.currentRelease.mbRelease.date || '?'}}</span>
+			<span class="label">Country:</span> <span class="value">{{group.currentRelease.mbRelease.country || '?'}}</span><br/>
+			<span class="label">Tracks:</span>
+			<ng-container *ngFor="let media of group.currentRelease.media">
+				<span class="value">{{media.tracks.length}} <i *ngIf="media.complete" class="icon-checkmark" title="All tracks matched"></i><i *ngIf="!media.complete" title="Unmatched tracks!" class="icon-warning"></i></span>
+			</ng-container>
+			<ng-container *ngIf="group.currentRelease.media.length>1">
+				<span class="label">Total Tracks:</span>
+				<span class="value">{{group.currentRelease.totalTrack}}</span>
+			</ng-container>
+		</div>
+		<div class="match-select-releases">
+			<button *ngIf="!matcher.isRunning" class="button-on-background" (click)="group.expanded = !group.expanded">Tracks</button>
+			<button *ngIf="!matcher.isRunning && group.releases.length>1" class="button-on-background" (click)="group.selecting=!group.selecting">Releases</button>
+			<button *ngIf="!matcher.isRunning && group.currentRelease"
+							class="button-primary"
+							[ngClass]="{'button-primary':group.currentRelease.complete,'button-on-background':!group.currentRelease.complete}"
+							(click)="chooseRelease(group,group.currentRelease)">Choose
+			</button>
+			<div *ngIf="group.selecting">
+				<form>
+					<fieldset>
+						<label *ngFor="let release of group.releases" class="select" (click)="matcher.setRelease(group, release)">
+							<input type="radio" name="release" [checked]="release === group.currentRelease">
+							<span class="label">Score:</span> <span class="value"><app-score-box [score]="release.score"></app-score-box></span>
+							<span class="label">Date:</span> <span class="value">{{release.mbRelease.date || '?'}}</span>
+							<span class="label">Country:</span> <span class="value">{{release.mbRelease.country || '?'}}</span>
+							<span class="label">Tracks:</span> <span class="value">
+								<ng-container *ngIf="release.mbRelease.media">
+									<ng-container *ngFor="let m of release.mbRelease.media; let index=index">
+										<ng-container *ngIf="index>0">/</ng-container>
+										{{m.trackCount}}</ng-container>
+								</ng-container>
+								<ng-container *ngIf="!release.mbRelease.media">?</ng-container>
+							</span>
+						</label>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+		<div *ngIf="group.expanded && group.currentRelease" class="match-tracks-info">
+			<div *ngFor="let media of group.currentRelease.media">
+				<div *ngIf="group.currentRelease.media.length>1" (click)="media.expanded=!media.expanded">
+					<i [class]="media.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
+					Media {{media.mbMedia.position}}
+					<i *ngIf="media.complete" class="icon-checkmark" title="All tracks matched"></i><i *ngIf="!media.complete" title="Unmatched tracks!" class="icon-warning"></i>
+				</div>
+				<div *ngIf="media.expanded || group.currentRelease.media.length<2">
+					<div *ngFor="let track of media.tracks" class="match-track-info" [ngClass]="{missing:!track.currentMatch}" (drop)="drop($event, group, group.currentRelease, track)" (dragover)="allowDrop($event)">
+						{{track.mbTrack.position}} - {{track.mbTrack.title}} - {{track.mbTrack.artistCredit | mbArtistCredits}}
+						<div *ngIf="track.currentMatch" title="Score: {{track.currentMatch.score | number}} {{track.currentMatch.scores|json}}">
+							<app-score-box [score]="track.currentMatch.score"></app-score-box>
+							<a title="Remove Matching" (click)="matcher.removeMatching(group,group.currentRelease,track)"><i class="icon-trash"></i></a>
+							{{track.currentMatch.match.track.name}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

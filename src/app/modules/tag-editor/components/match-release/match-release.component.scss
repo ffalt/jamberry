@@ -17,27 +17,6 @@
 		flex: 1 1 auto;
 		overflow-y: auto;
 
-		.label {
-			padding-right: 4px;
-			font-size: 0.9em;
-			text-transform: uppercase;
-		}
-
-		.select {
-			padding-top: 2px;
-			padding-bottom: 2px;
-			display: block;
-			font-size: 0.9em;
-
-			input {
-				margin-right: 4px;
-			}
-
-			&:hover {
-				background-color: var(--background-hover);
-			}
-		}
-
 		.match-files {
 			overflow-y: auto;
 			overflow-x: auto;
@@ -46,32 +25,6 @@
 			width: 50%;
 			font-size: 0.8em;
 			padding-right: $padding;
-
-			.match-file-list {
-				@include track-table();
-
-				.match-file-list-header {
-					text-align: center;
-					padding-bottom: $padding-xs;
-				}
-
-				.match-file {
-					@include track-table-row();
-					@include track-table-data-row();
-					padding-left: 0;
-
-					.title {
-						span {
-							font-size: $x-small;
-
-							&.value {
-								color: var(--on-background-active);
-								padding-right: $padding-xs;
-							}
-						}
-					}
-				}
-			}
 		}
 
 		.match-releases {
@@ -82,111 +35,11 @@
 			width: 50%;
 			font-size: 0.9em;
 
-			.icon-checkmark {
-				color: var(--primary);
+			&[hidden]{
+				display: none;
 			}
 
-			.icon-warning {
-				color: var(--accent);
-			}
-
-			.value {
-				color: var(--on-background-active);
-				padding-right: $padding-xs;
-			}
-
-			.match-results {
-				flex: 1 1 auto;
-				overflow-y: auto;
-				overflow-x: auto;
-
-				.match-releasegroup {
-					padding: $padding-xs $padding-xs $padding-xs $padding;
-
-					.match-release-info, .match-tracks-info {
-						font-size: 0.8em;
-					}
-
-					.match-release-info, .match-tracks-info, .match-select-releases {
-						padding-top: 4px;
-					}
-
-					.match-select-releases {
-
-						button {
-							font-size: 0.7em;
-							line-height: 0.7em;
-							vertical-align: top;
-						}
-
-					}
-
-					app-image-base64 {
-						height: 32px;
-						width: 32px;
-					}
-
-					.match-track-info {
-						padding-top: 2px;
-						padding-bottom: 2px;
-						border-top: 1px solid var(--background-border);
-
-						&.missing {
-							color: var(--accent)
-						}
-
-					}
-
-					.match-release {
-						white-space: nowrap;
-						padding: $padding-xs $padding-xs $padding-xs 42px;
-					}
-				}
-
-			}
-
-			.match-apply {
-				flex: 1 1 auto;
-				overflow-y: auto;
-				overflow-x: auto;
-				padding: $padding;
-
-				> div {
-					padding-bottom: $padding-sm;
-				}
-			}
-
-			.section {
-				color: var(--on-background-active);
-				text-transform: uppercase;
-				padding-bottom: $padding-sm;
-				white-space: nowrap;
-			}
-
-			app-match-coverart {
-				border-top: 1px solid var(--background-border);
-			}
-
-			.match-album-images {
-				border-top: 1px solid var(--background-border);
-				padding-top: $padding;
-
-				.front-only-choice {
-					float: right;
-					font-size: 0.8em;
-				}
-
-				.match-images {
-					@include media-cards();
-				}
-			}
-
-			.match-track-moods {
-				border-top: 1px solid var(--background-border);
-				padding-top: $padding;
-			}
 		}
-
 	}
 
 	.buttons {
@@ -255,7 +108,6 @@
 		}
 
 		.content {
-			//display: block;
 			overflow-y: auto;
 
 			.match-files {
@@ -264,10 +116,6 @@
 				overflow-y: inherit;
 				display: block;
 				padding-right: 0;
-
-				.handle {
-					display: none;
-				}
 			}
 
 			.match-releases {
@@ -276,11 +124,6 @@
 				display: none;
 				border-left: none;
 			}
-
-			.match-releasegroup {
-				padding-left: 0;
-			}
-
 		}
 
 		&.right-active {
@@ -288,14 +131,11 @@
 				.match-releases {
 					display: block;
 				}
-
-
 				.match-files {
 					display: none;
 				}
 			}
 		}
-
 	}
 
 }

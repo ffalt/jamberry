@@ -1,0 +1,68 @@
+@import "globals.scss";
+
+:host {
+
+	.match-results {
+		flex: 1 1 auto;
+		overflow-y: auto;
+		overflow-x: auto;
+
+		.icon-checkmark {
+			color: var(--primary);
+		}
+
+		.icon-warning {
+			color: var(--accent);
+		}
+
+		.value {
+			color: var(--on-background-active);
+			padding-right: $padding-xs;
+		}
+
+		.match-releasegroup {
+			padding: $padding-xs $padding-xs $padding-xs $padding;
+
+			.match-release-info, .match-tracks-info {
+				font-size: 0.8em;
+			}
+
+			.match-release-info, .match-tracks-info, .match-select-releases {
+				padding-top: 4px;
+			}
+
+			.match-select-releases {
+
+				button {
+					font-size: 0.7em;
+					line-height: 0.7em;
+					vertical-align: top;
+				}
+
+			}
+
+			app-image-base64 {
+				height: 32px;
+				width: 32px;
+			}
+
+			.match-track-info {
+				padding-top: 2px;
+				padding-bottom: 2px;
+				border-top: 1px solid var(--background-border);
+
+				&.missing {
+					color: var(--accent)
+				}
+
+			}
+
+			.match-release {
+				white-space: nowrap;
+				padding: $padding-xs $padding-xs $padding-xs 42px;
+			}
+		}
+
+	}
+
+}

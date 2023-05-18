@@ -1,0 +1,53 @@
+@import "globals.scss";
+
+:host {
+	.match-apply {
+		flex: 1 1 auto;
+		overflow-y: auto;
+		overflow-x: auto;
+		padding: $padding;
+
+		> div {
+			padding-bottom: $padding-sm;
+		}
+
+		.label {
+			padding-right: 4px;
+			font-size: 0.9em;
+			text-transform: uppercase;
+		}
+
+		.select {
+			padding-top: 2px;
+			padding-bottom: 2px;
+			display: block;
+			font-size: 0.9em;
+
+			input {
+				margin-right: 4px;
+			}
+
+			&:hover {
+				background-color: var(--background-hover);
+			}
+		}
+
+	}
+
+	.section {
+		color: var(--on-background-active);
+		text-transform: uppercase;
+		padding-bottom: $padding-sm;
+		white-space: nowrap;
+	}
+
+	app-match-coverart {
+		border-top: 1px solid var(--background-border);
+	}
+
+	.match-track-moods {
+		border-top: 1px solid var(--background-border);
+		padding-top: $padding;
+	}
+}
+
