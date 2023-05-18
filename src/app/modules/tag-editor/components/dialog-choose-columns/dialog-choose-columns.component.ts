@@ -35,7 +35,7 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 		4: 'http://id3.org/id3v2.4.0-frames'
 	};
 
-	checkChange(col: SelectColumn): void {
+	checkChange(): void {
 		this.setResult();
 	}
 

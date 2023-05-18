@@ -38,7 +38,7 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 		const id = this.folder.id;
 		this.folderService.waitForQueueResult('Creating Artwork', item, [])
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe((_: Jam.AdminChangeQueueInfo) => {
+			.subscribe(() => {
 				this.isIdle = true;
 				this.folderService.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
 				if (!item.error) {

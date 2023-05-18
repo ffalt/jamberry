@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamObjectType, JamService} from '@jam';
 
@@ -15,7 +15,7 @@ export class ContextEntryRateComponent implements OnChanges {
 	constructor(private notify: NotifyService, private jam: JamService) {
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.rating = (this.base && this.base.state ? this.base.state.rated : 0) || 0;
 	}
 

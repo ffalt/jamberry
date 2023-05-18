@@ -163,7 +163,7 @@ export class ContextMenuService {
 	closeAllContextMenus(closeEvent: CloseContextMenuEvent): void {
 		if (this.overlays) {
 			this.close.next(closeEvent);
-			this.overlays.forEach((overlay, index) => {
+			this.overlays.forEach(overlay => {
 				overlay.detach();
 				overlay.dispose();
 			});

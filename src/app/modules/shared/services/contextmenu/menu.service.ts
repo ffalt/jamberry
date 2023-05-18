@@ -38,7 +38,7 @@ export class MenuService {
 	}
 
 	private cleanUp() {
-		this.templateOverlays.forEach((overlay, index) => {
+		this.templateOverlays.forEach(overlay => {
 			overlay.detach();
 			overlay.dispose();
 		});

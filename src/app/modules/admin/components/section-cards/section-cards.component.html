@@ -1,4 +1,4 @@
-<div class="section-card no-hover" *ngFor="let section of sections; trackBy: trackByFn" [routerLink]="['/admin', section.id]">
+<div *ngFor="let section of sections; trackBy: trackByFn"class="section-card no-hover" [routerLink]="['/admin', section.id]">
 	<div class="image">
 		<app-iconart-image [icon]="section.icon"></app-iconart-image>
 	</div>

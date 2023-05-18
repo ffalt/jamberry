@@ -46,7 +46,7 @@
 			<div class="section-title">Server</div>
 			<div class="key-value-row">
 				<div>Location</div>
-				<div><a [title]="auth.auth.server" target="_blank" [href]="auth.auth.server">{{auth.auth.server}}</a></div>
+				<div><a target="_blank" [title]="auth.auth.server" [href]="auth.auth.server">{{auth.auth.server}}</a></div>
 			</div>
 			<div class="key-value-row">
 				<div *ngIf="auth.auth.version">Jamserver API</div>
@@ -55,7 +55,7 @@
 		</div>
 		<div>
 			<div class="section-title">Keyboard Shortcuts</div>
-			<div class="key-value-row" *ngFor="let kcmd of keyCmds">
+			<div *ngFor="let kcmd of keyCmds" class="key-value-row">
 				<div>{{kcmd.desc}}</div>
 				<div>{{kcmd.name}}</div>
 			</div>

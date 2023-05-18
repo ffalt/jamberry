@@ -1,10 +1,10 @@
-<div class="info" *ngIf="lyrics">
+<div *ngIf="lyrics" class="info">
 	<div class="description">
 		<div class="note">
 			<div *ngFor="let note of lyrics">
 				<div [innerHTML]="note"></div>
 			</div>
-			<div class="info-footnote" *ngIf="lyricsSource">
+			<div *ngIf="lyricsSource" class="info-footnote">
 				<a [href]="lyricsSource">Source</a>
 			</div>
 		</div>

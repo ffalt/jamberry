@@ -3,16 +3,16 @@
 	<app-view-type-toggle #viewType [viewTypeList]="viewTypeList"></app-view-type-toggle>
 	<app-background-text-list [list]="index.groups" [name]="index.name"></app-background-text-list>
 	<div *ngIf="viewType.viewTypeList" appFocusKeyList>
-		<div class="index-group" *ngFor="let group of index.groups; let j=index; trackBy: trackByGroupFn">
+		<div *ngFor="let group of index.groups; trackBy: trackByGroupFn; let j=index;" class="index-group">
 			<div class="index-group-name" id="index-{{j}}" (clickenter)="group.expanded=!group.expanded">{{group.name}}</div>
-			<div class="index-entries" *ngIf="group.expanded" >
-				<div class="index-entry" *ngFor="let entry of group.entries; trackBy: trackByEntryFn" (clickenter)="navigTo(entry)" appFocusKeyListItem>
+			<div *ngIf="group.expanded" class="index-entries" >
+				<div *ngFor="let entry of group.entries; trackBy: trackByEntryFn"class="index-entry" appFocusKeyListItem (clickenter)="navigTo(entry)">
 					<div class="title"><p><a class="title-link">{{entry.name}}</a></p> <a *ngIf="entry.extra" (clickenter)="navigToExtra(entry)">{{entry.extra}}</a></div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div *ngIf="!viewType.viewTypeList">
-		<app-index-group id="index-{{i}}" *ngFor="let group of index.groups; let i=index; trackBy: trackByGroupFn" [group]="group" [indexType]="index.type"></app-index-group>
+		<app-index-group *ngFor="let group of index.groups; trackBy: trackByGroupFn; let i=index" id="index-{{i}}" [group]="group" [indexType]="index.type"></app-index-group>
 	</div>
 </ng-container>

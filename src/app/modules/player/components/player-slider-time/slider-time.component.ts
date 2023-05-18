@@ -17,9 +17,7 @@ export class SliderTimeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.player.on(PlayerEvents.TIME, (time: number) => {
-			this.updateTimeIndicator();
-		});
+		this.player.on(PlayerEvents.TIME, () => this.updateTimeIndicator());
 		this.player.on(PlayerEvents.TRACK, () => {
 			this.displayTrack();
 			this.updateTimeIndicator();
@@ -34,12 +32,12 @@ export class SliderTimeComponent implements OnInit {
 	}
 
 	@HostListener('keydown.arrowLeft', ['$event'])
-	rewind(event: KeyboardEvent) {
+	rewind() {
 		this.player.rewind(2);
 	}
 
 	@HostListener('keydown.arrowRight', ['$event'])
-	forward(event: KeyboardEvent) {
+	forward() {
 		this.player.forward(2);
 	}
 

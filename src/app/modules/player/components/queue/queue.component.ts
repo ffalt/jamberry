@@ -86,7 +86,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onPanCancel(_: Event): void {
+	onPanCancel(): void {
 		if (this.currentSwipeElement) {
 			this.currentSwipeElement.style.marginLeft = '0px';
 			this.currentSwipeElement = undefined;

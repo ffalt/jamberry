@@ -1,4 +1,4 @@
-<app-background-text-list [list]="entries" name="Tracks"></app-background-text-list>
+<app-background-text-list name="Tracks" [list]="entries"></app-background-text-list>
 <div *ngIf="entries && entries.length>0" class="tracks">
 	<div class="heading">
 		<div class="handle"></div>
@@ -11,7 +11,7 @@
 		<div class="length" title="Duration"><i class="icon-stopwatch"></i></div>
 	</div>
 	<div cdkDropList (cdkDropListDropped)="onDrop($event)">
-		<div class="track" *ngFor="let media of entries" (tap)="tapTrack($event, media)" cdkDrag>
+		<div *ngFor="let media of entries" class="track" cdkDrag (tap)="tapTrack($event, media)">
 			<div class="handle">
 				<span class="grippy"></span>
 			</div>

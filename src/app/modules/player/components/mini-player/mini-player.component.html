@@ -1,19 +1,19 @@
 <app-mini-time-slider [class.hidden]="tabService.playerTab.active"></app-mini-time-slider>
 <div class="buttons">
 	<div>
-		<button class="art" (click)="tabService.clickPlayer()" [class.active]="tabService.playerTab.active">
+		<button class="art" [class.active]="tabService.playerTab.active" (click)="tabService.clickPlayer()">
 			<div>
-				<app-coverart-image *ngIf="player.currentMedia" [coverArtObj]="player.currentMedia" [size]="50" alt="Album Art" [fill]="true"></app-coverart-image>
+				<app-coverart-image *ngIf="player.currentMedia" alt="Album Art" [coverArtObj]="player.currentMedia" [size]="50" [fill]="true"></app-coverart-image>
 			</div>
-			<i class="icon-info" *ngIf="!player.currentMedia" aria-hidden="true"></i>
+			<i *ngIf="!player.currentMedia" class="icon-info" aria-hidden="true"></i>
 		</button>
 	</div>
 	<div class="actions">
-		<button (click)="player.previous()" [disabled]="!queue.hasPrevious" title="Previous Track"><i class="icon-fast-backward" aria-hidden="true"></i></button>
-		<button class="play" (click)="togglePlayPause()" [title]="player.isPlaying | stringToggle : 'Pause' : 'Play'"><i [class]="player.isPlaying | stringToggle : 'icon-pause' : 'icon-play'" aria-hidden="true"></i></button>
-		<button (click)="player.next()" [disabled]="!queue.hasNext" title="Next Track"><i class="icon-fast-forward" aria-hidden="true"></i></button>
+		<button title="Previous Track" [disabled]="!queue.hasPrevious" (click)="player.previous()"><i class="icon-fast-backward" aria-hidden="true"></i></button>
+		<button class="play" [title]="player.isPlaying | stringToggle : 'Pause' : 'Play'" (click)="togglePlayPause()"><i aria-hidden="true" [class]="player.isPlaying | stringToggle : 'icon-pause' : 'icon-play'"></i></button>
+		<button title="Next Track" [disabled]="!queue.hasNext" (click)="player.next()"><i class="icon-fast-forward" aria-hidden="true"></i></button>
 	</div>
 	<div>
-		<button (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active"><i class="icon-queue" aria-hidden="true"></i></button>
+		<button [class.active]="tabService.queueTab.active" (click)="tabService.clickQueue()"><i class="icon-queue" aria-hidden="true"></i></button>
 	</div>
 </div>

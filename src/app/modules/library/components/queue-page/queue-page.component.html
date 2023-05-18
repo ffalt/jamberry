@@ -1,5 +1,5 @@
 <div class="queue">
-	<app-view-header-icon-section icon="icon-queue" section="Queue" (contextMenuRequest)="onContextMenu($event)" [hasContextMenu]="true"></app-view-header-icon-section>
+	<app-view-header-icon-section icon="icon-queue" section="Queue" [hasContextMenu]="true" (contextMenuRequest)="onContextMenu($event)"></app-view-header-icon-section>
 	<div class="content">
 		<app-queue [showControls]="false"></app-queue>
 	</div>

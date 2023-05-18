@@ -3,12 +3,12 @@
 		<!-- dummy input, so password managers dont fill user name in random text inputs -->
 		<input class="dummy" type="text" name="user" autocomplete="username"/>
 		<label for="admin-pass">Your Admin Password</label>
-		<input id="admin-pass" name="pass" type="password" [(ngModel)]="data.password" [ngModelOptions]="{standalone: true}" autocomplete="current-password"/>
+		<input id="admin-pass" name="pass" type="password" autocomplete="current-password" [ngModelOptions]="{standalone: true}" [(ngModel)]="data.password"/>
 	</form>
 	<form>
 		<!-- dummy input, so password managers dont fill user name in random text inputs -->
 		<input class="dummy" type="text" name="new_name"/>
 		<label for="new-pass">New Password for User <span>{{data.user.name}}</span></label>
-		<input id="new-pass" name="new_password" autocomplete="off" type="password" [(ngModel)]="data.newPassword" [ngModelOptions]="{standalone: true}" autocomplete="new-password"/>
+		<input id="new-pass" name="new_password" type="password" autocomplete="new-password" [ngModelOptions]="{standalone: true}" [(ngModel)]="data.newPassword"/>
 	</form>
 </div>

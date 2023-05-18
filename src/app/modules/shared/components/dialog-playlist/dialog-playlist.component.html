@@ -1,27 +1,27 @@
-<div class="playlist-form" *ngIf="playlistEdit">
+<div *ngIf="playlistEdit" class="playlist-form">
 	<form>
 		<div class="playlist-form-control">
 			<label for="playlist-name">Playlist name</label>
-			<input #playlistNameInput id="playlist-name" type="text" [(ngModel)]="playlistEdit.name" [ngModelOptions]="{standalone: true}"/>
+			<input #playlistNameInput id="playlist-name" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="playlistEdit.name"/>
 		</div>
 		<div class="playlist-form-control">
 			<label for="playlist-comment">Comment</label>
-			<input id="playlist-comment" type="text" [(ngModel)]="playlistEdit.comment" [ngModelOptions]="{standalone: true}"/>
+			<input id="playlist-comment" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="playlistEdit.comment"/>
 		</div>
 		<div class="playlist-form-control">
 			<label for="playlist-public">
-				<input id="playlist-public" type="checkbox" [(ngModel)]="playlistEdit.isPublic" [ngModelOptions]="{standalone: true}"/>
+				<input id="playlist-public" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="playlistEdit.isPublic"/>
 				Playlist is public</label>
 		</div>
 	</form>
 </div>
-<div class="tracks-preview" *ngIf="playlistEdit && playlistEdit.entries.length>0">
+<div *ngIf="playlistEdit && playlistEdit.entries.length>0" class="tracks-preview">
 	<a class="preview" (click)="showTrackPreview=!showTrackPreview">
 		<app-expand-collapse-icon [expanded]="showTrackPreview"></app-expand-collapse-icon>
 		{{showTrackPreview ? 'Hide' : 'Show'}} Tracks
 	</a>
-	<div class="tracks" *ngIf="showTrackPreview">
-		<div class="track" *ngFor="let entry of playlistEdit.entries">
+	<div *ngIf="showTrackPreview" class="tracks">
+		<div *ngFor="let entry of playlistEdit.entries" class="track">
 			<div class="title"><p>{{entry.tag?.title || entry.name}}</p><span title="Artist">{{entry.tag?.artist}}</span></div>
 			<div class="length">{{entry.duration|duration}}</div>
 			<div class="remove"><a title="Remove From Playlist" (click)="remove(entry)"><i class="icon-remove"></i></a></div>

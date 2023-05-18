@@ -14,12 +14,8 @@ export class MiniSliderTimeComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.player.on(PlayerEvents.TIME, (time: number) => {
-			this.updateTimeIndicator();
-		});
-		this.player.on(PlayerEvents.TRACK, () => {
-			this.updateTimeIndicator();
-		});
+		this.player.on(PlayerEvents.TIME, () => this.updateTimeIndicator());
+		this.player.on(PlayerEvents.TRACK, () => this.updateTimeIndicator());
 		this.updateTimeIndicator();
 	}
 

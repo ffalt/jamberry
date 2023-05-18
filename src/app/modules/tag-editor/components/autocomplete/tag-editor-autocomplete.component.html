@@ -8,7 +8,7 @@
 </app-autocomplete>
 
 <div class="input-group" [class.focused]="focused" [class.cell]="!standalone">
-	<input type="text" name="auto" autocomplete="off" [(ngModel)]="edit" [value]="edit" (change)="onValueChange()"
-				 (focus)="onFocus()" (blur)="onBlur()" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this"
-				 [appAutocompleteSettings]="{allowEmpty:true}">
+	<input type="text" name="auto" autocomplete="off" [value]="edit" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this"
+				 [appAutocompleteSettings]="{allowEmpty:true}" [(ngModel)]="edit" (change)="onValueChange()" (focus)="onFocus()"
+				 (blur)="onBlur()">
 </div>

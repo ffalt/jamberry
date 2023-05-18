@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {JamService, MusicBrainz, MusicBrainzLookupType} from '@jam';
 
@@ -25,7 +25,7 @@ export class MbAlbumComponent implements OnChanges {
 	constructor(private jam: JamService, private notify: NotifyService) {
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.refresh();
 	}
 

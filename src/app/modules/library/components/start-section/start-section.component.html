@@ -1,6 +1,6 @@
 <div class="start-section">{{name}}</div>
-<div class="start-items" *ngIf="list && list.length">
-	<a *ngFor="let item of list" class="start-item" (clickenter)="item.click()" tabindex="0">
+<div *ngIf="list && list.length" class="start-items">
+	<a *ngFor="let item of list" class="start-item" tabindex="0" (clickenter)="item.click()">
 		<div class="image">
 			<app-coverart-image [coverArtObj]="item.obj" [size]="80" [alt]="item.obj.name" [fill]="true"></app-coverart-image>
 		</div>
@@ -9,6 +9,6 @@
 		</span>
 	</a>
 </div>
-<div class="none" *ngIf="list && list.length===0">
+<div *ngIf="list && list.length===0" class="none">
 	[ None ]
 </div>

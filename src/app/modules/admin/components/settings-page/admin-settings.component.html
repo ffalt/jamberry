@@ -34,7 +34,7 @@
 						<label for="max_age">Maximum Age of Message</label>
 						<input id="max_age" type="number" [(ngModel)]="settings.chat.maxAge.value" (ngModelChange)="onChange()"/>
 					</div>
-					<select [(ngModel)]="settings.chat.maxAge.unit" placeholder="Unit of Age" (ngModelChange)="onChange()">
+					<select placeholder="Unit of Age" [(ngModel)]="settings.chat.maxAge.unit" (ngModelChange)="onChange()">
 						<option [value]="'year'">year</option>
 						<option [value]="'years'">years</option>
 						<option [value]="'month'">month</option>
@@ -52,7 +52,7 @@
 				<div class="section-title">Artist Index</div>
 				<div class="section-entry">
 					<label for="ignore_articles">Ignored Articles in Artist Names</label>
-					<textarea id="ignore_articles" [(ngModel)]="ignoreArticles" rows="10" cols="20" (ngModelChange)="onChange()"></textarea>
+					<textarea id="ignore_articles" rows="10" cols="20" [(ngModel)]="ignoreArticles" (ngModelChange)="onChange()"></textarea>
 				</div>
 			</div>
 		</ng-container>

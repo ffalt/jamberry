@@ -1,5 +1,5 @@
 import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, HostBinding, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, HostBinding, Input, OnChanges, ViewChild} from '@angular/core';
 import {JamObjectType} from '@jam';
 import {JamLibraryObject} from '@library/model/objects';
 import {MediaPlateComponent} from '@shared/components';
@@ -21,7 +21,7 @@ export class ObjPlateComponent implements OnChanges, FocusableOption {
 	hasEpisodes?: boolean = false;
 	hasMedia?: boolean = false;
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.expanded = false;
 		this.hasTracks = this.obj?.childrenTypes && this.obj.childrenTypes.includes(JamObjectType.track);
 		this.hasAlbums = this.obj?.childrenTypes && this.obj.childrenTypes.includes(JamObjectType.album);

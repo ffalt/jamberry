@@ -1,6 +1,6 @@
-<section class="playing" *ngIf="player.currentTrack" tabindex="0">
+<section *ngIf="player.currentTrack" class="playing" tabindex="0">
 	<div class="art">
-		<app-coverart-image [coverArtObj]="player.currentTrack" [size]="50" alt="Album Art"></app-coverart-image>
+		<app-coverart-image alt="Album Art" [coverArtObj]="player.currentTrack" [size]="50"></app-coverart-image>
 	</div>
 	<div class="song">
 		<a title="Track" (clickenter)="navig.toTrack(player.currentTrack)">{{player.currentTrack.tag?.title|limit:60}}</a>
@@ -11,9 +11,9 @@
 		<a title="Toggle Track as Favorite" (clickenter)="actions.toggleMediaBaseFav(player.currentTrack)"><i [class]="player.currentTrack.state?.faved | stringToggle:'icon-heart-full':'icon-heart-empty'"></i></a>
 	</div>
 </section>
-<section class="playing" *ngIf="player.currentEpisode" tabindex="0">
+<section *ngIf="player.currentEpisode" class="playing" tabindex="0">
 	<div class="art">
-		<app-coverart-image [coverArtObj]="player.currentEpisode" [size]="50" alt="Album Art"></app-coverart-image>
+		<app-coverart-image alt="Album Art" [coverArtObj]="player.currentEpisode" [size]="50"></app-coverart-image>
 	</div>
 	<div class="song">
 		<a title="Episode" (clickenter)="navig.toPodcastEpisodeID(player.currentEpisode.id,player.currentEpisode.name)">{{player.currentEpisode.name|limit:60}}</a>

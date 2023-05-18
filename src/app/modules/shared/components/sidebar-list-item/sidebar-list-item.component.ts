@@ -1,4 +1,4 @@
-import {FocusableOption, FocusOrigin} from '@angular/cdk/a11y';
+import {FocusableOption} from '@angular/cdk/a11y';
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 
 export interface SidebarListItem {
@@ -24,7 +24,7 @@ export class SidebarListItemComponent implements FocusableOption {
 		this.navigate.emit();
 	}
 
-	focus(origin?: FocusOrigin): void {
+	focus(): void {
 		this.element?.nativeElement.focus();
 	}
 }

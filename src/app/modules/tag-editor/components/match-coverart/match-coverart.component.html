@@ -1,15 +1,15 @@
 <div class="match-album-images">
 	<label class="front-only-choice">
-		<input type="checkbox" [(ngModel)]="showFrontImagesOnly" [checked]="showFrontImagesOnly" (change)="onToggleShowFrontImagesOnly()"> Front only
+		<input type="checkbox" [checked]="showFrontImagesOnly" [(ngModel)]="showFrontImagesOnly" (change)="onToggleShowFrontImagesOnly()"> Front only
 	</label>
 	<div class="section">
 		<a href="https://coverartarchive.org/" rel="noopener" target="_blank">Coverart</a>
 	</div>
 	<i *ngIf="isImageSearchRunning" class="icon-spin icon-spinner"></i>
 	<div *ngIf="images && !isImageSearchRunning" class="match-images">
-		<app-background-text-list [list]="images" name="Images"></app-background-text-list>
+		<app-background-text-list name="Images" [list]="images"></app-background-text-list>
 		<div class="media-cards">
-			<div class="media-card no-hover" *ngFor="let node of images">
+			<div *ngFor="let node of images" class="media-card no-hover">
 				<ng-container *ngIf="node.base64">
 					<div class="image">
 						<app-image-base64 [image]="node.base64"></app-image-base64>

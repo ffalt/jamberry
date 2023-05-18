@@ -1,13 +1,13 @@
-<div class="mbalbum" *ngIf="mbAlbum">
+<div *ngIf="mbAlbum" class="mbalbum">
 
-	<div class="section-title">Album Information by <a href="https://musicbrainz.org/release/{{mbAlbum.id}}" target="_blank" rel="noopener">
+	<div class="section-title">Album Information by <a target="_blank" rel="noopener" href="https://musicbrainz.org/release/{{mbAlbum.id}}">
 		<app-mb-icon [size]="18"></app-mb-icon>
 		MusicBrainz</a></div>
 
 	<div class="info-groups">
-		<div class="info-group" *ngFor="let infoGroup of infoGroups">
+		<div *ngFor="let infoGroup of infoGroups" class="info-group">
 			<div class="section-title">{{infoGroup.name}}</div>
-			<div class="key-value-row" *ngFor="let info of infoGroup.infos">
+			<div *ngFor="let info of infoGroup.infos" class="key-value-row">
 				<div>{{info.name}}</div>
 				<div>{{info.value}}</div>
 			</div>
@@ -15,20 +15,20 @@
 	</div>
 
 	<div class="section-title">Release Events</div>
-	<div class="releaseEvent" *ngFor="let releaseEvent of mbAlbum.releaseEvents">
+	<div *ngFor="let releaseEvent of mbAlbum.releaseEvents" class="releaseEvent">
 		<div>{{releaseEvent.date}} <span class="value">{{releaseEvent.area.name}}</span></div>
 	</div>
 
 	<div class="section-title">Labels</div>
-	<div class="labelInfo" *ngFor="let labelInfo of mbAlbum.labelInfo">
+	<div *ngFor="let labelInfo of mbAlbum.labelInfo" class="labelInfo">
 		<div class="value">{{labelInfo.label.name}}</div>
 		<div *ngIf="labelInfo.label.disambiguation">{{labelInfo.label.disambiguation}}</div>
 		<div>Catalog Number <span class="value">{{labelInfo.catalogNumber}}</span></div>
 	</div>
 
-	<div class="media" *ngFor="let media of mbAlbum.media">
+	<div *ngFor="let media of mbAlbum.media" class="media">
 		<div class="section-title">Media: {{media.format}} {{media.position}} ({{media.trackCount}} Tracks)</div>
-		<div class="track" *ngFor="let track of media.tracks">
+		<div *ngFor="let track of media.tracks" class="track">
 			<div>Track {{track.number}} - {{track.length | mediaduration}}</div>
 			<div><span class="value">{{track.title || track.position}}</span> by <span class="value">{{track.artistCredit | mbArtistCredits}}</span></div>
 		</div>

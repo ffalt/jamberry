@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {JamLibraryObject} from '@library/model/objects';
 
 interface ObjGroupsView {
@@ -20,7 +20,7 @@ export class ObjGroupsViewComponent implements OnChanges {
 	@Input() headline?: string;
 	groups?: Array<ObjGroupsView>;
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.groups = undefined;
 		if (this.objs) {
 			if (!this.grouping) {

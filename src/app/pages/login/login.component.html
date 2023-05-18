@@ -8,14 +8,14 @@
 			<form>
 				<ng-container *ngIf="showServer">
 					<label>Server
-						<input type="text" name="server" [(ngModel)]="credentials.server" placeholder="Server">
+						<input type="text" name="server" placeholder="Server" [(ngModel)]="credentials.server">
 					</label>
 				</ng-container>
 				<label>User
-					<input type="text" name="user" [(ngModel)]="credentials.username" placeholder="Username" autocomplete="username">
+					<input type="text" name="user" placeholder="Username" autocomplete="username" [(ngModel)]="credentials.username">
 				</label>
 				<label>Password
-					<input type="password" name="pass" [(ngModel)]="credentials.password" placeholder="Password" autocomplete="password">
+					<input type="password" name="pass" placeholder="Password" autocomplete="password" [(ngModel)]="credentials.password">
 				</label>
 				<input type="submit" name="login" class="login-submit" value="login">
 			</form>
@@ -23,6 +23,6 @@
 <!--				<a (click)="passwdReset()">Forgot Password</a>-->
 <!--			</div>-->
 		</div>
-		<div class="error" *ngIf="error">{{error}}</div>
+		<div *ngIf="error" class="error">{{error}}</div>
 	</div>
 </div>

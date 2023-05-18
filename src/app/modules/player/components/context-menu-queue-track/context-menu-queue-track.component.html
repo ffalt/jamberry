@@ -3,7 +3,7 @@
 		<app-context-entry-fav [base]="track"></app-context-entry-fav>
 	</ng-template>
 	<ng-template contextMenuItem let-track>
-		<app-context-entry-rate [base]="track" baseType="track"></app-context-entry-rate>
+		<app-context-entry-rate baseType="track" [base]="track"></app-context-entry-rate>
 	</ng-template>
 	<ng-template contextMenuItem (execute)="queue.remove($event.item)"><i class="icon-list-add"></i> Remove From Queue</ng-template>
 	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>

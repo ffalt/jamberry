@@ -24,9 +24,8 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 		private userStorage: UserStorageService
 	) {
 		userStorage.userChange
-			.pipe(takeUntil(this.unsubscribe)).subscribe(user => {
-			this.loadFromStorage();
-		});
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => this.loadFromStorage());
 	}
 
 	trackHealthResolved(health: Jam.TrackHealth): void {

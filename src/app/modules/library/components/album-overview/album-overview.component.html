@@ -1,6 +1,6 @@
 <app-loading *ngIf="!album"></app-loading>
 <div *ngIf="album" class="overview">
-	<div class="info" *ngIf="album.info">
+	<div *ngIf="album.info" class="info">
 		<div class="section-title">Description</div>
 		<app-info-note [info]="album.info"></app-info-note>
 	</div>

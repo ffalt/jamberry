@@ -2,37 +2,37 @@
 	<form>
 		<div class="user-form-control">
 			<label for="user-name">Name</label>
-			<input id="user-name" type="text" name="username" [(ngModel)]="edit.edit.name" [ngModelOptions]="{standalone: true}"/>
+			<input id="user-name" type="text" name="username" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.name"/>
 		</div>
 		<div class="user-form-control">
 			<label for="user-mail">Email</label>
-			<input id="user-mail" type="email" name="mail" [(ngModel)]="edit.edit.email" [ngModelOptions]="{standalone: true}"/>
+			<input id="user-mail" type="email" name="mail" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.email"/>
 		</div>
 		<div class="user-form-section">Roles</div>
 		<div class="user-form-roles">
 			<label>
-				<input type="checkbox" title="Allow User to administrate" [(ngModel)]="edit.edit.roleAdmin" [ngModelOptions]="{standalone: true}"/>
+				<input type="checkbox" title="Allow User to administrate" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.roleAdmin"/>
 				Administrator
 			</label><br/>
 			<label>
-				<input type="checkbox" title="Allow User to manage podcasts" [(ngModel)]="edit.edit.rolePodcast" [ngModelOptions]="{standalone: true}"/>
+				<input type="checkbox" title="Allow User to manage podcasts" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.rolePodcast"/>
 				Manage Podcasts
 			</label><br/>
 			<label>
-				<input type="checkbox" title="Allow User to manage podcasts" [(ngModel)]="edit.edit.roleStream" [ngModelOptions]="{standalone: true}"/>
+				<input type="checkbox" title="Allow User to manage podcasts" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.roleStream"/>
 				Can Stream/Download
 			</label><br/>
 			<label>
-				<input type="checkbox" title="Allow User to upload files" [(ngModel)]="edit.edit.roleUpload" [ngModelOptions]="{standalone: true}"/>
+				<input type="checkbox" title="Allow User to upload files" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.roleUpload"/>
 				Can Upload
 			</label>
 		</div>
 		<hr>
 		<div class="user-form-control">
 			<!-- dummy input, so password managers dont fill user name in random text inputs above-->
-			<input class="dummy" #name type="text" name="user" autocomplete="username"/>
+			<input #name class="dummy" type="text" name="user" autocomplete="username"/>
 			<label for="admin-pass" class="label-pass">Your Admin Password</label>
-			<input id="admin-pass" name="pass" type="password" [(ngModel)]="edit.edit.password" [ngModelOptions]="{standalone: true}" autocomplete="password"/>
+			<input id="admin-pass" name="pass" type="password" autocomplete="password" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.password"/>
 		</div>
 	</form>
 </div>

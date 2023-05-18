@@ -7,9 +7,9 @@
 			</ng-container>
 		</ng-template>
 	</app-autocomplete>
-	<input #editorInput type="text" autocomplete="off" [(ngModel)]="value"
-				 [value]="value" (blur)="onBlur()" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this"
-				 [appAutocompleteSettings]="{allowEmpty:true}" (appAutocompleteNavigKeyDown)="onNavigKeyDown($event)"
+	<input #editorInput type="text" autocomplete="off" [value]="value"
+				 [appAutocomplete]="autocomplete" [appAutocompleteControl]="this" [appAutocompleteSettings]="{allowEmpty:true}" [(ngModel)]="value"
+				 (blur)="onBlur()" (appAutocompleteNavigKeyDown)="onNavigKeyDown($event)"
 	>
 </ng-container>
-<div *ngIf="!editing" #editorStart [title]="value" (focus)="editValue()" tabindex="0">{{value}}</div>
+<div *ngIf="!editing" #editorStart tabindex="0" [title]="value" (focus)="editValue()">{{value}}</div>

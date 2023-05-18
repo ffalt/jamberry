@@ -1,14 +1,14 @@
 <div class="genre">
 	<app-view-header-icon-section icon="icon-genre" [section]="title" [tabs]="tabs"></app-view-header-icon-section>
-	<div class="content" *ngIf="genreID">
+	<div *ngIf="genreID" class="content">
 		<div class="tab-content" [ngSwitch]="currentTab.id">
-			<div class="tab-pane" *ngSwitchCase="tabsObjs.albums.id">
+			<div *ngSwitchCase="tabsObjs.albums.id" class="tab-pane">
 				<app-obj-loader [loader]="library.albumLoader" [searchQuery]="{genreID:genreID}"></app-obj-loader>
 			</div>
-			<div class="tab-pane" *ngSwitchCase="tabsObjs.artists.id">
+			<div *ngSwitchCase="tabsObjs.artists.id" class="tab-pane">
 				<app-obj-loader [loader]="library.artistLoader" [searchQuery]="{genreID:genreID}"></app-obj-loader>
 			</div>
-			<div class="tab-pane" *ngSwitchCase="tabsObjs.tracks.id">
+			<div *ngSwitchCase="tabsObjs.tracks.id" class="tab-pane">
 				<app-tracks-loader [queryCmd]="{genreIDs:[genreID]}"></app-tracks-loader>
 			</div>
 		</div>

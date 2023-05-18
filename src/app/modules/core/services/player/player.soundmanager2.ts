@@ -137,7 +137,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 		return this.soundObject ? (this.soundObject.position || 0) : 0;
 	}
 
-	preload(track: Jam.Track): void {
+	preload(): void {
 		// nope?
 	}
 

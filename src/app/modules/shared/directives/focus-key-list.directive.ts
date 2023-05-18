@@ -17,9 +17,9 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 
 	ngAfterContentInit() {
 		this.processKeyList();
-		this.components.changes.pipe(takeUntil(this.unsubscribe)).subscribe(_ => {
-			this.processKeyList();
-		});
+		this.components.changes
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => this.processKeyList());
 	}
 
 	ngOnDestroy(): void {

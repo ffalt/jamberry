@@ -45,7 +45,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	onContextMenu($event: Event, item?: any): void {
+	onContextMenu($event: Event): void {
 		if (!this.hasContextMenu) {
 			return;
 		}

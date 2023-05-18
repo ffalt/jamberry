@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
@@ -44,7 +44,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		return hint.hint.id;
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.display(this.trackHealth);
 	}
 

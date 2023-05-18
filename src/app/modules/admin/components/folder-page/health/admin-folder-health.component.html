@@ -1,13 +1,13 @@
 <div class="health">
 	<div class="actions">
 		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i></button>
-		<select *ngIf="modes.length>0" [(ngModel)]="filter" placeholder="Type of Hints" (ngModelChange)="onFilterChange()">
+		<select *ngIf="modes.length>0" placeholder="Type of Hints" [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
 			<option *ngFor="let m of modes" [value]="m">{{m}}</option>
 		</select>
 	</div>
 	<div class="health-content">
 		<app-loading *ngIf="!hints"></app-loading>
-		<app-background-text-list [list]="hints" name="Folder Health Issues"></app-background-text-list>
+		<app-background-text-list name="Folder Health Issues" [list]="hints"></app-background-text-list>
 		<div *ngFor="let folderHealth of hints" class="folder">
 			<div class="meta">
 				<a [routerLink]="['/admin/folder',folderHealth.folder.id,'overview']">

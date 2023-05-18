@@ -1,4 +1,4 @@
-<app-background-text-list [list]="tracks" name="Tracks"></app-background-text-list>
+<app-background-text-list name="Tracks" [list]="tracks"></app-background-text-list>
 <div *ngIf="tracks && tracks.length>0" class="tracks" appFocusKeyList>
 	<div class="heading">
 		<div class="fav" title="Favorite Track"><i class="icon-heart-empty"></i></div>
@@ -10,7 +10,7 @@
 		<div class="length" title="Duration"><i class="icon-stopwatch"></i></div>
 	</div>
 	<ng-container *ngFor="let track of tracks">
-		<div class="track" (tap)="tapTrack($event, track)" (keydown.enter)="playTrack(track)" (contextmenu)="onContextMenu($event, track)" appFocusKeyListItem>
+		<div class="track" appFocusKeyListItem (tap)="tapTrack($event, track)" (keydown.enter)="playTrack(track)" (contextmenu)="onContextMenu($event, track)">
 			<div class="fav"><a (clickenter)="actions.toggleMediaBaseFav(track)">
 				<app-fav-icon [faved]="track.state?.faved"></app-fav-icon>
 			</a></div>

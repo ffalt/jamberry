@@ -1,11 +1,11 @@
 <ng-container *ngIf="index && index.groups.length>0">
 	<div class="header" (click)="collapsed=!collapsed">Index</div>
-	<div class="index-list-content" *ngIf="!collapsed && index">
+	<div *ngIf="!collapsed && index" class="index-list-content">
 		<div class="index-groups">
-			<div class="index-group" *ngFor="let group of index.groups" [class.active]="group===current" (click)="current=group">{{group.name}}</div>
+			<div *ngFor="let group of index.groups" class="index-group" [class.active]="group===current" (click)="current=group">{{group.name}}</div>
 		</div>
-		<div class="index-entries" *ngIf="current">
-			<a class="item" *ngFor="let o of current.entries" [routerLink]="[o.link, {name: o.name}]" routerLinkActive="active">
+		<div *ngIf="current" class="index-entries">
+			<a *ngFor="let o of current.entries" class="item" routerLinkActive="active" [routerLink]="[o.link, {name: o.name}]">
 				<app-coverart-image [coverArtObj]="o" [alt]="o.name" [size]="23" [round]="true"></app-coverart-image>
 				<span>{{o.name}}</span>
 			</a>

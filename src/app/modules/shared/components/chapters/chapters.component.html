@@ -1,5 +1,5 @@
-<ul class="chapters" *ngIf="episode && episode.chapters">
-	<li class="chapter" *ngFor="let chapter of episode.chapters" (click)="player.startEpisodeSeek(episode, chapter.start)">
+<ul *ngIf="episode && episode.chapters" class="chapters">
+	<li *ngFor="let chapter of episode.chapters" class="chapter" (click)="player.startEpisodeSeek(episode, chapter.start)">
 		<span class="chapter-start">{{chapter.start | mediaduration}}</span> <span class="chapter-title">{{chapter.title}}</span>
 	</li>
 </ul>

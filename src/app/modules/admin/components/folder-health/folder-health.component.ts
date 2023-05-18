@@ -65,7 +65,7 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 		this.display(this.folderHealth);
 	}
 
-	private static describeImageInvalidHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
+	private static describeImageInvalidHint(hint: Jam.FolderHealthHint): Array<string> {
 		if (!hint.details || hint.details.length === 0) {
 			return [];
 		}
@@ -76,7 +76,7 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 		return details;
 	}
 
-	private static describeAlbumTracksMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
+	private static describeAlbumTracksMissingHint(hint: Jam.FolderHealthHint): Array<string> {
 		if (!hint.details || hint.details.length === 0) {
 			return [];
 		}
@@ -201,12 +201,12 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 			case FolderHealthID.albumImageExists:
 				return this.describeAlbumImageMissingHint(hint, folder);
 			case FolderHealthID.albumTracksComplete:
-				return FolderHealthComponent.describeAlbumTracksMissingHint(hint, folder);
+				return FolderHealthComponent.describeAlbumTracksMissingHint(hint);
 			case FolderHealthID.artistImageExists:
 				return this.describeArtistImageMissingHint(hint, folder);
 			case FolderHealthID.artistImageValid:
 			case FolderHealthID.albumImageValid:
-				return FolderHealthComponent.describeImageInvalidHint(hint, folder);
+				return FolderHealthComponent.describeImageInvalidHint(hint);
 			case FolderHealthID.albumImageQuality:
 				return this.describeImageQualityHint(hint, folder);
 			default:

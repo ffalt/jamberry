@@ -8,7 +8,7 @@
 	</div>
 	<app-splitter></app-splitter>
 	<div class="right-content">
-		<nav class="navigation" *ngIf="id">
+		<nav *ngIf="id" class="navigation">
 			<ul class="tabs">
 				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'overview']"><a>Overview</a></li>
 				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'tracks']"><a>Tracks</a></li>

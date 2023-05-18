@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {MusicBrainz} from '@jam';
 
 export interface RelationType {
@@ -20,7 +20,7 @@ export class MbRelationsComponent implements OnChanges {
 	@Input() relations?: Array<MusicBrainz.Relation>;
 	urlRelationGroup?: RelationGroup;
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.refresh();
 	}
 

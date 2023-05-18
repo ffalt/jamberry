@@ -1,4 +1,4 @@
 <app-loading *ngIf="!similar"></app-loading>
 <ng-container *ngIf="similar">
-	<app-obj-groups-view [objs]="similar" typeName="similar Artists"></app-obj-groups-view>
+	<app-obj-groups-view typeName="similar Artists" [objs]="similar"></app-obj-groups-view>
 </ng-container>

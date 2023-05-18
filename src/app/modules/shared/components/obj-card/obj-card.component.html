@@ -2,20 +2,20 @@
 	<a class="image" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()" (appDeferLoad)="gotInView()">
 		<app-coverart-image *ngIf="visible" [coverArtObj]="obj.base" [size]="300" [alt]="obj.name" [fill]="true"></app-coverart-image>
 	</a>
-	<div class="date" *ngIf="obj.year">
+	<div *ngIf="obj.year" class="date">
 		<span class="year">{{obj.year}}</span>
 	</div>
-	<a class="fav" (click)="toggleFav()" (keydown.enter)="toggleFav()" tabindex="0">
+	<a class="fav" tabindex="0" (click)="toggleFav()" (keydown.enter)="toggleFav()">
 		<app-fav-icon [faved]="obj.base.state?.faved"></app-fav-icon>
 	</a>
 	<div class="footer">
-		<a class="footer-content" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()" tabindex="0">
+		<a class="footer-content" tabindex="0" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()">
 			{{obj.name | limit:showParent && obj.parent ? 90 : 50}}
-			<div class="footer-subline" *ngIf="showParent && obj.parent">{{obj.parent | limit:50}}</div>
+			<div *ngIf="showParent && obj.parent" class="footer-subline">{{obj.parent | limit:50}}</div>
 		</a>
 		<div class="footer-buttons">
-			<button class="button-primary" (click)="obj.play()" tabindex="-1"><i class="icon-play" aria-hidden="true"></i> Play</button>
-			<a (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)" tabindex="0">…</a>
+			<button class="button-primary" tabindex="-1" (click)="obj.play()"><i class="icon-play" aria-hidden="true"></i> Play</button>
+			<a tabindex="0" (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)">…</a>
 		</div>
 	</div>
 </ng-container>

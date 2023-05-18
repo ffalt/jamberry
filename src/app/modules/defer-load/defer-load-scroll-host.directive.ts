@@ -23,7 +23,7 @@ export class DeferLoadScrollHostDirective implements OnChanges {
 	}
 
 	@HostListener('scroll', ['$event'])
-	scrollTrack(event: Event): void {
+	scrollTrack(): void {
 		this.scrollNotify.notifyScroll({name: 'scroll-host', element: this.element.nativeElement});
 	}
 }

@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {ChangeDetectorRef, Component, HostBinding, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, HostBinding, Input, OnChanges, OnDestroy, ViewChild} from '@angular/core';
 import {AppService, NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, LastFMLookupType, MusicBrainz, MusicBrainzLookupType, MusicBrainzSearchType} from '@jam';
 import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
@@ -134,7 +134,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 							private client: HttpClient, private cd: ChangeDetectorRef) {
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		if (!this.data) {
 			this.matchings = [];
 			this.isAborted = true;

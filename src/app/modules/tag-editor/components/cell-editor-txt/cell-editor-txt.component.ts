@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {RawTagEditCell} from '../../model/tag-editor.types';
 
@@ -16,7 +16,7 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 	@Output() readonly navigChange = new EventEmitter<void>();
 	@ViewChild('inputEl', {static: true}) input?: ElementRef;
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.changeCell(this.cell);
 	}
 
@@ -76,6 +76,7 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 		this.val = query;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption>> {
 		// if (query.length === 0) {
 		// 	return this.list.map(data => ({data}));

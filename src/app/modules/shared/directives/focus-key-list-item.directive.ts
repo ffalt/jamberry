@@ -1,5 +1,5 @@
 import {FocusableOption} from '@angular/cdk/a11y';
-import {Directive, ElementRef, HostBinding, Input} from '@angular/core';
+import {Directive, ElementRef, HostBinding} from '@angular/core';
 
 @Directive({
 	selector: '[appFocusKeyListItem]'

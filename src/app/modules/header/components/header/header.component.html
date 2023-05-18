@@ -1,12 +1,12 @@
 <header>
-	<button class="sandwich" (click)="toggleMobileNavig()" title="Navigation Menu"><i class="icon-menu" aria-hidden="true"></i></button>
-	<button class="back" (click)="back()" *ngIf="app.standalone" title="Go back"><i class="icon-left-bold" aria-hidden="true"></i></button>
-	<a [routerLink]="['/library']" class="logo" title="Go to Start">
+	<button class="sandwich" title="Navigation Menu" (click)="toggleMobileNavig()"><i class="icon-menu" aria-hidden="true"></i></button>
+	<button *ngIf="app.standalone" class="back" title="Go back" (click)="back()"><i class="icon-left-bold" aria-hidden="true"></i></button>
+	<a class="logo" title="Go to Start" [routerLink]="['/library']">
 		<app-logo-icon></app-logo-icon>
 		<span class="logo-name">{{app.name}}</span>
 	</a>
 	<app-search-box class="search"></app-search-box>
-	<button class="user" title="User Menu" *ngIf="auth.user && auth.user.name" (click)="onContextMenu($event)">
+	<button *ngIf="auth.user && auth.user.name" class="user" title="User Menu" (click)="onContextMenu($event)">
 		<app-coverart-image [coverArtObj]="auth.user" [size]="28" [round]="true"></app-coverart-image>
 	</button>
 </header>

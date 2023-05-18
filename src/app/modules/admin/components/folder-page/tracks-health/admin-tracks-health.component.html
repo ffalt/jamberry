@@ -5,13 +5,13 @@
 		<!--			<option *ngFor="let m of modes" [value]="m">{{m}}</option>-->
 		<!--		</select>-->
 		<label>
-			<input type="checkbox" [(ngModel)]="mediaCheck" [checked]="mediaCheck" (change)="checkChange()">
+			<input type="checkbox" [checked]="mediaCheck" [(ngModel)]="mediaCheck" (change)="checkChange()">
 			Check Media
 		</label>
 	</div>
 	<div class="content">
 		<app-loading *ngIf="!hints"></app-loading>
-		<app-background-text-list [list]="hints" name="Track Health Issues"></app-background-text-list>
+		<app-background-text-list name="Track Health Issues" [list]="hints"></app-background-text-list>
 		<div *ngFor="let trackHealth of hints" class="track">
 			<div class="meta">
 				{{trackHealth.track.name}}

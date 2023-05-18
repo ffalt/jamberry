@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
 
@@ -33,7 +33,7 @@ export class LyricsComponent implements OnChanges {
 			});
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.loadLyrics();
 	}
 }

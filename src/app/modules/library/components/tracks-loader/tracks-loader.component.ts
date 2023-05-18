@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, ViewChild} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
@@ -89,7 +89,7 @@ export class TracksLoaderComponent implements OnChanges {
 		}
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.loadMore.skip = 0;
 		this.loadMore.total = 0;
 		this.loadMore.hasMore = false;

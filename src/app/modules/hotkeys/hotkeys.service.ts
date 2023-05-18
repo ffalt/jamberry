@@ -12,7 +12,7 @@ export class HotkeysService {
 	private preventIn = ['INPUT', 'SELECT', 'TEXTAREA'];
 
 	constructor(@Inject(HotkeysOptions) private options: HotkeyOptions) {
-		Mousetrap.prototype.stopCallback = (event: KeyboardEvent, element: HTMLElement, combo: string, callback: () => void): boolean => {
+		Mousetrap.prototype.stopCallback = (event: KeyboardEvent, element: HTMLElement): boolean => {
 			// if the element has the class "mousetrap" then no need to stop
 			if ((` ${element.className} `).includes(' mousetrap ')) {
 				return false;

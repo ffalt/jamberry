@@ -1,9 +1,9 @@
-<div class="section" *ngIf="urlRelationGroup">
+<div *ngIf="urlRelationGroup" class="section">
 	<div class="section-title">URLs</div>
-	<div class="url-type" *ngFor="let t of urlRelationGroup.types">
+	<div *ngFor="let t of urlRelationGroup.types" class="url-type">
 		<span>{{t.type}}</span>
 		<div *ngFor="let rel of t.relations">
-			<a [href]="rel.url?.resource" target="_blank"> {{rel.url?.resource}}</a>
+			<a target="_blank" [href]="rel.url?.resource"> {{rel.url?.resource}}</a>
 		</div>
 	</div>
 </div>

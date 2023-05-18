@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div *ngIf="hasContextMenu" class="header-infos">
-		<a class="more" (click)="contextmenuEvent($event)" (keydown.enter)="contextmenuEvent($event)" tabindex="0">…</a>
+		<a class="more" tabindex="0" (click)="contextmenuEvent($event)" (keydown.enter)="contextmenuEvent($event)">…</a>
 	</div>
 </div>
 <app-view-header-tabs class="navigation" [tabs]="tabs" [smallTabs]="smallTabs"></app-view-header-tabs>

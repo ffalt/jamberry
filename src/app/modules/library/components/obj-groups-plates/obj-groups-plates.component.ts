@@ -31,9 +31,9 @@ export class ObjGroupsPlatesComponent implements AfterViewInit, OnDestroy {
 
 	ngAfterViewInit() {
 		this.processKeyList();
-		this.plates.changes.pipe(takeUntil(this.unsubscribe)).subscribe(_ => {
-			this.processKeyList();
-		});
+		this.plates.changes
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => this.processKeyList());
 	}
 
 	ngOnDestroy(): void {

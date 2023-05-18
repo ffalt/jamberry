@@ -53,7 +53,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	@HostListener('click', ['$event'])
-	clickEvent(event: MouseEvent): void {
+	clickEvent(): void {
 		this.edit();
 	}
 

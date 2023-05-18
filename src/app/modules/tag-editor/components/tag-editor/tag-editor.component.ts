@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnChanges, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
@@ -52,7 +52,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		return !this.isSaving;
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.refresh();
 	}
 

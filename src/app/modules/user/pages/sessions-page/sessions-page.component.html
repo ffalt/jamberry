@@ -1,9 +1,9 @@
 <div class="sessions">
 	<app-view-header-slim section="Session Logins"></app-view-header-slim>
-	<div class="content" *ngIf="sessions">
+	<div *ngIf="sessions" class="content">
 		<div class="session-list">
 			<div class="section-title">Sessions</div>
-			<div class="session" *ngFor="let session of sessions">
+			<div *ngFor="let session of sessions" class="session">
 				<div class="agent">
 					{{session.agent}}<br/>
 					{{session.os}}

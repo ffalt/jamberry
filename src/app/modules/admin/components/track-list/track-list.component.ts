@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {Router} from '@angular/router';
 import {Jam} from '@jam';
 
@@ -36,7 +36,7 @@ export class TrackListComponent implements OnChanges {
 		}
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.trackItems = (this.tracks || []).map(track => ({track}));
 	}
 

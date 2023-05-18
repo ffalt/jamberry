@@ -31,9 +31,9 @@ export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 
 	ngAfterViewInit() {
 		this.processKeyList();
-		this.cards.changes.pipe(takeUntil(this.unsubscribe)).subscribe(_ => {
-			this.processKeyList();
-		});
+		this.cards.changes
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => this.processKeyList());
 	}
 
 	ngOnDestroy(): void {

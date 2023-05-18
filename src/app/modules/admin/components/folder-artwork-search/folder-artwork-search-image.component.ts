@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {hasFileExtension} from '@app/modules/tag-editor/model/utils';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {
@@ -63,7 +63,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		this.unsubscribe.complete();
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.search();
 		if (this.data && this.data.folder) {
 			if (this.data.folder.artworks) {

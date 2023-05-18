@@ -1,4 +1,4 @@
-import {FocusableOption, FocusOrigin} from '@angular/cdk/a11y';
+import {FocusableOption} from '@angular/cdk/a11y';
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ContextMenuItemDirective} from './contextmenu.item.directive';
 
@@ -19,7 +19,7 @@ export class ContextMenuContentItemComponent implements FocusableOption {
 		$event.stopPropagation();
 	}
 
-	focus(origin?: FocusOrigin): void {
+	focus(): void {
 		this.itemRef?.nativeElement.focus();
 	}
 

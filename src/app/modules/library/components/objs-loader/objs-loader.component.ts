@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, ViewChild} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {AlbumType, Jam, JamService, ListType} from '@jam';
 import {JamObjsLoader} from '@library/model/loaders';
@@ -70,7 +70,7 @@ export class ObjsLoaderComponent implements OnChanges {
 		this.objs = [];
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.loadMore.skip = 0;
 		this.loadMore.total = 0;
 		this.loadMore.hasMore = false;

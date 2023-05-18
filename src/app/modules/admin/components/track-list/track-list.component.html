@@ -1,4 +1,4 @@
-<app-background-text-list [list]="tracks" name="Tracks"></app-background-text-list>
+<app-background-text-list name="Tracks" [list]="tracks"></app-background-text-list>
 <table *ngIf="tracks && tracks.length>0" class="tracks">
 	<tr class="track heading">
 		<td class="number">Track Nr.</td>
@@ -10,7 +10,7 @@
 		<td class="samplerate">SampleRate</td>
 		<td class="duration">Duration</td>
 	</tr>
-	<tr class="track" *ngFor="let trackItem of trackItems" (click)="trackItem.selected=!trackItem.selected" [class.selected]="trackItem.selected">
+	<tr *ngFor="let trackItem of trackItems" class="track" [class.selected]="trackItem.selected" (click)="trackItem.selected=!trackItem.selected">
 		<td class="number">{{trackItem.track.tag?.trackNr}}</td>
 		<td class="title">{{trackItem.track.tag?.title}}</td>
 		<td class="artist">{{trackItem.track.tag?.artist}}</td>

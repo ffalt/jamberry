@@ -1,11 +1,11 @@
-<div *ngIf="group" (appDeferLoad)="gotInView()" appFocusKeyList>
+<div *ngIf="group" appFocusKeyList (appDeferLoad)="gotInView()">
 	<div class="title" (click)="group.expanded=!group.expanded">{{group.name}}</div>
-	<div class="index-cards" *ngIf="group.expanded">
+	<div *ngIf="group.expanded" class="index-cards">
 		<ng-container *ngIf="!visible">
-			<div class="index-card-placeholder" *ngFor="let entry of group.entries; trackBy: trackByEntryFn" (clickenter)="navigTo(entry)" appFocusKeyListItem></div>
+			<div *ngFor="let entry of group.entries; trackBy: trackByEntryFn" class="index-card-placeholder" appFocusKeyListItem (clickenter)="navigTo(entry)"></div>
 		</ng-container>
 		<ng-container *ngIf="visible">
-			<app-index-entry-card *ngFor="let entry of group.entries; trackBy: trackByEntryFn" [entry]="entry" (clickenter)="navigTo(entry)" appFocusKeyListItem></app-index-entry-card>
+			<app-index-entry-card *ngFor="let entry of group.entries; trackBy: trackByEntryFn" appFocusKeyListItem [entry]="entry" (clickenter)="navigTo(entry)"></app-index-entry-card>
 		</ng-container>
 	</div>
 </div>

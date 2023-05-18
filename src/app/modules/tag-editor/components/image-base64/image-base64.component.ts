@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 
 export interface Base64Image {
 	base64: string;
@@ -15,7 +15,7 @@ export class ImageBase64Component implements OnChanges {
 	@Input() image?: Base64Image;
 	src?: string;
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.src = undefined;
 		if (this.image) {
 			this.src = `data:${(this.image.mimeType || 'image/jpeg')};base64,${this.image.base64}`;

@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
 				console.error(e);
 			});
 		}
-		this.router.events.forEach(event => {
+		this.router.events.forEach(() => {
 			this.tabService.switchToMain();
 		}).catch(e => {
 			console.error(e);
@@ -110,12 +110,12 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	@HostListener('window:scroll', ['$event'])
-	scrollTrack(event: Event): void {
+	scrollTrack(): void {
 		this.deferLoadService.notifyScroll({name: 'app'});
 	}
 
 	@HostListener('window:resize', ['$event'])
-	resize(event: Event): void {
+	resize(): void {
 		this.determinateScreen();
 		this.tabService.switchToMain();
 	}
@@ -125,37 +125,37 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	private setKeyboardShortcuts(): void {
-		this.hotkeysService.add(new Hotkey(HOTKEYS.playPause.shortcut, (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.playPause.shortcut, (): boolean => {
 			this.player.togglePlayPause();
 			return false; // Prevent bubbling
 		}, undefined, HOTKEYS.playPause.name));
 
-		this.hotkeysService.add(new Hotkey(HOTKEYS.nextTrack.shortcut, (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.nextTrack.shortcut, (): boolean => {
 			this.player.next();
 			return false; // Prevent bubbling
 		}, undefined, HOTKEYS.nextTrack.name));
 
-		this.hotkeysService.add(new Hotkey(HOTKEYS.previousTrack.shortcut, (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.previousTrack.shortcut, (): boolean => {
 			this.player.previous();
 			return false; // Prevent bubbling
 		}, undefined, HOTKEYS.previousTrack.name));
 
-		this.hotkeysService.add(new Hotkey(HOTKEYS.volumeUp.shortcut, (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.volumeUp.shortcut, (): boolean => {
 			this.player.volumeUp();
 			return false; // Prevent bubbling
 		}, undefined, HOTKEYS.volumeUp.name));
 
-		this.hotkeysService.add(new Hotkey(HOTKEYS.forward.shortcut, (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.forward.shortcut, (): boolean => {
 			this.player.forward(10);
 			return false; // Prevent bubbling
 		}, undefined, HOTKEYS.forward.name));
 
-		this.hotkeysService.add(new Hotkey(HOTKEYS.rewind.shortcut, (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.rewind.shortcut, (): boolean => {
 			this.player.rewind(10);
 			return false; // Prevent bubbling
 		}, undefined, HOTKEYS.rewind.name));
 
-		this.hotkeysService.add(new Hotkey(HOTKEYS.volumeDown.shortcut, (event: KeyboardEvent): boolean => {
+		this.hotkeysService.add(new Hotkey(HOTKEYS.volumeDown.shortcut, (): boolean => {
 			this.player.volumeDown();
 			return false; // Prevent bubbling
 		}, undefined, HOTKEYS.volumeDown.name));

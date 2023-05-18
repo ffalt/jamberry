@@ -25,7 +25,7 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 	constructor(private jam: JamService, private notify: NotifyService, private navig: NavigService) {
 	}
 
-	autocompleteEnter(query: string): void {
+	autocompleteEnter(): void {
 		// nada
 	}
 

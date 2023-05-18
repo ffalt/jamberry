@@ -1,13 +1,13 @@
 <div *ngIf="activeCol && editor" class="column-tools">
 	<div class="column-tools-title">
-		<div class="close-panel"><a (click)="close()" (keydown.enter)="close()" class="close" tabindex="0" title="Close"><i aria-hidden="true"></i></a></div>
+		<div class="close-panel"><a class="close" tabindex="0" title="Close" (click)="close()" (keydown.enter)="close()"><i aria-hidden="true"></i></a></div>
 		Current Column: <span>{{activeCol.def.name}}</span>
 	</div>
 	<div class="column-tool-content">
-		<div class="column-tool" *ngIf="activeCol.multi">
+		<div *ngIf="activeCol.multi" class="column-tool">
 			Column Text
 			<div class="input-box">
-				<app-tag-editor-autocomplete [(value)]="multiStr" [getList]="activeCol.getAutoCompleteList"></app-tag-editor-autocomplete>
+				<app-tag-editor-autocomplete [getList]="activeCol.getAutoCompleteList" [(value)]="multiStr"></app-tag-editor-autocomplete>
 			</div>
 			<button class="button-on-background" (click)="editor.setColumnText(activeCol, multiStr)">Set</button>
 			<button class="button-on-background" (click)="editor.appendColumnText(activeCol, multiStr)">Append</button>
@@ -27,7 +27,7 @@
 				<input type="number">
 			</div>
 		</div>
-		<div class="column-tool" *ngFor="let action of activeCol.actions">
+		<div *ngFor="let action of activeCol.actions" class="column-tool">
 			{{action.title}}<br/>
 			<button class="button-on-background" (click)="action.click()"><i class="icon-down-thin"></i></button>
 		</div>

@@ -15,12 +15,12 @@ export class SliderVolumeComponent implements OnInit {
 	}
 
 	@HostListener('keydown.arrowLeft', ['$event'])
-	volumeDown(event: KeyboardEvent) {
+	volumeDown() {
 		this.player.volumeDown();
 	}
 
 	@HostListener('keydown.arrowRight', ['$event'])
-	volumeUp(event: KeyboardEvent) {
+	volumeUp() {
 		this.player.volumeUp();
 	}
 

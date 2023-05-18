@@ -1,4 +1,4 @@
-<app-background-text-list [list]="albums" name="Albums"></app-background-text-list>
+<app-background-text-list name="Albums" [list]="albums"></app-background-text-list>
 <div *ngIf="albums && albums.length>0" class="albums" appFocusKeyList>
 	<div class="heading">
 		<div class="fav" title="Favorite"><i class="icon-heart-empty"></i></div>
@@ -7,7 +7,7 @@
 		<div class="info">Type</div>
 		<div class="length" title="Duration"><i class="icon-stopwatch"></i></div>
 	</div>
-	<div class="album" *ngFor="let album of albums" (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)" appFocusKeyListItem>
+	<div *ngFor="let album of albums" class="album" appFocusKeyListItem (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)">
 		<div class="fav"><button (click)="actions.toggleAlbumFav(album)">
 			<app-fav-icon [faved]="album.state?.faved"></app-fav-icon>
 		</button></div>

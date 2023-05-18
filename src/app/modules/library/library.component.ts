@@ -12,7 +12,7 @@ export class LibraryComponent {
 	}
 
 	@HostListener('scroll', ['$event'])
-	scrollTrack(event: Event): void {
+	scrollTrack(): void {
 		this.deferLoadService.notifyScroll({name: 'library', element: this.element.nativeElement});
 	}
 

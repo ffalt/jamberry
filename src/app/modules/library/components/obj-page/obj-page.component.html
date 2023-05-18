@@ -1,5 +1,5 @@
 <app-loading *ngIf="!obj"></app-loading>
-<div class="obj" *ngIf="obj">
+<div *ngIf="obj" class="obj">
 	<app-view-header-jam-base
 		[appBackgroundImage]="obj.id" [section]="obj.name" [sectionType]="obj.mediaType"
 		[base]="obj.base" [infos]="infos" [tabs]="tabs" (contextMenuRequest)="obj.onContextMenu($event, true)">

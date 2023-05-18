@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {ImageFormatType, Jam, JamService} from '@jam';
@@ -48,7 +48,7 @@ export class ArtworkListComponent implements OnChanges {
 		return node.artwork.id;
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.displayArtworks();
 	}
 

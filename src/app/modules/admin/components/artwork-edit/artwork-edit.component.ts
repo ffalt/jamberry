@@ -1,5 +1,5 @@
 import {HttpEventType} from '@angular/common/http';
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -74,7 +74,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 		// show message
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.load();
 	}
 

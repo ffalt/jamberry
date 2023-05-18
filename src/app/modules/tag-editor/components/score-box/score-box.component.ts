@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 
 @Component({
 	selector: 'app-score-box',
@@ -19,7 +19,7 @@ export class ScoreBoxComponent implements OnChanges {
 		return 'red';
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.color = (this.score === undefined) ? undefined : this.getMatchColor(this.score);
 	}
 

@@ -1,47 +1,47 @@
-<div class="player-top-view" *ngIf="player.currentTrack" (contextmenu)="onContextMenu($event, player.currentTrack)">
+<div *ngIf="player.currentTrack" class="player-top-view" (contextmenu)="onContextMenu()">
 	<div class="track-plate">
 		<div class="art">
 			<app-coverart-image [coverArtObj]="player.currentTrack" [size]="135" [alt]="player.currentTrack.name"></app-coverart-image>
 		</div>
 		<div class="meta">
-			<app-fav-icon (clickenter)="actions.toggleMediaBaseFav(player.currentTrack)" [faved]="player.currentTrack.state?.faved" tabindex="0"></app-fav-icon>
+			<app-fav-icon tabindex="0" [faved]="player.currentTrack.state?.faved" (clickenter)="actions.toggleMediaBaseFav(player.currentTrack)"></app-fav-icon>
 			<div class="year">{{player.currentTrack.tag?.year}}</div>
-			<a class="name" (clickenter)="navig.toTrack(player.currentTrack)"
-				 tabindex="0"><a>{{player.currentTrack.tag?.title}}</a></a>
-			<a class="album" (clickenter)="navig.toMediaAlbum(player.currentTrack)"
-				 tabindex="0"><a>{{player.currentTrack.tag?.album}}</a></a>
-			<a class="artist" (clickenter)="navig.toMediaArtist(player.currentTrack)"
-				 tabindex="0"><a>{{player.currentTrack.tag?.artist}}</a></a>
+			<a class="name" tabindex="0"
+				 (clickenter)="navig.toTrack(player.currentTrack)"><a>{{player.currentTrack.tag?.title}}</a></a>
+			<a class="album" tabindex="0"
+				 (clickenter)="navig.toMediaAlbum(player.currentTrack)"><a>{{player.currentTrack.tag?.album}}</a></a>
+			<a class="artist" tabindex="0"
+				 (clickenter)="navig.toMediaArtist(player.currentTrack)"><a>{{player.currentTrack.tag?.artist}}</a></a>
 			<div class="actions">
-				<a class="more" (clickenter)="onContextMenu($event, player.currentTrack)" tabindex="0" title="Menu">…</a>
+				<a class="more" tabindex="0" title="Menu" (clickenter)="onContextMenu()">…</a>
 			</div>
 		</div>
 	</div>
 	<app-lyrics [trackID]="player.currentTrack.id"></app-lyrics>
 </div>
-<div class="player-top-view" *ngIf="player.currentEpisode">
+<div *ngIf="player.currentEpisode" class="player-top-view">
 	<div class="track-plate">
 		<div class="art">
 			<app-coverart-image [coverArtObj]="player.currentEpisode" [size]="135" [alt]="player.currentEpisode.name"></app-coverart-image>
 		</div>
 		<div class="meta">
-			<app-fav-icon (click)="actions.toggleMediaBaseFav(player.currentEpisode)"
-										(keydown.enter)="actions.toggleMediaBaseFav(player.currentEpisode)"
-										[faved]="player.currentEpisode.state?.faved" tabindex="0"></app-fav-icon>
+			<app-fav-icon tabindex="0"
+										[faved]="player.currentEpisode.state?.faved"
+										(click)="actions.toggleMediaBaseFav(player.currentEpisode)" (keydown.enter)="actions.toggleMediaBaseFav(player.currentEpisode)"></app-fav-icon>
 			<div class="year">{{player.currentEpisode.date | date}}</div>
 			<a class="name"
+				 tabindex="0"
 				 (click)="navig.toPodcastEpisode(player.currentEpisode)"
-				 (keydown.enter)="navig.toPodcastEpisode(player.currentEpisode)"
-				 tabindex="0">{{player.currentEpisode.tag ? player.currentEpisode.tag.title : player.currentEpisode.name}}</a>
+				 (keydown.enter)="navig.toPodcastEpisode(player.currentEpisode)">{{player.currentEpisode.tag ? player.currentEpisode.tag.title : player.currentEpisode.name}}</a>
 			<a class="album"
+				 tabindex="0"
 				 (click)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)"
-				 (keydown.enter)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)"
-				 tabindex="0">{{player.currentEpisode.podcast}}</a>
+				 (keydown.enter)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)">{{player.currentEpisode.podcast}}</a>
 			<div class="artist">{{player.currentEpisode.author}}</div>
 			<div class="actions"></div>
 		</div>
 	</div>
-	<div class="description" *ngIf="player.currentEpisode.summary">
+	<div *ngIf="player.currentEpisode.summary" class="description">
 		<div class="note">{{player.currentEpisode.summary}}</div>
 	</div>
 	<app-chapters *ngIf="player.currentEpisode && player.currentEpisode.chapters" [episode]="player.currentEpisode"></app-chapters>

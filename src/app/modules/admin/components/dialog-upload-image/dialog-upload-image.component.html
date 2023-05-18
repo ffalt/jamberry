@@ -2,9 +2,9 @@
 	<div>{{isUploading|stringToggle:'Uploading':'Creating Artwork'}}</div>
 	<app-loading></app-loading>
 </div>
-<div class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)" *ngIf="isIdle">
+<div *ngIf="isIdle" class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)">
 	<form>
-		<input type="file" (change)="selectFile($event)" placeholder="Upload image" accept=".png,.jpeg,.jpg">
+		<input type="file" placeholder="Upload image" accept=".png,.jpeg,.jpg" (change)="selectFile($event)">
 	</form>
 </div>
 

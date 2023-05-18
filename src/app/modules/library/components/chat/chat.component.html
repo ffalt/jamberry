@@ -1,6 +1,6 @@
 <div class="messages">
 	<ng-container *ngIf="messages">
-		<div class="message" *ngFor="let message of messages; let index=index;" [class.grouped]="index>0 && messages[index-1].userID===message.userID">
+		<div *ngFor="let message of messages; let index=index;" class="message" [class.grouped]="index>0 && messages[index-1].userID===message.userID">
 			<div>
 				<app-coverart-image class="avatar" [coverArtObj]="{id:message.userID,name:message.userName}" [size]="22" [round]="true" [alt]="message.userName"></app-coverart-image>
 				<div class="time">{{message.created|date:'shortTime'}}</div>
@@ -14,7 +14,7 @@
 </div>
 <div class="chat-input">
 	<div class="input-box">
-		<input type="text" name="message" autocomplete="none" [(ngModel)]="msg" placeholder="Enter Chat Message" (keydown.enter)="post()">
+		<input type="text" name="message" autocomplete="none" placeholder="Enter Chat Message" [(ngModel)]="msg" (keydown.enter)="post()">
 	</div>
-	<button (click)="post()" class="button-on-control">Send</button>
+	<button class="button-on-control" (click)="post()">Send</button>
 </div>

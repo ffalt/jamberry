@@ -1,9 +1,9 @@
 <app-loading *ngIf="!folder"></app-loading>
-<div class="folder" *ngIf="folder">
+<div *ngIf="folder" class="folder">
 	<div class="actions">
-		<button class="button-on-control" (click)="refresh()" title="Refresh" ><i class="icon-reload"></i></button>
-		<button class="button-on-control" (click)="moveFolder()" title="Move Folder…"><i class="icon-right-bold"></i></button>
-		<button class="button-on-control" (click)="removeFolder()" title="Remove Folder…"><i class="icon-trash"></i></button>
+		<button class="button-on-control" title="Refresh" (click)="refresh()" ><i class="icon-reload"></i></button>
+		<button class="button-on-control" title="Move Folder…" (click)="moveFolder()"><i class="icon-right-bold"></i></button>
+		<button class="button-on-control" title="Remove Folder…" (click)="removeFolder()"><i class="icon-trash"></i></button>
 	</div>
 	<div class="content">
 		<app-info-note *ngIf="folder.info?.description" [info]="folder.info"></app-info-note>
@@ -12,7 +12,7 @@
 				<div>
 					<div class="label">Name</div>
 					<div>
-						<app-inline-edit [(ngModel)]="name" (endEditRequest)="editFolderName()" type="text"></app-inline-edit>
+						<app-inline-edit type="text" [(ngModel)]="name" (endEditRequest)="editFolderName()"></app-inline-edit>
 					</div>
 				</div>
 				<div>
@@ -49,11 +49,11 @@
 				</div>
 				<div *ngIf="folder.tag?.mbReleaseID">
 					<div class="label">MB Release Id</div>
-					<div><a href="https://musicbrainz.org/release/{{folder.tag?.mbReleaseID}}" target="_blank" rel="noopener">{{folder.tag?.mbReleaseID}}</a></div>
+					<div><a target="_blank" rel="noopener" href="https://musicbrainz.org/release/{{folder.tag?.mbReleaseID}}">{{folder.tag?.mbReleaseID}}</a></div>
 				</div>
 				<div *ngIf="folder.tag?.mbArtistID">
 					<div class="label">MB Artist Id</div>
-					<div><a href="https://musicbrainz.org/artist/{{folder.tag?.mbArtistID}}" target="_blank" rel="noopener">{{folder.tag?.mbArtistID}}</a></div>
+					<div><a target="_blank" rel="noopener" href="https://musicbrainz.org/artist/{{folder.tag?.mbArtistID}}">{{folder.tag?.mbArtistID}}</a></div>
 				</div>
 				<div *ngIf="folder.parentID">
 					<div class="label">Parent Folder Id</div>
@@ -64,12 +64,12 @@
 		<div class="artworks">
 			<div class="actions">
 				<button class="button-on-control" (click)="uploadImage()"><i class="icon-upload-cloud"></i> Upload Artwork</button>
-				<button class="button-on-control" *ngIf="isAlbum && folder.tag &&  (folder.tag.mbReleaseID || folder.tag.mbReleaseGroupID)"
-								(click)="searchImages()" title="Album Images"><i class="icon-picture"></i> Search Artwork
+				<button *ngIf="isAlbum && folder.tag &&  (folder.tag.mbReleaseID || folder.tag.mbReleaseGroupID)" class="button-on-control"
+								title="Album Images" (click)="searchImages()"><i class="icon-picture"></i> Search Artwork
 				</button>
-				<button class="button-on-control" *ngIf="isArtist && folder.tag && folder.tag.mbArtistID" (click)="searchImages()" title="Artist Images"><i class="icon-picture"></i> Search Art</button>
+				<button *ngIf="isArtist && folder.tag && folder.tag.mbArtistID" class="button-on-control" title="Artist Images" (click)="searchImages()"><i class="icon-picture"></i> Search Art</button>
 			</div>
-			<div class="artworks-content" *ngIf="folder.artworks && folder.artworks.length>0">
+			<div *ngIf="folder.artworks && folder.artworks.length>0" class="artworks-content">
 				<app-admin-artwork-list [folderID]="folder.id" [artworks]="folder.artworks"></app-admin-artwork-list>
 			</div>
 		</div>

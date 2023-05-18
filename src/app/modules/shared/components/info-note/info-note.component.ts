@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChange} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {Jam} from '@jam';
 
 function splitLines(text: string): Array<string> {
@@ -18,7 +18,7 @@ export class InfoNoteComponent implements OnChanges {
 	longInfo = false;
 	notes: Array<string> = [];
 
-	ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
+	ngOnChanges(): void {
 		this.refresh();
 	}
 

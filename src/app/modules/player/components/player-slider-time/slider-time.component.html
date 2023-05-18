@@ -1,10 +1,10 @@
 <div class="slider" (mousedown)="changePlaybackTime($event)">
-	<div class="back" *ngIf="!svg"></div>
-	<div class="waveform" *ngIf="svg">
-		<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" [attr.viewBox]="svg.viewbox" style="fill-rule:evenodd;clip-rule:evenodd;">
+	<div *ngIf="!svg" class="back"></div>
+	<div *ngIf="svg" class="waveform">
+		<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="fill-rule:evenodd;clip-rule:evenodd;" [attr.viewBox]="svg.viewbox">
 			<defs>
 				<clipPath id="cut-off-right">
-					<rect x="0" y="0" [style.width.%]="timePC" height="256"/>
+					<rect x="0" y="0" height="256" [style.width.%]="timePC"/>
 				</clipPath>
 				<path id="waveform-path" [attr.d]="svg.path"></path>
 			</defs>

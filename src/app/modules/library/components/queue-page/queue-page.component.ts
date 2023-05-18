@@ -13,7 +13,7 @@ export class QueuePageComponent {
 	constructor(public queue: QueueService, public playlistDialogsService: PlaylistDialogsService, private library: LibraryService) {
 	}
 
-	onContextMenu($event: Event, item?: any): void {
+	onContextMenu($event: Event): void {
 		this.library.openSimpleMenu([
 			{
 				text: 'Clear Queue',

@@ -8,7 +8,7 @@
 		<span *ngIf="!refreshing">Random Image</span>
 	</button>
 	<form>
-		<input id="file" class="inputfile" type="file" (change)="selectFile($event)" placeholder="Upload image" accept=".png,.jpeg,.jpg">
+		<input id="file" class="inputfile" type="file" placeholder="Upload image" accept=".png,.jpeg,.jpg" (change)="selectFile($event)">
 		<label class="button-primary" for="file">Choose a file</label>
 	</form>
 </div>

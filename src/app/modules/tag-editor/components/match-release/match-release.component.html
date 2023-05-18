@@ -1,13 +1,13 @@
 <div class="toggle" (click)="rightActive=!rightActive">
-	<a class="button-on-control" *ngIf="rightActive"><i class="icon-left"></i> Show Tracks</a>
-	<a class="button-on-control" *ngIf="!rightActive"><i class="icon-right"></i> Show Matchings</a>
+	<a *ngIf="rightActive" class="button-on-control"><i class="icon-left"></i> Show Tracks</a>
+	<a *ngIf="!rightActive" class="button-on-control"><i class="icon-right"></i> Show Matchings</a>
 </div>
 
 <div class="content">
 	<div class="match-files">
 		<div class="match-file-list">
 			<div class="match-file-list-header">{{matchings.length}} Tracks</div>
-			<div class="match-file" *ngFor="let match of matchings" draggable="true" (dragstart)="drag($event,match)">
+			<div *ngFor="let match of matchings" class="match-file" draggable="true" (dragstart)="drag($event,match)">
 				<div class="handle">
 					<span class="grippy"></span>
 				</div>
@@ -36,7 +36,7 @@
 				<div class="section">Genres</div>
 				<i *ngIf="isGenreSearchRunning" class="icon-spin icon-spinner"></i>
 				<ng-container *ngIf="genres && !isGenreSearchRunning">
-					<label class="select" *ngFor="let genre of genres" title="Usage Count: {{genre.tag.count}}">
+					<label *ngFor="let genre of genres" class="select" title="Usage Count: {{genre.tag.count}}">
 						<input type="checkbox" [(ngModel)]="genre.checked"> {{genre.tag.name}} [{{genre.tag.count}}]
 					</label>
 					<label class="select">
@@ -47,29 +47,29 @@
 			<app-match-coverart [data]="coverArtSearch"></app-match-coverart>
 			<div class="match-track-moods">
 				<div class="section">More</div>
-				<button [class.disabled]="!isRunning" class="button-on-background" (click)="loadLyrics(current.group.currentRelease)">Load Lyrics</button>
-				<button [class.disabled]="!isRunning" class="button-on-background" (click)="loadMoods(current.group.currentRelease)">Load AcousticBrainz Moods</button>
+				<button class="button-on-background" [class.disabled]="!isRunning" (click)="loadLyrics(current.group.currentRelease)">Load Lyrics</button>
+				<button class="button-on-background" [class.disabled]="!isRunning" (click)="loadMoods(current.group.currentRelease)">Load AcousticBrainz Moods</button>
 			</div>
 		</div>
 	</div>
 
 	<div *ngIf="!current" class="match-releases">
 		<div class="match-results">
-			<div class="match-releasegroup" *ngFor="let group of matchTree.groups">
+			<div *ngFor="let group of matchTree.groups" class="match-releasegroup">
 				<div class="match-releasegroup-title">
 					<span class="value">{{group.mbGroup.title}}</span>
 				</div>
 				<div *ngIf="group.currentRelease" class="match-release-info">
 					<span class="label">Score:</span>
 					<span class="value"><app-score-box [score]="group.currentRelease.score"></app-score-box></span>
-					<span class="label">Artist: </span> <span class="value" *ngIf="group.mbGroup.artistCredit">{{group.mbGroup.artistCredit[0].name}}</span>
+					<span class="label">Artist: </span> <span *ngIf="group.mbGroup.artistCredit" class="value">{{group.mbGroup.artistCredit[0].name}}</span>
 					<span class="label">Type: </span> <span class="value">{{group.mbGroup.primaryType}}
 					<ng-container *ngIf="group.mbGroup.secondaryTypes"><ng-container *ngFor="let t of group.mbGroup.secondaryTypes">/{{t}}</ng-container></ng-container></span><br/>
 					<span class="label">Date:</span> <span class="value">{{group.currentRelease.mbRelease.date || '?'}}</span>
 					<span class="label">Country:</span> <span class="value">{{group.currentRelease.mbRelease.country || '?'}}</span><br/>
 					<span class="label">Tracks:</span>
 					<ng-container *ngFor="let media of group.currentRelease.media">
-						<span class="value">{{media.tracks.length}} <i class="icon-checkmark" title="All tracks matched" *ngIf="media.complete"></i><i title="Unmatched tracks!" class="icon-warning" *ngIf="!media.complete"></i></span>
+						<span class="value">{{media.tracks.length}} <i *ngIf="media.complete" class="icon-checkmark" title="All tracks matched"></i><i *ngIf="!media.complete" title="Unmatched tracks!" class="icon-warning"></i></span>
 					</ng-container>
 					<ng-container *ngIf="group.currentRelease.media.length>1">
 						<span class="label">Total Tracks:</span>
@@ -83,7 +83,7 @@
 					<div *ngIf="group.selecting">
 						<form>
 							<fieldset>
-								<label class="select" *ngFor="let release of group.releases" (click)="setRelease(group, release)">
+								<label *ngFor="let release of group.releases" class="select" (click)="setRelease(group, release)">
 									<input type="radio" name="release" [checked]="release === group.currentRelease">
 									<span class="label">Score:</span> <span class="value"><app-score-box [score]="release.score"></app-score-box></span>
 									<span class="label">Date:</span> <span class="value">{{release.mbRelease.date || '?'}}</span>
@@ -106,10 +106,10 @@
 						<div *ngIf="group.currentRelease.media.length>1" (click)="media.expanded=!media.expanded">
 							<i [class]="media.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
 							Media {{media.mbMedia.position}}
-							<i class="icon-checkmark" title="All tracks matched" *ngIf="media.complete"></i><i title="Unmatched tracks!" class="icon-warning" *ngIf="!media.complete"></i>
+							<i *ngIf="media.complete" class="icon-checkmark" title="All tracks matched"></i><i *ngIf="!media.complete" title="Unmatched tracks!" class="icon-warning"></i>
 						</div>
 						<div *ngIf="media.expanded || group.currentRelease.media.length<2">
-							<div class="match-track-info" [ngClass]="{missing:!track.currentMatch}" *ngFor="let track of media.tracks" (drop)="drop($event, group, group.currentRelease, track)" (dragover)="allowDrop($event)">
+							<div *ngFor="let track of media.tracks" class="match-track-info" [ngClass]="{missing:!track.currentMatch}" (drop)="drop($event, group, group.currentRelease, track)" (dragover)="allowDrop($event)">
 								{{track.mbTrack.position}} - {{track.mbTrack.title}} - {{track.mbTrack.artistCredit | mbArtistCredits}}
 								<div *ngIf="track.currentMatch" title="Score: {{track.currentMatch.score | number}} {{track.currentMatch.scores|json}}">
 									<app-score-box [score]="track.currentMatch.score"></app-score-box>
@@ -126,7 +126,7 @@
 	</div>
 </div>
 
-<div class="current-log" *ngIf="isRunning"><i class="icon-spin icon-spinner"></i> {{currentAction}}</div>
+<div *ngIf="isRunning" class="current-log"><i class="icon-spin icon-spinner"></i> {{currentAction}}</div>
 
 <div *ngIf="current" class="buttons">
 	<div class="match-actions">
@@ -146,31 +146,31 @@
 <div *ngIf="!current" class="buttons">
 	<div *ngIf="!manual" class="match-actions">
 		<div *ngIf="!isRunning">
-			<button (click)="start(RunType.auto)" class="button-on-control button-with-add-on">Auto Match</button>
-			<button (click)="onContextMenu($event)" class="button-on-control button-add-on">&nbsp;…&nbsp;</button>
+			<button class="button-on-control button-with-add-on" (click)="start(RunType.auto)">Auto Match</button>
+			<button class="button-on-control button-add-on" (click)="onContextMenu($event)">&nbsp;…&nbsp;</button>
 		</div>
 		<div *ngIf="isRunning">
-			<button (click)="stop()" class="button-accent">Stop</button>
+			<button class="button-accent" (click)="stop()">Stop</button>
 		</div>
 	</div>
 	<div *ngIf="manual" class="match-actions">
 		<div class="match-search">
 			<div>
 				<div>Album Name</div>
-				<app-tag-editor-autocomplete [(value)]="manualSearchData.releaseGroup" [getList]="manualSearchData.getAutoCompleteAlbumList" [standalone]="true"></app-tag-editor-autocomplete>
+				<app-tag-editor-autocomplete [getList]="manualSearchData.getAutoCompleteAlbumList" [standalone]="true" [(value)]="manualSearchData.releaseGroup"></app-tag-editor-autocomplete>
 			</div>
 			<div>
 				<div>Artist</div>
-				<app-tag-editor-autocomplete [(value)]="manualSearchData.artist" [getList]="manualSearchData.getAutoCompleteArtistList" [standalone]="true"></app-tag-editor-autocomplete>
+				<app-tag-editor-autocomplete [getList]="manualSearchData.getAutoCompleteArtistList" [standalone]="true" [(value)]="manualSearchData.artist"></app-tag-editor-autocomplete>
 			</div>
 		</div>
 		<div *ngIf="!isRunning">
-			<button (click)="manualSearch()" class="button-primary">Search</button>
-			<button (click)="clear()" class="button-accent">Clear</button>
-			<button (click)="manual=false" class="button-accent">Close</button>
+			<button class="button-primary" (click)="manualSearch()">Search</button>
+			<button class="button-accent" (click)="clear()">Clear</button>
+			<button class="button-accent" (click)="manual=false">Close</button>
 		</div>
 		<div *ngIf="isRunning">
-			<button (click)="stop()" class="button-accent">Stop</button>
+			<button class="button-accent" (click)="stop()">Stop</button>
 		</div>
 	</div>
 </div>

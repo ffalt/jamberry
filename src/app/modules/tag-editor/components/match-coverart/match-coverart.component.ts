@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AppService, NotifyService} from '@core/services';
 import {CoverArtArchive, CoverArtArchiveLookupType, JamService} from '@jam';
@@ -31,7 +31,7 @@ export class MatchCoverartComponent implements OnChanges {
 	constructor(private app: AppService, private jam: JamService, private notify: NotifyService) {
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		if (this.data) {
 			this.loadCoverartImages(this.data).catch(e => {
 				this.notify.error(e);

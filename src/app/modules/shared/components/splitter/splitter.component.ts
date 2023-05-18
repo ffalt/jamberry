@@ -37,7 +37,7 @@ export class SplitterComponent {
 	}
 
 	@HostListener('panstart', ['$event'])
-	onPanStart(_: Event): void {
+	onPanStart(): void {
 		this.startDrag();
 	}
 
@@ -47,12 +47,12 @@ export class SplitterComponent {
 	}
 
 	@HostListener('panend', ['$event'])
-	onPanEnd(_: Event): void {
+	onPanEnd(): void {
 		this.stopDrag();
 	}
 
 	@HostListener('pancancel', ['$event'])
-	onPanCancel(_: Event): void {
+	onPanCancel(): void {
 		this.stopDrag();
 	}
 

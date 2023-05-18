@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 
 @Component({
 	selector: 'app-rate',
@@ -47,7 +47,7 @@ export class RateComponent implements OnInit, OnChanges {
 		return 'icon-star-empty';
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this.marked = (this.rating || 0) - 1;
 		this.updateUI();
 	}

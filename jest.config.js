@@ -9,7 +9,7 @@ module.exports = {
 		'@library/(.*)': '<rootDir>/src/app/modules/library/$1',
 		'@jam': '<rootDir>/src/app/modules/jam/index'
 	},
+	transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
 	testPathIgnorePatterns: ['/node_modules/', '/local/', '/dist/'],
-	setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-	globalSetup: 'jest-preset-angular/global-setup'
+	setupFilesAfterEnv: ['<rootDir>/setup-jest.ts']
 };

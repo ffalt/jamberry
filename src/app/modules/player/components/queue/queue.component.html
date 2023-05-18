@@ -3,15 +3,18 @@
 	<ng-container *ngIf="entries && entries.length>0">
 		<cdk-virtual-scroll-viewport style="height: 100%; width:100%;" [itemSize]="60">
 			<div class="tracks" cdkDropList [cdkDropListData]="entries" (cdkDropListDropped)="onDrop($event)">
-				<div class="track" *cdkVirtualFor="let entry of entries; let index = index"
+				<div *cdkVirtualFor="let entry of entries; let index = index;"
+						 class="track"
+						 cdkDrag
+						 appFocusKeyListItem
 						 (tap)="tapPlayQueuePos($event, index)"
 						 (keydown.enter)="playQueuePos(index)"
 						 (panstart)="onPanStart($event)"
 						 (panmove)="onPanMove($event)"
 						 (panend)="onPanEnd($event, entry)"
-						 (pancancel)="onPanCancel($event)"
+						 (pancancel)="onPanCancel()"
 						 (contextmenu)="onContextMenu($event, entry)"
-						 cdkDrag appFocusKeyListItem>
+				>
 					<div class="handle" cdkDragHandle><span class="grippy"></span></div>
 					<div class="number">
 						<ng-container *ngIf="player.currentMedia && player.currentMedia.id===entry.id">
@@ -24,11 +27,11 @@
 					</div>
 					<div class="title"><p>{{entry.tag ? entry.tag.title : entry.name}}</p>
 						<a *ngIf="entry.tag && entry.tag.artist"
+							 tabindex="0"
 							 (click)="navig.toArtistID(entry.artistID,entry.tag.artist)"
-							 (keydown.enter)="navig.toArtistID(entry.artistID,entry.tag.artist)"
-							 tabindex="0">{{entry.tag.artist}}</a></div>
+							 (keydown.enter)="navig.toArtistID(entry.artistID,entry.tag.artist)">{{entry.tag.artist}}</a></div>
 					<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{entry.duration|duration}}</div>
-					<div class="remove"><a title="Remove From Queue" (click)="queue.remove(entry)" (keydown.enter)="queue.remove(entry)" tabindex="0" appClickStop><i class="icon-remove"></i></a></div>
+					<div class="remove"><a title="Remove From Queue" tabindex="0" appClickStop (click)="queue.remove(entry)" (keydown.enter)="queue.remove(entry)"><i class="icon-remove"></i></a></div>
 				</div>
 			</div>
 		</cdk-virtual-scroll-viewport>
@@ -36,7 +39,7 @@
 </div>
 
 <div *ngIf="showControls" class="queue-actions" [class.disabled]="!entries || entries.length===0">
-	<button class="queue-action" (click)="queue.clear()" title="Clear Queue"><i class="icon-remove" aria-hidden="true"></i> Clear</button>
-	<button class="queue-action" (click)="queue.shuffle()" title="Randomize Order of Tracks"><i class="icon-shuffle" aria-hidden="true"></i> Shuffle</button>
+	<button class="queue-action" title="Clear Queue" (click)="queue.clear()"><i class="icon-remove" aria-hidden="true"></i> Clear</button>
+	<button class="queue-action" title="Randomize Order of Tracks" (click)="queue.shuffle()"><i class="icon-shuffle" aria-hidden="true"></i> Shuffle</button>
 	<!--	<button class="queue-action" (click)="newPlaylist(tracks)" title="Save to new Playlist"><i class="icon-playlist" aria-hidden="true"></i> Save as</button>-->
 </div>
