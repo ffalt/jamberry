@@ -30,8 +30,24 @@ export class PlaylistService {
 			});
 	}
 
+	async getPlaylistEntriesIDs(playlist: Jam.Playlist): Promise<Array<string>> {
+		let list: Array<string> = [];
+		if (playlist.entriesIDs) {
+			list = playlist.entriesIDs;
+		} else if (playlist.entries) {
+			list = playlist.entries.map(entry => entry.id);
+		} else {
+			const pl = await this.jam.playlist.id({id: playlist.id, playlistIncEntriesIDs: true});
+			list = pl.entriesIDs;
+		}
+		return list;
+	}
+
 	addToPlaylist(playlist: Jam.Playlist, newMediaIDs: Array<string>): void {
-		this.savePlaylist(playlist, (playlist.entries || []).map(entry => entry.id).concat(newMediaIDs));
+		this.getPlaylistEntriesIDs(playlist)
+			.then(list => {
+				this.savePlaylist(playlist, list.concat(newMediaIDs));
+			});
 	}
 
 	removeFromPlaylist(playlist: Jam.Playlist, removeTrackIDs: Array<string>): void {

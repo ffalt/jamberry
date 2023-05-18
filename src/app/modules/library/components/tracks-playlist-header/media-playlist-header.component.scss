@@ -1,0 +1,8 @@
+@import "globals.scss";
+
+:host {
+	.heading {
+		@include track-table-row();
+		@include track-table-header-row();
+	}
+}

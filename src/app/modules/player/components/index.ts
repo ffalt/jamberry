@@ -7,6 +7,7 @@ import {SliderTimeComponent} from './player-slider-time/slider-time.component';
 import {SliderVolumeComponent} from './player-slider-volume/slider-volume.component';
 import {PlayerComponent} from './player/player.component';
 import {QueueComponent} from './queue/queue.component';
+import {QueueItemComponent} from './queue-item/queue-item.component';
 
 export const components: Array<any> = [
 	ContextMenuQueueTrackComponent,
@@ -17,6 +18,7 @@ export const components: Array<any> = [
 	SliderTimeComponent,
 	SliderVolumeComponent,
 	SliderSpeedComponent,
+	QueueItemComponent,
 	QueueComponent
 ];
 
@@ -27,5 +29,6 @@ export * from './player-slider-time/slider-time.component';
 export * from './player-slider-volume/slider-volume.component';
 export * from './player/player.component';
 export * from './queue/queue.component';
+export * from './queue-item/queue-item.component';
 export * from './mini-player/mini-player.component';
 export * from './mini-slider-time/mini-slider-time.component';

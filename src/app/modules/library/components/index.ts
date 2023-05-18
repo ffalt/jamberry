@@ -26,6 +26,7 @@ import {MbRelationsComponent} from './mb-relations/mb-relations.component';
 import {MediaListComponent} from './media-list/media-list.component';
 import {MediaPlaylistComponent} from './tracks-playlist/media-playlist.component';
 import {MediaPlaylistItemComponent} from './tracks-playlist-item/media-playlist-item.component';
+import {MediaPlaylistHeaderComponent} from './tracks-playlist-header/media-playlist-header.component';
 import {ObjGroupsCardsComponent} from './obj-groups-cards/obj-groups-cards.component';
 import {ObjGroupsPlatesComponent} from './obj-groups-plates/obj-groups-plates.component';
 import {ObjGroupsViewComponent} from './obj-groups-view/obj-groups-view.component';
@@ -84,6 +85,7 @@ export const components: Array<any> = [
 	MediaListComponent,
 	MediaPlaylistComponent,
 	MediaPlaylistItemComponent,
+	MediaPlaylistHeaderComponent,
 	ObjGroupsCardsComponent,
 	ObjGroupsPlatesComponent,
 	ObjGroupsViewComponent,
@@ -170,3 +172,4 @@ export * from './start-sections/start-sections.component';
 export * from './start-stats/start-stats.component';
 export * from './obj-groups-plates/obj-groups-plates.component';
 export * from './obj-groups-cards/obj-groups-cards.component';
+export * from './tracks-playlist-header/media-playlist-header.component';

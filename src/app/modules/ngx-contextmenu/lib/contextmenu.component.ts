@@ -72,7 +72,6 @@ export class ContextMenuComponent implements OnDestroy {
 		}
 		this.event = event;
 		this.item = item;
-		console.log(this.item);
 		this.setVisibleMenuItems();
 		this.contextMenuService.openContextMenu({...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass});
 		this.contextMenuService.close.asObservable().pipe(first()).subscribe(closeEvent => this.closeEvent.emit(closeEvent));

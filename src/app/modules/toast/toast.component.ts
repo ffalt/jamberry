@@ -2,7 +2,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Component, HostBinding, HostListener, NgZone, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {IndividualConfig, ToastPackage} from './toast-config';
+import {DefaultNoComponentGlobalConfig, IndividualConfig, ToastPackage} from './toast-config';
 
 @Component({
 	selector: 'app-toast-component',
@@ -42,7 +42,7 @@ export class ToastComponent implements OnDestroy {
 	@HostBinding('@flyInOut') state = {
 		value: 'inactive',
 		params: {
-			easeTime: this.toastPackage.config.easeTime,
+			easeTime: this.toastPackage ? this.toastPackage.config.easeTime : DefaultNoComponentGlobalConfig.easeTime,
 			easing: 'ease-in'
 		}
 	};

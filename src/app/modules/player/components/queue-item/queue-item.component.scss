@@ -1,0 +1,24 @@
+@import "globals.scss";
+
+:host {
+
+	.track {
+		@include track-table-row();
+		max-width: 100%;
+		transition: margin-left .2s;
+		@include track-table-data-row();
+
+		.title {
+			a {
+				display: block;
+				margin-left: 0;
+			}
+		}
+
+		@media (max-width: $break-mobile) {
+			.remove {
+				display: none;
+			}
+		}
+	}
+}

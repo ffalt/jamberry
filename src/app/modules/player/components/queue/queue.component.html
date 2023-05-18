@@ -4,7 +4,7 @@
 		<cdk-virtual-scroll-viewport style="height: 100%; width:100%;" [itemSize]="60">
 			<div class="tracks" cdkDropList [cdkDropListData]="entries" (cdkDropListDropped)="onDrop($event)">
 				<div *cdkVirtualFor="let entry of entries; let index = index;"
-						 class="track"
+						 class="track-wrapper"
 						 cdkDrag
 						 appFocusKeyListItem
 						 (tap)="tapPlayQueuePos($event, index)"
@@ -15,23 +15,7 @@
 						 (pancancel)="onPanCancel()"
 						 (contextmenu)="onContextMenu($event, entry)"
 				>
-					<div class="handle" cdkDragHandle><span class="grippy"></span></div>
-					<div class="number">
-						<ng-container *ngIf="player.currentMedia && player.currentMedia.id===entry.id">
-							<i [class]="player.isPlaying | stringToggle:'icon-play':'icon-pause'"></i>
-						</ng-container>
-						<ng-container *ngIf="!player.currentMedia || player.currentMedia.id!==entry.id">
-							<i class="icon-hash small-screen-icon"></i>
-						</ng-container>
-						{{index + 1}}
-					</div>
-					<div class="title"><p>{{entry.tag ? entry.tag.title : entry.name}}</p>
-						<a *ngIf="entry.tag && entry.tag.artist"
-							 tabindex="0"
-							 (click)="navig.toArtistID(entry.artistID,entry.tag.artist)"
-							 (keydown.enter)="navig.toArtistID(entry.artistID,entry.tag.artist)">{{entry.tag.artist}}</a></div>
-					<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{entry.duration|duration}}</div>
-					<div class="remove"><a title="Remove From Queue" tabindex="0" appClickStop (click)="queue.remove(entry)" (keydown.enter)="queue.remove(entry)"><i class="icon-remove"></i></a></div>
+					<app-queue-item [entry]="entry" [index]="index" />
 				</div>
 			</div>
 		</cdk-virtual-scroll-viewport>

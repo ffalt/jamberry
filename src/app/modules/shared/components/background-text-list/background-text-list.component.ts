@@ -6,6 +6,6 @@ import {Component, Input} from '@angular/core';
 	styleUrls: ['./background-text-list.component.scss']
 })
 export class BackgroundTextListComponent {
-	@Input() list?: Array<any>;
+	@Input() list?: Array<any> | undefined;
 	@Input() name?: string;
 }

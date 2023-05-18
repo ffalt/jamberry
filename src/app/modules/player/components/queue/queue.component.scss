@@ -32,35 +32,6 @@
 		@include track-table();
 		overflow-x: hidden;
 		max-width: 100%;
-
-		.heading, .track {
-			@include track-table-row();
-			max-width: 100%;
-		}
-
-		.heading {
-			@include track-table-header-row();
-		}
-
-		.track {
-			transition: margin-left .2s;
-			@include track-table-data-row();
-
-			.title {
-				a {
-					display: block;
-					margin-left: 0;
-				}
-			}
-		}
-
-		@media (max-width: $break-mobile) {
-			.track {
-				.remove {
-					display: none;
-				}
-			}
-		}
 	}
 
 	.queue-actions {

@@ -1,17 +1,12 @@
 <app-background-text-list name="Tracks" [list]="entries"></app-background-text-list>
 <div *ngIf="entries && entries.length>0" class="tracks">
-	<div class="heading">
-		<div class="handle"></div>
-		<div class="fav" title="Favorite Track"><i class="icon-heart-empty"></i></div>
-		<div *ngIf="showRating" class="rating" title="Rating"><i class="icon-checkmark"></i></div>
-		<div *ngIf="showPlayCount" class="play-count" title="Play Counter"><i class="icon-headphones"></i></div>
-		<div *ngIf="showPlayDate" class="play-date" title="Last Played"><i class="icon-clock"></i></div>
-		<div class="number" title="Track Number">#</div>
-		<div class="title" title="Title">Track</div>
-		<div class="length" title="Duration"><i class="icon-stopwatch"></i></div>
-	</div>
+	<app-media-playlist-header [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"/>
 	<div cdkDropList (cdkDropListDropped)="onDrop($event)">
-		<app-media-playlist-item *ngFor="let media of entries; trackBy:trackByFn" class="track-wrapper" cdkDrag (tap)="tapTrack($event, media)"/>
+		<app-media-playlist-item *ngFor="let media of entries; trackBy:trackByFn"
+														 class="track-wrapper" cdkDrag
+														 [media]="media" [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"
+														 (tap)="tapTrack($event, media)"
+		/>
 	</div>
 </div>
 
