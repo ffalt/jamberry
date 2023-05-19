@@ -1,23 +1,23 @@
 @mixin input-box-content {
 	border-radius: $border-radius;
-	padding-left: $border-radius-padding;
-	padding-right: $border-radius-padding;
-	//display: flex;
 	align-items: center;
-	background-color: var(--input);
-	border: 1px solid var(--input-border);
+	background-color: var(--control-ambient);
+	border: 1px solid var(--control-box-border);
+	color: var(--on-control);
 
 	input {
 		flex: 1;
 		border: none;
-		min-height: 20px;
 		min-width: 50px;
-		background-color: var(--input);
-		color: var(--on-input);
+		padding-left: $border-radius-padding;
+		padding-right: $border-radius-padding;
+		background-color: var(--control-ambient);
+		color: var(--on-control);
+		min-height: 28px;
 	}
 
 	i {
-		color: var(--on-input);
+		color: var(--on-control);
 		font-size: $small;
 		cursor: pointer;
 
@@ -25,6 +25,19 @@
 			color: var(--on-input-hover);
 		}
 	}
+	&:focus-within {
+		background-color: var(--input);
+		border-color: var(--input-border);
+		color: var(--on-input);
+		input {
+			background-color: var(--input);
+			color: var(--on-input);
+		}
+		i {
+			color: var(--on-input);
+		}
+	}
+
 }
 
 @mixin input-box {

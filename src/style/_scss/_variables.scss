@@ -43,3 +43,7 @@ $break-pad: 768px;
 $break-phone: 522px;
 $break-mobile: 400px;
 $break-watch: 300px;
+
+$header-height: 60px;
+$footer-height: 60px;
+$content-margins: $header-height+$footer-height;

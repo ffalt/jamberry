@@ -5,6 +5,7 @@
 	overflow: hidden;
 	display: flex;
 	cursor: pointer;
+	tab-index: 0;
 
 	&:before {
 		content: "";
@@ -16,54 +17,75 @@
 		width: 100%;
 	}
 
-	.fav, .date {
+	.fav, .date, .more {
 		position: absolute;
 		top: 1px;
 		padding: $padding-xs;
 		transform: translateY(-31px);
 		transition: transform 0.3s;
+		user-select: none;
+		border-bottom-left-radius: 3px;
 	}
 
-	.fav {
-		right: 1px;
-		border-bottom-left-radius: 3px;
-		cursor: pointer;
-		user-select: none;
+	.play {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		visibility: hidden;
+		opacity: 0;
+		transition-property: opacity, visibility;
+		transition-duration: 0.3s;
 	}
 
 	.date {
-		left: 1px;
+		left: 50%;
+		transform: translate(-50%, -31px);
 		font-size: 0.8em;
-		border-bottom-right-radius: 3px;
+	}
+
+	.fav {
+		left: 1px;
+		cursor: pointer;
+	}
+
+	.more {
+		right: 3px;
+		cursor: pointer;
 	}
 
 	.footer {
-		padding: $padding-xs;
+		padding: $padding-sm;
 		position: absolute;
 		bottom: 1px;
 		left: 1px;
 		right: 1px;
 		overflow: hidden;
 		height: auto;
+		transition: all 0.3s;
 
 		.footer-buttons {
 			display: none;
 		}
 	}
-	&:hover {
 
-		.fav, .date {
+	&:hover, &:focus-within {
+
+		.fav, .more {
 			transform: translateY(0);
 		}
 
-		.footer {
-			.footer-buttons {
-				display: block;
-			}
+		.date {
+			transform: translate(-50%, 0);
+		}
+
+		.play {
+			visibility: unset;
+			opacity: 1;
 		}
 	}
 
-	.date, .footer, .fav {
+	.date, .footer, .fav, .more {
 		background-color: var(--background-transparent);
 		color: var(--on-background-highlight);
 
@@ -76,25 +98,15 @@
 		}
 	}
 
+	.fav {
+		&:hover {
+			color: var(--on-background);
+		}
+	}
+
 	.footer-subline {
 		display: block;
 		font-size: 0.8em;
-	}
-
-	.footer-buttons {
-		height: 40px;
-		padding-top: $padding-sm;
-		white-space: nowrap;
-
-		button {
-			margin-bottom: $margin-xs;
-			margin-right: $margin-xs;
-		}
-
-		a {
-			float: right;
-			margin-right: $margin-xs;
-		}
 	}
 
 	@media (max-width: $break-desktop-huge) {

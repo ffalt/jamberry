@@ -5,17 +5,17 @@
 	<div *ngIf="obj.year" class="date">
 		<span class="year">{{obj.year}}</span>
 	</div>
-	<a class="fav" tabindex="0" (click)="toggleFav()" (keydown.enter)="toggleFav()">
+	<button type="button" class="fav" (click)="toggleFav()" (keydown.enter)="toggleFav()">
 		<app-fav-icon [faved]="obj.base.state?.faved"></app-fav-icon>
-	</a>
+	</button>
+	<button type="button" class="more" (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)">
+		<span>…</span>
+	</button>
+	<button class="play button-primary" tabindex="-1" (click)="obj.play()"><i class="icon-play" aria-hidden="true"></i> Play</button>
 	<div class="footer">
 		<a class="footer-content" tabindex="0" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()">
 			{{obj.name | limit:showParent && obj.parent ? 90 : 50}}
 			<div *ngIf="showParent && obj.parent" class="footer-subline">{{obj.parent | limit:50}}</div>
 		</a>
-		<div class="footer-buttons">
-			<button class="button-primary" tabindex="-1" (click)="obj.play()"><i class="icon-play" aria-hidden="true"></i> Play</button>
-			<a tabindex="0" (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)">…</a>
-		</div>
 	</div>
 </ng-container>

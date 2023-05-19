@@ -12,6 +12,7 @@ import {MenuService} from '@shared/services';
 	styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+	searchActive: boolean = false;
 
 	constructor(
 		public app: AppService, private location: Location, public auth: JamAuthService,
@@ -33,4 +34,7 @@ export class HeaderComponent {
 		this.menuService.openMenuComponent(ContextMenuUserComponent, undefined, $event);
 	}
 
+	searchStateChange(active: boolean) {
+		this.searchActive = active;
+	}
 }

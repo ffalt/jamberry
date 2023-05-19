@@ -1,9 +1,5 @@
 @import "globals.scss";
 
-$header-height: 60px;
-$footer-height: 60px;
-$content-margins: $header-height+$footer-height;
-
 :host {
 	background-color: var(--background);
 	color: var(--on-background);

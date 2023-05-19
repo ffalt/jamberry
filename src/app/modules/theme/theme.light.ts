@@ -40,6 +40,8 @@ export const lightTheme: Theme = {
 
 		'--primary': '#008300',
 		'--on-primary': '#fff',
+		'--primary-hover': '#006400',
+		'--on-primary-hover': '#ffeda5',
 
 		'--secondary': '#4688d7',
 

@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteDirective, AutocompleteOption} from '@app/modules/autocomplete';
 import {NavigService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -19,11 +19,14 @@ const objTypes = {
 	styleUrls: ['./search-box.component.scss']
 })
 export class SearchBoxComponent implements AutocompleteDataControl {
-	// asyncSelected: string = '';
-	// loading: number = 0;
 	@ViewChild(AutocompleteDirective, {static: true}) autocomplete?: AutocompleteDirective;
+	@Output() readonly searchStateChange = new EventEmitter<boolean>();
 
 	constructor(private jam: JamService, private notify: NotifyService, private navig: NavigService) {
+	}
+
+	setSearchActive(active:boolean) {
+		this.searchStateChange.emit(active);
 	}
 
 	trackByFn(index: number): string {
@@ -90,43 +93,4 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 		}
 		return item.name;
 	}
-
-	/*
-	// ngOnChanges(changes: SimpleChanges): void {
-		// if (changes.value && changes.value.currentValue && changes.value.currentValue !== this.asyncSelected) {
-		// 	this.asyncSelected = changes.value.currentValue;
-		// }
-	// }
-
-	async getData(query: string): Promise<Array<any>> {
-		this.loading++;
-		try {
-			const result = await this.jam.various.autocomplete({query, album: 5, artist: 5, playlist: 5, podcast: 5, track: 5, episode: 5});
-			const data = []
-				.concat((result.tracks || []).map(o => ({type: objTypes.track, ...o})))
-				.concat((result.albums || []).map(o => ({type: objTypes.album, ...o})))
-				.concat((result.artists || []).map(o => ({type: objTypes.artist, ...o})))
-				.concat((result.playlists || []).map(o => ({type: objTypes.playlist, ...o})))
-				.concat((result.podcasts || []).map(o => ({type: objTypes.podcast, ...o})))
-				.concat((result.episodes || []).map(o => ({type: objTypes.episode, ...o})))
-				.concat((result.folders || []).map(o => ({type: objTypes.folder, ...o})));
-			this.loading--;
-			return data;
-		} catch (e: any) {
-			this.loading--;
-			this.notify.error(e);
-			return [];
-		}
-	}
-
-	isEmpty(): boolean {
-		return ((!this.asyncSelected) || (this.asyncSelected.length === 0));
-	}
-
-	typeaheadOnSelect(item: any): void {
-
-	}
-
-	 */
-
 }
