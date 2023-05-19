@@ -15,23 +15,13 @@
 			.row {
 				display: flex;
 				flex-direction: row;
+				gap: $padding-xs;
 
 				.column.first {
-					padding-right: $padding-lg;
-					//flex: 1;
 				}
-
-				//@media (max-width: $break-pad) {
-					.column {
-						flex: 1;
-					}
-				//}
 
 				@media (max-width: $break-mobile) {
 					flex-direction: column;
-					.column.first {
-						padding-right: 0;
-					}
 				}
 			}
 		}

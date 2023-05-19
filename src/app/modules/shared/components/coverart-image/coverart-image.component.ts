@@ -17,6 +17,7 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 	@Input() @HostBinding('class.fill') fill: boolean = false;
 	@Input() @HostBinding('class.round') round: boolean = false;
 	@Input() @HostBinding('class.border') border: boolean = true;
+	@Input() @HostBinding('class.border-hover') hoverBorder: boolean = false;
 	@HostBinding('style.minWidth.px') @HostBinding('style.minHeight.px') minSize?: number;
 	@HostBinding('style.height.px') @HostBinding('style.width.px') hostSize?: number;
 	isLoaded: boolean = false;

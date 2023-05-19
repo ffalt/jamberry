@@ -26,6 +26,9 @@
 			color: var(--on-background);
 			font-size: 2em;
 			font-weight: bold;
+			&:hover {
+				color: var(--on-background-hover);
+			}
 		}
 	}
 

@@ -1,6 +1,6 @@
 <ng-container *ngIf="obj">
 	<a class="image" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()" (appDeferLoad)="gotInView()">
-		<app-coverart-image *ngIf="visible" [coverArtObj]="obj.base" [size]="300" [alt]="obj.name" [fill]="true"></app-coverart-image>
+		<app-coverart-image *ngIf="visible" [coverArtObj]="obj.base" [size]="300" [alt]="obj.name" [fill]="true" [hoverBorder]="true" />
 	</a>
 	<div *ngIf="obj.year" class="date">
 		<span class="year">{{obj.year}}</span>

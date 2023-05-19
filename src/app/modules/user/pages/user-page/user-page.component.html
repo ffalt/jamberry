@@ -3,6 +3,10 @@
 	<div *ngIf="auth.user" class="content">
 		<div class="row">
 			<div class="column first">
+				<div class="section-title">Avatar</div>
+				<app-user-avatar></app-user-avatar>
+			</div>
+			<div class="column">
 				<div class="section">
 					<div class="section-title">Name</div>
 					<div>{{auth.user.name}}</div>
@@ -16,10 +20,6 @@
 						<div *ngIf="auth.user?.roles?.admin"><i class="icon-checkmark"></i> Server Administration</div>
 					</div>
 				</div>
-			</div>
-			<div class="column">
-				<div class="section-title">Avatar</div>
-				<app-user-avatar></app-user-avatar>
 			</div>
 		</div>
 		<div class="section">
