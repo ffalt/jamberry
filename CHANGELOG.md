@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.22](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.21...v0.4.22) (2023-05-19)
+
+
+### Bug Fixes
+
+* **sidebar:** browse entry active detection ([d14efa5](https://github.com-ffalt/ffalt/jamberry/commit/d14efa582be6bd35c25e56bd470f00c1c9b5b21f))
+* **theme:** refine themes ([68c52fd](https://github.com-ffalt/ffalt/jamberry/commit/68c52fd467602bd1c1cafe00b02d6b0abe7b132b))
+
 ## [0.4.21](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.20...v0.4.21) (2023-05-19)
 
 
