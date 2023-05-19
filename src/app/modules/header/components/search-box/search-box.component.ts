@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
+import {Component, ViewChild} from '@angular/core';
+import {AutocompleteDataControl, AutocompleteDirective, AutocompleteOption} from '@app/modules/autocomplete';
 import {NavigService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 
@@ -21,6 +21,7 @@ const objTypes = {
 export class SearchBoxComponent implements AutocompleteDataControl {
 	// asyncSelected: string = '';
 	// loading: number = 0;
+	@ViewChild(AutocompleteDirective, {static: true}) autocomplete?: AutocompleteDirective;
 
 	constructor(private jam: JamService, private notify: NotifyService, private navig: NavigService) {
 	}
@@ -31,6 +32,10 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 
 	autocompleteEnter(): void {
 		// nada
+	}
+
+	search() {
+		this.autocomplete?.run();
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption>> {

@@ -105,6 +105,19 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		this.keyup$.next(event);
 	}
 
+	run(): void {
+		if (!this.query || this.query.length == 0) {
+			return;
+		}
+		this.request(this.query)
+			.then((results: Array<AutocompleteOption>) => {
+				this.activeIndex = NO_INDEX;
+				this.options = results;
+				this.display();
+			})
+			.catch(e => console.error(e));
+	}
+
 	private static resolveNextIndex(currentIndex: number, stepUp: boolean, list: Array<AutocompleteOption>): number {
 		const step = stepUp ? 1 : -1;
 		const topLimit = list.length - 1;
