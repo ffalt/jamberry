@@ -83,12 +83,17 @@ export class MediaSessionService {
 	updatePositionState = (duration?: number, playbackRate?: number, position?: number) => {
 		if (this.mediaSession && 'setPositionState' in navigator.mediaSession) {
 			/* Position state (supported since Chrome 81) */
+			const d = (duration || 0) / 1000;
 			const state = {
-				duration: (duration || 0) / 1000,
+				duration: d,
 				playbackRate: playbackRate || 1.0,
-				position: (position || 0) / 1000
+				position: Math.min(d, (position || 0) / 1000)
 			};
-			navigator.mediaSession.setPositionState(state);
+			try {
+				navigator.mediaSession.setPositionState(state);
+			} catch (e) {
+				console.error(e);
+			}
 		}
 	};
 

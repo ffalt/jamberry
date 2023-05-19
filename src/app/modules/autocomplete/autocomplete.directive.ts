@@ -220,7 +220,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 			return;
 		}
 		this.overlayRef = this.createOverlay();
-		const template = new TemplatePortal(this.appAutocomplete.rootTemplate, this.vcr, {$implicit: this});
+		const template = new TemplatePortal(this.appAutocomplete.rootTemplate, this.vcr, {control: this});
 		this.overlayRef.attach(template);
 		overlayClickOutside(this.overlayRef, this.host.nativeElement)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {

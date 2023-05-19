@@ -45,8 +45,11 @@
 		}
 	}
 
+	.spacer {
+		flex: 1;
+	}
+
 	.user {
-		margin-left: auto;
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
