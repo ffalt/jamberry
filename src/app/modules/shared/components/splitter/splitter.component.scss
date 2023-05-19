@@ -10,6 +10,6 @@
 	border-color: var(--control-border);
 
 	&:hover, &.dragging {
-		border-color: var(--control-ambient);
+		border-color: var(--control-border-hover);
 	}
 }

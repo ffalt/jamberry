@@ -13,7 +13,7 @@ export class SliderTimeComponent implements OnInit {
 	svg?: { viewbox: string; path: string };
 	@HostBinding() tabindex = '0';
 
-	constructor(private element: ElementRef, public player: PlayerService, public jam: JamService, private app: AppService) {
+	constructor(private element: ElementRef, public player: PlayerService, public jam: JamService, public app: AppService) {
 	}
 
 	ngOnInit(): void {

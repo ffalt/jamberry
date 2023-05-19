@@ -16,8 +16,8 @@
 					@include flex-table-data-row();
 
 					.agent {
-						width: 140px;
 						font-size: 0.8em;
+						flex-grow: 1;
 						padding-right: $padding-sm;
 					}
 
@@ -27,13 +27,31 @@
 						padding-right: $padding-sm;
 					}
 
+					.remove {
+						button {
+							cursor: pointer;
+							color: var(--on-background);
+
+							&:hover {
+								color: var(--on-background-hover);
+							}
+						}
+					}
+
 					.title {
-						flex-grow: 1;
 						padding-right: $padding-sm;
+						width: 140px;
 
 						span {
 							font-size: 0.7em;
 							text-transform: uppercase;
+						}
+					}
+
+					&.invalid {
+						color: var(--on-control-ambient-disabled);
+						.expires {
+							color: var(--accent);
 						}
 					}
 

@@ -8,7 +8,7 @@ import {Jam, JamAuthService, JamService} from '@jam';
 	styleUrls: ['./sessions-page.component.scss']
 })
 export class SessionsPageComponent implements OnInit {
-	sessions?: Array<Jam.UserSession>;
+	sessions?: Array<{ session: Jam.UserSession; isExpired: boolean; }>;
 
 	constructor(private jam: JamService, private auth: JamAuthService, private notify: NotifyService) {
 	}
@@ -28,7 +28,7 @@ export class SessionsPageComponent implements OnInit {
 		this.jam.session.remove({id})
 			.then(() => {
 				if (this.sessions) {
-					this.sessions = this.sessions.filter(s => s.id !== id);
+					this.sessions = this.sessions.filter(s => s.session.id !== id);
 				}
 				this.notify.success('Session Login removed');
 			})
@@ -40,7 +40,7 @@ export class SessionsPageComponent implements OnInit {
 	refresh(): void {
 		this.jam.session.list()
 			.then(list => {
-				this.sessions = list;
+				this.sessions = list.map(session => ({session, isExpired: ((session.expires || 0) < Date.now())}));
 			})
 			.catch(e => {
 				this.notify.error(e);

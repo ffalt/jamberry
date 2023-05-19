@@ -36,7 +36,7 @@
 				}
 
 				&.active {
-					color: var(--on-control-hover);
+					color: var(--on-control-active);
 					transform: scale(1.1);
 				}
 
@@ -107,7 +107,7 @@
 		}
 
 		&.active {
-			color: var(--on-control-hover);
+			color: var(--on-control-active);
 			transform: scale(1.1);
 		}
 	}

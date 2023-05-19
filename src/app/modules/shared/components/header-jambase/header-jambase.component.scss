@@ -2,4 +2,5 @@
 
 :host {
 	@include view-header();
+	@include view-header-transparent();
 }

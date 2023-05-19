@@ -22,7 +22,7 @@ import {HeaderModule} from './modules/header';
 import {HotkeyModule} from './modules/hotkeys';
 import {MainTabsModule} from './modules/main-tabs';
 import {PlayerModule} from './modules/player';
-import {darkTheme, lightTheme, ThemeModule} from './modules/theme';
+import {darkTheme, lightTheme, catppuccinTheme, ThemeModule} from './modules/theme';
 import {ToastModule} from './modules/toast';
 import {pages} from './pages';
 
@@ -36,7 +36,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
 }
 
 export const themeConfig = {
-	themes: [lightTheme, darkTheme, blackTheme],
+	themes: [lightTheme, catppuccinTheme, darkTheme, blackTheme],
 	active: 'dark'
 };
 

@@ -2,14 +2,14 @@
 
 :host {
 	display: block;
-	padding: $padding;
+	padding: $padding-lg;
 	border-radius: 4px;
 	font-weight: 200;
 	font-size: 13px;
 	letter-spacing: 1px;
 	line-height: 1.5em;
 	background-color: var(--background-box);
-	color: var(--on-background-active);
+	color: var(--on-background-highlight);
 
 	.info-footnote {
 		margin-top: $margin;

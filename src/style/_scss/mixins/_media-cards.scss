@@ -65,10 +65,10 @@
 
 	.date, .footer, .fav {
 		background-color: var(--background-transparent);
-		color: var(--on-background-active);
+		color: var(--on-background-highlight);
 
 		a {
-			color: var(--on-background-active);
+			color: var(--on-background-highlight);
 
 			&:hover {
 				color: var(--on-background);

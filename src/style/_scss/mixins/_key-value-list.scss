@@ -26,10 +26,10 @@
 		> div:last-of-type {
 			padding-left: $padding;
 			width: 60%;
-			color: var(--on-background-active);
+			color: var(--on-background-highlight);
 
 			a {
-				color: var(--on-background-active);
+				color: var(--on-background-highlight);
 
 				&:hover {
 					color: var(--on-background);

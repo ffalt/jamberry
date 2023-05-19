@@ -40,10 +40,10 @@
 						padding-bottom: $padding-xs;
 
 						> div {
-							color: var(--on-background-active);
+							color: var(--on-background-highlight);
 
 							a {
-								color: var(--on-background-active);
+								color: var(--on-background-highlight);
 
 								&:hover {
 									color: var(--on-background);

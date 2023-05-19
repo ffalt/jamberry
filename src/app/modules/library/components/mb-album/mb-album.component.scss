@@ -17,7 +17,7 @@
 	@include key-value-list();
 
 	.value {
-		color: var(--on-background-active);
+		color: var(--on-background-highlight);
 	}
 
 	.track, .labelInfo {

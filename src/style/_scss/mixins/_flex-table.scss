@@ -27,7 +27,7 @@
 }
 
 @mixin flex-table-header-row {
-	color: var(--on-background-active);
+	color: var(--on-background-highlight);
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-size: 0.9em;
@@ -60,7 +60,7 @@
 	}
 
 	.title {
-		color: var(--on-background-active);
+		color: var(--on-background-highlight);
 
 		span {
 			color: var(--on-background);
@@ -81,7 +81,7 @@
 		a.title-link {
 			font-size: inherit;
 			margin-right: $margin-sm;
-			color: var(--on-background-active);
+			color: var(--on-background-highlight);
 		}
 	}
 

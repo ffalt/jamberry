@@ -3,20 +3,22 @@
 	<div *ngIf="sessions" class="content">
 		<div class="session-list">
 			<div class="section-title">Sessions</div>
-			<div *ngFor="let session of sessions; trackBy:trackByFn" class="session">
-				<div class="agent">
-					{{session.agent}}<br/>
-					{{session.os}}
-				</div>
+			<div *ngFor="let s of sessions; trackBy:trackByFn" class="session" [class.invalid]="s.isExpired">
 				<div class="title">
-					{{session.client}}<br/>
-					<span>{{session.mode}}</span>
+					{{s.session.client}}<br/>
+					<span>{{s.session.mode}}</span>
+				</div>
+				<div class="agent">
+					{{s.session.agent}}<br/>
+					{{s.session.os}}
 				</div>
 				<div class="expires">
 					<span class="label">valid until:</span><br/>
-					{{session.expires | date:'long'}}
+					{{s.session.expires | date:'long'}}
 				</div>
-				<div class="remove"><button title="Remove this login" (click)="remove(session)"><i class="icon-remove" aria-hidden="true"></i></button></div>
+				<div class="remove">
+					<button title="Remove this login" (click)="remove(s.session)"><i class="icon-remove" aria-hidden="true"></i></button>
+				</div>
 			</div>
 		</div>
 	</div>

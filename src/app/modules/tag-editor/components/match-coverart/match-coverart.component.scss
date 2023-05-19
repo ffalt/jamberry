@@ -4,12 +4,12 @@
 	padding-top: $padding;
 
 	.section {
-		color: var(--on-background-active);
+		color: var(--on-background-highlight);
 		text-transform: uppercase;
 		padding-bottom: $padding-sm;
 		white-space: nowrap;
 		a {
-			color: var(--on-background-active);
+			color: var(--on-background-highlight);
 		}
 		a:hover {
 			color: var(--on-background);

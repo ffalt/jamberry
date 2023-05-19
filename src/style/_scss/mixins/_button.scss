@@ -1,4 +1,4 @@
-@mixin button {
+@mixin base-button {
 	border-radius: 6px;
 	border-width: 1px;
 	border-style: solid;
@@ -11,6 +11,10 @@
 	overflow: hidden;
 	position: relative;
 	user-select: none;
+}
+
+@mixin button {
+	@include base-button();
 
 	&:before {
 		position: absolute;
