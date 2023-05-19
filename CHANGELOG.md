@@ -2,16 +2,6 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-## [0.4.21](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.20...v0.4.21) (2023-05-19)
-
-
-### Features
-
-* **search:** click search icon to recall last search ([30d1a91](https://github.com-ffalt/ffalt/jamberry/commit/30d1a9124aca2dc3dbcf93f0d9051ed9aa96088d))
-* **search:** move header input to right ([605fc80](https://github.com-ffalt/ffalt/jamberry/commit/605fc803d1aee9f15b1355d08b6441ca775dfb1b))
-* **theme:** refine themes; rework dark theme; add catppuccin theme ([5912428](https://github.com-ffalt/ffalt/jamberry/commit/59124282f103a84f2d20aa30378e17001da7e8eb))
-* **themes:** add missing hover ([60d0cec](https://github.com-ffalt/ffalt/jamberry/commit/60d0cec864552f706b8f6a4bc52ff7df1881a76d))
-
 ### [0.4.20](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.19...v0.4.20) (2023-01-14)
 
 
