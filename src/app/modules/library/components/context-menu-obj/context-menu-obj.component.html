@@ -1,14 +1,14 @@
 <context-menu #objMenu>
-	<ng-template *ngIf="showGoto" contextMenuItem (execute)="$event.item.navigTo()"><i class="icon-view-details"></i> Navigate to</ng-template>
-	<ng-template contextMenuItem (execute)="$event.item.play()"><i class="icon-play"></i> Play</ng-template>
+	<ng-template *ngIf="showGoto" contextMenuItem (execute)="$event.item.navigTo()"><i class="icon-view-details"></i> <ng-container i18n>Navigate to</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="$event.item.play()"><i class="icon-play"></i> <ng-container i18n>Play</ng-container></ng-template>
 	<ng-template contextMenuItem let-item="item" (execute)="$event.item.toggleFav()">
 		<app-context-entry-fav [base]="item.base"></app-context-entry-fav>
 	</ng-template>
 	<ng-template contextMenuItem let-item="item">
 		<app-context-entry-rate [base]="item.base" [baseType]="item.type"></app-context-entry-rate>
 	</ng-template>
-	<ng-template contextMenuItem (execute)="$event.item.addToPlaylist()"><i class="icon-playlist"></i> Add To Playlist</ng-template>
-	<ng-template contextMenuItem (execute)="$event.item.addToQueue()"><i class="icon-list-add"></i> Add To Queue</ng-template>
-	<ng-template contextMenuItem (execute)="$event.item.download()"><i class="icon-download-cloud"></i> Download</ng-template>
+	<ng-template contextMenuItem (execute)="$event.item.addToPlaylist()"><i class="icon-playlist"></i> <ng-container i18n>Add To Playlist</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="$event.item.addToQueue()"><i class="icon-list-add"></i> <ng-container i18n>Add To Queue</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="$event.item.download()"><i class="icon-download-cloud"></i> <ng-container i18n>Download</ng-container></ng-template>
 	<ng-template *ngFor="let extra of extras" contextMenuItem (execute)="extra.click()"><i [class]="extra.icon"></i> {{extra.text}}</ng-template>
 </context-menu>

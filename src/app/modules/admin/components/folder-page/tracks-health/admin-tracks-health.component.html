@@ -1,12 +1,12 @@
 <div class="health">
 	<div class="actions">
-		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i></button>
+		<button class="button-on-control" title="Refresh List" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
 		<!--		<select [(ngModel)]="filter" placeholder="Type of Hints" (ngModelChange)="onFilterChange()">-->
 		<!--			<option *ngFor="let m of modes" [value]="m">{{m}}</option>-->
 		<!--		</select>-->
 		<label>
 			<input type="checkbox" [checked]="mediaCheck" [(ngModel)]="mediaCheck" (change)="checkChange()">
-			Check Media
+			<ng-container i18n>Check Media</ng-container>
 		</label>
 	</div>
 	<div class="content">

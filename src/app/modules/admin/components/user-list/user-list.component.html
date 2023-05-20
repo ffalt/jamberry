@@ -1,13 +1,13 @@
 <table *ngIf="users && users.length>0" class="users" appFocusKeyList>
 	<tr class="user heading">
-		<td class="avatar">Avatar</td>
-		<td class="title">Name</td>
-		<td class="email">Email</td>
-		<td class="role">Administrator</td>
-		<td class="role">Manage Podcasts</td>
-		<td class="role">Can Upload</td>
-		<td class="role">Can Stream</td>
-		<td class="actions">Actions</td>
+		<td i18n class="avatar">Avatar</td>
+		<td i18n class="title">Name</td>
+		<td i18n class="email">Email</td>
+		<td i18n class="role">Administrator</td>
+		<td i18n class="role">Manage Podcasts</td>
+		<td i18n class="role">Can Upload</td>
+		<td i18n class="role">Can Stream</td>
+		<td i18n class="actions">Actions</td>
 	</tr>
 	<tr *ngFor="let user of users; trackBy: trackByFn" class="user" appFocusKeyListItem (dblclick)="editUser(user)" (keydown.enter)="editUser(user)">
 		<td class="avatar">
@@ -15,16 +15,16 @@
 		</td>
 		<td class="title">{{user.name}}</td>
 		<td class="email">{{user.email}}</td>
-		<td class="role"><i *ngIf="user.roles.admin" class="icon-checkmark" aria-hidden="true"></i><span *ngIf="user.roles.admin" class="visually-hidden">Is Admin</span></td>
-		<td class="role"><i *ngIf="user.roles.podcast" class="icon-checkmark" aria-hidden="true"></i><span *ngIf="user.roles.admin" class="visually-hidden">Can manage podcast</span></td>
-		<td class="role"><i *ngIf="user.roles.upload" class="icon-checkmark" aria-hidden="true"></i><span *ngIf="user.roles.admin" class="visually-hidden">Can upload</span></td>
-		<td class="role"><i *ngIf="user.roles.stream" class="icon-checkmark" aria-hidden="true"></i><span *ngIf="user.roles.stream" class="visually-hidden">Can stream</span></td>
+		<td class="role"><i *ngIf="user.roles.admin" class="icon-checkmark" aria-hidden="true"></i><span i18n *ngIf="user.roles.admin" class="visually-hidden">Is Admin</span></td>
+		<td class="role"><i *ngIf="user.roles.podcast" class="icon-checkmark" aria-hidden="true"></i><span i18n *ngIf="user.roles.admin" class="visually-hidden">Can manage podcast</span></td>
+		<td class="role"><i *ngIf="user.roles.upload" class="icon-checkmark" aria-hidden="true"></i><span i18n *ngIf="user.roles.admin" class="visually-hidden">Can upload</span></td>
+		<td class="role"><i *ngIf="user.roles.stream" class="icon-checkmark" aria-hidden="true"></i><span i18n *ngIf="user.roles.stream" class="visually-hidden">Can stream</span></td>
 		<td class="actions">
 			<div class="action-buttons">
-				<button title="Change Avatar" (click)="editUserAvatar(user)"><i class="icon-picture" aria-hidden="true"></i></button>
-				<button title="Set Password" (click)="setUserPassword(user)"><i class="icon-key" aria-hidden="true"></i></button>
-				<button title="Edit User" (click)="editUser(user)"><i class="icon-edit" aria-hidden="true"></i></button>
-				<button title="Delete User" (click)="deleteUser(user)"><i class="icon-remove" aria-hidden="true"></i></button>
+				<button title="Change Avatar" i18n-title (click)="editUserAvatar(user)"><i class="icon-picture" aria-hidden="true"></i></button>
+				<button title="Set Password" i18n-title (click)="setUserPassword(user)"><i class="icon-key" aria-hidden="true"></i></button>
+				<button title="Edit User" i18n-title (click)="editUser(user)"><i class="icon-edit" aria-hidden="true"></i></button>
+				<button title="Delete User" i18n-title (click)="deleteUser(user)"><i class="icon-remove" aria-hidden="true"></i></button>
 			</div>
 		</td>
 	</tr>

@@ -5,7 +5,7 @@
 		</div>
 	</div>
 	<div *ngIf="trackHealth.health && hints" class="hints">
-		<div *ngIf="hints.length===0" class="hint">No Hints</div>
+		<div i18n *ngIf="hints.length===0" class="hint">No Hints</div>
 		<div *ngFor="let hint of hints; trackBy: trackByHintFn" class="hint">
 			<i class="icon-warning"></i> {{hint.hint.name}}
 			<div class="details">{{hint.description}}</div>

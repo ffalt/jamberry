@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"outDir": "./dist/out",
 		"types": [
-			"hammerjs"
-		]
+      "hammerjs",
+      "@angular/localize"
+    ]
 	}
 }

@@ -1,14 +1,14 @@
 <app-background-text-list name="Tracks" [list]="tracks"></app-background-text-list>
 <table *ngIf="tracks && tracks.length>0" class="tracks">
 	<tr class="track heading">
-		<td class="number">Track Nr.</td>
-		<td class="title">Title</td>
-		<td class="artist">Artist</td>
-		<td class="album">Album</td>
-		<td class="format">Format</td>
-		<td class="bitrate">BitRate</td>
-		<td class="samplerate">SampleRate</td>
-		<td class="duration">Duration</td>
+		<td i18n class="number">Track Nr.</td>
+		<td i18n class="title">Title</td>
+		<td i18n class="artist">Artist</td>
+		<td i18n class="album">Album</td>
+		<td i18n class="format">Format</td>
+		<td i18n class="bitrate">BitRate</td>
+		<td i18n class="samplerate">SampleRate</td>
+		<td i18n class="duration">Duration</td>
 	</tr>
 	<tr *ngFor="let trackItem of trackItems; trackBy: trackByFn" class="track" [class.selected]="trackItem.selected" (click)="trackItem.selected=!trackItem.selected">
 		<td class="number">{{trackItem.track.tag?.trackNr}}</td>

@@ -1,23 +1,23 @@
 <div class="user">
-	<app-view-header-slim section="User"></app-view-header-slim>
+	<app-view-header-slim section="User" i18n-section></app-view-header-slim>
 	<div *ngIf="auth.user" class="content">
 		<div class="row">
 			<div class="column first">
-				<div class="section-title">Avatar</div>
+				<div i18n class="section-title">Avatar</div>
 				<app-user-avatar></app-user-avatar>
 			</div>
 			<div class="column">
 				<div class="section">
-					<div class="section-title">Name</div>
+					<div i18n class="section-title">Name</div>
 					<div>{{auth.user.name}}</div>
 				</div>
 				<div class="section">
-					<div class="section-title">Permissions</div>
+					<div i18n class="section-title">Permissions</div>
 					<div class="roles">
-						<div *ngIf="auth.user?.roles?.stream"><i class="icon-checkmark"></i> Stream Audio</div>
-						<div *ngIf="auth.user?.roles?.podcast"><i class="icon-checkmark"></i> Manage Podcasts</div>
-						<div *ngIf="auth.user?.roles?.upload"><i class="icon-checkmark"></i> Upload Audio</div>
-						<div *ngIf="auth.user?.roles?.admin"><i class="icon-checkmark"></i> Server Administration</div>
+						<div *ngIf="auth.user?.roles?.stream"><i class="icon-checkmark"></i> <ng-container i18n>Stream Audio</ng-container></div>
+						<div *ngIf="auth.user?.roles?.podcast"><i class="icon-checkmark"></i> <ng-container i18n>Manage Podcasts</ng-container></div>
+						<div *ngIf="auth.user?.roles?.upload"><i class="icon-checkmark"></i> <ng-container i18n>Upload Audio</ng-container></div>
+						<div *ngIf="auth.user?.roles?.admin"><i class="icon-checkmark"></i> <ng-container i18n>Server Administration</ng-container></div>
 					</div>
 				</div>
 			</div>

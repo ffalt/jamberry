@@ -3,15 +3,16 @@
 	<div>
 		<button class="art" [class.active]="tabService.playerTab.active" (click)="tabService.clickPlayer()">
 			<div>
-				<app-coverart-image *ngIf="player.currentMedia" alt="Album Art" [coverArtObj]="player.currentMedia" [size]="50" [fill]="true"></app-coverart-image>
+				<app-coverart-image *ngIf="player.currentMedia" alt="Album Art" i18n-alt [coverArtObj]="player.currentMedia" [size]="50" [fill]="true"></app-coverart-image>
 			</div>
 			<i *ngIf="!player.currentMedia" class="icon-info" aria-hidden="true"></i>
 		</button>
 	</div>
 	<div class="actions">
-		<button title="Previous Track" [disabled]="!queue.hasPrevious" (click)="player.previous()"><i class="icon-fast-backward" aria-hidden="true"></i></button>
-		<button class="play" [title]="player.isPlaying | stringToggle : 'Pause' : 'Play'" (click)="togglePlayPause()"><i aria-hidden="true" [class]="player.isPlaying | stringToggle : 'icon-pause' : 'icon-play'"></i></button>
-		<button title="Next Track" [disabled]="!queue.hasNext" (click)="player.next()"><i class="icon-fast-forward" aria-hidden="true"></i></button>
+		<button title="Previous Track" i18n-title [disabled]="!queue.hasPrevious" (click)="player.previous()"><i class="icon-fast-backward" aria-hidden="true"></i></button>
+		<button *ngIf="player.isPlaying" class="play" i18n-title title="Pause" (click)="togglePlayPause()"><i aria-hidden="true" class="icon-pause"></i></button>
+		<button *ngIf="!player.isPlaying" class="play" i18n-title title="Play" (click)="togglePlayPause()"><i aria-hidden="true" class="icon-play"></i></button>
+		<button title="Next Track" i18n-title [disabled]="!queue.hasNext" (click)="player.next()"><i class="icon-fast-forward" aria-hidden="true"></i></button>
 	</div>
 	<div>
 		<button [class.active]="tabService.queueTab.active" (click)="tabService.clickQueue()"><i class="icon-queue" aria-hidden="true"></i></button>

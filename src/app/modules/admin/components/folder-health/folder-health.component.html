@@ -4,7 +4,7 @@
 	</div>
 </div>
 <div *ngIf="hints" class="hints">
-	<div *ngIf="hints.length===0" class="hint">No Hints</div>
+	<div i18n *ngIf="hints.length===0" class="hint">No Hints</div>
 	<div *ngFor="let hint of hints; trackBy: trackByFn"class="hint">
 		<i class="icon-warning"></i> {{hint.hint.name}}
 		<div *ngFor="let detail of hint.details; trackBy: trackByDetailFn" class="details">{{detail}}</div>

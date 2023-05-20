@@ -1,8 +1,8 @@
 <div *ngIf="mbAlbum" class="mbalbum">
 
-	<div class="section-title">Album Information by <a target="_blank" rel="noopener" href="https://musicbrainz.org/release/{{mbAlbum.id}}">
+	<div class="section-title"><ng-container i18n>Album Information by</ng-container> <a target="_blank" rel="noopener" href="https://musicbrainz.org/release/{{mbAlbum.id}}">
 		<app-mb-icon [size]="18"></app-mb-icon>
-		MusicBrainz</a></div>
+		<ng-container i18n>MusicBrainz</ng-container></a></div>
 
 	<div class="info-groups">
 		<div *ngFor="let infoGroup of infoGroups" class="info-group">
@@ -14,23 +14,23 @@
 		</div>
 	</div>
 
-	<div class="section-title">Release Events</div>
+	<div i18n class="section-title">Release Events</div>
 	<div *ngFor="let releaseEvent of mbAlbum.releaseEvents" class="releaseEvent">
 		<div>{{releaseEvent.date}} <span class="value">{{releaseEvent.area.name}}</span></div>
 	</div>
 
-	<div class="section-title">Labels</div>
+	<div i18n class="section-title">Labels</div>
 	<div *ngFor="let labelInfo of mbAlbum.labelInfo" class="labelInfo">
 		<div class="value">{{labelInfo.label.name}}</div>
 		<div *ngIf="labelInfo.label.disambiguation">{{labelInfo.label.disambiguation}}</div>
-		<div>Catalog Number <span class="value">{{labelInfo.catalogNumber}}</span></div>
+		<div><ng-container i18n>Catalog Number</ng-container> <span class="value">{{labelInfo.catalogNumber}}</span></div>
 	</div>
 
 	<div *ngFor="let media of mbAlbum.media" class="media">
-		<div class="section-title">Media: {{media.format}} {{media.position}} ({{media.trackCount}} Tracks)</div>
+		<div i18n class="section-title">Media: {{media.format}} {{media.position}} ({{media.trackCount}} Tracks)</div>
 		<div *ngFor="let track of media.tracks" class="track">
-			<div>Track {{track.number}} - {{track.length | mediaduration}}</div>
-			<div><span class="value">{{track.title || track.position}}</span> by <span class="value">{{track.artistCredit | mbArtistCredits}}</span></div>
+			<div i18n>Track {{track.number}} - {{track.length | mediaduration}}</div>
+			<div><span class="value">{{track.title || track.position}}</span> <ng-container i18n>by</ng-container> <span class="value">{{track.artistCredit | mbArtistCredits}}</span></div>
 		</div>
 	</div>
 

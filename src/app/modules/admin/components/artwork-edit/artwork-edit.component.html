@@ -1,6 +1,6 @@
 <div class="image-crop">
 	<label>
-		<input type="checkbox" [checked]="maintainAspectRatio" [(ngModel)]="maintainAspectRatio"> Maintain Aspect Ratio
+		<input type="checkbox" [checked]="maintainAspectRatio" [(ngModel)]="maintainAspectRatio"> <ng-container i18n>Maintain Aspect Ratio</ng-container>
 	</label>
 	<image-cropper *ngIf="imageBase64"
 								 [imageBase64]="imageBase64"
@@ -13,9 +13,9 @@
 	></image-cropper>
 </div>
 <div *ngIf="croppedImage" class="image-preview">
-	<img alt="Cropped Image" [src]="croppedImage">
+	<img alt="Cropped Image" i18n-alt [src]="croppedImage">
 </div>
 <div class="buttons">
 	<!--		<button class="button-on-control" *ngIf="isWorking"><i class="icon-spin icon-spinner"></i></button>-->
-	<button class="button-on-control" (click)="upload()">Use Cropped Artwork</button>
+	<button i18n class="button-on-control" (click)="upload()">Use Cropped Artwork</button>
 </div>

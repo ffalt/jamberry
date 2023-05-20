@@ -1,11 +1,11 @@
 <app-background-text-list name="Folders" [list]="folderItems"></app-background-text-list>
 <table *ngIf="folderItems && folderItems.length>0" class="folders">
 	<tr class="folder heading">
-		<td class="title">Title</td>
-		<td class="artist">Artist</td>
-		<td class="album">Album</td>
-		<td class="year">Year</td>
-		<td class="type">Type</td>
+		<td i18n class="title">Title</td>
+		<td i18n class="artist">Artist</td>
+		<td i18n class="album">Album</td>
+		<td i18n class="year">Year</td>
+		<td i18n class="type">Type</td>
 	</tr>
 	<tr *ngFor="let folderItem of folderItems; trackBy: trackByFn" class="folder" [class.selected]="folderItem.selected" (click)="folderItem.selected=!folderItem.selected">
 		<td class="title"><a [routerLink]="['/admin/folder', folderItem.folder.id, 'overview']">{{folderItem.folder.name}}</a></td>

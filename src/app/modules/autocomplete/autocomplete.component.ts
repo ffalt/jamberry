@@ -1,5 +1,4 @@
-import {Component, ContentChild, Input, TemplateRef, ViewChild} from '@angular/core';
-import {AutocompleteControl} from '@app/modules/autocomplete/autocomplete.types';
+import {Component, ContentChild, TemplateRef, ViewChild} from '@angular/core';
 import {AutocompleteContentDirective} from './autocomplete-content.directive';
 
 @Component({

@@ -276,7 +276,15 @@
 				"@angular-eslint/template/label-has-associated-control": "off",
 				"@angular-eslint/template/button-has-type": "off",
 				"@angular-eslint/template/use-track-by-function": "off",
-				"@angular-eslint/template/i18n": "off",
+				"@angular-eslint/template/i18n": ["warn", {
+					"checkId": false,
+					"ignoreAttributes": [
+						"rel",
+						"accept",
+						"attributeName",
+						"attributeType"
+					]
+				}],
 				"@angular-eslint/template/no-inline-styles": "off",
 				"@angular-eslint/template/click-events-have-key-events": "off",
 				"@angular-eslint/template/interactive-supports-focus": "off",

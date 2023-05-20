@@ -1,10 +1,10 @@
 <div class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)">
 	<form>
 		<div class="root-form-control">
-			<img alt="User Avatar" [src]="userAvatar">
+			<img alt="User Avatar" i18n-alt [src]="userAvatar">
 		</div>
 	</form>
 	<form>
-		<input type="file" placeholder="Upload image" accept=".png,.jpeg,.jpg" (change)="selectFile($event)">
+		<input type="file" placeholder="Upload image" i18n-placeholder accept=".png,.jpeg,.jpg" (change)="selectFile($event)">
 	</form>
 </div>

@@ -1,10 +1,13 @@
 <div *ngIf="!isIdle">
-	<div>{{isUploading|stringToggle:'Uploading':'Creating Artwork'}}</div>
+	<div>
+		<ng-container *ngIf="isUploading" i18n>Uploading</ng-container>
+		<ng-container *ngIf="!isUploading" i18n>Creating Artwork</ng-container>
+	</div>
 	<app-loading></app-loading>
 </div>
 <div *ngIf="isIdle" class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)">
 	<form>
-		<input type="file" placeholder="Upload image" accept=".png,.jpeg,.jpg" (change)="selectFile($event)">
+		<input type="file" placeholder="Upload image" i18n-placeholder accept=".png,.jpeg,.jpg" (change)="selectFile($event)">
 	</form>
 </div>
 

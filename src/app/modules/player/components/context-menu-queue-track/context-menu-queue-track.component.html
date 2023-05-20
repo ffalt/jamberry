@@ -3,9 +3,9 @@
 		<app-context-entry-fav [base]="track"></app-context-entry-fav>
 	</ng-template>
 	<ng-template contextMenuItem let-track="track">
-		<app-context-entry-rate baseType="track" [base]="track"></app-context-entry-rate>
+		<app-context-entry-rate baseType="track" i18n-baseType [base]="track"></app-context-entry-rate>
 	</ng-template>
-	<ng-template contextMenuItem (execute)="queue.remove($event.item)"><i class="icon-list-add"></i> Remove From Queue</ng-template>
-	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> Download</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toTrack($event.item)"><i class="icon-track"></i> Show Track Details</ng-template>
+	<ng-template contextMenuItem (execute)="queue.remove($event.item)"><i class="icon-list-add"></i> <ng-container i18n>Remove From Queue</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="actions.download($event.item)"><i class="icon-download-cloud"></i> <ng-container i18n>Download</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="navig.toTrack($event.item)"><i class="icon-track"></i> <ng-container i18n>Show Track Details</ng-container></ng-template>
 </context-menu>

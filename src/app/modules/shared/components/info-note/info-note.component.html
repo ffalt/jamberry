@@ -5,12 +5,12 @@
 			<div [innerHTML]="note"></div>
 		</div>
 		<div *ngIf="info" class="info-footnote">
-			<span *ngIf="info.url">Read more on <a target="_blank" rel="noopener" [href]="info.url">{{info.source}}</a><br/></span>
-			<a [href]="info.licenseUrl">User-contributed text is available under the {{info.license}}; additional terms may apply.</a>
+			<span *ngIf="info.url"><ng-container i18n>Read more on </ng-container><a target="_blank" rel="noopener" [href]="info.url">{{info.source}}</a><br/></span>
+			<a i18n [href]="info.licenseUrl">User-contributed text is available under the {{info.license}}; additional terms may apply.</a>
 		</div>
 	</ng-container>
 	<ng-container *ngIf="notes.length>1">
-		<button *ngIf="!longInfo" class="button-on-background" (click)="longInfo=!longInfo">Show More</button>
-		<button *ngIf="longInfo" class="button-on-background" (click)="longInfo=!longInfo">Show Less</button>
+		<button i18n *ngIf="!longInfo" class="button-on-background" (click)="longInfo=!longInfo">Show More</button>
+		<button i18n *ngIf="longInfo" class="button-on-background" (click)="longInfo=!longInfo">Show Less</button>
 	</ng-container>
 </div>

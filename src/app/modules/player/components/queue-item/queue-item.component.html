@@ -15,5 +15,5 @@
 			 (click)="navig.toArtistID(entry.artistID,entry.tag.artist)"
 			 (keydown.enter)="navig.toArtistID(entry.artistID,entry.tag.artist)">{{entry.tag.artist}}</a></div>
 	<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{entry.duration|duration}}</div>
-	<div class="remove"><a title="Remove From Queue" tabindex="0" appClickStop (click)="queue.remove(entry)" (keydown.enter)="queue.remove(entry)"><i class="icon-remove"></i></a></div>
+	<div class="remove"><a title="Remove From Queue" i18n-title tabindex="0" appClickStop (click)="queue.remove(entry)" (keydown.enter)="queue.remove(entry)"><i class="icon-remove"></i></a></div>
 </div>

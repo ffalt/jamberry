@@ -1,13 +1,13 @@
 <header [class.searching]="searchActive">
-	<button class="sandwich" title="Navigation Menu" (click)="toggleMobileNavig()"><i class="icon-menu" aria-hidden="true"></i></button>
-	<button *ngIf="app.standalone" class="back" title="Go back" (click)="back()"><i class="icon-left-bold" aria-hidden="true"></i></button>
-	<a class="logo" title="Go to Start" [routerLink]="['/library']">
+	<button class="sandwich" title="Navigation Menu" i18n-title (click)="toggleMobileNavig()"><i class="icon-menu" aria-hidden="true"></i></button>
+	<button *ngIf="app.standalone" class="back" title="Go back" i18n-title (click)="back()"><i class="icon-left-bold" aria-hidden="true"></i></button>
+	<a class="logo" title="Go to Start" i18n-title [routerLink]="['/library']">
 		<app-logo-icon></app-logo-icon>
 		<span class="logo-name">{{app.name}}</span>
 	</a>
 	<div class="spacer"></div>
 	<app-search-box class="search" (searchStateChange)="searchStateChange($event)"></app-search-box>
-	<button *ngIf="auth.user && auth.user.name" class="user" title="User Menu" (click)="onContextMenu($event)">
+	<button *ngIf="auth.user && auth.user.name" class="user" title="User Menu" i18n-title (click)="onContextMenu($event)">
 		<app-coverart-image [coverArtObj]="auth.user" [size]="28" [round]="true"></app-coverart-image>
 	</button>
 </header>

@@ -1,5 +1,5 @@
 <div class="genre">
-	<app-view-header-icon-section icon="icon-genre" [section]="title" [tabs]="tabs"></app-view-header-icon-section>
+	<app-view-header-icon-section icon="icon-genre" i18n-icon [section]="title" [tabs]="tabs"></app-view-header-icon-section>
 	<div *ngIf="genreID" class="content">
 		<div class="tab-content" [ngSwitch]="currentTab.id">
 			<div *ngSwitchCase="tabsObjs.albums.id" class="tab-pane">

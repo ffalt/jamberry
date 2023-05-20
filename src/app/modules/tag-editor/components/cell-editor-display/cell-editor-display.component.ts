@@ -9,6 +9,7 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 export class CellEditorDisplayComponent {
 	@Input() lines?: Array<string>;
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	trackByFn(index: number, value: string): string {
 		return index.toString();
 	}

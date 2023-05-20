@@ -9,7 +9,7 @@
 	<div *ngIf="showPlayCount" class="play-count">{{media.state?.played}}</div>
 	<div *ngIf="showPlayDate" class="play-date" title="{{media.state?.lastPlayed | date:'long'}}">{{media.state?.lastPlayed | date}}</div>
 	<div class="number">{{media.tag?.trackNr}}</div>
-	<div class="title"><p>{{media.tag?.title}}</p><a *ngIf="showArtist && media.tag?.artist" title="Artist" (click)="navig.toMediaArtist(media)">{{media.tag?.artist}}</a></div>
+	<div class="title"><p>{{media.tag?.title}}</p><a *ngIf="showArtist && media.tag?.artist" title="Artist" i18n-title (click)="navig.toMediaArtist(media)">{{media.tag?.artist}}</a></div>
 	<div class="length">{{media.duration|duration}}</div>
 </div>
 

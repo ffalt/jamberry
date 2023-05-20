@@ -1,4 +1,4 @@
 <div *ngIf="hasMore" class="more">
 	<div *ngIf="loading"><i class="icon-spin icon-spinner"></i></div>
-	<div *ngIf="!loading" tabindex="0" (click)="more()" (keydown.enter)="more()">Show {{take}} More</div>
+	<div i18n *ngIf="!loading" tabindex="0" (click)="more()" (keydown.enter)="more()">Show {{take}} More</div>
 </div>

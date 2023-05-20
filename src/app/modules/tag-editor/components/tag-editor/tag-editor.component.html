@@ -1,27 +1,27 @@
 <app-loading *ngIf="!folder"></app-loading>
 
 <context-menu #actionMenu>
-	<ng-template contextMenuItem (execute)="editor.setAudiobookFrames(this.tracks)"><i class="icon-edit"></i> Set Audiobook Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.setAudioSeriesFrames(this.tracks)"><i class="icon-edit"></i> Set Audio Series Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.setSoundtrackFrames(this.tracks)"><i class="icon-edit"></i> Set Soundtrack Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.setBootlegFrames(this.tracks)"><i class="icon-edit"></i> Set Bootleg Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.setVariousArtistFrames(this.tracks)"><i class="icon-edit"></i> Set Various Artists Compilation Frames</ng-template>
-	<ng-template contextMenuItem (execute)="editor.findMissingLyrics(this.tracks)"><i class="icon-edit"></i> Search & Fill Missing Lyrics Frames</ng-template>
+	<ng-template contextMenuItem (execute)="editor.setAudiobookFrames(this.tracks)"><i class="icon-edit"></i> <ng-container i18n>Set Audiobook Frames</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="editor.setAudioSeriesFrames(this.tracks)"><i class="icon-edit"></i> <ng-container i18n>Set Audio Series Frames</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="editor.setSoundtrackFrames(this.tracks)"><i class="icon-edit"></i> <ng-container i18n>Set Soundtrack Frames</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="editor.setBootlegFrames(this.tracks)"><i class="icon-edit"></i> <ng-container i18n>Set Bootleg Frames</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="editor.setVariousArtistFrames(this.tracks)"><i class="icon-edit"></i> <ng-container i18n>Set Various Artists Compilation Frames</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="editor.findMissingLyrics(this.tracks)"><i class="icon-edit"></i> <ng-container i18n>Search & Fill Missing Lyrics Frames</ng-container></ng-template>
 </context-menu>
 <ng-container *ngIf="folder">
 	<div *ngIf="canLoadRecursive" class="load-recursive">
-		This folder does not contain any tracks with tags.<br/>Do you want to load all tracks from subfolders?<br/>
-		<button class="button-on-control" title="Load all Tracks" (click)="loadRecursive()"><i class="icon-reload"></i> Load recursive</button>
+		<ng-container i18n>This folder does not contain any tracks with tags.</ng-container><br/><ng-container i18n>Do you want to load all tracks from subfolders?</ng-container><br/>
+		<button class="button-on-control" title="Load all Tracks" i18n-title (click)="loadRecursive()"><i class="icon-reload"></i> <ng-container i18n>Load recursive</ng-container></button>
 	</div>
 	<div *ngIf="tracks && tracks.length>0 && editor.edits" class="actions">
-		<button class="button-on-control" title="Refresh" (click)="refresh()"><i class="icon-reload"></i></button>
-		<button class="button-on-control" title="Match with MusicBrainz" (click)="brainz()">
+		<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
+		<button class="button-on-control" title="Match with MusicBrainz" i18n-title (click)="brainz()">
 			<app-mb-icon [size]="12"></app-mb-icon>
 		</button>
-		<button class="button-on-control" title="Choose Columns" (click)="chooseColumns()"><i class="icon-list-add"></i></button>
-		<button *ngIf="!isSaving" class="button-on-control" title="Save" (click)="save()"><i class="icon-floppy"></i></button>
-		<button *ngIf="isSaving" class="button-on-control" title="Save"><i class="icon-spin icon-spnner"></i></button>
-		<button class="button-on-control" title="More" (click)="onContextMenu($event)">…</button>
+		<button class="button-on-control" title="Choose Columns" i18n-title (click)="chooseColumns()"><i class="icon-list-add"></i></button>
+		<button *ngIf="!isSaving" class="button-on-control" title="Save" i18n-title (click)="save()"><i class="icon-floppy"></i></button>
+		<button *ngIf="isSaving" class="button-on-control" title="Save" i18n-title><i class="icon-spin icon-spnner"></i></button>
+		<button class="button-on-control" title="More" i18n-title (click)="onContextMenu($event)">…</button>
 	</div>
 	<app-admin-tag-editor-column-tool [editor]="editor" [activeCol]="activeCol" (requestClose)="activeCol=undefined"></app-admin-tag-editor-column-tool>
 	<app-loading *ngIf="!tracks"></app-loading>
@@ -38,7 +38,7 @@
 			</tr>
 			</thead>
 			<colgroup>
-				<col [style.min-width.px]="60">
+				<col [style.min-width.px]="40">
 				<col *ngFor="let column of editor.columns; trackBy: trackByColumnFn" [style.min-width.px]="column.def.width || 60">
 			</colgroup>
 			<tbody>

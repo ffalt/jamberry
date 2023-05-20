@@ -1,9 +1,9 @@
 <app-loading *ngIf="!folder"></app-loading>
 <div *ngIf="folder && folder.folders" class="folders">
 	<div class="actions">
-		<button class="button-on-control" title="Refresh" (click)="refresh()"><i class="icon-reload"></i></button>
-		<button class="button-on-control" title="New Folder…" (click)="newFolder()"><i class="icon-plus"></i></button>
-		<button *ngIf="folder?.folders?.length" class="button-on-control" title="Move Subfolders…" (click)="moveSubfolders()"><i class="icon-right-bold"></i></button>
+		<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
+		<button class="button-on-control" title="New Folder…" i18n-title (click)="newFolder()"><i class="icon-plus"></i></button>
+		<button *ngIf="folder?.folders?.length" class="button-on-control" title="Move Subfolders…" i18n-title (click)="moveSubfolders()"><i class="icon-right-bold"></i></button>
 	</div>
 	<app-background-text-list name="Folders" [list]="folder.folders"></app-background-text-list>
 	<app-admin-folder-list *ngIf="folder.folders?.length" [folders]="folder.folders"></app-admin-folder-list>

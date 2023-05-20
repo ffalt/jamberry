@@ -1,26 +1,26 @@
 <ng-container *ngIf="episode" [ngSwitch]="episode.status">
 	<ng-container *ngSwitchCase="PodcastStatus.new">
 		<button *ngIf="jam.auth.user?.roles?.podcast" class="button-on-background"
-						title="Get Episode" (click)="podcastService.retrieveEpisode(episode)">
+						title="Get Episode" i18n-title (click)="podcastService.retrieveEpisode(episode)">
 			<i class="icon-download"></i>
-			<ng-container *ngIf="showTitle"> Get Episode</ng-container>
+			<ng-container i18n *ngIf="showTitle"> Get Episode</ng-container>
 		</button>
 	</ng-container>
 	<ng-container *ngSwitchCase="PodcastStatus.downloading">
 		<button class="button-on-background"><i class="icon-spin icon-spinner"></i>
-			<ng-container *ngIf="showTitle"> Downloading</ng-container>
+			<ng-container i18n *ngIf="showTitle"> Downloading</ng-container>
 		</button>
 	</ng-container>
 	<ng-container *ngSwitchCase="PodcastStatus.error">
 		<span [title]="episode.error"><i class="icon-warning"></i></span>
 		<button *ngIf="jam.auth.user?.roles?.podcast" class="button-on-background"
-						title="Get Episode" (click)="podcastService.retrieveEpisode(episode)">
+						title="Get Episode" i18n-title (click)="podcastService.retrieveEpisode(episode)">
 			<i class="icon-download"></i>
 		</button>
 	</ng-container>
 	<ng-container *ngSwitchCase="PodcastStatus.completed">
 		<button class="button-primary" (click)="player.startEpisode(episode)"><i class="icon-play"></i>
-			<ng-container *ngIf="showTitle"> Play</ng-container>
+			<ng-container i18n *ngIf="showTitle"> Play</ng-container>
 		</button>
 	</ng-container>
 	<ng-container *ngSwitchDefault>

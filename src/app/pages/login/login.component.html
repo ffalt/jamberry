@@ -2,20 +2,20 @@
 	<div class="container-login" (submit)="login($event)">
 		<div class="login-card">
 			<h1>
-				<app-logo-icon></app-logo-icon>&nbsp;{{app.name}} Login
+				<app-logo-icon></app-logo-icon>&nbsp;{{app.name}} <ng-container i18n>Login</ng-container>
 			</h1>
 			<br>
 			<form>
 				<ng-container *ngIf="showServer">
-					<label>Server
-						<input type="text" name="server" placeholder="Server" [(ngModel)]="credentials.server">
+					<label><ng-container i18n>Server</ng-container>
+						<input type="text" name="server" placeholder="Server" i18n-placeholder [(ngModel)]="credentials.server">
 					</label>
 				</ng-container>
-				<label>User
-					<input type="text" name="user" placeholder="Username" autocomplete="username" [(ngModel)]="credentials.username">
+				<label><ng-container i18n>User</ng-container>
+					<input type="text" name="user" placeholder="Username" i18n-placeholder autocomplete="username" [(ngModel)]="credentials.username">
 				</label>
-				<label>Password
-					<input type="password" name="pass" placeholder="Password" autocomplete="password" [(ngModel)]="credentials.password">
+				<label><ng-container i18n>Password</ng-container>
+					<input type="password" name="pass" placeholder="Password" i18n-placeholder autocomplete="password" [(ngModel)]="credentials.password">
 				</label>
 				<input type="submit" name="login" class="login-submit" value="login">
 			</form>

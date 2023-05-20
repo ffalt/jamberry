@@ -4,10 +4,11 @@
 		"outDir": "./dist/spec",
 		"emitDecoratorMetadata": true,
 		"types": [
-			"jest",
-			"hammerjs",
-			"node"
-		],
+      "jest",
+      "hammerjs",
+      "node",
+      "@angular/localize"
+    ],
 		"module": "commonjs"
 	},
 	"files": [

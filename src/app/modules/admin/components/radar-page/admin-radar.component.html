@@ -1,17 +1,15 @@
 <div class="radar">
-	<app-view-header-slim section="Health Radar">
+	<app-view-header-slim section="Health Radar" i18n-section>
 		<ng-container *ngIf="folders">
 			<div *ngIf="!searching" class="buttons">
-				<button class="button-primary" (click)="start()"><i class="icon-play"></i> Next</button>
-				<button *ngIf="current" class="button-on-control" (click)="refresh(current.pos, false)"><i class="icon-reload"></i> Refresh</button>
-				<button *ngIf="current && current.health && current.health.length>0" class="button-on-control" (click)="fixAll()">Fix all fixable</button>
+				<button class="button-primary" (click)="start()"><i class="icon-play"></i> <ng-container i18n>Next</ng-container></button>
+				<button *ngIf="current" class="button-on-control" (click)="refresh(current.pos, false)"><i class="icon-reload"></i> <ng-container i18n>Refresh</ng-container></button>
+				<button i18n *ngIf="current && current.health && current.health.length>0" class="button-on-control" (click)="fixAll()">Fix all fixable</button>
 			</div>
 			<div *ngIf="searching" class="buttons">
 				<button class="button-on-control" (click)="stop()"><i class="icon-stop"></i> Stop</button>
-				</div>
-
+			</div>
 		</ng-container>
-
 	</app-view-header-slim>
 
 	<div class="content">

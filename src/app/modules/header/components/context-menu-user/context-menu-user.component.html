@@ -1,8 +1,8 @@
 <context-menu #userMenu>
-	<ng-template contextMenuItem (execute)="navig.toUser()"><i class="icon-user"></i> Profile</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toUserSettings()"><i class="icon-settings"></i> Settings</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toLibraryStart()"><i class="icon-browse"></i> Library</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toAdmin()" [visible]="!!auth.user?.roles?.admin"><i class="icon-admin"></i> Administration</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toAbout()"><i class="icon-help"></i> About</ng-template>
-	<ng-template contextMenuItem (execute)="navig.toLogout()"><i class="icon-logout"></i> Logout</ng-template>
+	<ng-template contextMenuItem (execute)="navig.toUser()"><i class="icon-user"></i> <ng-container i18n>Profile</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="navig.toUserSettings()"><i class="icon-settings"></i> <ng-container i18n>Settings</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="navig.toLibraryStart()"><i class="icon-browse"></i> <ng-container i18n>Library</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="navig.toAdmin()" [visible]="!!auth.user?.roles?.admin"><i class="icon-admin"></i> <ng-container i18n>Administration</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="navig.toAbout()"><i class="icon-help"></i> <ng-container i18n>About</ng-container></ng-template>
+	<ng-template contextMenuItem (execute)="navig.toLogout()"><i class="icon-logout"></i> <ng-container i18n>Logout</ng-container></ng-template>
 </context-menu>

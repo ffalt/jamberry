@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MatchReleaseComponent,} from '@app/modules/tag-editor/components';
+import {MatchReleaseComponent} from '@app/modules/tag-editor/components';
 import {TEST_TAGEDITOR_MODULE_IMPORTS, TEST_TAGEDITOR_MODULE_PROVIDERS} from '@app/modules/tag-editor/tag-editor.module.mock';
 
 describe('MatchReleaseComponent', () => {

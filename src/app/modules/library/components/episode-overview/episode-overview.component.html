@@ -1,50 +1,50 @@
 <ng-container *ngIf="episode">
 	<div *ngIf="episode.summary" class="info">
-		<div class="section-title">Description</div>
+		<div i18n class="section-title">Description</div>
 		<app-info-text [info]="episode.summary"></app-info-text>
 	</div>
 	<div *ngIf="episode.chapters" class="info">
-		<div class="section-title">Chapters</div>
+		<div i18n class="section-title">Chapters</div>
 		<app-chapters [episode]="episode"></app-chapters>
 	</div>
 	<div class="info">
-		<div class="section-title">Info</div>
+		<div i18n class="section-title">Info</div>
 		<div class="key-value-row">
-			<div>Date</div>
+			<div i18n>Date</div>
 			<div>{{episode.date|date}}</div>
 		</div>
 		<div class="key-value-row">
-			<div>Duration</div>
+			<div i18n>Duration</div>
 			<div>{{episode.duration|duration}}</div>
 		</div>
 		<div class="key-value-row">
-			<div>URL</div>
+			<div i18n>URL</div>
 			<div><a target="_blank" rel="noopener" [href]="episode.link">{{episode.link}}</a></div>
 		</div>
 		<div class="key-value-row">
-			<div>Author</div>
+			<div i18n>Author</div>
 			<div>{{episode.author}}</div>
 		</div>
 		<ng-container *ngIf="episode.media">
-			<div class="section-title">Media</div>
+			<div i18n class="section-title">Media</div>
 			<div class="key-value-row">
-				<div>Size</div>
+				<div i18n>Size</div>
 				<div>{{episode.media.size | filesize}}</div>
 			</div>
 			<div *ngIf="episode.media.bitRate" class="key-value-row">
-				<div>BitRate</div>
+				<div i18n>BitRate</div>
 				<div>{{episode.media.bitRate}}</div>
 			</div>
 			<div class="key-value-row">
-				<div>SampleRate</div>
+				<div i18n>SampleRate</div>
 				<div>{{episode.media.sampleRate}}</div>
 			</div>
 			<div class="key-value-row">
-				<div>Format</div>
+				<div i18n>Format</div>
 				<div>{{episode.media.format}}</div>
 			</div>
 			<div class="key-value-row">
-				<div>Channels</div>
+				<div i18n>Channels</div>
 				<div>{{episode.media.channels}}</div>
 			</div>
 		</ng-container>

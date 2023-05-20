@@ -7,10 +7,10 @@
 </app-autocomplete>
 
 <div class="search">
-	<app-view-header-icon-section icon="icon-search" section="Search" [tabs]="tabs">
+	<app-view-header-icon-section icon="icon-search" i18n-icon section="Search" i18n-section [tabs]="tabs">
 		<div class="input-box">
-			<input autocomplete="off" type="text" name="query" placeholder="Search here" [appAutocomplete]="autocomplete" [appAutocompleteControl]="this" [(ngModel)]="value">
-			<i title="Search" class="icon-search" (click)="search()"></i>
+			<input autocomplete="off" type="text" name="query" placeholder="Search here" i18n-placeholder [appAutocomplete]="autocomplete" [appAutocompleteControl]="this" [(ngModel)]="value">
+			<i title="Search" i18n-title class="icon-search" (click)="search()"></i>
 		</div>
 	</app-view-header-icon-section>
 	<div *ngIf="query" class="content">

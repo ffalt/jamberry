@@ -1,6 +1,6 @@
-<ul *ngIf="tabs && tabs.length>1" class="tabs" listRole="tablist" appFocusKeyList [class.mini]="smallTabs">
+<ul *ngIf="tabs && tabs.length>1" class="tabs" listRole="tablist" i18n-listRole appFocusKeyList [class.mini]="smallTabs">
 	<li *ngFor="let tab of tabs">
-		<a *ngIf="tab.link" routerLinkActive="active" appFocusKeyListItem listRole="tab" [routerLink]="[tab.link.route]" [routerLinkActiveOptions]="{exact:!!tab.link.exact}"><a>{{tab.label}}</a></a>
-		<a *ngIf="!tab.link" appFocusKeyListItem listRole="tab" [class.active]="tab.active" (click)="tab.click()" (keydown.enter)="tab.click()"><a>{{tab.label}}</a></a>
+		<a *ngIf="tab.link" routerLinkActive="active" appFocusKeyListItem listRole="tab" i18n-listRole [routerLink]="[tab.link.route]" [routerLinkActiveOptions]="{exact:!!tab.link.exact}"><a>{{tab.label}}</a></a>
+		<a *ngIf="!tab.link" appFocusKeyListItem listRole="tab" i18n-listRole [class.active]="tab.active" (click)="tab.click()" (keydown.enter)="tab.click()"><a>{{tab.label}}</a></a>
 	</li>
 </ul>

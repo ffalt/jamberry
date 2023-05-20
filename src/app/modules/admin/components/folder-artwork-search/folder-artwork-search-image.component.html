@@ -25,7 +25,7 @@
 	</div>
 	<div class="artwork">
 		<div *ngIf="data && artworks" class="current">
-			<div class="section">Current Images</div>
+			<div i18n class="section">Current Images</div>
 			<app-admin-artwork-list *ngIf="!isArtRefreshing" [folderID]="data.folder.id" [artworks]="artworks"></app-admin-artwork-list>
 		</div>
 	</div>
@@ -33,6 +33,6 @@
 <div class="buttons">
 	<div *ngIf="nodes && nodes.length>0">
 		<button *ngIf="isWorking" class="button-on-control"><i class="icon-spin icon-spinner"></i></button>
-		<button *ngIf="!isWorking" class="button-on-control" (click)="use()">Use Checked Artwork</button>
+		<button i18n *ngIf="!isWorking" class="button-on-control" (click)="use()">Use Checked Artwork</button>
 	</div>
 </div>

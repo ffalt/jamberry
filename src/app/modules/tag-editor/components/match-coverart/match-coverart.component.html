@@ -1,9 +1,9 @@
 <div class="match-album-images">
 	<label class="front-only-choice">
-		<input type="checkbox" [checked]="showFrontImagesOnly" [(ngModel)]="showFrontImagesOnly" (change)="onToggleShowFrontImagesOnly()"> Front only
+		<input type="checkbox" [checked]="showFrontImagesOnly" [(ngModel)]="showFrontImagesOnly" (change)="onToggleShowFrontImagesOnly()"> <ng-container i18n>Front only</ng-container>
 	</label>
 	<div class="section">
-		<a href="https://coverartarchive.org/" rel="noopener" target="_blank">Coverart</a>
+		<a i18n href="https://coverartarchive.org/" rel="noopener" target="_blank">Coverart</a>
 	</div>
 	<i *ngIf="isImageSearchRunning" class="icon-spin icon-spinner"></i>
 	<div *ngIf="images && !isImageSearchRunning" class="match-images">

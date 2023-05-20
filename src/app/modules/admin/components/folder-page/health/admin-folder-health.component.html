@@ -1,7 +1,7 @@
 <div class="health">
 	<div class="actions">
-		<button class="button-on-control" title="Refresh List" (click)="refresh()"><i class="icon-reload"></i></button>
-		<select *ngIf="modes.length>0" placeholder="Type of Hints" [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
+		<button class="button-on-control" title="Refresh List" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
+		<select *ngIf="modes.length>0" placeholder="Type of Hints" i18n-placeholder [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
 			<option *ngFor="let m of modes; trackBy: trackByModeFn" [value]="m">{{m}}</option>
 		</select>
 	</div>
@@ -13,23 +13,23 @@
 				<a [routerLink]="['/admin/folder',folderHealth.folder.id,'overview']">
 					<ng-container [ngSwitch]="folderHealth.folder.type">
 						<ng-container *ngSwitchCase="'multialbum'">
-							<div class="type">Album</div>
+							<div i18n class="type">Album</div>
 							<div class="name">{{folderHealth.folder.tag?.album}}</div>
 							<div class="artist">{{folderHealth.folder.tag?.artist}}</div>
 							<div class="year">{{folderHealth.folder.tag?.year}}</div>
 						</ng-container>
 						<ng-container *ngSwitchCase="'album'">
-							<div class="type">Album</div>
+							<div i18n class="type">Album</div>
 							<div class="name">{{folderHealth.folder.tag?.album}}</div>
 							<div class="artist">{{folderHealth.folder.tag?.artist}}</div>
 							<div class="year">{{folderHealth.folder.tag?.year}}</div>
 						</ng-container>
 						<ng-container *ngSwitchCase="'artist'">
-							<div class="type">Artist</div>
+							<div i18n class="type">Artist</div>
 							<div class="name">{{folderHealth.folder.tag?.artist}}</div>
 						</ng-container>
 						<ng-container *ngSwitchCase="'collection'">
-							<div class="type">Collection</div>
+							<div i18n class="type">Collection</div>
 							<div class="name">{{folderHealth.folder.name}}</div>
 						</ng-container>
 						<ng-container *ngSwitchDefault>

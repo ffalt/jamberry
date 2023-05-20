@@ -1,7 +1,7 @@
 <div class="navigation">
-	<ul class="tabs" listRole="tablist" appFocusKeyList>
-		<li listRole="tab" appFocusKeyListItem [class.active]="currentTab==='queue'" (clickenter)="currentTab='queue'"><a>Queue</a></li>
-		<li listRole="tab" appFocusKeyListItem [class.active]="currentTab==='chat'" (clickenter)="currentTab='chat'"><a>Chat</a></li>
+	<ul class="tabs" listRole="tablist" i18n-listRole appFocusKeyList>
+		<li listRole="tab" i18n-listRole appFocusKeyListItem [class.active]="currentTab==='queue'" (clickenter)="currentTab='queue'"><a i18n>Queue</a></li>
+		<li listRole="tab" i18n-listRole appFocusKeyListItem [class.active]="currentTab==='chat'" (clickenter)="currentTab='chat'"><a i18n>Chat</a></li>
 	</ul>
 </div>
 <div class="content">

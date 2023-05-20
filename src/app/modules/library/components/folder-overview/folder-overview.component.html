@@ -1,12 +1,12 @@
 <app-loading *ngIf="!folder"></app-loading>
 <ng-container *ngIf="folder">
-	<div class="section-title">Navigation</div>
+	<div i18n class="section-title">Navigation</div>
 	<ul *ngIf="folder.parents && folder.parents.length>0" class="breadcrumb">
 		<li *ngFor="let p of folder.parents; trackBy: trackByFn"><a (click)="navig.toFolderID(p.id,p.name)">{{p.name}}</a></li>
 		<li>{{folder.name}}</li>
 	</ul>
 	<div *ngIf="folder.info" class="info">
-		<div class="section-title">Description</div>
+		<div i18n class="section-title">Description</div>
 		<app-info-note [info]="folder.info"></app-info-note>
 	</div>
 	<app-obj-groups-view *ngIf="childFolders" [objs]="childFolders"></app-obj-groups-view>

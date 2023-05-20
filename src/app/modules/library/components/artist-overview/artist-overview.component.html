@@ -1,7 +1,7 @@
 <app-loading *ngIf="!artist"></app-loading>
 <div *ngIf="artist" class="overview">
 	<div *ngIf="artist.info" class="info">
-		<div class="section-title">Description</div>
+		<div i18n class="section-title">Description</div>
 		<app-info-note [info]="artist.info"></app-info-note>
 	</div>
 </div>

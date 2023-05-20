@@ -47,7 +47,8 @@ export class PlaylistService {
 		this.getPlaylistEntriesIDs(playlist)
 			.then(list => {
 				this.savePlaylist(playlist, list.concat(newMediaIDs));
-			});
+			})
+			.catch(e => this.notify.error(e));
 	}
 
 	removeFromPlaylist(playlist: Jam.Playlist, removeTrackIDs: Array<string>): void {

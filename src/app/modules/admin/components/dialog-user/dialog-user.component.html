@@ -1,37 +1,37 @@
 <div *ngIf="edit">
 	<form>
 		<div class="user-form-control">
-			<label for="user-name">Name</label>
+			<label i18n for="user-name">Name</label>
 			<input id="user-name" type="text" name="username" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.name"/>
 		</div>
 		<div class="user-form-control">
-			<label for="user-mail">Email</label>
+			<label i18n for="user-mail">Email</label>
 			<input id="user-mail" type="email" name="mail" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.email"/>
 		</div>
-		<div class="user-form-section">Roles</div>
+		<div i18n class="user-form-section">Roles</div>
 		<div class="user-form-roles">
 			<label>
-				<input type="checkbox" title="Allow User to administrate" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.roleAdmin"/>
-				Administrator
+				<input type="checkbox" title="Allow User to administrate" i18n-title [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.roleAdmin"/>
+				<ng-container i18n>Administrator</ng-container>
 			</label><br/>
 			<label>
-				<input type="checkbox" title="Allow User to manage podcasts" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.rolePodcast"/>
-				Manage Podcasts
+				<input type="checkbox" title="Allow User to manage podcasts" i18n-title [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.rolePodcast"/>
+				<ng-container i18n>Manage Podcasts</ng-container>
 			</label><br/>
 			<label>
-				<input type="checkbox" title="Allow User to manage podcasts" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.roleStream"/>
-				Can Stream/Download
+				<input type="checkbox" title="Allow User to manage podcasts" i18n-title [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.roleStream"/>
+				<ng-container i18n>Can Stream/Download</ng-container>
 			</label><br/>
 			<label>
-				<input type="checkbox" title="Allow User to upload files" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.roleUpload"/>
-				Can Upload
+				<input type="checkbox" title="Allow User to upload files" i18n-title [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.roleUpload"/>
+				<ng-container i18n>Can Upload</ng-container>
 			</label>
 		</div>
 		<hr>
 		<div class="user-form-control">
 			<!-- dummy input, so password managers dont fill user name in random text inputs above-->
 			<input #name class="dummy" type="text" name="user" autocomplete="username"/>
-			<label for="admin-pass" class="label-pass">Your Admin Password</label>
+			<label i18n for="admin-pass" class="label-pass">Your Admin Password</label>
 			<input id="admin-pass" name="pass" type="password" autocomplete="password" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.edit.password"/>
 		</div>
 	</form>

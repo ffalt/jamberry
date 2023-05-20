@@ -19,10 +19,10 @@
 			<div class="player-controls">
 				<button class="player-control" [title]="player.isMuted | stringToggle : 'Unmute' : 'Mute'" (click)="player.unmute()">
 					<i aria-hidden="true" [class]="player.isMuted | stringToggle : 'icon-volume-off' : 'icon-volume-up'"></i></button>
-				<app-volume-slider title="Volume"></app-volume-slider>
+				<app-volume-slider title="Volume" i18n-title></app-volume-slider>
 			</div>
 			<div *ngIf="showSpeed" class="player-controls">
-				<button class="player-control" title="Reset Speed" (click)="player.speed(1)"><i class="icon-speed" aria-hidden="true"></i></button>
+				<button class="player-control" title="Reset Speed" i18n-title (click)="player.speed(1)"><i class="icon-speed" aria-hidden="true"></i></button>
 				<app-speed-slider></app-speed-slider>
 			</div>
 		</div>

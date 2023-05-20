@@ -1,5 +1,5 @@
 <div class="match-file-list">
-	<div class="match-file-list-header">{{matchings.length}} Tracks</div>
+	<div i18n class="match-file-list-header">{{matchings.length}} Tracks</div>
 	<div *ngFor="let match of matchings" class="match-file" draggable="true" (dragstart)="drag($event,match)">
 		<div class="handle">
 			<span class="grippy"></span>
@@ -7,15 +7,15 @@
 		<div class="title">
 			{{match.track.name}}
 			<div *ngIf="match.mbTrack">
-				<span class="label">TrackNr:</span>&nbsp;<span class="currentRelease">{{match.mbTrack.position}}</span>&nbsp;
-				<span class="label">Title:</span>&nbsp;<span class="value">{{match.mbTrack.title || '?'}}</span>&nbsp;
-				<span class="label">Artist:</span>&nbsp;<span class="value">{{match.mbTrack.artistCredit | mbArtistCredits}}</span>&nbsp;
-				<span class="label">Album:</span>&nbsp;<span class="value">{{match.mbRelease?.title || '?'}}</span>&nbsp;
+				<span i18n class="label">TrackNr:</span>&nbsp;<span class="currentRelease">{{match.mbTrack.position}}</span>&nbsp;
+				<span i18n class="label">Title:</span>&nbsp;<span class="value">{{match.mbTrack.title || '?'}}</span>&nbsp;
+				<span i18n class="label">Artist:</span>&nbsp;<span class="value">{{match.mbTrack.artistCredit | mbArtistCredits}}</span>&nbsp;
+				<span i18n class="label">Album:</span>&nbsp;<span class="value">{{match.mbRelease?.title || '?'}}</span>&nbsp;
 				<div *ngIf="match.abdata">
-					<span class="label">Moods:</span>&nbsp;<span class="value">{{match.abdata.moods}}</span>
+					<span i18n class="label">Moods:</span>&nbsp;<span class="value">{{match.abdata.moods}}</span>
 				</div>
 				<div *ngIf="match.lyrics">
-					<span class="label">Lyrics:</span>&nbsp;<span class="value">yes</span>
+					<span i18n class="label">Lyrics:</span>&nbsp;<span i18n class="value">yes</span>
 				</div>
 			</div>
 		</div>

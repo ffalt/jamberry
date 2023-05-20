@@ -1,8 +1,8 @@
 <div class="sessions">
-	<app-view-header-slim section="Session Logins"></app-view-header-slim>
+	<app-view-header-slim section="Session Logins" i18n-section></app-view-header-slim>
 	<div *ngIf="sessions" class="content">
 		<div class="session-list">
-			<div class="section-title">Sessions</div>
+			<div i18n class="section-title">Sessions</div>
 			<div *ngFor="let s of sessions; trackBy:trackByFn" class="session" [class.invalid]="s.isExpired">
 				<div class="title">
 					{{s.session.client}}<br/>
@@ -13,11 +13,11 @@
 					{{s.session.os}}
 				</div>
 				<div class="expires">
-					<span class="label">valid until:</span><br/>
+					<span i18n class="label">valid until:</span><br/>
 					{{s.session.expires | date:'long'}}
 				</div>
 				<div class="remove">
-					<button title="Remove this login" (click)="remove(s.session)"><i class="icon-remove" aria-hidden="true"></i></button>
+					<button title="Remove this login" i18n-title (click)="remove(s.session)"><i class="icon-remove" aria-hidden="true"></i></button>
 				</div>
 			</div>
 		</div>

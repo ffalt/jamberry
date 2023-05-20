@@ -9,9 +9,9 @@
 	</ng-template>
 </app-autocomplete>
 <form role="search">
-	<label class="visually-hidden" for="header-search-box">Search</label>
+	<label i18n class="visually-hidden" for="header-search-box">Search</label>
 	<input id="header-search-box" autocomplete="off" type="search" name="query"
-				 aria-label="Search" [appAutocomplete]="autocomplete"
+				 aria-label="Search" i18n-aria-label [appAutocomplete]="autocomplete"
 				 [appAutocompleteControl]="this"
 				 (focusin)="this.setSearchActive(true)"
 				 (blur)="this.setSearchActive(false)"

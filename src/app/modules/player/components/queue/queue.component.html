@@ -1,4 +1,4 @@
-<app-background-text *ngIf="!entries || entries.length===0" text="No Tracks in Queue"></app-background-text>
+<app-background-text *ngIf="!entries || entries.length===0" text="No Tracks in Queue" i18n-text></app-background-text>
 <div class="tracks-wrapper" appFocusKeyList [settabindex]="entries.length===0?'':'0'">
 	<ng-container *ngIf="entries && entries.length>0">
 		<cdk-virtual-scroll-viewport style="height: 100%; width:100%;" [itemSize]="60">
@@ -23,7 +23,7 @@
 </div>
 
 <div *ngIf="showControls" class="queue-actions" [class.disabled]="!entries || entries.length===0">
-	<button class="queue-action" title="Clear Queue" (click)="queue.clear()"><i class="icon-remove" aria-hidden="true"></i> Clear</button>
-	<button class="queue-action" title="Randomize Order of Tracks" (click)="queue.shuffle()"><i class="icon-shuffle" aria-hidden="true"></i> Shuffle</button>
-	<!--	<button class="queue-action" (click)="newPlaylist(tracks)" title="Save to new Playlist"><i class="icon-playlist" aria-hidden="true"></i> Save as</button>-->
+	<button class="queue-action" title="Clear Queue" i18n-title (click)="queue.clear()"><i class="icon-remove" aria-hidden="true"></i> <ng-container i18n>Clear</ng-container></button>
+	<button class="queue-action" title="Randomize Order of Tracks" i18n-title (click)="queue.shuffle()"><i class="icon-shuffle" aria-hidden="true"></i> <ng-container i18n>Shuffle</ng-container></button>
+	<!--	<button class="queue-action" (click)="newPlaylist(tracks)" title="Save to new Playlist"><i class="icon-playlist" aria-hidden="true"></i> <ng-container i18n>Save as</ng-container></button>-->
 </div>

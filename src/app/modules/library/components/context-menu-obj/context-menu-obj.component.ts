@@ -29,6 +29,7 @@ export class ContextMenuObjComponent implements ContextMenuHostComponentInterfac
 		this.extras = opts ? opts.extras : [];
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	trackByFn(index: number, value: { text: string; icon: string; click(): void }): string {
 		return index.toString();// value.text;
 	}

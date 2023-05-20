@@ -1,25 +1,25 @@
 <div class="settings">
-	<app-view-header-slim section="Settings"></app-view-header-slim>
+	<app-view-header-slim section="Settings" i18n-section></app-view-header-slim>
 	<div class="content">
-		<div class="section-title">Design</div>
+		<div i18n class="section-title">Design</div>
 		<div>
 			<fieldset>
 				<label *ngFor="let theme of themes; trackBy: trackByThemeFn" class="select"><input type="radio" name="theme" [value]="theme.name" [(ngModel)]="app.settings.theme" (ngModelChange)="onChange()">{{theme.name | titlecase}}</label>
 			</fieldset>
 		</div>
-		<div class="section-title">Player</div>
+		<div i18n class="section-title">Player</div>
 		<label>
-			<input type="checkbox" title="Show Waveform of Current Track" [(ngModel)]="app.settings.showWaveform" (ngModelChange)="onChange()"/>
-			Show Waveform of Current Track
+			<input type="checkbox" title="Show Waveform of Current Track" i18n-title [(ngModel)]="app.settings.showWaveform" (ngModelChange)="onChange()"/>
+			<ng-container i18n>Show Waveform of Current Track</ng-container>
 		</label>
-		<div class="section-title">Playing</div>
+		<div i18n class="section-title">Playing</div>
 		<label>
 			<input type="checkbox" value="1" [(ngModel)]="app.settings.playingTrackInTitle" (ngModelChange)="onChange()"/>
-			Show Playing Track Name in Window Title
+			<ng-container i18n>Show Playing Track Name in Window Title</ng-container>
 		</label>
 		<label>
-			<input type="checkbox" value="1" title="Show Notifications On Tracks Change" [(ngModel)]="app.settings.notificationSong" (ngModelChange)="onChange()"/>
-			Show Notification Popup On Track Change
+			<input type="checkbox" value="1" title="Show Notifications On Tracks Change" i18n-title [(ngModel)]="app.settings.notificationSong" (ngModelChange)="onChange()"/>
+			<ng-container i18n>Show Notification Popup On Track Change</ng-container>
 		</label>
 
 	</div>

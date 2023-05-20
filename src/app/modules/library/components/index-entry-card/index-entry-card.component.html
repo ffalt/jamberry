@@ -1,7 +1,7 @@
 <div class="image" (appDeferLoad)="gotInView()">
 	<app-coverart-image *ngIf="visible" [coverArtObj]="entry" [size]="300" [alt]="entry?.name||''" [fill]="true"></app-coverart-image>
 </div>
-<div class="date">
+<div i18n class="date">
 	Tracks: {{entry?.trackCount}}
 </div>
 <div class="footer">

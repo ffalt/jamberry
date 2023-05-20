@@ -1,12 +1,12 @@
 <app-loading *ngIf="!album"></app-loading>
 <div *ngIf="album" class="overview">
 	<div *ngIf="album.info" class="info">
-		<div class="section-title">Description</div>
+		<div i18n class="section-title">Description</div>
 		<app-info-note [info]="album.info"></app-info-note>
 	</div>
 	<div class="album-tracks">
 		<div class="head">
-			<span class="section-title">Tracks</span>
+			<span i18n class="section-title">Tracks</span>
 		</div>
 		<app-track-list [tracks]="tracks" [showArtist]="isCompilation"></app-track-list>
 	</div>

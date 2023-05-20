@@ -1,19 +1,19 @@
 <form *ngIf="edit">
 	<div class="root-form-control">
-		<label for="root-name">Root name</label>
+		<label i18n for="root-name">Root name</label>
 		<input id="root-name" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.name"/>
 	</div>
 	<div class="root-form-control">
-		<label for="root-path">Path</label>
+		<label i18n for="root-path">Path</label>
 		<input id="root-path" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="edit.path"/>
 	</div>
 	<div class="root-form-control">
-		<label for="strategy">Scan Strategy</label>
+		<label i18n for="strategy">Scan Strategy</label>
 		<fieldset id="strategy">
-			<label class="select"><input type="radio" name="strategy" [value]="RootScanStrategy.auto" [(ngModel)]="edit.strategy"> Auto</label>
-			<label class="select"><input type="radio" name="strategy" [value]="RootScanStrategy.artistalbum" [(ngModel)]="edit.strategy"> Artist/Album</label>
-			<label class="select"><input type="radio" name="strategy" [value]="RootScanStrategy.compilation" [(ngModel)]="edit.strategy"> Compilations</label>
-			<label class="select"><input type="radio" name="strategy" [value]="RootScanStrategy.audiobook" [(ngModel)]="edit.strategy"> Audiobook</label>
+			<label class="select"><input type="radio" name="strategy" [value]="RootScanStrategy.auto" [(ngModel)]="edit.strategy"> <ng-container i18n>Auto</ng-container></label>
+			<label class="select"><input type="radio" name="strategy" [value]="RootScanStrategy.artistalbum" [(ngModel)]="edit.strategy"> <ng-container i18n>Artist/Album</ng-container></label>
+			<label class="select"><input type="radio" name="strategy" [value]="RootScanStrategy.compilation" [(ngModel)]="edit.strategy"> <ng-container i18n>Compilations</ng-container></label>
+			<label class="select"><input type="radio" name="strategy" [value]="RootScanStrategy.audiobook" [(ngModel)]="edit.strategy"> <ng-container i18n>Audiobook</ng-container></label>
 		</fieldset>
 	</div>
 </form>
