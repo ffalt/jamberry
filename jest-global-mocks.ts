@@ -1,3 +1,7 @@
+import { TextEncoder, TextDecoder } from 'util';
+
+Object.assign(global, { TextDecoder, TextEncoder });
+
 Object.defineProperty(window, 'CSS', {value: null});
 Object.defineProperty(document, 'doctype', {value: '<!DOCTYPE html>'});
 Object.defineProperty(window, 'getComputedStyle', {
