@@ -21,7 +21,6 @@
 	"exclude": [
 		"local",
 		"electron",
-		"test-config.helper.ts",
-		"src/environments/environment.prod.ts"
+		"test-config.helper.ts"
 	]
 }
