@@ -1,25 +1,29 @@
 <div class="sessions">
-	<app-view-header-slim section="Session Logins" i18n-section />
-	<div *ngIf="sessions" class="content">
-		<div class="session-list">
-			<div i18n class="section-title">Sessions</div>
-			<div *ngFor="let s of sessions; trackBy:trackByFn" class="session" [class.invalid]="s.isExpired">
-				<div class="title">
-					{{s.session.client}}<br/>
-					<span>{{s.session.mode}}</span>
-				</div>
-				<div class="agent">
-					{{s.session.agent}}<br/>
-					{{s.session.os}}
-				</div>
-				<div class="expires">
-					<span i18n class="label">valid until:</span><br/>
-					{{s.session.expires | date:'long'}}
-				</div>
-				<div class="remove">
-					<button title="Remove this login" i18n-title (click)="remove(s.session)"><i class="icon-remove" aria-hidden="true"></i></button>
-				</div>
-			</div>
-		</div>
-	</div>
+  <app-view-header-slim section="Session Logins" i18n-section />
+  @if (sessions) {
+    <div class="content">
+      <div class="session-list">
+        <div i18n class="section-title">Sessions</div>
+        @for (s of sessions; track trackByFn($index, s)) {
+          <div class="session" [class.invalid]="s.isExpired">
+            <div class="title">
+              {{s.session.client}}<br/>
+              <span>{{s.session.mode}}</span>
+            </div>
+            <div class="agent">
+              {{s.session.agent}}<br/>
+              {{s.session.os}}
+            </div>
+            <div class="expires">
+              <span i18n class="label">valid until:</span><br/>
+              {{s.session.expires | date:'long'}}
+            </div>
+            <div class="remove">
+              <button title="Remove this login" i18n-title (click)="remove(s.session)"><i class="icon-remove" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
 </div>

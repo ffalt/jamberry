@@ -1,6 +1,8 @@
-<div *ngIf="typeInfo" class="albums" appDeferLoadScrollHost>
-	<app-view-header-icon-section [section]="typeInfo.text" [sectionType]="typeInfo.category" [icon]="typeInfo.icon" [tabs]="tabs"></app-view-header-icon-section>
-	<div class="content">
-		<router-outlet></router-outlet>
-	</div>
-</div>
+@if (typeInfo) {
+  <div class="albums" appDeferLoadScrollHost>
+    <app-view-header-icon-section [section]="typeInfo.text" [sectionType]="typeInfo.category" [icon]="typeInfo.icon" [tabs]="tabs" />
+    <div class="content">
+      <router-outlet />
+    </div>
+  </div>
+}

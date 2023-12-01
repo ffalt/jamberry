@@ -1,18 +1,34 @@
-<div *ngIf="!hints" class="hints">
-	<div class="hint">
-		<i class="icon-spin icon-spinner"></i>
-	</div>
-</div>
-<div *ngIf="hints" class="hints">
-	<div i18n *ngIf="hints.length===0" class="hint">No Hints</div>
-	<div *ngFor="let hint of hints; trackBy: trackByFn"class="hint">
-		<i class="icon-warning"></i> {{hint.hint.name}}
-		<div *ngFor="let detail of hint.details; trackBy: trackByDetailFn" class="details">{{detail}}</div>
-	</div>
-	<div class="solutions">
-		<button *ngFor="let sol of solutions; trackBy: trackBySolutionFn" class="button-on-background" (click)="sol.click()">
-			<i *ngIf="sol.running" class="icon-spin icon-spinner"></i>
-			<ng-container *ngIf="!sol.running">{{sol.name}}</ng-container>
-		</button>
-	</div>
-</div>
+@if (!hints) {
+  <div class="hints">
+    <div class="hint">
+      <i class="icon-spin icon-spinner"></i>
+    </div>
+  </div>
+}
+@if (hints) {
+  <div class="hints">
+    @if (hints.length===0) {
+      <div i18n class="hint">No Hints</div>
+    }
+    @for (hint of hints; track trackByFn($index, hint)) {
+      <div class="hint">
+        <i class="icon-warning"></i> {{hint.hint.name}}
+        @for (detail of hint.details; track trackByDetailFn($index, detail)) {
+          <div class="details">{{detail}}</div>
+        }
+      </div>
+    }
+    <div class="solutions">
+      @for (sol of solutions; track trackBySolutionFn($index, sol)) {
+        <button class="button-on-background" (click)="sol.click()">
+          @if (sol.running) {
+            <i class="icon-spin icon-spinner"></i>
+          }
+          @if (!sol.running) {
+            {{sol.name}}
+          }
+        </button>
+      }
+    </div>
+  </div>
+}

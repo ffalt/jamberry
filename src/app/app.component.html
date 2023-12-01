@@ -1,4 +1,10 @@
-<app-header *ngIf="auth.user" class="header"></app-header>
+@if (auth.user) {
+  <app-header class="header" />
+}
 <div #tabContentOutlet class="app-content" [class.player-active]="this.player.currentMedia"></div>
-<app-player *ngIf="auth.user" class="footer"></app-player>
-<app-mini-player *ngIf="this.player.currentMedia" class="mini-player"></app-mini-player>
+@if (auth.user) {
+  <app-player class="footer" />
+}
+@if (this.player.currentMedia) {
+  <app-mini-player class="mini-player" />
+}

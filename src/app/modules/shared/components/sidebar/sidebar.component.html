@@ -1,4 +1,6 @@
 <nav class="navigation" tabindex="0" (keydown.arrowUp)="manageKey($event)" (keydown.arrowDown)="manageKey($event)">
-	<app-sidebar-list *ngFor="let section of sections; trackBy:trackByFn" [list]="section" (navigate)="onNavigate()"></app-sidebar-list>
+  @for (section of sections; track trackByFn($index, section)) {
+    <app-sidebar-list [list]="section" (navigate)="onNavigate()" />
+  }
 </nav>
-<ng-content></ng-content>
+<ng-content />

@@ -1,14 +1,16 @@
-<div *ngIf="data" class="user-form-control">
-	<form>
-		<!-- dummy input, so password managers dont fill user name in random text inputs -->
-		<input class="dummy" type="text" name="user" autocomplete="username"/>
-		<label i18n for="admin-pass">Your Admin Password</label>
-		<input id="admin-pass" name="pass" type="password" autocomplete="current-password" [ngModelOptions]="{standalone: true}" [(ngModel)]="data.password"/>
-	</form>
-	<form>
-		<!-- dummy input, so password managers dont fill user name in random text inputs -->
-		<input class="dummy" type="text" name="new_name"/>
-		<label for="new-pass"><ng-container i18n>New Password for User</ng-container> <span>{{data.user.name}}</span></label>
-		<input id="new-pass" name="new_password" type="password" autocomplete="new-password" [ngModelOptions]="{standalone: true}" [(ngModel)]="data.newPassword"/>
-	</form>
-</div>
+@if (data) {
+  <div class="user-form-control">
+    <form>
+      <!-- dummy input, so password managers dont fill user name in random text inputs -->
+      <input class="dummy" type="text" name="user" autocomplete="username"/>
+      <label i18n for="admin-pass">Your Admin Password</label>
+      <input id="admin-pass" name="pass" type="password" autocomplete="current-password" [ngModelOptions]="{standalone: true}" [(ngModel)]="data.password"/>
+    </form>
+    <form>
+      <!-- dummy input, so password managers dont fill user name in random text inputs -->
+      <input class="dummy" type="text" name="new_name"/>
+      <label for="new-pass"><ng-container i18n>New Password for User</ng-container> <span>{{data.user.name}}</span></label>
+      <input id="new-pass" name="new_password" type="password" autocomplete="new-password" [ngModelOptions]="{standalone: true}" [(ngModel)]="data.newPassword"/>
+    </form>
+  </div>
+}

@@ -1,29 +1,41 @@
-<ng-container *ngIf="episode" [ngSwitch]="episode.status">
-	<ng-container *ngSwitchCase="PodcastStatus.new">
-		<button *ngIf="jam.auth.user?.roles?.podcast" class="button-on-background"
-						title="Get Episode" i18n-title (click)="podcastService.retrieveEpisode(episode)">
-			<i class="icon-download"></i>
-			<ng-container i18n *ngIf="showTitle"> Get Episode</ng-container>
-		</button>
-	</ng-container>
-	<ng-container *ngSwitchCase="PodcastStatus.downloading">
-		<button class="button-on-background"><i class="icon-spin icon-spinner"></i>
-			<ng-container i18n *ngIf="showTitle"> Downloading</ng-container>
-		</button>
-	</ng-container>
-	<ng-container *ngSwitchCase="PodcastStatus.error">
-		<span [title]="episode.error"><i class="icon-warning"></i></span>
-		<button *ngIf="jam.auth.user?.roles?.podcast" class="button-on-background"
-						title="Get Episode" i18n-title (click)="podcastService.retrieveEpisode(episode)">
-			<i class="icon-download"></i>
-		</button>
-	</ng-container>
-	<ng-container *ngSwitchCase="PodcastStatus.completed">
-		<button class="button-primary" (click)="player.startEpisode(episode)"><i class="icon-play"></i>
-			<ng-container i18n *ngIf="showTitle"> Play</ng-container>
-		</button>
-	</ng-container>
-	<ng-container *ngSwitchDefault>
-		{{episode.status}}
-	</ng-container>
-</ng-container>
+@if (episode) {
+  @switch (episode.status) {
+    @case (PodcastStatus.new) {
+      @if (jam.auth.user?.roles?.podcast) {
+        <button class="button-on-background"
+          title="Get Episode" i18n-title (click)="podcastService.retrieveEpisode(episode)">
+          <i class="icon-download"></i>
+          @if (showTitle) {
+            <ng-container i18n> Get Episode</ng-container>
+          }
+        </button>
+      }
+    }
+    @case (PodcastStatus.downloading) {
+      <button class="button-on-background"><i class="icon-spin icon-spinner"></i>
+      @if (showTitle) {
+        <ng-container i18n> Downloading</ng-container>
+      }
+    </button>
+  }
+  @case (PodcastStatus.error) {
+    <span [title]="episode.error"><i class="icon-warning"></i></span>
+    @if (jam.auth.user?.roles?.podcast) {
+      <button class="button-on-background"
+        title="Get Episode" i18n-title (click)="podcastService.retrieveEpisode(episode)">
+        <i class="icon-download"></i>
+      </button>
+    }
+  }
+  @case (PodcastStatus.completed) {
+    <button class="button-primary" (click)="player.startEpisode(episode)"><i class="icon-play"></i>
+    @if (showTitle) {
+      <ng-container i18n> Play</ng-container>
+    }
+  </button>
+}
+@default {
+  {{episode.status}}
+}
+}
+}

@@ -1,1 +1,3 @@
-<app-admin-artwork-edit *ngIf="data" [data]="data" (imageEdited)="onImageEdited()"></app-admin-artwork-edit>
+@if (data) {
+  <app-admin-artwork-edit [data]="data" (imageEdited)="onImageEdited()" />
+}

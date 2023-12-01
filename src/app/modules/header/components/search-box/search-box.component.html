@@ -1,20 +1,22 @@
 <app-autocomplete #autocomplete="appAutocomplete">
-	<ng-template appAutocompleteContent let-control="control">
-		<ng-container *ngFor="let option of control.options; trackBy: trackByFn">
-			<app-autocomplete-option-header *ngIf="option.header">{{option.header}}</app-autocomplete-option-header>
-			<app-autocomplete-option [option]="option" [control]="control">
-				<span [innerHTML]="option.data.name | highlight: control.query"></span>
-			</app-autocomplete-option>
-		</ng-container>
-	</ng-template>
+  <ng-template let-control="control" appAutocompleteContent>
+    @for (option of control.options; track trackByFn($index, option)) {
+      @if (option.header) {
+        <app-autocomplete-option-header>{{option.header}}</app-autocomplete-option-header>
+      }
+      <app-autocomplete-option [option]="option" [control]="control">
+        <span [innerHTML]="option.data.name | highlight: control.query"></span>
+      </app-autocomplete-option>
+    }
+  </ng-template>
 </app-autocomplete>
 <form role="search">
-	<label i18n class="visually-hidden" for="header-search-box">Search</label>
-	<input id="header-search-box" autocomplete="off" type="search" name="query"
-				 aria-label="Search" i18n-aria-label [appAutocomplete]="autocomplete"
-				 [appAutocompleteControl]="this"
-				 (focusin)="this.setSearchActive(true)"
-				 (blur)="this.setSearchActive(false)"
-	>
-	<button (click)="search()"><i class="icon-search" aria-hidden="true"></i></button>
+  <label i18n class="visually-hidden" for="header-search-box">Search</label>
+  <input id="header-search-box" autocomplete="off" type="search" name="query"
+    aria-label="Search" i18n-aria-label [appAutocomplete]="autocomplete"
+    [appAutocompleteControl]="this"
+    (focusin)="this.setSearchActive(true)"
+    (blur)="this.setSearchActive(false)"
+    >
+  <button (click)="search()"><i class="icon-search" aria-hidden="true"></i></button>
 </form>

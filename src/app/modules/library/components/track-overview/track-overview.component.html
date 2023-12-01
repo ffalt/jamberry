@@ -1,108 +1,122 @@
-<app-loading *ngIf="!track"></app-loading>
-<ng-container *ngIf="track">
-	<div>
-		<div i18n class="section-title">Waveform</div>
-		<div *ngIf="svg" class="svg">
-			<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" i18n-preserveAspectRatio height="100px" width="100%" style="fill-rule:evenodd;clip-rule:evenodd;" [attr.viewBox]="svg.viewbox">
-				<path stroke="#1ed760" fill="#1ed760" [attr.d]="svg.path"></path>
-			</svg>
-		</div>
-	</div>
-	<div>
-		<div i18n class="section-title">Lyrics</div>
-		<app-lyrics [trackID]="track.id"></app-lyrics>
-	</div>
-	<div>
-		<div i18n class="section-title">Meta</div>
-		<div class="key-value-row">
-			<div i18n>Track Nr.</div>
-			<div>{{track.tag?.trackNr}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Title</div>
-			<div>{{track.tag?.title}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Artist</div>
-			<div><a (click)="navig.toMediaArtist(track)">{{track.tag?.artist}}</a></div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Album</div>
-			<div><a (click)="navig.toMediaAlbum(track)">{{track.tag?.album}}</a></div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Genres</div>
-			<div>{{track.tag?.genres}}</div>
-		</div>
-		<div *ngIf="track.tag?.mbTrackID" class="key-value-row">
-			<div i18n>MusicBrainz Track ID:</div>
-			<div><a target="_blank" rel="noopener" href="https://musicbrainz.org/track/{{track.tag?.mbTrackID}}">{{track.tag?.mbTrackID}}</a></div>
-		</div>
-		<div *ngIf="track.tag?.mbReleaseID" class="key-value-row">
-			<div i18n>MusicBrainz Album ID:</div>
-			<div><a target="_blank" rel="noopener" href="https://musicbrainz.org/release/{{track.tag?.mbReleaseID}}">{{track.tag?.mbReleaseID}}</a></div>
-		</div>
-		<div *ngIf="track.tag?.mbReleaseGroupID" class="key-value-row">
-			<div i18n>MusicBrainz Release Group ID:</div>
-			<div><a target="_blank" rel="noopener" href="https://musicbrainz.org/release-group/{{track.tag?.mbReleaseGroupID}}">{{track.tag?.mbReleaseGroupID}}</a></div>
-		</div>
-		<div *ngIf="track.tag?.mbArtistID" class="key-value-row">
-			<div i18n>MusicBrainz Artist ID:</div>
-			<div><a target="_blank" rel="noopener" href="https://musicbrainz.org/artist/{{track.tag?.mbArtistID}}">{{track.tag?.mbArtistID}}</a></div>
-		</div>
-	</div>
-	<div>
-		<div i18n class="section-title">Media</div>
-		<div class="key-value-row">
-			<div i18n>Filename</div>
-			<div>{{track.name}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Size</div>
-			<div>{{track.media?.size | filesize}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>File created</div>
-			<div>{{track.created | date:'long'}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Duration</div>
-			<div>{{track.duration | duration}}</div>
-		</div>
-		<div *ngIf="track.media?.bitRate" class="key-value-row">
-			<div i18n>BitRate</div>
-			<div>{{track.media?.bitRate}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>SampleRate</div>
-			<div>{{track.media?.sampleRate}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Format</div>
-			<div>{{track.media?.format}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Channels</div>
-			<div>{{track.media?.channels}}</div>
-		</div>
-	</div>
-	<div>
-		<div i18n class="section-title">User State</div>
-		<div class="key-value-row">
-			<div i18n>Faved</div>
-			<div>{{track.state?.faved | date:'long'}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Rated</div>
-			<div>{{track.state?.rated}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Last Played</div>
-			<div>{{track.state?.lastPlayed | date:'long'}}</div>
-		</div>
-		<div class="key-value-row">
-			<div i18n>Played</div>
-			<div>{{track.state?.played}}</div>
-		</div>
-	</div>
-</ng-container>
+@if (!track) {
+  <app-loading />
+}
+@if (track) {
+  <div>
+    <div i18n class="section-title">Waveform</div>
+    @if (svg) {
+      <div class="svg">
+        <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" i18n-preserveAspectRatio height="100px" width="100%" style="fill-rule:evenodd;clip-rule:evenodd;" [attr.viewBox]="svg.viewbox">
+          <path stroke="#1ed760" fill="#1ed760" [attr.d]="svg.path" />
+        </svg>
+      </div>
+    }
+  </div>
+  <div>
+    <div i18n class="section-title">Lyrics</div>
+    <app-lyrics [trackID]="track.id" />
+  </div>
+  <div>
+    <div i18n class="section-title">Meta</div>
+    <div class="key-value-row">
+      <div i18n>Track Nr.</div>
+      <div>{{track.tag?.trackNr}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Title</div>
+      <div>{{track.tag?.title}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Artist</div>
+      <div><a (click)="navig.toMediaArtist(track)">{{track.tag?.artist}}</a></div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Album</div>
+      <div><a (click)="navig.toMediaAlbum(track)">{{track.tag?.album}}</a></div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Genres</div>
+      <div>{{track.tag?.genres}}</div>
+    </div>
+    @if (track.tag?.mbTrackID) {
+      <div class="key-value-row">
+        <div i18n>MusicBrainz Track ID:</div>
+        <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/track/{{track.tag?.mbTrackID}}">{{track.tag?.mbTrackID}}</a></div>
+      </div>
+    }
+    @if (track.tag?.mbReleaseID) {
+      <div class="key-value-row">
+        <div i18n>MusicBrainz Album ID:</div>
+        <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/release/{{track.tag?.mbReleaseID}}">{{track.tag?.mbReleaseID}}</a></div>
+      </div>
+    }
+    @if (track.tag?.mbReleaseGroupID) {
+      <div class="key-value-row">
+        <div i18n>MusicBrainz Release Group ID:</div>
+        <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/release-group/{{track.tag?.mbReleaseGroupID}}">{{track.tag?.mbReleaseGroupID}}</a></div>
+      </div>
+    }
+    @if (track.tag?.mbArtistID) {
+      <div class="key-value-row">
+        <div i18n>MusicBrainz Artist ID:</div>
+        <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/artist/{{track.tag?.mbArtistID}}">{{track.tag?.mbArtistID}}</a></div>
+      </div>
+    }
+  </div>
+  <div>
+    <div i18n class="section-title">Media</div>
+    <div class="key-value-row">
+      <div i18n>Filename</div>
+      <div>{{track.name}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Size</div>
+      <div>{{track.media?.size | filesize}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>File created</div>
+      <div>{{track.created | date:'long'}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Duration</div>
+      <div>{{track.duration | duration}}</div>
+    </div>
+    @if (track.media?.bitRate) {
+      <div class="key-value-row">
+        <div i18n>BitRate</div>
+        <div>{{track.media?.bitRate}}</div>
+      </div>
+    }
+    <div class="key-value-row">
+      <div i18n>SampleRate</div>
+      <div>{{track.media?.sampleRate}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Format</div>
+      <div>{{track.media?.format}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Channels</div>
+      <div>{{track.media?.channels}}</div>
+    </div>
+  </div>
+  <div>
+    <div i18n class="section-title">User State</div>
+    <div class="key-value-row">
+      <div i18n>Faved</div>
+      <div>{{track.state?.faved | date:'long'}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Rated</div>
+      <div>{{track.state?.rated}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Last Played</div>
+      <div>{{track.state?.lastPlayed | date:'long'}}</div>
+    </div>
+    <div class="key-value-row">
+      <div i18n>Played</div>
+      <div>{{track.state?.played}}</div>
+    </div>
+  </div>
+}

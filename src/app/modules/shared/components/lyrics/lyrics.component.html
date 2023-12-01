@@ -1,12 +1,18 @@
-<div *ngIf="lyrics" class="info">
-	<div class="description">
-		<div class="note">
-			<div *ngFor="let note of lyrics">
-				<div [innerHTML]="note"></div>
-			</div>
-			<div *ngIf="lyricsSource" class="info-footnote">
-				<a i18n [href]="lyricsSource">Source</a>
-			</div>
-		</div>
-	</div>
-</div>
+@if (lyrics) {
+  <div class="info">
+    <div class="description">
+      <div class="note">
+        @for (note of lyrics; track note) {
+          <div>
+            <div [innerHTML]="note"></div>
+          </div>
+        }
+        @if (lyricsSource) {
+          <div class="info-footnote">
+            <a i18n [href]="lyricsSource">Source</a>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

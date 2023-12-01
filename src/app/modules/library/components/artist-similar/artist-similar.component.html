@@ -1,4 +1,6 @@
-<app-loading *ngIf="!similar"></app-loading>
-<ng-container *ngIf="similar">
-	<app-obj-groups-view typeName="similar Artists" i18n-typeName [objs]="similar"></app-obj-groups-view>
-</ng-container>
+@if (!similar) {
+  <app-loading />
+}
+@if (similar) {
+  <app-obj-groups-view typeName="similar Artists" i18n-typeName [objs]="similar" />
+}

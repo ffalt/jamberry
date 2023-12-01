@@ -1,14 +1,22 @@
-<ng-container *ngIf="index && index.groups.length>0">
-	<div i18n class="header" (click)="collapsed=!collapsed">Index</div>
-	<div *ngIf="!collapsed && index" class="index-list-content">
-		<div class="index-groups">
-			<div *ngFor="let group of index.groups; trackBy:trackByGroupFn" class="index-group" [class.active]="group===current" (click)="current=group">{{group.name}}</div>
-		</div>
-		<div *ngIf="current" class="index-entries">
-			<a *ngFor="let o of current.entries; trackBy:trackByEntryFn" class="item" routerLinkActive="active" [routerLink]="[o.link, {name: o.name}]">
-				<app-coverart-image [coverArtObj]="o" [alt]="o.name" [size]="23" [round]="true"></app-coverart-image>
-				<span>{{o.name}}</span>
-			</a>
-		</div>
-	</div>
-</ng-container>
+@if (index && index.groups.length>0) {
+  <div i18n class="header" (click)="collapsed=!collapsed">Index</div>
+  @if (!collapsed && index) {
+    <div class="index-list-content">
+      <div class="index-groups">
+        @for (group of index.groups; track trackByGroupFn($index, group)) {
+          <div class="index-group" [class.active]="group===current" (click)="current=group">{{group.name}}</div>
+        }
+      </div>
+      @if (current) {
+        <div class="index-entries">
+          @for (o of current.entries; track trackByEntryFn($index, o)) {
+            <a class="item" routerLinkActive="active" [routerLink]="[o.link, {name: o.name}]">
+              <app-coverart-image [coverArtObj]="o" [alt]="o.name" [size]="23" [round]="true" />
+              <span>{{o.name}}</span>
+            </a>
+          }
+        </div>
+      }
+    </div>
+  }
+}

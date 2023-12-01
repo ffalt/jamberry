@@ -1,38 +1,58 @@
 <div class="image-selector">
-	<div class="art-source">
-		<div class="section">
-			<a rel="noopener" target="_blank" [href]="searchSource.url">{{searchSource.name}}</a>
-		</div>
-		<app-loading *ngIf="!nodes"></app-loading>
-		<div *ngIf="nodes">
-			<app-background-text-list name="Images" [list]="nodes"></app-background-text-list>
-			<div class="images" appFocusKeyList>
-				<div *ngFor="let node of nodes; trackBy: trackByFn" appFocusKeyListItem (keydown.enter)="node.checked=!node.checked">
-					<div class="image" (clickenter)="node.checked=!node.checked">
-						<img alt="{{node.name}}" [src]="node.thumbnail">
-					</div>
-					<div class="footer">
-						<div class="footer-content">
-							<form><label>
-								<i *ngIf="node.storing" class="icon-spin icon-spinner"></i>
-								<input *ngIf="!node.storing" type="checkbox" [checked]="node.checked" [(ngModel)]="node.checked"> {{node.name}}
-							</label></form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="artwork">
-		<div *ngIf="data && artworks" class="current">
-			<div i18n class="section">Current Images</div>
-			<app-admin-artwork-list *ngIf="!isArtRefreshing" [folderID]="data.folder.id" [artworks]="artworks"></app-admin-artwork-list>
-		</div>
-	</div>
-</div>
-<div class="buttons">
-	<div *ngIf="nodes && nodes.length>0">
-		<button *ngIf="isWorking" class="button-on-control"><i class="icon-spin icon-spinner"></i></button>
-		<button i18n *ngIf="!isWorking" class="button-on-control" (click)="use()">Use Checked Artwork</button>
-	</div>
-</div>
+  <div class="art-source">
+    <div class="section">
+      <a rel="noopener" target="_blank" [href]="searchSource.url">{{searchSource.name}}</a>
+    </div>
+    @if (!nodes) {
+      <app-loading />
+    }
+    @if (nodes) {
+      <div>
+        <app-background-text-list name="Images" [list]="nodes" />
+        <div class="images" appFocusKeyList>
+          @for (node of nodes; track trackByFn($index, node)) {
+            <div appFocusKeyListItem (keydown.enter)="node.checked=!node.checked">
+              <div class="image" (clickenter)="node.checked=!node.checked">
+                <img [src]="node.thumbnail" alt="{{node.name}}">
+              </div>
+              <div class="footer">
+                <div class="footer-content">
+                  <form><span class="label">
+                    @if (node.storing) {
+                      <i class="icon-spin icon-spinner"></i>
+                    }
+                    @if (!node.storing) {
+                      <input type="checkbox" [checked]="node.checked" [(ngModel)]="node.checked">
+                      } {{node.name}}
+                    </span></form>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+    <div class="artwork">
+      @if (data && artworks) {
+        <div class="current">
+          <div i18n class="section">Current Images</div>
+          @if (!isArtRefreshing) {
+            <app-admin-artwork-list [folderID]="data.folder.id" [artworks]="artworks" />
+          }
+        </div>
+      }
+    </div>
+  </div>
+  <div class="buttons">
+    @if (nodes && nodes.length>0) {
+      <div>
+        @if (isWorking) {
+          <button class="button-on-control"><i class="icon-spin icon-spinner"></i></button>
+        }
+        @if (!isWorking) {
+          <button i18n class="button-on-control" (click)="use()">Use Checked Artwork</button>
+        }
+      </div>
+    }
+  </div>

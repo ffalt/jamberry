@@ -1,13 +1,23 @@
-<app-loading *ngIf="!artist"></app-loading>
-<div *ngIf="artist" class="overview">
-	<div *ngIf="artist.info" class="info">
-		<div i18n class="section-title">Description</div>
-		<app-info-note [info]="artist.info"></app-info-note>
-	</div>
-</div>
-<div *ngIf="albums && !tracksQuery" class="artist-albums">
-	<app-obj-groups-view [objs]="albums" [viewTypeList]="true" [grouping]="true"></app-obj-groups-view>
-</div>
-<div *ngIf="tracksQuery" class="artist-tracks">
-	<app-tracks-loader [queryCmd]="tracksQuery"></app-tracks-loader>
-</div>
+@if (!artist) {
+  <app-loading />
+}
+@if (artist) {
+  <div class="overview">
+    @if (artist.info) {
+      <div class="info">
+        <div i18n class="section-title">Description</div>
+        <app-info-note [info]="artist.info" />
+      </div>
+    }
+  </div>
+}
+@if (albums && !tracksQuery) {
+  <div class="artist-albums">
+    <app-obj-groups-view [objs]="albums" [viewTypeList]="true" [grouping]="true" />
+  </div>
+}
+@if (tracksQuery) {
+  <div class="artist-tracks">
+    <app-tracks-loader [queryCmd]="tracksQuery" />
+  </div>
+}

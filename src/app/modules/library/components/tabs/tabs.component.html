@@ -1,5 +1,7 @@
 <ul class="tabs">
-	<li *ngFor="let tab of tabs; trackBy:trackByFn" [class.active]="current===tab" (click)="setTab(tab)">
-		<a>{{tab.name}}</a>
-	</li>
+  @for (tab of tabs; track trackByFn($index, tab)) {
+    <li [class.active]="current===tab" (click)="setTab(tab)">
+      <a>{{tab.name}}</a>
+    </li>
+  }
 </ul>

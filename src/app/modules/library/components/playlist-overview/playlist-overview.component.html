@@ -1,9 +1,11 @@
-<ng-container *ngIf="playlist">
-	<div *ngIf="playlist.comment" class="overview">
-		<div class="info">
-			<div i18n class="section-title">Description</div>
-			<app-info-text [info]="playlist.comment"></app-info-text>
-		</div>
-	</div>
-	<app-media-playlist [entries]="playlist.entries" [showArtist]="true"></app-media-playlist>
-</ng-container>
+@if (playlist) {
+  @if (playlist.comment) {
+    <div class="overview">
+      <div class="info">
+        <div i18n class="section-title">Description</div>
+        <app-info-text [info]="playlist.comment" />
+      </div>
+    </div>
+  }
+  <app-media-playlist [entries]="playlist.entries" [showArtist]="true" />
+}

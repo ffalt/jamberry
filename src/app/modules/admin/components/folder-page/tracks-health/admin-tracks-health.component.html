@@ -1,24 +1,28 @@
 <div class="health">
-	<div class="actions">
-		<button class="button-on-control" title="Refresh List" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
-		<!--		<select [(ngModel)]="filter" placeholder="Type of Hints" (ngModelChange)="onFilterChange()">-->
-		<!--			<option *ngFor="let m of modes" [value]="m">{{m}}</option>-->
-		<!--		</select>-->
-		<label>
-			<input type="checkbox" [checked]="mediaCheck" [(ngModel)]="mediaCheck" (change)="checkChange()">
-			<ng-container i18n>Check Media</ng-container>
-		</label>
-	</div>
-	<div class="content">
-		<app-loading *ngIf="!hints"></app-loading>
-		<app-background-text-list name="Track Health Issues" [list]="hints"></app-background-text-list>
-		<div *ngFor="let trackHealth of hints; trackBy: trackByFn" class="track">
-			<div class="meta">
-				{{trackHealth.track.name}}
-			</div>
-			<div class="track-health">
-				<app-track-health [trackHealth]="trackHealth" (resolvedEvent)="trackHealthResolved(trackHealth)"></app-track-health>
-			</div>
-		</div>
-	</div>
+  <div class="actions">
+    <button class="button-on-control" title="Refresh List" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
+    <!--		<select [(ngModel)]="filter" placeholder="Type of Hints" (ngModelChange)="onFilterChange()">-->
+    <!--			<option *ngFor="let m of modes" [value]="m">{{m}}</option>-->
+  <!--		</select>-->
+  <label>
+    <input type="checkbox" [checked]="mediaCheck" [(ngModel)]="mediaCheck" (change)="checkChange()">
+    <ng-container i18n>Check Media</ng-container>
+  </label>
+</div>
+<div class="content">
+  @if (!hints) {
+    <app-loading />
+  }
+  <app-background-text-list name="Track Health Issues" [list]="hints" />
+  @for (trackHealth of hints; track trackByFn($index, trackHealth)) {
+    <div class="track">
+      <div class="meta">
+        {{trackHealth.track.name}}
+      </div>
+      <div class="track-health">
+        <app-track-health [trackHealth]="trackHealth" (resolvedEvent)="trackHealthResolved(trackHealth)" />
+      </div>
+    </div>
+  }
+</div>
 </div>

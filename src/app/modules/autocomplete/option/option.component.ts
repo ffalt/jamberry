@@ -3,7 +3,7 @@ import {AutocompleteControl, AutocompleteOption} from '@app/modules/autocomplete
 
 @Component({
 	selector: 'app-autocomplete-option',
-	template: '<ng-content></ng-content>',
+	template: '<ng-content />',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: ['./option.component.scss']
 })

@@ -1,21 +1,26 @@
 <div class="match-apply">
-	<div>
-		<div i18n class="section">Genres</div>
-		<i *ngIf="isGenreSearchRunning" class="icon-spin icon-spinner"></i>
-		<ng-container *ngIf="genres && !isGenreSearchRunning">
-			<label *ngFor="let genre of genres" class="select" title="Usage Count: {{genre.tag.count}}">
-				<input type="checkbox" [(ngModel)]="genre.checked"> {{genre.tag.name}} [{{genre.tag.count}}]
-			</label>
-			<label class="select">
-				<input type="checkbox" [(ngModel)]="customGenre.checked"> <input type="text" [(ngModel)]="customGenre.text">
-			</label>
-		</ng-container>
-	</div>
-	<app-match-coverart *ngIf="coverArtSearch" [data]="coverArtSearch" />
-	<div class="match-track-moods">
-		<div i18n class="section">More</div>
-		<button i18n class="button-on-background" [class.disabled]="!isRunning" (click)="loadLyricsRequest.emit()">Load Lyrics</button>
-		<button i18n class="button-on-background" [class.disabled]="!isRunning" (click)="loadMoodsRequest.emit()">Load AcousticBrainz Moods</button>
-	</div>
+  <div>
+    <div i18n class="section">Genres</div>
+    @if (isGenreSearchRunning) {
+      <i class="icon-spin icon-spinner"></i>
+    }
+    @if (genres && !isGenreSearchRunning) {
+      @for (genre of genres; track genre) {
+        <label class="select" title="Usage Count: {{genre.tag.count}}">
+          <input type="checkbox" [(ngModel)]="genre.checked"> {{genre.tag.name}} [{{genre.tag.count}}]
+        </label>
+      }
+      <label class="select">
+        <input type="checkbox" [(ngModel)]="customGenre.checked"> <input type="text" [(ngModel)]="customGenre.text">
+      </label>
+    }
+  </div>
+  @if (coverArtSearch) {
+    <app-match-coverart [data]="coverArtSearch" />
+  }
+  <div class="match-track-moods">
+    <div i18n class="section">More</div>
+    <button i18n class="button-on-background" [class.disabled]="!isRunning" (click)="loadLyricsRequest.emit()">Load Lyrics</button>
+    <button i18n class="button-on-background" [class.disabled]="!isRunning" (click)="loadMoodsRequest.emit()">Load AcousticBrainz Moods</button>
+  </div>
 </div>
-

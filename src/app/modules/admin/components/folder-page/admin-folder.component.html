@@ -1,25 +1,31 @@
 <button class="toggle" (click)="rightActive=!rightActive">
-	<a *ngIf="!rightActive"><i class="icon-right"></i> <ng-container i18n>Show Folder Tools</ng-container></a>
-	<a *ngIf="rightActive"><i class="icon-left"></i> <ng-container i18n>Show Folder Tree</ng-container></a>
+  @if (!rightActive) {
+    <a><i class="icon-right"></i> <ng-container i18n>Show Folder Tools</ng-container></a>
+  }
+  @if (rightActive) {
+    <a><i class="icon-left"></i> <ng-container i18n>Show Folder Tree</ng-container></a>
+  }
 </button>
 <div class="content">
-	<div class="left-content">
-		<app-admin-folder-tree (selectionChange)="selectionChange($event)"></app-admin-folder-tree>
-	</div>
-	<app-splitter></app-splitter>
-	<div class="right-content">
-		<nav *ngIf="id" class="navigation">
-			<ul class="tabs">
-				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'overview']"><a i18n>Overview</a></li>
-				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'tracks']"><a i18n>Tracks</a></li>
-				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'sub-folders']"><a i18n>Folders</a></li>
-				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'tags']"><a i18n>Tags</a></li>
-				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'health']"><a i18n>Health</a></li>
-				<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'tracks-health']"><a i18n>Track Health</a></li>
-			</ul>
-		</nav>
-		<div class="router-content">
-			<router-outlet></router-outlet>
-		</div>
-	</div>
+  <div class="left-content">
+    <app-admin-folder-tree (selectionChange)="selectionChange($event)" />
+  </div>
+  <app-splitter />
+  <div class="right-content">
+    @if (id) {
+      <nav class="navigation">
+        <ul class="tabs">
+          <li routerLinkActive="active" [routerLink]="['/admin/folder',id,'overview']"><a i18n>Overview</a></li>
+          <li routerLinkActive="active" [routerLink]="['/admin/folder',id,'tracks']"><a i18n>Tracks</a></li>
+          <li routerLinkActive="active" [routerLink]="['/admin/folder',id,'sub-folders']"><a i18n>Folders</a></li>
+          <li routerLinkActive="active" [routerLink]="['/admin/folder',id,'tags']"><a i18n>Tags</a></li>
+          <li routerLinkActive="active" [routerLink]="['/admin/folder',id,'health']"><a i18n>Health</a></li>
+          <li routerLinkActive="active" [routerLink]="['/admin/folder',id,'tracks-health']"><a i18n>Track Health</a></li>
+        </ul>
+      </nav>
+    }
+    <div class="router-content">
+      <router-outlet />
+    </div>
+  </div>
 </div>

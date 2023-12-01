@@ -1,1 +1,3 @@
-<app-obj-loader *ngIf="valid" [loader]="loader" [listQuery]="listQuery" [loadAll]="loadAll" [showParent]="true" [changeTrigger]="changeTrigger"></app-obj-loader>
+@if (valid) {
+  <app-obj-loader [loader]="loader" [listQuery]="listQuery" [loadAll]="loadAll" [showParent]="true" [changeTrigger]="changeTrigger" />
+}

@@ -1,3 +1,5 @@
 <context-menu #entriesMenu>
-	<ng-template *ngFor="let entry of entries; trackBy: trackByFn" contextMenuItem (execute)="entry.click()"><i [class]="entry.icon"></i> {{entry.text}}</ng-template>
+  @for (entry of entries; track trackByFn($index, entry)) {
+    <ng-template contextMenuItem (execute)="entry.click()"><i [class]="entry.icon"></i> {{entry.text}}</ng-template>
+  }
 </context-menu>

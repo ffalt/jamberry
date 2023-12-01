@@ -1,4 +1,8 @@
-<app-view-type-toggle #viewType [viewTypeList]="viewTypeList" [headline]="headline"></app-view-type-toggle>
-<app-background-text-list [list]="groups" [name]="typeName"></app-background-text-list>
-<app-obj-groups-cards *ngIf="!viewType.viewTypeList" [groups]="groups" [showParent]="showParent"></app-obj-groups-cards>
-<app-obj-groups-plates *ngIf="viewType.viewTypeList" [groups]="groups" [showParent]="showParent"></app-obj-groups-plates>
+<app-view-type-toggle #viewType [viewTypeList]="viewTypeList" [headline]="headline" />
+<app-background-text-list [list]="groups" [name]="typeName" />
+@if (!viewType.viewTypeList) {
+  <app-obj-groups-cards [groups]="groups" [showParent]="showParent" />
+}
+@if (viewType.viewTypeList) {
+  <app-obj-groups-plates [groups]="groups" [showParent]="showParent" />
+}

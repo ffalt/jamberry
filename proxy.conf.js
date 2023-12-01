@@ -8,7 +8,7 @@ module.exports = [
 		],
 		secure: false,
 		logLevel: "debug",
-		target: "http://localhost:4040",
+		target: "http://0.0.0.0:4040",
 		bypass: function (request, response, proxyOptions) {
 			if (request.url === '/assets/config/config.js') {
 				config_json = {

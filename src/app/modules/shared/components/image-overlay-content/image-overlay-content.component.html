@@ -1,4 +1,6 @@
-<ng-container *ngIf="data">
-	<i *ngIf="loading" class="icon-spinner icon-spin"></i>
-	<img [src]="data.url" [alt]="data.name" (load)="onLoad()">
-</ng-container>
+@if (data) {
+  @if (loading) {
+    <i class="icon-spinner icon-spin"></i>
+  }
+  <img [src]="data.url" [alt]="data.name" (load)="onLoad()">
+}

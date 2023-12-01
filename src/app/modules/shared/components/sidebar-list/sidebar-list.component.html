@@ -1,6 +1,10 @@
 <a role="button" class="header" (click)="toggle()" (keydown.enter)="toggle()">{{list?.name}}</a>
-<ul *ngIf="!collapsed && list" class="index-list-content">
-	<li *ngFor="let entry of list.entries; trackBy:trackByFn">
-		<app-sidebar-list-item [entry]="entry" (navigate)="onNavigate()"></app-sidebar-list-item>
-	</li>
-</ul>
+@if (!collapsed && list) {
+  <ul class="index-list-content">
+    @for (entry of list.entries; track trackByFn($index, entry)) {
+      <li>
+        <app-sidebar-list-item [entry]="entry" (navigate)="onNavigate()" />
+      </li>
+    }
+  </ul>
+}

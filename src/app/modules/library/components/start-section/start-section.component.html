@@ -1,14 +1,20 @@
 <div class="start-section">{{name}}</div>
-<div *ngIf="list && list.length" class="start-items">
-	<a *ngFor="let item of list; trackBy:trackByFn" class="start-item" tabindex="0" (clickenter)="item.click()">
-		<div class="image">
-			<app-coverart-image [coverArtObj]="item.obj" [size]="80" [alt]="item.obj.name" [fill]="true"></app-coverart-image>
-		</div>
-		<span class="title">
-			{{item.obj.name | limit:90}}
-		</span>
-	</a>
-</div>
-<div i18n *ngIf="list && list.length===0" class="none">
-	[ None ]
-</div>
+@if (list && list.length) {
+  <div class="start-items">
+    @for (item of list; track trackByFn($index, item)) {
+      <a class="start-item" tabindex="0" (clickenter)="item.click()">
+        <div class="image">
+          <app-coverart-image [coverArtObj]="item.obj" [size]="80" [alt]="item.obj.name" [fill]="true" />
+        </div>
+        <span class="title">
+          {{item.obj.name | limit:90}}
+        </span>
+      </a>
+    }
+  </div>
+}
+@if (list && list.length===0) {
+  <div i18n class="none">
+    [ None ]
+  </div>
+}

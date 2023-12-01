@@ -1,25 +1,30 @@
 <div class="match-album-images">
-	<label class="front-only-choice">
-		<input type="checkbox" [checked]="showFrontImagesOnly" [(ngModel)]="showFrontImagesOnly" (change)="onToggleShowFrontImagesOnly()"> <ng-container i18n>Front only</ng-container>
-	</label>
-	<div class="section">
-		<a i18n href="https://coverartarchive.org/" rel="noopener" target="_blank">Coverart</a>
-	</div>
-	<i *ngIf="isImageSearchRunning" class="icon-spin icon-spinner"></i>
-	<div *ngIf="images && !isImageSearchRunning" class="match-images">
-		<app-background-text-list name="Images" [list]="images"></app-background-text-list>
-		<div class="media-cards">
-			<div *ngFor="let node of images; trackBy: trackByFn" class="media-card no-hover">
-				<ng-container *ngIf="node.base64">
-					<div class="image">
-						<app-image-base64 [image]="node.base64"></app-image-base64>
-					</div>
-					<div class="footer">
-						<div class="footer-content"><label><input type="checkbox" [checked]="node.checked"> {{node.image.types}}</label></div>
-					</div>
-				</ng-container>
-			</div>
-		</div>
-	</div>
+  <label class="front-only-choice">
+    <input type="checkbox" [checked]="showFrontImagesOnly" [(ngModel)]="showFrontImagesOnly" (change)="onToggleShowFrontImagesOnly()"> <ng-container i18n>Front only</ng-container>
+  </label>
+  <div class="section">
+    <a i18n href="https://coverartarchive.org/" rel="noopener" target="_blank">Coverart</a>
+  </div>
+  @if (isImageSearchRunning) {
+    <i class="icon-spin icon-spinner"></i>
+  }
+  @if (images && !isImageSearchRunning) {
+    <div class="match-images">
+      <app-background-text-list name="Images" [list]="images" />
+      <div class="media-cards">
+        @for (node of images; track trackByFn($index, node)) {
+          <div class="media-card no-hover">
+            @if (node.base64) {
+              <div class="image">
+                <app-image-base64 [image]="node.base64" />
+              </div>
+              <div class="footer">
+                <div class="footer-content"><label><input type="checkbox" [checked]="node.checked"> {{node.image.types}}</label></div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
 </div>
-

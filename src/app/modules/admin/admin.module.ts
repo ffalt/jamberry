@@ -1,5 +1,5 @@
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HammerModule} from '@angular/platform-browser';
@@ -23,7 +23,8 @@ import {components} from './components';
         ContextMenuModule,
         ScrollingModule,
         AutocompleteModule,
-        routing
+        routing,
+        NgOptimizedImage
     ],
     declarations: [AdminComponent, ...components],
     providers: []

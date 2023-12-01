@@ -1,2 +1,6 @@
-<app-loading *ngIf="!similarFolders"></app-loading>
-<app-obj-groups-view *ngIf="similarFolders" typeName="Folders" i18n-typeName [objs]="similarFolders"></app-obj-groups-view>
+@if (!similarFolders) {
+  <app-loading />
+}
+@if (similarFolders) {
+  <app-obj-groups-view typeName="Folders" i18n-typeName [objs]="similarFolders" />
+}

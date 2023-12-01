@@ -1,5 +1,9 @@
-<app-loading *ngIf="!artist"></app-loading>
-<ng-container *ngIf="mbArtistID">
-	<app-mb-artist [mbArtistID]="mbArtistID"></app-mb-artist>
-</ng-container>
-<app-background-text *ngIf="artist && !mbArtistID" text="No data available" i18n-text></app-background-text>
+@if (!artist) {
+  <app-loading />
+}
+@if (mbArtistID) {
+  <app-mb-artist [mbArtistID]="mbArtistID" />
+}
+@if (artist && !mbArtistID) {
+  <app-background-text text="No data available" i18n-text />
+}

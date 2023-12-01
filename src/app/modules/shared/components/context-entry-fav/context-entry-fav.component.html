@@ -1,5 +1,9 @@
-<ng-container *ngIf="base?.state">
-	<app-fav-icon [faved]="base?.state?.faved"></app-fav-icon>
-	<ng-container *ngIf="base?.state?.faved" i18n>Remove from Favorites</ng-container>
-	<ng-container *ngIf="!base?.state?.faved" i18n>Add to Favorites</ng-container>
-</ng-container>
+@if (base?.state) {
+  <app-fav-icon [faved]="base?.state?.faved" />
+  @if (base?.state?.faved) {
+    <ng-container i18n>Remove from Favorites</ng-container>
+  }
+  @if (!base?.state?.faved) {
+    <ng-container i18n>Add to Favorites</ng-container>
+  }
+}

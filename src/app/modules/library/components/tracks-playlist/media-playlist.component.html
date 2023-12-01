@@ -1,12 +1,15 @@
-<app-background-text-list name="Tracks" [list]="entries"></app-background-text-list>
-<div *ngIf="entries && entries.length>0" class="tracks">
-	<app-media-playlist-header [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"/>
-	<div cdkDropList (cdkDropListDropped)="onDrop($event)">
-		<app-media-playlist-item *ngFor="let media of entries; trackBy:trackByFn"
-														 class="track-wrapper" cdkDrag
-														 [media]="media" [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"
-														 (tap)="tapTrack($event, media)"
-		/>
-	</div>
-</div>
-
+<app-background-text-list name="Tracks" [list]="entries" />
+@if (entries && entries.length>0) {
+  <div class="tracks">
+    <app-media-playlist-header [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"/>
+    <div cdkDropList (cdkDropListDropped)="onDrop($event)">
+      @for (media of entries; track trackByFn($index, media)) {
+        <app-media-playlist-item
+          class="track-wrapper" cdkDrag
+          [media]="media" [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"
+          (tap)="tapTrack($event, media)"
+          />
+      }
+    </div>
+  </div>
+}

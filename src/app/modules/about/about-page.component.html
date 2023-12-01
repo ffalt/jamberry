@@ -1,65 +1,74 @@
 <div class="about">
-	<app-view-header-slim section="About" i18n-section></app-view-header-slim>
-	<div class="content">
-		<div>
-			<div i18n class="section-title">Jamberry</div>
-			<div class="key-value-row">
-				<div i18n>Version</div>
-				<div><a href="https://github.com/ffalt/jamberry/" target="_blank" rel="noopener">{{app.version}}</a></div>
-			</div>
-			<div class="key-value-row">
-				<div i18n>Licence</div>
-				<div><a i18n href="https://github.com/ffalt/jamberry/blob/main/LICENSE" target="_blank" rel="noopener">MIT</a></div>
-			</div>
-			<div class="key-value-row">
-				<div i18n>Report Issues</div>
-				<div><a i18n href="https://github.com/ffalt/jamberry/issues" target="_blank" rel="noopener">github</a></div>
-			</div>
-		</div>
-		<div>
-			<div i18n class="section-title">Thanks</div>
-			<div class="key-value-row">
-				<div i18n>Icons</div>
-				<div><a i18n href="http://fontello.com/" target="_blank" rel="noopener">fontello</a></div>
-			</div>
-			<div class="key-value-row">
-				<div i18n>Logo Icon</div>
-				<div><a i18n href="http://www.flaticon.com/free-icon/strawberry-with-heart-shape_33090" target="_blank" rel="noopener">freepik</a></div>
-			</div>
-			<div class="key-value-row">
-				<div i18n>Audio Library</div>
-				<div><a i18n href="http://www.schillmania.com/projects/soundmanager2/" target="_blank" rel="noopener">soundmanager2</a></div>
-			</div>
-			<div class="key-value-row">
-				<div i18n>Platform</div>
-				<div><a i18n href="https://angular.io/" target="_blank" rel="noopener">angular {{VERSION.full}}</a></div>
-			</div>
-		</div>
-		<div>
-			<div i18n class="section-title">Your Browser</div>
-			<div class="key-value-row">
-				<div i18n>Supported Audio Formats</div>
-				<div *ngIf="player.audioSupport?.formats"><span *ngFor="let format of player.audioSupport?.formats; trackBy: trackByFormatFn">{{format}}</span></div>
-			</div>
-		</div>
-		<div *ngIf="auth.auth">
-			<div i18n class="section-title">Server</div>
-			<div class="key-value-row">
-				<div i18n>Location</div>
-				<div><a target="_blank" [title]="auth.auth.server" [href]="auth.auth.server">{{auth.auth.server}}</a></div>
-			</div>
-			<div class="key-value-row">
-				<div i18n *ngIf="auth.auth.version">Jamserver API</div>
-				<div>{{auth.auth.version}}</div>
-			</div>
-		</div>
-		<div>
-			<div i18n class="section-title">Keyboard Shortcuts</div>
-			<div *ngFor="let kcmd of keyCmds; trackBy: trackByKeyCmdFn" class="key-value-row">
-				<div>{{kcmd.desc}}</div>
-				<div>{{kcmd.name}}</div>
-			</div>
-		</div>
-	</div>
+  <app-view-header-slim section="About" i18n-section />
+  <div class="content">
+    <div>
+      <div i18n class="section-title">Jamberry</div>
+      <div class="key-value-row">
+        <div i18n>Version</div>
+        <div><a href="https://github.com/ffalt/jamberry/" target="_blank" rel="noopener">{{app.version}}</a></div>
+      </div>
+      <div class="key-value-row">
+        <div i18n>Licence</div>
+        <div><a i18n href="https://github.com/ffalt/jamberry/blob/main/LICENSE" target="_blank" rel="noopener">MIT</a></div>
+      </div>
+      <div class="key-value-row">
+        <div i18n>Report Issues</div>
+        <div><a i18n href="https://github.com/ffalt/jamberry/issues" target="_blank" rel="noopener">github</a></div>
+      </div>
+    </div>
+    <div>
+      <div i18n class="section-title">Thanks</div>
+      <div class="key-value-row">
+        <div i18n>Icons</div>
+        <div><a i18n href="http://fontello.com/" target="_blank" rel="noopener">fontello</a></div>
+      </div>
+      <div class="key-value-row">
+        <div i18n>Logo Icon</div>
+        <div><a i18n href="http://www.flaticon.com/free-icon/strawberry-with-heart-shape_33090" target="_blank" rel="noopener">freepik</a></div>
+      </div>
+      <div class="key-value-row">
+        <div i18n>Audio Library</div>
+        <div><a i18n href="http://www.schillmania.com/projects/soundmanager2/" target="_blank" rel="noopener">soundmanager2</a></div>
+      </div>
+      <div class="key-value-row">
+        <div i18n>Platform</div>
+        <div><a i18n href="https://angular.io/" target="_blank" rel="noopener">angular {{VERSION.full}}</a></div>
+      </div>
+    </div>
+    <div>
+      <div i18n class="section-title">Your Browser</div>
+      <div class="key-value-row">
+        <div i18n>Supported Audio Formats</div>
+        @if (player.audioSupport?.formats) {
+          <div>@for (format of player.audioSupport?.formats; track trackByFormatFn($index, format)) {
+            <span>{{format}}</span>
+          }</div>
+        }
+      </div>
+    </div>
+    @if (auth.auth) {
+      <div>
+        <div i18n class="section-title">Server</div>
+        <div class="key-value-row">
+          <div i18n>Location</div>
+          <div><a target="_blank" [title]="auth.auth.server" [href]="auth.auth.server">{{auth.auth.server}}</a></div>
+        </div>
+        <div class="key-value-row">
+          @if (auth.auth.version) {
+            <div i18n>Jamserver API</div>
+          }
+          <div>{{auth.auth.version}}</div>
+        </div>
+      </div>
+    }
+    <div>
+      <div i18n class="section-title">Keyboard Shortcuts</div>
+      @for (kcmd of keyCmds; track trackByKeyCmdFn($index, kcmd)) {
+        <div class="key-value-row">
+          <div>{{kcmd.desc}}</div>
+          <div>{{kcmd.name}}</div>
+        </div>
+      }
+    </div>
+  </div>
 </div>
-

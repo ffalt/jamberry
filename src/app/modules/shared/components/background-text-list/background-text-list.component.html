@@ -1,1 +1,3 @@
-<app-background-text *ngIf="list && list.length === 0" text="No {{name}}"></app-background-text>
+@if (list && list.length === 0) {
+  <app-background-text text="No {{name}}" />
+}

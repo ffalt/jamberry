@@ -1,16 +1,22 @@
-<ng-container *ngIf="obj">
-	<div class="art" (appDeferLoad)="gotInView()">
-		<app-coverart-image *ngIf="visible" appClickStop [coverArtObj]="obj.base" [size]="135" [alt]="obj.name" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()"></app-coverart-image>
-	</div>
-	<div class="meta">
-		<app-fav-icon appClickStop [faved]="obj.base.state?.faved" (click)="toggleFav()" (keydown.enter)="toggleFav()"></app-fav-icon>
-		<div *ngIf="obj.year" class="year">{{obj.year}}</div>
-		<div *ngIf="showParent && obj.parent" class="artist"><a appClickStop (click)="obj.navigToParent()" (keydown.enter)="obj.navigToParent()">{{obj.parent}}</a></div>
-		<div class="name"><a appClickStop (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()">{{obj.name}}</a></div>
-		<div class="type">{{obj.mediaType}}</div>
-		<div class="actions">
-			<button class="button-primary" tabindex="-1" appClickStop (click)="obj.play()" (keydown.enter)="obj.play()"><i class="icon-play" aria-hidden="true"></i> <ng-container i18n>Play</ng-container></button>
-			<a appClickStop title="Menu" i18n-title (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)">…</a>
-		</div>
-	</div>
-</ng-container>
+@if (obj) {
+  <div class="art" (appDeferLoad)="gotInView()">
+    @if (visible) {
+      <app-coverart-image appClickStop [coverArtObj]="obj.base" [size]="135" [alt]="obj.name" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()" />
+    }
+  </div>
+  <div class="meta">
+    <app-fav-icon appClickStop [faved]="obj.base.state?.faved" (click)="toggleFav()" (keydown.enter)="toggleFav()" />
+    @if (obj.year) {
+      <div class="year">{{obj.year}}</div>
+    }
+    @if (showParent && obj.parent) {
+      <div class="artist"><a appClickStop (click)="obj.navigToParent()" (keydown.enter)="obj.navigToParent()">{{obj.parent}}</a></div>
+    }
+    <div class="name"><a appClickStop (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()">{{obj.name}}</a></div>
+    <div class="type">{{obj.mediaType}}</div>
+    <div class="actions">
+      <button class="button-primary" tabindex="-1" appClickStop (click)="obj.play()" (keydown.enter)="obj.play()"><i class="icon-play" aria-hidden="true"></i> <ng-container i18n>Play</ng-container></button>
+      <a appClickStop title="Menu" i18n-title (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)">…</a>
+    </div>
+  </div>
+}

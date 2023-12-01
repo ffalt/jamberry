@@ -1,12 +1,16 @@
 <div role="tooltip" class="tooltip {{ placement }}" [style.top.px]="top" [style.left.px]="left" [class.in]="isIn" [class.fade]="isFade">
-	<div class="tooltip-arrow"></div>
-	<div class="tooltip-inner">
-		<ng-content></ng-content>
-		<table *ngIf="content">
-			<tr *ngFor="let item of content.items; trackBy: trackByFn">
-				<td class="tooltip-table-left">{{item.key}}</td>
-				<td class="tooltip-table-right">{{item.value}}</td>
-			</tr>
-		</table>
-	</div>
+  <div class="tooltip-arrow"></div>
+  <div class="tooltip-inner">
+    <ng-content />
+    @if (content) {
+      <table>
+        @for (item of content.items; track trackByFn($index, item)) {
+          <tr>
+            <td class="tooltip-table-left">{{item.key}}</td>
+            <td class="tooltip-table-right">{{item.value}}</td>
+          </tr>
+        }
+      </table>
+    }
+  </div>
 </div>

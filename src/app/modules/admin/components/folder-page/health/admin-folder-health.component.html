@@ -1,46 +1,54 @@
 <div class="health">
-	<div class="actions">
-		<button class="button-on-control" title="Refresh List" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
-		<select *ngIf="modes.length>0" placeholder="Type of Hints" i18n-placeholder [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
-			<option *ngFor="let m of modes; trackBy: trackByModeFn" [value]="m">{{m}}</option>
-		</select>
-	</div>
-	<div class="health-content">
-		<app-loading *ngIf="!hints"></app-loading>
-		<app-background-text-list name="Folder Health Issues" [list]="hints"></app-background-text-list>
-		<div *ngFor="let folderHealth of hints; trackBy: trackByHealthFn" class="folder">
-			<div class="meta">
-				<a [routerLink]="['/admin/folder',folderHealth.folder.id,'overview']">
-					<ng-container [ngSwitch]="folderHealth.folder.type">
-						<ng-container *ngSwitchCase="'multialbum'">
-							<div i18n class="type">Album</div>
-							<div class="name">{{folderHealth.folder.tag?.album}}</div>
-							<div class="artist">{{folderHealth.folder.tag?.artist}}</div>
-							<div class="year">{{folderHealth.folder.tag?.year}}</div>
-						</ng-container>
-						<ng-container *ngSwitchCase="'album'">
-							<div i18n class="type">Album</div>
-							<div class="name">{{folderHealth.folder.tag?.album}}</div>
-							<div class="artist">{{folderHealth.folder.tag?.artist}}</div>
-							<div class="year">{{folderHealth.folder.tag?.year}}</div>
-						</ng-container>
-						<ng-container *ngSwitchCase="'artist'">
-							<div i18n class="type">Artist</div>
-							<div class="name">{{folderHealth.folder.tag?.artist}}</div>
-						</ng-container>
-						<ng-container *ngSwitchCase="'collection'">
-							<div i18n class="type">Collection</div>
-							<div class="name">{{folderHealth.folder.name}}</div>
-						</ng-container>
-						<ng-container *ngSwitchDefault>
-							<div class="name">{{folderHealth.folder.name}}</div>
-						</ng-container>
-					</ng-container>
-				</a>
-			</div>
-			<div class="folder-health">
-				<app-folder-health [folderHealth]="folderHealth"></app-folder-health>
-			</div>
-		</div>
-	</div>
+  <div class="actions">
+    <button class="button-on-control" title="Refresh List" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
+    @if (modes.length>0) {
+      <select placeholder="Type of Hints" i18n-placeholder [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
+        @for (m of modes; track trackByModeFn($index, m)) {
+          <option [value]="m">{{m}}</option>
+        }
+      </select>
+    }
+  </div>
+  <div class="health-content">
+    @if (!hints) {
+      <app-loading />
+    }
+    <app-background-text-list name="Folder Health Issues" [list]="hints" />
+    @for (folderHealth of hints; track trackByHealthFn($index, folderHealth)) {
+      <div class="folder">
+        <div class="meta">
+          <a [routerLink]="['/admin/folder',folderHealth.folder.id,'overview']">
+            @switch (folderHealth.folder.type) {
+              @case ('multialbum') {
+                <div i18n class="type">Album</div>
+                <div class="name">{{folderHealth.folder.tag?.album}}</div>
+                <div class="artist">{{folderHealth.folder.tag?.artist}}</div>
+                <div class="year">{{folderHealth.folder.tag?.year}}</div>
+              }
+              @case ('album') {
+                <div i18n class="type">Album</div>
+                <div class="name">{{folderHealth.folder.tag?.album}}</div>
+                <div class="artist">{{folderHealth.folder.tag?.artist}}</div>
+                <div class="year">{{folderHealth.folder.tag?.year}}</div>
+              }
+              @case ('artist') {
+                <div i18n class="type">Artist</div>
+                <div class="name">{{folderHealth.folder.tag?.artist}}</div>
+              }
+              @case ('collection') {
+                <div i18n class="type">Collection</div>
+                <div class="name">{{folderHealth.folder.name}}</div>
+              }
+              @default {
+                <div class="name">{{folderHealth.folder.name}}</div>
+              }
+            }
+          </a>
+        </div>
+        <div class="folder-health">
+          <app-folder-health [folderHealth]="folderHealth" />
+        </div>
+      </div>
+    }
+  </div>
 </div>

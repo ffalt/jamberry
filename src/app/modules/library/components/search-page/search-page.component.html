@@ -1,44 +1,65 @@
 <app-autocomplete #autocomplete="appAutocomplete">
-	<ng-template appAutocompleteContent let-control="control">
-		<app-autocomplete-option *ngFor="let option of control.options" [option]="option" [control]="control">
-			<span [innerHTML]="option.data.name | highlight: control.query"></span>
-		</app-autocomplete-option>
-	</ng-template>
+  <ng-template let-control="control" appAutocompleteContent>
+    @for (option of control.options; track option) {
+      <app-autocomplete-option [option]="option" [control]="control">
+        <span [innerHTML]="option.data.name | highlight: control.query"></span>
+      </app-autocomplete-option>
+    }
+  </ng-template>
 </app-autocomplete>
-
 <div class="search">
-	<app-view-header-icon-section icon="icon-search" i18n-icon section="Search" i18n-section [tabs]="tabs">
-		<div class="input-box">
-			<input autocomplete="off" type="text" name="query" placeholder="Search here" i18n-placeholder [appAutocomplete]="autocomplete" [appAutocompleteControl]="this" [(ngModel)]="value">
-			<i title="Search" i18n-title class="icon-search" (click)="search()"></i>
-		</div>
-	</app-view-header-icon-section>
-	<div *ngIf="query" class="content">
-		<div class="tab-content" [ngSwitch]="currentTab.id">
-			<div *ngSwitchCase="tabsObjs.albums.id" class="tab-pane">
-				<app-obj-loader [loader]="library.albumLoader" [searchQuery]="{query:query}"></app-obj-loader>
-			</div>
-			<div *ngSwitchCase="tabsObjs.artists.id" class="tab-pane">
-				<app-obj-loader [loader]="library.artistLoader" [searchQuery]="{query:query,albumType:AlbumType.album}"></app-obj-loader>
-			</div>
-			<div *ngSwitchCase="tabsObjs.podcasts.id" class="tab-pane">
-				<app-obj-loader [loader]="library.podcastLoader" [searchQuery]="{query:query}"></app-obj-loader>
-			</div>
-			<div *ngSwitchCase="tabsObjs.series.id" class="tab-pane">
-				<app-obj-loader [loader]="library.seriesLoader" [searchQuery]="{query:query}"></app-obj-loader>
-			</div>
-			<div *ngSwitchCase="tabsObjs.playlists.id" class="tab-pane">
-				<app-obj-loader [loader]="library.playlistLoader" [searchQuery]="{query:query}"></app-obj-loader>
-			</div>
-			<div *ngSwitchCase="tabsObjs.folders.id" class="tab-pane">
-				<app-obj-loader [loader]="library.folderLoader" [searchQuery]="{query:query}"></app-obj-loader>
-			</div>
-			<div *ngSwitchCase="tabsObjs.episodes.id" class="tab-pane">
-				<app-episodes-loader [query]="query"></app-episodes-loader>
-			</div>
-			<div *ngSwitchCase="tabsObjs.tracks.id" class="tab-pane">
-				<app-tracks-loader [query]="query"></app-tracks-loader>
-			</div>
-		</div>
-	</div>
+  <app-view-header-icon-section icon="icon-search" i18n-icon section="Search" i18n-section [tabs]="tabs">
+    <div class="input-box">
+      <input autocomplete="off" type="text" name="query" placeholder="Search here" i18n-placeholder [appAutocomplete]="autocomplete" [appAutocompleteControl]="this" [(ngModel)]="value">
+      <i title="Search" i18n-title class="icon-search" (click)="search()"></i>
+    </div>
+  </app-view-header-icon-section>
+  @if (query) {
+    <div class="content">
+      <div class="tab-content">
+        @switch (currentTab.id) {
+          @case (tabsObjs.albums.id) {
+            <div class="tab-pane">
+              <app-obj-loader [loader]="library.albumLoader" [searchQuery]="{query:query}" />
+            </div>
+          }
+          @case (tabsObjs.artists.id) {
+            <div class="tab-pane">
+              <app-obj-loader [loader]="library.artistLoader" [searchQuery]="{query:query,albumType:AlbumType.album}" />
+            </div>
+          }
+          @case (tabsObjs.podcasts.id) {
+            <div class="tab-pane">
+              <app-obj-loader [loader]="library.podcastLoader" [searchQuery]="{query:query}" />
+            </div>
+          }
+          @case (tabsObjs.series.id) {
+            <div class="tab-pane">
+              <app-obj-loader [loader]="library.seriesLoader" [searchQuery]="{query:query}" />
+            </div>
+          }
+          @case (tabsObjs.playlists.id) {
+            <div class="tab-pane">
+              <app-obj-loader [loader]="library.playlistLoader" [searchQuery]="{query:query}" />
+            </div>
+          }
+          @case (tabsObjs.folders.id) {
+            <div class="tab-pane">
+              <app-obj-loader [loader]="library.folderLoader" [searchQuery]="{query:query}" />
+            </div>
+          }
+          @case (tabsObjs.episodes.id) {
+            <div class="tab-pane">
+              <app-episodes-loader [query]="query" />
+            </div>
+          }
+          @case (tabsObjs.tracks.id) {
+            <div class="tab-pane">
+              <app-tracks-loader [query]="query" />
+            </div>
+          }
+        }
+      </div>
+    </div>
+  }
 </div>

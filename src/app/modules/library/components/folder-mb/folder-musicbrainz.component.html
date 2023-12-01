@@ -1,5 +1,11 @@
-<app-loading *ngIf="!folder"></app-loading>
-<ng-container *ngIf="folder">
-	<app-mb-artist *ngIf="hasArtistID" [mbArtistID]="folder.tag?.mbArtistID"></app-mb-artist>
-	<app-background-text *ngIf="!hasArtistID" text="No Musicbrainz ArtistID available" i18n-text></app-background-text>
-</ng-container>
+@if (!folder) {
+  <app-loading />
+}
+@if (folder) {
+  @if (hasArtistID) {
+    <app-mb-artist [mbArtistID]="folder.tag?.mbArtistID" />
+  }
+  @if (!hasArtistID) {
+    <app-background-text text="No Musicbrainz ArtistID available" i18n-text />
+  }
+}

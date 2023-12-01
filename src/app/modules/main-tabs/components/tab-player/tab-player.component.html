@@ -1,19 +1,23 @@
-<app-player-current-info></app-player-current-info>
+<app-player-current-info />
 <div class="player-info">
-	<div class="volume">
-		<a *ngIf="!player.isMuted" title="Mute" i18n-title (click)="player.mute()"><i class="icon-volume-up"></i></a>
-		<a *ngIf="player.isMuted" title="Unmute" i18n-title (click)="player.unmute()"><i class="icon-volume-off"></i></a>
-		<app-volume-slider title="Volume" i18n-title></app-volume-slider>
-	</div>
-	<div class="player-speed">
-		<a title="Reset Speed" i18n-title (click)="player.speed(1)"><i class="icon-speed"></i></a>
-		<app-speed-slider></app-speed-slider>
-	</div>
-	<div class="progress">
-		<div class="start">{{player.currentTime | mediaduration}}</div>
-		<div class="bar">
-			<app-time-slider></app-time-slider>
-		</div>
-		<div class="finish">{{player.totalTime | mediaduration}}</div>
-	</div>
+  <div class="volume">
+    @if (!player.isMuted) {
+      <a title="Mute" i18n-title (click)="player.mute()"><i class="icon-volume-up"></i></a>
+    }
+    @if (player.isMuted) {
+      <a title="Unmute" i18n-title (click)="player.unmute()"><i class="icon-volume-off"></i></a>
+    }
+    <app-volume-slider title="Volume" i18n-title />
+  </div>
+  <div class="player-speed">
+    <a title="Reset Speed" i18n-title (click)="player.speed(1)"><i class="icon-speed"></i></a>
+    <app-speed-slider />
+  </div>
+  <div class="progress">
+    <div class="start">{{player.currentTime | mediaduration}}</div>
+    <div class="bar">
+      <app-time-slider />
+    </div>
+    <div class="finish">{{player.totalTime | mediaduration}}</div>
+  </div>
 </div>

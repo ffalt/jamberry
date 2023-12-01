@@ -1,4 +1,6 @@
-<div *ngFor="let stat of stats; trackBy: trackByFn" class="stat" [routerLink]="[stat.link]">
-	<div class="stat-title">{{stat.text}}</div>
-	<div class="stat-value">{{stat.value}}</div>
-</div>
+@for (stat of stats; track trackByFn($index, stat)) {
+  <div class="stat" [routerLink]="[stat.link]">
+    <div class="stat-title">{{stat.text}}</div>
+    <div class="stat-value">{{stat.value}}</div>
+  </div>
+}

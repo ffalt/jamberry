@@ -1,20 +1,22 @@
 <div class="messages">
-	<ng-container *ngIf="messages">
-		<div *ngFor="let message of messages; trackBy:trackByFn; let index=index;" class="message" [class.grouped]="index>0 && messages[index-1].userID===message.userID">
-			<div>
-				<app-coverart-image class="avatar" [coverArtObj]="{id:message.userID,name:message.userName}" [size]="22" [round]="true" [alt]="message.userName"></app-coverart-image>
-				<div class="time">{{message.created|date:'shortTime'}}</div>
-			</div>
-			<div>
-				<div class="username">{{message.userName}}</div>
-				<div class="text">{{message.message}}</div>
-			</div>
-		</div>
-	</ng-container>
+  @if (messages) {
+    @for (message of messages; track trackByFn(index, message); let index = $index) {
+      <div class="message" [class.grouped]="index>0 && messages[index-1].userID===message.userID">
+        <div>
+          <app-coverart-image class="avatar" [coverArtObj]="{id:message.userID,name:message.userName}" [size]="22" [round]="true" [alt]="message.userName" />
+          <div class="time">{{message.created|date:'shortTime'}}</div>
+        </div>
+        <div>
+          <div class="username">{{message.userName}}</div>
+          <div class="text">{{message.message}}</div>
+        </div>
+      </div>
+    }
+  }
 </div>
 <div class="chat-input">
-	<div class="input-box">
-		<input type="text" name="message" autocomplete="none" placeholder="Enter Chat Message" i18n-placeholder [(ngModel)]="msg" (keydown.enter)="post()">
-	</div>
-	<button i18n class="button-on-control" (click)="post()">Send</button>
+  <div class="input-box">
+    <input type="text" name="message" autocomplete="none" placeholder="Enter Chat Message" i18n-placeholder [(ngModel)]="msg" (keydown.enter)="post()">
+  </div>
+  <button i18n class="button-on-control" (click)="post()">Send</button>
 </div>

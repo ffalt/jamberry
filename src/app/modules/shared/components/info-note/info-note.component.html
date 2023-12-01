@@ -1,16 +1,30 @@
-<div *ngIf="notes.length>0">
-	<div *ngIf="!longInfo && notes.length>1" [innerHTML]="notes[0]"></div>
-	<ng-container *ngIf="longInfo || notes.length===1">
-		<div *ngFor="let note of notes; trackBy:trackByFn">
-			<div [innerHTML]="note"></div>
-		</div>
-		<div *ngIf="info" class="info-footnote">
-			<span *ngIf="info.url"><ng-container i18n>Read more on </ng-container><a target="_blank" rel="noopener" [href]="info.url">{{info.source}}</a><br/></span>
-			<a i18n [href]="info.licenseUrl">User-contributed text is available under the {{info.license}}; additional terms may apply.</a>
-		</div>
-	</ng-container>
-	<ng-container *ngIf="notes.length>1">
-		<button i18n *ngIf="!longInfo" class="button-on-background" (click)="longInfo=!longInfo">Show More</button>
-		<button i18n *ngIf="longInfo" class="button-on-background" (click)="longInfo=!longInfo">Show Less</button>
-	</ng-container>
-</div>
+@if (notes.length>0) {
+  <div>
+    @if (!longInfo && notes.length>1) {
+      <div [innerHTML]="notes[0]"></div>
+    }
+    @if (longInfo || notes.length===1) {
+      @for (note of notes; track trackByFn($index, note)) {
+        <div>
+          <div [innerHTML]="note"></div>
+        </div>
+      }
+      @if (info) {
+        <div class="info-footnote">
+          @if (info.url) {
+            <span><ng-container i18n>Read more on </ng-container><a target="_blank" rel="noopener" [href]="info.url">{{info.source}}</a><br/></span>
+          }
+          <a i18n [href]="info.licenseUrl">User-contributed text is available under the {{info.license}}; additional terms may apply.</a>
+        </div>
+      }
+    }
+    @if (notes.length>1) {
+      @if (!longInfo) {
+        <button i18n class="button-on-background" (click)="longInfo=!longInfo">Show More</button>
+      }
+      @if (longInfo) {
+        <button i18n class="button-on-background" (click)="longInfo=!longInfo">Show Less</button>
+      }
+    }
+  </div>
+}

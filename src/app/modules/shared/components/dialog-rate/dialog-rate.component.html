@@ -1,4 +1,4 @@
-<ng-container *ngIf="data">
-	<app-rate [rating]="data.rating" (hasRated)="onRated($event)"></app-rate>
-	<ng-container i18n>Rating:</ng-container> {{data.rating}}
-</ng-container>
+@if (data) {
+  <app-rate [rating]="data.rating" (hasRated)="onRated($event)" />
+  <ng-container i18n>Rating:</ng-container> {{data.rating}}
+}

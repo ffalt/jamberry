@@ -1,3 +1,5 @@
-<app-loading *ngIf="!similar"></app-loading>
-<app-track-list [showArtist]="true" [tracks]="similar"></app-track-list>
-<app-load-more-button [loading]="!similar" (requestLoad)="loadSimilar()"></app-load-more-button>
+@if (!similar) {
+  <app-loading />
+}
+<app-track-list [showArtist]="true" [tracks]="similar" />
+<app-load-more-button [loading]="!similar" (requestLoad)="loadSimilar()" />

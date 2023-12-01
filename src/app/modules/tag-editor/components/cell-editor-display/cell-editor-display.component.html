@@ -1,1 +1,3 @@
-<div *ngFor="let line of lines; trackBy:trackByFn" [title]="line">{{line}}</div>
+@for (line of lines; track trackByFn($index, line)) {
+  <div [title]="line">{{line}}</div>
+}

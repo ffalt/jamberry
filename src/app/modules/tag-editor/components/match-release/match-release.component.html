@@ -1,60 +1,82 @@
 <div class="toggle" (click)="rightActive=!rightActive">
-	<a *ngIf="rightActive" class="button-on-control"><i class="icon-left"></i> <ng-container i18n>Show Tracks</ng-container></a>
-	<a *ngIf="!rightActive" class="button-on-control"><i class="icon-right"></i> <ng-container i18n>Show Matchings</ng-container></a>
+  @if (rightActive) {
+    <a class="button-on-control"><i class="icon-left"></i> <ng-container i18n>Show Tracks</ng-container></a>
+  }
+  @if (!rightActive) {
+    <a class="button-on-control"><i class="icon-right"></i> <ng-container i18n>Show Matchings</ng-container></a>
+  }
 </div>
-
 <div class="content">
-	<app-match-file-list class="match-files" [matchings]="matcher.matchings"/>
-	<app-match-apply class="match-releases" [hidden]="!current" [isRunning]="matcher.isRunning" (loadLyricsRequest)="loadLyricsRequest()" (loadMoodsRequest)="loadMoodsRequest()"/>
-
-	<app-match-results *ngIf="!current" class="match-releases" [matcher]="matcher" (chooseReleaseRequest)="chooseRelease($event)"/>
+  <app-match-file-list class="match-files" [matchings]="matcher.matchings"/>
+  <app-match-apply class="match-releases" [hidden]="!current" [isRunning]="matcher.isRunning" (loadLyricsRequest)="loadLyricsRequest()" (loadMoodsRequest)="loadMoodsRequest()"/>
+  @if (!current) {
+    <app-match-results class="match-releases" [matcher]="matcher" (chooseReleaseRequest)="chooseRelease($event)"/>
+  }
 </div>
-
-<div *ngIf="matcher.isRunning" class="current-log"><i class="icon-spin icon-spinner"></i> {{matcher.currentAction}}</div>
-
-<div *ngIf="current" class="buttons">
-	<div class="match-actions">
-		<button *ngIf="matcher.isRunning" class="button-primary"><i class="icon-spin icon-spinner"></i></button>
-		<button i18n *ngIf="!matcher.isRunning" class="button-primary" (click)="apply()">Apply</button>
-		<button i18n class="button-accent" (click)="stopApply()">Cancel</button>
-	</div>
-</div>
-
+@if (matcher.isRunning) {
+  <div class="current-log"><i class="icon-spin icon-spinner"></i> {{matcher.currentAction}}</div>
+}
+@if (current) {
+  <div class="buttons">
+    <div class="match-actions">
+      @if (matcher.isRunning) {
+        <button class="button-primary"><i class="icon-spin icon-spinner"></i></button>
+      }
+      @if (!matcher.isRunning) {
+        <button i18n class="button-primary" (click)="apply()">Apply</button>
+      }
+      <button i18n class="button-accent" (click)="stopApply()">Cancel</button>
+    </div>
+  </div>
+}
 <context-menu #actionMenu>
-	<ng-template i18n contextMenuItem (execute)="matcher.setManualSearch()">Manual Search with MusicBrainz</ng-template>
-	<ng-template i18n contextMenuItem (execute)="matcher.start(RunType.acoustID)">Match with AcoustID</ng-template>
-	<ng-template i18n contextMenuItem (execute)="matcher.start(RunType.musicbrainzByTags)">Match with MusicBrainz (Text)</ng-template>
-	<ng-template i18n contextMenuItem (execute)="matcher.start(RunType.musicbrainzRefresh)">Match with MusicBrainz (Musicbrainz IDs)</ng-template>
+  <ng-template i18n contextMenuItem (execute)="matcher.setManualSearch()">Manual Search with MusicBrainz</ng-template>
+  <ng-template i18n contextMenuItem (execute)="matcher.start(RunType.acoustID)">Match with AcoustID</ng-template>
+  <ng-template i18n contextMenuItem (execute)="matcher.start(RunType.musicbrainzByTags)">Match with MusicBrainz (Text)</ng-template>
+  <ng-template i18n contextMenuItem (execute)="matcher.start(RunType.musicbrainzRefresh)">Match with MusicBrainz (Musicbrainz IDs)</ng-template>
 </context-menu>
-
-<div *ngIf="!current" class="buttons">
-	<div *ngIf="!matcher.manual" class="match-actions">
-		<div *ngIf="!matcher.isRunning">
-			<button i18n class="button-on-control button-with-add-on" (click)="matcher.start(RunType.auto)">Auto Match</button>
-			<button class="button-on-control button-add-on" (click)="onContextMenu($event)">&nbsp;…&nbsp;</button>
-		</div>
-		<div *ngIf="matcher.isRunning">
-			<button i18n class="button-accent" (click)="matcher.stop()">Stop</button>
-		</div>
-	</div>
-	<div *ngIf="matcher.manual" class="match-actions">
-		<div class="match-search">
-			<div>
-				<div i18n>Album Name</div>
-				<app-tag-editor-autocomplete [getList]="matcher.manualSearchData.getAutoCompleteAlbumList" [standalone]="true" [(value)]="matcher.manualSearchData.releaseGroup"></app-tag-editor-autocomplete>
-			</div>
-			<div>
-				<div i18n>Artist</div>
-				<app-tag-editor-autocomplete [getList]="matcher.manualSearchData.getAutoCompleteArtistList" [standalone]="true" [(value)]="matcher.manualSearchData.artist"></app-tag-editor-autocomplete>
-			</div>
-		</div>
-		<div *ngIf="!matcher.isRunning">
-			<button i18n class="button-primary" (click)="matcher.manualSearch()">Search</button>
-			<button i18n class="button-accent" (click)="matcher.clear()">Clear</button>
-			<button i18n class="button-accent" (click)="matcher.manual=false">Close</button>
-		</div>
-		<div *ngIf="matcher.isRunning">
-			<button i18n class="button-accent" (click)="matcher.stop()">Stop</button>
-		</div>
-	</div>
-</div>
+@if (!current) {
+  <div class="buttons">
+    @if (!matcher.manual) {
+      <div class="match-actions">
+        @if (!matcher.isRunning) {
+          <div>
+            <button i18n class="button-on-control button-with-add-on" (click)="matcher.start(RunType.auto)">Auto Match</button>
+            <button class="button-on-control button-add-on" (click)="onContextMenu($event)">&nbsp;…&nbsp;</button>
+          </div>
+        }
+        @if (matcher.isRunning) {
+          <div>
+            <button i18n class="button-accent" (click)="matcher.stop()">Stop</button>
+          </div>
+        }
+      </div>
+    }
+    @if (matcher.manual) {
+      <div class="match-actions">
+        <div class="match-search">
+          <div>
+            <div i18n>Album Name</div>
+            <app-tag-editor-autocomplete [getList]="matcher.manualSearchData.getAutoCompleteAlbumList" [standalone]="true" [(value)]="matcher.manualSearchData.releaseGroup" />
+          </div>
+          <div>
+            <div i18n>Artist</div>
+            <app-tag-editor-autocomplete [getList]="matcher.manualSearchData.getAutoCompleteArtistList" [standalone]="true" [(value)]="matcher.manualSearchData.artist" />
+          </div>
+        </div>
+        @if (!matcher.isRunning) {
+          <div>
+            <button i18n class="button-primary" (click)="matcher.manualSearch()">Search</button>
+            <button i18n class="button-accent" (click)="matcher.clear()">Clear</button>
+            <button i18n class="button-accent" (click)="matcher.manual=false">Close</button>
+          </div>
+        }
+        @if (matcher.isRunning) {
+          <div>
+            <button i18n class="button-accent" (click)="matcher.stop()">Stop</button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

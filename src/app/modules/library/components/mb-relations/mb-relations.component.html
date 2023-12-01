@@ -1,9 +1,15 @@
-<div *ngIf="urlRelationGroup" class="section">
-	<div i18n class="section-title">URLs</div>
-	<div *ngFor="let t of urlRelationGroup.types" class="url-type">
-		<span>{{t.type}}</span>
-		<div *ngFor="let rel of t.relations">
-			<a target="_blank" [href]="rel.url?.resource"> {{rel.url?.resource}}</a>
-		</div>
-	</div>
-</div>
+@if (urlRelationGroup) {
+  <div class="section">
+    <div i18n class="section-title">URLs</div>
+    @for (t of urlRelationGroup.types; track t) {
+      <div class="url-type">
+        <span>{{t.type}}</span>
+        @for (rel of t.relations; track rel) {
+          <div>
+            <a target="_blank" [href]="rel.url?.resource"> {{rel.url?.resource}}</a>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

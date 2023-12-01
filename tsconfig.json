@@ -54,15 +54,5 @@
 		"fullTemplateTypeCheck": true,
 		"strictTemplates": true,
 		"strictInjectionParameters": true
-	},
-	"exclude": [
-		"local",
-		"electron",
-		"test-config.helper.ts",
-		"jest-global-mocks.ts",
-		"src/environments/environment.prod.ts",
-		"setup-jest.ts",
-		"**/*.mock.ts",
-		"**/*.spec.ts"
-	]
+	}
 }

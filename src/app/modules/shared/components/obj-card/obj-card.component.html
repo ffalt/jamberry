@@ -1,21 +1,27 @@
-<ng-container *ngIf="obj">
-	<a class="image" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()" (appDeferLoad)="gotInView()">
-		<app-coverart-image *ngIf="visible" [coverArtObj]="obj.base" [size]="300" [alt]="obj.name" [fill]="true" [hoverBorder]="true" />
-	</a>
-	<div *ngIf="obj.year" class="date">
-		<span class="year">{{obj.year}}</span>
-	</div>
-	<button type="button" class="fav" (click)="toggleFav()" (keydown.enter)="toggleFav()">
-		<app-fav-icon [faved]="obj.base.state?.faved"></app-fav-icon>
-	</button>
-	<button type="button" class="more" (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)">
-		<span>…</span>
-	</button>
-	<button class="play button-primary" tabindex="-1" (click)="obj.play()"><i class="icon-play" aria-hidden="true"></i> <ng-container i18n>Play</ng-container></button>
-	<div class="footer">
-		<a class="footer-content" tabindex="0" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()">
-			{{obj.name | limit:showParent && obj.parent ? 90 : 50}}
-			<div *ngIf="showParent && obj.parent" class="footer-subline">{{obj.parent | limit:50}}</div>
-		</a>
-	</div>
-</ng-container>
+@if (obj) {
+  <a class="image" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()" (appDeferLoad)="gotInView()">
+    @if (visible) {
+      <app-coverart-image [coverArtObj]="obj.base" [size]="300" [alt]="obj.name" [fill]="true" [hoverBorder]="true" />
+    }
+  </a>
+  @if (obj.year) {
+    <div class="date">
+      <span class="year">{{obj.year}}</span>
+    </div>
+  }
+  <button type="button" class="fav" (click)="toggleFav()" (keydown.enter)="toggleFav()">
+    <app-fav-icon [faved]="obj.base.state?.faved" />
+  </button>
+  <button type="button" class="more" (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)">
+    <span>…</span>
+  </button>
+  <button class="play button-primary" tabindex="-1" (click)="obj.play()"><i class="icon-play" aria-hidden="true"></i> <ng-container i18n>Play</ng-container></button>
+  <div class="footer">
+    <a class="footer-content" tabindex="0" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()">
+      {{obj.name | limit:showParent && obj.parent ? 90 : 50}}
+      @if (showParent && obj.parent) {
+        <div class="footer-subline">{{obj.parent | limit:50}}</div>
+      }
+    </a>
+  </div>
+}

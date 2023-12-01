@@ -1,9 +1,15 @@
-<div *ngIf="folderService.current" class="queue-overlay">
-	<div class="current">
-		<span i18n class="label">Current:</span> <i class="icon-spin icon-spinner"></i> {{folderService.current.title}}
-		<ng-container *ngIf="folderService.current.count>1">({{folderService.current.count}})</ng-container>
-	</div>
-	<div *ngIf="folderService.queue.length>0" class="other">
-		<span i18n class="label">Other requests in queue:</span> {{folderService.queue.length}}
-	</div>
-</div>
+@if (folderService.current) {
+  <div class="queue-overlay">
+    <div class="current">
+      <span i18n class="label">Current:</span> <i class="icon-spin icon-spinner"></i> {{folderService.current.title}}
+      @if (folderService.current.count>1) {
+        ({{folderService.current.count}})
+      }
+    </div>
+    @if (folderService.queue.length>0) {
+      <div class="other">
+        <span i18n class="label">Other requests in queue:</span> {{folderService.queue.length}}
+      </div>
+    }
+  </div>
+}

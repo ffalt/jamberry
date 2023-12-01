@@ -1,5 +1,9 @@
-<app-loading *ngIf="!album"></app-loading>
-<ng-container *ngIf="mbReleaseID">
-	<app-mb-album [mbAlbumID]="mbReleaseID"></app-mb-album>
-</ng-container>
-<app-background-text *ngIf="album && !mbReleaseID" text="No data available" i18n-text></app-background-text>
+@if (!album) {
+  <app-loading />
+}
+@if (mbReleaseID) {
+  <app-mb-album [mbAlbumID]="mbReleaseID" />
+}
+@if (album && !mbReleaseID) {
+  <app-background-text text="No data available" i18n-text />
+}

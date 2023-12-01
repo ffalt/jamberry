@@ -1,5 +1,5 @@
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AutocompleteModule} from '@app/modules/autocomplete';
@@ -14,7 +14,7 @@ import {routing} from './tag-editor.routing';
     imports: [
         CommonModule, SharedModule, FormsModule,
         ImageCropperModule,
-        ContextMenuModule, ScrollingModule, AutocompleteModule, routing
+        ContextMenuModule, ScrollingModule, AutocompleteModule, routing, NgOptimizedImage
     ],
     declarations: [...components, ...pipes],
     providers: []

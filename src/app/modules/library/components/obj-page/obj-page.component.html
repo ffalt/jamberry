@@ -1,12 +1,20 @@
-<app-loading *ngIf="!obj"></app-loading>
-<div *ngIf="obj" class="obj">
-	<app-view-header-jam-base
-		[appBackgroundImage]="obj.id" [section]="obj.name" [sectionType]="obj.mediaType"
-		[base]="obj.base" [infos]="infos" [tabs]="tabs" (contextMenuRequest)="obj.onContextMenu($event, true)">
-		<app-episode-state-button *ngIf="isPodcastEpisode" [episode]="asPodcastEpisode" [showTitle]="true"></app-episode-state-button>
-		<button *ngIf="!isPodcastEpisode" class="button-primary" (click)="obj.play()"><i class="icon-play"></i> <ng-container i18n>Play</ng-container></button>
-	</app-view-header-jam-base>
-	<div class="content">
-		<router-outlet></router-outlet>
-	</div>
-</div>
+@if (!obj) {
+  <app-loading />
+}
+@if (obj) {
+  <div class="obj">
+    <app-view-header-jam-base
+      [appBackgroundImage]="obj.id" [section]="obj.name" [sectionType]="obj.mediaType"
+      [base]="obj.base" [infos]="infos" [tabs]="tabs" (contextMenuRequest)="obj.onContextMenu($event, true)">
+      @if (isPodcastEpisode) {
+        <app-episode-state-button [episode]="asPodcastEpisode" [showTitle]="true" />
+      }
+      @if (!isPodcastEpisode) {
+        <button class="button-primary" (click)="obj.play()"><i class="icon-play"></i> <ng-container i18n>Play</ng-container></button>
+      }
+    </app-view-header-jam-base>
+    <div class="content">
+      <router-outlet />
+    </div>
+  </div>
+}

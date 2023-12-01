@@ -1,15 +1,17 @@
 <div appFocusKeyList>
-	<div *ngFor="let art of nodes; trackBy: trackByFn" class="artwork" appFocusKeyListItem (keydown.enter)="editArtwork(art.artwork)">
-		<div class="artwork-img">
-			<img alt="Artwork" i18n-alt [src]="art.thumbnail" (clickenter)="editArtwork(art.artwork)">
-			<div class="mode">{{art.artwork.types}}</div>
-			<div class="format">{{art.artwork.format}}</div>
-			<div i18n class="dims">{{art.artwork.width}}x{{art.artwork.height}}</div>
-			<div class="size">{{art.artwork.size | filesize }}</div>
-		</div>
-		<div class="artwork-types">
-			<app-inline-edit type="text" [(ngModel)]="art.name" (endEditRequest)="editArtworkName(art)"></app-inline-edit>
-			<a class="delete-button" title="Delete Image" i18n-title (clickenter)="removeArtwork(art)"><i class="icon-trash" aria-hidden="true"></i></a>
-		</div>
-	</div>
+  @for (art of nodes; track trackByFn($index, art)) {
+    <div class="artwork" appFocusKeyListItem (keydown.enter)="editArtwork(art.artwork)">
+      <div class="artwork-img">
+        <img alt="Artwork" i18n-alt [src]="art.thumbnail" (clickenter)="editArtwork(art.artwork)">
+        <div class="mode">{{art.artwork.types}}</div>
+        <div class="format">{{art.artwork.format}}</div>
+        <div i18n class="dims">{{art.artwork.width}}x{{art.artwork.height}}</div>
+        <div class="size">{{art.artwork.size | filesize }}</div>
+      </div>
+      <div class="artwork-types">
+        <app-inline-edit type="text" [(ngModel)]="art.name" (endEditRequest)="editArtworkName(art)" />
+        <a class="delete-button" title="Delete Image" i18n-title (clickenter)="removeArtwork(art)"><i class="icon-trash" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  }
 </div>

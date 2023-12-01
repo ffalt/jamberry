@@ -1,6 +1,10 @@
-<div *ngIf="editing" class="inline-edit-edit">
-	<input #inlineEditControl [required]="required" [name]="value" [type]="type" [placeholder]="placeholder" [(ngModel)]="value" (blur)="onBlur()" (keydown.enter)="apply()"/>
-</div>
-<div *ngIf="!editing">
-	<div title="Click to edit" i18n-title tabindex="0" class="inline-edit" (click)="edit(value)" (focus)="edit(value);">{{value}}&nbsp;<i class="icon-edit"></i></div>
-</div>
+@if (editing) {
+  <div class="inline-edit-edit">
+    <input #inlineEditControl [required]="required" [name]="value" [type]="type" [placeholder]="placeholder" [(ngModel)]="value" (blur)="onBlur()" (keydown.enter)="apply()"/>
+  </div>
+}
+@if (!editing) {
+  <div>
+    <div title="Click to edit" i18n-title tabindex="0" class="inline-edit" (click)="edit(value)" (focus)="edit(value);">{{value}}&nbsp;<i class="icon-edit"></i></div>
+  </div>
+}

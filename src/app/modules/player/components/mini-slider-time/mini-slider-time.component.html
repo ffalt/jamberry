@@ -1,6 +1,6 @@
 <div class="slider" (mousedown)="changePlaybackTime($event)">
-	<ng-container *ngIf="player.isPlaying">
-		<div class="back"></div>
-		<div class="scrubber line" [style.width.%]="timePC"></div>
-	</ng-container>
+  @if (player.isPlaying) {
+    <div class="back"></div>
+    <div class="scrubber line" [style.width.%]="timePC"></div>
+  }
 </div>

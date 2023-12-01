@@ -1,20 +1,28 @@
-<app-mini-time-slider [class.hidden]="tabService.playerTab.active"></app-mini-time-slider>
+<app-mini-time-slider [class.hidden]="tabService.playerTab.active" />
 <div class="buttons">
-	<div>
-		<button class="art" [class.active]="tabService.playerTab.active" (click)="tabService.clickPlayer()">
-			<div>
-				<app-coverart-image *ngIf="player.currentMedia" alt="Album Art" i18n-alt [coverArtObj]="player.currentMedia" [size]="50" [fill]="true"></app-coverart-image>
-			</div>
-			<i *ngIf="!player.currentMedia" class="icon-info" aria-hidden="true"></i>
-		</button>
-	</div>
-	<div class="actions">
-		<button title="Previous Track" i18n-title [disabled]="!queue.hasPrevious" (click)="player.previous()"><i class="icon-fast-backward" aria-hidden="true"></i></button>
-		<button *ngIf="player.isPlaying" class="play" i18n-title title="Pause" (click)="togglePlayPause()"><i aria-hidden="true" class="icon-pause"></i></button>
-		<button *ngIf="!player.isPlaying" class="play" i18n-title title="Play" (click)="togglePlayPause()"><i aria-hidden="true" class="icon-play"></i></button>
-		<button title="Next Track" i18n-title [disabled]="!queue.hasNext" (click)="player.next()"><i class="icon-fast-forward" aria-hidden="true"></i></button>
-	</div>
-	<div>
-		<button [class.active]="tabService.queueTab.active" (click)="tabService.clickQueue()"><i class="icon-queue" aria-hidden="true"></i></button>
-	</div>
+  <div>
+    <button class="art" [class.active]="tabService.playerTab.active" (click)="tabService.clickPlayer()">
+      <div>
+        @if (player.currentMedia) {
+          <app-coverart-image alt="Album Art" i18n-alt [coverArtObj]="player.currentMedia" [size]="50" [fill]="true" />
+        }
+      </div>
+      @if (!player.currentMedia) {
+        <i class="icon-info" aria-hidden="true"></i>
+      }
+    </button>
+  </div>
+  <div class="actions">
+    <button title="Previous Track" i18n-title [disabled]="!queue.hasPrevious" (click)="player.previous()"><i class="icon-fast-backward" aria-hidden="true"></i></button>
+    @if (player.isPlaying) {
+      <button class="play" i18n-title title="Pause" (click)="togglePlayPause()"><i aria-hidden="true" class="icon-pause"></i></button>
+    }
+    @if (!player.isPlaying) {
+      <button class="play" i18n-title title="Play" (click)="togglePlayPause()"><i aria-hidden="true" class="icon-play"></i></button>
+    }
+    <button title="Next Track" i18n-title [disabled]="!queue.hasNext" (click)="player.next()"><i class="icon-fast-forward" aria-hidden="true"></i></button>
+  </div>
+  <div>
+    <button [class.active]="tabService.queueTab.active" (click)="tabService.clickQueue()"><i class="icon-queue" aria-hidden="true"></i></button>
+  </div>
 </div>

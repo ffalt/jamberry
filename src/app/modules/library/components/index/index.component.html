@@ -1,18 +1,34 @@
-<app-loading *ngIf="!index"></app-loading>
-<ng-container *ngIf="index">
-	<app-view-type-toggle #viewType [viewTypeList]="viewTypeList"></app-view-type-toggle>
-	<app-background-text-list [list]="index.groups" [name]="index.name"></app-background-text-list>
-	<div *ngIf="viewType.viewTypeList" appFocusKeyList>
-		<div *ngFor="let group of index.groups; trackBy: trackByGroupFn; let j=index;" class="index-group">
-			<div class="index-group-name" id="index-{{j}}" (clickenter)="group.expanded=!group.expanded">{{group.name}}</div>
-			<div *ngIf="group.expanded" class="index-entries" >
-				<div *ngFor="let entry of group.entries; trackBy: trackByEntryFn"class="index-entry" appFocusKeyListItem (clickenter)="navigTo(entry)">
-					<div class="title"><p><a class="title-link">{{entry.name}}</a></p> <a *ngIf="entry.extra" (clickenter)="navigToExtra(entry)">{{entry.extra}}</a></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div *ngIf="!viewType.viewTypeList">
-		<app-index-group *ngFor="let group of index.groups; trackBy: trackByGroupFn; let i=index" id="index-{{i}}" [group]="group" [indexType]="index.type"></app-index-group>
-	</div>
-</ng-container>
+@if (!index) {
+  <app-loading />
+}
+@if (index) {
+  <app-view-type-toggle #viewType [viewTypeList]="viewTypeList" />
+  <app-background-text-list [list]="index.groups" [name]="index.name" />
+  @if (viewType.viewTypeList) {
+    <div appFocusKeyList>
+      @for (group of index.groups; track trackByGroupFn(j, group); let j = $index) {
+        <div class="index-group">
+          <div class="index-group-name" id="index-{{j}}" (clickenter)="group.expanded=!group.expanded">{{group.name}}</div>
+          @if (group.expanded) {
+            <div class="index-entries" >
+              @for (entry of group.entries; track trackByEntryFn($index, entry)) {
+                <div class="index-entry" appFocusKeyListItem (clickenter)="navigTo(entry)">
+                  <div class="title"><p><a class="title-link">{{entry.name}}</a></p> @if (entry.extra) {
+                  <a (clickenter)="navigToExtra(entry)">{{entry.extra}}</a>
+                }</div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+}
+@if (!viewType.viewTypeList) {
+  <div>
+    @for (group of index.groups; track trackByGroupFn(i, group); let i = $index) {
+      <app-index-group id="index-{{i}}" [group]="group" [indexType]="index.type" />
+    }
+  </div>
+}
+}

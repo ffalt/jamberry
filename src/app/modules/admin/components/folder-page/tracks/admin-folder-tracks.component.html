@@ -1,10 +1,14 @@
-<app-loading *ngIf="!folder"></app-loading>
-<app-background-text-list name="Tracks" [list]="folder?.tracks"></app-background-text-list>
-<div *ngIf="folder && folder.tracks && folder.tracks.length>0" class="tracks">
-	<div class="actions">
-		<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
-		<button class="button-on-control" title="Move Tracks…" i18n-title (click)="moveTracks()"><i class="icon-right-bold"></i></button>
-		<button class="button-on-control" title="Delete Tracks…" i18n-title (click)="deleteTracks()"><i class="icon-trash"></i></button>
-	</div>
-	<app-admin-track-list class="content" [tracks]="folder.tracks"></app-admin-track-list>
-</div>
+@if (!folder) {
+  <app-loading />
+}
+<app-background-text-list name="Tracks" [list]="folder?.tracks" />
+@if (folder && folder.tracks && folder.tracks.length>0) {
+  <div class="tracks">
+    <div class="actions">
+      <button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
+      <button class="button-on-control" title="Move Tracks…" i18n-title (click)="moveTracks()"><i class="icon-right-bold"></i></button>
+      <button class="button-on-control" title="Delete Tracks…" i18n-title (click)="deleteTracks()"><i class="icon-trash"></i></button>
+    </div>
+    <app-admin-track-list class="content" [tracks]="folder.tracks" />
+  </div>
+}

@@ -1,25 +1,27 @@
-<a
-	*ngIf="!menuItem.divider && !menuItem.passive"
-	#content
-	href
-	role="menuitem"
-	tabindex="-1"
-	[class.active]="menuItem.isActive && menuItem.isEnabled"
-	[class.disabled]="!menuItem.isEnabled"
-	[class.hasSubMenu]="!!menuItem.subMenu"
-	(click)="onMenuItemSelect($event)"
-	(mouseenter)="onOpenSubMenu($event)"
->
-	<ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ item }"></ng-template>
-</a>
-<span
-	*ngIf="!menuItem.divider && menuItem.passive"
-	#content
-	class="passive"
-	role="menuitem"
-	[class.disabled]="!menuItem.isEnabled"
-	(click)="stopEvent($event)"
-	(contextmenu)="stopEvent($event)"
->
-<ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ item }"></ng-template>
-</span>
+@if (!menuItem.divider && !menuItem.passive) {
+  <a
+    #content
+    href
+    role="menuitem"
+    tabindex="-1"
+    [class.active]="menuItem.isActive && menuItem.isEnabled"
+    [class.disabled]="!menuItem.isEnabled"
+    [class.hasSubMenu]="!!menuItem.subMenu"
+    (click)="onMenuItemSelect($event)"
+    (mouseenter)="onOpenSubMenu($event)"
+    >
+    <ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ item }" />
+  </a>
+}
+@if (!menuItem.divider && menuItem.passive) {
+  <span
+    #content
+    class="passive"
+    role="menuitem"
+    [class.disabled]="!menuItem.isEnabled"
+    (click)="stopEvent($event)"
+    (contextmenu)="stopEvent($event)"
+    >
+    <ng-template [ngTemplateOutlet]="menuItem.template" [ngTemplateOutletContext]="{ item }" />
+  </span>
+}

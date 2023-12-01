@@ -1,15 +1,19 @@
 <div class="overlay-content">
-	<div class="overlay-title">{{ config.title }}</div>
-	<div class="close-panel">
-		<button class="close" (click)="close()"><span i18n class="visually-hidden">Close</span></button>
-	</div>
-	<div class="overlay-body">
-		<ng-container #overlayDialogBody></ng-container>
-	</div>
-	<ng-container *ngIf="config.onOkBtn || config.onCancelBtn">
-		<div class="overlay-buttons" [class.disabled]="isBusy">
-			<button i18n *ngIf="config.onOkBtn" class="ok" (click)="ok()">OK</button>
-			<button i18n *ngIf="config.onCancelBtn" class="cancel" (click)="cancel()">Cancel</button>
-		</div>
-	</ng-container>
+  <div class="overlay-title">{{ config.title }}</div>
+  <div class="close-panel">
+    <button class="close" (click)="close()"><span i18n class="visually-hidden">Close</span></button>
+  </div>
+  <div class="overlay-body">
+    <ng-container #overlayDialogBody />
+  </div>
+  @if (config.onOkBtn || config.onCancelBtn) {
+    <div class="overlay-buttons" [class.disabled]="isBusy">
+      @if (config.onOkBtn) {
+        <button i18n class="ok" (click)="ok()">OK</button>
+      }
+      @if (config.onCancelBtn) {
+        <button i18n class="cancel" (click)="cancel()">Cancel</button>
+      }
+    </div>
+  }
 </div>

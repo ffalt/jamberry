@@ -1,4 +1,6 @@
 <div i18n class="section">Library Stats</div>
-<div *ngIf="stats" class="section-content">
-	<app-stats [stats]="stats"></app-stats>
-</div>
+@if (stats) {
+  <div class="section-content">
+    <app-stats [stats]="stats" />
+  </div>
+}

@@ -1,14 +1,26 @@
-<app-loading *ngIf="!folder"></app-loading>
-<ng-container *ngIf="folder">
-	<div i18n class="section-title">Navigation</div>
-	<ul *ngIf="folder.parents && folder.parents.length>0" class="breadcrumb">
-		<li *ngFor="let p of folder.parents; trackBy: trackByFn"><a (click)="navig.toFolderID(p.id,p.name)">{{p.name}}</a></li>
-		<li>{{folder.name}}</li>
-	</ul>
-	<div *ngIf="folder.info" class="info">
-		<div i18n class="section-title">Description</div>
-		<app-info-note [info]="folder.info"></app-info-note>
-	</div>
-	<app-obj-groups-view *ngIf="childFolders" [objs]="childFolders"></app-obj-groups-view>
-	<app-track-list *ngIf="folder.tracks && folder.tracks.length>0" [tracks]="folder.tracks"></app-track-list>
-</ng-container>
+@if (!folder) {
+  <app-loading />
+}
+@if (folder) {
+  <div i18n class="section-title">Navigation</div>
+  @if (folder.parents && folder.parents.length>0) {
+    <ul class="breadcrumb">
+      @for (p of folder.parents; track trackByFn($index, p)) {
+        <li><a (click)="navig.toFolderID(p.id,p.name)">{{p.name}}</a></li>
+      }
+      <li>{{folder.name}}</li>
+    </ul>
+  }
+  @if (folder.info) {
+    <div class="info">
+      <div i18n class="section-title">Description</div>
+      <app-info-note [info]="folder.info" />
+    </div>
+  }
+  @if (childFolders) {
+    <app-obj-groups-view [objs]="childFolders" />
+  }
+  @if (folder.tracks && folder.tracks.length>0) {
+    <app-track-list [tracks]="folder.tracks" />
+  }
+}

@@ -1,16 +1,18 @@
 <div class="info">
-	<div class="img">
-		<app-iconart-image [icon]="icon"></app-iconart-image>
-	</div>
-	<div class="meta">
-		<div class="type">{{sectionType}}</div>
-		<div class="name">{{section}}</div>
-		<div class="actions">
-			<ng-content></ng-content>
-		</div>
-	</div>
-	<div *ngIf="hasContextMenu" class="header-infos">
-		<a class="more" tabindex="0" (click)="contextmenuEvent($event)" (keydown.enter)="contextmenuEvent($event)">…</a>
-	</div>
+  <div class="img">
+    <app-iconart-image [icon]="icon" />
+  </div>
+  <div class="meta">
+    <div class="type">{{sectionType}}</div>
+    <div class="name">{{section}}</div>
+    <div class="actions">
+      <ng-content />
+    </div>
+  </div>
+  @if (hasContextMenu) {
+    <div class="header-infos">
+      <a class="more" tabindex="0" (click)="contextmenuEvent($event)" (keydown.enter)="contextmenuEvent($event)">…</a>
+    </div>
+  }
 </div>
-<app-view-header-tabs class="navigation" [tabs]="tabs" [smallTabs]="smallTabs"></app-view-header-tabs>
+<app-view-header-tabs class="navigation" [tabs]="tabs" [smallTabs]="smallTabs" />

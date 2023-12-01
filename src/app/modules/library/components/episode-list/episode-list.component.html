@@ -1,21 +1,29 @@
-<app-background-text-list name="Episodes" [list]="episodes"></app-background-text-list>
-<div *ngIf="episodes && episodes.length>0" class="episodes">
-	<div class="heading">
-		<div class="fav" title="Favorite" i18n-title><i class="icon-heart-empty"></i></div>
-		<div i18n class="state">State</div>
-		<div i18n class="date">Date</div>
-		<div i18n class="title">Episode</div>
-		<div class="length"><i class="icon-stopwatch"></i></div>
-	</div>
-	<div *ngFor="let episode of episodes; trackBy: trackByFn" class="episode" (tap)="tapEpisode($event, episode)" (contextmenu)="onContextMenu($event, episode)">
-		<div class="fav"><a (click)="actions.toggleMediaBaseFav(episode)">
-			<app-fav-icon [faved]="episode.state?.faved"></app-fav-icon>
-		</a></div>
-		<div class="state">
-			<app-episode-state-button [episode]="episode"></app-episode-state-button>
-		</div>
-		<div class="date">{{episode.date | date}}</div>
-		<div class="title"><a class="title-link" (click)="navig.toPodcastEpisode(episode)">{{episode.name}}</a><a *ngIf="showPodcast" title="Podcast" i18n-title (click)="navig.toPodcastID(episode.podcastID,episode.podcastName)">{{episode.podcastName}}</a></div>
-		<div class="length"><i *ngIf="episode.duration>0" class="icon-stopwatch small-screen-icon"></i> {{episode.duration|duration}}</div>
-	</div>
+<app-background-text-list name="Episodes" [list]="episodes" />
+@if (episodes && episodes.length>0) {
+  <div class="episodes">
+    <div class="heading">
+      <div class="fav" title="Favorite" i18n-title><i class="icon-heart-empty"></i></div>
+      <div i18n class="state">State</div>
+      <div i18n class="date">Date</div>
+      <div i18n class="title">Episode</div>
+      <div class="length"><i class="icon-stopwatch"></i></div>
+    </div>
+    @for (episode of episodes; track trackByFn($index, episode)) {
+      <div class="episode" (tap)="tapEpisode($event, episode)" (contextmenu)="onContextMenu($event, episode)">
+        <div class="fav"><a (click)="actions.toggleMediaBaseFav(episode)">
+          <app-fav-icon [faved]="episode.state?.faved" />
+        </a></div>
+        <div class="state">
+          <app-episode-state-button [episode]="episode" />
+        </div>
+        <div class="date">{{episode.date | date}}</div>
+        <div class="title"><a class="title-link" (click)="navig.toPodcastEpisode(episode)">{{episode.name}}</a>@if (showPodcast) {
+        <a title="Podcast" i18n-title (click)="navig.toPodcastID(episode.podcastID,episode.podcastName)">{{episode.podcastName}}</a>
+      }</div>
+      <div class="length">@if (episode.duration>0) {
+        <i class="icon-stopwatch small-screen-icon"></i>
+      } {{episode.duration|duration}}</div>
+    </div>
+  }
 </div>
+}
