@@ -90,19 +90,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "jamberry:build",
-            "proxyConfig": "proxy.conf.js"
+            "proxyConfig": "proxy.conf.js",
+            "buildTarget": "jamberry:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "jamberry:build:production"
+              "buildTarget": "jamberry:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "jamberry:build"
+            "buildTarget": "jamberry:build"
           }
         },
         "test": {

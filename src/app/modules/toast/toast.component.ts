@@ -42,7 +42,7 @@ export class ToastComponent implements OnDestroy {
 	@HostBinding('@flyInOut') state = {
 		value: 'inactive',
 		params: {
-			easeTime: this.toastPackage ? this.toastPackage.config.easeTime : DefaultNoComponentGlobalConfig.easeTime,
+			easeTime: DefaultNoComponentGlobalConfig.easeTime,
 			easing: 'ease-in'
 		}
 	};
@@ -69,6 +69,7 @@ export class ToastComponent implements OnDestroy {
 		this.toastClasses = `${toastPackage.toastType} ${
 			toastPackage.config.toastClass
 		}`;
+		this.state.params.easeTime = this.toastPackage.config.easeTime || DefaultNoComponentGlobalConfig.easeTime;
 		toastPackage.toastRef.afterActivate()
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
 			this.activateToast();
