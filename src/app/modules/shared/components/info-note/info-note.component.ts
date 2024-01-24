@@ -18,10 +18,6 @@ export class InfoNoteComponent implements OnChanges {
 	longInfo = false;
 	notes: Array<string> = [];
 
-	trackByFn(index: number): string {
-		return index.toString();
-	}
-
 	ngOnChanges(): void {
 		this.refresh();
 	}

@@ -81,18 +81,6 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		}
 	}
 
-	trackByEditFn(index: number, item: RawTagEditRow): string {
-		return item.track.id;
-	}
-
-	trackByColumnFn(index: number, item: RawTagEditColumn): string {
-		return `${item.def.id}${item.def.subid}`;
-	}
-
-	trackByCellFn(index: number, item: RawTagEditCell): string {
-		return `${item.column.def.id}${item.column.def.subid}`;
-	}
-
 	loadRecursive(): void {
 		if (!this.folder) {
 			return;

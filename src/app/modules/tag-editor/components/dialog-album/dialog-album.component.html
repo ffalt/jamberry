@@ -1,6 +1,6 @@
 <div>
   <form>
-    @for (ed of edits; track trackByFn($index, ed)) {
+    @for (ed of edits; track ed.title) {
       <div class="user-form-control">
         <label><input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="ed.enabled"/>
         {{ed.title}}</label>

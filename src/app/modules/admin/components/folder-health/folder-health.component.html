@@ -10,16 +10,16 @@
     @if (hints.length===0) {
       <div i18n class="hint">No Hints</div>
     }
-    @for (hint of hints; track trackByFn($index, hint)) {
+    @for (hint of hints; track hint.hint.id) {
       <div class="hint">
         <i class="icon-warning"></i> {{hint.hint.name}}
-        @for (detail of hint.details; track trackByDetailFn($index, detail)) {
+        @for (detail of hint.details; track detail) {
           <div class="details">{{detail}}</div>
         }
       </div>
     }
     <div class="solutions">
-      @for (sol of solutions; track trackBySolutionFn($index, sol)) {
+      @for (sol of solutions; track sol.name) {
         <button class="button-on-background" (click)="sol.click()">
           @if (sol.running) {
             <i class="icon-spin icon-spinner"></i>

@@ -10,7 +10,7 @@
       <td i18n class="role">Can Stream</td>
       <td i18n class="actions">Actions</td>
     </tr>
-    @for (user of users; track trackByFn($index, user)) {
+    @for (user of users; track user.id) {
       <tr class="user" appFocusKeyListItem (dblclick)="editUser(user)" (keydown.enter)="editUser(user)">
         <td class="avatar">
           <app-coverart-image [coverArtObj]="user" [alt]="user.name" [size]="28" [round]="true" />

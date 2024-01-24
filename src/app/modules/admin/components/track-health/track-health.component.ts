@@ -40,14 +40,6 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	) {
 	}
 
-	trackByHintFn(index: number, hint: TrackHealthHint): string {
-		return hint.hint.id;
-	}
-
-	trackBySolutionFn(index: number, hint: TrackHealthHintSolution): string {
-		return hint.name;
-	}
-
 	ngOnChanges(): void {
 		this.display(this.trackHealth);
 	}

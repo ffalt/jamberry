@@ -1,4 +1,4 @@
-@for (section of sections; track trackByFn($index, section)) {
+@for (section of sections; track section.id) {
   <div class="section-card no-hover" [routerLink]="['/admin', section.id]">
     <div class="image">
       <app-iconart-image [icon]="section.icon" />

@@ -1,5 +1,5 @@
 <div appFocusKeyList>
-  @for (art of nodes; track trackByFn($index, art)) {
+  @for (art of nodes; track art.artwork.id) {
     <div class="artwork" appFocusKeyListItem (keydown.enter)="editArtwork(art.artwork)">
       <div class="artwork-img">
         <img alt="Artwork" i18n-alt [src]="art.thumbnail" (clickenter)="editArtwork(art.artwork)">

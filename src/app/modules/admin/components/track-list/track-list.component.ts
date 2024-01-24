@@ -19,10 +19,6 @@ export class TrackListComponent implements OnChanges {
 	constructor(private router: Router) {
 	}
 
-	trackByFn(index: number, value: TrackItem): string {
-		return value.track.id;
-	}
-
 	getSortValue(column: string, trackItem: TrackItem): string | number | undefined {
 		switch (column) {
 			case 'number':

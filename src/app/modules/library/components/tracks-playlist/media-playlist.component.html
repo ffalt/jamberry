@@ -3,7 +3,7 @@
   <div class="tracks">
     <app-media-playlist-header [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"/>
     <div cdkDropList (cdkDropListDropped)="onDrop($event)">
-      @for (media of entries; track trackByFn($index, media)) {
+      @for (media of entries; track $index) {
         <app-media-playlist-item
           class="track-wrapper" cdkDrag
           [media]="media" [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"

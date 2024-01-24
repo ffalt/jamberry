@@ -13,10 +13,6 @@ export class SessionsPageComponent implements OnInit {
 	constructor(private jam: JamService, private auth: JamAuthService, private notify: NotifyService) {
 	}
 
-	trackByFn(index: number, value: { session: Jam.UserSession; isExpired: boolean; }): string {
-		return value.session.id;
-	}
-
 	ngOnInit(): void {
 		if (this.auth.isLoggedIn()) {
 			this.refresh();

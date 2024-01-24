@@ -6,12 +6,12 @@
   <app-background-text-list [list]="index.groups" [name]="index.name" />
   @if (viewType.viewTypeList) {
     <div appFocusKeyList>
-      @for (group of index.groups; track trackByGroupFn(j, group); let j = $index) {
+      @for (group of index.groups; track group.name; let j = $index) {
         <div class="index-group">
           <div class="index-group-name" id="index-{{j}}" (clickenter)="group.expanded=!group.expanded">{{group.name}}</div>
           @if (group.expanded) {
             <div class="index-entries" >
-              @for (entry of group.entries; track trackByEntryFn($index, entry)) {
+              @for (entry of group.entries; track entry.id) {
                 <div class="index-entry" appFocusKeyListItem (clickenter)="navigTo(entry)">
                   <div class="title"><p><a class="title-link">{{entry.name}}</a></p> @if (entry.extra) {
                   <a (clickenter)="navigToExtra(entry)">{{entry.extra}}</a>
@@ -26,7 +26,7 @@
 }
 @if (!viewType.viewTypeList) {
   <div>
-    @for (group of index.groups; track trackByGroupFn(i, group); let i = $index) {
+    @for (group of index.groups; track group.name; let i = $index) {
       <app-index-group id="index-{{i}}" [group]="group" [indexType]="index.type" />
     }
   </div>

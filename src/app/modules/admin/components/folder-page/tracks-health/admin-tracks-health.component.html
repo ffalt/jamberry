@@ -14,7 +14,7 @@
     <app-loading />
   }
   <app-background-text-list name="Track Health Issues" [list]="hints" />
-  @for (trackHealth of hints; track trackByFn($index, trackHealth)) {
+  @for (trackHealth of hints; track trackHealth.track.id) {
     <div class="track">
       <div class="meta">
         {{trackHealth.track.name}}

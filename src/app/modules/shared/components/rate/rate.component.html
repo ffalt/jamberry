@@ -1,5 +1,5 @@
 <span class="star-rating">
-  @for (n of range; track trackByFn($index, n); let $index = $index) {
+  @for (n of range; track $index; let $index = $index) {
     <i [class]="n" (click)="mark($index)"></i>
   }
 </span>

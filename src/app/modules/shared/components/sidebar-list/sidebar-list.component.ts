@@ -17,10 +17,6 @@ export class SidebarListComponent {
 	@Output() readonly navigate: EventEmitter<void> = new EventEmitter();
 	@ViewChildren(SidebarListItemComponent) items!: QueryList<SidebarListItemComponent>;
 
-	trackByFn(index: number, node: SidebarListItem): string {
-		return node.link;
-	}
-
 	onNavigate(): void {
 		this.navigate.emit();
 	}

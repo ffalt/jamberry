@@ -1,7 +1,7 @@
 <div class="start-section">{{name}}</div>
 @if (list && list.length) {
   <div class="start-items">
-    @for (item of list; track trackByFn($index, item)) {
+    @for (item of list; track item.obj.id) {
       <a class="start-item" tabindex="0" (clickenter)="item.click()">
         <div class="image">
           <app-coverart-image [coverArtObj]="item.obj" [size]="80" [alt]="item.obj.name" [fill]="true" />

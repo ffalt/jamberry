@@ -26,9 +26,4 @@ export class SectionCardsComponent {
 					icon: route.data && route.data.icon ? route.data.icon : 'icon-admin'
 				}));
 	}
-
-	trackByFn(index: number, section: SectionCardsSection): string {
-		return section.id;
-	}
-
 }

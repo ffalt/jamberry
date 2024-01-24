@@ -34,10 +34,6 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	trackByFn(index: number, health: Jam.TrackHealth): string {
-		return health.track.id;
-	}
-
 	stop(): void {
 		this.searching = false;
 	}

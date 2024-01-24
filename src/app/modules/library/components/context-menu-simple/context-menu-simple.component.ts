@@ -18,9 +18,4 @@ export class ContextMenuSimpleComponent implements ContextMenuHostComponentInter
 	initOpts(opts: ContextMenuSimpleComponentOptions): void {
 		this.entries = opts.entries;
 	}
-
-	trackByFn(index: number, value: { text: string; icon: string; click(): void }): string {
-		return value.text;
-	}
-
 }

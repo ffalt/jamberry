@@ -8,7 +8,7 @@
       <td i18n class="status">Status</td>
       <td i18n class="actions">Actions</td>
     </tr>
-    @for (root of roots; track trackByFn($index, root)) {
+    @for (root of roots; track root.id) {
       <tr class="root" appFocusKeyListItem (dblclick)="editRoot(root)" (keydown.enter)="editRoot(root)">
         <td class="title">{{root.name}}</td>
         <td class="path">{{root.path}}</td>

@@ -4,7 +4,7 @@
       <div [innerHTML]="notes[0]"></div>
     }
     @if (longInfo || notes.length===1) {
-      @for (note of notes; track trackByFn($index, note)) {
+      @for (note of notes; track $index) {
         <div>
           <div [innerHTML]="note"></div>
         </div>

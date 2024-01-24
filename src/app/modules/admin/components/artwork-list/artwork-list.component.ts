@@ -44,10 +44,6 @@ export class ArtworkListComponent implements OnChanges {
 	) {
 	}
 
-	trackByFn(index: number, node: ArtworkImageNode): string {
-		return node.artwork.id;
-	}
-
 	ngOnChanges(): void {
 		this.displayArtworks();
 	}

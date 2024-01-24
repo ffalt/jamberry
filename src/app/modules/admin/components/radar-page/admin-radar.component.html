@@ -33,7 +33,7 @@
           <a [routerLink]="['/admin/folder', current.folder.id, 'tags']"><i class="icon-folder"></i> {{current.folder.name}}</a>
         </div>
         @if (current.health) {
-          @for (trackHealth of current.health; track trackByFn($index, trackHealth)) {
+          @for (trackHealth of current.health; track trackHealth.track.id) {
             <div class="track">
               <div class="meta">
                 {{trackHealth.track.name}}

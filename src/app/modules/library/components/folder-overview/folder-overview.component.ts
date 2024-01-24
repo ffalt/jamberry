@@ -26,10 +26,6 @@ export class FolderOverviewComponent implements OnInit, OnDestroy {
 	) {
 	}
 
-	trackByFn(index: number, value: Jam.FolderParent): string {
-		return value.id;
-	}
-
 	ngOnInit(): void {
 		if (this.route) {
 			this.route.params

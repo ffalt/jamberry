@@ -21,14 +21,6 @@ export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent i
 		super(route);
 	}
 
-	trackByHealthFn(index: number, value: Jam.FolderHealth): string {
-		return value.folder.id;
-	}
-
-	trackByModeFn(index: number, value: string): string {
-		return value;
-	}
-
 	onFilterChange(): void {
 		this.reDisplay();
 	}

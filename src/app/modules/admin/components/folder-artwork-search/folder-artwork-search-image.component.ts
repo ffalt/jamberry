@@ -54,10 +54,6 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService, private http: HttpClient) {
 	}
 
-	trackByFn(index: number, node: ArtworkNode): string {
-		return node.image;
-	}
-
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();

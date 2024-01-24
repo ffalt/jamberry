@@ -4,12 +4,12 @@
     @if (group.expanded) {
       <div class="index-cards">
         @if (!visible) {
-          @for (entry of group.entries; track trackByEntryFn($index, entry)) {
+          @for (entry of group.entries; track entry.id) {
             <div class="index-card-placeholder" appFocusKeyListItem (clickenter)="navigTo(entry)"></div>
           }
         }
         @if (visible) {
-          @for (entry of group.entries; track trackByEntryFn($index, entry)) {
+          @for (entry of group.entries; track entry.id) {
             <app-index-entry-card appFocusKeyListItem [entry]="entry" (clickenter)="navigTo(entry)" />
           }
         }

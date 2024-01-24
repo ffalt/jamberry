@@ -4,7 +4,7 @@
     <div class="content">
       <div class="session-list">
         <div i18n class="section-title">Sessions</div>
-        @for (s of sessions; track trackByFn($index, s)) {
+        @for (s of sessions; track s.session.id) {
           <div class="session" [class.invalid]="s.isExpired">
             <div class="title">
               {{s.session.client}}<br/>

@@ -5,7 +5,7 @@
   <div i18n class="section-title">Navigation</div>
   @if (folder.parents && folder.parents.length>0) {
     <ul class="breadcrumb">
-      @for (p of folder.parents; track trackByFn($index, p)) {
+      @for (p of folder.parents; track p.id) {
         <li><a (click)="navig.toFolderID(p.id,p.name)">{{p.name}}</a></li>
       }
       <li>{{folder.name}}</li>

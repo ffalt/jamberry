@@ -19,11 +19,6 @@ export class MediaPlaylistComponent {
 	constructor(public player: PlayerService, public navig: NavigService, public actions: ActionsService) {
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	trackByFn(index: number, value: Jam.MediaBase): string {
-		return index.toString(); // do not use value.id since tracks don't need to be unique in playlist
-	}
-
 	onDrop(event: CdkDragDrop<Jam.MediaBase>): void {
 		if (this.entries) {
 			moveItemInArray(this.entries, event.previousIndex, event.currentIndex);

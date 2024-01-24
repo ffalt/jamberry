@@ -3,7 +3,7 @@
     <button class="button-on-control" title="Refresh List" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
     @if (modes.length>0) {
       <select placeholder="Type of Hints" i18n-placeholder [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
-        @for (m of modes; track trackByModeFn($index, m)) {
+        @for (m of modes; track m) {
           <option [value]="m">{{m}}</option>
         }
       </select>
@@ -14,7 +14,7 @@
       <app-loading />
     }
     <app-background-text-list name="Folder Health Issues" [list]="hints" />
-    @for (folderHealth of hints; track trackByHealthFn($index, folderHealth)) {
+    @for (folderHealth of hints; track folderHealth.folder.id) {
       <div class="folder">
         <div class="meta">
           <a [routerLink]="['/admin/folder',folderHealth.folder.id,'overview']">

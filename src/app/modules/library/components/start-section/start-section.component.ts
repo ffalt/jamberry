@@ -15,8 +15,4 @@ export interface StartSectionItem {
 export class StartSectionComponent {
 	@Input() name?: string;
 	@Input() list?: Array<StartSectionItem>;
-
-	trackByFn(index: number, value: StartSectionItem): string {
-		return value.obj.id;
-	}
 }

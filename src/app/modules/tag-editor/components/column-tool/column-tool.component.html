@@ -20,7 +20,7 @@
         <ng-container i18n>Column Source</ng-container>
         <div class="input-box">
           <select [(ngModel)]="sourceColumnIndex">
-            @for (col of editor.columns; track trackColumnFn(i, col); let i = $index) {
+            @for (col of editor.columns; track col.def.id; let i = $index) {
               <option [value]="i">{{col.def.name}}</option>
             }
           </select>
@@ -32,7 +32,7 @@
           <input type="number">
         </div>
       </div>
-      @for (action of activeCol.actions; track trackByActionFn($index, action)) {
+      @for (action of activeCol.actions; track action.title) {
         <div class="column-tool">
           {{action.title}}<br/>
           <button class="button-on-background" (click)="action.click()"><i class="icon-down-thin"></i></button>

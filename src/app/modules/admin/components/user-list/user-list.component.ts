@@ -30,10 +30,6 @@ export class UserListComponent implements OnDestroy {
 	) {
 	}
 
-	trackByFn(index: number, value: Jam.User): string {
-		return value.id;
-	}
-
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();

@@ -29,10 +29,6 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 		this.searchStateChange.emit(active);
 	}
 
-	trackByFn(index: number): string {
-		return index.toString();
-	}
-
 	autocompleteEnter(): void {
 		// nada
 	}

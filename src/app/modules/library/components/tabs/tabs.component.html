@@ -1,5 +1,5 @@
 <ul class="tabs">
-  @for (tab of tabs; track trackByFn($index, tab)) {
+  @for (tab of tabs; track tab.id) {
     <li [class.active]="current===tab" (click)="setTab(tab)">
       <a>{{tab.name}}</a>
     </li>

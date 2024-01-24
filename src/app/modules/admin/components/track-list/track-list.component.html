@@ -11,7 +11,7 @@
       <td i18n class="samplerate">SampleRate</td>
       <td i18n class="duration">Duration</td>
     </tr>
-    @for (trackItem of trackItems; track trackByFn($index, trackItem)) {
+    @for (trackItem of trackItems; track trackItem.track.id) {
       <tr class="track" [class.selected]="trackItem.selected" (click)="trackItem.selected=!trackItem.selected">
         <td class="number">{{trackItem.track.tag?.trackNr}}</td>
         <td class="title">{{trackItem.track.tag?.title}}</td>

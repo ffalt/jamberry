@@ -4,7 +4,7 @@
     <div i18n class="section-title">Design</div>
     <div>
       <fieldset>
-        @for (theme of themes; track trackByThemeFn($index, theme)) {
+        @for (theme of themes; track theme.name) {
           <label class="select"><input type="radio" name="theme" [value]="theme.name" [(ngModel)]="app.settings.theme" (ngModelChange)="onChange()">{{theme.name | titlecase}}</label>
         }
       </fieldset>

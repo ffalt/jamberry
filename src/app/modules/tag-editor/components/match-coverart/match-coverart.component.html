@@ -12,7 +12,7 @@
     <div class="match-images">
       <app-background-text-list name="Images" [list]="images" />
       <div class="media-cards">
-        @for (node of images; track trackByFn($index, node)) {
+        @for (node of images; track node.image.id) {
           <div class="media-card no-hover">
             @if (node.base64) {
               <div class="image">

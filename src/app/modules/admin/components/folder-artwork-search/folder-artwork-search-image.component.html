@@ -10,7 +10,7 @@
       <div>
         <app-background-text-list name="Images" [list]="nodes" />
         <div class="images" appFocusKeyList>
-          @for (node of nodes; track trackByFn($index, node)) {
+          @for (node of nodes; track node.image) {
             <div appFocusKeyListItem (keydown.enter)="node.checked=!node.checked">
               <div class="image" (clickenter)="node.checked=!node.checked">
                 <img [src]="node.thumbnail" alt="{{node.name}}">

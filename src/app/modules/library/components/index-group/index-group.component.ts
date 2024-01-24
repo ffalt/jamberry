@@ -16,10 +16,6 @@ export class IndexGroupComponent {
 	constructor(public app: AppService, private navig: NavigService) {
 	}
 
-	trackByEntryFn(index: number, item: IndexEntry): string {
-		return item.id;
-	}
-
 	gotInView(): void {
 		this.visible = true;
 	}

@@ -18,13 +18,4 @@ export class AboutPageComponent {
 			.filter(h => h.combo.toString() !== '?')
 			.map(h => ({name: h.combo.toString(), desc: (h.description || '').toString()}));
 	}
-
-	trackByKeyCmdFn(index: number, value: { name: string; desc: string }): string {
-		return value.name;
-	}
-
-	trackByFormatFn(index: number, format: string): string {
-		return format;
-	}
-
 }

@@ -15,10 +15,6 @@ export class TabsComponent {
 	@Input() current?: Tab;
 	@Output() readonly tabChange = new EventEmitter<Tab>();
 
-	trackByFn(index: number, tab: Tab): string {
-		return tab.id;
-	}
-
 	setTab(tab: Tab): void {
 		this.current = tab;
 		this.tabChange.emit(tab);

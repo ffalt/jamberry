@@ -40,7 +40,7 @@
       <div class="key-value-row">
         <div i18n>Supported Audio Formats</div>
         @if (player.audioSupport?.formats) {
-          <div>@for (format of player.audioSupport?.formats; track trackByFormatFn($index, format)) {
+          <div>@for (format of player.audioSupport?.formats; track format) {
             <span>{{format}}</span>
           }</div>
         }
@@ -63,7 +63,7 @@
     }
     <div>
       <div i18n class="section-title">Keyboard Shortcuts</div>
-      @for (kcmd of keyCmds; track trackByKeyCmdFn($index, kcmd)) {
+      @for (kcmd of keyCmds; track kcmd.name) {
         <div class="key-value-row">
           <div>{{kcmd.desc}}</div>
           <div>{{kcmd.name}}</div>

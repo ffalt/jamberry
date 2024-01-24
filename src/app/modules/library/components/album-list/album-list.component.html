@@ -8,7 +8,7 @@
       <div i18n class="info">Type</div>
       <div class="length" title="Duration" i18n-title><i class="icon-stopwatch"></i></div>
     </div>
-    @for (album of albums; track trackByFn($index, album)) {
+    @for (album of albums; track album.id) {
       <div class="album" appFocusKeyListItem (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)">
         <div class="fav"><button (click)="actions.toggleAlbumFav(album)">
           <app-fav-icon [faved]="album.state?.faved" />

@@ -50,10 +50,6 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 		this.keyManager = new FocusKeyManager(merged).withWrap();
 	}
 
-	trackByFn(index: number, node: SidebarList): string {
-		return node.name;
-	}
-
 	toggle() {
 		this.collapsed = !this.collapsed;
 	}

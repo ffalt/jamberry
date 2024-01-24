@@ -4,7 +4,7 @@
     <ng-content />
     @if (content) {
       <table>
-        @for (item of content.items; track trackByFn($index, item)) {
+        @for (item of content.items; track item.key) {
           <tr>
             <td class="tooltip-table-left">{{item.key}}</td>
             <td class="tooltip-table-right">{{item.value}}</td>

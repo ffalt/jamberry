@@ -1,6 +1,6 @@
 <app-autocomplete #autocomplete="appAutocomplete">
   <ng-template let-control="control" appAutocompleteContent>
-    @for (option of control.options; track trackByFn($index, option)) {
+    @for (option of control.options; track $index) {
       @if (option.header) {
         <app-autocomplete-option-header>{{option.header}}</app-autocomplete-option-header>
       }
