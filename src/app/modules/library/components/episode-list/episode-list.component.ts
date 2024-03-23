@@ -34,7 +34,7 @@ export class EpisodeListComponent {
 	play(episode: Jam.Episode): void {
 		if (episode.status === PodcastStatus.completed) {
 			this.player.startEpisode(episode);
-		} else if (episode.status !== PodcastStatus.downloading && this.jam.auth.user?.roles.podcast) {
+		} else if (episode.status !== PodcastStatus.downloading && this.jam.auth.user?.roles?.podcast) {
 			this.podcastService.retrieveEpisode(episode);
 		}
 	}

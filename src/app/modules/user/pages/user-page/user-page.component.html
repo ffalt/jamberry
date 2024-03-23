@@ -1,39 +1,49 @@
 <div class="user">
-  <app-view-header-slim section="User" i18n-section />
-  @if (auth.user) {
-    <div class="content">
-      <div class="row">
-        <div class="column first">
-          <div i18n class="section-title">Avatar</div>
-          <app-user-avatar />
-        </div>
-        <div class="column">
-          <div class="section">
-            <div i18n class="section-title">Name</div>
-            <div>{{auth.user.name}}</div>
-          </div>
-          <div class="section">
-            <div i18n class="section-title">Permissions</div>
-            <div class="roles">
-              @if (auth.user?.roles?.stream) {
-                <div><i class="icon-checkmark"></i> <ng-container i18n>Stream Audio</ng-container></div>
-              }
-              @if (auth.user?.roles?.podcast) {
-                <div><i class="icon-checkmark"></i> <ng-container i18n>Manage Podcasts</ng-container></div>
-              }
-              @if (auth.user?.roles?.upload) {
-                <div><i class="icon-checkmark"></i> <ng-container i18n>Upload Audio</ng-container></div>
-              }
-              @if (auth.user?.roles?.admin) {
-                <div><i class="icon-checkmark"></i> <ng-container i18n>Server Administration</ng-container></div>
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section">
-        <app-user-stats />
-      </div>
-    </div>
-  }
+	<app-view-header-slim section="User" i18n-section/>
+	@if (auth.user) {
+		<div class="content">
+			<div class="row">
+				<div class="column first">
+					<div i18n class="section-title">Avatar</div>
+					<app-user-avatar/>
+				</div>
+				<div class="column">
+					<div class="section">
+						<div i18n class="section-title">Name</div>
+						<div>{{ auth.user.name }}</div>
+					</div>
+					@if (auth.user && auth.user.roles) {
+						<div class="section">
+							<div i18n class="section-title">Permissions</div>
+							<div class="roles">
+								@if (auth.user.roles.stream) {
+									<div><i class="icon-checkmark"></i>
+										<ng-container i18n>Stream Audio</ng-container>
+									</div>
+								}
+								@if (auth.user.roles.podcast) {
+									<div><i class="icon-checkmark"></i>
+										<ng-container i18n>Manage Podcasts</ng-container>
+									</div>
+								}
+								@if (auth.user.roles.upload) {
+									<div><i class="icon-checkmark"></i>
+										<ng-container i18n>Upload Audio</ng-container>
+									</div>
+								}
+								@if (auth.user.roles.admin) {
+									<div><i class="icon-checkmark"></i>
+										<ng-container i18n>Server Administration</ng-container>
+									</div>
+								}
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="section">
+				<app-user-stats/>
+			</div>
+		</div>
+	}
 </div>

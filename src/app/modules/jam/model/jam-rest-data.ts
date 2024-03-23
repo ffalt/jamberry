@@ -1546,7 +1546,7 @@ export declare namespace Jam {
 		/** User Name */
 		name: string;
 		/** User Roles */
-		roles: UserRoles;
+		roles?: UserRoles;
 	}
 
 	/*

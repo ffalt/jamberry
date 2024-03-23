@@ -548,7 +548,7 @@ export class JamPodcastObject extends JamLibraryObject {
 	}
 
 	onContextMenu($event: Event, hideGoto?: boolean): void {
-		const extras = (this.library.jam.auth?.user?.roles.podcast) ? [
+		const extras = (this.library.jam.auth?.user?.roles?.podcast) ? [
 			{
 				text: 'Refresh Podcast Feed', icon: 'icon-rescan', click: (): void => {
 					this.library.podcastService.checkPodcast(this.podcast);
