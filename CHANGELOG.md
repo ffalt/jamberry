@@ -2,14 +2,6 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
-## [0.4.23](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.22...v0.4.23) (2024-03-23)
-
-
-### Features
-
-* **i18n:** mark text to extract ([a4799a4](https://github.com-ffalt/ffalt/jamberry/commit/a4799a46e49ac19f5e794d41de3afbe9dde694cf))
-* **i18n:** setup jest ([b3d25bd](https://github.com-ffalt/ffalt/jamberry/commit/b3d25bde078b63d46a070060da96d63e40f30e42))
-
 ## [0.4.22](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.21...v0.4.22) (2023-05-19)
 
 
