@@ -1,4 +1,4 @@
-import {HttpEventType, HttpResponse} from '@angular/common/http';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import {Component, OnDestroy} from '@angular/core';
 import {randomString} from '@app/utils/random';
 

@@ -15,12 +15,16 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist",
+            "outputPath": {
+              "base": "dist"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+							"zone.js",
+							"@angular/localize/init"
+            ],
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
               "hammerjs",
@@ -45,10 +49,9 @@
               "node_modules/soundmanager2/script/soundmanager2-nodebug-jsmin.js"
             ],
             "aot": false,
-            "vendorChunk": true,
-            "buildOptimizer": false,
             "sourceMap": true,
-            "optimization": false
+            "optimization": false,
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -69,8 +72,6 @@
 							"outputHashing": "all",
               "sourceMap": false,
               "aot": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "subresourceIntegrity": false,
               "budgets": [
                 {

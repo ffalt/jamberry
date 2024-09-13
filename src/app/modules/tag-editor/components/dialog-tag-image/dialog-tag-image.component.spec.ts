@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
-import {ImageCropperModule} from 'ngx-image-cropper';
+import {ImageCropperComponent} from 'ngx-image-cropper';
 import {ImageBase64Component} from '../image-base64/image-base64.component';
 import {DialogTagImageComponent} from './dialog-tag-image.component';
 
@@ -10,7 +10,7 @@ describe('DialogTagImageComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-    imports: [FormsModule, ImageCropperModule],
+    imports: [FormsModule, ImageCropperComponent],
     declarations: [DialogTagImageComponent, ImageBase64Component],
     teardown: { destroyAfterEach: false }
 }).compileComponents()

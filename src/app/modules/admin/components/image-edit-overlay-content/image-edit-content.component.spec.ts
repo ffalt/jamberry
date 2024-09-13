@@ -1,7 +1,7 @@
 import {ArtworkEditComponent} from '@admin/components/artwork-edit/artwork-edit.component';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
-import {ImageCropperModule} from 'ngx-image-cropper';
+import {ImageCropperComponent} from 'ngx-image-cropper';
 import {ImageEditOverlayContentComponent} from './image-edit-overlay-content.component';
 
 describe('ImageEditOverlayContentComponent', () => {
@@ -10,7 +10,7 @@ describe('ImageEditOverlayContentComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-    imports: [FormsModule, ImageCropperModule],
+    imports: [FormsModule, ImageCropperComponent],
     declarations: [ImageEditOverlayContentComponent, ArtworkEditComponent],
     teardown: { destroyAfterEach: false }
 }).compileComponents()

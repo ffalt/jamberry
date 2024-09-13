@@ -8,8 +8,8 @@ module.exports = [
 		],
 		secure: false,
 		logLevel: "debug",
-		target: "http://0.0.0.0:4040",
-		bypass: function (request, response, proxyOptions) {
+		target: "http://localhost:4040",
+		bypass: function (request, response, _proxyOptions) {
 			if (request.url === '/assets/config/config.js') {
 				config_json = {
 					name: 'Jam Debug',
@@ -19,8 +19,9 @@ module.exports = [
 						pass: 'admin'
 					}
 				};
-				response.type('text/javascript');
-				response.end(`document.jamberry_config = ${JSON.stringify(config_json)};`);
+				response.type = 'text/javascript';
+				response.write(`document.jamberry_config = ${JSON.stringify(config_json)};`);
+				response.end();
 				return true;
 			}
 			return null;

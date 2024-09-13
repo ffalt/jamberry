@@ -174,19 +174,6 @@ export class ToastPackage {
 	}
 }
 
-/* eslint-disable @typescript-eslint/no-empty-interface */
-/** @deprecated use GlobalConfig */
-export interface GlobalToastrConfig extends GlobalConfig {
-}
-
-/** @deprecated use IndividualConfig */
-export interface IndividualToastrConfig extends IndividualConfig {
-}
-
-/** @deprecated use IndividualConfig */
-export interface ToastConfig extends IndividualConfig {
-}
-
 export const DefaultNoComponentGlobalConfig: GlobalConfig = {
 	maxOpened: 0,
 	autoDismiss: false,

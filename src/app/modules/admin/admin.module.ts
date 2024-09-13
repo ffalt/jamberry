@@ -6,7 +6,6 @@ import {HammerModule} from '@angular/platform-browser';
 import {AutocompleteModule} from '@app/modules/autocomplete';
 import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {SharedModule} from '@shared/shared.module';
-import {ImageCropperModule} from 'ngx-image-cropper';
 
 import {AdminComponent} from './admin.component';
 import {routing} from './admin.routing';
@@ -19,7 +18,6 @@ import {components} from './components';
         SharedModule,
         FormsModule,
         HammerModule,
-        ImageCropperModule,
         ContextMenuModule,
         ScrollingModule,
         AutocompleteModule,

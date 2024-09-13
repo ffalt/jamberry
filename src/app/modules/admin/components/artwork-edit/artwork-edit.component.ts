@@ -1,4 +1,4 @@
-import {HttpEventType} from '@angular/common/http';
+import { HttpEventType } from '@angular/common/http';
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';

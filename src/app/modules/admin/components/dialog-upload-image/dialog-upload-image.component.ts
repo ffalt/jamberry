@@ -1,4 +1,4 @@
-import {HttpEventType, HttpResponse} from '@angular/common/http';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import {Component, OnDestroy} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';

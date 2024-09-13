@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import * as Mousetrap from 'mousetrap';
+import Mousetrap from 'mousetrap';
 import {Hotkey} from './hotkeys.model';
 import {HotkeyOptions, HotkeysOptions} from './hotkeys.options';
 

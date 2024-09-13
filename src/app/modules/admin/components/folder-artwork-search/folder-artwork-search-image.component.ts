@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {hasFileExtension} from '@app/modules/tag-editor/model/utils';
 import {AdminFolderService, NotifyService} from '@core/services';

@@ -147,7 +147,7 @@ export class MediaSessionService {
 						this.publish(MediaSessionEvents.STOP);
 					});
 				});
-			} catch (error) {
+			} catch {
 				console.warn('Warning! The "stop" media session action is not supported.');
 			}
 			try {
@@ -157,7 +157,7 @@ export class MediaSessionService {
 						this.publish(MediaSessionEvents.SEEK, {fastSeek: event.fastSeek, seekTime: event.seekTime});
 					});
 				});
-			} catch (error) {
+			} catch {
 				console.warn('Warning! The "seekto" media session action is not supported.');
 			}
 			this.mediaSession.setActionHandler('previoustrack', () => {

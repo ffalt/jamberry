@@ -1,7 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
 import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
 
 import {JamAuthService} from './jam.auth.service';
@@ -74,15 +74,8 @@ export const jamProviders: Array<Provider> =
 		JamService
 	];
 
-@NgModule({
-	imports: [
-		HttpClientModule,
-		HttpClientJsonpModule
-	],
-	declarations: [],
-	exports: [],
-	providers: jamProviders
-})
+@NgModule({ declarations: [],
+    exports: [], imports: [], providers: [provideHttpClient(withInterceptorsFromDi(), withJsonpSupport())] })
 export class JamModule {
 
 	static forRoot(provider: Provider): ModuleWithProviders<JamModule> {

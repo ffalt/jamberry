@@ -1,5 +1,5 @@
 import {PortalModule} from '@angular/cdk/portal';
-import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
 import {Injectable, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule} from '@angular/platform-browser';
@@ -44,50 +44,41 @@ export function ConfigurationServiceFactory(service: ConfigurationService): JamC
 	return service;
 }
 
-@NgModule({
-	imports: [
-		NoopAnimationsModule,
-		BrowserModule,
-		HttpClientModule,
-		HttpClientJsonpModule,
-		HammerModule,
-		FormsModule,
-		CoreModule,
-		JamModule.forRoot(
-			{
-				provide: JamConfiguration,
-				useFactory: ConfigurationServiceFactory,
-				deps: [ConfigurationService]
-			}
-		),
-		DeferLoadModule.forRoot(),
-		ThemeModule.forRoot(themeConfig),
-		HotkeyModule.forRoot(),
-		ToastModule.forRoot(),
-		ContextMenuModule.forRoot({autoFocus: true}),
-		DialogOverlayModule,
-		MainTabsModule,
-		PortalModule,
-		SharedModule,
-		PlayerModule,
-		HeaderModule,
-		routing
-	],
-	declarations: [AppComponent, ...pages],
-	providers: [
-		...guards,
-		{
-			provide: HAMMER_GESTURE_CONFIG,
-			useClass: CustomHammerConfig
-		},
-		CacheService,
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: CacheInterceptor,
-			multi: true
-		}
-	],
-	bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [AppComponent, ...pages],
+    bootstrap: [AppComponent], imports: [NoopAnimationsModule,
+        BrowserModule,
+        HammerModule,
+        FormsModule,
+        CoreModule,
+        JamModule.forRoot({
+            provide: JamConfiguration,
+            useFactory: ConfigurationServiceFactory,
+            deps: [ConfigurationService]
+        }),
+        DeferLoadModule.forRoot(),
+        ThemeModule.forRoot(themeConfig),
+        HotkeyModule.forRoot(),
+        ToastModule.forRoot(),
+        ContextMenuModule.forRoot({ autoFocus: true }),
+        DialogOverlayModule,
+        MainTabsModule,
+        PortalModule,
+        SharedModule,
+        PlayerModule,
+        HeaderModule,
+        routing], providers: [
+        ...guards,
+        {
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: CustomHammerConfig
+        },
+        CacheService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: CacheInterceptor,
+            multi: true
+        },
+        provideHttpClient(withInterceptorsFromDi(), withJsonpSupport())
+    ] })
 export class AppModule {
 }

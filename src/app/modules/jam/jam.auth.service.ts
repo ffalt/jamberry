@@ -1,7 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {JamConfiguration} from './jam.configuration';
 import {HTTPOptions, JamHttpService} from './jam.http.service';
