@@ -8,10 +8,11 @@ import {SharedModule} from '@shared/shared.module';
 import {components} from './components';
 import {pipes} from './pipes';
 import {routing} from './tag-editor.routing';
+import {ImageCropperComponent} from 'ngx-image-cropper';
 
 @NgModule({
 	imports: [
-		CommonModule, SharedModule, FormsModule,
+		CommonModule, SharedModule, FormsModule, ImageCropperComponent,
 		ContextMenuModule, ScrollingModule, AutocompleteModule, routing, NgOptimizedImage
 	],
 	declarations: [...components, ...pipes],

@@ -1,9 +1,9 @@
-import { HttpEventType } from '@angular/common/http';
+import {HttpEventType} from '@angular/common/http';
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {base64ToFile, ImageCroppedEvent} from 'ngx-image-cropper';
+import {base64ToFile, ImageCroppedEvent, ImageCropperComponent} from 'ngx-image-cropper';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
