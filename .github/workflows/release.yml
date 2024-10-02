@@ -39,9 +39,9 @@ jobs:
       - name: Deploy to Release Branch 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
-          BRANCH: release # The branch the action should deploy to.
-          FOLDER: dist # The folder the action should deploy.
-          CLEAN: true
+          branch: release # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.
+          clean: true
 
       - name: Create Release Package
         run: |
