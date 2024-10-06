@@ -8,6 +8,25 @@
 			@include view-content();
 			padding: $padding $padding $padding-xl;
 
+			.subsonic {
+				padding-bottom: $padding-lg;
+
+				.token {
+					margin-top: 20px;
+				}
+
+				code {
+					padding: 20px;
+					display: inline-block;
+					background-color: var(--control);
+					color: var(--on-control-ambient);
+				}
+
+				button {
+					margin-top: $margin;
+				}
+			}
+
 			.session-list {
 				@include flex-table();
 
@@ -50,6 +69,7 @@
 
 					&.invalid {
 						color: var(--on-control-ambient-disabled);
+
 						.expires {
 							color: var(--accent);
 						}
