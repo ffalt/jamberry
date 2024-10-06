@@ -1,7 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { HttpEvent } from '@angular/common/http';
+import {HttpEvent} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
@@ -76,6 +76,13 @@ export class JamUserService {
 	 */
 	uploadUserImage(params: JamParameters.UserUploadUserImageArgs, file: File): Observable<HttpEvent<any>> {
 		return this.base.upload('/user/image/upload', params, 'image', file);
+	}
+
+	/**
+	 * Generate a subsonic client token // Rights needed: stream
+	 */
+	async generateSubsonicToken(params: JamParameters.UserGenerateSubsonicTokenArgs): Promise<Jam.SubsonicToken> {
+		return this.base.requestPostData<Jam.SubsonicToken>('/user/subsonic/generate', params);
 	}
 
 }

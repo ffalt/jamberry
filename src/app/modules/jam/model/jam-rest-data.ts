@@ -905,6 +905,11 @@ export declare namespace Jam {
 		 */
 		sampleRate?: number;
 		/**
+		 * Bit Depth
+		 * @TJS-type integer
+		 */
+		bitDepth?: number;
+		/**
 		 * File Size
 		 * @TJS-type integer
 		 */
@@ -1546,7 +1551,7 @@ export declare namespace Jam {
 		/** User Name */
 		name: string;
 		/** User Roles */
-		roles?: UserRoles;
+		roles: UserRoles;
 	}
 
 	/*
@@ -1710,6 +1715,11 @@ export declare namespace Jam {
 		 * @minimum 0
 		 */
 		unknown: number;
+	}
+
+	export interface SubsonicToken {
+		/** Generated Subsonic Token */
+		token: string;
 	}
 
 	/*
