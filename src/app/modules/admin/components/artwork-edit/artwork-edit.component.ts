@@ -1,9 +1,10 @@
 import {HttpEventType} from '@angular/common/http';
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {base64ToFile, ImageCroppedEvent} from 'ngx-image-cropper';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -13,15 +14,15 @@ export interface ImageEdit {
 }
 
 @Component({
-    selector: 'app-admin-artwork-edit',
-    templateUrl: './artwork-edit.component.html',
-    styleUrls: ['./artwork-edit.component.scss'],
-    standalone: false
+	selector: 'app-admin-artwork-edit',
+	templateUrl: './artwork-edit.component.html',
+	styleUrls: ['./artwork-edit.component.scss'],
+	standalone: false
 })
 export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	@Input() data?: ImageEdit;
 	imageBase64: string = '';
-	croppedImage?: string;
+	croppedImage?: SafeUrl;
 	croppedImageFile?: Blob;
 	mimeType: string = 'image/jpeg';
 	maintainAspectRatio: boolean = true;
@@ -32,7 +33,8 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 		private app: AppService,
 		private jam: JamService,
 		private folderService: AdminFolderService,
-		private notify: NotifyService
+		private notify: NotifyService,
+		private sanitizer: DomSanitizer
 	) {
 	}
 
@@ -54,9 +56,11 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 
 	imageCropped(event: ImageCroppedEvent): void {
 		// console.log('cropped', event);
-		if (event.base64) {
-			this.croppedImage = event.base64;
-			this.croppedImageFile = base64ToFile(event.base64);
+		if (event.objectUrl) {
+			this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+		}
+		if (event.blob) {
+			this.croppedImageFile = event.blob;
 		}
 	}
 

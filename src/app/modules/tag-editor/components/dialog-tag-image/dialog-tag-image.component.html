@@ -4,6 +4,7 @@
 <div class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)">
   @if (current.source) {
     <image-cropper
+			output="base64"
       [maintainAspectRatio]="maintainAspectRatio"
       [format]="'jpeg'"
       [imageBase64]="current.source"
