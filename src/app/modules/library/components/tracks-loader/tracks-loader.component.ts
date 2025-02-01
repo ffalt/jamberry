@@ -4,9 +4,10 @@ import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
-	selector: 'app-tracks-loader',
-	templateUrl: './tracks-loader.component.html',
-	styleUrls: ['./tracks-loader.component.scss']
+    selector: 'app-tracks-loader',
+    templateUrl: './tracks-loader.component.html',
+    styleUrls: ['./tracks-loader.component.scss'],
+    standalone: false
 })
 export class TracksLoaderComponent implements OnChanges {
 	showRating: boolean = false;

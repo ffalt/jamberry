@@ -4,9 +4,10 @@ import {ExtendedKeyboardEvent, Hotkey} from './hotkeys.model';
 import {HotkeysService} from './hotkeys.service';
 
 @Directive({
-	// eslint-disable-next-line @angular-eslint/directive-selector
-	selector: '[hotkeys]',
-	providers: [HotkeysService]
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: '[hotkeys]',
+    providers: [HotkeysService],
+    standalone: false
 })
 export class HotkeysDirective implements OnInit, OnDestroy {
 	@Input() hotkeys: Array<{ [combo: string]: (event: KeyboardEvent, combo: string) => ExtendedKeyboardEvent }> = [];

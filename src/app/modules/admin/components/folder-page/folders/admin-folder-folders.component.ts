@@ -11,9 +11,10 @@ import {DialogChooseFolderComponent, SelectFolder} from '../../dialog-choose-fol
 import {DialogFolderComponent} from '../../dialog-folder/dialog-folder.component';
 
 @Component({
-	selector: 'app-admin-folder-folders',
-	templateUrl: './admin-folder-folders.component.html',
-	styleUrls: ['./admin-folder-folders.component.scss']
+    selector: 'app-admin-folder-folders',
+    templateUrl: './admin-folder-folders.component.html',
+    styleUrls: ['./admin-folder-folders.component.scss'],
+    standalone: false
 })
 export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder | undefined;

@@ -6,9 +6,10 @@ import {LibraryService} from '@library/services';
 import {ActionsService, PodcastService} from '@shared/services';
 
 @Component({
-	selector: 'app-episode-list',
-	templateUrl: './episode-list.component.html',
-	styleUrls: ['./episode-list.component.scss']
+    selector: 'app-episode-list',
+    templateUrl: './episode-list.component.html',
+    styleUrls: ['./episode-list.component.scss'],
+    standalone: false
 })
 export class EpisodeListComponent {
 	@Input() episodes?: Array<Jam.Episode>;

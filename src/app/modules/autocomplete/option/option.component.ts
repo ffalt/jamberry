@@ -2,10 +2,11 @@ import {ChangeDetectionStrategy, Component, HostBinding, HostListener, Input} fr
 import {AutocompleteControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
 
 @Component({
-	selector: 'app-autocomplete-option',
-	template: '<ng-content />',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	styleUrls: ['./option.component.scss']
+    selector: 'app-autocomplete-option',
+    template: '<ng-content />',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./option.component.scss'],
+    standalone: false
 })
 export class OptionComponent {
 	@Input() option?: AutocompleteOption;

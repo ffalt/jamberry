@@ -2,8 +2,9 @@ import {Highlightable} from '@angular/cdk/a11y';
 import {Directive, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
 
 @Directive({
-	// eslint-disable-next-line @angular-eslint/directive-selector
-	selector: '[contextMenuItem]'
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: '[contextMenuItem]',
+    standalone: false
 })
 export class ContextMenuItemDirective implements Highlightable {
 	@Input() subMenu: any;

@@ -5,9 +5,10 @@ import {AlbumType, Jam, JamAuthService, JamService} from '@jam';
 import {filterStats, StatsList} from '@shared/components';
 
 @Component({
-	selector: 'app-user-stats',
-	templateUrl: './user-stats.component.html',
-	styleUrls: ['./user-stats.component.scss']
+    selector: 'app-user-stats',
+    templateUrl: './user-stats.component.html',
+    styleUrls: ['./user-stats.component.scss'],
+    standalone: false
 })
 export class UserStatsComponent implements OnInit {
 	base: StatsList = [];

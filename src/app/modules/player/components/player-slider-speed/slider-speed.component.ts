@@ -2,9 +2,10 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {PlayerEvents, PlayerService} from '@core/services';
 
 @Component({
-	selector: 'app-speed-slider',
-	templateUrl: './slider-speed.component.html',
-	styleUrls: ['./slider-speed.component.scss']
+    selector: 'app-speed-slider',
+    templateUrl: './slider-speed.component.html',
+    styleUrls: ['./slider-speed.component.scss'],
+    standalone: false
 })
 export class SliderSpeedComponent implements OnInit {
 	speedPC: number = 20;

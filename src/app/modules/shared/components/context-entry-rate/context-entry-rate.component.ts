@@ -3,9 +3,10 @@ import {NotifyService} from '@core/services';
 import {Jam, JamObjectType, JamService} from '@jam';
 
 @Component({
-	selector: 'app-context-entry-rate',
-	templateUrl: './context-entry-rate.component.html',
-	styleUrls: ['./context-entry-rate.component.scss']
+    selector: 'app-context-entry-rate',
+    templateUrl: './context-entry-rate.component.html',
+    styleUrls: ['./context-entry-rate.component.scss'],
+    standalone: false
 })
 export class ContextEntryRateComponent implements OnChanges {
 	@Input() base?: Jam.Base;

@@ -5,27 +5,22 @@ import {takeUntil} from 'rxjs/operators';
 import {DefaultNoComponentGlobalConfig, IndividualConfig, ToastPackage} from './toast-config';
 
 @Component({
-	selector: 'app-toast-component',
-	templateUrl: './toast.component.html',
-	styleUrls: ['./toast.component.scss'],
-	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
-	encapsulation: ViewEncapsulation.None,
-	animations: [
-		trigger('flyInOut', [
-			state('inactive', style({opacity: 0})),
-			state('active', style({opacity: 1})),
-			state('removed', style({opacity: 0})),
-			transition(
-				'inactive => active',
-				animate('{{ easeTime }}ms {{ easing }}')
-			),
-			transition(
-				'active => removed',
-				animate('{{ easeTime }}ms {{ easing }}')
-			)
-		])
-	],
-	preserveWhitespaces: false
+    selector: 'app-toast-component',
+    templateUrl: './toast.component.html',
+    styleUrls: ['./toast.component.scss'],
+    // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
+    encapsulation: ViewEncapsulation.None,
+    animations: [
+        trigger('flyInOut', [
+            state('inactive', style({ opacity: 0 })),
+            state('active', style({ opacity: 1 })),
+            state('removed', style({ opacity: 0 })),
+            transition('inactive => active', animate('{{ easeTime }}ms {{ easing }}')),
+            transition('active => removed', animate('{{ easeTime }}ms {{ easing }}'))
+        ])
+    ],
+    preserveWhitespaces: false,
+    standalone: false
 })
 export class ToastComponent implements OnDestroy {
 	message?: string | undefined;

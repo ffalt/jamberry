@@ -9,9 +9,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-folder-similar',
-	templateUrl: './folder-similar.component.html',
-	styleUrls: ['./folder-similar.component.scss']
+    selector: 'app-folder-similar',
+    templateUrl: './folder-similar.component.html',
+    styleUrls: ['./folder-similar.component.scss'],
+    standalone: false
 })
 export class FolderSimilarComponent implements OnInit, OnDestroy {
 	id?: string;

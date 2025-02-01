@@ -1,7 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {MusicBrainz} from '@jam';
 
-@Pipe({name: 'mbArtistCredits'})
+@Pipe({
+    name: 'mbArtistCredits',
+    standalone: false
+})
 export class MbArtistCreditsPipe implements PipeTransform {
 
 	transform(value?: Array<MusicBrainz.ArtistCredit>): string {

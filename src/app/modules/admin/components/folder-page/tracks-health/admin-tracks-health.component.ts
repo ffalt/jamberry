@@ -6,9 +6,10 @@ import {Jam, JamService} from '@jam';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-admin-tracks-health',
-	templateUrl: './admin-tracks-health.component.html',
-	styleUrls: ['./admin-tracks-health.component.scss']
+    selector: 'app-admin-tracks-health',
+    templateUrl: './admin-tracks-health.component.html',
+    styleUrls: ['./admin-tracks-health.component.scss'],
+    standalone: false
 })
 
 export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {

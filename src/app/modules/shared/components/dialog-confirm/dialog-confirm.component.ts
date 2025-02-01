@@ -2,9 +2,10 @@ import {Component} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 
 @Component({
-	selector: 'app-dialog-confirm-modal',
-	template: '',
-	styles: [':host { display: block; padding: 5px; } ']
+    selector: 'app-dialog-confirm-modal',
+    template: '',
+    styles: [':host { display: block; padding: 5px; } '],
+    standalone: false
 })
 export class DialogConfirmComponent implements DialogOverlay<string> {
 	parentInfo?: string;

@@ -9,9 +9,10 @@ export interface PicEdit {
 }
 
 @Component({
-	selector: 'app-dialog-tag-image',
-	templateUrl: './dialog-tag-image.component.html',
-	styleUrls: ['./dialog-tag-image.component.scss']
+    selector: 'app-dialog-tag-image',
+    templateUrl: './dialog-tag-image.component.html',
+    styleUrls: ['./dialog-tag-image.component.scss'],
+    standalone: false
 })
 export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	edit?: PicEdit;

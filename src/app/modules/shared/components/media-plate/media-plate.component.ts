@@ -3,10 +3,11 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostB
 import {JamObject} from '@shared/model/helpers';
 
 @Component({
-	selector: 'app-media-plate',
-	templateUrl: './media-plate.component.html',
-	styleUrls: ['./media-plate.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-media-plate',
+    templateUrl: './media-plate.component.html',
+    styleUrls: ['./media-plate.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MediaPlateComponent implements FocusableOption {
 	@Input() obj?: JamObject;

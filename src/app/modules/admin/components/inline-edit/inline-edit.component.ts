@@ -2,17 +2,18 @@ import {Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewEncap
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
-	selector: 'app-inline-edit',
-	templateUrl: './inline-edit.component.html',
-	providers: [{
-		provide: NG_VALUE_ACCESSOR,
-		// eslint-disable-next-line @typescript-eslint/no-use-before-define
-		useExisting: InlineEditComponent,
-		multi: true
-	}],
-	styleUrls: ['./inline-edit.component.scss'],
-	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
-	encapsulation: ViewEncapsulation.None
+    selector: 'app-inline-edit',
+    templateUrl: './inline-edit.component.html',
+    providers: [{
+            provide: NG_VALUE_ACCESSOR,
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            useExisting: InlineEditComponent,
+            multi: true
+        }],
+    styleUrls: ['./inline-edit.component.scss'],
+    // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class InlineEditComponent implements ControlValueAccessor {
 	@ViewChild('inlineEditControl', {static: false}) inlineEditControl?: ElementRef; // input DOM element

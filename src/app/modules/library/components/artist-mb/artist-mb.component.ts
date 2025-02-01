@@ -6,9 +6,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-artist-mb',
-	templateUrl: './artist-mb.component.html',
-	styleUrls: ['./artist-mb.component.scss']
+    selector: 'app-artist-mb',
+    templateUrl: './artist-mb.component.html',
+    styleUrls: ['./artist-mb.component.scss'],
+    standalone: false
 })
 export class ArtistMbComponent implements OnInit, OnDestroy {
 	mbArtistID?: string;

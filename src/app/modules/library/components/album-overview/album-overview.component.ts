@@ -7,9 +7,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-album-overview',
-	templateUrl: './album-overview.component.html',
-	styleUrls: ['./album-overview.component.scss']
+    selector: 'app-album-overview',
+    templateUrl: './album-overview.component.html',
+    styleUrls: ['./album-overview.component.scss'],
+    standalone: false
 })
 export class AlbumOverviewComponent implements OnInit, OnDestroy {
 	id?: string;

@@ -24,10 +24,11 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'body',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss']
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'body',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
 	@HostBinding('class.expand') get expandBody(): boolean {

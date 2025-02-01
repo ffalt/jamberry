@@ -3,9 +3,10 @@ import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomp
 import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
-	selector: 'app-cell-editor-txt',
-	templateUrl: './cell-editor-txt.component.html',
-	styleUrls: ['./cell-editor-txt.component.scss']
+    selector: 'app-cell-editor-txt',
+    templateUrl: './cell-editor-txt.component.html',
+    styleUrls: ['./cell-editor-txt.component.scss'],
+    standalone: false
 })
 export class CellEditorTxtComponent implements OnChanges, AfterViewInit, AutocompleteDataControl {
 	original: string = '';

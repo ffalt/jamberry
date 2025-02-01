@@ -7,9 +7,10 @@ export interface Image {
 }
 
 @Component({
-	selector: 'app-image-overlay-content',
-	templateUrl: './image-overlay-content.component.html',
-	styleUrls: ['./image-overlay-content.scss']
+    selector: 'app-image-overlay-content',
+    templateUrl: './image-overlay-content.component.html',
+    styleUrls: ['./image-overlay-content.scss'],
+    standalone: false
 })
 export class ImageOverlayContentComponent implements DialogOverlay<Image> {
 	data?: Image;

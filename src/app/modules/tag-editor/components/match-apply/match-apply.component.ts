@@ -12,9 +12,10 @@ import {AppService} from '@core/services';
 import {JamService, LastFMLookupType} from '@jam';
 
 @Component({
-	selector: 'app-match-apply',
-	templateUrl: './match-apply.component.html',
-	styleUrls: ['./match-apply.component.scss']
+    selector: 'app-match-apply',
+    templateUrl: './match-apply.component.html',
+    styleUrls: ['./match-apply.component.scss'],
+    standalone: false
 })
 export class MatchApplyComponent {
 	@Input() isRunning: boolean = false;

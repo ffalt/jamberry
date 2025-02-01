@@ -3,9 +3,10 @@ import {SidebarList} from '@shared/components';
 import {routes} from '../../admin.routing';
 
 @Component({
-	selector: 'app-admin-sidebar',
-	templateUrl: './admin-sidebar.component.html',
-	styleUrls: ['./admin-sidebar.component.scss']
+    selector: 'app-admin-sidebar',
+    templateUrl: './admin-sidebar.component.html',
+    styleUrls: ['./admin-sidebar.component.scss'],
+    standalone: false
 })
 export class AdminSidebarComponent {
 	sections: Array<SidebarList> = [];

@@ -10,9 +10,10 @@ export interface SelectFolder {
 }
 
 @Component({
-	selector: 'app-dialog-choose-folder',
-	templateUrl: './dialog-choose-folder.component.html',
-	styleUrls: ['./dialog-choose-folder.component.scss']
+    selector: 'app-dialog-choose-folder',
+    templateUrl: './dialog-choose-folder.component.html',
+    styleUrls: ['./dialog-choose-folder.component.scss'],
+    standalone: false
 })
 export class DialogChooseFolderComponent implements DialogOverlay<SelectFolder> {
 	data?: SelectFolder;

@@ -6,9 +6,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-sidebar-index',
-	templateUrl: './sidebar-index.component.html',
-	styleUrls: ['./sidebar-index.component.scss']
+    selector: 'app-sidebar-index',
+    templateUrl: './sidebar-index.component.html',
+    styleUrls: ['./sidebar-index.component.scss'],
+    standalone: false
 })
 export class SidebarIndexComponent implements OnInit, OnDestroy {
 	index?: Index;

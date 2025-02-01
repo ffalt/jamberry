@@ -19,9 +19,10 @@ export interface PodcastSearch {
 }
 
 @Component({
-	selector: 'app-page-podcast-search',
-	templateUrl: './podcast-search-page.component.html',
-	styleUrls: ['./podcast-search-page.component.scss']
+    selector: 'app-page-podcast-search',
+    templateUrl: './podcast-search-page.component.html',
+    styleUrls: ['./podcast-search-page.component.scss'],
+    standalone: false
 })
 export class PodcastSearchPageComponent {
 	podcasts?: Array<PodcastSearch>;

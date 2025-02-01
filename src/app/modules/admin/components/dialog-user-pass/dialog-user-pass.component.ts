@@ -9,9 +9,10 @@ export interface UserPasswordEdit {
 }
 
 @Component({
-	selector: 'app-dialog-user-pass',
-	templateUrl: './dialog-user-pass.component.html',
-	styleUrls: ['./dialog-user-pass.component.scss']
+    selector: 'app-dialog-user-pass',
+    templateUrl: './dialog-user-pass.component.html',
+    styleUrls: ['./dialog-user-pass.component.scss'],
+    standalone: false
 })
 export class DialogUserPassComponent implements DialogOverlay<UserPasswordEdit> {
 	data?: UserPasswordEdit;

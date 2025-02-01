@@ -4,9 +4,10 @@ import {JamService, ListType} from '@jam';
 import {StartSectionItem} from '@library/components';
 
 @Component({
-	selector: 'app-start-sections',
-	templateUrl: './start-sections.component.html',
-	styleUrls: ['./start-sections.component.scss']
+    selector: 'app-start-sections',
+    templateUrl: './start-sections.component.html',
+    styleUrls: ['./start-sections.component.scss'],
+    standalone: false
 })
 export class StartSectionsComponent implements OnInit {
 	data: {

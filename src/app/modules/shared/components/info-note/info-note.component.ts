@@ -9,9 +9,10 @@ function splitLines(text: string): Array<string> {
 }
 
 @Component({
-	selector: 'app-info-note',
-	templateUrl: './info-note.component.html',
-	styleUrls: ['./info-note.component.scss']
+    selector: 'app-info-note',
+    templateUrl: './info-note.component.html',
+    styleUrls: ['./info-note.component.scss'],
+    standalone: false
 })
 export class InfoNoteComponent implements OnChanges {
 	@Input() info?: Jam.ExtendedInfo;

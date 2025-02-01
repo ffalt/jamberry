@@ -3,15 +3,16 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 
 @Component({
-	selector: 'app-tag-editor-inline-autocomplete',
-	templateUrl: './tag-editor-inline-autocomplete.component.html',
-	styleUrls: ['./tag-editor-inline-autocomplete.component.scss'],
-	providers: [{
-		provide: NG_VALUE_ACCESSOR,
-		// eslint-disable-next-line @typescript-eslint/no-use-before-define
-		useExisting: TagEditorInlineAutocompleteComponent,
-		multi: true
-	}]
+    selector: 'app-tag-editor-inline-autocomplete',
+    templateUrl: './tag-editor-inline-autocomplete.component.html',
+    styleUrls: ['./tag-editor-inline-autocomplete.component.scss'],
+    providers: [{
+            provide: NG_VALUE_ACCESSOR,
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            useExisting: TagEditorInlineAutocompleteComponent,
+            multi: true
+        }],
+    standalone: false
 })
 export class TagEditorInlineAutocompleteComponent implements ControlValueAccessor, AutocompleteDataControl {
 	@Input() getList?: (data: any) => Array<string>;

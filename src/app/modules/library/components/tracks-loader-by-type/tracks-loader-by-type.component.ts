@@ -6,9 +6,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-tracks-loader-page-by-type',
-	templateUrl: './tracks-loader-by-type.component.html',
-	styleUrls: ['./tracks-loader-by-type.component.scss']
+    selector: 'app-tracks-loader-page-by-type',
+    templateUrl: './tracks-loader-by-type.component.html',
+    styleUrls: ['./tracks-loader-by-type.component.scss'],
+    standalone: false
 })
 export class TracksLoaderByTypeComponent implements OnInit, OnDestroy {
 	listType?: ListType;

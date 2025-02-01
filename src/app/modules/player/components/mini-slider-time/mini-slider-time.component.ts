@@ -3,9 +3,10 @@ import {AppService, PlayerEvents, PlayerService} from '@core/services';
 import {JamService} from '@jam';
 
 @Component({
-	selector: 'app-mini-time-slider',
-	templateUrl: './mini-slider-time.component.html',
-	styleUrls: ['./mini-slider-time.component.scss']
+    selector: 'app-mini-time-slider',
+    templateUrl: './mini-slider-time.component.html',
+    styleUrls: ['./mini-slider-time.component.scss'],
+    standalone: false
 })
 export class MiniSliderTimeComponent implements OnInit {
 	timePC: number = 0;

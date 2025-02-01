@@ -2,7 +2,8 @@ import {Directive, ElementRef, HostListener, OnInit} from '@angular/core';
 import {isLeftArrowKey, isLeftRightArrowKeys, isRightArrowKey} from '@app/utils/keys';
 
 @Directive({
-	selector: '[appFocusable]'
+    selector: '[appFocusable]',
+    standalone: false
 })
 export class FocusDirective implements OnInit {
 

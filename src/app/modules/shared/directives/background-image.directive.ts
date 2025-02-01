@@ -2,7 +2,8 @@ import {Directive, ElementRef, HostBinding, Input, OnChanges, SimpleChange} from
 import {ImageFormatType, JamService} from '@jam';
 
 @Directive({
-	selector: '[appBackgroundImage]'
+    selector: '[appBackgroundImage]',
+    standalone: false
 })
 export class BackgroundImageDirective implements OnChanges {
 	@Input('appBackgroundImage') backgroundImageID?: string;

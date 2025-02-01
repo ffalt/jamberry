@@ -26,7 +26,10 @@
 
 import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({name: 'ago'})
+@Pipe({
+    name: 'ago',
+    standalone: false
+})
 export class AgoPipe implements PipeTransform {
 
 	// private timer: number;

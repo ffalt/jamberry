@@ -5,9 +5,10 @@ import {AppService, PlayerService} from '@core/services';
 import {JamAuthService} from '@jam';
 
 @Component({
-	selector: 'app-page-about',
-	templateUrl: './about-page.component.html',
-	styleUrls: ['./about-page.component.scss']
+    selector: 'app-page-about',
+    templateUrl: './about-page.component.html',
+    styleUrls: ['./about-page.component.scss'],
+    standalone: false
 })
 export class AboutPageComponent {
 	keyCmds: Array<{ name: string; desc: string }> = [];

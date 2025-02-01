@@ -5,9 +5,10 @@ import {AlbumType, JamService} from '@jam';
 import {filterStats, StatsList} from '@shared/components';
 
 @Component({
-	selector: 'app-start-stats',
-	templateUrl: './start-stats.component.html',
-	styleUrls: ['./start-stats.component.scss']
+    selector: 'app-start-stats',
+    templateUrl: './start-stats.component.html',
+    styleUrls: ['./start-stats.component.scss'],
+    standalone: false
 })
 export class StartStatsComponent implements OnInit {
 	stats?: StatsList;

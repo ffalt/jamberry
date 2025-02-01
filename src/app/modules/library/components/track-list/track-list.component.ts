@@ -6,9 +6,10 @@ import {LibraryService} from '@library/services';
 import {ActionsService} from '@shared/services';
 
 @Component({
-	selector: 'app-track-list',
-	templateUrl: './track-list.component.html',
-	styleUrls: ['./track-list.component.scss']
+    selector: 'app-track-list',
+    templateUrl: './track-list.component.html',
+    styleUrls: ['./track-list.component.scss'],
+    standalone: false
 })
 export class TrackListComponent {
 	@Input() tracks?: Array<Jam.Track>;

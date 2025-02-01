@@ -26,11 +26,12 @@ import {DialogTagImageComponent, PicEdit} from '../dialog-tag-image/dialog-tag-i
 import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-tag-lyrics.component';
 
 @Component({
-	selector: 'app-cell-editor',
-	templateUrl: './cell-editor.component.html',
-	styleUrls: ['./cell-editor.component.scss'],
-	// eslint-disable-next-line @typescript-eslint/no-use-before-define
-	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent)}]
+    selector: 'app-cell-editor',
+    templateUrl: './cell-editor.component.html',
+    styleUrls: ['./cell-editor.component.scss'],
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    providers: [{ provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent) }],
+    standalone: false
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
 	@Input() cell?: RawTagEditCell = undefined;

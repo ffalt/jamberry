@@ -7,9 +7,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-page-objs',
-	templateUrl: './objs-page.component.html',
-	styleUrls: ['./objs-page.component.scss']
+    selector: 'app-page-objs',
+    templateUrl: './objs-page.component.html',
+    styleUrls: ['./objs-page.component.scss'],
+    standalone: false
 })
 export class ObjsPageComponent implements OnInit, OnDestroy {
 	tabs?: Array<HeaderTab>;

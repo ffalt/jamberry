@@ -5,9 +5,10 @@ import {themeConfig} from '@app/app.module';
 import {AppService, PlayerService, SettingsStoreService} from '@core/services';
 
 @Component({
-	selector: 'app-page-settings',
-	templateUrl: './settings-page.component.html',
-	styleUrls: ['./settings-page.component.scss']
+    selector: 'app-page-settings',
+    templateUrl: './settings-page.component.html',
+    styleUrls: ['./settings-page.component.scss'],
+    standalone: false
 })
 export class SettingsPageComponent {
 	themes = themeConfig.themes;

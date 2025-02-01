@@ -6,9 +6,10 @@ import {takeUntil} from 'rxjs/operators';
 import {TagEditorComponent} from '../../components/tag-editor/tag-editor.component';
 
 @Component({
-	selector: 'app-admin-folder-tag-editor',
-	templateUrl: './admin-folder-tag-editor-page.component.html',
-	styleUrls: ['./admin-folder-tag-editor-page.component.scss']
+    selector: 'app-admin-folder-tag-editor',
+    templateUrl: './admin-folder-tag-editor-page.component.html',
+    styleUrls: ['./admin-folder-tag-editor-page.component.scss'],
+    standalone: false
 })
 export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
 	id?: string;

@@ -15,9 +15,10 @@ export interface ContextMenuObjComponentOptions {
 }
 
 @Component({
-	selector: 'app-context-menu-obj',
-	templateUrl: './context-menu-obj.component.html',
-	styleUrls: ['./context-menu-obj.component.scss']
+    selector: 'app-context-menu-obj',
+    templateUrl: './context-menu-obj.component.html',
+    styleUrls: ['./context-menu-obj.component.scss'],
+    standalone: false
 })
 export class ContextMenuObjComponent implements ContextMenuHostComponentInterface<ContextMenuObjComponentOptions> {
 	@ViewChild('objMenu') contextMenu?: ContextMenuComponent;

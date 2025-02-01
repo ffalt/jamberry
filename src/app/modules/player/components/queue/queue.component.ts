@@ -8,9 +8,10 @@ import {takeUntil} from 'rxjs/operators';
 import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/context-menu-queue-track.component';
 
 @Component({
-	selector: 'app-queue',
-	templateUrl: './queue.component.html',
-	styleUrls: ['./queue.component.scss']
+    selector: 'app-queue',
+    templateUrl: './queue.component.html',
+    styleUrls: ['./queue.component.scss'],
+    standalone: false
 })
 export class QueueComponent implements OnInit, OnDestroy {
 	@Input() showControls: boolean = true;

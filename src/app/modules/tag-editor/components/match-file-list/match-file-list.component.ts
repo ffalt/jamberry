@@ -2,9 +2,10 @@ import {ChangeDetectorRef, Component, EventEmitter, Input, Output} from '@angula
 import {Matching} from '../../model/release-matching.helper';
 
 @Component({
-	selector: 'app-match-file-list',
-	templateUrl: './match-file-list.component.html',
-	styleUrls: ['./match-file-list.component.scss']
+    selector: 'app-match-file-list',
+    templateUrl: './match-file-list.component.html',
+    styleUrls: ['./match-file-list.component.scss'],
+    standalone: false
 })
 export class MatchFileListComponent {
 	@Input() matchings: Array<Matching> = [];

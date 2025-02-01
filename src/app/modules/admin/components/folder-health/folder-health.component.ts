@@ -23,9 +23,10 @@ export interface FolderHealthHint {
 }
 
 @Component({
-	selector: 'app-folder-health',
-	templateUrl: './folder-health.component.html',
-	styleUrls: ['./folder-health.component.scss']
+    selector: 'app-folder-health',
+    templateUrl: './folder-health.component.html',
+    styleUrls: ['./folder-health.component.scss'],
+    standalone: false
 })
 export class FolderHealthComponent implements OnChanges, OnDestroy {
 	hints?: Array<FolderHealthHint>;

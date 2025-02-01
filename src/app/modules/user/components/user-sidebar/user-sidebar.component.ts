@@ -3,9 +3,10 @@ import {SidebarList, SidebarListItem} from '@shared/components';
 import {routes} from '../../user.routing';
 
 @Component({
-	selector: 'app-user-sidebar',
-	templateUrl: './user-sidebar.component.html',
-	styleUrls: ['./user-sidebar.component.scss']
+    selector: 'app-user-sidebar',
+    templateUrl: './user-sidebar.component.html',
+    styleUrls: ['./user-sidebar.component.scss'],
+    standalone: false
 })
 export class UserSidebarComponent {
 	sections: Array<SidebarList> = [];

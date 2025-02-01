@@ -6,9 +6,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-admin-radar',
-	templateUrl: './admin-radar.component.html',
-	styleUrls: ['./admin-radar.component.scss']
+    selector: 'app-admin-radar',
+    templateUrl: './admin-radar.component.html',
+    styleUrls: ['./admin-radar.component.scss'],
+    standalone: false
 })
 
 export class AdminRadarComponent implements OnInit, OnDestroy {

@@ -7,9 +7,10 @@ export interface SidebarList {
 }
 
 @Component({
-	selector: 'app-sidebar-list',
-	templateUrl: './sidebar-list.component.html',
-	styleUrls: ['./sidebar-list.component.scss']
+    selector: 'app-sidebar-list',
+    templateUrl: './sidebar-list.component.html',
+    styleUrls: ['./sidebar-list.component.scss'],
+    standalone: false
 })
 export class SidebarListComponent {
 	@Input() list?: SidebarList;

@@ -11,9 +11,10 @@ export interface ChoosePlaylistData {
 }
 
 @Component({
-	selector: 'app-dialog-add-to-playlist',
-	templateUrl: './dialog-add-to-playlist.component.html',
-	styleUrls: ['./dialog-add-to-playlist.component.scss']
+    selector: 'app-dialog-add-to-playlist',
+    templateUrl: './dialog-add-to-playlist.component.html',
+    styleUrls: ['./dialog-add-to-playlist.component.scss'],
+    standalone: false
 })
 export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData> {
 	data?: ChoosePlaylistData;

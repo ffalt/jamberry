@@ -10,10 +10,11 @@ export interface HeaderInfo {
 }
 
 @Component({
-	selector: 'app-view-header-jam-base',
-	templateUrl: './header-jambase.component.html',
-	styleUrls: ['./header-jambase.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-view-header-jam-base',
+    templateUrl: './header-jambase.component.html',
+    styleUrls: ['./header-jambase.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HeaderJamBaseComponent {
 	@Input() base?: Jam.Base;

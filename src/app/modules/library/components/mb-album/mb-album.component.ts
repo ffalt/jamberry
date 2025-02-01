@@ -13,9 +13,10 @@ export interface MBAlbumInfoGroup {
 }
 
 @Component({
-	selector: 'app-mb-album',
-	templateUrl: './mb-album.component.html',
-	styleUrls: ['./mb-album.component.scss']
+    selector: 'app-mb-album',
+    templateUrl: './mb-album.component.html',
+    styleUrls: ['./mb-album.component.scss'],
+    standalone: false
 })
 export class MbAlbumComponent implements OnChanges {
 	@Input() mbAlbumID?: string;

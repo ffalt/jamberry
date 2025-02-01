@@ -7,9 +7,10 @@ import {Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-playlist-overview',
-	templateUrl: './playlist-overview.component.html',
-	styleUrls: ['./playlist-overview.component.scss']
+    selector: 'app-playlist-overview',
+    templateUrl: './playlist-overview.component.html',
+    styleUrls: ['./playlist-overview.component.scss'],
+    standalone: false
 })
 export class PlaylistOverviewComponent implements OnInit, OnDestroy {
 	id?: string;

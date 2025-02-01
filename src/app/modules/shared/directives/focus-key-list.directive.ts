@@ -5,7 +5,8 @@ import {takeUntil} from 'rxjs/operators';
 import {FocusKeyListItemDirective} from './focus-key-list-item.directive';
 
 @Directive({
-	selector: '[appFocusKeyList]'
+    selector: '[appFocusKeyList]',
+    standalone: false
 })
 export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 	@Input() withWrap = true;

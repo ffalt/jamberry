@@ -22,9 +22,10 @@ export interface SaveAction {
 }
 
 @Component({
-	selector: 'app-admin-tag-editor',
-	templateUrl: './tag-editor.component.html',
-	styleUrls: ['./tag-editor.component.scss']
+    selector: 'app-admin-tag-editor',
+    templateUrl: './tag-editor.component.html',
+    styleUrls: ['./tag-editor.component.scss'],
+    standalone: false
 })
 export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	folder?: Jam.Folder;

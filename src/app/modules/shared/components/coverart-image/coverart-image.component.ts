@@ -4,9 +4,10 @@ import {ImageFormatType, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '../image-overlay-content/image-overlay-content.component';
 
 @Component({
-	selector: 'app-coverart-image',
-	templateUrl: './coverart-image.component.html',
-	styleUrls: ['./coverart-image.component.scss']
+    selector: 'app-coverart-image',
+    templateUrl: './coverart-image.component.html',
+    styleUrls: ['./coverart-image.component.scss'],
+    standalone: false
 })
 export class CoverartImageComponent implements OnChanges, AfterContentInit {
 	@Input() coverArtObj?: { id: string; name: string };

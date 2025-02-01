@@ -3,9 +3,10 @@ import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
 
 @Component({
-	selector: 'app-lyrics',
-	templateUrl: './lyrics.component.html',
-	styleUrls: ['./lyrics.component.scss']
+    selector: 'app-lyrics',
+    templateUrl: './lyrics.component.html',
+    styleUrls: ['./lyrics.component.scss'],
+    standalone: false
 })
 export class LyricsComponent implements OnChanges {
 	@Input() trackID?: string;

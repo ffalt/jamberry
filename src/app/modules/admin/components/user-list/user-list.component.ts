@@ -11,9 +11,10 @@ import {DialogUserPassComponent, UserPasswordEdit} from '../dialog-user-pass/dia
 import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 
 @Component({
-	selector: 'app-admin-user-list',
-	templateUrl: './user-list.component.html',
-	styleUrls: ['./user-list.component.scss']
+    selector: 'app-admin-user-list',
+    templateUrl: './user-list.component.html',
+    styleUrls: ['./user-list.component.scss'],
+    standalone: false
 })
 export class UserListComponent implements OnDestroy {
 	@Input() users?: Array<Jam.User> = [];

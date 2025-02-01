@@ -9,9 +9,10 @@ export class FolderItem {
 }
 
 @Component({
-	selector: 'app-admin-folder-list',
-	templateUrl: './folder-list.component.html',
-	styleUrls: ['./folder-list.component.scss']
+    selector: 'app-admin-folder-list',
+    templateUrl: './folder-list.component.html',
+    styleUrls: ['./folder-list.component.scss'],
+    standalone: false
 })
 export class FolderListComponent implements OnChanges {
 	@Input() folders: Array<Jam.Folder> = [];

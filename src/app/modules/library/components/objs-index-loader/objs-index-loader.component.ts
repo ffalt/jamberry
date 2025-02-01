@@ -8,9 +8,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-obj-index-loader',
-	templateUrl: './objs-index-loader.component.html',
-	styleUrls: ['./objs-index-loader.component.scss']
+    selector: 'app-obj-index-loader',
+    templateUrl: './objs-index-loader.component.html',
+    styleUrls: ['./objs-index-loader.component.scss'],
+    standalone: false
 })
 export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 	index?: Index;

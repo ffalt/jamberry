@@ -8,9 +8,10 @@ export interface SectionCardsSection {
 }
 
 @Component({
-	selector: 'app-admin-section-cards',
-	templateUrl: './section-cards.component.html',
-	styleUrls: ['./section-cards.component.scss']
+    selector: 'app-admin-section-cards',
+    templateUrl: './section-cards.component.html',
+    styleUrls: ['./section-cards.component.scss'],
+    standalone: false
 })
 export class SectionCardsComponent {
 	sections: Array<SectionCardsSection> = [];

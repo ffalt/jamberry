@@ -22,12 +22,13 @@ import {CloseContextMenuEvent, ContextMenuService, IContextMenuClickEvent} from 
 import {CONTEXT_MENU_OPTIONS} from './contextmenu.tokens';
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
-	encapsulation: ViewEncapsulation.None,
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'context-menu',
-	styleUrls: ['./contextmenu.component.css'],
-	template: ' '
+    // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
+    encapsulation: ViewEncapsulation.None,
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'context-menu',
+    styleUrls: ['./contextmenu.component.css'],
+    template: ' ',
+    standalone: false
 })
 export class ContextMenuComponent implements OnDestroy {
 	@Input() menuClass = '';

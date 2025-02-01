@@ -4,9 +4,10 @@ import {AdminRootServiceEditData} from '@core/services';
 import {RootScanStrategy} from '@jam';
 
 @Component({
-	selector: 'app-dialog-root',
-	templateUrl: './dialog-root.component.html',
-	styleUrls: ['./dialog-root.component.scss']
+    selector: 'app-dialog-root',
+    templateUrl: './dialog-root.component.html',
+    styleUrls: ['./dialog-root.component.scss'],
+    standalone: false
 })
 export class DialogRootComponent implements DialogOverlay<AdminRootServiceEditData> {
 	edit?: AdminRootServiceEditData;

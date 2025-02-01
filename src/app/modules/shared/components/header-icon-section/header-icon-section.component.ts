@@ -2,10 +2,11 @@ import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, O
 import {HeaderTab} from '@shared/components';
 
 @Component({
-	selector: 'app-view-header-icon-section',
-	templateUrl: './header-icon-section.component.html',
-	styleUrls: ['./header-icon-section.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-view-header-icon-section',
+    templateUrl: './header-icon-section.component.html',
+    styleUrls: ['./header-icon-section.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HeaderIconSectionComponent {
 	@Input() icon?: string;

@@ -9,9 +9,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-artist-overview',
-	templateUrl: './artist-overview.component.html',
-	styleUrls: ['./artist-overview.component.scss']
+    selector: 'app-artist-overview',
+    templateUrl: './artist-overview.component.html',
+    styleUrls: ['./artist-overview.component.scss'],
+    standalone: false
 })
 export class ArtistOverviewComponent implements OnInit, OnDestroy {
 	id?: string;

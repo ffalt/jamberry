@@ -11,9 +11,10 @@ interface ObjPlatesGroupsView {
 }
 
 @Component({
-	selector: 'app-obj-groups-plates',
-	templateUrl: './obj-groups-plates.component.html',
-	styleUrls: ['./obj-groups-plates.component.scss']
+    selector: 'app-obj-groups-plates',
+    templateUrl: './obj-groups-plates.component.html',
+    styleUrls: ['./obj-groups-plates.component.scss'],
+    standalone: false
 })
 export class ObjGroupsPlatesComponent implements AfterViewInit, OnDestroy {
 	@Input() groups?: Array<ObjPlatesGroupsView>;

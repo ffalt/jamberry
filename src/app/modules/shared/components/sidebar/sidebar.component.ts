@@ -6,9 +6,10 @@ import {SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.c
 import {SidebarList, SidebarListComponent} from '../sidebar-list/sidebar-list.component';
 
 @Component({
-	selector: 'app-sidebar',
-	templateUrl: './sidebar.component.html',
-	styleUrls: ['./sidebar.component.scss']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    standalone: false
 })
 export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, SidebarProvider {
 	@Input() sections: Array<SidebarList> = [];

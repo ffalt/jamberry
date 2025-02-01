@@ -5,9 +5,10 @@ import {takeUntil} from 'rxjs/operators';
 import {ReleaseMatching} from '../match-release/match-release.component';
 
 @Component({
-	selector: 'app-dialog-match-release',
-	templateUrl: './dialog-match-release.component.html',
-	styleUrls: ['./dialog-match-release.component.scss']
+    selector: 'app-dialog-match-release',
+    templateUrl: './dialog-match-release.component.html',
+    styleUrls: ['./dialog-match-release.component.scss'],
+    standalone: false
 })
 export class DialogMatchReleaseComponent implements DialogOverlay<ReleaseMatching>, OnDestroy {
 	data?: ReleaseMatching;

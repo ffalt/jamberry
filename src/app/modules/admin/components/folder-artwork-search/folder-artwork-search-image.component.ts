@@ -32,9 +32,10 @@ export interface ArtworkNode {
 }
 
 @Component({
-	selector: 'app-admin-folder-artwork-search',
-	templateUrl: './folder-artwork-search-image.component.html',
-	styleUrls: ['./folder-artwork-search-image.component.scss']
+    selector: 'app-admin-folder-artwork-search',
+    templateUrl: './folder-artwork-search-image.component.html',
+    styleUrls: ['./folder-artwork-search-image.component.scss'],
+    standalone: false
 })
 export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnDestroy {
 	@Input() data?: ArtworkSearch;

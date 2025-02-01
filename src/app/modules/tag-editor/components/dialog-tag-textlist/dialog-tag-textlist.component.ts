@@ -9,9 +9,10 @@ export interface TextListEdit {
 }
 
 @Component({
-	selector: 'app-dialog-tag-textlist',
-	templateUrl: './dialog-tag-textlist.component.html',
-	styleUrls: ['./dialog-tag-textlist.component.scss']
+    selector: 'app-dialog-tag-textlist',
+    templateUrl: './dialog-tag-textlist.component.html',
+    styleUrls: ['./dialog-tag-textlist.component.scss'],
+    standalone: false
 })
 export class DialogTagTextlistComponent implements DialogOverlay<TextListEdit> {
 	edit?: TextListEdit;

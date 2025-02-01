@@ -27,10 +27,11 @@ import {CONTEXT_MENU_OPTIONS} from './contextmenu.tokens';
 const ARROW_LEFT_KEYCODE = 37;
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'context-menu-content',
-	styleUrls: ['./contextmenu-content.component.css'],
-	templateUrl: './contextmenu-content.component.html'
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'context-menu-content',
+    styleUrls: ['./contextmenu-content.component.css'],
+    templateUrl: './contextmenu-content.component.html',
+    standalone: false
 })
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
 	@Input() menuItems: Array<ContextMenuItemDirective> = [];

@@ -10,9 +10,10 @@ import {DialogChooseFolderComponent, SelectFolder} from '../../dialog-choose-fol
 import {TrackListComponent} from '../../track-list/track-list.component';
 
 @Component({
-	selector: 'app-admin-folder-tracks',
-	templateUrl: './admin-folder-tracks.component.html',
-	styleUrls: ['./admin-folder-tracks.component.scss']
+    selector: 'app-admin-folder-tracks',
+    templateUrl: './admin-folder-tracks.component.html',
+    styleUrls: ['./admin-folder-tracks.component.scss'],
+    standalone: false
 })
 export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder | undefined;

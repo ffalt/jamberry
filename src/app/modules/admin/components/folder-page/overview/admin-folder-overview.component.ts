@@ -12,9 +12,10 @@ import {DialogFolderArtworkSearchComponent} from '../../dialog-folder-artwork-se
 import {DialogUploadImageComponent} from '../../dialog-upload-image/dialog-upload-image.component';
 
 @Component({
-	selector: 'app-admin-folder',
-	templateUrl: './admin-folder-overview.component.html',
-	styleUrls: ['./admin-folder-overview.component.scss']
+    selector: 'app-admin-folder',
+    templateUrl: './admin-folder-overview.component.html',
+    styleUrls: ['./admin-folder-overview.component.scss'],
+    standalone: false
 })
 export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	name: string = '';

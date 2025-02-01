@@ -11,9 +11,10 @@ interface ObjCardsGroupsView {
 }
 
 @Component({
-	selector: 'app-obj-groups-cards',
-	templateUrl: './obj-groups-cards.component.html',
-	styleUrls: ['./obj-groups-cards.component.scss']
+    selector: 'app-obj-groups-cards',
+    templateUrl: './obj-groups-cards.component.html',
+    styleUrls: ['./obj-groups-cards.component.scss'],
+    standalone: false
 })
 export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 	@Input() groups?: Array<ObjCardsGroupsView>;

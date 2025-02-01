@@ -3,8 +3,9 @@ import {ContextMenuComponent} from './contextmenu.component';
 import {ContextMenuService} from './contextmenu.service';
 
 @Directive({
-	// eslint-disable-next-line @angular-eslint/directive-selector
-	selector: '[contextMenu]'
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: '[contextMenu]',
+    standalone: false
 })
 export class ContextMenuAttachDirective {
 	@Input() contextMenuSubject: any;

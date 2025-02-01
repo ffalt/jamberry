@@ -7,9 +7,10 @@ export function filterStats(data: Array<{ text?: string; link?: string; value?: 
 }
 
 @Component({
-	selector: 'app-stats',
-	templateUrl: './stats.component.html',
-	styleUrls: ['./stats.component.scss']
+    selector: 'app-stats',
+    templateUrl: './stats.component.html',
+    styleUrls: ['./stats.component.scss'],
+    standalone: false
 })
 export class StatsComponent {
 	@Input() stats: StatsList = [];

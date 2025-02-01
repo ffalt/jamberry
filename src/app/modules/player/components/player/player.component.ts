@@ -4,9 +4,10 @@ import {HOTKEYS} from '@app/utils/keys';
 import {AppService, PlayerService, QueueService} from '@core/services';
 
 @Component({
-	selector: 'app-player',
-	templateUrl: './player.component.html',
-	styleUrls: ['./player.component.scss']
+    selector: 'app-player',
+    templateUrl: './player.component.html',
+    styleUrls: ['./player.component.scss'],
+    standalone: false
 })
 export class PlayerComponent {
 	showSpeed: boolean = false;

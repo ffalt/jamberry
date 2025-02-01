@@ -8,9 +8,10 @@ export interface TrackItem {
 }
 
 @Component({
-	selector: 'app-admin-track-list',
-	templateUrl: './track-list.component.html',
-	styleUrls: ['./track-list.component.scss']
+    selector: 'app-admin-track-list',
+    templateUrl: './track-list.component.html',
+    styleUrls: ['./track-list.component.scss'],
+    standalone: false
 })
 export class TrackListComponent implements OnChanges {
 	trackItems?: Array<TrackItem>;

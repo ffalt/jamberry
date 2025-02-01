@@ -3,9 +3,10 @@ import {Component} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 
 @Component({
-	selector: 'app-image-edit-overlay-content',
-	templateUrl: './image-edit-overlay-content.component.html',
-	styleUrls: ['./image-edit-overlay-content.scss']
+    selector: 'app-image-edit-overlay-content',
+    templateUrl: './image-edit-overlay-content.component.html',
+    styleUrls: ['./image-edit-overlay-content.scss'],
+    standalone: false
 })
 export class ImageEditOverlayContentComponent implements DialogOverlay<ImageEdit> {
 	data?: ImageEdit;

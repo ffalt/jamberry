@@ -6,9 +6,10 @@ import {LibraryService} from '@library/services';
 import {ActionsService} from '@shared/services';
 
 @Component({
-	selector: 'app-media-list',
-	templateUrl: './media-list.component.html',
-	styleUrls: ['./media-list.component.scss']
+    selector: 'app-media-list',
+    templateUrl: './media-list.component.html',
+    styleUrls: ['./media-list.component.scss'],
+    standalone: false
 })
 export class MediaListComponent {
 	@Input() entries?: Array<Jam.MediaBase>;

@@ -22,9 +22,10 @@ export interface ReleaseMatching {
 }
 
 @Component({
-	selector: 'app-match-release',
-	templateUrl: './match-release.component.html',
-	styleUrls: ['./match-release.component.scss']
+    selector: 'app-match-release',
+    templateUrl: './match-release.component.html',
+    styleUrls: ['./match-release.component.scss'],
+    standalone: false
 })
 export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	@Input() data?: ReleaseMatching;

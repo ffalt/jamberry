@@ -13,9 +13,10 @@ export interface ReleaseGroupGroup {
 }
 
 @Component({
-	selector: 'app-mb-artist',
-	templateUrl: './mb-artist.component.html',
-	styleUrls: ['./mb-artist.component.scss']
+    selector: 'app-mb-artist',
+    templateUrl: './mb-artist.component.html',
+    styleUrls: ['./mb-artist.component.scss'],
+    standalone: false
 })
 export class MbArtistComponent implements OnChanges {
 	@Input() mbArtistID?: string;

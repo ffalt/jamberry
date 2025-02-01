@@ -27,9 +27,10 @@ const noClick = (): void => {
 };
 
 @Component({
-	selector: 'app-page-search',
-	templateUrl: './search-page.component.html',
-	styleUrls: ['./search-page.component.scss']
+    selector: 'app-page-search',
+    templateUrl: './search-page.component.html',
+    styleUrls: ['./search-page.component.scss'],
+    standalone: false
 })
 export class SearchPageComponent implements AutocompleteDataControl {
 	AlbumType = AlbumType;

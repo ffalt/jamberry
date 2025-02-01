@@ -25,9 +25,10 @@ function extractExt(filename: string): string {
 }
 
 @Component({
-	selector: 'app-admin-artwork-list',
-	templateUrl: './artwork-list.component.html',
-	styleUrls: ['./artwork-list.component.scss']
+    selector: 'app-admin-artwork-list',
+    templateUrl: './artwork-list.component.html',
+    styleUrls: ['./artwork-list.component.scss'],
+    standalone: false
 })
 export class ArtworkListComponent implements OnChanges {
 	@Input() artworks?: Array<Jam.Artwork>;

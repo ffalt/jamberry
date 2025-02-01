@@ -2,7 +2,8 @@ import {Compiler, ComponentFactoryResolver, ComponentRef, Directive, HostListene
 import {ChildTooltipContentComponent, TooltipInfo} from '../components/obj-tooltip-content/child-tooltip-content.component';
 
 @Directive({
-	selector: '[appObjTooltip]'
+    selector: '[appObjTooltip]',
+    standalone: false
 })
 export class ObjTooltipDirective {
 	@Input() appObjTooltip: any;

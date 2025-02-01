@@ -7,9 +7,10 @@ export interface ContextMenuSimpleComponentOptions {
 }
 
 @Component({
-	selector: 'app-context-menu-simple',
-	templateUrl: './context-menu-simple.component.html',
-	styleUrls: ['./context-menu-simple.component.scss']
+    selector: 'app-context-menu-simple',
+    templateUrl: './context-menu-simple.component.html',
+    styleUrls: ['./context-menu-simple.component.scss'],
+    standalone: false
 })
 export class ContextMenuSimpleComponent implements ContextMenuHostComponentInterface<ContextMenuSimpleComponentOptions> {
 	@ViewChild('entriesMenu') contextMenu?: ContextMenuComponent;

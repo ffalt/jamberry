@@ -4,9 +4,10 @@ import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
 
 @Component({
-	selector: 'app-media-playlist-item',
-	templateUrl: './media-playlist-item.component.html',
-	styleUrls: ['./media-playlist-item.component.scss']
+    selector: 'app-media-playlist-item',
+    templateUrl: './media-playlist-item.component.html',
+    styleUrls: ['./media-playlist-item.component.scss'],
+    standalone: false
 })
 export class MediaPlaylistItemComponent {
 	@Input() media?: Jam.MediaBase;

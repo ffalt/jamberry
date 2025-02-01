@@ -3,9 +3,10 @@ import {ChangeDetectorRef, Component, ElementRef, HostBinding, HostListener, Inp
 import {JamObject} from '@shared/model/helpers';
 
 @Component({
-	selector: 'app-obj-card',
-	templateUrl: './obj-card.component.html',
-	styleUrls: ['./obj-card.component.scss']
+    selector: 'app-obj-card',
+    templateUrl: './obj-card.component.html',
+    styleUrls: ['./obj-card.component.scss'],
+    standalone: false
 })
 export class ObjCardComponent implements FocusableOption {
 	@Input() obj?: JamObject;

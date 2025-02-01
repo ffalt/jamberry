@@ -9,9 +9,10 @@ import {takeUntil} from 'rxjs/operators';
 import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 
 @Component({
-	selector: 'app-admin-root',
-	templateUrl: './admin-root.component.html',
-	styleUrls: ['./admin-root.component.scss']
+    selector: 'app-admin-root',
+    templateUrl: './admin-root.component.html',
+    styleUrls: ['./admin-root.component.scss'],
+    standalone: false
 })
 export class AdminRootComponent implements OnInit, OnDestroy {
 	roots?: Array<Jam.Root>;

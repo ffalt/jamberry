@@ -2,10 +2,11 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Outp
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 
 @Component({
-	selector: 'app-tag-editor-autocomplete',
-	templateUrl: './tag-editor-autocomplete.component.html',
-	styleUrls: ['./tag-editor-autocomplete.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-tag-editor-autocomplete',
+    templateUrl: './tag-editor-autocomplete.component.html',
+    styleUrls: ['./tag-editor-autocomplete.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TagEditorAutocompleteComponent implements AutocompleteDataControl, OnChanges {
 	list: Array<{ text: string }> = [];

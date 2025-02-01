@@ -5,9 +5,10 @@ import {Jam, JamService} from '@jam';
 import {SidebarList, SidebarListItem} from '@shared/components';
 
 @Component({
-	selector: 'app-libary-sidebar',
-	templateUrl: './sidebar-library.component.html',
-	styleUrls: ['./sidebar-library.component.scss']
+    selector: 'app-libary-sidebar',
+    templateUrl: './sidebar-library.component.html',
+    styleUrls: ['./sidebar-library.component.scss'],
+    standalone: false
 })
 export class SidebarLibraryComponent implements OnInit {
 	root?: Jam.Root;

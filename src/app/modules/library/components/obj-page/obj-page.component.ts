@@ -21,9 +21,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-page-obj',
-	templateUrl: './obj-page.component.html',
-	styleUrls: ['./obj-page.component.scss']
+    selector: 'app-page-obj',
+    templateUrl: './obj-page.component.html',
+    styleUrls: ['./obj-page.component.scss'],
+    standalone: false
 })
 export class ObjPageComponent implements OnInit, OnDestroy {
 	id?: string;

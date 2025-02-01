@@ -7,9 +7,10 @@ import {Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-podcast-overview',
-	templateUrl: './podcast-overview.component.html',
-	styleUrls: ['./podcast-overview.component.scss']
+    selector: 'app-podcast-overview',
+    templateUrl: './podcast-overview.component.html',
+    styleUrls: ['./podcast-overview.component.scss'],
+    standalone: false
 })
 export class PodcastOverviewComponent implements OnInit, OnDestroy {
 	id?: string;

@@ -7,9 +7,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-albums-page-by-type',
-	templateUrl: './albums-page-by-type.component.html',
-	styleUrls: ['./albums-page-by-type.component.scss']
+    selector: 'app-albums-page-by-type',
+    templateUrl: './albums-page-by-type.component.html',
+    styleUrls: ['./albums-page-by-type.component.scss'],
+    standalone: false
 })
 export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {
 	typeInfo?: JamType;

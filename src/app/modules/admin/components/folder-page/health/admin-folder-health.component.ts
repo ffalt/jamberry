@@ -6,9 +6,10 @@ import {Jam, JamService} from '@jam';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-admin-folder-health',
-	templateUrl: './admin-folder-health.component.html',
-	styleUrls: ['./admin-folder-health.component.scss']
+    selector: 'app-admin-folder-health',
+    templateUrl: './admin-folder-health.component.html',
+    styleUrls: ['./admin-folder-health.component.scss'],
+    standalone: false
 })
 export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	all?: Array<Jam.FolderHealth>;

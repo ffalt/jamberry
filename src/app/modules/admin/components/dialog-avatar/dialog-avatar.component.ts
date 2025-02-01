@@ -8,9 +8,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-dialog-avatar',
-	templateUrl: './dialog-avatar.component.html',
-	styleUrls: ['./dialog-avatar.component.scss']
+    selector: 'app-dialog-avatar',
+    templateUrl: './dialog-avatar.component.html',
+    styleUrls: ['./dialog-avatar.component.scss'],
+    standalone: false
 })
 export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy {
 	user?: Jam.User;

@@ -8,9 +8,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-artist-similar',
-	templateUrl: './artist-similar.component.html',
-	styleUrls: ['./artist-similar.component.scss']
+    selector: 'app-artist-similar',
+    templateUrl: './artist-similar.component.html',
+    styleUrls: ['./artist-similar.component.scss'],
+    standalone: false
 })
 export class ArtistSimilarComponent implements OnInit, OnDestroy {
 	id?: string;

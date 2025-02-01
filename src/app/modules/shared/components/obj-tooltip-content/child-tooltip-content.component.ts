@@ -7,10 +7,10 @@ export interface TooltipInfo {
 }
 
 @Component({
-	selector: 'app-child-tooltip-content',
-	templateUrl: './child-tooltip-content.component.html',
-	styleUrls: ['./child-tooltip-content.component.scss']
-
+    selector: 'app-child-tooltip-content',
+    templateUrl: './child-tooltip-content.component.html',
+    styleUrls: ['./child-tooltip-content.component.scss'],
+    standalone: false
 })
 export class ChildTooltipContentComponent implements AfterViewInit {
 	@Input() hostElement?: HTMLElement;

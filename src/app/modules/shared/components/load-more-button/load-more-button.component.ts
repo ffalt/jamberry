@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
-	selector: 'app-load-more-button',
-	templateUrl: './load-more-button.component.html',
-	styleUrls: ['./load-more-button.component.scss']
+    selector: 'app-load-more-button',
+    templateUrl: './load-more-button.component.html',
+    styleUrls: ['./load-more-button.component.scss'],
+    standalone: false
 })
 export class LoadMoreButtonComponent {
 	@Input() skip: number = 0;

@@ -8,9 +8,10 @@ export interface StartSectionItem {
 }
 
 @Component({
-	selector: 'app-start-section',
-	templateUrl: './start-section.component.html',
-	styleUrls: ['./start-section.component.scss']
+    selector: 'app-start-section',
+    templateUrl: './start-section.component.html',
+    styleUrls: ['./start-section.component.scss'],
+    standalone: false
 })
 export class StartSectionComponent {
 	@Input() name?: string;

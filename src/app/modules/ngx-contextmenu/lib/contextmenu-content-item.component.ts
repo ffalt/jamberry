@@ -3,10 +3,11 @@ import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@an
 import {ContextMenuItemDirective} from './contextmenu.item.directive';
 
 @Component({
-	// eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'context-menu-content-item',
-	styleUrls: ['./contextmenu-content-item.component.css'],
-	templateUrl: './contextmenu-content-item.component.html'
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'context-menu-content-item',
+    styleUrls: ['./contextmenu-content-item.component.css'],
+    templateUrl: './contextmenu-content-item.component.html',
+    standalone: false
 })
 export class ContextMenuContentItemComponent implements FocusableOption {
 	@Input() menuItem!: ContextMenuItemDirective;

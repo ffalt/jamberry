@@ -12,10 +12,11 @@ export interface HeaderTab {
 }
 
 @Component({
-	selector: 'app-view-header-tabs',
-	templateUrl: './header-tabs.component.html',
-	styleUrls: ['./header-tabs.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-view-header-tabs',
+    templateUrl: './header-tabs.component.html',
+    styleUrls: ['./header-tabs.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class HeaderTabsComponent {
 	@Input() smallTabs: boolean = false;

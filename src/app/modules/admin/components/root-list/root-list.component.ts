@@ -7,9 +7,10 @@ import {DialogsService} from '@shared/services';
 import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 
 @Component({
-	selector: 'app-admin-root-list',
-	templateUrl: './root-list.component.html',
-	styleUrls: ['./root-list.component.scss']
+    selector: 'app-admin-root-list',
+    templateUrl: './root-list.component.html',
+    styleUrls: ['./root-list.component.scss'],
+    standalone: false
 })
 export class RootListComponent {
 	@Input() roots?: Array<Jam.Root> = [];

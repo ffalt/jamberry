@@ -17,9 +17,10 @@ export interface MatchImageNode {
 }
 
 @Component({
-	selector: 'app-match-coverart',
-	templateUrl: './match-coverart.component.html',
-	styleUrls: ['./match-coverart.component.scss']
+    selector: 'app-match-coverart',
+    templateUrl: './match-coverart.component.html',
+    styleUrls: ['./match-coverart.component.scss'],
+    standalone: false
 })
 export class MatchCoverartComponent implements OnChanges {
 	@Input() data?: MatchImageSearch;

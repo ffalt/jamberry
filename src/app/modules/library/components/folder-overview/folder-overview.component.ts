@@ -9,9 +9,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-folder-overview',
-	templateUrl: './folder-overview.component.html',
-	styleUrls: ['./folder-overview.component.scss']
+    selector: 'app-folder-overview',
+    templateUrl: './folder-overview.component.html',
+    styleUrls: ['./folder-overview.component.scss'],
+    standalone: false
 })
 export class FolderOverviewComponent implements OnInit, OnDestroy {
 	id?: string;

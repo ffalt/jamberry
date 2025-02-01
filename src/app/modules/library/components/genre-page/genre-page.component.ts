@@ -25,9 +25,10 @@ const noClick = (): void => {
 };
 
 @Component({
-	selector: 'app-page-genre',
-	templateUrl: './genre-page.component.html',
-	styleUrls: ['./genre-page.component.scss']
+    selector: 'app-page-genre',
+    templateUrl: './genre-page.component.html',
+    styleUrls: ['./genre-page.component.scss'],
+    standalone: false
 })
 export class GenrePageComponent implements OnDestroy {
 	title = 'Genre';

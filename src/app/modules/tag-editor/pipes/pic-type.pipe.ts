@@ -1,7 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Id3v2ValuePicTypes} from '../model/tag-editor.types';
 
-@Pipe({name: 'picType'})
+@Pipe({
+    name: 'picType',
+    standalone: false
+})
 export class PicTypePipe implements PipeTransform {
 
 	transform(value: number): string {

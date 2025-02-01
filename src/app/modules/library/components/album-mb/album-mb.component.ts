@@ -6,9 +6,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-album-mb',
-	templateUrl: './album-mb.component.html',
-	styleUrls: ['./album-mb.component.scss']
+    selector: 'app-album-mb',
+    templateUrl: './album-mb.component.html',
+    styleUrls: ['./album-mb.component.scss'],
+    standalone: false
 })
 export class AlbumMbComponent implements OnInit, OnDestroy {
 	id?: string;

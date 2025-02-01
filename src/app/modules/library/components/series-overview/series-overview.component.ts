@@ -9,9 +9,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-series-overview',
-	templateUrl: './series-overview.component.html',
-	styleUrls: ['./series-overview.component.scss']
+    selector: 'app-series-overview',
+    templateUrl: './series-overview.component.html',
+    styleUrls: ['./series-overview.component.scss'],
+    standalone: false
 })
 export class SeriesOverviewComponent implements OnInit, OnDestroy {
 	id?: string;

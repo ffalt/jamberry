@@ -11,9 +11,10 @@ export interface SidebarListItem {
 }
 
 @Component({
-	selector: 'app-sidebar-list-item',
-	templateUrl: './sidebar-list-item.component.html',
-	styleUrls: ['./sidebar-list-item.component.scss']
+    selector: 'app-sidebar-list-item',
+    templateUrl: './sidebar-list-item.component.html',
+    styleUrls: ['./sidebar-list-item.component.scss'],
+    standalone: false
 })
 export class SidebarListItemComponent implements FocusableOption {
 	@Input() entry?: SidebarListItem;

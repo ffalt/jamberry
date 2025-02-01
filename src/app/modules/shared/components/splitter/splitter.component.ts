@@ -1,9 +1,10 @@
 import {Component, ElementRef, HostBinding, HostListener, Input} from '@angular/core';
 
 @Component({
-	selector: 'app-splitter',
-	templateUrl: './splitter.component.html',
-	styleUrls: ['./splitter.component.scss']
+    selector: 'app-splitter',
+    templateUrl: './splitter.component.html',
+    styleUrls: ['./splitter.component.scss'],
+    standalone: false
 })
 export class SplitterComponent {
 	@Input() leftSnap: boolean = true;

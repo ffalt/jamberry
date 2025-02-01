@@ -7,9 +7,10 @@ import {LibraryService} from '@library/services';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
-	selector: 'app-obj-loader',
-	templateUrl: './objs-loader.component.html',
-	styleUrls: ['./objs-loader.component.scss']
+    selector: 'app-obj-loader',
+    templateUrl: './objs-loader.component.html',
+    styleUrls: ['./objs-loader.component.scss'],
+    standalone: false
 })
 export class ObjsLoaderComponent implements OnChanges {
 	@Input() grouping: boolean = false;

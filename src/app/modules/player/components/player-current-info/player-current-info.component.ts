@@ -4,9 +4,10 @@ import {NavigService, PlayerService} from '@core/services';
 import {ActionsService} from '@shared/services';
 
 @Component({
-	selector: 'app-player-current-info',
-	templateUrl: './player-current-info.component.html',
-	styleUrls: ['./player-current-info.component.scss']
+    selector: 'app-player-current-info',
+    templateUrl: './player-current-info.component.html',
+    styleUrls: ['./player-current-info.component.scss'],
+    standalone: false
 })
 export class PlayerCurrentInfoComponent implements TabComponent {
 

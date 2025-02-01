@@ -16,9 +16,10 @@ interface AlbumValueEdit {
 }
 
 @Component({
-	selector: 'app-dialog-album',
-	templateUrl: './dialog-album.component.html',
-	styleUrls: ['./dialog-album.component.scss']
+    selector: 'app-dialog-album',
+    templateUrl: './dialog-album.component.html',
+    styleUrls: ['./dialog-album.component.scss'],
+    standalone: false
 })
 export class DialogAlbumComponent implements DialogOverlay<AlbumValuesEdit> {
 	data?: AlbumValuesEdit;

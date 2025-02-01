@@ -8,9 +8,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-track-overview',
-	templateUrl: './track-overview.component.html',
-	styleUrls: ['./track-overview.component.scss']
+    selector: 'app-track-overview',
+    templateUrl: './track-overview.component.html',
+    styleUrls: ['./track-overview.component.scss'],
+    standalone: false
 })
 export class TrackOverviewComponent implements OnInit, OnDestroy {
 	id?: string;

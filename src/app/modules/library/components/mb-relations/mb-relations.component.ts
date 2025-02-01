@@ -12,9 +12,10 @@ export interface RelationGroup {
 }
 
 @Component({
-	selector: 'app-mb-relations',
-	templateUrl: './mb-relations.component.html',
-	styleUrls: ['./mb-relations.component.scss']
+    selector: 'app-mb-relations',
+    templateUrl: './mb-relations.component.html',
+    styleUrls: ['./mb-relations.component.scss'],
+    standalone: false
 })
 export class MbRelationsComponent implements OnChanges {
 	@Input() relations?: Array<MusicBrainz.Relation>;

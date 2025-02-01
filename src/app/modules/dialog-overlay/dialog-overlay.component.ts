@@ -15,11 +15,12 @@ import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
 import {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.types';
 
 @Component({
-	selector: 'app-dialog-overlay',
-	templateUrl: './dialog-overlay.component.html',
-	styleUrls: ['./dialog-overlay.component.scss'],
-	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
-	encapsulation: ViewEncapsulation.None
+    selector: 'app-dialog-overlay',
+    templateUrl: './dialog-overlay.component.html',
+    styleUrls: ['./dialog-overlay.component.scss'],
+    // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class DialogOverlayComponent implements OnInit {
 	isBusy: boolean = false;

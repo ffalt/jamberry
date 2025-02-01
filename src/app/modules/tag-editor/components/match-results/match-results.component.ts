@@ -3,9 +3,10 @@ import {Matcher} from '@app/modules/tag-editor/components/match-release/matcher'
 import {MatchingTrack, MatchRelease, MatchReleaseGroup} from '../../model/release-matching.helper';
 
 @Component({
-	selector: 'app-match-results',
-	templateUrl: './match-results.component.html',
-	styleUrls: ['./match-results.component.scss']
+    selector: 'app-match-results',
+    templateUrl: './match-results.component.html',
+    styleUrls: ['./match-results.component.scss'],
+    standalone: false
 })
 export class MatchResultsComponent {
 	@Input() matcher?: Matcher;

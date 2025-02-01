@@ -7,9 +7,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-episode-overview',
-	templateUrl: './episode-overview.component.html',
-	styleUrls: ['./episode-overview.component.scss']
+    selector: 'app-episode-overview',
+    templateUrl: './episode-overview.component.html',
+    styleUrls: ['./episode-overview.component.scss'],
+    standalone: false
 })
 export class EpisodeOverviewComponent implements OnInit, OnDestroy {
 	id?: string;

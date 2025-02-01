@@ -8,9 +8,10 @@ export interface LyricsEdit {
 }
 
 @Component({
-	selector: 'app-dialog-tag-lyrics',
-	templateUrl: './dialog-tag-lyrics.component.html',
-	styleUrls: ['./dialog-tag-lyrics.component.scss']
+    selector: 'app-dialog-tag-lyrics',
+    templateUrl: './dialog-tag-lyrics.component.html',
+    styleUrls: ['./dialog-tag-lyrics.component.scss'],
+    standalone: false
 })
 export class DialogTagLyricsComponent implements DialogOverlay<LyricsEdit> {
 	edit?: LyricsEdit;

@@ -3,9 +3,10 @@ import {AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 
 @Component({
-	selector: 'app-admin-settings',
-	templateUrl: './admin-settings.component.html',
-	styleUrls: ['./admin-settings.component.scss']
+    selector: 'app-admin-settings',
+    templateUrl: './admin-settings.component.html',
+    styleUrls: ['./admin-settings.component.scss'],
+    standalone: false
 })
 
 export class AdminSettingsComponent implements OnInit {

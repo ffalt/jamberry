@@ -5,9 +5,10 @@ import {Jam, JamAuthService, JamService} from '@jam';
 import {DialogPasswordComponent, PasswordEdit} from '@shared/components';
 
 @Component({
-	selector: 'app-sessions-page',
-	templateUrl: './sessions-page.component.html',
-	styleUrls: ['./sessions-page.component.scss']
+    selector: 'app-sessions-page',
+    templateUrl: './sessions-page.component.html',
+    styleUrls: ['./sessions-page.component.scss'],
+    standalone: false
 })
 export class SessionsPageComponent implements OnInit {
 	sessions?: Array<{ session: Jam.UserSession; isExpired: boolean; }>;

@@ -44,7 +44,8 @@ export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement)
 }
 
 @Directive({
-	selector: '[appAutocomplete]'
+    selector: '[appAutocomplete]',
+    standalone: false
 })
 export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, AutocompleteControl {
 	@Input() appAutocomplete?: AutocompleteComponent;

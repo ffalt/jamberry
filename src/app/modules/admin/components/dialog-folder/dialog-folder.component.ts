@@ -3,9 +3,10 @@ import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/m
 import {FolderEdit} from '../../admin.interface';
 
 @Component({
-	selector: 'app-dialog-folder',
-	templateUrl: './dialog-folder.component.html',
-	styleUrls: ['./dialog-folder.component.scss']
+    selector: 'app-dialog-folder',
+    templateUrl: './dialog-folder.component.html',
+    styleUrls: ['./dialog-folder.component.scss'],
+    standalone: false
 })
 export class DialogFolderComponent implements DialogOverlay<FolderEdit> {
 	edit?: FolderEdit;

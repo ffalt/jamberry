@@ -4,9 +4,10 @@ import {AppService, PlayerEvents, PlayerService} from '@core/services';
 import {JamService} from '@jam';
 
 @Component({
-	selector: 'app-time-slider',
-	templateUrl: './slider-time.component.html',
-	styleUrls: ['./slider-time.component.scss']
+    selector: 'app-time-slider',
+    templateUrl: './slider-time.component.html',
+    styleUrls: ['./slider-time.component.scss'],
+    standalone: false
 })
 export class SliderTimeComponent implements OnInit {
 	timePC: number = 0;

@@ -1,6 +1,9 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({name: 'json'})
+@Pipe({
+    name: 'json',
+    standalone: false
+})
 export class JsonPipe implements PipeTransform {
 
 	transform(value: any): string {

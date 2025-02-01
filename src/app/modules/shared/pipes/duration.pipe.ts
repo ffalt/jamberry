@@ -1,7 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {formatDuration} from '@app/utils/formatters';
 
-@Pipe({name: 'duration'})
+@Pipe({
+    name: 'duration',
+    standalone: false
+})
 export class DurationPipe implements PipeTransform {
 
 	transform(value: string | number): string {

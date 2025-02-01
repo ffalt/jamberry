@@ -7,9 +7,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-dialog-upload-image',
-	templateUrl: './dialog-upload-image.component.html',
-	styleUrls: ['./dialog-upload-image.component.scss']
+    selector: 'app-dialog-upload-image',
+    templateUrl: './dialog-upload-image.component.html',
+    styleUrls: ['./dialog-upload-image.component.scss'],
+    standalone: false
 })
 export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.Folder }>, OnDestroy {
 	folder?: Jam.Folder;

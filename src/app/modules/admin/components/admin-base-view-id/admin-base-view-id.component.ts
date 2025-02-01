@@ -4,9 +4,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-admin-base-view-id',
-	templateUrl: './admin-base-view-id.component.html',
-	styleUrls: ['./admin-base-view-id.component.scss']
+    selector: 'app-admin-base-view-id',
+    templateUrl: './admin-base-view-id.component.html',
+    styleUrls: ['./admin-base-view-id.component.scss'],
+    standalone: false
 })
 export class AdminBaseViewIdComponent implements OnInit, OnDestroy {
 	id?: string;

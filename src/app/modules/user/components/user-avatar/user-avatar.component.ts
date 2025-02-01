@@ -8,9 +8,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-user-avatar',
-	templateUrl: './user-avatar.component.html',
-	styleUrls: ['./user-avatar.component.scss']
+    selector: 'app-user-avatar',
+    templateUrl: './user-avatar.component.html',
+    styleUrls: ['./user-avatar.component.scss'],
+    standalone: false
 })
 export class UserAvatarComponent implements OnDestroy {
 	refreshRandom: string;

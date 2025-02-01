@@ -6,9 +6,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-	selector: 'app-folder-musicbrainz',
-	templateUrl: './folder-musicbrainz.component.html',
-	styleUrls: ['./folder-musicbrainz.component.scss']
+    selector: 'app-folder-musicbrainz',
+    templateUrl: './folder-musicbrainz.component.html',
+    styleUrls: ['./folder-musicbrainz.component.scss'],
+    standalone: false
 })
 export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 	folder?: Jam.Folder;

@@ -4,9 +4,10 @@ import {Jam} from '@jam';
 import {PlaylistEdit} from '@shared/services';
 
 @Component({
-	selector: 'app-dialog-new-playlist',
-	templateUrl: './dialog-playlist.component.html',
-	styleUrls: ['./dialog-playlist.component.scss']
+    selector: 'app-dialog-new-playlist',
+    templateUrl: './dialog-playlist.component.html',
+    styleUrls: ['./dialog-playlist.component.scss'],
+    standalone: false
 })
 export class DialogPlaylistComponent implements DialogOverlay<PlaylistEdit> {
 	showTrackPreview = false;

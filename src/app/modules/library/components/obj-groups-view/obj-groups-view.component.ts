@@ -7,9 +7,10 @@ interface ObjGroupsView {
 }
 
 @Component({
-	selector: 'app-obj-groups-view',
-	templateUrl: './obj-groups-view.component.html',
-	styleUrls: ['./obj-groups-view.component.scss']
+    selector: 'app-obj-groups-view',
+    templateUrl: './obj-groups-view.component.html',
+    styleUrls: ['./obj-groups-view.component.scss'],
+    standalone: false
 })
 export class ObjGroupsViewComponent implements OnChanges {
 	@Input() objs?: Array<JamLibraryObject>;

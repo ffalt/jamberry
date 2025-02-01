@@ -5,9 +5,10 @@ import {JamLibraryObject} from '@library/model/objects';
 import {MediaPlateComponent} from '@shared/components';
 
 @Component({
-	selector: 'app-obj-plate',
-	templateUrl: './obj-plate.component.html',
-	styleUrls: ['./obj-plate.component.scss']
+    selector: 'app-obj-plate',
+    templateUrl: './obj-plate.component.html',
+    styleUrls: ['./obj-plate.component.scss'],
+    standalone: false
 })
 export class ObjPlateComponent implements OnChanges, FocusableOption {
 	@Input() obj?: JamLibraryObject;
