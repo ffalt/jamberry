@@ -1,15 +1,20 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/view";
 
 :host {
 	.settings {
-		@include view-host();
+		@include view.view-host();
 
 		.content {
-			@include view-content();
-			padding: $padding $padding $padding-xl;
+			@include view.view-content();
+
+			& {
+				padding: variables.$padding variables.$padding variables.$padding-xl;
+			}
+
 			label {
 				display: block;
-				padding-bottom: $padding;
+				padding-bottom: variables.$padding;
 				color: var(--on-background);
 
 				input[type="checkbox"] {
@@ -20,7 +25,7 @@
 			}
 
 			fieldset {
-				margin-bottom: $margin;
+				margin-bottom: variables.$margin;
 				width: auto;
 				display: inline;
 			}
@@ -31,7 +36,7 @@
 				padding-bottom: 4px;
 
 				input {
-					margin-right: $margin-sm;
+					margin-right: variables.$margin-sm;
 				}
 			}
 

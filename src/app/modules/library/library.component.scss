@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	width: 100%;
@@ -27,7 +27,7 @@
 		height: 100%;
 	}
 
-	@media (max-width: $break-desktop-huge) {
+	@media (max-width: variables.$break-desktop-huge) {
 
 		.left {
 			width: 20%;
@@ -47,7 +47,7 @@
 
 	}
 
-	@media (max-width: $break-desktop-large) {
+	@media (max-width:variables.$break-desktop-large) {
 
 		.left {
 			width: 25%;
@@ -59,7 +59,7 @@
 
 	}
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		overflow: auto;
 		flex-flow: row wrap;
 
@@ -82,7 +82,7 @@
 
 	}
 
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		overflow: hidden;
 		height: auto;
 	}

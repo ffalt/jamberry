@@ -1,10 +1,10 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	.artwork {
 		display: inline-block;
-		padding-top: $padding;
-		padding-right: $padding;
+		padding-top: variables.$padding;
+		padding-right: variables.$padding;
 		font-size: 0.8em;
 		text-align: center;
 		width: 200px;
@@ -20,7 +20,7 @@
 
 			.dims, .size, .format, .mode {
 				position: absolute;
-				padding: $padding-xs;
+				padding: variables.$padding-xs;
 				background-color: var(--background-transparent);
 				color: var(--on-background-highlight);
 			}

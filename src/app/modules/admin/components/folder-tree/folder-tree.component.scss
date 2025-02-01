@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	width: 100%;
@@ -7,22 +7,22 @@
 	flex-direction: column;
 
 	.actions {
-		padding: $padding-sm $padding;
-		padding-top: $padding;
+		padding: variables.$padding-sm variables.$padding;
+		padding-top: variables.$padding;
 		background-color: var(--background-transparent);
 		color: var(--on-control);
 
 		.name {
-			padding-right: $padding-sm;
+			padding-right: variables.$padding-sm;
 			vertical-align: middle;
 			color: var(--on-control-active);
-			font-size: $large;
+			font-size: variables.$large;
 			font-weight: 100;
 		}
 	}
 
 	.tree {
-		margin-top: $margin-sm;
+		margin-top: variables.$margin-sm;
 		flex: 1;
 	}
 
@@ -58,7 +58,7 @@
 		}
 
 		.node-type {
-			padding-left: $padding-xs;
+			padding-left: variables.$padding-xs;
 			font-size: 0.7em;
 			text-transform: uppercase;
 		}
@@ -67,6 +67,5 @@
 			color: var(--on-control-hover);
 		}
 	}
-
 
 }

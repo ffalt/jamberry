@@ -1,6 +1,6 @@
-@import "globals.scss";
+@use "_scss/mixins/view";
 
 :host {
-	@include view-header();
-	@include view-header-slim();
+	@include view.view-header();
+	@include view.view-header-slim();
 }

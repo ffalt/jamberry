@@ -1,4 +1,4 @@
-@import "globals";
+@use "_scss/mixins/view";
 
 :host {
 	height: 100%;
@@ -8,6 +8,6 @@
 	display: block;
 
 	.start {
-		@include view-host();
+		@include view.view-host();
 	}
 }

@@ -1,21 +1,22 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/table";
 
 :host {
 	width: 100%;
 
 	.albums {
-		@include album-table();
+		@include table.album-table();
 
 		.heading, .album {
-			@include album-table-row();
+			@include table.album-table-row();
 		}
 
 		.heading {
-			@include album-table-header-row();
+			@include table.album-table-header-row();
 		}
 
 		.album {
-			@include album-table-data-row();
+			@include table.album-table-data-row();
 		}
 	}
 }

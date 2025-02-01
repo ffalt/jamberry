@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	height: 100%;
@@ -8,7 +8,7 @@
 	flex-direction: column;
 
 	.player-info {
-		padding: $padding;
+		padding: variables.$padding;
 		background-color: var(--control);
 		border-top-width: 1px;
 		border-top-style: solid;
@@ -19,7 +19,7 @@
 			display: flex;
 			flex-flow: row nowrap;
 			width: 100%;
-			margin-bottom: $margin-xs;
+			margin-bottom: variables.$margin-xs;
 
 			i {
 				color: var(--on-control-ambient);
@@ -36,12 +36,12 @@
 		app-volume-slider, app-speed-slider {
 			display: block;
 			flex: 1;
-			margin-left: $margin;
-			margin-top: $margin-xs;
+			margin-left: variables.$margin;
+			margin-top: variables.$margin-xs;
 		}
 
 		.progress {
-			font-size: $x-small;
+			font-size: variables.$x-small;
 
 			display: flex;
 			flex-flow: row;

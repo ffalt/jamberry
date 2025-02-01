@@ -1,24 +1,29 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/view";
+@use "_scss/mixins/list";
 
 :host {
 	.about {
-		@include view-host();
+		@include view.view-host();
 
 		app-view-header-slim {
-			padding-left: $padding-xl;
-			padding-right: $padding-xl;
+			padding-left: variables.$padding-xl;
+			padding-right: variables.$padding-xl;
 		}
 
 		.content {
-			@include view-content();
-			padding: 0 $padding-xl $padding-xl;
+			@include view.view-content();
 
-			@media (max-width: $break-phone) {
-				padding-left: $padding;
-				padding-right: $padding;
+			& {
+				padding: 0 variables.$padding-xl variables.$padding-xl;
 			}
 
-			@include key-value-list();
+			@media (max-width: variables.$break-phone) {
+				padding-left: variables.$padding;
+				padding-right: variables.$padding;
+			}
+
+			@include list.key-value-list();
 		}
 	}
 

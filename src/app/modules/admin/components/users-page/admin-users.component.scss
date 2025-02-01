@@ -1,4 +1,5 @@
-@import "globals";
+@use "_scss/mixins/view";
+@use "_scss/mixins/button";
 
 :host {
 	height: 100%;
@@ -8,14 +9,14 @@
 	display: block;
 
 	.users {
-		@include view-host();
+		@include view.view-host();
 
 		.actions {
-			@include header-actions-buttons();
+			@include button.header-actions-buttons();
 		}
 
 		.content {
-			@include view-content();
+			@include view.view-content();
 		}
 	}
 }

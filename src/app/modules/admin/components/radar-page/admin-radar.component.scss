@@ -1,4 +1,4 @@
-@import "globals";
+@use "_scss/variables";
 
 :host {
 	height: 100%;
@@ -12,7 +12,7 @@
 		flex-direction: column;
 
 		.content {
-			padding: $padding;
+			padding: variables.$padding;
 		}
 
 		.buttons {
@@ -20,17 +20,17 @@
 			display: inline-block;
 
 			> button {
-				margin-right: $margin-xs;
+				margin-right: variables.$margin-xs;
 			}
 		}
 
 		.current {
-			padding-top: $padding;
-			padding-bottom: $padding;
+			padding-top: variables.$padding;
+			padding-bottom: variables.$padding;
 			border-bottom: 1px solid var(--background-border);
 
 			span {
-				padding-right: $padding;
+				padding-right: variables.$padding;
 			}
 		}
 
@@ -38,16 +38,16 @@
 			border-bottom: 1px solid var(--background-border);
 
 			.meta {
-				padding-top: $padding;
-				padding-bottom: $padding;
+				padding-top: variables.$padding;
+				padding-bottom: variables.$padding;
 			}
 
 			.track-health {
-				padding-left: $padding;
+				padding-left: variables.$padding;
 			}
 		}
 
-		@media (max-width: $break-pad) {
+		@media (max-width: variables.$break-pad) {
 			.current span {
 				display: block;
 			}

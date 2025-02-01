@@ -1,10 +1,10 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: var(--background-border);
-	padding: $padding;
+	padding: variables.$padding;
 	display: flex;
 	flex-flow: row wrap;
 
@@ -22,7 +22,7 @@
 	.meta {
 
 		width: calc(100% - 152px);
-		margin-left: $margin;
+		margin-left: variables.$margin;
 		display: flex;
 		flex-flow: column wrap;
 		position: relative;
@@ -60,7 +60,7 @@
 		}
 
 		.name {
-			font-size: $x-large;
+			font-size: variables.$x-large;
 			font-weight: 100;
 			color: var(--on-background-highlight);
 
@@ -74,7 +74,7 @@
 		}
 
 		.description {
-			font-size: $small;
+			font-size: variables.$small;
 			line-height: 1.2em;
 		}
 
@@ -82,12 +82,12 @@
 			margin-top: auto;
 
 			button {
-				margin-bottom: $margin-xs;
-				margin-right: $margin-xs;
+				margin-bottom: variables.$margin-xs;
+				margin-right: variables.$margin-xs;
 				height: 27px;
 
 				font-weight: 500;
-				padding: 1px $padding 0;
+				padding: 1px variables.$padding 0;
 
 				i {
 					transform: scale(1.3);
@@ -119,14 +119,14 @@
 		}
 	}
 
-	@media (max-width: $break-mobile) {
+	@media (max-width: variables.$break-mobile) {
 		padding-left: 0;
 		padding-right: 0;
 		.meta {
 			font-size: 0.8em;
 
 			.name {
-				font-size: $medium;
+				font-size: variables.$medium;
 			}
 		}
 	}

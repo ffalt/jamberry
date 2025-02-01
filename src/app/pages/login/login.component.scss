@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 
@@ -24,7 +24,7 @@
 
 		.login-card {
 			overflow: hidden;
-			padding: $padding-lg;
+			padding: variables.$padding-lg;
 			min-width: 274px;
 			max-width: 400px;
 			margin: 0 auto 10px;
@@ -98,7 +98,7 @@
 			}
 		}
 
-		@media (max-width: $break-phone) {
+		@media (max-width: variables.$break-phone) {
 			margin-top: -20px;
 
 			.container-login {

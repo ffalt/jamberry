@@ -1,8 +1,9 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/input";
 
 :host {
 	form {
-		@include input-box-content();
+		@include input.input-box-content();
 		display: flex;
 		flex-wrap: nowrap;
 	}

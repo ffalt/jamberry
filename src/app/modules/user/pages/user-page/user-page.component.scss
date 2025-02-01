@@ -1,26 +1,30 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/view";
 
 :host {
 	.user {
-		@include view-host();
+		@include view.view-host();
 
 		.content {
-			@include view-content();
-			padding: $padding $padding $padding-xl;
+			@include view.view-content();
+
+			& {
+				padding: variables.$padding variables.$padding variables.$padding-xl;
+			}
 
 			.section {
-				padding-bottom: $padding-lg;
+				padding-bottom: variables.$padding-lg;
 			}
 
 			.row {
 				display: flex;
 				flex-direction: row;
-				gap: $padding-xs;
+				gap: variables.$padding-xs;
 
 				.column.first {
 				}
 
-				@media (max-width: $break-mobile) {
+				@media (max-width: variables.$break-mobile) {
 					flex-direction: column;
 				}
 			}

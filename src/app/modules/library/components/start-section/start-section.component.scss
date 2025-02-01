@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 
@@ -14,9 +14,9 @@
 	.start-section {
 		text-transform: uppercase;
 		letter-spacing: 1.25px;
-		font-size: $x-small;
-		padding-top: $padding;
-		padding-bottom: $padding;
+		font-size: variables.$x-small;
+		padding-top: variables.$padding;
+		padding-bottom: variables.$padding;
 	}
 
 	.start-item {
@@ -25,8 +25,8 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding-top: $padding-xs;
-		padding-bottom: $padding-xs;
+		padding-top: variables.$padding-xs;
+		padding-bottom: variables.$padding-xs;
 		color: var(--on-control-ambient);
 		border-bottom-color: var(--control-border);
 		border-top-color: var(--control-border);
@@ -44,10 +44,10 @@
 		.title {
 			//width: 100%;
 			color: var(--on-background-highlight);
-			padding-left: $padding;
+			padding-left: variables.$padding;
 			text-overflow: ellipsis;
 			font-weight: 200;
-			font-size: $small;
+			font-size: variables.$small;
 			line-height: 1.1em;
 			white-space: nowrap;
 			overflow: hidden;

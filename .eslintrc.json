@@ -42,6 +42,7 @@
 						"style": "camelCase"
 					}
 				],
+				"@angular-eslint/prefer-standalone": "off",
 				"@angular-eslint/no-attribute-decorator": "error",
 				"@angular-eslint/no-forward-ref": "off",
 				"@angular-eslint/no-lifecycle-call": "error",
@@ -254,6 +255,7 @@
 							":xlink:href",
 							"clip-path",
 							"accept",
+							"output",
 							"attributeName",
 							"attributeType"
 						]

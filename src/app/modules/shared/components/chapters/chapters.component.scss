@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	.chapters {
@@ -16,24 +16,24 @@
 
 		.chapter-start {
 			margin-left: -50px;
-			font-size: $x-small;
+			font-size: variables.$x-small;
 			display: inline-block;
 			text-align: right;
 			width: 50px;
-			padding-right: $padding-sm;
+			padding-right: variables.$padding-sm;
 			letter-spacing: 1px;
 			color: var(--on-background-highlight)
 		}
 
 		.chapter-title {
-			font-size: $small;
+			font-size: variables.$small;
 		}
 
-		@media (max-width: $break-phone) {
+		@media (max-width: variables.$break-phone) {
 			columns: 1;
 		}
 
-		@media (max-width: $break-watch) {
+		@media (max-width: variables.$break-watch) {
 
 		}
 

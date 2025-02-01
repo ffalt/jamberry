@@ -1,6 +1,6 @@
-import { TextEncoder, TextDecoder } from 'util';
+import {TextEncoder, TextDecoder} from 'util';
 
-Object.assign(global, { TextDecoder, TextEncoder });
+Object.assign(global, {TextDecoder, TextEncoder});
 
 Object.defineProperty(window, 'CSS', {value: null});
 Object.defineProperty(document, 'doctype', {value: '<!DOCTYPE html>'});
@@ -10,6 +10,12 @@ Object.defineProperty(window, 'getComputedStyle', {
 		appearance: ['-webkit-appearance']
 	})
 });
+
+Object.defineProperty(URL, 'createObjectURL', {
+	writable: true,
+	value: jest.fn()
+})
+
 /**
  * ISSUE: https://github.com/angular/material2/issues/7101
  * Workaround for JSDOM missing transform property

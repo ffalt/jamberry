@@ -1,3 +1,3 @@
-@import "style/_scss/_normalize";
-@import "style/globals.scss";
-@import "style/_scss/base";
+@use "style/_scss/_normalize";
+@use "style/_scss/variables";
+@use "style/_scss/base";

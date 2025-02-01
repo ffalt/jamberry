@@ -1,4 +1,6 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/table";
+@use "_scss/mixins/button";
 
 :host {
 	position: relative;
@@ -29,7 +31,7 @@
 	}
 
 	.tracks {
-		@include track-table();
+		@include table.track-table();
 		overflow-x: hidden;
 		max-width: 100%;
 	}
@@ -48,7 +50,7 @@
 			min-height: 40px;
 			height: 40px;
 			max-height: 40px;
-			@include button();
+			@include button.button();
 			background-color: var(--control);
 			border-color: var(--control);
 			color: var(--on-control);
@@ -60,6 +62,6 @@
 
 .cdk-drag-preview {
 	color: #fff;
-	@include track-table-row();
-	@include track-table-data-row();
+	@include table.track-table-row();
+	@include table.track-table-data-row();
 }

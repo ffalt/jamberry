@@ -1,8 +1,10 @@
+@use "../variables";
+
 @mixin note {
 
 	.note {
 		display: block;
-		padding: $padding;
+		padding: variables.$padding;
 		border-radius: 4px;
 		font-weight: 200;
 		font-size: 13px;
@@ -13,7 +15,7 @@
 	}
 
 	.info-footnote {
-		margin-top: $margin;
+		margin-top: variables.$margin;
 	}
 
 }

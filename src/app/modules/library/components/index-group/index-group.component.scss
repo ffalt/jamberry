@@ -1,16 +1,17 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/cards";
 
 :host {
 	.index-cards {
-		@include media-cards();
+		@include cards.media-cards();
 
 		.index-card-placeholder {
-			@include media-card();
+			@include cards.media-card();
 		}
 	}
 
 	.title {
-		padding: $padding-sm;
+		padding: variables.$padding-sm;
 		min-height: 48px;
 		line-height: 1.25em;
 		font-size: 0.9em;
@@ -19,8 +20,8 @@
 		display: flex;
 
 		&:after {
-			font-family: $icon-font-family;
-			content: $icon-font-chevron-down-char;
+			font-family: variables.$icon-font-family;
+			content: variables.$icon-font-chevron-down-char;
 			padding-left: 4px;
 		}
 

@@ -1,5 +1,5 @@
-@import "globals.scss";
+@use "_scss/mixins/note";
 
 :host {
-	@include note();
+	@include note.note();
 }

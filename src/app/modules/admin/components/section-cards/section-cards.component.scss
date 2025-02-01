@@ -1,10 +1,11 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/cards";
 
 :host {
-	@include media-cards();
+	@include cards.media-cards();
 
 	.section-card {
-		@include media-card();
+		@include cards.media-card();
 
 		.image {
 			min-height: 135px;

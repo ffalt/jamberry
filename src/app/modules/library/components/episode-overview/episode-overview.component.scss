@@ -1,6 +1,7 @@
-@import "globals.scss";
+@use "_scss/mixins/view";
+@use "_scss/mixins/list";
 
 :host {
-	@include view-content();
-	@include key-value-list();
+	@include view.view-content();
+	@include list.key-value-list();
 }

@@ -1,11 +1,13 @@
-@import "globals.scss";
+@use "_scss/mixins/view";
+@use "_scss/mixins/input";
 
 :host {
 	.search {
-		@include view-host();
-		@include input-box-large();
+		@include view.view-host();
+		@include input.input-box-large();
+
 		.content {
-			@include view-content();
+			@include view.view-content();
 		}
 	}
 }

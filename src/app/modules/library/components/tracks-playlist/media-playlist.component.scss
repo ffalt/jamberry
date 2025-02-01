@@ -1,15 +1,15 @@
-@import "globals.scss";
+@use "_scss/mixins/table";
 
 :host {
 	width: 100%;
 
 	.tracks {
-		@include track-table();
+		@include table.track-table();
 	}
 }
 
 .cdk-drag-preview {
 	color: #fff;
-	@include track-table-row();
-	@include track-table-data-row();
+	@include table.track-table-row();
+	@include table.track-table-data-row();
 }

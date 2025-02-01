@@ -1,4 +1,5 @@
-@import "globals";
+@use "_scss/variables";
+@use "_scss/mixins/button";
 
 :host {
 	height: 100%;
@@ -7,7 +8,7 @@
 	display: block;
 
 	.actions {
-		@include action-buttons();
+		@include button.action-buttons();
 	}
 
 	.folder {
@@ -26,18 +27,18 @@
 				display: flex;
 				flex-wrap: wrap;
 				flex-direction: row;
-				padding: $padding;
+				padding: variables.$padding;
 
 				& > div {
 					flex: 0 0 50%;
 
-					@media (max-width: $break-phone) {
+					@media (max-width: variables.$break-phone) {
 						flex: 0 0 100%;
 					}
 
 					& > div {
-						padding-top: $padding-xs;
-						padding-bottom: $padding-xs;
+						padding-top: variables.$padding-xs;
+						padding-bottom: variables.$padding-xs;
 
 						> div {
 							color: var(--on-background-highlight);
@@ -58,7 +59,6 @@
 							padding-bottom: 2px;
 						}
 
-
 					}
 				}
 			}
@@ -67,7 +67,7 @@
 				border-top: 1px solid var(--background-border);
 
 				.artworks-content {
-					padding: 0 $padding $padding;
+					padding: 0 variables.$padding variables.$padding;
 				}
 			}
 		}

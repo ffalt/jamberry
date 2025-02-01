@@ -1,8 +1,8 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	display: block;
-	padding: $padding-lg;
+	padding: variables.$padding-lg;
 	border-radius: 4px;
 	font-weight: 200;
 	font-size: 13px;
@@ -12,12 +12,12 @@
 	color: var(--on-background-highlight);
 
 	.info-footnote {
-		margin-top: $margin;
+		margin-top: variables.$margin;
 		font-size: 0.9em;
 	}
 
 	button {
-		margin-top: $margin;
+		margin-top: variables.$margin;
 	}
 
 }

@@ -1,4 +1,5 @@
-@import "globals";
+@use "_scss/variables";
+@use "_scss/mixins/button";
 
 :host {
 	height: 100%;
@@ -11,11 +12,11 @@
 		flex-direction: column;
 
 		.actions {
-			@include action-buttons();
+			@include button.action-buttons();
 		}
 
 		.content {
-			padding: $padding;
+			padding: variables.$padding;
 			overflow-y: auto;
 			overflow-x: auto;
 		}
@@ -26,7 +27,7 @@
 			.meta {
 				width: 30%;
 				overflow: hidden;
-				padding-right: $padding;
+				padding-right: variables.$padding;
 				text-overflow: ellipsis;
 			}
 

@@ -1,14 +1,14 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	.match-apply {
 		flex: 1 1 auto;
 		overflow-y: auto;
 		overflow-x: auto;
-		padding: $padding;
+		padding: variables.$padding;
 
 		> div {
-			padding-bottom: $padding-sm;
+			padding-bottom: variables.$padding-sm;
 		}
 
 		.label {
@@ -37,7 +37,7 @@
 	.section {
 		color: var(--on-background-highlight);
 		text-transform: uppercase;
-		padding-bottom: $padding-sm;
+		padding-bottom: variables.$padding-sm;
 		white-space: nowrap;
 	}
 
@@ -47,7 +47,7 @@
 
 	.match-track-moods {
 		border-top: 1px solid var(--background-border);
-		padding-top: $padding;
+		padding-top: variables.$padding;
 	}
 }
 

@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	background-color: var(--background);
@@ -10,7 +10,7 @@
 		border-top-style: solid;
 		border-top-color: var(--control-border);
 
-		padding: $padding $padding $padding-sm;
+		padding: variables.$padding variables.$padding variables.$padding-sm;
 		display: flex;
 		flex-flow: row wrap;
 		align-items: center;
@@ -45,18 +45,18 @@
 			align-items: center;
 
 			button {
-				font-size: $x-large;
+				font-size: variables.$x-large;
 			}
 
 			.play {
-				font-size: $xx-large;
+				font-size: variables.$xx-large;
 			}
 		}
 
 		.progress {
 			flex: 1;
-			padding: 0 $padding;
-			font-size: $x-small;
+			padding: 0 variables.$padding;
+			font-size: variables.$x-small;
 
 			display: flex;
 			flex-flow: row;
@@ -80,7 +80,7 @@
 
 			.player-controls {
 				width: auto;
-				margin-right: $margin;
+				margin-right: variables.$margin;
 				text-align: right;
 				flex: 1;
 				flex-wrap: nowrap;
@@ -91,7 +91,7 @@
 			}
 
 			.player-control {
-				margin-right: $padding-xs;
+				margin-right: variables.$padding-xs;
 				font-size: 1.5em;
 				border-radius: 2px;
 				line-height: 1.5em;
@@ -105,7 +105,7 @@
 				display: block;
 				flex: 1;
 				min-width: 70px;
-				margin-right: $padding-xs;
+				margin-right: variables.$padding-xs;
 			}
 
 			.volume {
@@ -138,7 +138,7 @@
 
 		}
 
-		@media (max-width: $break-desktop-large) {
+		@media (max-width:variables.$break-desktop-large) {
 
 			.options {
 				.player-control.button-queue {
@@ -147,15 +147,15 @@
 			}
 		}
 
-		@media (max-width: $break-notebook) {
+		@media (max-width: variables.$break-notebook) {
 
 			.options {
-				padding-left: $padding;
+				padding-left: variables.$padding;
 			}
 
 		}
 
-		@media (max-width: $break-pad) {
+		@media (max-width: variables.$break-pad) {
 
 			.actions {
 				width: 25%;
@@ -180,40 +180,40 @@
 			}
 
 			.action {
-				padding-top: $padding;
+				padding-top: variables.$padding;
 			}
 
 		}
 
-		@media (max-width: $break-phone) {
+		@media (max-width: variables.$break-phone) {
 
 			.actions {
 				width: 100%;
 				justify-content: space-around;
-				padding: $padding-xs 0;
+				padding: variables.$padding-xs 0;
 			}
 
 			.progress {
 				width: 100%;
-				padding: $padding-xs 0;
+				padding: variables.$padding-xs 0;
 			}
 
 			.options {
-				padding: $padding-xs 0;
+				padding: variables.$padding-xs 0;
 			}
 
 		}
 
 	}
 
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		border-top: 1px solid var(--background-border);
 
 		.player {
 			border-top: 1px solid var(--control-box-border);
 
 			.progress {
-				margin-top: $margin-sm;
+				margin-top: variables.$margin-sm;
 			}
 
 			.options {

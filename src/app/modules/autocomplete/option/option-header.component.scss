@@ -1,9 +1,9 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	display: block;
-	padding: $padding-xs;
-	font-size: $x-small;
+	padding: variables.$padding-xs;
+	font-size: variables.$x-small;
 	background-color: var(--control-box);
 	color: var(--on-control);
 	text-transform: uppercase;

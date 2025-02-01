@@ -1,4 +1,5 @@
-@import "globals";
+@use "_scss/variables";
+@use "_scss/mixins/button";
 
 :host {
 	height: 100%;
@@ -11,11 +12,11 @@
 		flex-direction: column;
 
 		.actions {
-			@include action-buttons();
+			@include button.action-buttons();
 		}
 
 		.health-content {
-			padding: $padding;
+			padding: variables.$padding;
 			overflow-y: auto;
 			overflow-x: auto;
 		}
@@ -24,15 +25,15 @@
 			border-bottom-width: 1px;
 			border-bottom-style: solid;
 			border-bottom-color: var(--background-border);
-			padding: $padding;
+			padding: variables.$padding;
 			display: flex;
 			flex-flow: row wrap;
 			flex-flow: row nowrap;
 
 			.meta {
 				width: 30%;
-				padding-right: $padding;
-				margin-left: $margin;
+				padding-right: variables.$padding;
+				margin-left: variables.$margin;
 				display: flex;
 				flex-flow: column wrap;
 				position: relative;
@@ -53,7 +54,7 @@
 				}
 
 				.name {
-					font-size: $x-large;
+					font-size: variables.$x-large;
 					font-weight: 100;
 					color: var(--on-background-highlight);
 
@@ -67,7 +68,7 @@
 				}
 
 				.description {
-					font-size: $small;
+					font-size: variables.$small;
 					line-height: 1.2em;
 				}
 
@@ -75,12 +76,12 @@
 					margin-top: auto;
 
 					button {
-						margin-bottom: $margin-xs;
-						margin-right: $margin-xs;
+						margin-bottom: variables.$margin-xs;
+						margin-right: variables.$margin-xs;
 						height: 27px;
 
 						font-weight: 500;
-						padding: 1px $padding 0;
+						padding: 1px variables.$padding 0;
 
 						i {
 							transform: scale(1.3);
@@ -116,14 +117,14 @@
 				display: flex;
 				width: 70%;
 			}
-			@media (max-width: $break-mobile) {
+			@media (max-width: variables.$break-mobile) {
 				padding-left: 0;
 				padding-right: 0;
 				.meta {
 					font-size: 0.8em;
 
 					.name {
-						font-size: $medium;
+						font-size: variables.$medium;
 					}
 				}
 			}

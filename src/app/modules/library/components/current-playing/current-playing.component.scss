@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 
@@ -13,15 +13,15 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding-top: $padding-xs;
-		padding-bottom: $padding-xs;
+		padding-top: variables.$padding-xs;
+		padding-bottom: variables.$padding-xs;
 		background-color: var(--control);
 		color: var(--on-control-ambient);
 		border-bottom-color: var(--control-border);
 		border-top-color: var(--control-border);
 
 		.art {
-			padding-left: $padding;
+			padding-left: variables.$padding;
 
 			img {
 				width: 50px;
@@ -30,10 +30,10 @@
 		}
 
 		.song {
-			padding-left: $padding;
+			padding-left: variables.$padding;
 
 			font-weight: 200;
-			font-size: $small;
+			font-size: variables.$small;
 			line-height: 1.1em;
 
 			display: flex;
@@ -47,7 +47,7 @@
 
 		.fav {
 			margin-left: auto;
-			padding-right: $padding;
+			padding-right: variables.$padding;
 		}
 
 
@@ -58,7 +58,7 @@
 		}
 	}
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		.playing {
 			border-top-width: 1px;
 		}

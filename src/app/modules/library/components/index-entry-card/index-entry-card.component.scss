@@ -1,7 +1,8 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/cards";
 
 :host {
-	@include media-card();
+	@include cards.media-card();
 
 	img {
 		width: 100%

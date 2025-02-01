@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/mixins/view";
 
 :host {
 	height: 100%;
@@ -8,10 +8,10 @@
 	flex: 0 1 100%;
 
 	.obj {
-		@include view-host();
+		@include view.view-host();
 
 		.content {
-			@include view-content();
+			@include view.view-content();
 		}
 	}
 }

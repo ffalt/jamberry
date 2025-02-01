@@ -1,7 +1,9 @@
+@use "../variables";
+
 @mixin key-value-list {
 	.section-title {
-		padding-top: $padding-lg;
-		padding-bottom: $padding;
+		padding-top: variables.$padding-lg;
+		padding-bottom: variables.$padding;
 	}
 	.key-value-row {
 		border-top-width: 1px;
@@ -24,7 +26,7 @@
 		}
 
 		> div:last-of-type {
-			padding-left: $padding;
+			padding-left: variables.$padding;
 			width: 60%;
 			color: var(--on-background-highlight);
 
@@ -38,12 +40,12 @@
 		}
 
 		div {
-			padding-top: $padding-sm;
-			padding-bottom: $padding-sm;
+			padding-top: variables.$padding-sm;
+			padding-bottom: variables.$padding-sm;
 
 			span {
 				display: inline-block;
-				padding-right: $padding;
+				padding-right: variables.$padding;
 			}
 		}
 	}

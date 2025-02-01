@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	.drop-zone {
@@ -7,17 +7,17 @@
 		min-width: 220px;
 		min-height: 140px;
 		border-width: 2px;
-		margin-bottom: $margin;
-		margin-right: $margin;
+		margin-bottom: variables.$margin;
+		margin-right: variables.$margin;
 		border-style: dotted;
 		border-color: var(--secondary);
-		padding-left: $padding;
-		padding-right: $padding;
-		padding-bottom: $padding;
+		padding-left: variables.$padding;
+		padding-right: variables.$padding;
+		padding-bottom: variables.$padding;
 		text-align: center;
 
 		app-coverart-image {
-			margin: 0 auto $margin-sm;
+			margin: 0 auto variables.$margin-sm;
 		}
 
 		.inputfile {
@@ -30,7 +30,7 @@
 		}
 
 		button {
-			margin-bottom: $margin-sm;
+			margin-bottom: variables.$margin-sm;
 			min-width: 80%;
 			display: inline-block;
 		}
@@ -46,8 +46,8 @@
 
 		.placeholder {
 			width: 100%;
-			padding-top: $padding;
-			padding-bottom: $padding;
+			padding-top: variables.$padding;
+			padding-bottom: variables.$padding;
 			text-align: center;
 			color: var(--on-control-ambient);
 			font-size: 0.8em;

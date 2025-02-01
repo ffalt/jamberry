@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	.section-content {
@@ -6,10 +6,10 @@
 		flex-flow: row wrap;
 
 		> app-start-section {
-			margin-top: $margin;
+			margin-top: variables.$margin;
 			width: 50%;
-			padding-right: $padding-sm;
-			@media (max-width: $break-phone) {
+			padding-right: variables.$padding-sm;
+			@media (max-width: variables.$break-phone) {
 				width: 100%;
 			}
 		}

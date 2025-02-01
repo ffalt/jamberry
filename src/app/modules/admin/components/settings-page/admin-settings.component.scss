@@ -1,4 +1,4 @@
-@import "globals";
+@use "_scss/variables";
 
 :host {
 	.settings {
@@ -6,14 +6,14 @@
 		overflow-x: hidden;
 		height: 100%;
 		.content {
-			padding: $padding $padding 0;
+			padding: variables.$padding variables.$padding 0;
 
 			.chat-max-age {
 				display: inline-block;
 			}
 
 			.section-entry {
-				padding-bottom: $padding;
+				padding-bottom: variables.$padding;
 			}
 
 			label {

@@ -1,32 +1,36 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/table";
 
 :host {
 	.match-file-list {
-		@include track-table();
+		@include table.track-table();
 
 		.match-file-list-header {
 			text-align: center;
-			padding-bottom: $padding-xs;
+			padding-bottom: variables.$padding-xs;
 		}
 
 		.match-file {
-			@include track-table-row();
-			@include track-table-data-row();
-			padding-left: 0;
+			@include table.track-table-row();
+			@include table.track-table-data-row();
+
+			& {
+				padding-left: 0;
+			}
 
 			.title {
 				span {
-					font-size: $x-small;
+					font-size: variables.$x-small;
 
 					&.value {
 						color: var(--on-background-highlight);
-						padding-right: $padding-xs;
+						padding-right: variables.$padding-xs;
 					}
 				}
 			}
 		}
 
-		@media (max-width: $break-pad) {
+		@media (max-width: variables.$break-pad) {
 			.handle {
 				display: none;
 			}

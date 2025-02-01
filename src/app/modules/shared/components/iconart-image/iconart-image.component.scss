@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	text-align: center;
@@ -10,7 +10,7 @@
 		color: var(--on-control-hover);
 	}
 
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		min-width: inherit;
 		text-align: center;
 		i {

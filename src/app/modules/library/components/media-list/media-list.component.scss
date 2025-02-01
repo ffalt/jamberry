@@ -1,21 +1,21 @@
-@import "globals.scss";
+@use "_scss/mixins/table";
 
 :host {
 	width: 100%;
 
 	.tracks {
-		@include track-table();
+		@include table.track-table();
 
 		.heading, .track {
-			@include track-table-row();
+			@include table.track-table-row();
 		}
 
 		.heading {
-			@include track-table-header-row();
+			@include table.track-table-header-row();
 		}
 
 		.track {
-			@include track-table-data-row();
+			@include table.track-table-data-row();
 		}
 	}
 

@@ -1,18 +1,19 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/table";
 
 :host {
 	width: 100%;
 
 	.episodes {
-		@include track-table();
+		@include table.track-table();
 
 		.heading, .episode {
-			@include track-table-row();
+			@include table.track-table-row();
 
 			.date {
 				width: 100px;
 				min-width: 100px;
-				margin-left: $margin;
+				margin-left: variables.$margin;
 			}
 
 			.state {
@@ -23,16 +24,16 @@
 		}
 
 		.heading {
-			@include track-table-header-row();
+			@include table.track-table-header-row();
 		}
 
 		.episode {
-			@include track-table-data-row();
+			@include table.track-table-data-row();
 		}
 
 	}
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		.episodes {
 			.episode {
 				.state {
@@ -54,7 +55,7 @@
 		}
 	}
 
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		.episodes {
 			.episode {
 				flex-flow: row wrap;
@@ -87,7 +88,7 @@
 		}
 	}
 
-	@media (max-width: $break-watch) {
+	@media (max-width: variables.$break-watch) {
 		.episodes {
 			.episode {
 

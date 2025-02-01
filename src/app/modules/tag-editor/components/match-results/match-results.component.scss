@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 
@@ -17,11 +17,11 @@
 
 		.value {
 			color: var(--on-background-highlight);
-			padding-right: $padding-xs;
+			padding-right: variables.$padding-xs;
 		}
 
 		.match-releasegroup {
-			padding: $padding-xs $padding-xs $padding-xs $padding;
+			padding: variables.$padding-xs variables.$padding-xs variables.$padding-xs variables.$padding;
 
 			.match-release-info, .match-tracks-info {
 				font-size: 0.8em;
@@ -59,7 +59,7 @@
 
 			.match-release {
 				white-space: nowrap;
-				padding: $padding-xs $padding-xs $padding-xs 42px;
+				padding: variables.$padding-xs variables.$padding-xs variables.$padding-xs 42px;
 			}
 		}
 

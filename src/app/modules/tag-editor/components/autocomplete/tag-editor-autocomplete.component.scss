@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	width: 100%;
@@ -12,9 +12,9 @@
 			width: 100%;
 			background-color: var(--input);
 			color: var(--on-input);
-			border-radius: $border-radius;
-			padding-left: $border-radius-padding;
-			padding-right: $border-radius-padding;
+			border-radius: variables.$border-radius;
+			padding-left: variables.$border-radius-padding;
+			padding-right: variables.$border-radius-padding;
 		}
 
 		&.cell {

@@ -1,10 +1,12 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/close";
+@use "_scss/mixins/input";
 
 :host {
 
 	.column-tools {
 		border: 1px solid var(--control-border);
-		padding-bottom: $padding;
+		padding-bottom: variables.$padding;
 
 		.close-panel {
 			float: right;
@@ -14,21 +16,21 @@
 			height: 2.5rem;
 			max-width: 2.5rem;
 			max-height: 2.5rem;
-			margin-top: -$padding;
-			@include close();
+			margin-top: -(variables.$padding);
+			@include close.close();
 		}
 
 		.column-tools-title {
-			padding-top: $padding;
-			padding-left: $padding;
-			padding-right: $padding;
+			padding-top: variables.$padding;
+			padding-left: variables.$padding;
+			padding-right: variables.$padding;
 
 			span {
 				color: var(--on-control-active);
 			}
 		}
 
-		@include input-box();
+		@include input.input-box();
 
 		.input-box {
 			display: flex;
@@ -67,7 +69,7 @@
 		}
 
 		.column-tool {
-			padding: $padding $padding 0;
+			padding: variables.$padding variables.$padding 0;
 			font-size: 0.8em;
 			align-self: center;
 		}

@@ -1,11 +1,11 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	.queue-overlay {
 		position: fixed;
 		right: 16px;
 		bottom: 16px;
-		padding: $padding;
+		padding: variables.$padding;
 		background-color: var(--control);
 		color: var(--on-control);
 		border: 1px solid var(--control-border);

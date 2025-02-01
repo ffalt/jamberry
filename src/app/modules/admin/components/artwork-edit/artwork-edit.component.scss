@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	width: 100%;
@@ -13,13 +13,13 @@
 	.image-crop {
 		display: inline-block;
 		text-align: center;
-		margin-left: $margin-sm;
-		margin-right: $margin-sm;
+		margin-left: variables.$margin-sm;
+		margin-right: variables.$margin-sm;
 	}
 
 	.image-preview {
-		margin-left: $margin-sm;
-		margin-right: $margin-sm;
+		margin-left: variables.$margin-sm;
+		margin-right: variables.$margin-sm;
 		display: inline-block;
 
 		img {
@@ -29,8 +29,8 @@
 
 	//.artwork {
 	//	display: inline-block;
-	//	padding-top: $padding;
-	//	padding-right: $padding;
+	//	padding-top: variables.$padding;
+	//	padding-right: variables.$padding;
 	//	font-size: 0.8em;
 	//	text-align: center;
 	//}

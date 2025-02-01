@@ -1,5 +1,5 @@
-@import "globals.scss";
+@use "_scss/mixins/view";
 
 :host {
-	@include view-content();
+	@include view.view-content();
 }

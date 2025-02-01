@@ -1,16 +1,16 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 
 	input[type="text"] {
 		width: 100%;
 		line-height: 1.3em;
-		padding: $padding-xs;
+		padding: variables.$padding-xs;
 		min-width: 300px;
 	}
 
 	input[type="radio"] {
-		margin-right: $margin-xs;
+		margin-right: variables.$margin-xs;
 	}
 
 	.root-form-control {
@@ -19,7 +19,7 @@
 	}
 
 	.select {
-		margin-right: $margin;
+		margin-right: variables.$margin;
 		display: block;
 		font-size: 0.8em;
 		line-height: 1.5em;

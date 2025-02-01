@@ -1,7 +1,8 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/view";
 
 :host {
-	@include view-content();
+	@include view.view-content();
 
 	.breadcrumb {
 		list-style: none;
@@ -9,7 +10,7 @@
 
 		li {
 			display: inline;
-			font-size: $small;
+			font-size: variables.$small;
 		}
 
 		li + li:before {

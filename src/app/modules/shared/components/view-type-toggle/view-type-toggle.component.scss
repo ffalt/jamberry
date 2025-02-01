@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	border-bottom-width: 1px;
@@ -7,14 +7,14 @@
 
 	.view-type {
 		min-height: 30px;
-		margin-top: $margin-sm;
-		margin-bottom: $margin-sm;
+		margin-top: variables.$margin-sm;
+		margin-bottom: variables.$margin-sm;
 
 		.section-title {
 			text-transform: uppercase;
 			letter-spacing: 1.25px;
-			font-size: $x-small * 1.2;
-			margin-top: $margin-sm;
+			font-size: variables.$x-small * 1.2;
+			margin-top: variables.$margin-sm;
 			color: var(--on-control-ambient);
 		}
 

@@ -1,8 +1,8 @@
-@import "globals.scss";
+@use "_scss/mixins/table";
 
 :host {
 	.heading {
-		@include track-table-row();
-		@include track-table-header-row();
+		@include table.track-table-row();
+		@include table.track-table-header-row();
 	}
 }

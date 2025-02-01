@@ -1,22 +1,23 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/table";
 
 :host {
 
 	.section {
-		margin-bottom: $margin-lg;
+		margin-bottom: variables.$margin-lg;
 	}
 
 	.section-title {
 		text-transform: uppercase;
 		letter-spacing: 1.25px;
-		font-size: $x-small * 1.2;
-		margin-bottom: $margin-sm;
+		font-size: variables.$x-small * 1.2;
+		margin-bottom: variables.$margin-sm;
 		color: var(--on-control-ambient);
 	}
 
 	.url-type {
-		font-size: $small;
-		margin-bottom: $margin-sm;
+		font-size: variables.$small;
+		margin-bottom: variables.$margin-sm;
 
 		span {
 			text-transform: uppercase;
@@ -25,18 +26,18 @@
 	}
 
 	.releasegroups {
-		@include album-table();
+		@include table.album-table();
 
 		.heading, .releasegroup {
-			@include album-table-row();
+			@include table.album-table-row();
 		}
 
 		.heading {
-			@include album-table-header-row();
+			@include table.album-table-header-row();
 		}
 
 		.releasegroup {
-			@include album-table-data-row();
+			@include table.album-table-data-row();
 		}
 
 	}

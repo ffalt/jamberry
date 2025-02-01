@@ -1,4 +1,5 @@
-@import "./mixins/button";
+@use "mixins/button";
+@use "variables";
 
 * {
 	box-sizing: border-box;
@@ -9,7 +10,7 @@
 }
 
 body {
-	font-family: $default-font-family, "Helvetica Neue", sans-serif;
+	font-family: variables.$default-font-family, "Helvetica Neue", sans-serif;
 	margin: 0;
 }
 
@@ -121,7 +122,7 @@ a {
 }
 
 .button-primary {
-	@include base-button();
+	@include button.base-button();
 	background-color: var(--primary);
 	color: var(--on-primary);
 	border-color: var(--primary);
@@ -134,7 +135,7 @@ a {
 }
 
 .button-accent {
-	@include button();
+	@include button.button();
 	background-color: var(--accent);
 	color: var(--on-accent);
 	border-color: var(--accent);
@@ -147,7 +148,7 @@ a {
 }
 
 .button-on-background {
-	@include button();
+	@include button.button();
 	background-color: var(--control);
 	color: var(--on-control);
 	border-color: var(--on-control);
@@ -159,7 +160,7 @@ a {
 }
 
 .button-on-control {
-	@include button();
+	@include button.button();
 	background-color: var(--control);
 	color: var(--on-control);
 	border-color: var(--on-control);
@@ -181,8 +182,8 @@ a {
 	border-left-width: 0;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
-	padding-left: $padding-xs;
-	padding-right: $padding-xs;
+	padding-left: variables.$padding-xs;
+	padding-right: variables.$padding-xs;
 }
 
 .button-small {
@@ -190,11 +191,11 @@ a {
 }
 
 .button-medium {
-	padding: $padding-xs;
+	padding: variables.$padding-xs;
 }
 
 input[type="text"], input[type="number"], input[type="password"], input[type="email"], textarea {
-	border-radius: $border-radius;
+	border-radius: variables.$border-radius;
 	border: 1px solid var(--input-border);
 	background-color: var(--input);
 	color: var(--on-input);
@@ -209,7 +210,7 @@ a {
 }
 
 select {
-	border-radius: $border-radius;
+	border-radius: variables.$border-radius;
 	background-color: var(--control);
 	color: var(--on-control);
 	min-width: 64px;

@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	width: 100%;
@@ -6,7 +6,7 @@
 	display: block;
 
 	.folders {
-		padding: $padding;
+		padding: variables.$padding;
 		font-size: 0.8em;
 		width: 100%;
 	}
@@ -17,7 +17,7 @@
 
 	.folder {
 		td {
-			padding: $padding-xs $padding-sm;
+			padding: variables.$padding-xs variables.$padding-sm;
 		}
 		border-bottom: 1px solid var(--control-border);
 

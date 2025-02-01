@@ -1,5 +1,7 @@
+@use "_scss/variables";
+
 @mixin media-card {
-	margin: $margin;
+	margin: variables.$margin;
 	width: calc((100% / 4) - 30px);
 	position: relative;
 	overflow: hidden;
@@ -20,7 +22,7 @@
 	.fav, .date, .more {
 		position: absolute;
 		top: 1px;
-		padding: $padding-xs;
+		padding: variables.$padding-xs;
 		transform: translateY(-31px);
 		transition: transform 0.3s;
 		user-select: none;
@@ -55,7 +57,7 @@
 	}
 
 	.footer {
-		padding: $padding-sm;
+		padding: variables.$padding-sm;
 		position: absolute;
 		bottom: 1px;
 		left: 1px;
@@ -109,19 +111,19 @@
 		font-size: 0.8em;
 	}
 
-	@media (max-width: $break-desktop-huge) {
+	@media (max-width: variables.$break-desktop-huge) {
 		width: calc((100% / 4) - 30px);
 	}
 
-	@media (max-width: $break-desktop) {
+	@media (max-width: variables.$break-desktop) {
 		width: calc((100% / 3) - 30px);
 	}
 
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		width: calc((100% / 2) - 30px);
 	}
-	@media (max-width: $break-mobile) {
-		margin: $margin-sm;
+	@media (max-width: variables.$break-mobile) {
+		margin: variables.$margin-sm;
 		.footer {
 			font-size: 0.8em;
 		}
@@ -132,7 +134,7 @@
 	display: flex;
 	flex-flow: row wrap;
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		justify-content: space-around;
 	}
 }

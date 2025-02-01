@@ -1,12 +1,13 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/cards";
 
 :host {
-	padding-top: $padding;
+	padding-top: variables.$padding;
 
 	.section {
 		color: var(--on-background-highlight);
 		text-transform: uppercase;
-		padding-bottom: $padding-sm;
+		padding-bottom: variables.$padding-sm;
 		white-space: nowrap;
 		a {
 			color: var(--on-background-highlight);
@@ -23,7 +24,7 @@
 
 	.match-images {
 		min-height: 200px;
-		@include media-cards();
+		@include cards.media-cards();
 
 		.image {
 			max-width: 200px;

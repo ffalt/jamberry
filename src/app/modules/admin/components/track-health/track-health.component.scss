@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	height: 100%;
@@ -15,18 +15,18 @@
 		padding-left: 28px;
 		font-size: 0.8em;
 		display: block;
-		padding-top: $padding-xs;
+		padding-top: variables.$padding-xs;
 	}
 
 	.hint {
-		padding-bottom: $padding;
+		padding-bottom: variables.$padding;
 	}
 
 	.solutions {
-		padding-bottom: $padding;
+		padding-bottom: variables.$padding;
 
 		button {
-			margin-right: $margin-xs;
+			margin-right: variables.$margin-xs;
 		}
 	}
 
@@ -34,9 +34,9 @@
 		span {
 			text-transform: uppercase;
 			letter-spacing: 1.25px;
-			font-size: $x-small;
+			font-size: variables.$x-small;
 			min-width: 80px;
-			margin-right: $margin-sm;
+			margin-right: variables.$margin-sm;
 			display: inline-block;
 		}
 	}

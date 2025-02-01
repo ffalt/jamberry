@@ -1,8 +1,8 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	display: block;
-	padding: $padding-xs;
+	padding: variables.$padding-xs;
 	cursor: pointer;
 
 	&:hover {

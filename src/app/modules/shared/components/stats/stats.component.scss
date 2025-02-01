@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	width: 100%;
@@ -10,8 +10,8 @@
 	grid-gap: 5px;
 
 	.stat {
-		padding: $padding;
-		margin-top: $margin;
+		padding: variables.$padding;
+		margin-top: variables.$margin;
 		text-align: center;
 		cursor: pointer;
 
@@ -32,24 +32,24 @@
 		}
 	}
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		.stat {
 			.stat-value {
 				font-size: 1.75em;
 			}
 		}
 	}
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		grid-template-columns: repeat(3, 1fr);
 		.stat {
-			padding: $padding-sm;
+			padding: variables.$padding-sm;
 
 			.stat-value {
 				font-size: 1.5em;
 			}
 		}
 	}
-	@media (max-width: $break-watch) {
+	@media (max-width: variables.$break-watch) {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }

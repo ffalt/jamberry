@@ -1,9 +1,9 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	display: flex;
 	flex-flow: column wrap;
-	margin-bottom: $margin;
+	margin-bottom: variables.$margin;
 
 	.index-list-content {
 		padding: 0;
@@ -13,16 +13,16 @@
 
 	.header {
 		color: var(--on-control-ambient);
-		font-size: $x-small;
+		font-size: variables.$x-small;
 		text-transform: uppercase;
 		letter-spacing: 1px;
-		margin-bottom: $margin-xs;
+		margin-bottom: variables.$margin-xs;
 		cursor: pointer;
 		user-select: none;
 
 		&:after {
-			font-family: $icon-font-family;
-			content: $icon-font-chevron-down-char;
+			font-family: variables.$icon-font-family;
+			content: variables.$icon-font-chevron-down-char;
 			padding-left: 4px;
 		}
 
@@ -42,12 +42,12 @@
 	&.active {
 		.header {
 			&:after {
-				content: $icon-font-chevron-up-char;
+				content: variables.$icon-font-chevron-up-char;
 			}
 		}
 	}
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		flex: 1;
 		.header {
 			border-right-width: 0;

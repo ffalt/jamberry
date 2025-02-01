@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 
@@ -14,8 +14,8 @@
 
 		label {
 			display: inline-block;
-			padding-top: $padding-sm;
-			padding-bottom: $padding-xs;
+			padding-top: variables.$padding-sm;
+			padding-bottom: variables.$padding-xs;
 		}
 
 		input[type="text"] {
@@ -34,13 +34,13 @@
 		width: 100%;
 		display: block;
 		text-align: right;
-		font-size: $small;
+		font-size: variables.$small;
 	}
 
 	.tracks {
-		margin-top: $margin-sm;
+		margin-top: variables.$margin-sm;
 		user-select: none;
-		padding: $padding;
+		padding: variables.$padding;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
@@ -56,8 +56,8 @@
 			border-bottom-width: 0;
 			border-bottom-style: solid;
 			border-color: var(--control-border);
-			padding-top: $padding-xs;
-			padding-bottom: $padding-xs;
+			padding-top: variables.$padding-xs;
+			padding-bottom: variables.$padding-xs;
 			display: flex;
 			flex-flow: row nowrap;
 			align-items: center;
@@ -74,7 +74,7 @@
 			.length {
 				margin-left: auto;
 				width: 80px;
-				padding-right: $padding;
+				padding-right: variables.$padding;
 				text-align: right;
 			}
 

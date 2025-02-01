@@ -1,9 +1,11 @@
+@use "../variables";
+
 @mixin flex-table {
 	display: flex;
 	flex-flow: column wrap;
 	user-select: none;
 	width: 100%;
-	padding-top: $padding-xs;
+	padding-top: variables.$padding-xs;
 	background-color: var(--background);
 	color: var(--on-background);
 }
@@ -15,13 +17,13 @@
 	align-items: center;
 	align-content: space-evenly;
 	width: 100%;
-	padding: $padding-sm;
+	padding: variables.$padding-sm;
 	line-height: 1.25em;
 
-	@media (max-width: $break-notebook) {
+	@media (max-width: variables.$break-notebook) {
 		height: auto;
 	}
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		font-size: 0.9em;
 	}
 }
@@ -35,7 +37,7 @@
 	.handle {
 		width: 8px;
 	}
-	@media (max-width: $break-notebook) {
+	@media (max-width: variables.$break-notebook) {
 		display: none;
 	}
 }
@@ -70,7 +72,7 @@
 		p {
 			padding: 0;
 			display: inline-block;
-			margin: 0 $margin-sm 0 0;
+			margin: 0 variables.$margin-sm 0 0;
 		}
 
 		a {
@@ -80,7 +82,7 @@
 
 		a.title-link {
 			font-size: inherit;
-			margin-right: $margin-sm;
+			margin-right: variables.$margin-sm;
 			color: var(--on-background-highlight);
 		}
 	}
@@ -124,7 +126,7 @@
 		cursor: move;
 	}
 
-	@media (max-width: $break-notebook) {
+	@media (max-width: variables.$break-notebook) {
 		height: auto;
 		min-height: 48px;
 
@@ -140,7 +142,7 @@
 		}
 	}
 
-	@media (max-width: $break-mobile) {
+	@media (max-width: variables.$break-mobile) {
 		flex-flow: row wrap;
 		align-items: inherit;
 		width: 100%;
@@ -194,7 +196,7 @@
 
 @mixin track-table {
 	@include flex-table();
-	margin-bottom: $margin;
+	margin-bottom: variables.$margin;
 }
 
 @mixin track-table-row {
@@ -234,12 +236,12 @@
 	}
 
 	> div {
-		margin-left: $margin;
+		margin-left: variables.$margin;
 	}
 	> div:last-of-type {
-		margin-right: $margin;
+		margin-right: variables.$margin;
 	}
-	@media (max-width: $break-mobile) {
+	@media (max-width: variables.$break-mobile) {
 		> div {
 			margin-left: 0;
 		}
@@ -256,7 +258,7 @@
 	.number {
 		font-style: italic;
 	}
-	@media (max-width: $break-desktop) {
+	@media (max-width: variables.$break-desktop) {
 		.fav {
 			display: none;
 		}
@@ -266,12 +268,12 @@
 @mixin track-table-data-row {
 	@include flex-table-data-row();
 
-	@media (max-width: $break-desktop) {
+	@media (max-width: variables.$break-desktop) {
 		.fav {
 			display: none;
 		}
 	}
-	@media (max-width: $break-mobile) {
+	@media (max-width: variables.$break-mobile) {
 
 		.number, .play-count, .rating, .play-date, .length {
 			margin-left: 0;
@@ -313,7 +315,7 @@
 
 @mixin album-table {
 	@include flex-table();
-	margin-bottom: $margin;
+	margin-bottom: variables.$margin;
 }
 
 @mixin album-table-row {
@@ -329,12 +331,12 @@
 		width: 32px;
 		font-size: 0.8em;
 		text-align: right;
-		margin-left: $margin;
+		margin-left: variables.$margin;
 	}
 
 	.title {
 		flex-grow: 1;
-		margin-left: $margin * 2;
+		margin-left: variables.$margin * 2;
 	}
 
 	.length {
@@ -348,13 +350,13 @@
 		width: 80px;
 		text-align: right;
 		font-size: 0.8em;
-		margin-right: $margin;
+		margin-right: variables.$margin;
 	}
 }
 
 @mixin album-table-header-row {
 	@include flex-table-header-row();
-	@media (max-width: $break-desktop) {
+	@media (max-width: variables.$break-desktop) {
 		.fav {
 			display: none;
 		}
@@ -364,12 +366,12 @@
 @mixin album-table-data-row {
 	@include flex-table-data-row();
 
-	@media (max-width: $break-desktop) {
+	@media (max-width: variables.$break-desktop) {
 		.fav {
 			display: none;
 		}
 	}
-	@media (max-width: $break-mobile) {
+	@media (max-width: variables.$break-mobile) {
 
 		.date, .info, .length {
 			margin-left: 0;
@@ -394,7 +396,7 @@
 			text-align: right;
 		}
 		.title {
-			padding-top: $padding-sm;
+			padding-top: variables.$padding-sm;
 			order: 4;
 		}
 	}

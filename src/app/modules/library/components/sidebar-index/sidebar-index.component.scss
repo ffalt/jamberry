@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	height: 100%;
@@ -6,7 +6,7 @@
 	flex-direction: column;
 	flex: 0 1 100%;
 	overflow: hidden;
-	padding-top: $padding-xs;
+	padding-top: variables.$padding-xs;
 
 	.index-list-content {
 		display: flex;
@@ -28,7 +28,7 @@
 				transition: all .1s ease-in-out;
 				transform-origin: center center;
 				text-align: center;
-				padding: 0 $padding-xs;
+				padding: 0 variables.$padding-xs;
 
 				&:hover {
 					color: var(--on-control-hover);
@@ -47,7 +47,7 @@
 			border-top-width: 1px;
 			border-top-style: solid;
 			border-top-color: var(--control-border);
-			padding: $padding-xs;
+			padding: variables.$padding-xs;
 			flex-grow: 1;
 			height: 100%;
 			overflow-y: auto;
@@ -58,10 +58,10 @@
 
 	.header {
 		color: var(--on-control-ambient);
-		font-size: $x-small;
+		font-size: variables.$x-small;
 		text-transform: uppercase;
 		letter-spacing: 1px;
-		margin-bottom: $margin-xs;
+		margin-bottom: variables.$margin-xs;
 		cursor: pointer;
 
 		&:hover {
@@ -70,8 +70,8 @@
 		}
 
 		&:after {
-			font-family: $icon-font-family;
-			content: $icon-font-chevron-down-char;
+			font-family: variables.$icon-font-family;
+			content: variables.$icon-font-chevron-down-char;
 			padding-left: 4px;
 		}
 
@@ -82,7 +82,7 @@
 
 	.item {
 		color: var(--on-control);
-		padding: $padding-xs 0;
+		padding: variables.$padding-xs 0;
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;

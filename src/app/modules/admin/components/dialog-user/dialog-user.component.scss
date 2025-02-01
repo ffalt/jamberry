@@ -1,9 +1,9 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	> div {
-		margin-left: $margin;
-		margin-right: $margin;
+		margin-left: variables.$margin;
+		margin-right: variables.$margin;
 	}
 
 	input[type="text"], input[type="email"] {
@@ -12,11 +12,11 @@
 
 	input {
 		line-height: 1.3em;
-		padding: $padding-xs;
+		padding: variables.$padding-xs;
 	}
 
 	.label-pass {
-		padding-right: $padding;
+		padding-right: variables.$padding;
 		font-size: 0.8em;
 	}
 

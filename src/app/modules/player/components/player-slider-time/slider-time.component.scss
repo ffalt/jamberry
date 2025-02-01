@@ -1,8 +1,8 @@
-@import "globals.scss";
+@use "_scss/mixins/slider";
 
 :host {
 	width: 100%;
-	@include slider(32px, 4px);
+	@include slider.slider(32px, 4px);
 	vertical-align: middle;
 
 	.waveform {

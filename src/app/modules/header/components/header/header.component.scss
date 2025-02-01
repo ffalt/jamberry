@@ -1,11 +1,11 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 
 	header {
 		background-color: var(--control);
 		color: var(--on-control-ambient);
-		padding: $padding-sm;
+		padding: variables.$padding-sm;
 		border-bottom-width: 1px;
 		border-bottom-style: solid;
 		border-bottom-color: var(--control-border);
@@ -25,16 +25,16 @@
 	}
 
 	.logo {
-		padding-left: $padding-xs;
-		padding-right: $padding-xs;
-		margin-right: $padding-xs;
+		padding-left: variables.$padding-xs;
+		padding-right: variables.$padding-xs;
+		margin-right: variables.$padding-xs;
 		display: flex;
 		flex-wrap: nowrap;
 		justify-content: center;
 		align-items: center;
 
 		.logo-name {
-			padding-left: $padding-xs;
+			padding-left: variables.$padding-xs;
 		}
 
 		a {
@@ -71,7 +71,7 @@
 		}
 
 		span {
-			padding-left: $padding-sm;
+			padding-left: variables.$padding-sm;
 		}
 
 		&:hover, &:focus {
@@ -109,19 +109,19 @@
 		display: none;
 	}
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		.sandwich {
 			display: inline-block;
 		}
 		.search {
-			margin-right: $margin;
+			margin-right: variables.$margin;
 		}
 	}
 
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		.logo {
-			padding-left: $padding-xs;
-			padding-right: $padding-xs;
+			padding-left: variables.$padding-xs;
+			padding-right: variables.$padding-xs;
 		}
 
 		.logo-name {
@@ -131,17 +131,17 @@
 		.search {
 			flex: 1;
 			overflow: hidden;
-			margin-right: $margin-xs;
+			margin-right: variables.$margin-xs;
 		}
 	}
 
-	@media (max-width: $break-mobile) {
+	@media (max-width: variables.$break-mobile) {
 		.logo {
-			padding-right: $padding-sm;
+			padding-right: variables.$padding-sm;
 		}
 	}
 
-	@media (max-width: $break-watch) {
+	@media (max-width: variables.$break-watch) {
 		.search {
 			display: none;
 		}

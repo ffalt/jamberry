@@ -1,27 +1,29 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/view";
+@use "_scss/mixins/input";
 
 :host {
 	.search-podcasts {
-		@include view-host();
+		@include view.view-host();
 
-		@include input-box-large();
+		@include input.input-box-large();
 
 		.reference {
-			padding-top: $padding-xs;
+			padding-top: variables.$padding-xs;
 			font-size: 0.8em;
 		}
 
 		.content {
-			@include view-content();
+			@include view.view-content();
 
 			.podcasts {
 				width: 100%;
-				margin-top: $margin-lg;
+				margin-top: variables.$margin-lg;
 
 
 				select {
-					margin-top: $margin;
-					margin-bottom: $margin;
+					margin-top: variables.$margin;
+					margin-bottom: variables.$margin;
 					display: block;
 					max-width: 100%;
 				}
@@ -30,7 +32,7 @@
 					border-bottom-width: 1px;
 					border-bottom-style: solid;
 					border-bottom-color: var(--background-border);
-					padding: $padding;
+					padding: variables.$padding;
 					display: flex;
 					flex-flow: row wrap;
 
@@ -48,7 +50,7 @@
 					}
 
 					.meta {
-						margin-left: $margin;
+						margin-left: variables.$margin;
 						display: flex;
 						flex-flow: column wrap;
 						position: relative;
@@ -70,7 +72,7 @@
 						}
 
 						.name {
-							font-size: $x-large;
+							font-size: variables.$x-large;
 							font-weight: 100;
 							color: var(--on-background-highlight);
 
@@ -84,7 +86,7 @@
 						}
 
 						.description {
-							font-size: $small;
+							font-size: variables.$small;
 							line-height: 1.2em;
 						}
 
@@ -92,12 +94,12 @@
 							margin-top: auto;
 
 							button {
-								margin-bottom: $margin-xs;
-								margin-right: $margin-xs;
+								margin-bottom: variables.$margin-xs;
+								margin-right: variables.$margin-xs;
 								height: 27px;
 
 								font-weight: 500;
-								padding: 1px $padding 0;
+								padding: 1px variables.$padding 0;
 
 								i {
 									transform: scale(1.3);
@@ -129,14 +131,14 @@
 						}
 					}
 
-					@media (max-width: $break-mobile) {
+					@media (max-width: variables.$break-mobile) {
 						padding-left: 0;
 						padding-right: 0;
 						.meta {
 							font-size: 0.8em;
 
 							.name {
-								font-size: $medium;
+								font-size: variables.$medium;
 							}
 						}
 					}

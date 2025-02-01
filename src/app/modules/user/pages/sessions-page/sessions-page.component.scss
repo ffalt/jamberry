@@ -1,15 +1,20 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/view";
+@use "_scss/mixins/table";
 
 :host {
 	.sessions {
-		@include view-host();
+		@include view.view-host();
 
 		.content {
-			@include view-content();
-			padding: $padding $padding $padding-xl;
+			@include view.view-content();
+
+			& {
+				padding: variables.$padding variables.$padding variables.$padding-xl;
+			}
 
 			.subsonic {
-				padding-bottom: $padding-lg;
+				padding-bottom: variables.$padding-lg;
 
 				.token {
 					margin-top: 20px;
@@ -23,27 +28,27 @@
 				}
 
 				button {
-					margin-top: $margin;
+					margin-top: variables.$margin;
 				}
 			}
 
 			.session-list {
-				@include flex-table();
+				@include table.flex-table();
 
 				.session {
-					@include flex-table-row();
-					@include flex-table-data-row();
+					@include table.flex-table-row();
+					@include table.flex-table-data-row();
 
 					.agent {
 						font-size: 0.8em;
 						flex-grow: 1;
-						padding-right: $padding-sm;
+						padding-right: variables.$padding-sm;
 					}
 
 					.expires {
 						width: 260px;
 						font-size: 0.8em;
-						padding-right: $padding-sm;
+						padding-right: variables.$padding-sm;
 					}
 
 					.remove {
@@ -58,7 +63,7 @@
 					}
 
 					.title {
-						padding-right: $padding-sm;
+						padding-right: variables.$padding-sm;
 						width: 140px;
 
 						span {
@@ -75,7 +80,7 @@
 						}
 					}
 
-					@media (max-width: $break-mobile) {
+					@media (max-width: variables.$break-mobile) {
 						.agent, .expires {
 							width: 100%;
 						}

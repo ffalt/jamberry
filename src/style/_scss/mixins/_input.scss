@@ -1,5 +1,7 @@
+@use "../variables";
+
 @mixin input-box-content {
-	border-radius: $border-radius;
+	border-radius: variables.$border-radius;
 	align-items: center;
 	background-color: var(--control-ambient);
 	border: 1px solid var(--control-box-border);
@@ -9,8 +11,8 @@
 		flex: 1;
 		border: none;
 		min-width: 50px;
-		padding-left: $border-radius-padding;
-		padding-right: $border-radius-padding;
+		padding-left: variables.$border-radius-padding;
+		padding-right: variables.$border-radius-padding;
 		background-color: var(--control-ambient);
 		color: var(--on-control);
 		min-height: 28px;
@@ -18,7 +20,7 @@
 
 	i {
 		color: var(--on-control);
-		font-size: $small;
+		font-size: variables.$small;
 		cursor: pointer;
 
 		&:hover {
@@ -42,9 +44,9 @@
 
 @mixin input-box {
 	.input-box {
-		border-radius: $border-radius;
-		padding-left: $border-radius-padding;
-		padding-right: $border-radius-padding;
+		border-radius: variables.$border-radius;
+		padding-left: variables.$border-radius-padding;
+		padding-right: variables.$border-radius-padding;
 		//display: flex;
 		align-items: center;
 		background-color: var(--input);
@@ -60,7 +62,7 @@
 
 		i {
 			color: var(--on-input);
-			font-size: $small;
+			font-size: variables.$small;
 			cursor: pointer;
 
 			&:hover {

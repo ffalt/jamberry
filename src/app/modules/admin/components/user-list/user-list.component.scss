@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	width: 100%;
@@ -6,7 +6,7 @@
 	display: block;
 
 	.users {
-		padding: $padding;
+		padding: variables.$padding;
 		font-size: 0.9em;
 		width: 100%;
 	}
@@ -14,7 +14,7 @@
 	.user {
 		height: 60px;
 		td {
-			padding: $padding-xs $padding-sm;
+			padding: variables.$padding-xs variables.$padding-sm;
 		}
 		border-bottom: 1px solid var(--control-border);
 
@@ -46,7 +46,7 @@
 		flex-wrap: wrap;
 
 		button {
-			padding: $padding-xs;
+			padding: variables.$padding-xs;
 			flex: 50%;
 			margin: 0;
 			display: inline-block;

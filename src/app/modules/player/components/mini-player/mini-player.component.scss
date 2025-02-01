@@ -1,16 +1,16 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	flex-direction: column;
 
 	button {
-		font-size: $x-large;
+		font-size: variables.$x-large;
 		color: var(--on-control-ambient);
 		border-radius: 5px;
-		padding: $padding-xs;
+		padding: variables.$padding-xs;
 
 		&.play {
-			font-size: $xx-large;
+			font-size: variables.$xx-large;
 			padding: 0;
 		}
 
@@ -41,8 +41,8 @@
 		display: flex;
 		flex-direction: row;
 		padding-top: 4px;
-		padding-left: $padding;
-		padding-right: $padding;
+		padding-left: variables.$padding;
+		padding-right: variables.$padding;
 
 		> div {
 			display: flex;

@@ -1,4 +1,5 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/button";
 
 :host {
 	background-color: var(--background);
@@ -23,9 +24,9 @@
 		display: none;
 		text-align: center;
 		width: 100%;
-		min-height: $footer-height;
-		height: $footer-height;
-		max-height: $footer-height;
+		min-height: variables.$footer-height;
+		height: variables.$footer-height;
+		max-height: variables.$footer-height;
 		position: fixed;
 		left: 0;
 		right: 0;
@@ -117,7 +118,7 @@
 		}
 
 		button {
-			@include button();
+			@include button.button();
 			background-color: var(--control);
 			border-color: var(--control);
 			color: var(--on-control);
@@ -130,7 +131,7 @@
 
 	}
 
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		&.expand {
 			height: auto;
 			overflow-y: auto;
@@ -143,13 +144,13 @@
 			z-index: 10;
 		}
 		.app-content {
-			margin-top: $header-height;
+			margin-top: variables.$header-height;
 			height: auto;
-			min-height: calc(100% - #{$content-margins});
+			min-height: calc(100% - #{variables.$content-margins});
 		}
 
 		.app-content.player-active {
-			margin-bottom: $footer-height;
+			margin-bottom: variables.$footer-height;
 		}
 
 		.mini-player {

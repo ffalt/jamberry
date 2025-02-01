@@ -1,12 +1,12 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	.more {
 		width: 100%;
 		text-align: center;
-		padding: $padding;
-		margin-top: $margin;
-		margin-bottom: $margin;
+		padding: variables.$padding;
+		margin-top: variables.$margin;
+		margin-bottom: variables.$margin;
 		cursor: pointer;
 		user-select: none;
 		font-size: 0.9em;

@@ -1,10 +1,10 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 
 	.item {
 		color: var(--on-control);
-		padding: $padding-xs 0;
+		padding: variables.$padding-xs 0;
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
@@ -38,7 +38,7 @@
 		}
 	}
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		.item {
 			line-height: 1.5em;
 

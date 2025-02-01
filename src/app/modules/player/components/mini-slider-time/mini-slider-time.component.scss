@@ -1,8 +1,8 @@
-@import "globals.scss";
+@use "_scss/mixins/slider";
 
 :host {
 	width: 100%;
-	@include slider(3px, 3px);
+	@include slider.slider(3px, 3px);
 
 	.slider {
 		.back {

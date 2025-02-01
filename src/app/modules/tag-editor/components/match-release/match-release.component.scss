@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	display: flex;
@@ -24,7 +24,7 @@
 			height: 100%;
 			width: 50%;
 			font-size: 0.8em;
-			padding-right: $padding;
+			padding-right: variables.$padding;
 		}
 
 		.match-releases {
@@ -44,7 +44,7 @@
 
 	.buttons {
 		flex: 0 0 auto;
-		padding: $padding-xs;
+		padding: variables.$padding-xs;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -53,8 +53,8 @@
 		.match-actions {
 			text-align: center;
 			vertical-align: middle;
-			margin-top: $margin-sm;
-			margin-bottom: $margin-lg;
+			margin-top: variables.$margin-sm;
+			margin-bottom: variables.$margin-lg;
 
 			app-tag-editor-autocomplete {
 				height: 28px;
@@ -65,22 +65,24 @@
 				display: flex;
 				flex-direction: row;
 				text-align: left;
-				@media (max-width: $break-pad) {
+				@media (max-width: variables.$break-pad) {
 					flex-direction: column;
 				}
 
 				> div {
 					flex: 1;
-					padding-left: $padding-sm;
-					padding-right: $padding-sm;
+					padding-left: variables.$padding-sm;
+					padding-right: variables.$padding-sm;
 				}
 
-				margin-bottom: $margin-sm;
+				& {
+					margin-bottom: variables.$margin-sm;
+				}
 			}
 
 			button {
-				margin-left: $margin-sm;
-				margin-right: $margin-sm;
+				margin-left: variables.$margin-sm;
+				margin-right: variables.$margin-sm;
 			}
 
 			.match-progress {
@@ -92,10 +94,10 @@
 
 	.current-log {
 		font-size: 0.8em;
-		padding: $padding-xs;
+		padding: variables.$padding-xs;
 	}
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 
 		.toggle {
 			display: block;
@@ -103,8 +105,8 @@
 			width: 100%;
 			height: auto;
 			text-align: center;
-			padding-top: $padding-xs;
-			padding-bottom: $padding-xs;
+			padding-top: variables.$padding-xs;
+			padding-bottom: variables.$padding-xs;
 		}
 
 		.content {

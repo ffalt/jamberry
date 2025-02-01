@@ -1,4 +1,5 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/close";
 
 $cdk-z-index-overlay-backdrop: 1000;
 $cdk-z-index-overlay: 1000;
@@ -98,7 +99,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 		max-width: 2.5rem;
 		max-height: 2.5rem;
 
-		@include close();
+		@include close.close();
 	}
 }
 
@@ -180,7 +181,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 	}
 }
 
-@media (max-width: $break-pad) {
+@media (max-width: variables.$break-pad) {
 	.overlay-content {
 		.overlay-title {
 			font-size: 1.2rem;
@@ -188,7 +189,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 	}
 }
 
-@media (max-width: $break-phone) {
+@media (max-width: variables.$break-phone) {
 	.overlay-content {
 		padding: 1em;
 	}

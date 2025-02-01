@@ -1,4 +1,5 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/input";
 
 :host {
 	width: 100%;
@@ -9,13 +10,13 @@
 	height: 100%;
 
 	.messages {
-		padding: $padding;
+		padding: variables.$padding;
 		flex-grow: 1;
 		width: 100%;
 		display: flex;
 		overflow-y: auto;
 		flex-flow: column wrap;
-		margin-bottom: $margin;
+		margin-bottom: variables.$margin;
 		user-select: none;
 
 		.message {
@@ -23,11 +24,11 @@
 			flex-flow: row wrap;
 
 			> div {
-				margin-left: $margin-sm;
+				margin-left: variables.$margin-sm;
 			}
 
 			.time, .username {
-				font-size: $x-small;
+				font-size: variables.$x-small;
 			}
 
 			.text {
@@ -40,7 +41,7 @@
 				}
 
 				.time {
-					padding-top: $padding-xs;
+					padding-top: variables.$padding-xs;
 				}
 			}
 		}
@@ -53,18 +54,18 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
-		padding: $padding;
+		padding: variables.$padding;
 		background-color: var(--control);
 		border-bottom-color: transparent; //var(--control-border);
 
-		@include input-box();
+		@include input.input-box();
 
 		.input-box, input {
 			width: 100%;
 		}
 
 		button {
-			margin-left: $margin-sm;
+			margin-left: variables.$margin-sm;
 		}
 	}
 

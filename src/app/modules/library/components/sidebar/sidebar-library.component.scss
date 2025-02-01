@@ -1,11 +1,11 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 	width: 100%;
 	height: 100%;
 	display: block;
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		height: auto;
 		app-current-playing {
 			display: none;

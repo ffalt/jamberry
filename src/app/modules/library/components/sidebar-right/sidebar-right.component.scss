@@ -1,4 +1,5 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/tabs";
 
 :host {
 	position: relative;
@@ -21,7 +22,7 @@
 		border-bottom-color: var(--control-border);
 
 		.tabs {
-			@include tabs();
+			@include tabs.tabs();
 		}
 	}
 

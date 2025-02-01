@@ -1,12 +1,17 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/table";
 
 :host {
 
 	.track {
-		@include track-table-row();
-		max-width: 100%;
-		transition: margin-left .2s;
-		@include track-table-data-row();
+		@include table.track-table-row();
+
+		& {
+			max-width: 100%;
+			transition: margin-left .2s;
+		}
+
+		@include table.track-table-data-row();
 
 		.title {
 			a {
@@ -14,11 +19,12 @@
 				margin-left: 0;
 			}
 		}
+
 		.number {
 			text-align: center;
 		}
 
-		@media (max-width: $break-mobile) {
+		@media (max-width: variables.$break-mobile) {
 			.remove {
 				display: none;
 			}

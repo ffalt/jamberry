@@ -1,6 +1,6 @@
-@import "globals.scss";
+@use "_scss/mixins/slider";
 
 :host {
 	width: 100%;
-	@include slider(18px, 5px);
+	@include slider.slider(18px, 5px);
 }

@@ -1,7 +1,8 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/view";
 
 :host {
-	@include view-content();
+	@include view.view-content();
 
 	.overview {
 		display: flex;
@@ -11,7 +12,7 @@
 			width: 100%;
 		}
 
-		@media (max-width: $break-pad) {
+		@media (max-width: variables.$break-pad) {
 			.info {
 				padding-right: 0;
 			}
@@ -19,7 +20,7 @@
 
 		.album-tracks {
 
-			margin-top: $margin;
+			margin-top: variables.$margin;
 			width: 100%;
 
 			.head {

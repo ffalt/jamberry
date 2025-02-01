@@ -1,17 +1,19 @@
+@use "../variables";
+
 @mixin view-content {
-	padding: 0 $padding-xs $padding-xs;
+	padding: 0 variables.$padding-xs variables.$padding-xs;
 
 	.section-title {
 		text-transform: uppercase;
 		letter-spacing: 1.25px;
-		font-size: $x-small * 1.2;
-		margin-bottom: $margin-sm;
+		font-size: variables.$x-small * 1.2;
+		margin-bottom: variables.$margin-sm;
 		color: var(--on-control-ambient);
 	}
 
-	@media (max-width: $break-phone) {
-		padding-left: $padding-sm;
-		padding-right: $padding-sm;
+	@media (max-width: variables.$break-phone) {
+		padding-left: variables.$padding-sm;
+		padding-right: variables.$padding-sm;
 	}
 
 }
@@ -19,10 +21,10 @@
 @mixin view-header-slim {
 	min-height: 130px;
 
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		min-height: 100px;
-		padding-left: $padding;
-		padding-right: $padding;
+		padding-left: variables.$padding;
+		padding-right: variables.$padding;
 
 		.info {
 			.img {
@@ -53,10 +55,10 @@
 	align-items: flex-end;
 
 	.info {
-		padding: $padding;
+		padding: variables.$padding;
 		z-index: 1;
 		width: 100%;
-		margin-top: $margin-lg;
+		margin-top: variables.$margin-lg;
 
 		display: flex;
 		flex-flow: row nowrap;
@@ -65,7 +67,7 @@
 		color: var(--on-control-ambient);
 
 		.img {
-			margin-right: $margin;
+			margin-right: variables.$margin;
 			flex: 0 0 160px;
 			height: 160px;
 		}
@@ -85,23 +87,23 @@
 			}
 
 			.name {
-				font-size: $xxx-large;
+				font-size: variables.$xxx-large;
 				font-weight: 100;
-				padding: 0 0 $padding-sm 0;
+				padding: 0 0 variables.$padding-sm 0;
 				margin: 0;
 				text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 			}
 
 			.year {
-				font-size: $medium;
+				font-size: variables.$medium;
 				font-weight: 100;
-				padding: 0 0 $padding-sm 0;
+				padding: 0 0 variables.$padding-sm 0;
 			}
 
 			.artist {
-				font-size: $medium;
+				font-size: variables.$medium;
 				font-weight: 100;
-				padding: 0 0 $padding-sm 0;
+				padding: 0 0 variables.$padding-sm 0;
 				cursor: pointer;
 			}
 
@@ -114,7 +116,7 @@
 
 		.header-infos {
 			max-width: 30%;
-			padding: $padding;
+			padding: variables.$padding;
 			text-align: right;
 			font-weight: 100;
 			font-size: 16px;
@@ -130,7 +132,7 @@
 			}
 
 			.count {
-				padding-bottom: $margin-sm;
+				padding-bottom: variables.$margin-sm;
 				color: var(--on-control-ambient-hover);
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -172,13 +174,13 @@
 		background-color: var(--background-transparent);
 	}
 
-	@media (max-width: $break-notebook) {
+	@media (max-width: variables.$break-notebook) {
 		.info .meta .name {
-			font-size: $xx-large;
+			font-size: variables.$xx-large;
 		}
 	}
 
-	@media (max-width: $break-pad) {
+	@media (max-width: variables.$break-pad) {
 		.info .header-infos .more {
 			visibility: inherit;
 		}
@@ -187,12 +189,12 @@
 		}
 	}
 
-	@media (max-width: $break-phone) {
+	@media (max-width: variables.$break-phone) {
 		height: auto;
 		flex-flow: column wrap;
 		min-height: 100px;
 		.info {
-			padding: $padding-sm;
+			padding: variables.$padding-sm;
 			margin-top: 0;
 			width: 100%;
 			display: block;
@@ -210,14 +212,14 @@
 				display: inline-block;
 				text-align: center;
 				vertical-align: top;
-				padding-left: $padding;
+				padding-left: variables.$padding;
 
 				.name {
-					font-size: $x-large;
+					font-size: variables.$x-large;
 				}
 
 				.type {
-					margin-top: $margin-sm;
+					margin-top: variables.$margin-sm;
 				}
 
 				.actions {
@@ -242,7 +244,7 @@
 					text-align: right;
 					font-size: 0.8em;
 					width: 50%;
-					padding-right: $padding-sm;
+					padding-right: variables.$padding-sm;
 				}
 
 				.count {
@@ -257,7 +259,7 @@
 		}
 	}
 
-	@media (max-width: $break-watch) {
+	@media (max-width: variables.$break-watch) {
 		.info .meta {
 			width: 100%;
 		}

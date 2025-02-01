@@ -1,4 +1,4 @@
-@import "globals.scss";
+@use "_scss/variables";
 
 :host {
 
@@ -16,11 +16,11 @@
 		overflow-y: auto;
 		width: 50%;
 		height: 100%;
-		padding-left: $padding;
+		padding-left: variables.$padding;
 	}
 
 	.art-source {
-		padding-right: $padding;
+		padding-right: variables.$padding;
 		overflow-y: auto;
 		width: 50%;
 		height: 100%;
@@ -53,7 +53,7 @@
 
 	.section {
 		border-bottom: 1px solid var(--background-border);
-		padding-bottom: $padding-xs;
+		padding-bottom: variables.$padding-xs;
 
 		//app-mb-icon::ng-deep svg {
 		//	vertical-align: middle;

@@ -1,4 +1,5 @@
-@import "globals.scss";
+@use "_scss/variables";
+@use "_scss/mixins/button";
 
 :host {
 	height: 100%;
@@ -8,17 +9,17 @@
 	flex-direction: column;
 
 	.actions {
-		@include action-buttons();
+		@include button.action-buttons();
 	}
 
 	.load-recursive {
 		text-align: center;
-		margin-top: $margin-lg;
-		margin-left: $margin-lg;
-		margin-right: $margin-lg;
+		margin-top: variables.$margin-lg;
+		margin-left: variables.$margin-lg;
+		margin-right: variables.$margin-lg;
 
 		button {
-			margin-top: $margin-sm;
+			margin-top: variables.$margin-sm;
 		}
 	}
 
@@ -45,7 +46,7 @@
 				text-align: left;
 				padding-bottom: 1px;
 				padding-top: 1px;
-				font-size: $x-small;
+				font-size: variables.$x-small;
 				color: var(--on-background);
 				border-color: var(--background-border);
 				overflow: hidden;
