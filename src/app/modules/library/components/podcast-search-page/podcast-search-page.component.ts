@@ -75,7 +75,8 @@ export class PodcastSearchPageComponent {
 		} = {};
 		data.forEach(result => {
 			const url = new URL(result.url);
-			if (url.hostname.includes('feedburner.com')) {
+			const allowedHosts = ['feedburner.com', 'www.feedburner.com'];
+			if (!allowedHosts.includes(url.hostname)) {
 				return;
 			}
 			let podcast = collect[result.title];
