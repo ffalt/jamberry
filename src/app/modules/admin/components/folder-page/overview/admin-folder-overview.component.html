@@ -65,13 +65,13 @@
           @if (folder.tag?.mbReleaseID) {
             <div>
               <div i18n class="label">MB Release Id</div>
-              <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/release/{{folder.tag?.mbReleaseID}}">{{folder.tag?.mbReleaseID}}</a></div>
+              <div><a href="https://musicbrainz.org/release/{{folder.tag?.mbReleaseID}}" target="_blank" rel="noopener">{{folder.tag?.mbReleaseID}}</a></div>
             </div>
           }
           @if (folder.tag?.mbArtistID) {
             <div>
               <div i18n class="label">MB Artist Id</div>
-              <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/artist/{{folder.tag?.mbArtistID}}">{{folder.tag?.mbArtistID}}</a></div>
+              <div><a href="https://musicbrainz.org/artist/{{folder.tag?.mbArtistID}}" target="_blank" rel="noopener">{{folder.tag?.mbArtistID}}</a></div>
             </div>
           }
           @if (folder.parentID) {

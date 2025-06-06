@@ -300,6 +300,7 @@ export class Matcher {
 			});
 	}
 
+	// eslint-disable-next-line complexity
 	private async loadAcousticBrainz(release: MatchRelease): Promise<void> {
 		for (const media of release.media) {
 			for (const track of media.tracks) {
@@ -480,6 +481,7 @@ export class Matcher {
 		return queries;
 	}
 
+	// eslint-disable-next-line complexity
 	private buildQueries(): Array<MusicbrainzSearchQuery> {
 		const queries: Array<MusicbrainzSearchQuery> = [];
 

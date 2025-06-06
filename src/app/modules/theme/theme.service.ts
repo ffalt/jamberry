@@ -1,5 +1,5 @@
-import {DOCUMENT} from '@angular/common';
-import {EventEmitter, Inject, Injectable} from '@angular/core';
+
+import {EventEmitter, Inject, Injectable, DOCUMENT} from '@angular/core';
 import {ACTIVE_THEME, Theme, THEMES} from './theme.model';
 
 @Injectable()

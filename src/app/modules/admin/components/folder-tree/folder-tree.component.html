@@ -10,7 +10,7 @@
         (keydown.enter)="selectNode(node)"
         (keydown.arrowRight)="toggleNode(node)"
         (keydown.arrowLeft)="toggleNode(node)">
-        <span class="node-toggle" title="Subfolders: {{node.folder.folderCount}}" (clickenter)="toggleNode(node)">
+        <span title="Subfolders: {{node.folder.folderCount}}" class="node-toggle" (clickenter)="toggleNode(node)">
           @if (node.isLoading) {
             <i class="icon-spin icon-spinner"></i>
           }

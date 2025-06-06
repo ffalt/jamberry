@@ -41,25 +41,25 @@
     @if (track.tag?.mbTrackID) {
       <div class="key-value-row">
         <div i18n>MusicBrainz Track ID:</div>
-        <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/track/{{track.tag?.mbTrackID}}">{{track.tag?.mbTrackID}}</a></div>
+        <div><a href="https://musicbrainz.org/track/{{track.tag?.mbTrackID}}" target="_blank" rel="noopener">{{track.tag?.mbTrackID}}</a></div>
       </div>
     }
     @if (track.tag?.mbReleaseID) {
       <div class="key-value-row">
         <div i18n>MusicBrainz Album ID:</div>
-        <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/release/{{track.tag?.mbReleaseID}}">{{track.tag?.mbReleaseID}}</a></div>
+        <div><a href="https://musicbrainz.org/release/{{track.tag?.mbReleaseID}}" target="_blank" rel="noopener">{{track.tag?.mbReleaseID}}</a></div>
       </div>
     }
     @if (track.tag?.mbReleaseGroupID) {
       <div class="key-value-row">
         <div i18n>MusicBrainz Release Group ID:</div>
-        <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/release-group/{{track.tag?.mbReleaseGroupID}}">{{track.tag?.mbReleaseGroupID}}</a></div>
+        <div><a href="https://musicbrainz.org/release-group/{{track.tag?.mbReleaseGroupID}}" target="_blank" rel="noopener">{{track.tag?.mbReleaseGroupID}}</a></div>
       </div>
     }
     @if (track.tag?.mbArtistID) {
       <div class="key-value-row">
         <div i18n>MusicBrainz Artist ID:</div>
-        <div><a target="_blank" rel="noopener" href="https://musicbrainz.org/artist/{{track.tag?.mbArtistID}}">{{track.tag?.mbArtistID}}</a></div>
+        <div><a href="https://musicbrainz.org/artist/{{track.tag?.mbArtistID}}" target="_blank" rel="noopener">{{track.tag?.mbArtistID}}</a></div>
       </div>
     }
   </div>

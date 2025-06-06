@@ -19,7 +19,7 @@
 			],
 			"plugins": [
 				"@angular-eslint",
-				"eslint-plugin-rxjs",
+				"eslint-plugin-rxjs-x",
 				"eslint-plugin-unicorn",
 				"eslint-plugin-no-null",
 				"eslint-plugin-prefer-arrow"
@@ -135,8 +135,8 @@
 				"jsdoc/no-types": "off",
 				"jsdoc/check-alignment": "off",
 				"jsdoc/newline-after-description": "off",
-				"rxjs/no-create": "error",
-				"rxjs/no-unsafe-takeuntil": "error",
+				"rxjs-x/no-create": "error",
+				"rxjs-x/no-unsafe-takeuntil": "error",
 				"prefer-arrow/prefer-arrow-functions": [
 					"error",
 					{

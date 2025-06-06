@@ -82,7 +82,7 @@
       <div class="match-tracks-info">
         @for (media of group.currentRelease.media; track media) {
           <div>
-            @if (group.currentRelease.media.length>1) {
+            @if ($count>1) {
               <div (click)="media.expanded=!media.expanded">
                 <i [class]="media.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
                 <ng-container i18n>Media</ng-container> {{media.mbMedia.position}}
@@ -93,7 +93,7 @@
                 }
               </div>
             }
-            @if (media.expanded || group.currentRelease.media.length<2) {
+            @if (media.expanded || $count<2) {
               <div>
                 @for (track of media.tracks; track track) {
                   <div class="match-track-info" [ngClass]="{missing:!track.currentMatch}" (drop)="drop($event, group, group.currentRelease, track)" (dragover)="allowDrop($event)">

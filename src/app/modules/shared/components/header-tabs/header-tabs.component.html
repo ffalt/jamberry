@@ -3,10 +3,10 @@
     @for (tab of tabs; track tab) {
       <li>
         @if (tab.link) {
-          <a routerLinkActive="active" appFocusKeyListItem listRole="tab" i18n-listRole [routerLink]="[tab.link.route]" [routerLinkActiveOptions]="{exact:!!tab.link.exact}"><a>{{tab.label}}</a></a>
+          <a routerLinkActive="active" appFocusKeyListItem listRole="tab" i18n-listRole [routerLink]="[tab.link.route]" [routerLinkActiveOptions]="{exact:!!tab.link.exact}">{{tab.label}}</a>
         }
         @if (!tab.link) {
-          <a appFocusKeyListItem listRole="tab" i18n-listRole [class.active]="tab.active" (click)="tab.click()" (keydown.enter)="tab.click()"><a>{{tab.label}}</a></a>
+          <a appFocusKeyListItem listRole="tab" i18n-listRole [class.active]="tab.active" (click)="tab.click()" (keydown.enter)="tab.click()">{{tab.label}}</a>
         }
       </li>
     }

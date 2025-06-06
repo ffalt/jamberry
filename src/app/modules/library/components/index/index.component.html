@@ -8,7 +8,7 @@
     <div appFocusKeyList>
       @for (group of index.groups; track group.name; let j = $index) {
         <div class="index-group">
-          <div class="index-group-name" id="index-{{j}}" (clickenter)="group.expanded=!group.expanded">{{group.name}}</div>
+          <div id="index-{{j}}" class="index-group-name" (clickenter)="group.expanded=!group.expanded">{{group.name}}</div>
           @if (group.expanded) {
             <div class="index-entries" >
               @for (entry of group.entries; track entry.id) {
@@ -26,8 +26,8 @@
 }
 @if (!viewType.viewTypeList) {
   <div>
-    @for (group of index.groups; track group.name; let i = $index) {
-      <app-index-group id="index-{{i}}" [group]="group" [indexType]="index.type" />
+    @for (group of index.groups; track group.name) {
+      <app-index-group id="index-{{$index}}" [group]="group" [indexType]="index.type" />
     }
   </div>
 }

@@ -6,14 +6,14 @@
 				<div class="section-title" i18n>Subsonic Token</div>
 				@if (isUnlocked) {
 					<div i18n>Click to generate or update a Subsonic Token. Warning: Existing token will no longer be valid.</div>
-					<button class="button-primary" (click)="generateSubsonicToken()" i18n>Generate New Subsonic Token</button>
+					<button class="button-primary" i18n (click)="generateSubsonicToken()">Generate New Subsonic Token</button>
 					@if (subsonicToken?.token) {
 						<div i18n class="token">This is your Subsonic Token. Please copy and store, you can not see it here again.</div>
 						<div><code>{{ subsonicToken?.token }}</code></div>
 					}
 				} @else {
 					<div i18n>Enter your Jam password to generate or update a Subsonic Token.</div>
-					<button class="button-primary" (click)="unlockSubsonicToken()" i18n>Enter Password</button>
+					<button class="button-primary" i18n (click)="unlockSubsonicToken()">Enter Password</button>
 				}
 			</div>
 			<div class="session-list">

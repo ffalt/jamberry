@@ -6,7 +6,7 @@
     }
     @if (genres && !isGenreSearchRunning) {
       @for (genre of genres; track genre) {
-        <label class="select" title="Usage Count: {{genre.tag.count}}">
+        <label title="Usage Count: {{genre.tag.count}}" class="select">
           <input type="checkbox" [(ngModel)]="genre.checked"> {{genre.tag.name}} [{{genre.tag.count}}]
         </label>
       }

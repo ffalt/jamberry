@@ -1,6 +1,6 @@
 <div class="dropdown open show ngx-contextmenu" [ngClass]="menuClass || ''">
   <ul #menu class="dropdown-menu show" style="position: static; float: none;" role="menu" tabindex="0" cdkTrapFocus>
-    @for (menuItem of menuItems; track menuItem; let i = $index) {
+    @for (menuItem of menuItems; track menuItem; ) {
       <li
         #li
         [class.disabled]="!menuItem.isEnabled"

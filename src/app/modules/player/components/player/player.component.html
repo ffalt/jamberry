@@ -1,9 +1,9 @@
 <section class="player" role="status">
   <div class="actions">
-    <button [disabled]="!queue.hasPrevious" [title]="'Previous Track ('+HOTKEYS.previousTrack.shortcut+')'" (click)="player.previous()"><i class="icon-fast-backward" aria-hidden="true"></i></button>
+    <button [disabled]="!queue.hasPrevious" [title]="`Previous Track (${HOTKEYS.previousTrack.shortcut})`" (click)="player.previous()"><i class="icon-fast-backward" aria-hidden="true"></i></button>
     <button class="play" [disabled]="queue.isEmpty" [title]="player.isPlaying | stringToggle : 'Pause' : 'Play' : HOTKEYS.playPause.shortcut"
       (click)="togglePlayPause()"><i aria-hidden="true" [class]="player.isPlaying | stringToggle : 'icon-pause' : 'icon-play'"></i></button>
-      <button [disabled]="!queue.hasNext" [title]="'Next Track ('+HOTKEYS.nextTrack.shortcut+')'" (click)="player.next()"><i class="icon-fast-forward" aria-hidden="true"></i></button>
+      <button [disabled]="!queue.hasNext" [title]="`Next Track (${HOTKEYS.nextTrack.shortcut})`" (click)="player.next()"><i class="icon-fast-forward" aria-hidden="true"></i></button>
     </div>
     <div class="progress">
       <div class="start">{{player.currentTime | mediaduration}}</div>
@@ -42,4 +42,3 @@
         </div>
       </div>
     </section>
-    

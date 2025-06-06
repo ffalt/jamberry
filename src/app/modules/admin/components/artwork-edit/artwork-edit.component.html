@@ -5,7 +5,7 @@
   @if (imageBase64) {
     <image-cropper
       [imageBase64]="imageBase64"
-      [format]="'jpeg'"
+      [format]="format"
       [maintainAspectRatio]="maintainAspectRatio"
       (imageCropped)="imageCropped($event)"
       (imageLoaded)="imageLoaded()"

@@ -8,14 +8,13 @@
   }
   @if (trackHealth.health && hints) {
     <div class="hints">
-      @if (hints.length===0) {
-        <div i18n class="hint">No Hints</div>
-      }
       @for (hint of hints; track hint.hint.id) {
         <div class="hint">
           <i class="icon-warning"></i> {{hint.hint.name}}
           <div class="details">{{hint.description}}</div>
         </div>
+      } @empty {
+        <div i18n class="hint">No Hints</div>
       }
       <div class="solutions">
         @for (sol of solutions; track sol.name) {

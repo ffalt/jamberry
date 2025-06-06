@@ -1,6 +1,9 @@
-/** @type {import('@jest/types').Config.InitialOptions} */
-module.exports = {
+/* eslint-disable */
+import { Config } from 'jest';
+
+const jestConfig: Config = {
 	preset: 'jest-preset-angular',
+	moduleDirectories: ['node_modules', '<rootDir>'],
 	moduleNameMapper: {
 		'@app/(.*)': '<rootDir>/src/app/$1',
 		'@core/(.*)': '<rootDir>/src/app/modules/core/$1',
@@ -9,7 +12,9 @@ module.exports = {
 		'@library/(.*)': '<rootDir>/src/app/modules/library/$1',
 		'@jam': '<rootDir>/src/app/modules/jam/index'
 	},
-	transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
-	testPathIgnorePatterns: ['/node_modules/', '/local/', '/dist/'],
-	setupFilesAfterEnv: ['<rootDir>/setup-jest.ts']
+	testPathIgnorePatterns: ['/local/', '/dist/'],
+	setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+	clearMocks: true,
 };
+
+export default jestConfig;

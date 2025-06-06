@@ -1,55 +1,55 @@
 {
 	"compileOnSave": false,
 	"compilerOptions": {
-		"baseUrl": "./src",
+    "baseUrl": "./src",
     "importHelpers": true,
     "esModuleInterop": true,
-		"outDir": "./dist/out-tsc",
-		"strict": true,
-		"sourceMap": true,
-		"declaration": false,
-		"module": "es2020",
-    "moduleResolution": "node",
-		"noImplicitReturns": true,
-		"noImplicitAny": true,
-		"noFallthroughCasesInSwitch": true,
-		"experimentalDecorators": true,
-		"forceConsistentCasingInFileNames": true,
-		"strictPropertyInitialization": true,
-		"strictBindCallApply": true,
-		"strictFunctionTypes": true,
-		"strictNullChecks": true,
-		"target": "ES2022",
-		"typeRoots": [
-			"node_modules/@types"
-		],
-		"lib": [
-			"es2017",
-			"es2018.promise",
-			"dom",
-			"esnext.asynciterable"
-		],
-		"paths": {
-			"@app/*": [
-				"app/*"
-			],
-			"@core/*": [
-				"app/modules/core/*"
-			],
-			"@admin/*": [
-				"app/modules/admin/*"
-			],
-			"@shared/*": [
-				"app/modules/shared/*"
-			],
-			"@library/*": [
-				"app/modules/library/*"
-			],
-			"@jam": [
-				"app/modules/jam/index.ts"
-			]
-		}
-	},
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2020",
+    "moduleResolution": "bundler",
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "target": "ES2022",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "es2018.promise",
+      "dom",
+      "esnext.asynciterable"
+    ],
+    "paths": {
+      "@app/*": [
+        "app/*"
+      ],
+      "@core/*": [
+        "app/modules/core/*"
+      ],
+      "@admin/*": [
+        "app/modules/admin/*"
+      ],
+      "@shared/*": [
+        "app/modules/shared/*"
+      ],
+      "@library/*": [
+        "app/modules/library/*"
+      ],
+      "@jam": [
+        "app/modules/jam/index.ts"
+      ]
+    }
+  },
 	"angularCompilerOptions": {
 		"enableIvy": true,
 		"fullTemplateTypeCheck": true,

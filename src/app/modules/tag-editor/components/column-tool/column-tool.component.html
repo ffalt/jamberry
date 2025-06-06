@@ -20,8 +20,8 @@
         <ng-container i18n>Column Source</ng-container>
         <div class="input-box">
           <select [(ngModel)]="sourceColumnIndex">
-            @for (col of editor.columns; track col.def.id; let i = $index) {
-              <option [value]="i">{{col.def.name}}</option>
+            @for (col of editor.columns; track col.def.id) {
+              <option [value]="$index">{{col.def.name}}</option>
             }
           </select>
         </div>

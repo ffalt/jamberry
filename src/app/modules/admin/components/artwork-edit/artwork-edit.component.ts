@@ -4,7 +4,7 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {ImageCroppedEvent, OutputFormat} from 'ngx-image-cropper';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -26,6 +26,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	croppedImageFile?: Blob;
 	mimeType: string = 'image/jpeg';
 	maintainAspectRatio: boolean = true;
+	format: OutputFormat = 'jpeg';
 	@Output() readonly imageEdited = new EventEmitter<void>();
 	protected unsubscribe = new Subject<void>();
 

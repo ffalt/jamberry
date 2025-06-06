@@ -13,7 +13,7 @@
           @for (node of nodes; track node.image) {
             <div appFocusKeyListItem (keydown.enter)="node.checked=!node.checked">
               <div class="image" (clickenter)="node.checked=!node.checked">
-                <img [src]="node.thumbnail" alt="{{node.name}}">
+                <img alt="{{node.name}}" [src]="node.thumbnail">
               </div>
               <div class="footer">
                 <div class="footer-content">

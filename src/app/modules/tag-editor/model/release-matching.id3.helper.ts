@@ -15,6 +15,7 @@ function fillGenres(builder: ID3V24TagBuilder, match: Matching, genres: Array<st
 	}
 }
 
+// eslint-disable-next-line complexity
 function fillCommon(
 	builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack,
 	release: MusicBrainz.Release | undefined,

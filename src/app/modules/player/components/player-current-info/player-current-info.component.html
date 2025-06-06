@@ -8,11 +8,11 @@
         <app-fav-icon tabindex="0" [faved]="player.currentTrack.state?.faved" (clickenter)="actions.toggleMediaBaseFav(player.currentTrack)" />
         <div class="year">{{player.currentTrack.tag?.year}}</div>
         <a class="name" tabindex="0"
-          (clickenter)="navig.toTrack(player.currentTrack)"><a>{{player.currentTrack.tag?.title}}</a></a>
+          (clickenter)="navig.toTrack(player.currentTrack)">{{player.currentTrack.tag?.title}}</a>
           <a class="album" tabindex="0"
-            (clickenter)="navig.toMediaAlbum(player.currentTrack)"><a>{{player.currentTrack.tag?.album}}</a></a>
+            (clickenter)="navig.toMediaAlbum(player.currentTrack)">{{player.currentTrack.tag?.album}}</a>
             <a class="artist" tabindex="0"
-              (clickenter)="navig.toMediaArtist(player.currentTrack)"><a>{{player.currentTrack.tag?.artist}}</a></a>
+              (clickenter)="navig.toMediaArtist(player.currentTrack)">{{player.currentTrack.tag?.artist}}</a>
               <div class="actions">
                 <a class="more" tabindex="0" title="Menu" i18n-title (clickenter)="onContextMenu()">…</a>
               </div>
@@ -54,4 +54,3 @@
           }
         </div>
       }
-      

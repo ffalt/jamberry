@@ -28,7 +28,7 @@
           <div class="play-count"><i class="icon-headphones small-screen-icon"></i> {{entry.state?.played}}</div>
         }
         @if (showPlayDate) {
-          <div class="play-date" title="{{entry.state?.lastPlayed | date:'long'}}"><i class="icon-clock small-screen-icon"></i> {{entry.state?.lastPlayed | ago}}</div>
+          <div title="{{entry.state?.lastPlayed | date:'long'}}" class="play-date"><i class="icon-clock small-screen-icon"></i> {{entry.state?.lastPlayed | ago}}</div>
         }
         <div class="number"><i class="icon-hash small-screen-icon"></i>
         @if ((entry.tag?.discTotal||0)>1 && entry.tag?.disc) {

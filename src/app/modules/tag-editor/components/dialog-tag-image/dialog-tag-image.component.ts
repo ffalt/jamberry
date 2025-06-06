@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {ID3v2Frames} from '@jam';
-import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {ImageCroppedEvent, OutputFormat} from 'ngx-image-cropper';
 
 export interface PicEdit {
 	frames: Array<ID3v2Frames.Pic>;
@@ -9,15 +9,16 @@ export interface PicEdit {
 }
 
 @Component({
-    selector: 'app-dialog-tag-image',
-    templateUrl: './dialog-tag-image.component.html',
-    styleUrls: ['./dialog-tag-image.component.scss'],
-    standalone: false
+	selector: 'app-dialog-tag-image',
+	templateUrl: './dialog-tag-image.component.html',
+	styleUrls: ['./dialog-tag-image.component.scss'],
+	standalone: false
 })
 export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	edit?: PicEdit;
 	maintainAspectRatio: boolean = true;
 	current: { frame?: ID3v2Frames.Pic; source?: string } = {};
+	format: OutputFormat = 'jpeg';
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PicEdit>>): void {
 		this.edit = options.data;

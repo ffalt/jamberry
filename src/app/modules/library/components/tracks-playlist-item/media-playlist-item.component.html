@@ -13,7 +13,7 @@
       <div class="play-count">{{media.state?.played}}</div>
     }
     @if (showPlayDate) {
-      <div class="play-date" title="{{media.state?.lastPlayed | date:'long'}}">{{media.state?.lastPlayed | date}}</div>
+      <div title="{{media.state?.lastPlayed | date:'long'}}" class="play-date">{{media.state?.lastPlayed | date}}</div>
     }
     <div class="number">{{media.tag?.trackNr}}</div>
     <div class="title"><p>{{media.tag?.title}}</p>@if (showArtist && media.tag?.artist) {

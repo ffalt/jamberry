@@ -6,7 +6,7 @@
     <image-cropper
 			output="base64"
       [maintainAspectRatio]="maintainAspectRatio"
-      [format]="'jpeg'"
+      [format]="format"
       [imageBase64]="current.source"
       (cropperReady)="cropperReady()"
       (loadImageFailed)="loadImageFailed()"
