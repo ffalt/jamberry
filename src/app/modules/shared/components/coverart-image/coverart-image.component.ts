@@ -1,13 +1,13 @@
-import {AfterContentInit, Component, ElementRef, HostBinding, Input, OnChanges, SimpleChange} from '@angular/core';
+import {AfterContentInit, Component, HostBinding, Input, OnChanges, SimpleChange, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {ImageFormatType, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '../image-overlay-content/image-overlay-content.component';
 
 @Component({
-    selector: 'app-coverart-image',
-    templateUrl: './coverart-image.component.html',
-    styleUrls: ['./coverart-image.component.scss'],
-    standalone: false
+	selector: 'app-coverart-image',
+	templateUrl: './coverart-image.component.html',
+	styleUrls: ['./coverart-image.component.scss'],
+	standalone: false
 })
 export class CoverartImageComponent implements OnChanges, AfterContentInit {
 	@Input() coverArtObj?: { id: string; name: string };
@@ -24,13 +24,8 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 	isLoaded: boolean = false;
 	imageSrc: string = '';
 	altSrc: string = '';
-
-	constructor(
-		private elementRef: ElementRef,
-		private jam: JamService,
-		private dialogOverlay: DialogOverlayService
-	) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
 	ngAfterContentInit(): void {
 		this.updateSize();

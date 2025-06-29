@@ -1,6 +1,6 @@
 import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
-import {ComponentRef, Injectable, Injector, OnDestroy} from '@angular/core';
+import {ComponentRef, Injectable, Injector, OnDestroy, inject} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogOverlayRef} from './dialog-overlay-ref.class';
@@ -9,9 +9,8 @@ import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
 import {DEFAULT_CONFIG, DialogOverlayDialogConfig} from './dialog-overlay.types';
 
 export class PortalInjector implements Injector {
-	constructor(
-		private parentInjector: Injector,
-		private customTokens: WeakMap<any, any>) { }
+	constructor(private parentInjector: Injector, private customTokens: WeakMap<any, any>) {
+	}
 
 	get(token: any, notFoundValue?: any): any {
 		const value = this.customTokens.get(token);
@@ -26,10 +25,9 @@ export class PortalInjector implements Injector {
 
 @Injectable()
 export class DialogOverlayService implements OnDestroy {
-	protected unsubscribe = new Subject<void>();
-
-	constructor(private injector: Injector, private overlay: Overlay) {
-	}
+	private readonly injector = inject(Injector);
+	private readonly overlay = inject(Overlay);
+	private readonly unsubscribe = new Subject<void>();
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();

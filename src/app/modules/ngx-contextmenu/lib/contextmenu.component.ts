@@ -1,17 +1,15 @@
 import {
-	ChangeDetectorRef,
 	Component,
 	ContentChildren,
 	ElementRef,
 	EventEmitter,
-	Inject,
 	Input,
 	OnDestroy,
-	Optional,
 	Output,
 	QueryList,
 	ViewChild,
-	ViewEncapsulation
+	ViewEncapsulation,
+	inject
 } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {first} from 'rxjs/operators';
@@ -22,13 +20,13 @@ import {CloseContextMenuEvent, ContextMenuService, IContextMenuClickEvent} from 
 import {CONTEXT_MENU_OPTIONS} from './contextmenu.tokens';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
-    encapsulation: ViewEncapsulation.None,
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'context-menu',
-    styleUrls: ['./contextmenu.component.css'],
-    template: ' ',
-    standalone: false
+	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
+	encapsulation: ViewEncapsulation.None,
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'context-menu',
+	styleUrls: ['./contextmenu.component.css'],
+	template: ' ',
+	standalone: false
 })
 export class ContextMenuComponent implements OnDestroy {
 	@Input() menuClass = '';
@@ -39,22 +37,17 @@ export class ContextMenuComponent implements OnDestroy {
 	@ContentChildren(ContextMenuItemDirective) menuItems!: QueryList<ContextMenuItemDirective>;
 	@ViewChild('menu', {static: false}) menuElement?: ElementRef;
 	visibleMenuItems: Array<ContextMenuItemDirective> = [];
-
 	item: any;
 	event?: Event;
-	private subscription: Subscription = new Subscription();
+	private readonly subscription: Subscription = new Subscription();
+	private readonly contextMenuService = inject(ContextMenuService);
+	private readonly options = inject<IContextMenuOptions>(CONTEXT_MENU_OPTIONS, {optional: true});
 
-	constructor(
-		private contextMenuService: ContextMenuService,
-		private changeDetector: ChangeDetectorRef,
-		private elementRef: ElementRef,
-		@Optional()
-		@Inject(CONTEXT_MENU_OPTIONS) private options: IContextMenuOptions
-	) {
-		if (options) {
-			this.autoFocus = options.autoFocus;
+	constructor() {
+		if (this.options) {
+			this.autoFocus = this.options.autoFocus;
 		}
-		this.subscription.add(contextMenuService.show.subscribe(menuEvent => {
+		this.subscription.add(this.contextMenuService.show.subscribe(menuEvent => {
 			this.onMenuEvent(menuEvent);
 		}));
 	}

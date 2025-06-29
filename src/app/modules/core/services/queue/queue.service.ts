@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Injectable, inject} from '@angular/core';
 
 import {Jam, JamService, PodcastStatus} from '@jam';
 
@@ -10,9 +10,7 @@ export class QueueService {
 	currentIndex = -1;
 	repeatQueue = false;
 	queueChange = new EventEmitter<void>();
-
-	constructor(private jam: JamService) {
-	}
+	private readonly jam = inject(JamService);
 
 	get isEmpty(): boolean {
 		return this.entries.length === 0;

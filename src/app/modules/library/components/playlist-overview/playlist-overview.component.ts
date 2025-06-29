@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -7,24 +7,24 @@ import {Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-playlist-overview',
-    templateUrl: './playlist-overview.component.html',
-    styleUrls: ['./playlist-overview.component.scss'],
-    standalone: false
+	selector: 'app-playlist-overview',
+	templateUrl: './playlist-overview.component.html',
+	styleUrls: ['./playlist-overview.component.scss'],
+	standalone: false
 })
 export class PlaylistOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	playlist?: Jam.Playlist;
-	protected unsubscribe = new Subject<void>();
+	playlistService = inject(PlaylistService);
+	readonly navig = inject(NavigService);
+	readonly player = inject(PlayerService);
+	readonly actions = inject(ActionsService);
+	readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly unsubscribe = new Subject<void>();
 	private playlistID?: string;
 	private subList?: Subscription;
-
-	constructor(
-		public playlistService: PlaylistService,
-		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		public jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
-	) {
-	}
 
 	ngOnInit(): void {
 		if (this.route) {

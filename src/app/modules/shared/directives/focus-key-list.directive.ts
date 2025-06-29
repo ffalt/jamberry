@@ -14,7 +14,7 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 	@Input() @HostBinding('attr.role') listRole = 'list';
 	@ContentChildren(FocusKeyListItemDirective, {descendants: true}) components!: QueryList<FocusKeyListItemDirective>;
 	protected keyManager?: FocusKeyManager<FocusKeyListItemDirective>;
-	protected unsubscribe = new Subject<void>();
+	protected readonly unsubscribe = new Subject<void>();
 
 	ngAfterContentInit() {
 		this.processKeyList();

@@ -1,30 +1,25 @@
 import {FolderEdit} from '@admin/admin.interface';
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {DialogsService} from '@shared/services';
 import {takeUntil} from 'rxjs/operators';
 import {AdminBaseParentViewIdComponent} from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
 import {DialogChooseFolderComponent, SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
 import {DialogFolderComponent} from '../../dialog-folder/dialog-folder.component';
 
 @Component({
-    selector: 'app-admin-folder-folders',
-    templateUrl: './admin-folder-folders.component.html',
-    styleUrls: ['./admin-folder-folders.component.scss'],
-    standalone: false
+	selector: 'app-admin-folder-folders',
+	templateUrl: './admin-folder-folders.component.html',
+	styleUrls: ['./admin-folder-folders.component.scss'],
+	standalone: false
 })
 export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder | undefined;
-
-	constructor(
-		route: ActivatedRoute, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService,
-		private dialogsService: DialogsService, private dialogOverlay: DialogOverlayService
-	) {
-		super(route);
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
 	ngOnInit(): void {
 		super.ngOnInit();

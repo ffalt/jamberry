@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, inject} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {AdminFolderService, NotifyService} from '@core/services';
 import {Jam, JamService, TrackHealthID} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -20,26 +20,21 @@ export interface TrackHealthHint {
 }
 
 @Component({
-    selector: 'app-track-health',
-    templateUrl: './track-health.component.html',
-    styleUrls: ['./track-health.component.scss'],
-    standalone: false
+	selector: 'app-track-health',
+	templateUrl: './track-health.component.html',
+	styleUrls: ['./track-health.component.scss'],
+	standalone: false
 })
 export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	hints?: Array<TrackHealthHint>;
 	solutions: Array<TrackHealthHintSolution> = [];
 	@Input() trackHealth?: Jam.TrackHealth;
 	@Output() readonly resolvedEvent = new EventEmitter<void>();
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		private app: AppService,
-		private jam: JamService,
-		private notify: NotifyService,
-		private folderService: AdminFolderService,
-		private router: Router
-	) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
+	private readonly router = inject(Router);
 
 	ngOnChanges(): void {
 		this.display(this.trackHealth);

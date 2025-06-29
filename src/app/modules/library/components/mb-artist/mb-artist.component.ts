@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, inject} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamService, MusicBrainz, MusicBrainzLookupType} from '@jam';
 
@@ -13,18 +13,17 @@ export interface ReleaseGroupGroup {
 }
 
 @Component({
-    selector: 'app-mb-artist',
-    templateUrl: './mb-artist.component.html',
-    styleUrls: ['./mb-artist.component.scss'],
-    standalone: false
+	selector: 'app-mb-artist',
+	templateUrl: './mb-artist.component.html',
+	styleUrls: ['./mb-artist.component.scss'],
+	standalone: false
 })
 export class MbArtistComponent implements OnChanges {
 	@Input() mbArtistID?: string;
 	mbArtist?: MusicBrainz.Artist;
 	releaseGroups: Array<ReleaseGroupGroup> = [];
-
-	constructor(private jam: JamService, private notify: NotifyService) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
 	ngOnChanges(): void {
 		this.refresh();

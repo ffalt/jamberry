@@ -1,14 +1,12 @@
-import {Directive, ElementRef, HostListener, OnInit} from '@angular/core';
+import {Directive, ElementRef, HostListener, OnInit, inject} from '@angular/core';
 import {isLeftArrowKey, isLeftRightArrowKeys, isRightArrowKey} from '@app/utils/keys';
 
 @Directive({
-    selector: '[appFocusable]',
-    standalone: false
+	selector: '[appFocusable]',
+	standalone: false
 })
 export class FocusDirective implements OnInit {
-
-	constructor(private element: ElementRef) {
-	}
+	private readonly element = inject(ElementRef);
 
 	getNextElement(event: KeyboardEvent): HTMLElement | undefined {
 		if (isRightArrowKey(event)) {

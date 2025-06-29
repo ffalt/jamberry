@@ -1,11 +1,11 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, inject} from '@angular/core';
 import {PlayerEvents, PlayerService} from '@core/services';
 
 @Component({
-    selector: 'app-speed-slider',
-    templateUrl: './slider-speed.component.html',
-    styleUrls: ['./slider-speed.component.scss'],
-    standalone: false
+	selector: 'app-speed-slider',
+	templateUrl: './slider-speed.component.html',
+	styleUrls: ['./slider-speed.component.scss'],
+	standalone: false
 })
 export class SliderSpeedComponent implements OnInit {
 	speedPC: number = 20;
@@ -13,9 +13,8 @@ export class SliderSpeedComponent implements OnInit {
 	private speed: number = 1;
 	private readonly min: number = 0;
 	private readonly max: number = 3.5;
-
-	constructor(private readonly player: PlayerService, private readonly element: ElementRef) {
-	}
+	private readonly player = inject(PlayerService);
+	private readonly element = inject(ElementRef);
 
 	ngOnInit(): void {
 		this.displaySpeed(this.player.getSpeed());

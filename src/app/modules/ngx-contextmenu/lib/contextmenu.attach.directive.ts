@@ -1,4 +1,4 @@
-import {Directive, HostListener, Input} from '@angular/core';
+import { Directive, HostListener, Input, inject } from '@angular/core';
 import {ContextMenuComponent} from './contextmenu.component';
 import {ContextMenuService} from './contextmenu.service';
 
@@ -10,12 +10,9 @@ import {ContextMenuService} from './contextmenu.service';
 export class ContextMenuAttachDirective {
 	@Input() contextMenuSubject: any;
 	@Input() contextMenu!: ContextMenuComponent;
+	private contextMenuService = inject(ContextMenuService);
 
-	constructor(private contextMenuService: ContextMenuService) {
-	}
-
-	@HostListener('contextmenu', ['$event'])
-	onContextMenu(event: Event): void {
+	@HostListener('contextmenu', ['$event']) onContextMenu(event: Event): void {
 		if (!this.contextMenu.disabled) {
 			this.contextMenuService.show.next({
 				contextMenu: this.contextMenu,

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {getUrlType, JamType} from '@app/utils/jam-lists';
 import {LibraryService} from '@library/services';
@@ -7,18 +7,17 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-albums-page-by-type',
-    templateUrl: './albums-page-by-type.component.html',
-    styleUrls: ['./albums-page-by-type.component.scss'],
-    standalone: false
+	selector: 'app-albums-page-by-type',
+	templateUrl: './albums-page-by-type.component.html',
+	styleUrls: ['./albums-page-by-type.component.scss'],
+	standalone: false
 })
 export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {
 	typeInfo?: JamType;
 	tabs?: Array<HeaderTab>;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(protected route: ActivatedRoute, private library: LibraryService) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	protected readonly route = inject(ActivatedRoute);
+	private readonly library = inject(LibraryService);
 
 	ngOnInit(): void {
 		this.route.url

@@ -1,26 +1,26 @@
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Component, HostBinding, HostListener, NgZone, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {Component, HostBinding, HostListener, NgZone, OnDestroy, ViewEncapsulation, inject} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DefaultNoComponentGlobalConfig, IndividualConfig, ToastPackage} from './toast-config';
 
 @Component({
-    selector: 'app-toast-component',
-    templateUrl: './toast.component.html',
-    styleUrls: ['./toast.component.scss'],
-    // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
-    encapsulation: ViewEncapsulation.None,
-    animations: [
-        trigger('flyInOut', [
-            state('inactive', style({ opacity: 0 })),
-            state('active', style({ opacity: 1 })),
-            state('removed', style({ opacity: 0 })),
-            transition('inactive => active', animate('{{ easeTime }}ms {{ easing }}')),
-            transition('active => removed', animate('{{ easeTime }}ms {{ easing }}'))
-        ])
-    ],
-    preserveWhitespaces: false,
-    standalone: false
+	selector: 'app-toast-component',
+	templateUrl: './toast.component.html',
+	styleUrls: ['./toast.component.scss'],
+	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
+	encapsulation: ViewEncapsulation.None,
+	animations: [
+		trigger('flyInOut', [
+			state('inactive', style({opacity: 0})),
+			state('active', style({opacity: 1})),
+			state('removed', style({opacity: 0})),
+			transition('inactive => active', animate('{{ easeTime }}ms {{ easing }}')),
+			transition('active => removed', animate('{{ easeTime }}ms {{ easing }}'))
+		])
+	],
+	preserveWhitespaces: false,
+	standalone: false
 })
 export class ToastComponent implements OnDestroy {
 	message?: string | undefined;
@@ -50,34 +50,36 @@ export class ToastComponent implements OnDestroy {
 		return 'inherit';
 	}
 
-	protected unsubscribe = new Subject<void>();
+	readonly toastPackage = inject(ToastPackage);
+	protected readonly ngZone? = inject(NgZone);
+	protected readonly unsubscribe = new Subject<void>();
 
 	private timeout: any;
 	private intervalId: any;
 	private hideTime?: number;
 
-	constructor(public toastPackage: ToastPackage, protected ngZone?: NgZone) {
-		this.message = toastPackage.message;
-		this.title = toastPackage.title;
-		this.options = toastPackage.config;
-		this.originalTimeout = toastPackage.config.timeOut;
-		this.toastClasses = `${toastPackage.toastType} ${
-			toastPackage.config.toastClass
+	constructor() {
+		this.message = this.toastPackage.message;
+		this.title = this.toastPackage.title;
+		this.options = this.toastPackage.config;
+		this.originalTimeout = this.toastPackage.config.timeOut;
+		this.toastClasses = `${this.toastPackage.toastType} ${
+			this.toastPackage.config.toastClass
 		}`;
 		this.state.params.easeTime = this.toastPackage.config.easeTime || DefaultNoComponentGlobalConfig.easeTime;
-		toastPackage.toastRef.afterActivate()
+		this.toastPackage.toastRef.afterActivate()
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
 			this.activateToast();
 		});
-		toastPackage.toastRef.manualClosed().pipe(takeUntil(this.unsubscribe))
+		this.toastPackage.toastRef.manualClosed().pipe(takeUntil(this.unsubscribe))
 			.subscribe(() => {
 				this.remove();
 			});
-		toastPackage.toastRef.timeoutReset()
+		this.toastPackage.toastRef.timeoutReset()
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
 			this.resetTimeout();
 		});
-		toastPackage.toastRef.countDuplicate()
+		this.toastPackage.toastRef.countDuplicate()
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(count => {
 				this.duplicatesCount = count;

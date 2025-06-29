@@ -1,6 +1,6 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {AdminFolderService, NotifyService} from '@core/services';
 import {ImageFormatType, Jam, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '@shared/components';
 import {DialogsService} from '@shared/services';
@@ -25,25 +25,20 @@ function extractExt(filename: string): string {
 }
 
 @Component({
-    selector: 'app-admin-artwork-list',
-    templateUrl: './artwork-list.component.html',
-    styleUrls: ['./artwork-list.component.scss'],
-    standalone: false
+	selector: 'app-admin-artwork-list',
+	templateUrl: './artwork-list.component.html',
+	styleUrls: ['./artwork-list.component.scss'],
+	standalone: false
 })
 export class ArtworkListComponent implements OnChanges {
 	@Input() artworks?: Array<Jam.Artwork>;
 	@Input() folderID?: string;
 	nodes?: Array<ArtworkImageNode>;
-
-	constructor(
-		private app: AppService,
-		private jam: JamService,
-		private notify: NotifyService,
-		private folderService: AdminFolderService,
-		private dialogs: DialogsService,
-		private dialogOverlay: DialogOverlayService
-	) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
+	private readonly dialogs = inject(DialogsService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
 	ngOnChanges(): void {
 		this.displayArtworks();

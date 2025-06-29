@@ -1,9 +1,9 @@
-import {Component, HostListener, Input, OnChanges, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, QueryList, ViewChild, ViewChildren, inject} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {isDownArrowKey, isLeftRightArrowKeys, isRightArrowKey, isUpDownArrowKeys} from '@app/utils/keys';
-import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {AdminFolderService, NotifyService} from '@core/services';
 import {FolderType, Jam, JamService, TrackOrderFields} from '@jam';
 import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
 import {TagEditor} from '../../model/tag-editor.class';
@@ -22,10 +22,10 @@ export interface SaveAction {
 }
 
 @Component({
-    selector: 'app-admin-tag-editor',
-    templateUrl: './tag-editor.component.html',
-    styleUrls: ['./tag-editor.component.scss'],
-    standalone: false
+	selector: 'app-admin-tag-editor',
+	templateUrl: './tag-editor.component.html',
+	styleUrls: ['./tag-editor.component.scss'],
+	standalone: false
 })
 export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	folder?: Jam.Folder;
@@ -37,11 +37,14 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	@Input() id?: string;
 	@ViewChildren(CellEditor) cellEditors!: QueryList<CellEditor>;
 	@ViewChild('actionMenu', {static: false}) actionMenu?: ContextMenuComponent;
+	private readonly folderService = inject(AdminFolderService);
+	private readonly contextMenuService = inject(ContextMenuService);
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
-	constructor(
-		private app: AppService, private folderService: AdminFolderService,	private contextMenuService: ContextMenuService,
-		private jam: JamService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
-		this.editor = new TagEditor(jam);
+	constructor() {
+		this.editor = new TagEditor(this.jam);
 	}
 
 	onScroll(): void {

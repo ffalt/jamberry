@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {AppService, NotifyService, serverErrorMsg} from '@core/services';
 import {JamAuthService} from '@jam';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    standalone: false
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.scss'],
+	standalone: false
 })
 export class LoginComponent implements OnInit {
 	credentials = {
@@ -19,14 +19,13 @@ export class LoginComponent implements OnInit {
 	showServer = false;
 	error?: string;
 	returnUrl?: string;
+	readonly app = inject(AppService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly router = inject(Router);
+	private readonly auth = inject(JamAuthService);
+	private readonly notify = inject(NotifyService);
 
-	constructor(
-		private route: ActivatedRoute,
-		private router: Router,
-		private auth: JamAuthService,
-		public app: AppService,
-		private notify: NotifyService
-	) {
+	constructor() {
 		const fixed = this.getFixed();
 		if (fixed) {
 			this.credentials.server = fixed.server || '';
@@ -34,9 +33,7 @@ export class LoginComponent implements OnInit {
 			this.credentials.password = fixed.pass || '';
 			this.showServer = this.credentials.server === '';
 		}
-		this.auth.clear().catch(e => {
-			console.error(e);
-		});
+		this.auth.clear().catch(console.error);
 	}
 
 	getFixed(): { server?: string; user?: string; pass?: string } {

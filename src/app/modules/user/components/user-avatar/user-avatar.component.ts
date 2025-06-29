@@ -1,5 +1,5 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import {Component, OnDestroy} from '@angular/core';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {Component, OnDestroy, inject} from '@angular/core';
 import {randomString} from '@app/utils/random';
 
 import {AppService, NotifyService} from '@core/services';
@@ -8,17 +8,21 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-user-avatar',
-    templateUrl: './user-avatar.component.html',
-    styleUrls: ['./user-avatar.component.scss'],
-    standalone: false
+	selector: 'app-user-avatar',
+	templateUrl: './user-avatar.component.html',
+	styleUrls: ['./user-avatar.component.scss'],
+	standalone: false
 })
 export class UserAvatarComponent implements OnDestroy {
 	refreshRandom: string;
 	refreshing: boolean = false;
-	protected unsubscribe = new Subject<void>();
+	readonly auth = inject(JamAuthService);
+	readonly app = inject(AppService);
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
-	constructor(public app: AppService, public auth: JamAuthService, private jam: JamService, private notify: NotifyService) {
+	constructor() {
 		this.refreshRandom = randomString();
 	}
 

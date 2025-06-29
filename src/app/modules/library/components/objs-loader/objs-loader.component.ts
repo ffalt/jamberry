@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, ViewChild, inject} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {AlbumType, Jam, JamService, ListType} from '@jam';
 import {JamObjsLoader} from '@library/model/loaders';
@@ -7,10 +7,10 @@ import {LibraryService} from '@library/services';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
-    selector: 'app-obj-loader',
-    templateUrl: './objs-loader.component.html',
-    styleUrls: ['./objs-loader.component.scss'],
-    standalone: false
+	selector: 'app-obj-loader',
+	templateUrl: './objs-loader.component.html',
+	styleUrls: ['./objs-loader.component.scss'],
+	standalone: false
 })
 export class ObjsLoaderComponent implements OnChanges {
 	@Input() grouping: boolean = false;
@@ -20,13 +20,12 @@ export class ObjsLoaderComponent implements OnChanges {
 	@Input() searchQuery?: { query?: string; albumType?: AlbumType; genre?: string; genreID?: string };
 	@Input() loadAll: boolean = false;
 	@Input() changeTrigger?: string;
-
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
 	objs?: Array<JamLibraryObject>;
+	protected library = inject(LibraryService);
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
 	private activeRequest?: Promise<void>;
-
-	constructor(protected library: LibraryService, protected jam: JamService, protected notify: NotifyService) {
-	}
 
 	getObjs(requestFunc: () => Promise<{ list: Jam.Page; items: Array<JamLibraryObject> }>): void {
 		this.loadMore.loading = true;

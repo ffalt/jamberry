@@ -1,7 +1,6 @@
-import {Component, Input, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, Input, OnDestroy, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminUserService, AdminUserServiceEditData, AppService, NotifyService} from '@core/services';
+import {AdminUserService, AdminUserServiceEditData, NotifyService} from '@core/services';
 import {Jam} from '@jam';
 import {DialogsService} from '@shared/services';
 import {Subject} from 'rxjs';
@@ -11,25 +10,18 @@ import {DialogUserPassComponent, UserPasswordEdit} from '../dialog-user-pass/dia
 import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 
 @Component({
-    selector: 'app-admin-user-list',
-    templateUrl: './user-list.component.html',
-    styleUrls: ['./user-list.component.scss'],
-    standalone: false
+	selector: 'app-admin-user-list',
+	templateUrl: './user-list.component.html',
+	styleUrls: ['./user-list.component.scss'],
+	standalone: false
 })
 export class UserListComponent implements OnDestroy {
 	@Input() users?: Array<Jam.User> = [];
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		private router: Router,
-		private route: ActivatedRoute,
-		private app: AppService,
-		private notify: NotifyService,
-		private dialogs: DialogsService,
-		private userService: AdminUserService,
-		private dialogOverlay: DialogOverlayService
-	) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly notify = inject(NotifyService);
+	private readonly dialogs = inject(DialogsService);
+	private readonly userService = inject(AdminUserService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();

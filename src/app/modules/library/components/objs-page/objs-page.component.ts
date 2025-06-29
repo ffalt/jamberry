@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {getUrlType, JamType, JamUrlType} from '@app/utils/jam-lists';
 import {LibraryService} from '@library/services';
@@ -7,10 +7,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-page-objs',
-    templateUrl: './objs-page.component.html',
-    styleUrls: ['./objs-page.component.scss'],
-    standalone: false
+	selector: 'app-page-objs',
+	templateUrl: './objs-page.component.html',
+	styleUrls: ['./objs-page.component.scss'],
+	standalone: false
 })
 export class ObjsPageComponent implements OnInit, OnDestroy {
 	tabs?: Array<HeaderTab>;
@@ -19,10 +19,9 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 	section?: string;
 	sectionType?: string;
 	hasContextMenu: boolean = false;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(private library: LibraryService, protected route: ActivatedRoute) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	protected readonly route = inject(ActivatedRoute);
+	private readonly library = inject(LibraryService);
 
 	ngOnInit(): void {
 		this.route.url

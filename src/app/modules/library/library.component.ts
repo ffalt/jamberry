@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener} from '@angular/core';
+import { Component, ElementRef, HostListener, inject } from '@angular/core';
 import {DeferLoadService} from '@app/modules/defer-load';
 
 @Component({
@@ -9,12 +9,11 @@ import {DeferLoadService} from '@app/modules/defer-load';
 })
 
 export class LibraryComponent {
-	constructor(private element: ElementRef, private deferLoadService: DeferLoadService) {
-	}
+	private readonly element = inject(ElementRef);
+	private deferLoadService = inject(DeferLoadService);
 
 	@HostListener('scroll', ['$event'])
 	scrollTrack(): void {
 		this.deferLoadService.notifyScroll({name: 'library', element: this.element.nativeElement});
 	}
-
 }

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {getUrlType, JamType, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@app/utils/jam-lists';
 import {NotifyService} from '@core/services';
@@ -8,19 +8,19 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-obj-index-loader',
-    templateUrl: './objs-index-loader.component.html',
-    styleUrls: ['./objs-index-loader.component.scss'],
-    standalone: false
+	selector: 'app-obj-index-loader',
+	templateUrl: './objs-index-loader.component.html',
+	styleUrls: ['./objs-index-loader.component.scss'],
+	standalone: false
 })
 export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 	index?: Index;
 	objType?: JamObjectType;
 	query?: JamParameters.ArtistFilterArgs | JamParameters.SeriesFilterArgs | JamParameters.FolderFilterArgs | JamParameters.AlbumFilterArgs;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(protected indexService: IndexService, protected notify: NotifyService, protected route: ActivatedRoute) {
-	}
+	protected indexService = inject(IndexService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly unsubscribe = new Subject<void>();
 
 	request(type?: JamType): void {
 		this.objType = undefined;

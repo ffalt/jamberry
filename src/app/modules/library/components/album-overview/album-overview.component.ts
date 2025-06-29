@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {AlbumType, Jam, JamService} from '@jam';
@@ -7,23 +7,23 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-album-overview',
-    templateUrl: './album-overview.component.html',
-    styleUrls: ['./album-overview.component.scss'],
-    standalone: false
+	selector: 'app-album-overview',
+	templateUrl: './album-overview.component.html',
+	styleUrls: ['./album-overview.component.scss'],
+	standalone: false
 })
 export class AlbumOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	album?: Jam.Album;
 	tracks: Array<Jam.Track> = [];
 	isCompilation: boolean = false;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
-	) {
-	}
+	readonly navig = inject(NavigService);
+	readonly player = inject(PlayerService);
+	readonly actions = inject(ActionsService);
+	protected readonly unsubscribe = new Subject<void>();
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {
 		if (this.route) {

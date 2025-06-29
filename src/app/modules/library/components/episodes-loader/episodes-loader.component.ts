@@ -1,13 +1,13 @@
-import {Component, Input, OnChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, ViewChild, inject} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
-    selector: 'app-episodes-loader',
-    templateUrl: './episodes-loader.component.html',
-    styleUrls: ['./episodes-loader.component.scss'],
-    standalone: false
+	selector: 'app-episodes-loader',
+	templateUrl: './episodes-loader.component.html',
+	styleUrls: ['./episodes-loader.component.scss'],
+	standalone: false
 })
 export class EpisodesLoaderComponent implements OnChanges {
 	episodes?: Array<Jam.Episode>;
@@ -16,10 +16,9 @@ export class EpisodesLoaderComponent implements OnChanges {
 	@Input() query?: string;
 	@Input() queryCmd?: JamParameters.EpisodeFilterArgs;
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 	private activeRequest?: Promise<void>;
-
-	constructor(private jam: JamService, private notify: NotifyService) {
-	}
 
 	getEpisodes(requestFunc: () => Promise<Jam.EpisodePage>): void {
 		this.loadMore.loading = true;

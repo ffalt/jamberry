@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -7,22 +7,22 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-episode-overview',
-    templateUrl: './episode-overview.component.html',
-    styleUrls: ['./episode-overview.component.scss'],
-    standalone: false
+	selector: 'app-episode-overview',
+	templateUrl: './episode-overview.component.html',
+	styleUrls: ['./episode-overview.component.scss'],
+	standalone: false
 })
 export class EpisodeOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	episode?: Jam.Episode;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		public podcastService: PodcastService,
-		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		public jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
-	) {
-	}
+	readonly podcastService = inject(PodcastService);
+	readonly navig = inject(NavigService);
+	readonly player = inject(PlayerService);
+	readonly actions = inject(ActionsService);
+	readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route) {

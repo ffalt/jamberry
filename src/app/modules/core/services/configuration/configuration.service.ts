@@ -1,5 +1,4 @@
-import {Inject, Injectable, InjectionToken} from '@angular/core';
-
+import {Injectable, InjectionToken, inject} from '@angular/core';
 import {Auth, Jam, JamConfiguration} from '@jam';
 import {AppService} from '../app/app.service';
 import {LocalstorageService} from '../localstorage/localstorage.service';
@@ -17,12 +16,16 @@ export class ConfigurationService extends JamConfiguration {
 	clientName: string;
 	clientDomain?: string = undefined;
 	forceSessionUsage = false;
+	private readonly localstorage = inject(LocalstorageService);
+	private readonly userStorage = inject(UserStorageService);
+	private readonly app = inject(AppService);
+	private readonly window = inject<Window>(WINDOW);
 
-	constructor(
-		private localstorage: LocalstorageService, private userStorage: UserStorageService, private app: AppService,
-		@Inject(WINDOW) private window: Window
-	) {
+	constructor() {
 		super();
+		const app = this.app;
+		const window = this.window;
+
 		this.clientName = app.name;
 		this.clientDomain = window.location.origin;
 	}

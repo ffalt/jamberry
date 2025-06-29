@@ -1,5 +1,5 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import {Component, OnDestroy} from '@angular/core';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {Component, OnDestroy, inject} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {randomString} from '@app/utils/random';
 import {NotifyService} from '@core/services';
@@ -8,19 +8,18 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-dialog-avatar',
-    templateUrl: './dialog-avatar.component.html',
-    styleUrls: ['./dialog-avatar.component.scss'],
-    standalone: false
+	selector: 'app-dialog-avatar',
+	templateUrl: './dialog-avatar.component.html',
+	styleUrls: ['./dialog-avatar.component.scss'],
+	standalone: false
 })
 export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy {
 	user?: Jam.User;
 	userAvatar?: string;
 	hasChanged: boolean = false;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(private jam: JamService, private notify: NotifyService) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
@@ -37,7 +36,11 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 	}
 
 	setImageSource(): void {
-		this.userAvatar = this.user ? `${this.jam.image.imageUrl({id: this.user.id, size: 60, format: ImageFormatType.webp})}?${randomString()}` : undefined;
+		this.userAvatar = this.user ? `${this.jam.image.imageUrl({
+			id: this.user.id,
+			size: 60,
+			format: ImageFormatType.webp
+		})}?${randomString()}` : undefined;
 	}
 
 	// At the drag drop area

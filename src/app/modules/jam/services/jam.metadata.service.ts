@@ -1,7 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 
 import {JamBaseService} from '../jam.base.service';
 import {Jam} from '../model/jam-rest-data';
@@ -9,9 +9,7 @@ import {JamParameters} from '../model/jam-rest-params';
 
 @Injectable()
 export class JamMetaDataService {
-
-	constructor(private base: JamBaseService) {
-	}
+	private readonly base = inject(JamBaseService);
 
 	/**
 	 * Lookup LastFM data // Rights needed: stream
@@ -25,6 +23,13 @@ export class JamMetaDataService {
 	 */
 	async lyricsovhSearch(params: JamParameters.LyricsOVHSearchArgs): Promise<Jam.MetaDataResult> {
 		return this.base.requestData<Jam.MetaDataResult>('/metadata/lyricsovh/search', params);
+	}
+
+	/**
+	 * Get Lrclib.net data // Rights needed: stream
+	 */
+	async lcrlibSearch(params: JamParameters.LrclibSearchArgs): Promise<Jam.MetaDataResult> {
+		return this.base.requestData<Jam.MetaDataResult>('/metadata/lrclib/get', params);
 	}
 
 	/**

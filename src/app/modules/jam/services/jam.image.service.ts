@@ -1,16 +1,14 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 
 import {JamBaseService} from '../jam.base.service';
 import {JamParameters} from '../model/jam-rest-params';
 
 @Injectable()
 export class JamImageService {
-
-	constructor(private base: JamBaseService) {
-	}
+	private readonly base = inject(JamBaseService);
 
 	/**
 	 * Image Binary [Album, Artist, Artwork, Episode, Folder, Root, Playlist, Podcast, Radio, Series, Track, User] // Rights needed: stream

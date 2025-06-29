@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {FolderTypesAlbum} from '@app/utils/jam-lists';
-import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {AdminFolderService, NotifyService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
 import {DialogsService} from '@shared/services';
 import {takeUntil} from 'rxjs/operators';
@@ -12,23 +12,22 @@ import {DialogFolderArtworkSearchComponent} from '../../dialog-folder-artwork-se
 import {DialogUploadImageComponent} from '../../dialog-upload-image/dialog-upload-image.component';
 
 @Component({
-    selector: 'app-admin-folder',
-    templateUrl: './admin-folder-overview.component.html',
-    styleUrls: ['./admin-folder-overview.component.scss'],
-    standalone: false
+	selector: 'app-admin-folder',
+	templateUrl: './admin-folder-overview.component.html',
+	styleUrls: ['./admin-folder-overview.component.scss'],
+	standalone: false
 })
 export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	name: string = '';
 	folder?: Jam.Folder;
 	isAlbum: boolean = false;
 	isArtist: boolean = false;
-
-	constructor(
-		route: ActivatedRoute, private app: AppService, private jam: JamService, private notify: NotifyService,
-		private dialogsService: DialogsService, private dialogOverlay: DialogOverlayService,
-		private folderService: AdminFolderService, private router: Router) {
-		super(route);
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly dialogsService = inject(DialogsService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
+	private readonly folderService = inject(AdminFolderService);
+	private readonly router = inject(Router);
 
 	ngOnInit(): void {
 		super.ngOnInit();

@@ -1,5 +1,5 @@
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import {Component, OnDestroy} from '@angular/core';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {Component, OnDestroy, inject} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -7,20 +7,20 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-dialog-upload-image',
-    templateUrl: './dialog-upload-image.component.html',
-    styleUrls: ['./dialog-upload-image.component.scss'],
-    standalone: false
+	selector: 'app-dialog-upload-image',
+	templateUrl: './dialog-upload-image.component.html',
+	styleUrls: ['./dialog-upload-image.component.scss'],
+	standalone: false
 })
 export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.Folder }>, OnDestroy {
 	folder?: Jam.Folder;
 	reference?: DialogOverlayRef;
 	isIdle: boolean = true;
 	isUploading: boolean = false;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();

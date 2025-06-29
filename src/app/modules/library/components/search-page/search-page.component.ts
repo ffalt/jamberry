@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamParameters, JamService} from '@jam';
@@ -27,10 +27,10 @@ const noClick = (): void => {
 };
 
 @Component({
-    selector: 'app-page-search',
-    templateUrl: './search-page.component.html',
-    styleUrls: ['./search-page.component.scss'],
-    standalone: false
+	selector: 'app-page-search',
+	templateUrl: './search-page.component.html',
+	styleUrls: ['./search-page.component.scss'],
+	standalone: false
 })
 export class SearchPageComponent implements AutocompleteDataControl {
 	AlbumType = AlbumType;
@@ -54,8 +54,11 @@ export class SearchPageComponent implements AutocompleteDataControl {
 		};
 		return tab;
 	});
+	library = inject(LibraryService);
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
 
-	constructor(protected jam: JamService, protected notify: NotifyService, public library: LibraryService) {
+	constructor() {
 		this.currentTab = this.tabsObjs.artists;
 		this.currentTab.active = true;
 	}

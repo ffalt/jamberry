@@ -1,10 +1,9 @@
-import {Directive, TemplateRef} from '@angular/core';
+import {Directive, TemplateRef, inject} from '@angular/core';
 
 @Directive({
-    selector: '[appAutocompleteContent]',
-    standalone: false
+	selector: '[appAutocompleteContent]',
+	standalone: false
 })
 export class AutocompleteContentDirective {
-	constructor(public tpl: TemplateRef<any>) {
-	}
+	tpl = inject<TemplateRef<any>>(TemplateRef);
 }

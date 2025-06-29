@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
@@ -16,12 +16,11 @@ export interface PlaylistEdit {
 
 @Injectable()
 export class PlaylistDialogsService {
-
-	constructor(
-		private jam: JamService, private notify: NotifyService,
-		private playlistService: PlaylistService,
-		private dialogOverlay: DialogOverlayService, private dialogsService: DialogsService) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private playlistService = inject(PlaylistService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
+	private readonly dialogsService = inject(DialogsService);
 
 	newPlaylist(entries?: Array<Jam.MediaBase>): void {
 		const edit: PlaylistEdit = {

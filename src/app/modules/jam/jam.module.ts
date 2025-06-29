@@ -81,7 +81,6 @@ export const jamProviders: Array<Provider> =
 	providers: [provideHttpClient(withInterceptorsFromDi(), withJsonpSupport())]
 })
 export class JamModule {
-
 	static forRoot(provider: Provider): ModuleWithProviders<JamModule> {
 		return {
 			ngModule: JamModule,

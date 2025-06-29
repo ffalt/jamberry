@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -8,22 +8,22 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-track-similar',
-    templateUrl: './track-similar.component.html',
-    styleUrls: ['./track-similar.component.scss'],
-    standalone: false
+	selector: 'app-track-similar',
+	templateUrl: './track-similar.component.html',
+	styleUrls: ['./track-similar.component.scss'],
+	standalone: false
 })
 export class TrackSimilarComponent implements OnInit, OnDestroy {
 	id?: string;
 	similar?: Array<Jam.Track>;
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
-	) {
-	}
+	readonly navig = inject(NavigService);
+	readonly player = inject(PlayerService);
+	readonly actions = inject(ActionsService);
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route && this.route.parent) {

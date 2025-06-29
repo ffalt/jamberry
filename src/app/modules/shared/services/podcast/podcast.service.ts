@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Injectable, inject} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {Poller} from '@app/utils/poller';
 import {NotifyService} from '@core/services';
@@ -11,6 +10,9 @@ export class PodcastService {
 	podcastsChange = new EventEmitter<Array<Jam.Podcast>>();
 	podcastChange = new Notifiers<Jam.Podcast>();
 	episodeChange = new EventEmitter<string>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly dialogsService = inject(DialogsService);
 	private podcasts: Array<Jam.Podcast> = [];
 	private episodePoll = new Poller<Jam.Episode>((episode, cb) => {
 		this.jam.episode.status({id: episode.id})
@@ -45,9 +47,6 @@ export class PodcastService {
 				console.error('error while polling podcast download status', err);
 			});
 	});
-
-	constructor(private jam: JamService, private http: HttpClient, private notify: NotifyService, private dialogsService: DialogsService) {
-	}
 
 	removePodcast(podcast: Jam.Podcast): void {
 		this.dialogsService.confirm('Remove Podcast', 'Do you want to remove the podcast?', () => {

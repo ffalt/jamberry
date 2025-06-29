@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {getUrlType, ListTypeUrlNamesKeys} from '@app/utils/jam-lists';
 import {randomString} from '@app/utils/random';
@@ -10,10 +10,10 @@ import {takeUntil} from 'rxjs/operators';
 import {JamObjsLoader} from '../../model/loaders';
 
 @Component({
-    selector: 'app-objs-loader-page-by-type',
-    templateUrl: './objs-loader-by-type.component.html',
-    styleUrls: ['./objs-loader-by-type.component.scss'],
-    standalone: false
+	selector: 'app-objs-loader-page-by-type',
+	templateUrl: './objs-loader-by-type.component.html',
+	styleUrls: ['./objs-loader-by-type.component.scss'],
+	standalone: false
 })
 export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	albumType?: AlbumType;
@@ -24,11 +24,12 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	changeTrigger?: string;
 	loadAll = false;
 	valid = false;
-	protected unsubscribe = new Subject<void>();
-	protected unsubscribeRefresh = new Subject<void>();
-
-	constructor(protected route: ActivatedRoute, protected playlistService: PlaylistService, protected podcastService: PodcastService, public library: LibraryService) {
-	}
+	library = inject(LibraryService);
+	protected readonly route = inject(ActivatedRoute);
+	protected playlistService = inject(PlaylistService);
+	protected podcastService = inject(PodcastService);
+	protected readonly unsubscribe = new Subject<void>();
+	protected readonly unsubscribeRefresh = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route && this.route.parent) {

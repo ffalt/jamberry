@@ -1,18 +1,18 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {AppService, PlayerEvents, PlayerService} from '@core/services';
+import {Component, ElementRef, OnInit, inject} from '@angular/core';
+import {PlayerEvents, PlayerService} from '@core/services';
 import {JamService} from '@jam';
 
 @Component({
-    selector: 'app-mini-time-slider',
-    templateUrl: './mini-slider-time.component.html',
-    styleUrls: ['./mini-slider-time.component.scss'],
-    standalone: false
+	selector: 'app-mini-time-slider',
+	templateUrl: './mini-slider-time.component.html',
+	styleUrls: ['./mini-slider-time.component.scss'],
+	standalone: false
 })
 export class MiniSliderTimeComponent implements OnInit {
 	timePC: number = 0;
-
-	constructor(private element: ElementRef, public player: PlayerService, public jam: JamService, private app: AppService) {
-	}
+	readonly player = inject(PlayerService);
+	readonly jam = inject(JamService);
+	private readonly element = inject(ElementRef);
 
 	ngOnInit(): void {
 		this.player.on(PlayerEvents.TIME, () => this.updateTimeIndicator());

@@ -1,8 +1,7 @@
-import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
 import {Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-
-import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {AdminFolderService} from '@core/services';
 import {FolderHealthID, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -32,17 +31,11 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 	hints?: Array<FolderHealthHint>;
 	solutions: Array<FolderHealthHintSolution> = [];
 	@Input() folderHealth?: Jam.FolderHealth;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		private app: AppService,
-		private router: Router,
-		private jam: JamService,
-		private notify: NotifyService,
-		private dialogOverlay: DialogOverlayService,
-		private folderService: AdminFolderService
-	) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly router = inject(Router);
+	private readonly jam = inject(JamService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
+	private readonly folderService = inject(AdminFolderService);
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();

@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable, OnDestroy} from '@angular/core';
+import {EventEmitter, Injectable, OnDestroy, inject} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {Poller} from '@app/utils/poller';
 import {Jam, JamService, RootScanStrategy} from '@jam';
@@ -18,9 +18,12 @@ export interface AdminRootServiceEditData {
 	providedIn: 'root'
 })
 export class AdminRootService implements OnDestroy {
-	rootsChange = new EventEmitter<Array<Jam.Root>>();
-	rootChange = new Notifiers<Jam.Root>();
-	protected unsubscribe = new Subject<void>();
+	readonly rootsChange = new EventEmitter<Array<Jam.Root>>();
+	readonly rootChange = new Notifiers<Jam.Root>();
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
 	private roots: Array<Jam.Root> = [];
 	private rootPoll = new Poller<Jam.Root>((root, cb) => {
 		this.jam.root.status({id: root.id})
@@ -41,9 +44,6 @@ export class AdminRootService implements OnDestroy {
 				console.error('error while polling root scan status', err);
 			});
 	});
-
-	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
-	}
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {Jam} from '@jam';
 
@@ -6,9 +6,7 @@ import {Jam} from '@jam';
 	providedIn: 'root'
 })
 export class NavigService {
-
-	constructor(private router: Router) {
-	}
+	private readonly router = inject(Router);
 
 	toTrackID(id: string, name: string): void {
 		this.navigate([`/library/tracks/id/${id}`, {name}]);

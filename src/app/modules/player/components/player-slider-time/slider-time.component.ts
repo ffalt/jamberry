@@ -1,21 +1,22 @@
-import {Component, ElementRef, HostBinding, HostListener, OnInit} from '@angular/core';
+import {Component, ElementRef, HostBinding, HostListener, OnInit, inject} from '@angular/core';
 import {extractSVGParts} from '@app/utils/svg-parts';
 import {AppService, PlayerEvents, PlayerService} from '@core/services';
 import {JamService} from '@jam';
 
 @Component({
-    selector: 'app-time-slider',
-    templateUrl: './slider-time.component.html',
-    styleUrls: ['./slider-time.component.scss'],
-    standalone: false
+	selector: 'app-time-slider',
+	templateUrl: './slider-time.component.html',
+	styleUrls: ['./slider-time.component.scss'],
+	standalone: false
 })
 export class SliderTimeComponent implements OnInit {
 	timePC: number = 0;
 	svg?: { viewbox: string; path: string };
 	@HostBinding() tabindex = '0';
-
-	constructor(private element: ElementRef, public player: PlayerService, public jam: JamService, public app: AppService) {
-	}
+	readonly player = inject(PlayerService);
+	readonly jam = inject(JamService);
+	readonly app = inject(AppService);
+	private readonly element = inject(ElementRef);
 
 	ngOnInit(): void {
 		this.player.on(PlayerEvents.TIME, () => this.updateTimeIndicator());

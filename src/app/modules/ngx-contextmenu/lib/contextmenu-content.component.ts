@@ -2,20 +2,18 @@ import {FocusKeyManager} from '@angular/cdk/a11y';
 import {OverlayRef} from '@angular/cdk/overlay';
 import {
 	AfterViewInit,
-	ChangeDetectorRef,
 	Component,
 	ElementRef,
 	EventEmitter,
 	HostListener,
-	Inject,
 	Input,
 	OnDestroy,
 	OnInit,
-	Optional,
 	Output,
 	QueryList,
 	ViewChild,
-	ViewChildren
+	ViewChildren,
+	inject
 } from '@angular/core';
 import {ContextMenuContentItemComponent} from '@app/modules/ngx-contextmenu/lib/contextmenu-content-item.component';
 import {Subscription} from 'rxjs';
@@ -27,11 +25,11 @@ import {CONTEXT_MENU_OPTIONS} from './contextmenu.tokens';
 const ARROW_LEFT_KEYCODE = 37;
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'context-menu-content',
-    styleUrls: ['./contextmenu-content.component.css'],
-    templateUrl: './contextmenu-content.component.html',
-    standalone: false
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'context-menu-content',
+	styleUrls: ['./contextmenu-content.component.css'],
+	templateUrl: './contextmenu-content.component.html',
+	standalone: false
 })
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
 	@Input() menuItems: Array<ContextMenuItemDirective> = [];
@@ -41,31 +39,22 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	@Input() menuClass?: string;
 	@Input() overlay?: OverlayRef;
 	@Input() isLeaf: boolean = false;
-	@Output() readonly execute: EventEmitter<{
-		event?: Event;
-		item: any;
-		menuItem: ContextMenuItemDirective;
-	}> = new EventEmitter();
+	@Output() readonly execute: EventEmitter<{ event?: Event; item: any; menuItem: ContextMenuItemDirective }> = new EventEmitter();
 	@Output() readonly openSubMenu: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
 	@Output() readonly closeLeafMenu: EventEmitter<CloseLeafMenuEvent> = new EventEmitter();
-	@Output() readonly closeAllMenus: EventEmitter<{
-		event: MouseEvent;
-	}> = new EventEmitter();
+	@Output() readonly closeAllMenus: EventEmitter<{ event: MouseEvent }> = new EventEmitter();
 	@ViewChild('menu', {static: true}) menuElement!: ElementRef;
 	@ViewChildren('li') menuItemElements!: QueryList<ElementRef>;
 	@ViewChildren(ContextMenuContentItemComponent) menuItemFocusElements!: QueryList<ContextMenuContentItemComponent>;
 
 	autoFocus = false;
 	private keyManager!: FocusKeyManager<ContextMenuContentItemComponent>;
+	private options = inject<IContextMenuOptions>(CONTEXT_MENU_OPTIONS, {optional: true});
 	private subscription: Subscription = new Subscription();
 
-	constructor(
-		private changeDetector: ChangeDetectorRef,
-		private elementRef: ElementRef,
-		@Optional()
-		@Inject(CONTEXT_MENU_OPTIONS)
-		private options: IContextMenuOptions
-	) {
+	constructor() {
+		const options = this.options;
+
 		if (options) {
 			this.autoFocus = !!options.autoFocus;
 		}

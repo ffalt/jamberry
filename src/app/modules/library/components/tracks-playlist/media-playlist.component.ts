@@ -1,14 +1,14 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {Component, Input} from '@angular/core';
+import {Component, Input, inject} from '@angular/core';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
 
 @Component({
-    selector: 'app-media-playlist',
-    templateUrl: './media-playlist.component.html',
-    styleUrls: ['./media-playlist.component.scss'],
-    standalone: false
+	selector: 'app-media-playlist',
+	templateUrl: './media-playlist.component.html',
+	styleUrls: ['./media-playlist.component.scss'],
+	standalone: false
 })
 export class MediaPlaylistComponent {
 	@Input() entries?: Array<Jam.MediaBase>;
@@ -16,9 +16,9 @@ export class MediaPlaylistComponent {
 	@Input() showRating: boolean = false;
 	@Input() showPlayCount: boolean = false;
 	@Input() showPlayDate: boolean = false;
-
-	constructor(public player: PlayerService, public navig: NavigService, public actions: ActionsService) {
-	}
+	readonly player = inject(PlayerService);
+	readonly navig = inject(NavigService);
+	readonly actions = inject(ActionsService);
 
 	onDrop(event: CdkDragDrop<Jam.MediaBase>): void {
 		if (this.entries) {

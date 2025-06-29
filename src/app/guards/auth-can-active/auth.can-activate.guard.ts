@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {JamAuthService} from '@jam';
 
 @Injectable()
 export class AuthCanActivateGuard implements CanActivate {
-
-	constructor(private readonly router: Router, private readonly auth: JamAuthService, private notify: NotifyService) {
-	}
+	private readonly router = inject(Router);
+	private readonly auth = inject(JamAuthService);
+	private readonly notify = inject(NotifyService);
 
 	async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
 		if (this.auth.checked) {

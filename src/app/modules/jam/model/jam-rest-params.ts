@@ -1190,6 +1190,20 @@ export declare namespace JamParameters {
 		seed?: string;
 	}
 
+	export interface LrclibSearchArgs {
+		/** Song Title */
+		title: string;
+		/** Song Artist */
+		artist: string;
+		/** Song Album */
+		album: string;
+		/**
+		 * Song Duration in seconds
+		 * @TJS-type integer
+		 */
+		duration: number;
+	}
+
 	export interface LyricsOVHSearchArgs {
 		/** Song Title */
 		title: string;

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
 import {Jam} from '@jam';
@@ -11,10 +11,10 @@ export interface ChoosePlaylistData {
 }
 
 @Component({
-    selector: 'app-dialog-add-to-playlist',
-    templateUrl: './dialog-add-to-playlist.component.html',
-    styleUrls: ['./dialog-add-to-playlist.component.scss'],
-    standalone: false
+	selector: 'app-dialog-add-to-playlist',
+	templateUrl: './dialog-add-to-playlist.component.html',
+	styleUrls: ['./dialog-add-to-playlist.component.scss'],
+	standalone: false
 })
 export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData> {
 	data?: ChoosePlaylistData;
@@ -22,11 +22,9 @@ export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlayli
 	mediaList?: Array<Jam.MediaBase>;
 	showTrackPreview: boolean = false;
 	reference?: DialogOverlayRef;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(private notify: NotifyService, private playlistService: PlaylistService) {
-
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly notify = inject(NotifyService);
+	private readonly playlistService = inject(PlaylistService);
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ChoosePlaylistData>>): void {
 		this.data = options.data;

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {extractSVGParts} from '@app/utils/svg-parts';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
@@ -8,21 +8,22 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-track-overview',
-    templateUrl: './track-overview.component.html',
-    styleUrls: ['./track-overview.component.scss'],
-    standalone: false
+	selector: 'app-track-overview',
+	templateUrl: './track-overview.component.html',
+	styleUrls: ['./track-overview.component.scss'],
+	standalone: false
 })
 export class TrackOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	track?: Jam.Track;
 	svg?: { viewbox: string; path: string };
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute) {
-	}
+	readonly actions = inject(ActionsService);
+	readonly navig = inject(NavigService);
+	readonly player = inject(PlayerService);
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route) {

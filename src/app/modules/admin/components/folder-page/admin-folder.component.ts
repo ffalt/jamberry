@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, HostBinding, OnDestroy, OnInit, ViewChild, inject} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UiStateService} from '@core/services';
 import {Jam} from '@jam';
@@ -8,21 +8,20 @@ import {folderSubSections} from '../../admin.types';
 import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
 
 @Component({
-    selector: 'app-admin-folder',
-    templateUrl: './admin-folder.component.html',
-    styleUrls: ['./admin-folder.component.scss'],
-    standalone: false
+	selector: 'app-admin-folder',
+	templateUrl: './admin-folder.component.html',
+	styleUrls: ['./admin-folder.component.scss'],
+	standalone: false
 })
 export class AdminFolderComponent implements OnInit, OnDestroy {
-	id: string = '';
 	@ViewChild(FolderTreeComponent, {static: true}) tree?: FolderTreeComponent;
 	@HostBinding('class.right-active') rightActive: boolean = false;
-	protected unsubscribe = new Subject<void>();
+	id: string = '';
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly route = inject(ActivatedRoute);
+	private readonly router = inject(Router);
+	private readonly uiState = inject(UiStateService);
 	private mode: string = 'overview';
-
-	constructor(private route: ActivatedRoute, private router: Router, private uiState: UiStateService) {
-
-	}
 
 	refresh(): void {
 		if (this.tree) {

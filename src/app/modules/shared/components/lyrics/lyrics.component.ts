@@ -1,20 +1,19 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, inject} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
 
 @Component({
-    selector: 'app-lyrics',
-    templateUrl: './lyrics.component.html',
-    styleUrls: ['./lyrics.component.scss'],
-    standalone: false
+	selector: 'app-lyrics',
+	templateUrl: './lyrics.component.html',
+	styleUrls: ['./lyrics.component.scss'],
+	standalone: false
 })
 export class LyricsComponent implements OnChanges {
 	@Input() trackID?: string;
 	lyrics?: Array<string>;
 	lyricsSource?: string;
-
-	constructor(private jam: JamService, private notify: NotifyService) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
 	loadLyrics(): void {
 		this.lyrics = undefined;

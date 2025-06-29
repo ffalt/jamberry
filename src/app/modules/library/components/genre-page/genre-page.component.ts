@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
@@ -25,16 +25,17 @@ const noClick = (): void => {
 };
 
 @Component({
-    selector: 'app-page-genre',
-    templateUrl: './genre-page.component.html',
-    styleUrls: ['./genre-page.component.scss'],
-    standalone: false
+	selector: 'app-page-genre',
+	templateUrl: './genre-page.component.html',
+	styleUrls: ['./genre-page.component.scss'],
+	standalone: false
 })
 export class GenrePageComponent implements OnDestroy {
 	title = 'Genre';
 	genre = '';
 	genreID?: string;
 	mode?: string;
+	library = inject(LibraryService);
 	tabsObjs: GenreTabs = {
 		artists: {id: 'artist', label: 'Artist', click: noClick},
 		albums: {id: 'album', label: 'Album', click: noClick},
@@ -48,12 +49,12 @@ export class GenrePageComponent implements OnDestroy {
 		};
 		return tab;
 	});
-	protected unsubscribe = new Subject<void>();
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly unsubscribe = new Subject<void>();
 
-	constructor(
-		protected jam: JamService, protected notify: NotifyService, public library: LibraryService,
-		protected route: ActivatedRoute
-	) {
+	constructor() {
 		this.route.params
 			.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
 			this.genre = params.name;

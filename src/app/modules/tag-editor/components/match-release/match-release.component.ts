@@ -1,6 +1,6 @@
-import {Component, HostBinding, Input, OnChanges, OnDestroy, ViewChild} from '@angular/core';
+import {Component, HostBinding, Input, OnChanges, OnDestroy, ViewChild, inject} from '@angular/core';
 import {MatchApplyComponent} from '@app/modules/tag-editor/components/match-apply/match-apply.component';
-import {AppService, NotifyService} from '@core/services';
+import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
 import {MatchRelease, MatchReleaseGroup} from '../../model/release-matching.helper';
@@ -22,10 +22,10 @@ export interface ReleaseMatching {
 }
 
 @Component({
-    selector: 'app-match-release',
-    templateUrl: './match-release.component.html',
-    styleUrls: ['./match-release.component.scss'],
-    standalone: false
+	selector: 'app-match-release',
+	templateUrl: './match-release.component.html',
+	styleUrls: ['./match-release.component.scss'],
+	standalone: false
 })
 export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	@Input() data?: ReleaseMatching;
@@ -33,12 +33,16 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	@ViewChild(MatchApplyComponent) matchApply!: MatchApplyComponent;
 	@ViewChild('actionMenu', {static: false}) actionMenu?: ContextMenuComponent;
 	matcher: Matcher;
-
 	current?: { group: MatchReleaseGroup; release: MatchRelease };
-	RunType = RunType;
+	readonly RunType = RunType;
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly contextMenuService = inject(ContextMenuService);
 
-	constructor(private app: AppService, private jam: JamService, private notify: NotifyService,
-							private contextMenuService: ContextMenuService) {
+	constructor() {
+		const jam = this.jam;
+		const notify = this.notify;
+
 		this.matcher = new Matcher(jam, notify);
 	}
 

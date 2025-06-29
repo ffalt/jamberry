@@ -1,9 +1,8 @@
 import {Overlay, OverlayRef, ScrollStrategyOptions} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
-import {ComponentRef, ElementRef, Injectable} from '@angular/core';
+import {ComponentRef, ElementRef, Injectable, inject} from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 import {ContextMenuContentComponent} from './contextmenu-content.component';
-
 import {ContextMenuComponent} from './contextmenu.component';
 import {ContextMenuItemDirective} from './contextmenu.item.directive';
 
@@ -56,18 +55,14 @@ interface Rect {
 @Injectable()
 export class ContextMenuService {
 	isDestroyingLeafMenu = false;
-
 	show: Subject<IContextMenuClickEvent> = new Subject<IContextMenuClickEvent>();
-	triggerClose: Subject<ContextMenuContentComponent> = new Subject();
 	close: Subject<CloseContextMenuEvent> = new Subject();
-
+	private overlay = inject(Overlay);
+	private scrollStrategy = inject(ScrollStrategyOptions);
 	private overlays: Array<OverlayRef> = [];
 	private fakeElement: any = {
 		getBoundingClientRect: (): Rect => ({bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0})
 	};
-
-	constructor(private overlay: Overlay, private scrollStrategy: ScrollStrategyOptions) {
-	}
 
 	openContextMenu(context: IContextMenuContext) {
 		const {anchorElement, event, parentContextMenu} = context;

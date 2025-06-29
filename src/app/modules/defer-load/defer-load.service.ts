@@ -1,5 +1,5 @@
 import {isPlatformBrowser} from '@angular/common';
-import {EventEmitter, Inject, Injectable, PLATFORM_ID} from '@angular/core';
+import {EventEmitter, Injectable, PLATFORM_ID, inject} from '@angular/core';
 import {merge, Observable, Subject} from 'rxjs';
 import {debounceTime, throttleTime} from 'rxjs/operators';
 import {Rect} from './rect';
@@ -22,11 +22,12 @@ export class DeferLoadService {
 	currentViewport: Rect = new Rect(0, 0, 0, 0);
 	readonly isBrowser: boolean;
 	readonly hasIntersectionObserver: boolean;
-	private scrollSubject = new Subject<ScrollNotifyEvent>();
+	private platformId = inject(PLATFORM_ID);
+	private readonly scrollSubject = new Subject<ScrollNotifyEvent>();
 	private scrollObservable: Observable<ScrollNotifyEvent>;
 	private intersectionObserver?: IntersectionObserver;
 
-	constructor(@Inject(PLATFORM_ID) private platformId: any) {
+	constructor() {
 		this.isBrowser = isPlatformBrowser(this.platformId);
 		this.hasIntersectionObserver = DeferLoadService.checkIntersectionObserver();
 		const observable = this.scrollSubject.asObservable();

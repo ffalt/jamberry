@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, inject} from '@angular/core';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {JamAlbumObject} from '@library/model/objects';
@@ -6,21 +6,20 @@ import {ActionsService, PodcastService} from '@shared/services';
 import {LibraryService} from '../../services';
 
 @Component({
-    selector: 'app-album-list',
-    templateUrl: './album-list.component.html',
-    styleUrls: ['./album-list.component.scss'],
-    standalone: false
+	selector: 'app-album-list',
+	templateUrl: './album-list.component.html',
+	styleUrls: ['./album-list.component.scss'],
+	standalone: false
 })
 export class AlbumListComponent {
 	@Input() albums?: Array<Jam.Album>;
 	@Input() showArtist: boolean = false;
-
-	constructor(
-		private library: LibraryService,
-		public jam: JamService, public player: PlayerService, public podcastService: PodcastService,
-		public actions: ActionsService, public navig: NavigService
-	) {
-	}
+	readonly jam = inject(JamService);
+	readonly player = inject(PlayerService);
+	readonly podcastService = inject(PodcastService);
+	readonly actions = inject(ActionsService);
+	readonly navig = inject(NavigService);
+	private readonly library = inject(LibraryService);
 
 	onContextMenu($event: Event, item: Jam.Album): void {
 		this.library.openJamObjectMenu(new JamAlbumObject(item, this.library), $event);

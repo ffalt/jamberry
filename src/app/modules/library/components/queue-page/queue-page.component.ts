@@ -1,18 +1,18 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {QueueService} from '@core/services';
 import {LibraryService} from '@library/services';
 import {PlaylistDialogsService} from '@shared/services';
 
 @Component({
-    selector: 'app-page-queue',
-    templateUrl: './queue-page.component.html',
-    styleUrls: ['./queue-page.component.scss'],
-    standalone: false
+	selector: 'app-page-queue',
+	templateUrl: './queue-page.component.html',
+	styleUrls: ['./queue-page.component.scss'],
+	standalone: false
 })
 export class QueuePageComponent {
-
-	constructor(public queue: QueueService, public playlistDialogsService: PlaylistDialogsService, private library: LibraryService) {
-	}
+	readonly queue = inject(QueueService);
+	playlistDialogsService = inject(PlaylistDialogsService);
+	private readonly library = inject(LibraryService);
 
 	onContextMenu($event: Event): void {
 		this.library.openSimpleMenu([

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild, inject} from '@angular/core';
 import {MatchCoverartComponent, MatchImageNode, MatchImageSearch} from '@app/modules/tag-editor/components';
 import {
 	GenreTag,
@@ -8,28 +8,24 @@ import {
 	mergeGenres
 } from '@app/modules/tag-editor/model/genres.helper';
 import {Matching, MatchRelease, MatchReleaseGroup} from '@app/modules/tag-editor/model/release-matching.helper';
-import {AppService} from '@core/services';
 import {JamService, LastFMLookupType} from '@jam';
 
 @Component({
-    selector: 'app-match-apply',
-    templateUrl: './match-apply.component.html',
-    styleUrls: ['./match-apply.component.scss'],
-    standalone: false
+	selector: 'app-match-apply',
+	templateUrl: './match-apply.component.html',
+	styleUrls: ['./match-apply.component.scss'],
+	standalone: false
 })
 export class MatchApplyComponent {
 	@Input() isRunning: boolean = false;
 	@Output() readonly loadLyricsRequest = new EventEmitter<void>();
 	@Output() readonly loadMoodsRequest = new EventEmitter<void>();
 	@ViewChild(MatchCoverartComponent, {static: false}) coverArt?: MatchCoverartComponent;
-
 	isGenreSearchRunning: boolean = false;
 	genres?: Array<{ tag: GenreTag; checked: boolean }>;
 	customGenre = {text: '', checked: true};
 	coverArtSearch?: MatchImageSearch;
-
-	constructor(private app: AppService, private jam: JamService) {
-	}
+	private readonly jam = inject(JamService);
 
 	getGenres(): Array<string> {
 		const genres = (this.genres || []).filter(genre => genre.checked).map(genre => genre.tag.name);

@@ -1,18 +1,16 @@
-import {Component, ElementRef, HostBinding, HostListener, Input} from '@angular/core';
+import {Component, ElementRef, HostBinding, HostListener, Input, inject} from '@angular/core';
 
 @Component({
-    selector: 'app-splitter',
-    templateUrl: './splitter.component.html',
-    styleUrls: ['./splitter.component.scss'],
-    standalone: false
+	selector: 'app-splitter',
+	templateUrl: './splitter.component.html',
+	styleUrls: ['./splitter.component.scss'],
+	standalone: false
 })
 export class SplitterComponent {
 	@Input() leftSnap: boolean = true;
 	@HostBinding('class.dragging') dragging: boolean = false;
+	element = inject(ElementRef);
 	private drag?: { element: HTMLElement; width: number };
-
-	constructor(public element: ElementRef) {
-	}
 
 	startDrag(): void {
 		this.drag = {
@@ -33,7 +31,7 @@ export class SplitterComponent {
 			if (!this.leftSnap) {
 				offsetX = this.element.nativeElement.parentNode.offsetWidth - offsetX;
 			}
-			this.drag.element.style.width = `${Math.max(0, offsetX).toString()  }px`;
+			this.drag.element.style.width = `${Math.max(0, offsetX).toString()}px`;
 		}
 	}
 

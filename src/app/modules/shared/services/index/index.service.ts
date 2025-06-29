@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Injectable, inject} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {AppService, NotifyService} from '@core/services';
 import {ImageFormatType, Jam, JamObjectType, JamService} from '@jam';
@@ -154,11 +154,11 @@ export class IndexCache {
 
 @Injectable()
 export class IndexService {
-	indexNotify = new EventEmitter<IndexCache>();
+	readonly indexNotify = new EventEmitter<IndexCache>();
+	private readonly app = inject(AppService);
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 	private indexes: Array<IndexCache> = [];
-
-	constructor(private app: AppService, private jam: JamService, private notify: NotifyService) {
-	}
 
 	findIndex(type: JamObjectType, query: any): IndexCache | undefined {
 		return this.indexes.find(index => index.matches(type, query));

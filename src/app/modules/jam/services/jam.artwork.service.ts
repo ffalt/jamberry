@@ -2,7 +2,7 @@
 // This file was automatically generated and should not be edited.
 
 import {HttpEvent} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {JamBaseService} from '../jam.base.service';
@@ -11,9 +11,7 @@ import {JamParameters} from '../model/jam-rest-params';
 
 @Injectable()
 export class JamArtworkService {
-
-	constructor(private base: JamBaseService) {
-	}
+	private readonly base = inject(JamBaseService);
 
 	/**
 	 * Get an Artwork by Id // Rights needed: stream

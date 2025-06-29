@@ -1,5 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnDestroy, OnInit, ViewChild, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -10,21 +9,19 @@ import {DialogChooseFolderComponent, SelectFolder} from '../../dialog-choose-fol
 import {TrackListComponent} from '../../track-list/track-list.component';
 
 @Component({
-    selector: 'app-admin-folder-tracks',
-    templateUrl: './admin-folder-tracks.component.html',
-    styleUrls: ['./admin-folder-tracks.component.scss'],
-    standalone: false
+	selector: 'app-admin-folder-tracks',
+	templateUrl: './admin-folder-tracks.component.html',
+	styleUrls: ['./admin-folder-tracks.component.scss'],
+	standalone: false
 })
 export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
-	folder: Jam.Folder | undefined;
 	@ViewChild(TrackListComponent, {static: false}) tracks?: TrackListComponent;
-
-	constructor(
-		route: ActivatedRoute, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService,
-		private dialogsService: DialogsService, private dialogOverlay: DialogOverlayService
-	) {
-		super(route);
-	}
+	folder: Jam.Folder | undefined;
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
+	private readonly dialogsService = inject(DialogsService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
 	ngOnInit(): void {
 		super.ngOnInit();

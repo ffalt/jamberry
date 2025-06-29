@@ -1,15 +1,15 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit, QueryList, ViewChildren, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppService, SidebarProvider} from '@core/services';
 import {SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
 import {SidebarList, SidebarListComponent} from '../sidebar-list/sidebar-list.component';
 
 @Component({
-    selector: 'app-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss'],
-    standalone: false
+	selector: 'app-sidebar',
+	templateUrl: './sidebar.component.html',
+	styleUrls: ['./sidebar.component.scss'],
+	standalone: false
 })
 export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, SidebarProvider {
 	@Input() sections: Array<SidebarList> = [];
@@ -17,10 +17,9 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 	@HostBinding('class.active') collapsed: boolean = false;
 	@ViewChildren(SidebarListComponent) items!: QueryList<SidebarListComponent>;
 	@HostBinding('class.show') showMobileNavig: boolean = false;
+	readonly app = inject(AppService);
+	protected router = inject(Router);
 	private keyManager: FocusKeyManager<SidebarListItemComponent> | undefined;
-
-	constructor(public app: AppService, protected router: Router) {
-	}
 
 	ngOnInit(): void {
 		this.app.view.currentSidebar = this;

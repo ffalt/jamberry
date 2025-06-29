@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Injectable, inject} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -8,9 +8,8 @@ export class PlaylistService {
 	playlistsChange = new EventEmitter<Array<Jam.Playlist>>();
 	playlistChange = new Notifiers<Jam.Playlist>();
 	private playlists: Array<Jam.Playlist> = [];
-
-	constructor(private jam: JamService, private notify: NotifyService) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
 	async remove(playlist: Jam.Playlist): Promise<void> {
 		await this.jam.playlist.remove({id: playlist.id});

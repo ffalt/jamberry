@@ -1,16 +1,14 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 
 import {JamBaseService} from '../jam.base.service';
 import {JamParameters} from '../model/jam-rest-params';
 
 @Injectable()
 export class JamStreamService {
-
-	constructor(private base: JamBaseService) {
-	}
+	private readonly base = inject(JamBaseService);
 
 	/**
 	 * Stream a media file in a format [Episode, Track] // Rights needed: stream

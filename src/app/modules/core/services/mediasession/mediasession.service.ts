@@ -1,4 +1,4 @@
-import {Injectable, NgZone} from '@angular/core';
+import {Injectable, NgZone, inject} from '@angular/core';
 import {ImageFormatType, Jam, JamService} from '@jam';
 import {MediaSessionEvents} from './mediasession.events';
 
@@ -49,12 +49,12 @@ export declare class MediaMetadata {
 	providedIn: 'root'
 })
 export class MediaSessionService {
-	private subscribers: {
-		[key: number]: Array<any>;
-	} = {};
+	private readonly jam = inject(JamService);
+	private ngZone = inject(NgZone);
+	private subscribers: { [key: number]: Array<any> } = {};
 	private readonly mediaSession?: MediaSession;
 
-	constructor(private jam: JamService, private ngZone: NgZone) {
+	constructor() {
 		if ('mediaSession' in navigator) {
 			this.mediaSession = (navigator as any).mediaSession as MediaSession;
 		}

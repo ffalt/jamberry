@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {SidebarList, SidebarListItem} from '@shared/components';
 
 @Component({
-    selector: 'app-libary-sidebar',
-    templateUrl: './sidebar-library.component.html',
-    styleUrls: ['./sidebar-library.component.scss'],
-    standalone: false
+	selector: 'app-libary-sidebar',
+	templateUrl: './sidebar-library.component.html',
+	styleUrls: ['./sidebar-library.component.scss'],
+	standalone: false
 })
 export class SidebarLibraryComponent implements OnInit {
 	root?: Jam.Root;
@@ -17,15 +17,10 @@ export class SidebarLibraryComponent implements OnInit {
 	musicList: Array<SidebarListItem> = [];
 	spokenList: Array<SidebarListItem> = [];
 	sections: Array<SidebarList> = [];
-
-	constructor(
-		public app: AppService,
-		protected router: Router,
-		protected notify: NotifyService,
-		protected jam: JamService
-	) {
-
-	}
+	readonly app = inject(AppService);
+	protected router = inject(Router);
+	protected readonly notify = inject(NotifyService);
+	protected readonly jam = inject(JamService);
 
 	ngOnInit(): void {
 		this.updateNavigation();

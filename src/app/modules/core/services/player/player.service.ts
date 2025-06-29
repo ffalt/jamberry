@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable, OnDestroy, inject} from '@angular/core';
 import {MediaSessionEvents} from '@core/services/mediasession/mediasession.events';
 import {MediaSessionService} from '@core/services/mediasession/mediasession.service';
 import {ImageFormatType, Jam, JamObjectType, JamService, PodcastStatus} from '@jam';
@@ -51,21 +51,21 @@ export class PlayerService implements OnDestroy {
 	repeatTrack = false;
 	scrobbleWatch = new StopWatch();
 	scrobbled = false;
-	protected unsubscribe = new Subject<void>();
-	private subscribers: {
-		[key: number]: Array<(data: any) => void>;
-	} = {};
+	protected readonly unsubscribe = new Subject<void>();
+	private subscribers: { [key: number]: Array<(data: any) => void> } = {};
 	private positionStoreTimer?: number;
 	private soundPlayer: PlayerSoundmanager2;
+	private queue = inject(QueueService);
+	private readonly notify = inject(NotifyService);
+	private notification = inject(PushNotificationService);
+	private mediasession = inject(MediaSessionService);
+	private userStorage = inject(UserStorageService);
+	private readonly jam = inject(JamService);
 
-	constructor(
-		private queue: QueueService,
-		private notify: NotifyService,
-		private notification: PushNotificationService,
-		private mediasession: MediaSessionService,
-		private userStorage: UserStorageService,
-		private jam: JamService
-	) {
+	constructor() {
+		const userStorage = this.userStorage;
+		const jam = this.jam;
+
 		this.soundPlayer = new PlayerSoundmanager2(jam);
 		this.subscribeSoundPlayerEvents();
 		this.subscribeMediaSessionEvents();

@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {AppService, NavigService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {PodcastService} from '@shared/services';
 import PodcastDiscover = Jam.PodcastDiscover;
 
 export interface PodcastSearchResult {
@@ -19,25 +18,19 @@ export interface PodcastSearch {
 }
 
 @Component({
-    selector: 'app-page-podcast-search',
-    templateUrl: './podcast-search-page.component.html',
-    styleUrls: ['./podcast-search-page.component.scss'],
-    standalone: false
+	selector: 'app-page-podcast-search',
+	templateUrl: './podcast-search-page.component.html',
+	styleUrls: ['./podcast-search-page.component.scss'],
+	standalone: false
 })
 export class PodcastSearchPageComponent {
 	podcasts?: Array<PodcastSearch>;
 	searchValue: string = '';
 	isSearching: boolean = false;
-
-	constructor(
-		public app: AppService,
-		public jam: JamService,
-		public navig: NavigService,
-		public notify: NotifyService,
-		private podcastService: PodcastService
-	) {
-		this.searchValue = '';
-	}
+	readonly app = inject(AppService);
+	readonly jam = inject(JamService);
+	readonly navig = inject(NavigService);
+	notify = inject(NotifyService);
 
 	subscribe(pod?: PodcastSearchResult): void {
 		if (!pod) {

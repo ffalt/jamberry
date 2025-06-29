@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Injectable, inject} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {Jam, JamParameters, JamService} from '@jam';
 import {NotifyService} from '../notify/notify.service';
@@ -15,9 +15,8 @@ export class AdminUserService {
 	usersChange = new EventEmitter<Array<Jam.User>>();
 	userChange = new Notifiers<Jam.User>();
 	private users: Array<Jam.User> = [];
-
-	constructor(private jam: JamService, private notify: NotifyService) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
 	async applyDialogUser(edit: AdminUserServiceEditData): Promise<void> {
 		if (edit.user) {

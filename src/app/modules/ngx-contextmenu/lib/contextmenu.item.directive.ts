@@ -1,10 +1,10 @@
 import {Highlightable} from '@angular/cdk/a11y';
-import {Directive, EventEmitter, Input, Output, TemplateRef} from '@angular/core';
+import {Directive, EventEmitter, Input, Output, TemplateRef, inject} from '@angular/core';
 
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[contextMenuItem]',
-    standalone: false
+	// eslint-disable-next-line @angular-eslint/directive-selector
+	selector: '[contextMenuItem]',
+	standalone: false
 })
 export class ContextMenuItemDirective implements Highlightable {
 	@Input() subMenu: any;
@@ -13,12 +13,9 @@ export class ContextMenuItemDirective implements Highlightable {
 	@Input() passive = false;
 	@Input() visible: boolean | ((item: any) => boolean) = true;
 	@Output() readonly execute: EventEmitter<{ event?: Event; item: any }> = new EventEmitter();
-
+	readonly template = inject<TemplateRef<{ item: any; }>>(TemplateRef);
 	currentItem: any;
 	isActive = false;
-
-	constructor(public template: TemplateRef<{ item: any }>) {
-	}
 
 	get isVisible(): boolean {
 		return this.evaluateIfFunction(this.visible, this);

@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Injectable, inject} from '@angular/core';
 import {Poller} from '@app/utils/poller';
 import {Jam, JamService} from '@jam';
 import {NotifyService} from '../notify/notify.service';
@@ -23,13 +23,12 @@ export interface AdminChangeQueueInfoPoll {
 	providedIn: 'root'
 })
 export class AdminFolderService {
-	foldersChange = new EventEmitter<{ id: string; mode: AdminFolderServiceNotifyMode }>();
-	tracksChange = new EventEmitter<{ id: string }>();
 	current?: AdminChangeQueueInfoPoll;
 	queue: Array<AdminChangeQueueInfoPoll> = [];
-
-	constructor(private jam: JamService, private notify: NotifyService) {
-	}
+	readonly foldersChange = new EventEmitter<{ id: string; mode: AdminFolderServiceNotifyMode }>();
+	readonly tracksChange = new EventEmitter<{ id: string }>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
 	notifyTrackChange(id: string): void {
 		this.tracksChange.emit({id});

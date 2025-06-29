@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {NavigService, NotifyService} from '@core/services';
 import {JamService, ListType} from '@jam';
 import {StartSectionItem} from '@library/components';
 
 @Component({
-    selector: 'app-start-sections',
-    templateUrl: './start-sections.component.html',
-    styleUrls: ['./start-sections.component.scss'],
-    standalone: false
+	selector: 'app-start-sections',
+	templateUrl: './start-sections.component.html',
+	styleUrls: ['./start-sections.component.scss'],
+	standalone: false
 })
 export class StartSectionsComponent implements OnInit {
 	data: {
@@ -16,9 +16,9 @@ export class StartSectionsComponent implements OnInit {
 		albumFaved?: Array<StartSectionItem>;
 		albumRecent?: Array<StartSectionItem>;
 	} = {};
-
-	constructor(public jam: JamService, protected notify: NotifyService, public navig: NavigService) {
-	}
+	readonly jam = inject(JamService);
+	readonly navig = inject(NavigService);
+	protected readonly notify = inject(NotifyService);
 
 	ngOnInit(): void {
 		this.jam.artist.search({list: ListType.recent, take: 5})

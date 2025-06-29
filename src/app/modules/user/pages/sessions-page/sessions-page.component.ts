@@ -1,23 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
 import {Jam, JamAuthService, JamService} from '@jam';
 import {DialogPasswordComponent, PasswordEdit} from '@shared/components';
 
 @Component({
-    selector: 'app-sessions-page',
-    templateUrl: './sessions-page.component.html',
-    styleUrls: ['./sessions-page.component.scss'],
-    standalone: false
+	selector: 'app-sessions-page',
+	templateUrl: './sessions-page.component.html',
+	styleUrls: ['./sessions-page.component.scss'],
+	standalone: false
 })
 export class SessionsPageComponent implements OnInit {
 	sessions?: Array<{ session: Jam.UserSession; isExpired: boolean; }>;
 	isUnlocked: boolean = false;
 	lock: PasswordEdit = {pass: ''};
 	subsonicToken?: Jam.SubsonicToken;
-
-	constructor(private jam: JamService, private auth: JamAuthService, private notify: NotifyService, private dialogOverlay: DialogOverlayService) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly auth = inject(JamAuthService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
+	private readonly notify = inject(NotifyService);
 
 	generateSubsonicToken(): void {
 		if (!this.isUnlocked || !this.auth.user) {

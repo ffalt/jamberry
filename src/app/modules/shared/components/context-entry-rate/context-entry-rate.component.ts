@@ -1,20 +1,19 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, inject} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamObjectType, JamService} from '@jam';
 
 @Component({
-    selector: 'app-context-entry-rate',
-    templateUrl: './context-entry-rate.component.html',
-    styleUrls: ['./context-entry-rate.component.scss'],
-    standalone: false
+	selector: 'app-context-entry-rate',
+	templateUrl: './context-entry-rate.component.html',
+	styleUrls: ['./context-entry-rate.component.scss'],
+	standalone: false
 })
 export class ContextEntryRateComponent implements OnChanges {
 	@Input() base?: Jam.Base;
 	@Input() baseType?: string | JamObjectType;
 	rating: number = 0;
-
-	constructor(private notify: NotifyService, private jam: JamService) {
-	}
+	private readonly notify = inject(NotifyService);
+	private readonly jam = inject(JamService);
 
 	ngOnChanges(): void {
 		this.rating = (this.base && this.base.state ? this.base.state.rated : 0) || 0;

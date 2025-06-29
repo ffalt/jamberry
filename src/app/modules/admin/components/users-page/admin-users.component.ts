@@ -1,31 +1,23 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminUserService, AdminUserServiceEditData, AppService, NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
-import {DialogsService} from '@shared/services';
+import {AdminUserService, AdminUserServiceEditData, NotifyService} from '@core/services';
+import {Jam} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 
 @Component({
-    selector: 'app-admin-users',
-    templateUrl: './admin-users.component.html',
-    styleUrls: ['./admin-users.component.scss'],
-    standalone: false
+	selector: 'app-admin-users',
+	templateUrl: './admin-users.component.html',
+	styleUrls: ['./admin-users.component.scss'],
+	standalone: false
 })
 export class AdminUsersComponent implements OnInit, OnDestroy {
 	users?: Array<Jam.User>;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		private app: AppService,
-		private dialogs: DialogsService,
-		private jam: JamService,
-		private notify: NotifyService,
-		private userService: AdminUserService,
-		private dialogOverlay: DialogOverlayService
-	) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly notify = inject(NotifyService);
+	private readonly userService = inject(AdminUserService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
 	getSortValue(column: string, user: Jam.User): string | number | undefined {
 		switch (column) {

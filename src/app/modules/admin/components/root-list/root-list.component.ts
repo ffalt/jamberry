@@ -1,30 +1,22 @@
-import {Component, Input} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, Input, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminRootService, AdminRootServiceEditData, AppService, NotifyService} from '@core/services';
+import {AdminRootService, AdminRootServiceEditData, NotifyService} from '@core/services';
 import {Jam} from '@jam';
 import {DialogsService} from '@shared/services';
 import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 
 @Component({
-    selector: 'app-admin-root-list',
-    templateUrl: './root-list.component.html',
-    styleUrls: ['./root-list.component.scss'],
-    standalone: false
+	selector: 'app-admin-root-list',
+	templateUrl: './root-list.component.html',
+	styleUrls: ['./root-list.component.scss'],
+	standalone: false
 })
 export class RootListComponent {
 	@Input() roots?: Array<Jam.Root> = [];
-
-	constructor(
-		private router: Router,
-		private route: ActivatedRoute,
-		private app: AppService,
-		private notify: NotifyService,
-		private dialogs: DialogsService,
-		private rootService: AdminRootService,
-		private dialogOverlay: DialogOverlayService
-	) {
-	}
+	private readonly notify = inject(NotifyService);
+	private readonly dialogs = inject(DialogsService);
+	private readonly rootService = inject(AdminRootService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
 	refreshRoot(root: Jam.Root): void {
 		this.rootService.rescanRoot(root);

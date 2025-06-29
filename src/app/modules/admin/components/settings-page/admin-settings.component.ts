@@ -1,20 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {AppService, NotifyService} from '@core/services';
+import {Component, OnInit, inject} from '@angular/core';
+import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 
 @Component({
-    selector: 'app-admin-settings',
-    templateUrl: './admin-settings.component.html',
-    styleUrls: ['./admin-settings.component.scss'],
-    standalone: false
+	selector: 'app-admin-settings',
+	templateUrl: './admin-settings.component.html',
+	styleUrls: ['./admin-settings.component.scss'],
+	standalone: false
 })
 
 export class AdminSettingsComponent implements OnInit {
 	settings?: Jam.AdminSettings;
 	ignoreArticles: string = '';
-
-	constructor(private app: AppService, private jam: JamService, private notify: NotifyService) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
 	ngOnInit(): void {
 		this.refresh();

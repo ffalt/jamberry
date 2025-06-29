@@ -1,25 +1,22 @@
-import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnDestroy, Output, inject} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {DeferLoadService, ScrollNotifyEvent} from './defer-load.service';
 import {Rect} from './rect';
 
 @Directive({
-    selector: '[appDeferLoad]',
-    standalone: false
+	selector: '[appDeferLoad]',
+	standalone: false
 })
 export class DeferLoadDirective implements AfterViewInit, OnDestroy {
-
 	@Input() preRender: boolean = false;
 	@Output() readonly appDeferLoad: EventEmitter<any> = new EventEmitter();
-
+	private elementRef = inject(ElementRef);
+	private deferLoadService = inject(DeferLoadService);
 	private intersectionObserver?: IntersectionObserver;
 	private scrollSubscription?: Subscription;
 	private observeSubscription?: Subscription;
 	private timeoutId?: number;
 	private timeoutLoadMS: number = 50;
-
-	constructor(private elementRef: ElementRef, private deferLoadService: DeferLoadService) {
-	}
 
 	ngAfterViewInit(): void {
 		if (this.deferLoadService.isBrowser) {

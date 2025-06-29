@@ -1,18 +1,16 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, Output, inject} from '@angular/core';
 import {Matching} from '../../model/release-matching.helper';
 
 @Component({
-    selector: 'app-match-file-list',
-    templateUrl: './match-file-list.component.html',
-    styleUrls: ['./match-file-list.component.scss'],
-    standalone: false
+	selector: 'app-match-file-list',
+	templateUrl: './match-file-list.component.html',
+	styleUrls: ['./match-file-list.component.scss'],
+	standalone: false
 })
 export class MatchFileListComponent {
 	@Input() matchings: Array<Matching> = [];
 	@Output() readonly dragStartRequest = new EventEmitter<{ event: DragEvent, match: Matching }>();
-
-	constructor(private cd: ChangeDetectorRef) {
-	}
+	private cd = inject(ChangeDetectorRef);
 
 	drag(event: DragEvent, match: Matching): void {
 		this.cd.markForCheck();

@@ -1,15 +1,15 @@
 import {TrackHealthComponent} from '@admin/components/track-health/track-health.component';
-import {Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {AdminFolderService, AppService, NotifyService, UiStateService, UserStorageService} from '@core/services';
+import {Component, OnDestroy, OnInit, QueryList, ViewChildren, inject} from '@angular/core';
+import {NotifyService, UiStateService, UserStorageService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-admin-radar',
-    templateUrl: './admin-radar.component.html',
-    styleUrls: ['./admin-radar.component.scss'],
-    standalone: false
+	selector: 'app-admin-radar',
+	templateUrl: './admin-radar.component.html',
+	styleUrls: ['./admin-radar.component.scss'],
+	standalone: false
 })
 
 export class AdminRadarComponent implements OnInit, OnDestroy {
@@ -18,13 +18,14 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	current?: { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> };
 	searching: boolean = false;
 	@ViewChildren(TrackHealthComponent) trackHealthComponents!: QueryList<TrackHealthComponent>;
-	protected unsubscribe = new Subject<void>();
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly uiState = inject(UiStateService);
+	private readonly userStorage = inject(UserStorageService);
 
-	constructor(
-		private app: AppService, private jam: JamService, private notify: NotifyService, private uiState: UiStateService, private folderService: AdminFolderService,
-		private userStorage: UserStorageService
-	) {
-		userStorage.userChange
+	constructor() {
+		this.userStorage.userChange
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(() => this.loadFromStorage());
 	}

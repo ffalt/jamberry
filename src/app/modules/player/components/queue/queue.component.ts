@@ -1,5 +1,5 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, inject} from '@angular/core';
 import {NavigService, PlayerService, QueueService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService, MenuService} from '@shared/services';
@@ -8,21 +8,21 @@ import {takeUntil} from 'rxjs/operators';
 import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/context-menu-queue-track.component';
 
 @Component({
-    selector: 'app-queue',
-    templateUrl: './queue.component.html',
-    styleUrls: ['./queue.component.scss'],
-    standalone: false
+	selector: 'app-queue',
+	templateUrl: './queue.component.html',
+	styleUrls: ['./queue.component.scss'],
+	standalone: false
 })
 export class QueueComponent implements OnInit, OnDestroy {
 	@Input() showControls: boolean = true;
 	entries: Array<Jam.MediaBase> = [];
-	protected unsubscribe = new Subject<void>();
+	readonly queue = inject(QueueService);
+	readonly player = inject(PlayerService);
+	readonly navig = inject(NavigService);
+	readonly actions = inject(ActionsService);
+	protected readonly unsubscribe = new Subject<void>();
+	private menuService = inject(MenuService);
 	private currentSwipeElement?: HTMLElement;
-
-	constructor(
-		public queue: QueueService, public player: PlayerService, public navig: NavigService, public actions: ActionsService,
-		private menuService: MenuService) {
-	}
 
 	ngOnInit(): void {
 		this.entries = this.queue.entries.slice(0);

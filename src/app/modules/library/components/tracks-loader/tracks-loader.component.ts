@@ -1,13 +1,13 @@
-import {Component, Input, OnChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, ViewChild, inject} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
-    selector: 'app-tracks-loader',
-    templateUrl: './tracks-loader.component.html',
-    styleUrls: ['./tracks-loader.component.scss'],
-    standalone: false
+	selector: 'app-tracks-loader',
+	templateUrl: './tracks-loader.component.html',
+	styleUrls: ['./tracks-loader.component.scss'],
+	standalone: false
 })
 export class TracksLoaderComponent implements OnChanges {
 	showRating: boolean = false;
@@ -18,10 +18,9 @@ export class TracksLoaderComponent implements OnChanges {
 	@Input() query?: string;
 	@Input() queryCmd?: JamParameters.TrackFilterArgs;
 	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 	private activeRequest?: Promise<void>;
-
-	constructor(private jam: JamService, private notify: NotifyService) {
-	}
 
 	getTracks(requestFunc: () => Promise<Jam.TrackPage>): void {
 		this.loadMore.loading = true;

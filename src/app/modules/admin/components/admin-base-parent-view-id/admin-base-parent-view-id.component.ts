@@ -1,21 +1,18 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-admin-base-parent-view-id',
-    templateUrl: './admin-base-parent-view-id.component.html',
-    styleUrls: ['./admin-base-parent-view-id.component.scss'],
-    standalone: false
+	selector: 'app-admin-base-parent-view-id',
+	templateUrl: './admin-base-parent-view-id.component.html',
+	styleUrls: ['./admin-base-parent-view-id.component.scss'],
+	standalone: false
 })
 export class AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	id?: string;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(private route: ActivatedRoute) {
-
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {
 		if (this.route && this.route.parent) {

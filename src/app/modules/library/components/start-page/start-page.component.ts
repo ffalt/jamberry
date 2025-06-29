@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {JamService} from '@jam';
 
 @Component({
@@ -8,8 +8,5 @@ import {JamService} from '@jam';
     standalone: false
 })
 export class StartPageComponent {
-
-	constructor(public jam: JamService) {
-	}
-
+	readonly jam = inject(JamService);
 }

@@ -1,7 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 
 import {JamAuthService} from './jam.auth.service';
 import {JamBaseService} from './jam.base.service';
@@ -37,39 +37,34 @@ import {JamWaveformService} from './services/jam.waveform.service';
 
 @Injectable()
 export class JamService {
-
-	constructor(
-		public auth: JamAuthService,
-		public base: JamBaseService,
-		public admin: JamAdminService,
-		public album: JamAlbumService,
-		public artist: JamArtistService,
-		public artwork: JamArtworkService,
-		public autocomplete: JamAutocompleteService,
-		public bookmark: JamBookmarkService,
-		public chat: JamChatService,
-		public download: JamDownloadService,
-		public episode: JamEpisodeService,
-		public folder: JamFolderService,
-		public genre: JamGenreService,
-		public image: JamImageService,
-		public metadata: JamMetaDataService,
-		public nowplaying: JamNowPlayingService,
-		public ping: JamPingService,
-		public playlist: JamPlaylistService,
-		public playqueue: JamPlayQueueService,
-		public podcast: JamPodcastService,
-		public radio: JamRadioService,
-		public root: JamRootService,
-		public series: JamSeriesService,
-		public session: JamSessionService,
-		public state: JamStateService,
-		public stats: JamStatsService,
-		public stream: JamStreamService,
-		public track: JamTrackService,
-		public user: JamUserService,
-		public waveform: JamWaveformService
-	) {
-	}
-
+	readonly auth = inject(JamAuthService);
+	readonly base = inject(JamBaseService);
+	readonly admin = inject(JamAdminService);
+	readonly album = inject(JamAlbumService);
+	readonly artist = inject(JamArtistService);
+	readonly artwork = inject(JamArtworkService);
+	readonly autocomplete = inject(JamAutocompleteService);
+	readonly bookmark = inject(JamBookmarkService);
+	readonly chat = inject(JamChatService);
+	readonly download = inject(JamDownloadService);
+	readonly episode = inject(JamEpisodeService);
+	readonly folder = inject(JamFolderService);
+	readonly genre = inject(JamGenreService);
+	readonly image = inject(JamImageService);
+	readonly metadata = inject(JamMetaDataService);
+	readonly nowplaying = inject(JamNowPlayingService);
+	readonly ping = inject(JamPingService);
+	readonly playlist = inject(JamPlaylistService);
+	readonly playqueue = inject(JamPlayQueueService);
+	readonly podcast = inject(JamPodcastService);
+	readonly radio = inject(JamRadioService);
+	readonly root = inject(JamRootService);
+	readonly series = inject(JamSeriesService);
+	readonly session = inject(JamSessionService);
+	readonly state = inject(JamStateService);
+	readonly stats = inject(JamStatsService);
+	readonly stream = inject(JamStreamService);
+	readonly track = inject(JamTrackService);
+	readonly user = inject(JamUserService);
+	readonly waveform = inject(JamWaveformService);
 }

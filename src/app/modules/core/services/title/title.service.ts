@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable, OnDestroy, inject} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Jam} from '@jam';
@@ -12,11 +12,16 @@ import {PlayerService} from '../player/player.service';
 	providedIn: 'root'
 })
 export class TitleService implements OnDestroy {
+	title = inject(Title);
 	titles: Array<string> = [];
-	protected unsubscribe = new Subject<void>();
+	readonly app = inject(AppService);
+	readonly player = inject(PlayerService);
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly router = inject(Router);
+	private readonly route = inject(ActivatedRoute);
 
-	constructor(private router: Router, public app: AppService, public player: PlayerService, private route: ActivatedRoute, public title: Title) {
-		router.events
+	constructor() {
+		this.router.events
 			.pipe(
 				filter(event => event instanceof NavigationEnd),
 				takeUntil(this.unsubscribe)).subscribe(() => {
@@ -36,7 +41,7 @@ export class TitleService implements OnDestroy {
 				}
 				currentroute.children.forEach(collectRouteData);
 			};
-			route.children.forEach(collectRouteData);
+			this.route.children.forEach(collectRouteData);
 
 			this.titles.push(this.app.name);
 			if (!this.app.settings.playingTrackInTitle) {

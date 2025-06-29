@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable, OnDestroy} from '@angular/core';
+import {EventEmitter, Injectable, OnDestroy, inject} from '@angular/core';
 import {Settings} from '@app/app.settings';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -12,13 +12,18 @@ import {UserStorageService} from '../userstorage/userstorage.service';
 export class SettingsStoreService implements OnDestroy {
 	private static localstorageName = 'settings';
 	settingsChange = new EventEmitter<void>();
-	protected unsubscribe = new Subject<void>();
+	protected readonly unsubscribe = new Subject<void>();
+	private userStorage = inject(UserStorageService);
+	private pushNotificationService = inject(PushNotificationService);
+	private readonly app = inject(AppService);
 
-	constructor(private userStorage: UserStorageService, private pushNotificationService: PushNotificationService, private app: AppService) {
+	constructor() {
+		const userStorage = this.userStorage;
+
 		userStorage.userChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe((/*user*/) => {
-				this.loadFromStorage();
-			});
+			this.loadFromStorage();
+		});
 		this.loadFromStorage();
 	}
 

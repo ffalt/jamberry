@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Jam} from '@jam';
 import {Observable, Subject} from 'rxjs';
 import {LocalstorageService} from '../localstorage/localstorage.service';
@@ -8,10 +8,11 @@ import {LocalstorageService} from '../localstorage/localstorage.service';
 })
 export class UserStorageService {
 	userChange: Observable<Jam.SessionUser | undefined>;
+	private localStorageService = inject(LocalstorageService);
 	private subjectUser = new Subject<Jam.SessionUser | undefined>();
 	private userSuffix?: string;
 
-	constructor(private localStorageService: LocalstorageService) {
+	constructor() {
 		this.userChange = this.subjectUser.asObservable();
 	}
 

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Route, Router} from '@angular/router';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {JamService} from '@jam';
@@ -30,16 +30,15 @@ export class LibraryService {
 	playlistLoader = new PlaylistsLoader(this);
 	podcastLoader = new PodcastsLoader(this);
 	seriesLoader = new SeriesLoader(this);
-
-	constructor(
-		public navig: NavigService, public actions: ActionsService,
-		public player: PlayerService, public menuService: MenuService,
-		public jam: JamService, public notify: NotifyService,
-		public playlistDialogsService: PlaylistDialogsService,
-		public podcastService: PodcastService,
-		private router: Router
-	) {
-	}
+	readonly navig = inject(NavigService);
+	readonly actions = inject(ActionsService);
+	readonly player = inject(PlayerService);
+	menuService = inject(MenuService);
+	readonly jam = inject(JamService);
+	notify = inject(NotifyService);
+	playlistDialogsService = inject(PlaylistDialogsService);
+	podcastService = inject(PodcastService);
+	private readonly router = inject(Router);
 
 	buildTabs(section: string): Array<HeaderTab> {
 		const lib: any = this.router.config.find(r => r.path === 'library');

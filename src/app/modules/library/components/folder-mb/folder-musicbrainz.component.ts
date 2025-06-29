@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -6,21 +6,19 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-folder-musicbrainz',
-    templateUrl: './folder-musicbrainz.component.html',
-    styleUrls: ['./folder-musicbrainz.component.scss'],
-    standalone: false
+	selector: 'app-folder-musicbrainz',
+	templateUrl: './folder-musicbrainz.component.html',
+	styleUrls: ['./folder-musicbrainz.component.scss'],
+	standalone: false
 })
 export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 	folder?: Jam.Folder;
 	id?: string;
 	hasArtistID: boolean = false;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
-	) {
-	}
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route && this.route.parent) {

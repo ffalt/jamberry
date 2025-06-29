@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
 import {Jam, JamObjectType, JamService} from '@jam';
@@ -6,12 +6,9 @@ import {DialogRateComponent, RateEdit} from '@shared/components';
 
 @Injectable()
 export class ActionsService {
-
-	constructor(
-		private jam: JamService, private notify: NotifyService,
-		private dialogOverlay: DialogOverlayService
-	) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
 	rateTrack(track: Jam.Track): void {
 		this.rate(JamObjectType.track, track);

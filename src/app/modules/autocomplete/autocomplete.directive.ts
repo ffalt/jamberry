@@ -11,7 +11,8 @@ import {
 	OnInit,
 	Output,
 	SimpleChanges,
-	ViewContainerRef
+	ViewContainerRef,
+	inject
 } from '@angular/core';
 import {AutocompleteControl, AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
 import {isArrowKeys, isDownArrowKey, isEnterKey, isEscapeKey, isLeftArrowKey, isNonCharKey, isRightArrowKey} from '@app/utils/keys';
@@ -44,8 +45,8 @@ export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement)
 }
 
 @Directive({
-    selector: '[appAutocomplete]',
-    standalone: false
+	selector: '[appAutocomplete]',
+	standalone: false
 })
 export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, AutocompleteControl {
 	@Input() appAutocomplete?: AutocompleteComponent;
@@ -56,15 +57,15 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	activeIndex: number = NO_INDEX;
 	query: string = '';
 	options: Array<AutocompleteOption> = [];
-	protected unsubscribe = new Subject<void>();
+	protected readonly unsubscribe = new Subject<void>();
+	private host = inject<ElementRef<HTMLInputElement>>(ElementRef);
+	private vcr = inject(ViewContainerRef);
+	private overlay = inject(Overlay);
 	private overlayRef?: OverlayRef;
 	private keydown$ = new Subject<KeyboardEvent>();
 	private keyup$ = new Subject<KeyboardEvent>();
 	private settings: AutocompleteSettings = {allowEmpty: false, debounceTime: 300};
 	private isCreated: boolean = false;
-
-	constructor(private host: ElementRef<HTMLInputElement>, private vcr: ViewContainerRef, private overlay: Overlay) {
-	}
 
 	ngOnInit(): void {
 		this.filterEnterEvent(this.keydown$);

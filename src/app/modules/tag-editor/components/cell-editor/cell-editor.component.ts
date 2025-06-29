@@ -12,7 +12,8 @@ import {
 	SimpleChanges,
 	Type,
 	ViewChild,
-	ViewContainerRef
+	ViewContainerRef,
+	inject
 } from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
@@ -26,26 +27,23 @@ import {DialogTagImageComponent, PicEdit} from '../dialog-tag-image/dialog-tag-i
 import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-tag-lyrics.component';
 
 @Component({
-    selector: 'app-cell-editor',
-    templateUrl: './cell-editor.component.html',
-    styleUrls: ['./cell-editor.component.scss'],
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    providers: [{ provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent) }],
-    standalone: false
+	selector: 'app-cell-editor',
+	templateUrl: './cell-editor.component.html',
+	styleUrls: ['./cell-editor.component.scss'],
+	// eslint-disable-next-line @typescript-eslint/no-use-before-define
+	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent)}],
+	standalone: false
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
 	@Input() cell?: RawTagEditCell = undefined;
 	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell; event: KeyboardEvent }>();
+	@ViewChild('cellContainer', {static: false, read: ViewContainerRef}) container?: ViewContainerRef;
 	lines: Array<string> = [];
 	inactive: boolean = true;
-
-	@ViewChild('cellContainer', {static: false, read: ViewContainerRef}) container?: ViewContainerRef;
-	protected unsubscribe = new Subject<void>();
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly dialogOverlay = inject(DialogOverlayService);
+	private readonly resolver = inject(ComponentFactoryResolver);
 	private componentRef?: ComponentRef<any>;
-
-	constructor(private dialogOverlay: DialogOverlayService, private resolver: ComponentFactoryResolver) {
-		super();
-	}
 
 	ngOnDestroy(): void {
 		this.clearEdit();

@@ -1,20 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {NavigService, NotifyService} from '@core/services';
 import {AlbumType, JamService} from '@jam';
 import {filterStats, StatsList} from '@shared/components';
 
 @Component({
-    selector: 'app-start-stats',
-    templateUrl: './start-stats.component.html',
-    styleUrls: ['./start-stats.component.scss'],
-    standalone: false
+	selector: 'app-start-stats',
+	templateUrl: './start-stats.component.html',
+	styleUrls: ['./start-stats.component.scss'],
+	standalone: false
 })
 export class StartStatsComponent implements OnInit {
 	stats?: StatsList;
-
-	constructor(public jam: JamService, protected notify: NotifyService, public navig: NavigService) {
-	}
+	readonly jam = inject(JamService);
+	readonly navig = inject(NavigService);
+	protected readonly notify = inject(NotifyService);
 
 	ngOnInit(): void {
 		this.jam.stats.get({})

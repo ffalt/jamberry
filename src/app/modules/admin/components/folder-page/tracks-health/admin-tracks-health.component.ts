@@ -1,32 +1,29 @@
 import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-parent-view-id/admin-base-parent-view-id.component';
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {AdminFolderService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-admin-tracks-health',
-    templateUrl: './admin-tracks-health.component.html',
-    styleUrls: ['./admin-tracks-health.component.scss'],
-    standalone: false
+	selector: 'app-admin-tracks-health',
+	templateUrl: './admin-tracks-health.component.html',
+	styleUrls: ['./admin-tracks-health.component.scss'],
+	standalone: false
 })
 
 export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
-	// id?: string; declared in AdminBaseParentViewIdComponent
 	all?: Array<Jam.TrackHealth>;
 	hints?: Array<Jam.TrackHealth>;
 	filter?: string;
 	modes: Array<string> = [];
 	mediaCheck: boolean = false;
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
 
-	constructor(route: ActivatedRoute, private app: AppService, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
-		super(route);
-	}
-
-	onFilterChange(): void {
-		this.reDisplay();
-	}
+	// onFilterChange(): void {
+	// 	this.reDisplay();
+	// }
 
 	ngOnInit(): void {
 		super.ngOnInit();

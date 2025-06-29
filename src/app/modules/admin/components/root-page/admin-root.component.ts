@@ -1,33 +1,23 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminRootService, AdminRootServiceEditData, AppService, NotifyService} from '@core/services';
+import {AdminRootService, AdminRootServiceEditData, NotifyService} from '@core/services';
 import {Jam, RootScanStrategy} from '@jam';
-import {DialogsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 
 @Component({
-    selector: 'app-admin-root',
-    templateUrl: './admin-root.component.html',
-    styleUrls: ['./admin-root.component.scss'],
-    standalone: false
+	selector: 'app-admin-root',
+	templateUrl: './admin-root.component.html',
+	styleUrls: ['./admin-root.component.scss'],
+	standalone: false
 })
 export class AdminRootComponent implements OnInit, OnDestroy {
 	roots?: Array<Jam.Root>;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		private router: Router,
-		private route: ActivatedRoute,
-		private app: AppService,
-		private notify: NotifyService,
-		private dialogs: DialogsService,
-		private rootService: AdminRootService,
-		private dialogOverlay: DialogOverlayService
-	) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly notify = inject(NotifyService);
+	private readonly rootService = inject(AdminRootService);
+	private readonly dialogOverlay = inject(DialogOverlayService);
 
 	static getSortValue(column: string, root: Jam.Root): string | number | undefined {
 		switch (column) {

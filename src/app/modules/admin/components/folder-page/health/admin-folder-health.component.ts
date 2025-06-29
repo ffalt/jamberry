@@ -1,26 +1,23 @@
 import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-parent-view-id/admin-base-parent-view-id.component';
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {AdminFolderService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-admin-folder-health',
-    templateUrl: './admin-folder-health.component.html',
-    styleUrls: ['./admin-folder-health.component.scss'],
-    standalone: false
+	selector: 'app-admin-folder-health',
+	templateUrl: './admin-folder-health.component.html',
+	styleUrls: ['./admin-folder-health.component.scss'],
+	standalone: false
 })
 export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	all?: Array<Jam.FolderHealth>;
 	hints?: Array<Jam.FolderHealth>;
 	filter?: string;
 	modes: Array<string> = [];
-	public: any;
-
-	constructor(route: ActivatedRoute, private app: AppService, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
-		super(route);
-	}
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
 
 	onFilterChange(): void {
 		this.reDisplay();

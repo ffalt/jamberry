@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {Jam} from '@jam';
 
@@ -8,17 +8,15 @@ export interface TrackItem {
 }
 
 @Component({
-    selector: 'app-admin-track-list',
-    templateUrl: './track-list.component.html',
-    styleUrls: ['./track-list.component.scss'],
-    standalone: false
+	selector: 'app-admin-track-list',
+	templateUrl: './track-list.component.html',
+	styleUrls: ['./track-list.component.scss'],
+	standalone: false
 })
 export class TrackListComponent implements OnChanges {
 	trackItems?: Array<TrackItem>;
 	@Input() tracks: Array<Jam.Track> = [];
-
-	constructor(private router: Router) {
-	}
+	private readonly router = inject(Router);
 
 	getSortValue(column: string, trackItem: TrackItem): string | number | undefined {
 		switch (column) {

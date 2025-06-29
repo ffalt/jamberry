@@ -1,16 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NavigService, PlayerService} from '@core/services';
 import {ActionsService} from '@shared/services';
 
 @Component({
-    selector: 'app-current-playing',
-    templateUrl: './current-playing.component.html',
-    styleUrls: ['./current-playing.component.scss'],
-    standalone: false
+	selector: 'app-current-playing',
+	templateUrl: './current-playing.component.html',
+	styleUrls: ['./current-playing.component.scss'],
+	standalone: false
 })
 export class CurrentPlayingComponent {
-
-	constructor(public player: PlayerService, public actions: ActionsService, public navig: NavigService) {
-	}
-
+	readonly player = inject(PlayerService);
+	readonly actions = inject(ActionsService);
+	readonly navig = inject(NavigService);
 }

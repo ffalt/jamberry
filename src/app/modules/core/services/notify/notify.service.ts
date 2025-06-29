@@ -1,5 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Injectable, inject} from '@angular/core';
 import {ToastService} from '@app/modules/toast';
 
 export type BrowserError = { error?: string } | Error | null | undefined | HttpErrorResponse;
@@ -20,12 +20,9 @@ export function serverErrorMsg(error: any): string {
 	providedIn: 'root'
 })
 export class NotifyService {
-
+	private toastService = inject(ToastService);
 	private lastError?: string;
 	private lastErrorTimestamp: number = 0;
-
-	constructor(private toastService: ToastService) {
-	}
 
 	success(text: string): void {
 		this.toastService.success(text, 'Success', {timeOut: 3000});

@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, inject } from '@angular/core';
 import {positionElements} from './child-tooltip-content.position';
 
 export interface TooltipInfo {
@@ -21,9 +21,8 @@ export class ChildTooltipContentComponent implements AfterViewInit {
 	left: number = -1000;
 	isIn: boolean = false;
 	isFade: boolean = false;
-
-	constructor(private element: ElementRef, private cdr: ChangeDetectorRef) {
-	}
+	private readonly element = inject(ElementRef);
+	private cdr = inject(ChangeDetectorRef);
 
 	ngAfterViewInit(): void {
 		this.show();

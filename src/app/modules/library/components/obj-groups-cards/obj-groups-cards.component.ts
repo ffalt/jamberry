@@ -21,7 +21,7 @@ export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 	@Input() showParent: boolean = false;
 	@ViewChildren(ObjCardComponent) cards!: QueryList<ObjCardComponent>;
 	@HostBinding() tabindex = '0';
-	protected unsubscribe = new Subject<void>();
+	protected readonly unsubscribe = new Subject<void>();
 	private keyManager: FocusKeyManager<FocusableOption> | undefined;
 
 	@HostListener('keydown.arrowUp', ['$event'])

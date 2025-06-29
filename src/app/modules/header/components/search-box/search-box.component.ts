@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild, inject} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteDirective, AutocompleteOption} from '@app/modules/autocomplete';
 import {NavigService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -14,19 +14,19 @@ const objTypes = {
 };
 
 @Component({
-    selector: 'app-search-box',
-    templateUrl: './search-box.component.html',
-    styleUrls: ['./search-box.component.scss'],
-    standalone: false
+	selector: 'app-search-box',
+	templateUrl: './search-box.component.html',
+	styleUrls: ['./search-box.component.scss'],
+	standalone: false
 })
 export class SearchBoxComponent implements AutocompleteDataControl {
 	@ViewChild(AutocompleteDirective, {static: true}) autocomplete?: AutocompleteDirective;
 	@Output() readonly searchStateChange = new EventEmitter<boolean>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly navig = inject(NavigService);
 
-	constructor(private jam: JamService, private notify: NotifyService, private navig: NavigService) {
-	}
-
-	setSearchActive(active:boolean) {
+	setSearchActive(active: boolean) {
 		this.searchStateChange.emit(active);
 	}
 

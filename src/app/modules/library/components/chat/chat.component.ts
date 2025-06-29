@@ -1,21 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 
 @Component({
-    selector: 'app-chat',
-    templateUrl: './chat.component.html',
-    styleUrls: ['./chat.component.scss'],
-    standalone: false
+	selector: 'app-chat',
+	templateUrl: './chat.component.html',
+	styleUrls: ['./chat.component.scss'],
+	standalone: false
 })
 export class ChatComponent implements OnInit, OnDestroy {
 	msg: string = '';
 	messages: Array<Jam.Chat> = [];
 	isPolling: boolean = false;
 	timer: any;
-
-	constructor(protected jam: JamService, protected notify: NotifyService) {
-	}
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
 
 	poll(): void {
 		if (this.isPolling) {

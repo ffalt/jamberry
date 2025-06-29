@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
@@ -8,20 +8,19 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-artist-similar',
-    templateUrl: './artist-similar.component.html',
-    styleUrls: ['./artist-similar.component.scss'],
-    standalone: false
+	selector: 'app-artist-similar',
+	templateUrl: './artist-similar.component.html',
+	styleUrls: ['./artist-similar.component.scss'],
+	standalone: false
 })
 export class ArtistSimilarComponent implements OnInit, OnDestroy {
 	id?: string;
 	similar?: Array<JamArtistObject>;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		private library: LibraryService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute) {
-	}
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly library = inject(LibraryService);
 
 	ngOnInit(): void {
 		if (this.route && this.route.parent) {

@@ -1,7 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 
 import {JamBaseService} from '../jam.base.service';
 import {Jam} from '../model/jam-rest-data';
@@ -9,9 +9,7 @@ import {JamParameters} from '../model/jam-rest-params';
 
 @Injectable()
 export class JamStateService {
-
-	constructor(private base: JamBaseService) {
-	}
+	private readonly base = inject(JamBaseService);
 
 	/**
 	 * Get User State (fav/rate/etc) [Album, Artist, Artwork, Episode, Folder, Root, Playlist, Podcast, Radio, Series, Track] // Rights needed: stream

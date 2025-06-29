@@ -1,21 +1,19 @@
-import {Compiler, ComponentFactoryResolver, ComponentRef, Directive, HostListener, Input, ViewContainerRef} from '@angular/core';
+import {ComponentFactoryResolver, ComponentRef, Directive, HostListener, Input, ViewContainerRef, inject} from '@angular/core';
 import {ChildTooltipContentComponent, TooltipInfo} from '../components/obj-tooltip-content/child-tooltip-content.component';
 
 @Directive({
-    selector: '[appObjTooltip]',
-    standalone: false
+	selector: '[appObjTooltip]',
+	standalone: false
 })
 export class ObjTooltipDirective {
 	@Input() appObjTooltip: any;
 	@Input() tooltipDisabled: boolean = false;
 	@Input() tooltipAnimation: boolean = true;
 	@Input() tooltipPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
-
+	private viewContainerRef = inject(ViewContainerRef);
+	private componentFactoryResolver = inject(ComponentFactoryResolver);
 	private tooltip?: ComponentRef<ChildTooltipContentComponent>;
 	private visible?: boolean;
-
-	constructor(private viewContainerRef: ViewContainerRef, private compiler: Compiler, private componentFactoryResolver: ComponentFactoryResolver) {
-	}
 
 	getInfo(): TooltipInfo {
 		const o = this.appObjTooltip;

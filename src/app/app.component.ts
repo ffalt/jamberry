@@ -8,55 +8,50 @@ import {
 	Injector,
 	OnDestroy,
 	OnInit,
-	ViewChild
+	ViewChild,
+	inject
 } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthCanActivateGuard} from '@app/guards';
+import {Router} from '@angular/router';
 import {DeferLoadService} from '@app/modules/defer-load';
 import {Hotkey, HotkeysService} from '@app/modules/hotkeys';
 import {MainTabsService} from '@app/modules/main-tabs/services';
 import {TabPortalOutlet} from '@app/modules/tab-portal';
 import {ThemeService} from '@app/modules/theme';
 import {HOTKEYS} from '@app/utils/keys';
-import {AppService, PlayerService, SettingsStoreService, TitleService} from '@core/services';
+import {AppService, PlayerService, SettingsStoreService} from '@core/services';
 import {JamAuthService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'body',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'body',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.scss'],
+	standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
+	@ViewChild('tabContentOutlet', {static: true}) tabContentOutlet?: ElementRef;
+	readonly player = inject(PlayerService);
+	readonly app = inject(AppService);
+	readonly auth = inject(JamAuthService);
+	readonly tabService = inject(MainTabsService);
+	protected readonly unsubscribe = new Subject<void>();
+	private hotkeysService = inject(HotkeysService);
+	private readonly router = inject(Router);
+	private deferLoadService = inject(DeferLoadService);
+	private settingsStore = inject(SettingsStoreService);
+	private themeService = inject(ThemeService);
+	private injector = inject(Injector);
+	private appRef = inject(ApplicationRef);
+	private componentFactoryResolver = inject(ComponentFactoryResolver);
+
 	@HostBinding('class.expand') get expandBody(): boolean {
 		return !!this.tabService?.mainTab?.active;
 	}
 
-	@ViewChild('tabContentOutlet', {static: true}) tabContentOutlet?: ElementRef;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		public player: PlayerService,
-		public app: AppService,
-		public auth: JamAuthService,
-		public tabService: MainTabsService,
-		private authGuard: AuthCanActivateGuard,
-		private element: ElementRef,
-		private hotkeysService: HotkeysService,
-		private route: ActivatedRoute,
-		private router: Router,
-		private deferLoadService: DeferLoadService,
-		private settingsStore: SettingsStoreService,
-		private themeService: ThemeService,
-		private titleService: TitleService, // do not remove or it gets remove by optimizer,
-		private injector: Injector,
-		private appRef: ApplicationRef,
-		private componentFactoryResolver: ComponentFactoryResolver
-	) {
-		settingsStore.settingsChange
+	constructor() {
+		this.settingsStore.settingsChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
 			this.setTheme();
 		});
@@ -70,7 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		}).catch(e => {
 			console.error(e);
 		});
-		app.standalone = this.isStandaloneWebApp() || this.isElectronApp() || this.isMacGapApp();
+		this.app.standalone = this.isStandaloneWebApp() || this.isElectronApp() || this.isMacGapApp();
 		this.setTheme();
 		this.setKeyboardShortcuts();
 		this.determinateScreen();

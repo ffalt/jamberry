@@ -3,11 +3,11 @@ import {
 	ComponentFactoryResolver,
 	ComponentRef,
 	HostListener,
-	Inject,
 	OnInit,
 	ViewChild,
 	ViewContainerRef,
-	ViewEncapsulation
+	ViewEncapsulation,
+	inject
 } from '@angular/core';
 import {isEscapeKey} from '@app/utils/keys';
 import {DialogOverlayRef} from './dialog-overlay-ref.class';
@@ -15,24 +15,20 @@ import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
 import {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.types';
 
 @Component({
-    selector: 'app-dialog-overlay',
-    templateUrl: './dialog-overlay.component.html',
-    styleUrls: ['./dialog-overlay.component.scss'],
-    // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+	selector: 'app-dialog-overlay',
+	templateUrl: './dialog-overlay.component.html',
+	styleUrls: ['./dialog-overlay.component.scss'],
+	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
+	encapsulation: ViewEncapsulation.None,
+	standalone: false
 })
 export class DialogOverlayComponent implements OnInit {
 	isBusy: boolean = false;
 	childComponentRef?: ComponentRef<DialogOverlay<any>>;
 	@ViewChild('overlayDialogBody', {read: ViewContainerRef, static: true}) dynamicComponentTarget?: ViewContainerRef;
-
-	constructor(
-		public dialogRef: DialogOverlayRef,
-		@Inject(ComponentFactoryResolver) private componentFactoryResolver: ComponentFactoryResolver,
-		@Inject(DIALOG_OVERLAY_DIALOG_CONFIG) public config: DialogOverlayDialogConfig<any>
-	) {
-	}
+	readonly dialogRef = inject(DialogOverlayRef);
+	readonly config = inject<DialogOverlayDialogConfig<any>>(DIALOG_OVERLAY_DIALOG_CONFIG);
+	private componentFactoryResolver = inject<ComponentFactoryResolver>(ComponentFactoryResolver);
 
 	@HostListener('document:keydown', ['$event'])
 	handleKeydown(event: KeyboardEvent): void {

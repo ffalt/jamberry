@@ -1,6 +1,6 @@
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {AdminFolderService, AdminFolderServiceNotifyMode, AppService, NotifyService} from '@core/services';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject} from '@angular/core';
+import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -26,10 +26,10 @@ function walkChildren(node: TreeNode, onItem: (node: TreeNode) => void): void {
 }
 
 @Component({
-    selector: 'app-admin-folder-tree',
-    templateUrl: './folder-tree.component.html',
-    styleUrls: ['./folder-tree.component.scss'],
-    standalone: false
+	selector: 'app-admin-folder-tree',
+	templateUrl: './folder-tree.component.html',
+	styleUrls: ['./folder-tree.component.scss'],
+	standalone: false
 })
 export class FolderTreeComponent implements OnInit, OnDestroy {
 	selected?: TreeNode;
@@ -38,10 +38,10 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 	@Input() autoSelect: boolean = false;
 	@Output() readonly selectionChange = new EventEmitter<Jam.Folder>();
 	@ViewChild(CdkVirtualScrollViewport, {static: true}) viewport?: CdkVirtualScrollViewport;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(private app: AppService, private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
 
 	ngOnInit(): void {
 		this.folderService.foldersChange

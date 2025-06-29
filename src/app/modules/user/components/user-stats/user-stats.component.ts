@@ -1,22 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {NotifyService} from '@core/services';
 import {AlbumType, Jam, JamAuthService, JamService} from '@jam';
 import {filterStats, StatsList} from '@shared/components';
 
 @Component({
-    selector: 'app-user-stats',
-    templateUrl: './user-stats.component.html',
-    styleUrls: ['./user-stats.component.scss'],
-    standalone: false
+	selector: 'app-user-stats',
+	templateUrl: './user-stats.component.html',
+	styleUrls: ['./user-stats.component.scss'],
+	standalone: false
 })
 export class UserStatsComponent implements OnInit {
 	base: StatsList = [];
 	favorites: StatsList = [];
 	played: StatsList = [];
-
-	constructor(private jam: JamService, private auth: JamAuthService, private notify: NotifyService) {
-	}
+	private readonly jam = inject(JamService);
+	private readonly auth = inject(JamAuthService);
+	private readonly notify = inject(NotifyService);
 
 	ngOnInit(): void {
 		if (this.auth.isLoggedIn()) {

@@ -1,19 +1,18 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, inject} from '@angular/core';
 import {AppService, NavigService} from '@core/services';
 import {Index, IndexEntry} from '@shared/services';
 
 @Component({
-    selector: 'app-index',
-    templateUrl: './index.component.html',
-    styleUrls: ['./index.component.scss'],
-    standalone: false
+	selector: 'app-index',
+	templateUrl: './index.component.html',
+	styleUrls: ['./index.component.scss'],
+	standalone: false
 })
 export class IndexComponent {
 	@Input() index?: Index;
 	@Input() viewTypeList: boolean = false;
-
-	constructor(public app: AppService, private navig: NavigService) {
-	}
+	readonly app = inject(AppService);
+	private readonly navig = inject(NavigService);
 
 	navigTo(entry: IndexEntry): void {
 		this.navig.navigate([entry.link, {name: entry.name}]);

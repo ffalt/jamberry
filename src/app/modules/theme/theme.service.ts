@@ -1,15 +1,14 @@
-
-import {EventEmitter, Inject, Injectable, DOCUMENT} from '@angular/core';
+import {EventEmitter, Injectable, DOCUMENT, inject} from '@angular/core';
 import {ACTIVE_THEME, Theme, THEMES} from './theme.model';
 
 @Injectable()
 export class ThemeService {
-	themeChange = new EventEmitter<Theme>();
+	themes = inject<Array<Theme>>(THEMES);
+	theme = inject<string>(ACTIVE_THEME);
+	readonly themeChange = new EventEmitter<Theme>();
+	private document = inject<Document>(DOCUMENT);
 
-	constructor(@Inject(THEMES) public themes: Array<Theme>, @Inject(ACTIVE_THEME) public theme: string, @Inject(DOCUMENT) private document: Document) {
-	}
-
-	getTheme(name: string): Theme {
+	getTheme(name?: string): Theme {
 		const theme = this.themes.find(t => t.name === name);
 		if (!theme) {
 			throw new Error(`Theme not found: '${name}'`);

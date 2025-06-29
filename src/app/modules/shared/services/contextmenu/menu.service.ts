@@ -1,6 +1,6 @@
 import {Overlay, OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
-import {ComponentRef, Injectable} from '@angular/core';
+import {ComponentRef, Injectable, inject} from '@angular/core';
 import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
 
 export interface ContextMenuHostComponentInterface<T> {
@@ -11,11 +11,9 @@ export interface ContextMenuHostComponentInterface<T> {
 
 @Injectable()
 export class MenuService {
+	private overlay = inject(Overlay);
+	private contextMenuService = inject(ContextMenuService);
 	private templateOverlays: Array<OverlayRef> = [];
-
-	constructor(private overlay: Overlay,
-							private contextMenuService: ContextMenuService) {
-	}
 
 	openMenuComponent<T>(contextMenuHost: ComponentType<ContextMenuHostComponentInterface<T>>, item: any, event: Event, options?: T) {
 		const templateOverlay = this.overlay.create({});

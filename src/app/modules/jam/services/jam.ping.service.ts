@@ -1,16 +1,14 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 
 import {JamBaseService} from '../jam.base.service';
 import {Jam} from '../model/jam-rest-data';
 
 @Injectable()
 export class JamPingService {
-
-	constructor(private base: JamBaseService) {
-	}
+	private readonly base = inject(JamBaseService);
 
 	/**
 	 * Is the Api online?

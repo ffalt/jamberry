@@ -1,22 +1,23 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
+import {Directive, ElementRef, Input, OnDestroy, OnInit, inject} from '@angular/core';
 import Mousetrap from 'mousetrap';
 import {ExtendedKeyboardEvent, Hotkey} from './hotkeys.model';
 import {HotkeysService} from './hotkeys.service';
 
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[hotkeys]',
-    providers: [HotkeysService],
-    standalone: false
+	// eslint-disable-next-line @angular-eslint/directive-selector
+	selector: '[hotkeys]',
+	providers: [HotkeysService],
+	standalone: false
 })
 export class HotkeysDirective implements OnInit, OnDestroy {
 	@Input() hotkeys: Array<{ [combo: string]: (event: KeyboardEvent, combo: string) => ExtendedKeyboardEvent }> = [];
-
+	private readonly hotkeysService = inject(HotkeysService);
+	private readonly elementRef = inject(ElementRef);
 	private mousetrap: Mousetrap.MousetrapInstance;
 	private hotkeysList: Array<Hotkey> = [];
 	private oldHotkeys: Array<Hotkey> = [];
 
-	constructor(private hotkeysService: HotkeysService, private elementRef: ElementRef) {
+	constructor() {
 		this.mousetrap = new Mousetrap(this.elementRef.nativeElement); // Bind hotkeys to the current element (and any children)
 	}
 

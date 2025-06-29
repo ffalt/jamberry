@@ -1,6 +1,6 @@
 import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
-import {ComponentRef, Inject, Injectable, Injector, NgZone} from '@angular/core';
+import {ComponentRef, Injectable, Injector, NgZone, inject} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {GlobalConfig, IndividualConfig, ToastPackage, ToastToken, TOAST_CONFIG} from './toast-config';
@@ -33,9 +33,14 @@ export class ToastService {
 	currentlyActive = 0;
 	toasts: Array<ActiveToast<any>> = [];
 	previousToastMessage: string | undefined;
+	private readonly overlay = inject(Overlay);
+	private readonly injector = inject(Injector);
+	private readonly ngZone = inject(NgZone);
 	private index = 0;
 
-	constructor(@Inject(TOAST_CONFIG) token: ToastToken, private overlay: Overlay, private injector: Injector, private ngZone?: NgZone) {
+	constructor() {
+		const token = inject<ToastToken>(TOAST_CONFIG);
+
 		this.toastrConfig = {...token.default, ...token.config};
 		if (token.config.iconClasses) {
 			this.toastrConfig.iconClasses = {...token.default.iconClasses, ...token.config.iconClasses};

@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Component, Input, OnChanges, OnDestroy, OnInit, inject} from '@angular/core';
 import {hasFileExtension} from '@app/modules/tag-editor/model/utils';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {
@@ -32,10 +32,10 @@ export interface ArtworkNode {
 }
 
 @Component({
-    selector: 'app-admin-folder-artwork-search',
-    templateUrl: './folder-artwork-search-image.component.html',
-    styleUrls: ['./folder-artwork-search-image.component.scss'],
-    standalone: false
+	selector: 'app-admin-folder-artwork-search',
+	templateUrl: './folder-artwork-search-image.component.html',
+	styleUrls: ['./folder-artwork-search-image.component.scss'],
+	standalone: false
 })
 export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnDestroy {
 	@Input() data?: ArtworkSearch;
@@ -43,17 +43,12 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	nodes?: Array<ArtworkNode>;
 	isWorking = false;
 	isArtRefreshing = false;
-	searchSource: {
-		name: string;
-		url: string;
-	} = {
-		name: '',
-		url: ''
-	};
-	protected unsubscribe = new Subject<void>();
-
-	constructor(private jam: JamService, private notify: NotifyService, private folderService: AdminFolderService, private http: HttpClient) {
-	}
+	searchSource: { name: string; url: string } = {name: '', url: ''};
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly folderService = inject(AdminFolderService);
+	private readonly http = inject(HttpClient);
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();

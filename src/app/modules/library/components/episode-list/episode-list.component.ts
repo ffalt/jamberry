@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, inject} from '@angular/core';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {JamEpisodeObject} from '@library/model/objects';
@@ -6,21 +6,20 @@ import {LibraryService} from '@library/services';
 import {ActionsService, PodcastService} from '@shared/services';
 
 @Component({
-    selector: 'app-episode-list',
-    templateUrl: './episode-list.component.html',
-    styleUrls: ['./episode-list.component.scss'],
-    standalone: false
+	selector: 'app-episode-list',
+	templateUrl: './episode-list.component.html',
+	styleUrls: ['./episode-list.component.scss'],
+	standalone: false
 })
 export class EpisodeListComponent {
 	@Input() episodes?: Array<Jam.Episode>;
 	@Input() showPodcast: boolean = false;
-
-	constructor(
-		public jam: JamService, public player: PlayerService, public podcastService: PodcastService,
-		public actions: ActionsService, public navig: NavigService,
-		private library: LibraryService
-	) {
-	}
+	readonly jam = inject(JamService);
+	readonly player = inject(PlayerService);
+	readonly podcastService = inject(PodcastService);
+	readonly actions = inject(ActionsService);
+	readonly navig = inject(NavigService);
+	private readonly library = inject(LibraryService);
 
 	onContextMenu($event: Event, item: Jam.Episode): void {
 		this.library.openJamObjectMenu(new JamEpisodeObject(item, this.library), $event);

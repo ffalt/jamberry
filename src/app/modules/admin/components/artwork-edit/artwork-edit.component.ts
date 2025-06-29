@@ -1,8 +1,8 @@
 import {HttpEventType} from '@angular/common/http';
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, inject} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {base64ArrayBuffer} from '@app/utils/base64';
-import {AdminFolderService, AppService, NotifyService} from '@core/services';
+import {AdminFolderService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {ImageCroppedEvent, OutputFormat} from 'ngx-image-cropper';
 import {Subject} from 'rxjs';
@@ -28,16 +28,11 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	maintainAspectRatio: boolean = true;
 	format: OutputFormat = 'jpeg';
 	@Output() readonly imageEdited = new EventEmitter<void>();
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		private app: AppService,
-		private jam: JamService,
-		private folderService: AdminFolderService,
-		private notify: NotifyService,
-		private sanitizer: DomSanitizer
-	) {
-	}
+	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly folderService = inject(AdminFolderService);
+	private readonly notify = inject(NotifyService);
+	private readonly sanitizer = inject(DomSanitizer);
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();

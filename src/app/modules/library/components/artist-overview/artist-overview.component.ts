@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {Jam, JamParameters, JamService} from '@jam';
@@ -9,28 +9,24 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-artist-overview',
-    templateUrl: './artist-overview.component.html',
-    styleUrls: ['./artist-overview.component.scss'],
-    standalone: false
+	selector: 'app-artist-overview',
+	templateUrl: './artist-overview.component.html',
+	styleUrls: ['./artist-overview.component.scss'],
+	standalone: false
 })
 export class ArtistOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	artist?: Jam.Artist;
 	albums?: Array<JamAlbumObject>;
 	tracksQuery?: JamParameters.TrackFilterArgs;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		public navig: NavigService,
-		public player: PlayerService,
-		public actions: ActionsService,
-		protected library: LibraryService,
-		protected notify: NotifyService,
-		protected jam: JamService,
-		protected route: ActivatedRoute
-	) {
-	}
+	readonly navig = inject(NavigService);
+	readonly player = inject(PlayerService);
+	readonly actions = inject(ActionsService);
+	protected library = inject(LibraryService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly jam = inject(JamService);
+	protected readonly route = inject(ActivatedRoute);
+	protected readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route) {

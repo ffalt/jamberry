@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {getUrlType, JamType} from '@app/utils/jam-lists';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
@@ -21,10 +21,10 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({
-    selector: 'app-page-obj',
-    templateUrl: './obj-page.component.html',
-    styleUrls: ['./obj-page.component.scss'],
-    standalone: false
+	selector: 'app-page-obj',
+	templateUrl: './obj-page.component.html',
+	styleUrls: ['./obj-page.component.scss'],
+	standalone: false
 })
 export class ObjPageComponent implements OnInit, OnDestroy {
 	id?: string;
@@ -33,14 +33,14 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 	infos: Array<HeaderInfo> = [];
 	tabs: Array<HeaderTab> = [];
 	isPodcastEpisode: boolean = false;
-	protected unsubscribe = new Subject<void>();
-
-	constructor(
-		private library: LibraryService,
-		public navig: NavigService, public player: PlayerService, public actions: ActionsService,
-		protected jam: JamService, protected notify: NotifyService, protected route: ActivatedRoute
-	) {
-	}
+	readonly navig = inject(NavigService);
+	readonly player = inject(PlayerService);
+	readonly actions = inject(ActionsService);
+	protected readonly unsubscribe = new Subject<void>();
+	protected readonly jam = inject(JamService);
+	protected readonly notify = inject(NotifyService);
+	protected readonly route = inject(ActivatedRoute);
+	private readonly library = inject(LibraryService);
 
 	ngOnInit(): void {
 		if (this.route) {
