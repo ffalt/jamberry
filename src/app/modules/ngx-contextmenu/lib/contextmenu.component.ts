@@ -1,15 +1,14 @@
 import {
-	Component,
-	ContentChildren,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnDestroy,
-	Output,
-	QueryList,
-	ViewChild,
-	ViewEncapsulation,
-	inject
+  Component,
+  ContentChildren,
+  ElementRef,
+  Input,
+  OnDestroy,
+  QueryList,
+  ViewChild,
+  ViewEncapsulation,
+  inject,
+  output
 } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {first} from 'rxjs/operators';
@@ -32,8 +31,8 @@ export class ContextMenuComponent implements OnDestroy {
 	@Input() menuClass = '';
 	@Input() autoFocus?: boolean = false;
 	@Input() disabled?: boolean = false;
-	@Output() readonly closeEvent: EventEmitter<CloseContextMenuEvent> = new EventEmitter();
-	@Output() readonly openEvent: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
+	readonly closeEvent = output<CloseContextMenuEvent>();
+	readonly openEvent = output<IContextMenuClickEvent>();
 	@ContentChildren(ContextMenuItemDirective) menuItems!: QueryList<ContextMenuItemDirective>;
 	@ViewChild('menu', {static: false}) menuElement?: ElementRef;
 	visibleMenuItems: Array<ContextMenuItemDirective> = [];
@@ -69,7 +68,7 @@ export class ContextMenuComponent implements OnDestroy {
 		this.setVisibleMenuItems();
 		this.contextMenuService.openContextMenu({...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass});
 		this.contextMenuService.close.asObservable().pipe(first()).subscribe(closeEvent => this.closeEvent.emit(closeEvent));
-		this.openEvent.next(menuEvent);
+		this.openEvent.emit(menuEvent);
 	}
 
 	setVisibleMenuItems(): void {

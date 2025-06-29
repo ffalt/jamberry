@@ -1,12 +1,12 @@
-import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
+import {Directive, HostListener, output} from '@angular/core';
 
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[clickenter]',
-    standalone: false
+	// eslint-disable-next-line @angular-eslint/directive-selector
+	selector: '[clickenter]',
+	standalone: false
 })
 export class ClickKeyEnterDirective {
-	@Output() readonly clickenter: EventEmitter<KeyboardEvent | MouseEvent> = new EventEmitter();
+	readonly clickenter = output<KeyboardEvent | MouseEvent>();
 
 	@HostListener('click', ['$event'])
 	@HostListener('keydown.enter', ['$event'])

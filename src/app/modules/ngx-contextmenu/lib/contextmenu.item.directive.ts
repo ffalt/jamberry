@@ -1,5 +1,5 @@
 import {Highlightable} from '@angular/cdk/a11y';
-import {Directive, EventEmitter, Input, Output, TemplateRef, inject} from '@angular/core';
+import {Directive, Input, TemplateRef, inject, output} from '@angular/core';
 
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
@@ -12,7 +12,10 @@ export class ContextMenuItemDirective implements Highlightable {
 	@Input() enabled: boolean | ((item: any) => boolean) = true;
 	@Input() passive = false;
 	@Input() visible: boolean | ((item: any) => boolean) = true;
-	@Output() readonly execute: EventEmitter<{ event?: Event; item: any }> = new EventEmitter();
+	readonly execute = output<{
+		event?: Event;
+		item: any;
+	}>();
 	readonly template = inject<TemplateRef<{ item: any; }>>(TemplateRef);
 	currentItem: any;
 	isActive = false;

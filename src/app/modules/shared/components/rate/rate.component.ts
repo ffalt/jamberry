@@ -1,14 +1,14 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, output} from '@angular/core';
 
 @Component({
-    selector: 'app-rate',
-    templateUrl: './rate.component.html',
-    styleUrls: ['./rate.component.scss'],
-    standalone: false
+	selector: 'app-rate',
+	templateUrl: './rate.component.html',
+	styleUrls: ['./rate.component.scss'],
+	standalone: false
 })
 export class RateComponent implements OnInit, OnChanges {
 	@Input() rating?: number = 0;
-	@Output() readonly hasRated = new EventEmitter<number>();
+	readonly hasRated = output<number>();
 	maxScore = 5;
 	range: Array<string> = [];
 	marked = -1;
@@ -52,5 +52,4 @@ export class RateComponent implements OnInit, OnChanges {
 		this.marked = (this.rating || 0) - 1;
 		this.updateUI();
 	}
-
 }

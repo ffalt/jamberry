@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input, output} from '@angular/core';
 
 @Component({
-    selector: 'app-load-more-button',
-    templateUrl: './load-more-button.component.html',
-    styleUrls: ['./load-more-button.component.scss'],
-    standalone: false
+	selector: 'app-load-more-button',
+	templateUrl: './load-more-button.component.html',
+	styleUrls: ['./load-more-button.component.scss'],
+	standalone: false
 })
 export class LoadMoreButtonComponent {
 	@Input() skip: number = 0;
@@ -12,11 +12,10 @@ export class LoadMoreButtonComponent {
 	@Input() total: number | undefined;
 	@Input() hasMore: boolean = false;
 	@Input() loading: boolean = false;
-	@Output() readonly requestLoad = new EventEmitter();
+	readonly requestLoad = output();
 
 	more(): void {
 		this.skip += this.take;
-		this.requestLoad.emit({});
+		this.requestLoad.emit();
 	}
-
 }

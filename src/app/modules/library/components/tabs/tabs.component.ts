@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input, output} from '@angular/core';
 
 export interface Tab {
 	id: string;
@@ -6,15 +6,15 @@ export interface Tab {
 }
 
 @Component({
-    selector: 'app-tabs',
-    templateUrl: './tabs.component.html',
-    styleUrls: ['./tabs.component.scss'],
-    standalone: false
+	selector: 'app-tabs',
+	templateUrl: './tabs.component.html',
+	styleUrls: ['./tabs.component.scss'],
+	standalone: false
 })
 export class TabsComponent {
 	@Input() tabs?: Array<Tab>;
 	@Input() current?: Tab;
-	@Output() readonly tabChange = new EventEmitter<Tab>();
+	readonly tabChange = output<Tab>();
 
 	setTab(tab: Tab): void {
 		this.current = tab;

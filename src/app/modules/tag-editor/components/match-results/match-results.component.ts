@@ -1,16 +1,19 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input, output} from '@angular/core';
 import {Matcher} from '@app/modules/tag-editor/components/match-release/matcher';
 import {MatchingTrack, MatchRelease, MatchReleaseGroup} from '../../model/release-matching.helper';
 
 @Component({
-    selector: 'app-match-results',
-    templateUrl: './match-results.component.html',
-    styleUrls: ['./match-results.component.scss'],
-    standalone: false
+	selector: 'app-match-results',
+	templateUrl: './match-results.component.html',
+	styleUrls: ['./match-results.component.scss'],
+	standalone: false
 })
 export class MatchResultsComponent {
 	@Input() matcher?: Matcher;
-	@Output() readonly chooseReleaseRequest = new EventEmitter<{ group: MatchReleaseGroup, release: MatchRelease }>();
+	readonly chooseReleaseRequest = output<{
+		group: MatchReleaseGroup;
+		release: MatchRelease;
+	}>();
 
 	chooseRelease(group: MatchReleaseGroup, release: MatchRelease): void {
 		this.chooseReleaseRequest.emit({group, release});
@@ -28,5 +31,4 @@ export class MatchResultsComponent {
 		const id = event.dataTransfer.getData('text');
 		this.matcher?.selectMatch(id, group, release, track);
 	}
-
 }

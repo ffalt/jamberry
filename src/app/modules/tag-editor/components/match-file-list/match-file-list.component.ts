@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, Output, inject} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, inject, output} from '@angular/core';
 import {Matching} from '../../model/release-matching.helper';
 
 @Component({
@@ -9,7 +9,10 @@ import {Matching} from '../../model/release-matching.helper';
 })
 export class MatchFileListComponent {
 	@Input() matchings: Array<Matching> = [];
-	@Output() readonly dragStartRequest = new EventEmitter<{ event: DragEvent, match: Matching }>();
+	readonly dragStartRequest = output<{
+		event: DragEvent;
+		match: Matching;
+	}>();
 	private cd = inject(ChangeDetectorRef);
 
 	drag(event: DragEvent, match: Matching): void {
@@ -18,5 +21,4 @@ export class MatchFileListComponent {
 			event.dataTransfer.setData('text', match.track.id);
 		}
 	}
-
 }

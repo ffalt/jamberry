@@ -1,20 +1,23 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, ViewChild, output} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
-    selector: 'app-cell-editor-txt',
-    templateUrl: './cell-editor-txt.component.html',
-    styleUrls: ['./cell-editor-txt.component.scss'],
-    standalone: false
+	selector: 'app-cell-editor-txt',
+	templateUrl: './cell-editor-txt.component.html',
+	styleUrls: ['./cell-editor-txt.component.scss'],
+	standalone: false
 })
 export class CellEditorTxtComponent implements OnChanges, AfterViewInit, AutocompleteDataControl {
 	original: string = '';
 	val: string = '';
 	@Input() cell?: RawTagEditCell;
-	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell; event: KeyboardEvent }>();
-	@Output() readonly navigBlur = new EventEmitter<void>();
-	@Output() readonly navigChange = new EventEmitter<void>();
+	readonly navigKeyDownRequest = output<{
+		cell: RawTagEditCell;
+		event: KeyboardEvent;
+	}>();
+	readonly navigBlur = output();
+	readonly navigChange = output();
 	@ViewChild('inputEl', {static: true}) input?: ElementRef;
 
 	ngOnChanges(): void {
@@ -47,6 +50,7 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 
 	onEnter(): void {
 		this.onChange();
+		// TODO: The 'emit' function requires a mandatory void argument
 		this.navigBlur.emit();
 	}
 
@@ -64,12 +68,14 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 				});
 			}
 			this.cell.frames[0].value.text = this.val;
+			// TODO: The 'emit' function requires a mandatory void argument
 			this.navigChange.emit();
 		}
 	}
 
 	onBlur(): void {
 		this.onChange();
+		// TODO: The 'emit' function requires a mandatory void argument
 		this.navigBlur.emit();
 	}
 

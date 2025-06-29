@@ -1,19 +1,19 @@
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild, ViewEncapsulation, output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
-    selector: 'app-inline-edit',
-    templateUrl: './inline-edit.component.html',
-    providers: [{
-            provide: NG_VALUE_ACCESSOR,
-            // eslint-disable-next-line @typescript-eslint/no-use-before-define
-            useExisting: InlineEditComponent,
-            multi: true
-        }],
-    styleUrls: ['./inline-edit.component.scss'],
-    // eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+	selector: 'app-inline-edit',
+	templateUrl: './inline-edit.component.html',
+	providers: [{
+		provide: NG_VALUE_ACCESSOR,
+		// eslint-disable-next-line @typescript-eslint/no-use-before-define
+		useExisting: InlineEditComponent,
+		multi: true
+	}],
+	styleUrls: ['./inline-edit.component.scss'],
+	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
+	encapsulation: ViewEncapsulation.None,
+	standalone: false
 })
 export class InlineEditComponent implements ControlValueAccessor {
 	@ViewChild('inlineEditControl', {static: false}) inlineEditControl?: ElementRef; // input DOM element
@@ -21,7 +21,7 @@ export class InlineEditComponent implements ControlValueAccessor {
 	@Input() type: string = 'text'; // The type of input element
 	@Input() required: boolean = false; // Is input requried?
 	@Input() disabled: boolean = false; // Is input disabled?
-	@Output() readonly endEditRequest = new EventEmitter();
+	readonly endEditRequest = output();
 	editing: boolean = false; // Is Component in edit mode?
 	private editValue: string = ''; // Private variable for input value
 	private preValue: string = ''; // The value before clicking to edit

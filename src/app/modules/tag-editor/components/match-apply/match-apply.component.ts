@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild, inject} from '@angular/core';
+import {Component, Input, ViewChild, inject, output} from '@angular/core';
 import {MatchCoverartComponent, MatchImageNode, MatchImageSearch} from '@app/modules/tag-editor/components';
 import {
 	GenreTag,
@@ -18,8 +18,8 @@ import {JamService, LastFMLookupType} from '@jam';
 })
 export class MatchApplyComponent {
 	@Input() isRunning: boolean = false;
-	@Output() readonly loadLyricsRequest = new EventEmitter<void>();
-	@Output() readonly loadMoodsRequest = new EventEmitter<void>();
+	readonly loadLyricsRequest = output();
+	readonly loadMoodsRequest = output();
 	@ViewChild(MatchCoverartComponent, {static: false}) coverArt?: MatchCoverartComponent;
 	isGenreSearchRunning: boolean = false;
 	genres?: Array<{ tag: GenreTag; checked: boolean }>;

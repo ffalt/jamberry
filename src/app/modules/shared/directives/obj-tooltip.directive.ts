@@ -10,8 +10,8 @@ export class ObjTooltipDirective {
 	@Input() tooltipDisabled: boolean = false;
 	@Input() tooltipAnimation: boolean = true;
 	@Input() tooltipPlacement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
-	private viewContainerRef = inject(ViewContainerRef);
-	private componentFactoryResolver = inject(ComponentFactoryResolver);
+	private readonly viewContainerRef = inject(ViewContainerRef);
+	private readonly componentFactoryResolver = inject(ComponentFactoryResolver);
 	private tooltip?: ComponentRef<ChildTooltipContentComponent>;
 	private visible?: boolean;
 

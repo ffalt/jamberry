@@ -1,26 +1,26 @@
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild, output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 
 @Component({
-    selector: 'app-tag-editor-inline-autocomplete',
-    templateUrl: './tag-editor-inline-autocomplete.component.html',
-    styleUrls: ['./tag-editor-inline-autocomplete.component.scss'],
-    providers: [{
-            provide: NG_VALUE_ACCESSOR,
-            // eslint-disable-next-line @typescript-eslint/no-use-before-define
-            useExisting: TagEditorInlineAutocompleteComponent,
-            multi: true
-        }],
-    standalone: false
+	selector: 'app-tag-editor-inline-autocomplete',
+	templateUrl: './tag-editor-inline-autocomplete.component.html',
+	styleUrls: ['./tag-editor-inline-autocomplete.component.scss'],
+	providers: [{
+		provide: NG_VALUE_ACCESSOR,
+		// eslint-disable-next-line @typescript-eslint/no-use-before-define
+		useExisting: TagEditorInlineAutocompleteComponent,
+		multi: true
+	}],
+	standalone: false
 })
 export class TagEditorInlineAutocompleteComponent implements ControlValueAccessor, AutocompleteDataControl {
 	@Input() getList?: (data: any) => Array<string>;
 	@Input() value?: string;
 	@Input() data?: any;
-	@Output() readonly valueChange = new EventEmitter();
-	@Output() readonly endEditRequest = new EventEmitter();
-	@Output() readonly navigKeyDownRequest = new EventEmitter<KeyboardEvent>();
+	readonly valueChange = output<string | undefined>();
+	readonly endEditRequest = output();
+	readonly navigKeyDownRequest = output<KeyboardEvent>();
 	@ViewChild('editorStart', {static: false}) editorStartRef?: ElementRef;
 	@ViewChild('editorInput', {static: false}) editorInput?: ElementRef;
 

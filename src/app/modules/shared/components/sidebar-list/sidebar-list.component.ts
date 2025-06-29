@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostBinding, Input, Output, QueryList, ViewChildren} from '@angular/core';
+import {Component, HostBinding, Input, QueryList, ViewChildren, output} from '@angular/core';
 import {SidebarListItem, SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
 
 export interface SidebarList {
@@ -7,15 +7,15 @@ export interface SidebarList {
 }
 
 @Component({
-    selector: 'app-sidebar-list',
-    templateUrl: './sidebar-list.component.html',
-    styleUrls: ['./sidebar-list.component.scss'],
-    standalone: false
+	selector: 'app-sidebar-list',
+	templateUrl: './sidebar-list.component.html',
+	styleUrls: ['./sidebar-list.component.scss'],
+	standalone: false
 })
 export class SidebarListComponent {
 	@Input() list?: SidebarList;
 	@HostBinding('class.active') collapsed: boolean = false;
-	@Output() readonly navigate: EventEmitter<void> = new EventEmitter();
+	readonly navigate = output();
 	@ViewChildren(SidebarListItemComponent) items!: QueryList<SidebarListItemComponent>;
 
 	onNavigate(): void {

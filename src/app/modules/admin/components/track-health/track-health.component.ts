@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, inject} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, inject, output} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {AdminFolderService, NotifyService} from '@core/services';
@@ -29,7 +29,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	hints?: Array<TrackHealthHint>;
 	solutions: Array<TrackHealthHintSolution> = [];
 	@Input() trackHealth?: Jam.TrackHealth;
-	@Output() readonly resolvedEvent = new EventEmitter<void>();
+	readonly resolvedEvent = output();
 	protected readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
@@ -61,6 +61,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 								health.health = [];
 							}
 							if (health.health.length === 0) {
+								// TODO: The 'emit' function requires a mandatory void argument
 								this.resolvedEvent.emit();
 							}
 							this.display(health);

@@ -2,18 +2,17 @@ import {
 	Component,
 	ComponentFactoryResolver,
 	ComponentRef,
-	EventEmitter,
 	forwardRef,
 	HostListener,
 	Input,
 	OnChanges,
 	OnDestroy,
-	Output,
 	SimpleChanges,
 	Type,
 	ViewChild,
 	ViewContainerRef,
-	inject
+	inject,
+	output
 } from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
@@ -36,7 +35,10 @@ import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
 	@Input() cell?: RawTagEditCell = undefined;
-	@Output() readonly navigKeyDownRequest = new EventEmitter<{ cell: RawTagEditCell; event: KeyboardEvent }>();
+	readonly navigKeyDownRequest = output<{
+		cell: RawTagEditCell;
+		event: KeyboardEvent;
+	}>();
 	@ViewChild('cellContainer', {static: false, read: ViewContainerRef}) container?: ViewContainerRef;
 	lines: Array<string> = [];
 	inactive: boolean = true;

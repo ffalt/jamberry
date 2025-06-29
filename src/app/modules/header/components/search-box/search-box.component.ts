@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild, inject} from '@angular/core';
+import {Component, ViewChild, inject, output} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteDirective, AutocompleteOption} from '@app/modules/autocomplete';
 import {NavigService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -21,7 +21,7 @@ const objTypes = {
 })
 export class SearchBoxComponent implements AutocompleteDataControl {
 	@ViewChild(AutocompleteDirective, {static: true}) autocomplete?: AutocompleteDirective;
-	@Output() readonly searchStateChange = new EventEmitter<boolean>();
+	readonly searchStateChange = output<boolean>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly navig = inject(NavigService);

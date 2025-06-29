@@ -3,16 +3,15 @@ import {TemplatePortal} from '@angular/cdk/portal';
 import {
 	Directive,
 	ElementRef,
-	EventEmitter,
 	HostListener,
 	Input,
 	OnChanges,
 	OnDestroy,
 	OnInit,
-	Output,
 	SimpleChanges,
 	ViewContainerRef,
-	inject
+	inject,
+	output
 } from '@angular/core';
 import {AutocompleteControl, AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
 import {isArrowKeys, isDownArrowKey, isEnterKey, isEscapeKey, isLeftArrowKey, isNonCharKey, isRightArrowKey} from '@app/utils/keys';
@@ -52,7 +51,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	@Input() appAutocomplete?: AutocompleteComponent;
 	@Input() appAutocompleteControl?: AutocompleteDataControl;
 	@Input() appAutocompleteSettings?: Partial<AutocompleteSettings>;
-	@Output() readonly appAutocompleteNavigKeyDown = new EventEmitter<KeyboardEvent>();
+	readonly appAutocompleteNavigKeyDown = output<KeyboardEvent>();
 	isVisible: boolean = false;
 	activeIndex: number = NO_INDEX;
 	query: string = '';
@@ -214,18 +213,18 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 				if (isRightArrowKey(e)) {
 					this.hide();
 					if (this.host.nativeElement.selectionStart === this.host.nativeElement.value.length) {
-						this.appAutocompleteNavigKeyDown.next(e);
+						this.appAutocompleteNavigKeyDown.emit(e);
 					}
 				} else if (isLeftArrowKey(e)) {
 					this.hide();
 					if (this.host.nativeElement.selectionEnd === 0) {
-						this.appAutocompleteNavigKeyDown.next(e);
+						this.appAutocompleteNavigKeyDown.emit(e);
 					}
 				} else if (this.isVisible) {
 					this.updateIndex(e);
 					this.display();
 				} else {
-					this.appAutocompleteNavigKeyDown.next(e);
+					this.appAutocompleteNavigKeyDown.emit(e);
 				}
 			});
 	}

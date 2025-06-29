@@ -1,5 +1,5 @@
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild, inject, output} from '@angular/core';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
@@ -36,7 +36,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 	nodes: Array<TreeNode> = [];
 	expandIDs: Array<string> = [];
 	@Input() autoSelect: boolean = false;
-	@Output() readonly selectionChange = new EventEmitter<Jam.Folder>();
+	readonly selectionChange = output<Jam.Folder>();
 	@ViewChild(CdkVirtualScrollViewport, {static: true}) viewport?: CdkVirtualScrollViewport;
 	protected readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);

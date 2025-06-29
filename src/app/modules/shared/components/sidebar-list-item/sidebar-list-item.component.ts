@@ -1,5 +1,5 @@
 import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild, output} from '@angular/core';
 
 export interface SidebarListItem {
 	name: string;
@@ -11,14 +11,14 @@ export interface SidebarListItem {
 }
 
 @Component({
-    selector: 'app-sidebar-list-item',
-    templateUrl: './sidebar-list-item.component.html',
-    styleUrls: ['./sidebar-list-item.component.scss'],
-    standalone: false
+	selector: 'app-sidebar-list-item',
+	templateUrl: './sidebar-list-item.component.html',
+	styleUrls: ['./sidebar-list-item.component.scss'],
+	standalone: false
 })
 export class SidebarListItemComponent implements FocusableOption {
 	@Input() entry?: SidebarListItem;
-	@Output() readonly navigate: EventEmitter<void> = new EventEmitter();
+	readonly navigate = output();
 	@ViewChild('item', {static: true}) element?: ElementRef;
 
 	clickEntry(): void {

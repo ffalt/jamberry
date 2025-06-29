@@ -1,20 +1,26 @@
 import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild, output} from '@angular/core';
 import {ContextMenuItemDirective} from './contextmenu.item.directive';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'context-menu-content-item',
-    styleUrls: ['./contextmenu-content-item.component.css'],
-    templateUrl: './contextmenu-content-item.component.html',
-    standalone: false
+	// eslint-disable-next-line @angular-eslint/component-selector
+	selector: 'context-menu-content-item',
+	styleUrls: ['./contextmenu-content-item.component.css'],
+	templateUrl: './contextmenu-content-item.component.html',
+	standalone: false
 })
 export class ContextMenuContentItemComponent implements FocusableOption {
 	@Input() menuItem!: ContextMenuItemDirective;
 	@Input() item!: any;
 	@ViewChild('content', {static: false}) itemRef?: ElementRef;
-	@Output() readonly itemSelect = new EventEmitter<{ event: Event; menuItem: ContextMenuItemDirective }>();
-	@Output() readonly openSubmenu = new EventEmitter<{ event: Event; menuItem: ContextMenuItemDirective }>();
+	readonly itemSelect = output<{
+		event: Event;
+		menuItem: ContextMenuItemDirective;
+	}>();
+	readonly openSubmenu = output<{
+		event: Event;
+		menuItem: ContextMenuItemDirective;
+	}>();
 
 	stopEvent($event: MouseEvent) {
 		$event.stopPropagation();

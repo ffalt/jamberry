@@ -1,5 +1,5 @@
 import {HttpEventType} from '@angular/common/http';
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, inject} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, inject, output} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, NotifyService} from '@core/services';
@@ -27,7 +27,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	mimeType: string = 'image/jpeg';
 	maintainAspectRatio: boolean = true;
 	format: OutputFormat = 'jpeg';
-	@Output() readonly imageEdited = new EventEmitter<void>();
+	readonly imageEdited = output();
 	protected readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly folderService = inject(AdminFolderService);
@@ -90,6 +90,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 			event => {
 				if (event.type === HttpEventType.Response) {
 					this.folderService.waitForQueueResult('Updating Folder Artwork', event.body, [folderID]);
+					// TODO: The 'emit' function requires a mandatory void argument
 					this.imageEdited.emit();
 				} else if (event.type === HttpEventType.UploadProgress) {
 					// const percentDone = Math.round(100 * event.loaded / event.total);

@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, output} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 
 @Component({
-    selector: 'app-tag-editor-autocomplete',
-    templateUrl: './tag-editor-autocomplete.component.html',
-    styleUrls: ['./tag-editor-autocomplete.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+	selector: 'app-tag-editor-autocomplete',
+	templateUrl: './tag-editor-autocomplete.component.html',
+	styleUrls: ['./tag-editor-autocomplete.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	standalone: false
 })
 export class TagEditorAutocompleteComponent implements AutocompleteDataControl, OnChanges {
 	list: Array<{ text: string }> = [];
@@ -18,7 +18,7 @@ export class TagEditorAutocompleteComponent implements AutocompleteDataControl, 
 	@Input() data: any;
 	@Input() getList?: (data: any) => Array<string>;
 	@Input() onAutoComplete?: (query: string) => Promise<Array<string>>;
-	@Output() readonly valueChange = new EventEmitter();
+	readonly valueChange = output<string>();
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes.value && changes.value.currentValue && changes.value.currentValue !== this.edit) {

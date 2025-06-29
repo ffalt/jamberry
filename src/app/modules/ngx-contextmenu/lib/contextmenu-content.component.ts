@@ -4,16 +4,15 @@ import {
 	AfterViewInit,
 	Component,
 	ElementRef,
-	EventEmitter,
 	HostListener,
 	Input,
 	OnDestroy,
 	OnInit,
-	Output,
 	QueryList,
 	ViewChild,
 	ViewChildren,
-	inject
+	inject,
+	output
 } from '@angular/core';
 import {ContextMenuContentItemComponent} from '@app/modules/ngx-contextmenu/lib/contextmenu-content-item.component';
 import {Subscription} from 'rxjs';
@@ -39,10 +38,16 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	@Input() menuClass?: string;
 	@Input() overlay?: OverlayRef;
 	@Input() isLeaf: boolean = false;
-	@Output() readonly execute: EventEmitter<{ event?: Event; item: any; menuItem: ContextMenuItemDirective }> = new EventEmitter();
-	@Output() readonly openSubMenu: EventEmitter<IContextMenuClickEvent> = new EventEmitter();
-	@Output() readonly closeLeafMenu: EventEmitter<CloseLeafMenuEvent> = new EventEmitter();
-	@Output() readonly closeAllMenus: EventEmitter<{ event: MouseEvent }> = new EventEmitter();
+	readonly execute = output<{
+		event?: Event;
+		item: any;
+		menuItem: ContextMenuItemDirective;
+	}>();
+	readonly openSubMenu = output<IContextMenuClickEvent>();
+	readonly closeLeafMenu = output<CloseLeafMenuEvent>();
+	readonly closeAllMenus = output<{
+		event: MouseEvent;
+	}>();
 	@ViewChild('menu', {static: true}) menuElement!: ElementRef;
 	@ViewChildren('li') menuItemElements!: QueryList<ElementRef>;
 	@ViewChildren(ContextMenuContentItemComponent) menuItemFocusElements!: QueryList<ContextMenuContentItemComponent>;

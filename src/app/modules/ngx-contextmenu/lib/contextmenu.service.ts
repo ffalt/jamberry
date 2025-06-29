@@ -1,6 +1,7 @@
 import {Overlay, OverlayRef, ScrollStrategyOptions} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {ComponentRef, ElementRef, Injectable, inject} from '@angular/core';
+import {outputToObservable} from '@angular/core/rxjs-interop';
 import {Subject, Subscription} from 'rxjs';
 import {ContextMenuContentComponent} from './contextmenu-content.component';
 import {ContextMenuComponent} from './contextmenu.component';
@@ -132,13 +133,13 @@ export class ContextMenuService {
 		(overlay as OverlayRefWithContextMenu).contextMenu = contextMenuContent.instance;
 
 		const subscriptions: Subscription = new Subscription();
-		subscriptions.add(contextMenuContent.instance.execute.asObservable()
+		subscriptions.add(outputToObservable(contextMenuContent.instance.execute)
 			.subscribe(executeEvent => this.closeAllContextMenus({eventType: 'execute', ...executeEvent})));
-		subscriptions.add(contextMenuContent.instance.closeAllMenus.asObservable()
+		subscriptions.add(outputToObservable(contextMenuContent.instance.closeAllMenus)
 			.subscribe(closeAllEvent => this.closeAllContextMenus({eventType: 'cancel', ...closeAllEvent})));
-		subscriptions.add(contextMenuContent.instance.closeLeafMenu.asObservable()
+		subscriptions.add(outputToObservable(contextMenuContent.instance.closeLeafMenu)
 			.subscribe(closeLeafMenuEvent => this.destroyLeafMenu(closeLeafMenuEvent)));
-		subscriptions.add(contextMenuContent.instance.openSubMenu.asObservable()
+		subscriptions.add(outputToObservable(contextMenuContent.instance.openSubMenu)
 			.subscribe(subMenuEvent => {
 				this.destroySubMenus(contextMenuContent.instance);
 				if (!subMenuEvent.contextMenu) {
