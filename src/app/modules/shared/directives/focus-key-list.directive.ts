@@ -9,7 +9,7 @@ import {FocusKeyListItemDirective} from './focus-key-list-item.directive';
 	selector: '[appFocusKeyList]',
 	standalone: false,
 	host: {
-		'[attr.tabindex]': 'settabindex',
+		'[attr.tabindex]': 'settabindex()',
 		'(keydown)': 'onKeydown($event)'
 	}
 })

@@ -4,7 +4,9 @@ import {Directive, ElementRef, inject} from '@angular/core';
 @Directive({
 	selector: '[appFocusKeyListItem]',
 	standalone: false,
-	host: {tabindex: 'tabindex'}
+	host: {
+		tabindex: 'tabindex'
+	}
 })
 export class FocusKeyListItemDirective implements FocusableOption {
 	tabindex = -1;

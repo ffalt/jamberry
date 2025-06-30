@@ -17,8 +17,8 @@ import {takeUntil} from 'rxjs/operators';
 export class SidebarIndexComponent implements OnInit, OnDestroy {
 	current?: IndexGroup;
 	index?: Index;
-	readonly useMeta = input<boolean>(true);
 	collapsed: boolean = false;
+	readonly useMeta = input<boolean>(true);
 	private readonly notify = inject(NotifyService);
 	private readonly indexService = inject(IndexService);
 	private readonly unsubscribe = new Subject<void>();
