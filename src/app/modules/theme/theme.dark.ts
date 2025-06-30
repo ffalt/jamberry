@@ -27,7 +27,7 @@ export const darkTheme: Theme = {
 		'--on-control': '#C8C8C8',
 		'--on-control-hover': '#fff',
 		'--on-control-active': '#fff',
-		'--on-control-ambient': '#AAAAAA',
+		'--on-control-ambient': '#cfcfcf',
 		'--on-control-ambient-hover': '#fff',
 		'--on-control-ambient-disabled': '#575757',
 

@@ -1,5 +1,5 @@
 import {FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, OnDestroy, viewChildren, input, ViewChildren, QueryList} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, input, ViewChildren, QueryList} from '@angular/core';
 import {JamLibraryObject} from '@library/model/objects';
 import {ObjCardComponent} from '@shared/components';
 import {Subject} from 'rxjs';

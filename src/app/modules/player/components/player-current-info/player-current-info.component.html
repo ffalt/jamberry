@@ -1,56 +1,56 @@
-@if (player.currentTrack) {
-  <div class="player-top-view" (contextmenu)="onContextMenu()">
-    <div class="track-plate">
-      <div class="art">
-        <app-coverart-image [coverArtObj]="player.currentTrack" [size]="135" [alt]="player.currentTrack.name" />
-      </div>
-      <div class="meta">
-        <app-fav-icon tabindex="0" [faved]="player.currentTrack.state?.faved" (clickenter)="actions.toggleMediaBaseFav(player.currentTrack)" />
-        <div class="year">{{player.currentTrack.tag?.year}}</div>
-        <a class="name" tabindex="0"
-          (clickenter)="navig.toTrack(player.currentTrack)">{{player.currentTrack.tag?.title}}</a>
-          <a class="album" tabindex="0"
-            (clickenter)="navig.toMediaAlbum(player.currentTrack)">{{player.currentTrack.tag?.album}}</a>
-            <a class="artist" tabindex="0"
-              (clickenter)="navig.toMediaArtist(player.currentTrack)">{{player.currentTrack.tag?.artist}}</a>
-              <div class="actions">
-                <a class="more" tabindex="0" title="Menu" i18n-title (clickenter)="onContextMenu()">…</a>
-              </div>
-            </div>
-          </div>
-          <app-lyrics [trackID]="player.currentTrack.id" />
-        </div>
-      }
-      @if (player.currentEpisode) {
-        <div class="player-top-view">
-          <div class="track-plate">
-            <div class="art">
-              <app-coverart-image [coverArtObj]="player.currentEpisode" [size]="135" [alt]="player.currentEpisode.name" />
-            </div>
-            <div class="meta">
-              <app-fav-icon tabindex="0"
-                [faved]="player.currentEpisode.state?.faved"
-                (click)="actions.toggleMediaBaseFav(player.currentEpisode)" (keydown.enter)="actions.toggleMediaBaseFav(player.currentEpisode)" />
-              <div class="year">{{player.currentEpisode.date | date}}</div>
-              <a class="name"
-                tabindex="0"
-                (click)="navig.toPodcastEpisode(player.currentEpisode)"
-              (keydown.enter)="navig.toPodcastEpisode(player.currentEpisode)">{{player.currentEpisode.tag ? player.currentEpisode.tag.title : player.currentEpisode.name}}</a>
-              <a class="album"
-                tabindex="0"
-                (click)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)"
-              (keydown.enter)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)">{{player.currentEpisode.podcast}}</a>
-              <div class="artist">{{player.currentEpisode.author}}</div>
-              <div class="actions"></div>
-            </div>
-          </div>
-          @if (player.currentEpisode.summary) {
-            <div class="description">
-              <div class="note">{{player.currentEpisode.summary}}</div>
-            </div>
-          }
-          @if (player.currentEpisode && player.currentEpisode.chapters) {
-            <app-chapters [episode]="player.currentEpisode" />
-          }
-        </div>
-      }
+@if (player.currentTrack; as currentTrack) {
+	<div class="player-top-view" (contextmenu)="onContextMenu()">
+		<div class="track-plate">
+			<div class="art">
+				<app-coverart-image [coverArtObj]="currentTrack" [size]="135" [alt]="currentTrack.name"/>
+			</div>
+			<div class="meta">
+				<app-fav-icon tabindex="0" [faved]="currentTrack.state?.faved" (clickenter)="actions.toggleMediaBaseFav(currentTrack)"/>
+				<div class="year">{{ currentTrack.tag?.year }}</div>
+				<a class="name" tabindex="0"
+					 (clickenter)="navig.toTrack(currentTrack)">{{ currentTrack.tag?.title }}</a>
+				<a class="album" tabindex="0"
+					 (clickenter)="navig.toMediaAlbum(currentTrack)">{{ currentTrack.tag?.album }}</a>
+				<a class="artist" tabindex="0"
+					 (clickenter)="navig.toMediaArtist(currentTrack)">{{ currentTrack.tag?.artist }}</a>
+				<div class="actions">
+					<a class="more" tabindex="0" title="Menu" i18n-title (clickenter)="onContextMenu()">…</a>
+				</div>
+			</div>
+		</div>
+		<app-lyrics [trackID]="currentTrack.id"/>
+	</div>
+}
+@if (player.currentEpisode; as currentEpisode) {
+	<div class="player-top-view">
+		<div class="track-plate">
+			<div class="art">
+				<app-coverart-image [coverArtObj]="currentEpisode" [size]="135" [alt]="currentEpisode.name"/>
+			</div>
+			<div class="meta">
+				<app-fav-icon tabindex="0"
+											[faved]="currentEpisode.state?.faved"
+											(click)="actions.toggleMediaBaseFav(currentEpisode)" (keydown.enter)="actions.toggleMediaBaseFav(currentEpisode)"/>
+				<div class="year">{{ currentEpisode.date | date }}</div>
+				<a class="name"
+					 tabindex="0"
+					 (click)="navig.toPodcastEpisode(currentEpisode)"
+					 (keydown.enter)="navig.toPodcastEpisode(currentEpisode)">{{ currentEpisode.tag?.title || currentEpisode.name }}</a>
+				<a class="album"
+					 tabindex="0"
+					 (click)="navig.toPodcastID(currentEpisode.podcastID, currentEpisode.podcastName)"
+					 (keydown.enter)="navig.toPodcastID(currentEpisode.podcastID, currentEpisode.podcastName)">{{ currentEpisode.podcast }}</a>
+				<div class="artist">{{ currentEpisode.author }}</div>
+				<div class="actions"></div>
+			</div>
+		</div>
+		@if (currentEpisode.summary) {
+			<div class="description">
+				<div class="note">{{ currentEpisode.summary }}</div>
+			</div>
+		}
+		@if (currentEpisode && currentEpisode.chapters) {
+			<app-chapters [episode]="currentEpisode"/>
+		}
+	</div>
+}

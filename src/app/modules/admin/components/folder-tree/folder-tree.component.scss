@@ -7,8 +7,7 @@
 	flex-direction: column;
 
 	.actions {
-		padding: variables.$padding-sm variables.$padding;
-		padding-top: variables.$padding;
+		padding: variables.$padding variables.$padding variables.$padding-sm;
 		background-color: var(--background-transparent);
 		color: var(--on-control);
 

@@ -1,14 +1,4 @@
-import {
-	ApplicationRef,
-	Component,
-	ComponentFactoryResolver,
-	ElementRef,
-	Injector,
-	OnDestroy,
-	OnInit,
-	inject,
-	viewChild
-} from '@angular/core';
+import {Component, Injector, OnDestroy, OnInit, inject, viewChild, ViewContainerRef} from '@angular/core';
 import {Router} from '@angular/router';
 import {DeferLoadService} from '@app/modules/defer-load';
 import {Hotkey, HotkeysService} from '@app/modules/hotkeys';
@@ -34,7 +24,7 @@ import {takeUntil} from 'rxjs/operators';
 	}
 })
 export class AppComponent implements OnInit, OnDestroy {
-	readonly tabContentOutlet = viewChild.required<ElementRef>('tabContentOutlet');
+	readonly tabContentOutlet = viewChild.required('tabContentOutlet', {read: ViewContainerRef});
 	readonly player = inject(PlayerService);
 	readonly app = inject(AppService);
 	readonly auth = inject(JamAuthService);
@@ -46,8 +36,6 @@ export class AppComponent implements OnInit, OnDestroy {
 	private readonly settingsStore = inject(SettingsStoreService);
 	private readonly themeService = inject(ThemeService);
 	private readonly injector = inject(Injector);
-	private readonly appRef = inject(ApplicationRef);
-	private readonly componentFactoryResolver = inject(ComponentFactoryResolver);
 
 	get expandBody(): boolean {
 		return !!this.tabService?.mainTab?.active;
@@ -75,13 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.tabService.init(
-			new TabPortalOutlet(this.tabService.tabs,
-				this.tabContentOutlet(),
-				this.componentFactoryResolver,
-				this.appRef,
-				this.injector)
-		);
+		this.tabService.init(new TabPortalOutlet(this.tabService.tabs, this.tabContentOutlet(), this.injector));
 	}
 
 	ngOnDestroy(): void {

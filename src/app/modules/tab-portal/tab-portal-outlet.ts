@@ -1,39 +1,21 @@
 import {ComponentPortal} from '@angular/cdk/portal';
-import {ApplicationRef, ComponentFactoryResolver, ComponentRef, ElementRef, EmbeddedViewRef, Injector} from '@angular/core';
-import {ActiveTabInterface, TabComponent, TabInterface} from './tab-portal.interfaces';
+import {ComponentRef, EmbeddedViewRef, Injector, ViewContainerRef} from '@angular/core';
+import {ActiveTabInterface, TabInterface} from './tab-portal.interfaces';
 
 /**
  * A PortalOutlet that lets multiple components live for the lifetime of the outlet, allowing faster switching and persistent data.
  */
 export class TabPortalOutlet {
-
-	/**
-	 * Returns the current active TabComponent instances.
-	 */
-	get activeComponents(): Array<TabComponent> {
-		return Object
-			.keys(this.activeTabs)
-			.map((name: string) => this.activeTabs[name].componentRef.instance);
-	}
-
-	get currentTab(): Readonly<ActiveTabInterface | undefined> {
-		return this.curTab;
-	}
-
 	get currentTabName(): Readonly<string | undefined> {
 		return this.curTab ? this.curTab.tab.name : undefined;
 	}
 
-	// Active tabs that have been instantiated
 	private activeTabs: { [name: string]: ActiveTabInterface } = {};
-	// The current tab
 	private curTab: ActiveTabInterface | undefined;
 
 	constructor(
 		public availableTabs: Array<TabInterface>,
-		public outletElement: ElementRef,
-		private componentFactoryResolver: ComponentFactoryResolver,
-		private appRef: ApplicationRef,
+		public outletElement: ViewContainerRef,
 		private injector: Injector) {
 	}
 
@@ -55,8 +37,8 @@ export class TabPortalOutlet {
 		// Get existing or new component instance
 		const instance = this.activateInstance(tab);
 		// At this point the component has been instantiated, so we move it to the location in the DOM where we want it to be rendered.
-		this.outletElement.nativeElement.innerHTML = '';
-		this.outletElement.nativeElement.appendChild(TabPortalOutlet.getComponentRootNode(instance.componentRef));
+		this.outletElement.element.nativeElement.innerHTML = '';
+		this.outletElement.element.nativeElement.appendChild(TabPortalOutlet.getComponentRootNode(instance.componentRef));
 		this.curTab = instance;
 		instance.componentRef.instance.onActivate();
 	}
@@ -78,8 +60,8 @@ export class TabPortalOutlet {
 			this.activeTabs[name].dispose();
 		}
 		// Remove outlet element
-		if (this.outletElement?.nativeElement.parentNode) {
-			this.outletElement.nativeElement.parentNode.removeChild(this.outletElement);
+		if (this.outletElement.element.nativeElement.parentNode) {
+			this.outletElement.element.nativeElement.parentNode.removeChild(this.outletElement);
 		}
 	}
 
@@ -96,15 +78,12 @@ export class TabPortalOutlet {
 	}
 
 	private createComponent(tab: TabInterface): ActiveTabInterface {
-		const componentFactory = this.componentFactoryResolver.resolveComponentFactory(tab.componentClass);
-		const componentRef = componentFactory.create(this.injector);
+		const componentRef = this.outletElement.createComponent(tab.componentClass);
 		const portal = new ComponentPortal(tab.componentClass, undefined, this.injector);
 		// Attach component view
-		this.appRef.attachView(componentRef.hostView);
 		return {
 			tab, portal, componentRef,
 			dispose: (): void => {
-				this.appRef.detachView(componentRef.hostView);
 				componentRef.destroy();
 			}
 		};
