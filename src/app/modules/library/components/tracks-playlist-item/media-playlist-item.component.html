@@ -4,7 +4,7 @@
 			<span class="grippy"></span>
 		</div>
 		<div class="fav"><a (click)="actions.toggleMediaBaseFav(media)">
-			<app-fav-icon [faved]="media.state?.faved"/>
+			<app-fav-icon title="Toggle Favorite" i18n-title  [faved]="media.state?.faved"/>
 		</a></div>
 		@if (showRating()) {
 			<div class="rating">{{ media.state?.rated }}</div>

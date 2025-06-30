@@ -20,7 +20,7 @@
 			@for (entry of entries; track entry) {
 				<div class="track" (tap)="tapTrack($event, entry)" (contextmenu)="onContextMenu($event, entry)">
 					<div class="fav"><a (click)="actions.toggleMediaBaseFav(entry)">
-						<app-fav-icon [faved]="entry.state?.faved"/>
+						<app-fav-icon title="Toggle Favorite" i18n-title  [faved]="entry.state?.faved"/>
 					</a></div>
 					@if (showRating()) {
 						<div class="rating"><i class="icon-checkmark small-screen-icon"></i> {{ entry.state?.rated }}</div>

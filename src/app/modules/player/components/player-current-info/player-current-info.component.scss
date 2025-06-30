@@ -10,6 +10,21 @@
 		overflow-x: hidden;
 		padding: variables.$padding;
 
+		&.player-top-centered {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.title {
+			font-size: 32px;
+			font-weight: 100;
+			text-align: center;
+			padding: 0 0 10px 0;
+			margin: 0;
+			text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+		}
+
 		@include note.note();
 
 		.track-plate {

@@ -17,7 +17,7 @@ export const darkTheme: Theme = {
 		'--on-background-hover': '#fff',
 
 		'--control': '#151b21',
-		'--control-box': '#1e1e1e',
+		'--control-box': '#292828',
 		'--control-hover': '#575757',
 		'--control-active': '#58594f',
 		'--control-box-shadow': '0 -1px 0 rgba(0, 0, 0, 0.15) inset',
@@ -31,9 +31,9 @@ export const darkTheme: Theme = {
 		'--on-control-ambient-hover': '#fff',
 		'--on-control-ambient-disabled': '#575757',
 
-		'--input': '#fff',
+		'--input': '#000',
 		'--input-border': '#fff',
-		'--on-input': '#000',
+		'--on-input': '#fff',
 		'--on-input-hover': '#C8C8C8',
 
 		'--primary': '#008300',

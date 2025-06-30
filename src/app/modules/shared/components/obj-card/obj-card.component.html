@@ -10,7 +10,7 @@
 		</div>
 	}
 	<button type="button" class="fav" (click)="toggleFav()" (keydown.enter)="toggleFav()">
-		<app-fav-icon [faved]="obj.base.state?.faved"/>
+		<app-fav-icon title="Toggle Favorite" i18n-title  [faved]="obj.base.state?.faved"/>
 	</button>
 	<button type="button" class="more" (click)="obj.onContextMenu($event)" (keydown.enter)="obj.onContextMenu($event)">
 		<span>…</span>

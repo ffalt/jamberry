@@ -13,7 +13,7 @@
 				<div class="album" appFocusKeyListItem role="listitem" (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)">
 					<div class="fav">
 						<button (click)="actions.toggleAlbumFav(album)">
-							<app-fav-icon [faved]="album.state?.faved"/>
+							<app-fav-icon title="Toggle Favorite" i18n-title  [faved]="album.state?.faved"/>
 						</button>
 					</div>
 					<div class="date">{{ album.seriesNr ? album.seriesNr : album.year }}</div>

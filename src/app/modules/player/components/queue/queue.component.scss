@@ -9,7 +9,23 @@
 	flex-direction: column;
 	height: 100%;
 
-	.tracks-wrapper {
+	.title {
+		font-size: 32px;
+		font-weight: 100;
+		text-align: center;
+		display: none;
+		padding: 10px;
+		margin: 0;
+		text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+	}
+	@media (max-width:variables.$break-desktop-large) {
+		.title {
+			display: block;
+		}
+	}
+
+
+		.tracks-wrapper {
 		flex-grow: 1;
 		overflow-y: auto;
 		overflow-x: hidden;

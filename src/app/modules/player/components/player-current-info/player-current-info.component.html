@@ -1,11 +1,15 @@
 @if (player.currentTrack; as currentTrack) {
 	<div class="player-top-view" (contextmenu)="onContextMenu()">
+		<div class="title" i18n>
+			Currently Playing
+		</div>
+
 		<div class="track-plate">
 			<div class="art">
 				<app-coverart-image [coverArtObj]="currentTrack" [size]="135" [alt]="currentTrack.name"/>
 			</div>
 			<div class="meta">
-				<app-fav-icon tabindex="0" [faved]="currentTrack.state?.faved" (clickenter)="actions.toggleMediaBaseFav(currentTrack)"/>
+				<app-fav-icon tabindex="0" title="Toggle Favorite" i18n-title [faved]="currentTrack.state?.faved" (clickenter)="actions.toggleMediaBaseFav(currentTrack)"/>
 				<div class="year">{{ currentTrack.tag?.year }}</div>
 				<a class="name" tabindex="0"
 					 (clickenter)="navig.toTrack(currentTrack)">{{ currentTrack.tag?.title }}</a>
@@ -28,7 +32,7 @@
 				<app-coverart-image [coverArtObj]="currentEpisode" [size]="135" [alt]="currentEpisode.name"/>
 			</div>
 			<div class="meta">
-				<app-fav-icon tabindex="0"
+				<app-fav-icon tabindex="0" title="Toggle Favorite" i18n-title
 											[faved]="currentEpisode.state?.faved"
 											(click)="actions.toggleMediaBaseFav(currentEpisode)" (keydown.enter)="actions.toggleMediaBaseFav(currentEpisode)"/>
 				<div class="year">{{ currentEpisode.date | date }}</div>
@@ -53,4 +57,7 @@
 			<app-chapters [episode]="currentEpisode"/>
 		}
 	</div>
+}
+@if (!player.currentTrack && !player.currentEpisode) {
+	<div class="player-top-view player-top-centered"><div class="title" i18n>No track playing</div></div>
 }

@@ -12,7 +12,7 @@
 			@for (episode of episodes; track episode.id) {
 				<div class="episode" (tap)="tapEpisode($event, episode)" (contextmenu)="onContextMenu($event, episode)">
 					<div class="fav"><a (click)="actions.toggleMediaBaseFav(episode)">
-						<app-fav-icon [faved]="episode.state?.faved"/>
+						<app-fav-icon title="Toggle Favorite" i18n-title [faved]="episode.state?.faved"/>
 					</a></div>
 					<div class="state">
 						<app-episode-state-button [episode]="episode"/>

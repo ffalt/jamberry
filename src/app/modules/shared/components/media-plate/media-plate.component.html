@@ -5,7 +5,7 @@
 		}
 	</div>
 	<div class="meta">
-		<app-fav-icon appClickStop [faved]="obj.base.state?.faved" (click)="toggleFav()" (keydown.enter)="toggleFav()"/>
+		<app-fav-icon appClickStop title="Toggle Favorite" i18n-title [faved]="obj.base.state?.faved" (click)="toggleFav()" (keydown.enter)="toggleFav()"/>
 		@if (obj.year) {
 			<div class="year">{{ obj.year }}</div>
 		}

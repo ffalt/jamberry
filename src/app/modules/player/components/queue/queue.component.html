@@ -1,5 +1,7 @@
 @if (!entries || entries.length === 0) {
 	<app-background-text text="No Tracks in Queue" i18n-text/>
+} @else {
+	<div class="title" i18n>Queue</div>
 }
 <div class="tracks-wrapper" appFocusKeyList role="list" [settabindex]="entries.length===0?'':'0'">
 	@if (entries && entries.length > 0) {

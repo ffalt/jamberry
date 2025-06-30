@@ -20,7 +20,7 @@
 			@for (track of tracks; track track) {
 				<div class="track" appFocusKeyListItem role="listitem" (tap)="tapTrack($event, track)" (keydown.enter)="playTrack(track)" (contextmenu)="onContextMenu($event, track)">
 					<div class="fav"><a (clickenter)="actions.toggleMediaBaseFav(track)">
-						<app-fav-icon [faved]="track.state?.faved"/>
+						<app-fav-icon title="Toggle Favorite" i18n-title [faved]="track.state?.faved"/>
 					</a></div>
 					@if (showRating()) {
 						<div class="rating"><i class="icon-checkmark small-screen-icon"></i> {{ track.state?.rated }}</div>
