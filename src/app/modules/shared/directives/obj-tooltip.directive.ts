@@ -1,4 +1,4 @@
-import {ComponentFactoryResolver, ComponentRef, Directive, ViewContainerRef, inject, input} from '@angular/core';
+import {ComponentRef, Directive, ViewContainerRef, inject, input} from '@angular/core';
 import {ChildTooltipContentComponent, TooltipInfo} from '../components/obj-tooltip-content/child-tooltip-content.component';
 
 @Directive({
@@ -17,7 +17,6 @@ export class ObjTooltipDirective {
 	readonly tooltipAnimation = input<boolean>(true);
 	readonly tooltipPlacement = input<'top' | 'bottom' | 'left' | 'right'>('bottom');
 	private readonly viewContainerRef = inject(ViewContainerRef);
-	private readonly componentFactoryResolver = inject(ComponentFactoryResolver);
 	private tooltip?: ComponentRef<ChildTooltipContentComponent>;
 	private visible?: boolean;
 
@@ -38,8 +37,7 @@ export class ObjTooltipDirective {
 			return;
 		}
 		this.visible = true;
-		const myComponentFactory = this.componentFactoryResolver.resolveComponentFactory(ChildTooltipContentComponent);
-		this.tooltip = this.viewContainerRef.createComponent(myComponentFactory);
+		this.tooltip = this.viewContainerRef.createComponent(ChildTooltipContentComponent);
 		this.tooltip.instance.hostElement.set(this.viewContainerRef.element.nativeElement);
 		this.tooltip.instance.content.set(this.getInfo());
 		this.tooltip.instance.placement.set(this.tooltipPlacement());

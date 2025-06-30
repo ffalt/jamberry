@@ -1,7 +1,18 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
 import {OverlayRef} from '@angular/cdk/overlay';
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, inject, output, viewChild, viewChildren, model} from '@angular/core';
-import {toObservable} from '@angular/core/rxjs-interop';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	OnDestroy,
+	OnInit,
+	inject,
+	output,
+	viewChild,
+	viewChildren,
+	model,
+	ViewChildren, QueryList
+} from '@angular/core';
 import {ContextMenuContentItemComponent} from '@app/modules/ngx-contextmenu/lib/contextmenu-content-item.component';
 import {Subscription} from 'rxjs';
 import {ContextMenuItemDirective} from './contextmenu.item.directive';
@@ -48,7 +59,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	readonly closeAllMenus = output<{ event: MouseEvent }>();
 	readonly menuElement = viewChild.required<ElementRef>('menu');
 	readonly menuItemElements = viewChildren<ElementRef>('li');
-	readonly menuItemFocusElements = viewChildren(ContextMenuContentItemComponent);
+	@ViewChildren(ContextMenuContentItemComponent) menuItemFocusElements!: QueryList<ContextMenuContentItemComponent>;
 	private keyManager!: FocusKeyManager<ContextMenuContentItemComponent>;
 	private options = inject<IContextMenuOptions>(CONTEXT_MENU_OPTIONS, {optional: true});
 	private subscription: Subscription = new Subscription();
@@ -71,7 +82,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}
 
 	registerKeys() {
-		this.keyManager = new FocusKeyManager<ContextMenuContentItemComponent>(this.menuItemFocusElements()).withWrap();
+		this.keyManager = new FocusKeyManager<ContextMenuContentItemComponent>(this.menuItemFocusElements).withWrap();
 	}
 
 	ngAfterViewInit() {
@@ -79,7 +90,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 			setTimeout(() => this.focus());
 		}
 		this.registerKeys();
-		toObservable(this.menuItemFocusElements)
+		this.menuItemFocusElements.changes
 			.subscribe(() => {
 				this.registerKeys();
 			});

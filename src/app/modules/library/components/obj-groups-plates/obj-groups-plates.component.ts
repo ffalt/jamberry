@@ -1,6 +1,5 @@
 import {FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, OnDestroy, viewChildren, input} from '@angular/core';
-import {toObservable} from '@angular/core/rxjs-interop';
+import {AfterViewInit, Component, OnDestroy, input, ViewChildren, QueryList} from '@angular/core';
 import {JamLibraryObject} from '@library/model/objects';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -26,7 +25,7 @@ export class ObjGroupsPlatesComponent implements AfterViewInit, OnDestroy {
 	readonly groups = input<Array<ObjPlatesGroupsView>>();
 	readonly showParent = input<boolean>(false);
 	tabindex = '0';
-	private readonly plates = viewChildren(ObjPlateComponent);
+	@ViewChildren(ObjPlateComponent) plates!: QueryList<ObjPlateComponent>;
 	private readonly unsubscribe = new Subject<void>();
 	private keyManager: FocusKeyManager<FocusableOption> | undefined;
 
@@ -36,7 +35,7 @@ export class ObjGroupsPlatesComponent implements AfterViewInit, OnDestroy {
 
 	ngAfterViewInit() {
 		this.processKeyList();
-		toObservable(this.plates)
+		this.plates.changes
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(() => this.processKeyList());
 	}
@@ -47,6 +46,6 @@ export class ObjGroupsPlatesComponent implements AfterViewInit, OnDestroy {
 	}
 
 	processKeyList() {
-		this.keyManager = new FocusKeyManager<FocusableOption>(this.plates()).withWrap();
+		this.keyManager = new FocusKeyManager<FocusableOption>(this.plates).withWrap();
 	}
 }

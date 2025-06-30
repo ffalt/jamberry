@@ -1,6 +1,5 @@
 import {FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, OnDestroy, viewChildren, input} from '@angular/core';
-import {toObservable} from '@angular/core/rxjs-interop';
+import {AfterViewInit, Component, OnDestroy, viewChildren, input, ViewChildren, QueryList} from '@angular/core';
 import {JamLibraryObject} from '@library/model/objects';
 import {ObjCardComponent} from '@shared/components';
 import {Subject} from 'rxjs';
@@ -26,7 +25,7 @@ export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 	readonly groups = input<Array<ObjCardsGroupsView>>();
 	readonly showParent = input<boolean>(false);
 	tabindex = '0';
-	protected readonly cards = viewChildren(ObjCardComponent);
+	@ViewChildren(ObjCardComponent) cards!: QueryList<ObjCardComponent>;
 	private readonly unsubscribe = new Subject<void>();
 	private keyManager: FocusKeyManager<FocusableOption> | undefined;
 
@@ -36,7 +35,7 @@ export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 
 	ngAfterViewInit() {
 		this.processKeyList();
-		toObservable(this.cards)
+		this.cards.changes
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(() => this.processKeyList());
 	}
@@ -47,6 +46,6 @@ export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 	}
 
 	processKeyList() {
-		this.keyManager = new FocusKeyManager<FocusableOption>(this.cards()).withWrap();
+		this.keyManager = new FocusKeyManager<FocusableOption>(this.cards).withWrap();
 	}
 }

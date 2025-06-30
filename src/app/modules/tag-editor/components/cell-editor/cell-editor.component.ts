@@ -1,6 +1,5 @@
 import {
 	Component,
-	ComponentFactoryResolver,
 	ComponentRef,
 	forwardRef,
 	OnChanges,
@@ -46,7 +45,6 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	readonly container = viewChild('cellContainer', {read: ViewContainerRef});
 	private readonly unsubscribe = new Subject<void>();
 	private readonly dialogOverlay = inject(DialogOverlayService);
-	private readonly resolver = inject(ComponentFactoryResolver);
 	private componentRef?: ComponentRef<any>;
 
 	ngOnDestroy(): void {
@@ -200,8 +198,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		this.clearEdit();
 		const container = this.container();
 		if (container) {
-			const factory = this.resolver.resolveComponentFactory(type);
-			this.componentRef = container.createComponent(factory);
+			this.componentRef = container.createComponent(type);
 		}
 	}
 

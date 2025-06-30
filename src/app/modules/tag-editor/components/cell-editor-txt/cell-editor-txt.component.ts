@@ -1,5 +1,6 @@
-import {AfterViewInit, Component, ElementRef, OnChanges, output, viewChild, input} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnChanges, output, viewChild, Input} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
+import {Subject} from 'rxjs';
 import {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
@@ -11,14 +12,14 @@ import {RawTagEditCell} from '../../model/tag-editor.types';
 export class CellEditorTxtComponent implements OnChanges, AfterViewInit, AutocompleteDataControl {
 	original: string = '';
 	val: string = '';
-	readonly cell = input<RawTagEditCell>();
+	@Input() cell?: RawTagEditCell;
 	readonly navigKeyDownRequest = output<{ cell: RawTagEditCell; event: KeyboardEvent }>();
-	readonly navigBlur = output();
-	readonly navigChange = output();
+	readonly navigBlur = new Subject();
+	readonly navigChange = new Subject();
 	readonly input = viewChild<ElementRef>('inputEl');
 
 	ngOnChanges(): void {
-		this.changeCell(this.cell());
+		this.changeCell(this.cell);
 	}
 
 	changeCell(cell?: RawTagEditCell): void {
@@ -42,11 +43,11 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 
 	onEnter(): void {
 		this.onChange();
-		this.navigBlur.emit();
+		this.navigBlur.next(undefined);
 	}
 
 	onChange(): void {
-		const cell = this.cell();
+		const cell = this.cell;
 		if (!cell) {
 			return;
 		}
@@ -60,13 +61,13 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 				});
 			}
 			cell.frames[0].value.text = this.val;
-			this.navigChange.emit();
+			this.navigChange.next(undefined);
 		}
 	}
 
 	onBlur(): void {
 		this.onChange();
-		this.navigBlur.emit();
+		this.navigBlur.next(undefined);
 	}
 
 	autocompleteEnter(query: string): void {

@@ -1,6 +1,5 @@
 import {
 	Component,
-	ComponentFactoryResolver,
 	ComponentRef,
 	OnInit,
 	ViewContainerRef,
@@ -30,7 +29,6 @@ export class DialogOverlayComponent implements OnInit {
 	readonly dialogRef = inject(DialogOverlayRef);
 	readonly config = inject<DialogOverlayDialogConfig<any>>(DIALOG_OVERLAY_DIALOG_CONFIG);
 	private readonly dynamicComponentTarget = viewChild('overlayDialogBody', {read: ViewContainerRef});
-	private readonly componentFactoryResolver = inject<ComponentFactoryResolver>(ComponentFactoryResolver);
 
 	handleKeydown(event: KeyboardEvent): void {
 		if (isEscapeKey(event)) {
@@ -41,8 +39,7 @@ export class DialogOverlayComponent implements OnInit {
 	ngOnInit(): void {
 		const dynamicComponentTarget = this.dynamicComponentTarget();
 		if (this.config.childComponent && dynamicComponentTarget) {
-			const factory = this.componentFactoryResolver.resolveComponentFactory(this.config.childComponent);
-			this.childComponentRef = dynamicComponentTarget.createComponent(factory) as ComponentRef<DialogOverlay<any>>;
+			this.childComponentRef = dynamicComponentTarget.createComponent(this.config.childComponent) as ComponentRef<DialogOverlay<any>>;
 			this.childComponentRef.instance.dialogInit(this.dialogRef, this.config);
 		}
 	}

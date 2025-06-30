@@ -1,6 +1,5 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterContentInit, Directive, OnDestroy, contentChildren, input} from '@angular/core';
-import {toObservable} from '@angular/core/rxjs-interop';
+import {AfterContentInit, Directive, OnDestroy, input, ContentChildren, QueryList} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {FocusKeyListItemDirective} from './focus-key-list-item.directive';
@@ -17,13 +16,13 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 	readonly withWrap = input(true);
 
 	readonly settabindex = input<string | undefined>('0');
-	readonly components = contentChildren(FocusKeyListItemDirective, {descendants: true});
+	@ContentChildren(FocusKeyListItemDirective, {descendants: true}) components!: QueryList<FocusKeyListItemDirective>;
 	protected keyManager?: FocusKeyManager<FocusKeyListItemDirective>;
 	private readonly unsubscribe = new Subject<void>();
 
 	ngAfterContentInit() {
 		this.processKeyList();
-		toObservable(this.components)
+		this.components.changes
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(() => this.processKeyList());
 	}
@@ -38,7 +37,7 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 	}
 
 	private processKeyList() {
-		this.keyManager = new FocusKeyManager<FocusKeyListItemDirective>(this.components());
+		this.keyManager = new FocusKeyManager<FocusKeyListItemDirective>(this.components);
 		if (this.withWrap()) {
 			this.keyManager.withWrap();
 		}
