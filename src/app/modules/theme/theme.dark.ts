@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import {Theme} from './theme.model';
 
 export const darkTheme: Theme = {
 	name: 'dark',
 	properties: {
-
 		'--background': '#0f1217',
 		'--background-hover': '#151b21',
 		'--background-active': '#151b21',

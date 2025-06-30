@@ -109,5 +109,4 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 			this.current.frame.value.bin = base64;
 		}
 	}
-
 }

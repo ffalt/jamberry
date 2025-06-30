@@ -13,5 +13,4 @@ export class FilesizePipe implements PipeTransform {
 		}
 		return formatFileSize(value);
 	}
-
 }

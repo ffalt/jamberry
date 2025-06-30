@@ -1,4 +1,4 @@
-import {Component, HostBinding, output, viewChildren, input} from '@angular/core';
+import {Component, output, viewChildren, input} from '@angular/core';
 import {SidebarListItem, SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
 
 export interface SidebarList {
@@ -10,11 +10,14 @@ export interface SidebarList {
 	selector: 'app-sidebar-list',
 	templateUrl: './sidebar-list.component.html',
 	styleUrls: ['./sidebar-list.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		'[class.active]': 'collapsed'
+	}
 })
 export class SidebarListComponent {
 	readonly list = input.required<SidebarList>();
-	@HostBinding('class.active') collapsed: boolean = false;
+	collapsed: boolean = false;
 	readonly items = viewChildren(SidebarListItemComponent);
 	readonly navigate = output();
 

@@ -24,5 +24,4 @@ export class JamNowPlayingService {
 	async scrobble(params: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/nowPlaying/scrobble', params);
 	}
-
 }

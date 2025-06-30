@@ -9,5 +9,4 @@ export class JsonPipe implements PipeTransform {
 	transform(value: any): string {
 		return JSON.stringify(value, undefined, ' ');
 	}
-
 }

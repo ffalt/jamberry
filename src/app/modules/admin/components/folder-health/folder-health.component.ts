@@ -215,5 +215,4 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 			});
 		}
 	}
-
 }

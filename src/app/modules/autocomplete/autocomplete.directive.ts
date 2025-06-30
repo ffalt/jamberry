@@ -3,7 +3,6 @@ import {TemplatePortal} from '@angular/cdk/portal';
 import {
 	Directive,
 	ElementRef,
-	HostListener,
 	OnChanges,
 	OnDestroy,
 	OnInit,
@@ -45,7 +44,11 @@ export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement)
 
 @Directive({
 	selector: '[appAutocomplete]',
-	standalone: false
+	standalone: false,
+	host: {
+		'(keydown)': 'handleEsc($event)',
+		'(keyup)': 'onkeyup($event)'
+	}
 })
 export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, AutocompleteControl {
 	readonly appAutocomplete = input<AutocompleteComponent>();
@@ -91,7 +94,6 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		}
 	}
 
-	@HostListener('keydown', ['$event'])
 	handleEsc(event: KeyboardEvent): void {
 		if (isEscapeKey(event)) {
 			this.hide();
@@ -100,7 +102,6 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		this.keydown$.next(event);
 	}
 
-	@HostListener('keyup', ['$event'])
 	onkeyup(event: KeyboardEvent): void {
 		event.preventDefault();
 		event.stopPropagation();
@@ -293,5 +294,4 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 			.withPositions(positions)
 			.withPush(false);
 	}
-
 }

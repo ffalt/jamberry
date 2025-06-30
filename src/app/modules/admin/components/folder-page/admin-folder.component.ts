@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnDestroy, OnInit, inject, viewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, viewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UiStateService} from '@core/services';
 import {Jam} from '@jam';
@@ -11,10 +11,13 @@ import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
 	selector: 'app-admin-folder',
 	templateUrl: './admin-folder.component.html',
 	styleUrls: ['./admin-folder.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		'[class.right-active]': 'rightActive'
+	}
 })
 export class AdminFolderComponent implements OnInit, OnDestroy {
-	@HostBinding('class.right-active') rightActive: boolean = false;
+	rightActive: boolean = false;
 	id: string = '';
 	private readonly tree = viewChild(FolderTreeComponent);
 	private readonly unsubscribe = new Subject<void>();
@@ -84,5 +87,4 @@ export class AdminFolderComponent implements OnInit, OnDestroy {
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
 	}
-
 }

@@ -16,5 +16,4 @@ export class JamPingService {
 	async ping(): Promise<Jam.Ping> {
 		return this.base.requestData<Jam.Ping>('/ping', {});
 	}
-
 }

@@ -54,5 +54,4 @@ export class ContextMenuItemDirective implements Highlightable {
 			this.execute.emit({event: $event, item});
 		}
 	}
-
 }

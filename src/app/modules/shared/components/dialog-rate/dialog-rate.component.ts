@@ -24,5 +24,4 @@ export class DialogRateComponent implements DialogOverlay<RateEdit> {
 			this.data.rating = num;
 		}
 	}
-
 }

@@ -52,5 +52,4 @@ export class JamSeriesService {
 	async tracks(params: JamParameters.SeriesTracksArgs): Promise<Jam.TrackPage> {
 		return this.base.requestData<Jam.TrackPage>('/series/tracks', params);
 	}
-
 }

@@ -66,5 +66,4 @@ export class StartSectionsComponent implements OnInit {
 				this.notify.error(e);
 			});
 	}
-
 }

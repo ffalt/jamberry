@@ -617,5 +617,4 @@ export class PlayerService implements OnDestroy {
 				});
 		}
 	}
-
 }

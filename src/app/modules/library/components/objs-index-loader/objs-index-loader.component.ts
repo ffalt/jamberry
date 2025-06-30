@@ -98,5 +98,4 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 		this.index = undefined;
 		this.load();
 	}
-
 }

@@ -82,5 +82,4 @@ export class JamUserService {
 	async generateSubsonicToken(params: JamParameters.UserGenerateSubsonicTokenArgs): Promise<Jam.SubsonicToken> {
 		return this.base.requestPostData<Jam.SubsonicToken>('/user/subsonic/generate', params);
 	}
-
 }

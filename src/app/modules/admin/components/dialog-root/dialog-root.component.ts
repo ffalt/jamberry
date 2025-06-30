@@ -16,5 +16,4 @@ export class DialogRootComponent implements DialogOverlay<AdminRootServiceEditDa
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<AdminRootServiceEditData>>): void {
 		this.edit = options.data;
 	}
-
 }

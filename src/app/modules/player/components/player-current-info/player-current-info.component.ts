@@ -21,5 +21,4 @@ export class PlayerCurrentInfoComponent implements TabComponent {
 	onContextMenu(/*$event: Event, item: Jam.Track*/): void {
 		//TODO: context-menu this.contextMenuService.open(ContextMenuQueueTrackComponent, item, $event);
 	}
-
 }

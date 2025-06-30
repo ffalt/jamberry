@@ -62,5 +62,4 @@ export class AlbumOverviewComponent implements OnInit, OnDestroy {
 				});
 		}
 	}
-
 }

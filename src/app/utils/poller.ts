@@ -41,5 +41,4 @@ export class Poller<T extends { id: string }> {
 			});
 		}, 2000);
 	}
-
 }

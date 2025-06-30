@@ -23,5 +23,4 @@ export class AdminSidebarComponent {
 				}));
 		this.sections = [{name: 'Administration', entries}];
 	}
-
 }

@@ -1,16 +1,16 @@
-import {Directive, HostListener} from '@angular/core';
+import {Directive} from '@angular/core';
 
 @Directive({
-    selector: '[appClickStop]',
-    standalone: false
+	selector: '[appClickStop]',
+	standalone: false,
+	host: {
+		'(click)': 'stopClick($event)',
+		'(mouseup)': 'stopClick($event)'
+	}
 })
 export class ClickStopDirective {
-
-	@HostListener('click', ['$event'])
-	@HostListener('mouseup', ['$event'])
 	stopClick(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
 	}
-
 }

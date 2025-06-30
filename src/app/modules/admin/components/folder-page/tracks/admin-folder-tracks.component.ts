@@ -109,5 +109,4 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 				this.notify.error(e);
 			});
 	}
-
 }

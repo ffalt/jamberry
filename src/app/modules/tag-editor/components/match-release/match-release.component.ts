@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnChanges, OnDestroy, inject, viewChild, input} from '@angular/core';
+import {Component, OnChanges, OnDestroy, inject, viewChild, input} from '@angular/core';
 import {MatchApplyComponent} from '@app/modules/tag-editor/components/match-apply/match-apply.component';
 import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -25,11 +25,14 @@ export interface ReleaseMatching {
 	selector: 'app-match-release',
 	templateUrl: './match-release.component.html',
 	styleUrls: ['./match-release.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		'[class.right-active]': 'rightActive'
+	}
 })
 export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	readonly data = input<ReleaseMatching>();
-	@HostBinding('class.right-active') rightActive: boolean = true;
+	rightActive: boolean = true;
 	matcher: Matcher;
 	current?: { group: MatchReleaseGroup; release: MatchRelease };
 	readonly RunType = RunType;
@@ -125,5 +128,4 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		$event.preventDefault();
 		$event.stopPropagation();
 	}
-
 }

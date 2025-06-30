@@ -64,5 +64,4 @@ export class TagEditorAutocompleteComponent implements AutocompleteDataControl, 
 		this.focused = false;
 		this.list = [];
 	}
-
 }

@@ -114,5 +114,4 @@ export class ActionsService {
 			window.location.href = this.jam.download.downloadUrl({id: base.id});
 		}
 	}
-
 }

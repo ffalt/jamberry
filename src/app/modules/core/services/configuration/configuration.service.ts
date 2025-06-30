@@ -45,5 +45,4 @@ export class ConfigurationService extends JamConfiguration {
 	async userChangeNotify(user: Jam.User | undefined): Promise<void> {
 		this.userStorage.notifyUserChange(user);
 	}
-
 }

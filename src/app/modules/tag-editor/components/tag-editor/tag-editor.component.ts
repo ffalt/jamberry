@@ -1,4 +1,4 @@
-import {Component, HostListener, OnChanges, inject, viewChildren, viewChild, input} from '@angular/core';
+import {Component, OnChanges, inject, viewChildren, viewChild, input} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
@@ -24,7 +24,10 @@ export interface SaveAction {
 	selector: 'app-admin-tag-editor',
 	templateUrl: './tag-editor.component.html',
 	styleUrls: ['./tag-editor.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		'(window:beforeunload)': 'canDeactivate()'
+	}
 })
 export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	folder?: Jam.Folder;
@@ -46,7 +49,6 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		this.editor = new TagEditor(this.jam);
 	}
 
-	@HostListener('window:beforeunload')
 	canDeactivate(): boolean {
 		return !this.isSaving;
 	}
@@ -300,5 +302,4 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			this.loadRecursive();
 		}
 	}
-
 }

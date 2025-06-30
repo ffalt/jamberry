@@ -15,5 +15,4 @@ export class ToastInjector implements Injector {
 		}
 		return this.parentInjector.get<any>(token, notFoundValue);
 	}
-
 }

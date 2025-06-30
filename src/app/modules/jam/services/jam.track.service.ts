@@ -87,5 +87,4 @@ export class JamTrackService {
 	async rawTagSet(params: JamParameters.RawTagUpdateArgs): Promise<Jam.AdminChangeQueueInfo> {
 		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/track/rawTag/set', params);
 	}
-
 }

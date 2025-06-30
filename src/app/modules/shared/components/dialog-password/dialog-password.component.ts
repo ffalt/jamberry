@@ -17,5 +17,4 @@ export class DialogPasswordComponent implements DialogOverlay<PasswordEdit> {
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PasswordEdit>>): void {
 		this.data = options.data;
 	}
-
 }

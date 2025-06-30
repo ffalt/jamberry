@@ -25,5 +25,4 @@ export class JamStreamService {
 		if (!params.id) { throw new Error('Invalid Parameter'); }
 		return this.base.binary(`/stream/${params.id}${params.maxBitRate ? `_${params.maxBitRate}` : ''}${params.format ? `.${params.format}` : ''}`, {});
 	}
-
 }

@@ -38,5 +38,4 @@ export class JamStateService {
 	async rate(params: JamParameters.RateArgs): Promise<Jam.State> {
 		return this.base.requestPostData<Jam.State>('/state/rate', params);
 	}
-
 }

@@ -96,5 +96,4 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 			}
 		);
 	}
-
 }

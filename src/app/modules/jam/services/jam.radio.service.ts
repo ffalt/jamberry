@@ -52,5 +52,4 @@ export class JamRadioService {
 	async remove(params: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/radio/remove', params);
 	}
-
 }

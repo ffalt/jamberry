@@ -91,5 +91,4 @@ export class UserAvatarComponent implements OnDestroy {
 				this.notify.error(e);
 			});
 	}
-
 }

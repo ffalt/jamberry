@@ -77,5 +77,4 @@ export class TitleService implements OnDestroy {
 	refreshTitle(): void {
 		this.title.setTitle(this.titles.join(' • '));
 	}
-
 }

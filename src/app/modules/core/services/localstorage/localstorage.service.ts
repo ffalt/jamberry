@@ -22,5 +22,4 @@ export class LocalstorageService {
 			localStorage.setItem(this.prefix + key, JSON.stringify(data));
 		}
 	}
-
 }

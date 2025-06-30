@@ -101,5 +101,4 @@ export class JamMetaDataService {
 	async wikidataLookup(params: JamParameters.WikidataLookupArgs): Promise<Jam.MetaDataResult> {
 		return this.base.requestData<Jam.MetaDataResult>('/metadata/wikidata/lookup', params);
 	}
-
 }

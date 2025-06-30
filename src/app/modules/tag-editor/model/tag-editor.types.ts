@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import {Jam} from '@jam';
 import {FrameType} from './id3v2-frames.helper';
 

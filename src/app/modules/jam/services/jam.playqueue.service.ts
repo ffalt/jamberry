@@ -31,5 +31,4 @@ export class JamPlayQueueService {
 	async clear(): Promise<void> {
 		return this.base.requestPostDataOK('/playqueue/clear', {});
 	}
-
 }

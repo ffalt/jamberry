@@ -25,5 +25,4 @@ export class JamImageService {
 		if (!params.id) { throw new Error('Invalid Parameter'); }
 		return this.base.binary(`/image/${params.id}${params.size ? `_${params.size}` : ''}${params.format ? `.${params.format}` : ''}`, {});
 	}
-
 }

@@ -101,5 +101,4 @@ export class PodcastSearchPageComponent {
 			return pod;
 		});
 	}
-
 }

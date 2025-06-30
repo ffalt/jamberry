@@ -31,5 +31,4 @@ export class JamChatService {
 	async remove(params: JamParameters.ChatRemoveArgs): Promise<void> {
 		return this.base.requestPostDataOK('/chat/remove', params);
 	}
-
 }

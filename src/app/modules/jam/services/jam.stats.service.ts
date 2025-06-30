@@ -24,5 +24,4 @@ export class JamStatsService {
 	async user(): Promise<Jam.UserStats> {
 		return this.base.requestData<Jam.UserStats>('/stats/user', {});
 	}
-
 }

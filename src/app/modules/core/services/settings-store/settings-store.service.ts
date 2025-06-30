@@ -61,5 +61,4 @@ export class SettingsStoreService implements OnDestroy {
 	setTheme(): void {
 		this.settingsChange.emit();
 	}
-
 }

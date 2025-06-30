@@ -146,5 +146,4 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 			this.notify.error(e);
 		});
 	}
-
 }

@@ -144,5 +144,4 @@ export class MatchCoverartComponent implements OnChanges {
 			image.base64 = {title: imageUrl, mimeType: bin.contentType, base64: base64ArrayBuffer(bin.buffer)};
 		}
 	}
-
 }

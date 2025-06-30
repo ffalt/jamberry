@@ -52,5 +52,4 @@ export class JamAlbumService {
 	async similarTracks(params: JamParameters.AlbumSimilarTracksArgs): Promise<Jam.TrackPage> {
 		return this.base.requestData<Jam.TrackPage>('/album/similar/tracks', params);
 	}
-
 }

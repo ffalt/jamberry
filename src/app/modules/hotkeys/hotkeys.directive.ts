@@ -43,5 +43,4 @@ export class HotkeysDirective implements OnInit, OnDestroy {
 		}
 		this.hotkeysService.add(this.oldHotkeys);
 	}
-
 }

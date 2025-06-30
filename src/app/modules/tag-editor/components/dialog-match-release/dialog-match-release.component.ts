@@ -31,5 +31,4 @@ export class DialogMatchReleaseComponent implements DialogOverlay<ReleaseMatchin
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
 	}
-
 }

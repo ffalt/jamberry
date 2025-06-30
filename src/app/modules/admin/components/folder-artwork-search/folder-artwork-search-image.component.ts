@@ -314,5 +314,4 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			this.nodes.forEach(n => n.checked = n === node);
 		}
 	}
-
 }

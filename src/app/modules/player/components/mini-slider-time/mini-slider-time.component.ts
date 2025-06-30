@@ -39,5 +39,4 @@ export class MiniSliderTimeComponent implements OnInit {
 			}, 0);
 		}
 	}
-
 }

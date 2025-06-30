@@ -13,5 +13,4 @@ export class MediadurationPipe implements PipeTransform {
 		}
 		return formatDuration(Number(value));
 	}
-
 }

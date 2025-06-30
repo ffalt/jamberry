@@ -85,5 +85,4 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 			}
 		);
 	}
-
 }

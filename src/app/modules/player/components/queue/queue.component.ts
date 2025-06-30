@@ -91,5 +91,4 @@ export class QueueComponent implements OnInit, OnDestroy {
 			this.currentSwipeElement = undefined;
 		}
 	}
-
 }

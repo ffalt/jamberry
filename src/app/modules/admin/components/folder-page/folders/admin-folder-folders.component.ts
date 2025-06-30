@@ -115,5 +115,4 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 			onCancelBtn: async () => Promise.resolve()
 		});
 	}
-
 }

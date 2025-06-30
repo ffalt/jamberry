@@ -263,5 +263,4 @@ export class FuzzySet {
 		this.items[gramSize] = items;
 		this.exactSet[normalizedValue] = value;
 	}
-
 }

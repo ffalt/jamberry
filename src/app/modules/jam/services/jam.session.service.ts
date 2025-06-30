@@ -31,5 +31,4 @@ export class JamSessionService {
 	async remove(params: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/session/remove', params);
 	}
-
 }

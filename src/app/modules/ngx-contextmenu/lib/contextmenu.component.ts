@@ -74,5 +74,4 @@ export class ContextMenuComponent implements OnDestroy {
 	setVisibleMenuItems(): void {
 		this.visibleMenuItems = this.menuItems.filter(menuItem => menuItem.isVisible);
 	}
-
 }

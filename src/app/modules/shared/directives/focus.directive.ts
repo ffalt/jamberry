@@ -1,9 +1,12 @@
-import {Directive, ElementRef, HostListener, OnInit, inject} from '@angular/core';
+import {Directive, ElementRef, OnInit, inject} from '@angular/core';
 import {isLeftArrowKey, isLeftRightArrowKeys, isRightArrowKey} from '@app/utils/keys';
 
 @Directive({
 	selector: '[appFocusable]',
-	standalone: false
+	standalone: false,
+	host: {
+		'(keydown)': 'onKeyDown($event)'
+	}
 })
 export class FocusDirective implements OnInit {
 	private readonly element = inject(ElementRef);
@@ -18,7 +21,6 @@ export class FocusDirective implements OnInit {
 		return;
 	}
 
-	@HostListener('keydown', ['$event'])
 	onKeyDown(event: KeyboardEvent): void {
 		if (isLeftRightArrowKeys(event)) {
 			const nextFocused = this.getNextElement(event);
@@ -33,5 +35,4 @@ export class FocusDirective implements OnInit {
 	ngOnInit(): void {
 		this.element.nativeElement.tabIndex = -1; // make it focusable
 	}
-
 }

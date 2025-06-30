@@ -38,5 +38,4 @@ export class EpisodeListComponent {
 			this.podcastService.retrieveEpisode(episode);
 		}
 	}
-
 }

@@ -1,15 +1,13 @@
 import {
-  ApplicationRef,
-  Component,
-  ComponentFactoryResolver,
-  ElementRef,
-  HostBinding,
-  HostListener,
-  Injector,
-  OnDestroy,
-  OnInit,
-  inject,
-  viewChild
+	ApplicationRef,
+	Component,
+	ComponentFactoryResolver,
+	ElementRef,
+	Injector,
+	OnDestroy,
+	OnInit,
+	inject,
+	viewChild
 } from '@angular/core';
 import {Router} from '@angular/router';
 import {DeferLoadService} from '@app/modules/defer-load';
@@ -28,7 +26,12 @@ import {takeUntil} from 'rxjs/operators';
 	selector: 'body',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		'[class.expand]': 'expandBody',
+		'(window:scroll)': 'scrollTrack()',
+		'(window:resize)': 'resize()'
+	}
 })
 export class AppComponent implements OnInit, OnDestroy {
 	readonly tabContentOutlet = viewChild<ElementRef>('tabContentOutlet');
@@ -46,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	private readonly appRef = inject(ApplicationRef);
 	private readonly componentFactoryResolver = inject(ComponentFactoryResolver);
 
-	@HostBinding('class.expand') get expandBody(): boolean {
+	get expandBody(): boolean {
 		return !!this.tabService?.mainTab?.active;
 	}
 
@@ -105,12 +108,10 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.themeService.setTheme(this.app.settings.theme || 'dark');
 	}
 
-	@HostListener('window:scroll', ['$event'])
 	scrollTrack(): void {
 		this.deferLoadService.notifyScroll({name: 'app'});
 	}
 
-	@HostListener('window:resize', ['$event'])
 	resize(): void {
 		this.determinateScreen();
 		this.tabService.switchToMain();
@@ -161,5 +162,4 @@ export class AppComponent implements OnInit, OnDestroy {
 		// 	return false; // Prevent bubbling
 		// }, undefined, 'Show / Hide Queue'));
 	}
-
 }

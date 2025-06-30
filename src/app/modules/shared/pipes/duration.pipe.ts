@@ -20,5 +20,4 @@ export class DurationPipe implements PipeTransform {
 		}
 		return formatDuration(parsedValue);
 	}
-
 }

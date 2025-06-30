@@ -120,18 +120,7 @@
 						]
 					}
 				],
-				"@typescript-eslint/naming-convention": [
-					"error",
-					{
-						"selector": "property",
-						"format": [
-							"camelCase",
-							"PascalCase",
-							"snake_case",
-							"UPPER_CASE"
-						]
-					}
-				],
+				"@typescript-eslint/naming-convention": "off",
 				"jsdoc/no-types": "off",
 				"jsdoc/check-alignment": "off",
 				"jsdoc/newline-after-description": "off",

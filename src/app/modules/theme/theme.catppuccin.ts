@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import {Theme} from './theme.model';
 
 /*
@@ -37,7 +36,6 @@ const macchiato = {
 export const catppuccinTheme: Theme = {
 	name: 'catppuccin',
 	properties: {
-
 		'--background': macchiato.mantle,
 		'--background-border': macchiato.surface0,
 		'--background-hover': macchiato.mantle,

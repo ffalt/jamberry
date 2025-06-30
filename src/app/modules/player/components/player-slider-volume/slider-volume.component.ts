@@ -1,25 +1,28 @@
-import {Component, ElementRef, HostBinding, HostListener, OnInit, inject} from '@angular/core';
+import {Component, ElementRef, OnInit, inject} from '@angular/core';
 import {PlayerEvents, PlayerService} from '@core/services';
 
 @Component({
 	selector: 'app-volume-slider',
 	templateUrl: './slider-volume.component.html',
 	styleUrls: ['./slider-volume.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		tabindex: 'tabindex',
+		'(keydown.arrowLeft)': 'volumeDown()',
+		'(keydown.arrowRight)': 'volumeUp()'
+	}
 })
 export class SliderVolumeComponent implements OnInit {
 	volumePC: number = 50;
-	@HostBinding() tabindex = '0';
+	tabindex = '0';
 	private readonly player = inject(PlayerService);
 	private readonly element = inject(ElementRef);
 	private volume: number = 0;
 
-	@HostListener('keydown.arrowLeft', ['$event'])
 	volumeDown() {
 		this.player.volumeDown();
 	}
 
-	@HostListener('keydown.arrowRight', ['$event'])
 	volumeUp() {
 		this.player.volumeUp();
 	}

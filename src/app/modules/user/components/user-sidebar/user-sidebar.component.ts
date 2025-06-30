@@ -31,5 +31,4 @@ export class UserSidebarComponent {
 		};
 		this.sections = [{name: 'User', entries: [main].concat(entries)}];
 	}
-
 }

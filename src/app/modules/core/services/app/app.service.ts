@@ -26,5 +26,4 @@ export class AppService {
 	constructor() {
 		this.version = environment.version;
 	}
-
 }

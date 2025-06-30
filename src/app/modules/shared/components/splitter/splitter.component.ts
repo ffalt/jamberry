@@ -1,14 +1,21 @@
-import {Component, ElementRef, HostBinding, HostListener, inject, input} from '@angular/core';
+import {Component, ElementRef, inject, input} from '@angular/core';
 
 @Component({
 	selector: 'app-splitter',
 	templateUrl: './splitter.component.html',
 	styleUrls: ['./splitter.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		'[class.dragging]': 'dragging',
+		'(panstart)': 'onPanStart()',
+		'(panmove)': 'onPanMove($event)',
+		'(panend)': 'onPanEnd()',
+		'(pancancel)': 'onPanCancel()'
+	}
 })
 export class SplitterComponent {
 	readonly leftSnap = input<boolean>(true);
-	@HostBinding('class.dragging') dragging: boolean = false;
+	dragging: boolean = false;
 	element = inject(ElementRef);
 	private drag?: { element: HTMLElement; width: number };
 
@@ -35,24 +42,19 @@ export class SplitterComponent {
 		}
 	}
 
-	@HostListener('panstart', ['$event'])
 	onPanStart(): void {
 		this.startDrag();
 	}
 
-	@HostListener('panmove', ['$event'])
 	onPanMove(event: { deltaX: number }): void {
 		this.doDrag(event.deltaX);
 	}
 
-	@HostListener('panend', ['$event'])
 	onPanEnd(): void {
 		this.stopDrag();
 	}
 
-	@HostListener('pancancel', ['$event'])
 	onPanCancel(): void {
 		this.stopDrag();
 	}
-
 }

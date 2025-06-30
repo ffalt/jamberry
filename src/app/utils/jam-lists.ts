@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import {UrlSegment} from '@angular/router';
 import {AlbumType, FolderType, JamObjectType, ListType} from '@jam';
 

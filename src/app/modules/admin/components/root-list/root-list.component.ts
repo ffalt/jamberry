@@ -54,5 +54,4 @@ export class RootListComponent {
 			this.rootService.removeRoot(root);
 		});
 	}
-
 }

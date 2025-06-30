@@ -55,5 +55,4 @@ export class CacheService {
 		this.cachedData.set(httpRequest.urlWithParams, requestHandle);
 		return requestHandle;
 	}
-
 }

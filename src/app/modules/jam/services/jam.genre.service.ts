@@ -52,5 +52,4 @@ export class JamGenreService {
 	async artists(params: JamParameters.GenreArtistsArgs): Promise<Jam.ArtistPage> {
 		return this.base.requestData<Jam.ArtistPage>('/genre/artists', params);
 	}
-
 }

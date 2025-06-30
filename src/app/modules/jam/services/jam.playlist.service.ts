@@ -59,5 +59,4 @@ export class JamPlaylistService {
 	async remove(params: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/playlist/remove', params);
 	}
-
 }

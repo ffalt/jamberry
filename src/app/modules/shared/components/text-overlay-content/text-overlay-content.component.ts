@@ -13,5 +13,4 @@ export class TextOverlayContentComponent implements DialogOverlay<string> {
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<string>>): void {
 		this.data = options.data;
 	}
-
 }

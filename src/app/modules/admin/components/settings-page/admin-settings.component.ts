@@ -55,5 +55,4 @@ export class AdminSettingsComponent implements OnInit {
 		this.settings = settings;
 		this.ignoreArticles = settings.index.ignoreArticles.join('\n');
 	}
-
 }

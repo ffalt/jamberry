@@ -1,13 +1,12 @@
 import {
-  Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  HostListener,
-  OnInit,
-  ViewContainerRef,
-  ViewEncapsulation,
-  inject,
-  viewChild
+	Component,
+	ComponentFactoryResolver,
+	ComponentRef,
+	OnInit,
+	ViewContainerRef,
+	ViewEncapsulation,
+	inject,
+	viewChild
 } from '@angular/core';
 import {isEscapeKey} from '@app/utils/keys';
 import {DialogOverlayRef} from './dialog-overlay-ref.class';
@@ -20,17 +19,19 @@ import {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.types';
 	styleUrls: ['./dialog-overlay.component.scss'],
 	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None,
-	standalone: false
+	standalone: false,
+	host: {
+		'(document:keydown)': 'handleKeydown($event)'
+	}
 })
 export class DialogOverlayComponent implements OnInit {
 	isBusy: boolean = false;
 	childComponentRef?: ComponentRef<DialogOverlay<any>>;
 	readonly dialogRef = inject(DialogOverlayRef);
 	readonly config = inject<DialogOverlayDialogConfig<any>>(DIALOG_OVERLAY_DIALOG_CONFIG);
-	private readonly dynamicComponentTarget = viewChild('overlayDialogBody', { read: ViewContainerRef });
+	private readonly dynamicComponentTarget = viewChild('overlayDialogBody', {read: ViewContainerRef});
 	private readonly componentFactoryResolver = inject<ComponentFactoryResolver>(ComponentFactoryResolver);
 
-	@HostListener('document:keydown', ['$event'])
 	handleKeydown(event: KeyboardEvent): void {
 		if (isEscapeKey(event)) {
 			this.dialogRef.close();
@@ -39,7 +40,7 @@ export class DialogOverlayComponent implements OnInit {
 
 	ngOnInit(): void {
 		const dynamicComponentTarget = this.dynamicComponentTarget();
-  if (this.config.childComponent && dynamicComponentTarget) {
+		if (this.config.childComponent && dynamicComponentTarget) {
 			const factory = this.componentFactoryResolver.resolveComponentFactory(this.config.childComponent);
 			this.childComponentRef = dynamicComponentTarget.createComponent(factory) as ComponentRef<DialogOverlay<any>>;
 			this.childComponentRef.instance.dialogInit(this.dialogRef, this.config);
@@ -81,5 +82,4 @@ export class DialogOverlayComponent implements OnInit {
 	close(): void {
 		this.dialogRef.close();
 	}
-
 }

@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, HostBinding, OnChanges, SimpleChange, inject, input} from '@angular/core';
+import {AfterContentInit, Component, OnChanges, SimpleChange, inject, input} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {ImageFormatType, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '../image-overlay-content/image-overlay-content.component';
@@ -7,7 +7,17 @@ import {ImageOverlayContentComponent} from '../image-overlay-content/image-overl
 	selector: 'app-coverart-image',
 	templateUrl: './coverart-image.component.html',
 	styleUrls: ['./coverart-image.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		'[class.fill]': 'fill',
+		'[class.round]': 'round',
+		'[class.border]': 'border',
+		'[class.border-hover]': 'hoverBorder',
+		'[style.minWidth.px]': 'minSize',
+		'[style.minHeight.px]': 'minSize',
+		'[style.width.px]': 'hostSize',
+		'[style.height.px]': 'hostSize'
+	}
 })
 export class CoverartImageComponent implements OnChanges, AfterContentInit {
 	readonly coverArtObj = input<{
@@ -18,16 +28,12 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 	readonly alt = input<string>('');
 	readonly refreshRandom = input<string>('');
 	readonly allowEnlarge = input<boolean>(false);
-	@HostBinding('class.fill')
 	readonly fill = input<boolean>(false);
-	@HostBinding('class.round')
 	readonly round = input<boolean>(false);
-	@HostBinding('class.border')
 	readonly border = input<boolean>(true);
-	@HostBinding('class.border-hover')
 	readonly hoverBorder = input<boolean>(false);
-	@HostBinding('style.minWidth.px') @HostBinding('style.minHeight.px') minSize?: number;
-	@HostBinding('style.height.px') @HostBinding('style.width.px') hostSize?: number;
+	minSize?: number;
+	hostSize?: number;
 	isLoaded: boolean = false;
 	imageSrc: string = '';
 	altSrc: string = '';
@@ -101,5 +107,4 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 			this.imageSrc = url;
 		}
 	}
-
 }

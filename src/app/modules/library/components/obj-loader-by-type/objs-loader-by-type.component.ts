@@ -123,5 +123,4 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 		this.unsubscribeRefresh.next();
 		this.unsubscribeRefresh.complete();
 	}
-
 }

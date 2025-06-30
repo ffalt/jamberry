@@ -501,5 +501,4 @@ export class ID3V24TagBuilder {
 		this.rawBuilder.addChapter('CHAP', id, start, end, offset, offsetEnd, subframes);
 		return this;
 	}
-
 }

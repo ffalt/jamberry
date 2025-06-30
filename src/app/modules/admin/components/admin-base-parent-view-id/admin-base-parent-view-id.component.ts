@@ -41,5 +41,4 @@ export class AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 		this.id = params.id;
 		this.idChanged();
 	}
-
 }

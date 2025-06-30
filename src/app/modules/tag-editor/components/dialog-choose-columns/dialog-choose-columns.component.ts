@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import {Component} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {FrameDef, FrameDefs, getFrameSubIds} from '../../model/id3v2-frames.helper';
@@ -20,10 +18,10 @@ export interface SelectColumn {
 }
 
 @Component({
-    selector: 'app-dialog-choose-columns',
-    templateUrl: './dialog-choose-columns.component.html',
-    styleUrls: ['./dialog-choose-columns.component.scss'],
-    standalone: false
+	selector: 'app-dialog-choose-columns',
+	templateUrl: './dialog-choose-columns.component.html',
+	styleUrls: ['./dialog-choose-columns.component.scss'],
+	standalone: false
 })
 export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns> {
 	data?: SelectColumns;

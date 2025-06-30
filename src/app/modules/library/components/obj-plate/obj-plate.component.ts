@@ -1,5 +1,5 @@
 import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, HostBinding, OnChanges, viewChild, input} from '@angular/core';
+import {Component, OnChanges, viewChild, input} from '@angular/core';
 import {JamObjectType} from '@jam';
 import {JamLibraryObject} from '@library/model/objects';
 import {MediaPlateComponent} from '@shared/components';
@@ -8,12 +8,15 @@ import {MediaPlateComponent} from '@shared/components';
 	selector: 'app-obj-plate',
 	templateUrl: './obj-plate.component.html',
 	styleUrls: ['./obj-plate.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		tabindex: 'tabindex'
+	}
 })
 export class ObjPlateComponent implements OnChanges, FocusableOption {
 	readonly obj = input<JamLibraryObject>();
 	readonly showParent = input<boolean>(false);
-	@HostBinding() tabindex = -1;
+	tabindex = -1;
 	loading: boolean = false;
 	expanded: boolean = false;
 	hasTracks?: boolean = false;

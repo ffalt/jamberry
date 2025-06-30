@@ -65,5 +65,4 @@ export class ArtistOverviewComponent implements OnInit, OnDestroy {
 				this.notify.error(e);
 			});
 	}
-
 }

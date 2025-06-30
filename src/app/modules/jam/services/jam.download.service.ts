@@ -25,5 +25,4 @@ export class JamDownloadService {
 		if (!params.id) { throw new Error('Invalid Parameter'); }
 		return this.base.binary(`/download/${params.id}${params.format ? `.${params.format}` : ''}`, {});
 	}
-
 }

@@ -13,5 +13,4 @@ export class DialogConfirmComponent implements DialogOverlay<string> {
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<string>>): void {
 		this.parentInfo = options.data;
 	}
-
 }

@@ -69,5 +69,4 @@ export class SidebarLibraryComponent implements OnInit {
 			{name: 'Music', entries: this.musicList}
 		];
 	}
-
 }

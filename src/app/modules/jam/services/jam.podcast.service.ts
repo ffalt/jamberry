@@ -94,5 +94,4 @@ export class JamPodcastService {
 	async remove(params: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/podcast/remove', params);
 	}
-
 }

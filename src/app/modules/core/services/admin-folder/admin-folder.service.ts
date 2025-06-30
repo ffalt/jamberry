@@ -125,5 +125,4 @@ export class AdminFolderService {
 		this.current = undefined;
 		this.nextPoll();
 	}
-
 }

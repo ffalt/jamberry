@@ -85,5 +85,4 @@ export class MatchApplyComponent {
 			({tag, checked: index === 0}));
 		this.isGenreSearchRunning = false;
 	}
-
 }

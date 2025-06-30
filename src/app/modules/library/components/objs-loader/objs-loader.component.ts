@@ -84,5 +84,4 @@ export class ObjsLoaderComponent implements OnChanges {
 		this.objs = undefined;
 		this.load();
 	}
-
 }

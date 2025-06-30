@@ -110,5 +110,4 @@ export class EpisodesLoaderComponent implements OnChanges {
 		this.episodes = undefined;
 		this.load();
 	}
-
 }

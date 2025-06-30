@@ -1943,5 +1943,4 @@ export declare namespace Jam {
 		 */
 		data: Array<number>;
 	}
-
 }

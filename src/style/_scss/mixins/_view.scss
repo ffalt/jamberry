@@ -15,7 +15,6 @@
 		padding-left: variables.$padding-sm;
 		padding-right: variables.$padding-sm;
 	}
-
 }
 
 @mixin view-header-slim {
@@ -284,7 +283,6 @@
 		z-index: 0;
 		background-color: var(--background-transparent);
 	}
-
 }
 
 @mixin view-host {

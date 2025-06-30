@@ -66,5 +66,4 @@ export class PodcastOverviewComponent implements OnInit, OnDestroy {
 			this.podcastService.refreshPodcast(this.podcastID);
 		}
 	}
-
 }

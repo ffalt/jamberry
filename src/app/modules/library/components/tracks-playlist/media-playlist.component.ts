@@ -29,5 +29,4 @@ export class MediaPlaylistComponent {
 			this.player.startTrack(media);
 		}
 	}
-
 }

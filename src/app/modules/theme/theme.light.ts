@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import {Theme} from './theme.model';
 
 export const lightTheme: Theme = {
 	name: 'light',
 	properties: {
-
 		'--background': '#f6f7fb',
 		'--background-border': '#AAAAAA',
 		'--background-hover': '#eaebef',

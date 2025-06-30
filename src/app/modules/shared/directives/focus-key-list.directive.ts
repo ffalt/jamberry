@@ -1,5 +1,5 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterContentInit, Directive, HostBinding, HostListener, OnDestroy, contentChildren, input} from '@angular/core';
+import {AfterContentInit, Directive, OnDestroy, contentChildren, input} from '@angular/core';
 import {toObservable} from '@angular/core/rxjs-interop';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -7,11 +7,15 @@ import {FocusKeyListItemDirective} from './focus-key-list-item.directive';
 
 @Directive({
 	selector: '[appFocusKeyList]',
-	standalone: false
+	standalone: false,
+	host: {
+		'[attr.tabindex]': 'settabindex',
+		'(keydown)': 'onKeydown($event)'
+	}
 })
 export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 	readonly withWrap = input(true);
-	@HostBinding('attr.tabindex')
+
 	readonly settabindex = input<string | undefined>('0');
 	readonly components = contentChildren(FocusKeyListItemDirective, {descendants: true});
 	protected keyManager?: FocusKeyManager<FocusKeyListItemDirective>;
@@ -29,7 +33,6 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	@HostListener('keydown', ['$event'])
 	onKeydown(event: KeyboardEvent) {
 		this.keyManager?.onKeydown(event);
 	}
@@ -40,5 +43,4 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 			this.keyManager.withWrap();
 		}
 	}
-
 }

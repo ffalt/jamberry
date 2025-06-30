@@ -1,5 +1,5 @@
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Component, HostBinding, HostListener, NgZone, OnDestroy, ViewEncapsulation, inject} from '@angular/core';
+import {Component, NgZone, OnDestroy, ViewEncapsulation, inject} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DefaultNoComponentGlobalConfig, IndividualConfig, ToastPackage} from './toast-config';
@@ -20,7 +20,15 @@ import {DefaultNoComponentGlobalConfig, IndividualConfig, ToastPackage} from './
 		])
 	],
 	preserveWhitespaces: false,
-	standalone: false
+	standalone: false,
+	host: {
+		'[class]': 'toastClasses',
+		'[@flyInOut]': 'state',
+		'[style.display]': 'displayStyle',
+		'(click)': 'tapToast()',
+		'(mouseenter)': 'stickAround()',
+		'(mouseleave)': 'delayedHideToast()'
+	}
 })
 export class ToastComponent implements OnDestroy {
 	message?: string | undefined;
@@ -30,11 +38,9 @@ export class ToastComponent implements OnDestroy {
 	originalTimeout?: number;
 	/** width of progress bar */
 	width = -1;
-	/** a combination of toast type and options.toastClass */
-	@HostBinding('class') toastClasses = '';
+	/** a combination of toast type and options.toastClass */toastClasses = '';
 
-	/** controls animation */
-	@HostBinding('@flyInOut') state = {
+	/** controls animation */state = {
 		value: 'inactive',
 		params: {
 			easeTime: DefaultNoComponentGlobalConfig.easeTime,
@@ -42,8 +48,7 @@ export class ToastComponent implements OnDestroy {
 		}
 	};
 
-	/** hides component when waiting to be displayed */
-	@HostBinding('style.display') get displayStyle(): string {
+	/** hides component when waiting to be displayed */get displayStyle(): string {
 		if (this.state.value === 'inactive') {
 			return 'none';
 		}
@@ -166,7 +171,6 @@ export class ToastComponent implements OnDestroy {
 		);
 	}
 
-	@HostListener('click')
 	tapToast(): void {
 		if (this.state.value === 'removed') {
 			return;
@@ -177,7 +181,6 @@ export class ToastComponent implements OnDestroy {
 		}
 	}
 
-	@HostListener('mouseenter')
 	stickAround(): void {
 		if (this.state.value === 'removed') {
 			return;
@@ -191,7 +194,6 @@ export class ToastComponent implements OnDestroy {
 		this.width = 0;
 	}
 
-	@HostListener('mouseleave')
 	delayedHideToast(): void {
 		if (
 			this.options.disableTimeOut ||

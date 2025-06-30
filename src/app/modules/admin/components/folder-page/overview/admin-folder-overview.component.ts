@@ -173,5 +173,4 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 		this.isAlbum = FolderTypesAlbum.includes(folder.type);
 		this.isArtist = folder.type === FolderType.artist;
 	}
-
 }

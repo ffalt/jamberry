@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostListener, output, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, output, input} from '@angular/core';
 import {HeaderTab} from '@shared/components';
 
 @Component({
@@ -6,7 +6,10 @@ import {HeaderTab} from '@shared/components';
 	templateUrl: './header-icon-section.component.html',
 	styleUrls: ['./header-icon-section.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false
+	standalone: false,
+	host: {
+		'(contextmenu)': 'contextmenuEvent($event)'
+	}
 })
 export class HeaderIconSectionComponent {
 	readonly icon = input<string>();
@@ -17,7 +20,6 @@ export class HeaderIconSectionComponent {
 	readonly tabs = input<Array<HeaderTab> | undefined>([]);
 	readonly contextMenuRequest = output<Event>();
 
-	@HostListener('contextmenu', ['$event'])
 	contextmenuEvent(event: Event): void {
 		this.contextMenuRequest.emit(event);
 	}

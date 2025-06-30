@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnDestroy, OnInit, inject, input} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamObjectType} from '@jam';
 import {Index, IndexGroup, IndexService} from '@shared/services';
@@ -9,13 +9,16 @@ import {takeUntil} from 'rxjs/operators';
 	selector: 'app-sidebar-index',
 	templateUrl: './sidebar-index.component.html',
 	styleUrls: ['./sidebar-index.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		'[class.active]': 'collapsed'
+	}
 })
 export class SidebarIndexComponent implements OnInit, OnDestroy {
 	current?: IndexGroup;
 	index?: Index;
 	readonly useMeta = input<boolean>(true);
-	@HostBinding('class.active') collapsed: boolean = false;
+	collapsed: boolean = false;
 	private readonly notify = inject(NotifyService);
 	private readonly indexService = inject(IndexService);
 	private readonly unsubscribe = new Subject<void>();

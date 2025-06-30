@@ -46,5 +46,4 @@ export class StartStatsComponent implements OnInit {
 				this.notify.error(e);
 			});
 	}
-
 }

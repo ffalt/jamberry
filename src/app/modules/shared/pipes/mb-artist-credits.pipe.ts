@@ -13,5 +13,4 @@ export class MbArtistCreditsPipe implements PipeTransform {
 		}
 		return value.map(a => a.name + (a.joinphrase || ' ')).join('').trim();
 	}
-
 }

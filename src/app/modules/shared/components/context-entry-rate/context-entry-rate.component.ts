@@ -38,5 +38,4 @@ export class ContextEntryRateComponent implements OnChanges {
 			}
 		}
 	}
-
 }

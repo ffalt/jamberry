@@ -19,5 +19,4 @@ export class Notifiers<T> {
 			this.notifiers[id].emit(data);
 		}
 	}
-
 }

@@ -10,5 +10,4 @@ export class PicTypePipe implements PipeTransform {
 	transform(value: number): string {
 		return Id3v2ValuePicTypes[value] || 'image';
 	}
-
 }

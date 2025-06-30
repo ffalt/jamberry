@@ -24,5 +24,4 @@ export class ScoreBoxComponent implements OnChanges {
 		const score = this.score();
 		this.color = (score === undefined) ? undefined : this.getMatchColor(score);
 	}
-
 }

@@ -66,5 +66,4 @@ export class PlaylistOverviewComponent implements OnInit, OnDestroy {
 			this.playlistService.refreshPlaylist(this.playlistID);
 		}
 	}
-
 }

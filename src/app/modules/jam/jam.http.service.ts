@@ -79,5 +79,4 @@ export class JamHttpService {
 			withCredentials: options.withCredentials
 		}));
 	}
-
 }

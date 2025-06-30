@@ -115,5 +115,4 @@ export class JamFolderService {
 	async remove(params: JamParameters.ID): Promise<Jam.AdminChangeQueueInfo> {
 		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/folder/remove', params);
 	}
-
 }

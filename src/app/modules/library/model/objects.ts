@@ -35,7 +35,6 @@ export abstract class JamLibraryObject extends JamObject {
 	onContextMenu($event: Event, hideGoto?: boolean): void {
 		this.library.openJamObjectMenu(this, $event, {hideGoto});
 	}
-
 }
 
 export class JamAlbumObject extends JamLibraryObject {
@@ -121,7 +120,6 @@ export class JamAlbumObject extends JamLibraryObject {
 			// {label: 'Played', value: this.album.state.played || 0}
 		].filter(info => info.value !== undefined) as Array<HeaderInfo>;
 	}
-
 }
 
 export class JamFolderObject extends JamLibraryObject {
@@ -199,7 +197,6 @@ export class JamFolderObject extends JamLibraryObject {
 			// {label: 'Played', value: this.folder.state.played || 0}
 			.filter(info => info.value !== undefined) as Array<HeaderInfo>;
 	}
-
 }
 
 export class JamArtistObject extends JamLibraryObject {
@@ -454,7 +451,6 @@ export class JamGenreObject extends JamLibraryObject {
 	getInfos(): Array<HeaderInfo> {
 		return [];
 	}
-
 }
 
 export class JamSeriesObject extends JamLibraryObject {

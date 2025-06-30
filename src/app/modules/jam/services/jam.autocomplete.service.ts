@@ -17,5 +17,4 @@ export class JamAutocompleteService {
 	async autocomplete(params: JamParameters.AutoCompleteFilterArgs): Promise<Jam.AutoComplete> {
 		return this.base.requestData<Jam.AutoComplete>('/autocomplete', params);
 	}
-
 }

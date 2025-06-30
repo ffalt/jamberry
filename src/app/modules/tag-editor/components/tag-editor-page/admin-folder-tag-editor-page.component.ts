@@ -35,5 +35,4 @@ export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, Com
 		const child = this.child();
 		return !!(child && child.canDeactivate());
 	}
-
 }

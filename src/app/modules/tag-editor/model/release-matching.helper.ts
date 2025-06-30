@@ -228,7 +228,6 @@ export class MatchRelease {
 			}
 		}
 	}
-
 }
 
 export class MatchReleaseGroup {
@@ -259,7 +258,6 @@ export class MatchReleaseGroup {
 	enough(matchTrackCount: number): boolean {
 		return !!(this.currentRelease && (this.currentRelease.totalTrack === matchTrackCount) && this.currentRelease.complete);
 	}
-
 }
 
 export class MatchTree {

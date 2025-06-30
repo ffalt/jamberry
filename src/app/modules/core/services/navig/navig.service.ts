@@ -133,5 +133,4 @@ export class NavigService {
 			this.toAlbumID(media.albumID, media.tag?.album || '');
 		}
 	}
-
 }

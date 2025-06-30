@@ -3,7 +3,6 @@ import {
 	ComponentFactoryResolver,
 	ComponentRef,
 	forwardRef,
-	HostListener,
 	OnChanges,
 	OnDestroy,
 	SimpleChanges,
@@ -31,7 +30,10 @@ import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-
 	styleUrls: ['./cell-editor.component.scss'],
 	// eslint-disable-next-line @typescript-eslint/no-use-before-define
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent)}],
-	standalone: false
+	standalone: false,
+	host: {
+		'(click)': 'clickEvent()'
+	}
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
 	readonly cell = input.required<RawTagEditCell>();
@@ -53,7 +55,6 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		this.unsubscribe.complete();
 	}
 
-	@HostListener('click', ['$event'])
 	clickEvent(): void {
 		this.edit();
 	}
@@ -308,5 +309,4 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 				return `TODO CELLEDITOR: ${cell?.column.def.name}`;
 		}
 	}
-
 }

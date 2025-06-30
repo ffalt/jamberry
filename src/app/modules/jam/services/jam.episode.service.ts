@@ -38,5 +38,4 @@ export class JamEpisodeService {
 	async retrieve(params: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/episode/retrieve', params);
 	}
-
 }

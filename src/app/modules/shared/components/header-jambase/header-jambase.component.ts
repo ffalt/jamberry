@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostListener, output, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, output, input} from '@angular/core';
 import {Jam} from '@jam';
 import {HeaderTab} from '@shared/components';
 
@@ -14,7 +14,10 @@ export interface HeaderInfo {
 	templateUrl: './header-jambase.component.html',
 	styleUrls: ['./header-jambase.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	standalone: false
+	standalone: false,
+	host: {
+		'(contextmenu)': 'contextmenuEvent($event)'
+	}
 })
 export class HeaderJamBaseComponent {
 	readonly base = input<Jam.Base>();
@@ -26,7 +29,6 @@ export class HeaderJamBaseComponent {
 	readonly contextMenuRequest = output<Event>();
 	readonly playRequest = output<Event>();
 
-	@HostListener('contextmenu', ['$event'])
 	contextmenuEvent(event: Event): void {
 		this.contextMenuRequest.emit(event);
 	}

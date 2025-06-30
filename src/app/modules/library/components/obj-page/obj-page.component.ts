@@ -121,5 +121,4 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 	get asPodcastEpisode(): Jam.Episode | undefined {
 		return (this.obj as any) as Jam.Episode;
 	}
-
 }

@@ -1,5 +1,5 @@
 import {FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, HostBinding, HostListener, OnDestroy, viewChildren, input} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, viewChildren, input} from '@angular/core';
 import {toObservable} from '@angular/core/rxjs-interop';
 import {JamLibraryObject} from '@library/model/objects';
 import {Subject} from 'rxjs';
@@ -15,18 +15,21 @@ interface ObjPlatesGroupsView {
 	selector: 'app-obj-groups-plates',
 	templateUrl: './obj-groups-plates.component.html',
 	styleUrls: ['./obj-groups-plates.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		tabindex: 'tabindex',
+		'(keydown.arrowDown)': 'manage($event)',
+		'(keydown.arrowUp)': 'manage($event)'
+	}
 })
 export class ObjGroupsPlatesComponent implements AfterViewInit, OnDestroy {
 	readonly groups = input<Array<ObjPlatesGroupsView>>();
 	readonly showParent = input<boolean>(false);
-	@HostBinding() tabindex = '0';
+	tabindex = '0';
 	private readonly plates = viewChildren(ObjPlateComponent);
 	private readonly unsubscribe = new Subject<void>();
 	private keyManager: FocusKeyManager<FocusableOption> | undefined;
 
-	@HostListener('keydown.arrowUp', ['$event'])
-	@HostListener('keydown.arrowDown', ['$event'])
 	manage(event: KeyboardEvent) {
 		this.keyManager?.onKeydown(event);
 	}

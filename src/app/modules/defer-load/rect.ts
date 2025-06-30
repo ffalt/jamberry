@@ -77,5 +77,4 @@ export class Rect {
 		}
 		return Rect.empty;
 	}
-
 }

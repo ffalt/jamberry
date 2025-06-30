@@ -68,5 +68,4 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 		this.loadMore().skip.set(0);
 		this.loadSimilar();
 	}
-
 }

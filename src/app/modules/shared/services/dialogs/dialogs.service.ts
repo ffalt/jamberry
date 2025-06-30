@@ -20,5 +20,4 @@ export class DialogsService {
 			onCancelBtn: async () => Promise.resolve()
 		});
 	}
-
 }

@@ -206,5 +206,4 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 			this.lastMedia = undefined;
 		}
 	}
-
 }

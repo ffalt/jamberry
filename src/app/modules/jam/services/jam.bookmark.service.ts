@@ -45,5 +45,4 @@ export class JamBookmarkService {
 	async removeByMedia(params: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/bookmark/removeByMedia', params);
 	}
-
 }

@@ -66,5 +66,4 @@ export class JamRootService {
 	async refreshMeta(params: JamParameters.RootRefreshArgs): Promise<Jam.AdminChangeQueueInfo> {
 		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/root/refreshMeta', params);
 	}
-
 }

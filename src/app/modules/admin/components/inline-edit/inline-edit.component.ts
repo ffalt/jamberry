@@ -83,5 +83,4 @@ export class InlineEditComponent implements ControlValueAccessor {
 			}
 		});
 	}
-
 }

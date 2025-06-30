@@ -73,5 +73,4 @@ export class JamArtistService {
 	async series(params: JamParameters.ArtistSeriesArgs): Promise<Jam.SeriesPage> {
 		return this.base.requestData<Jam.SeriesPage>('/artist/series', params);
 	}
-
 }

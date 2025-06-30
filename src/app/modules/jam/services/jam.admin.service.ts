@@ -31,5 +31,4 @@ export class JamAdminService {
 	async settingsUpdate(params: JamParameters.AdminSettingsArgs): Promise<void> {
 		return this.base.requestPostDataOK('/admin/settings/update', params);
 	}
-
 }

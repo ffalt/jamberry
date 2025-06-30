@@ -115,5 +115,4 @@ export class PushNotificationService implements OnDestroy {
 	ngOnDestroy(): void {
 		this.closeAll();
 	}
-
 }

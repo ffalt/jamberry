@@ -782,5 +782,4 @@ export class TagEditor {
 			return edit;
 		});
 	}
-
 }

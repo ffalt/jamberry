@@ -86,5 +86,4 @@ export class LibraryService {
 	openSimpleMenu(entries: Array<any>, event: Event) {
 		this.menuService.openMenuComponent<ContextMenuSimpleComponentOptions>(ContextMenuSimpleComponent, undefined, event, {entries});
 	}
-
 }

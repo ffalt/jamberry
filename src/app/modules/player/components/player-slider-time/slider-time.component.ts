@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostBinding, HostListener, OnInit, inject} from '@angular/core';
+import {Component, ElementRef, OnInit, inject} from '@angular/core';
 import {extractSVGParts} from '@app/utils/svg-parts';
 import {AppService, PlayerEvents, PlayerService} from '@core/services';
 import {JamService} from '@jam';
@@ -7,12 +7,17 @@ import {JamService} from '@jam';
 	selector: 'app-time-slider',
 	templateUrl: './slider-time.component.html',
 	styleUrls: ['./slider-time.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		tabindex: 'tabindex',
+		'(keydown.arrowLeft)': 'rewind()',
+		'(keydown.arrowRight)': 'forward()'
+	}
 })
 export class SliderTimeComponent implements OnInit {
 	timePC: number = 0;
 	svg?: { viewbox: string; path: string };
-	@HostBinding() tabindex = '0';
+	tabindex = '0';
 	readonly player = inject(PlayerService);
 	readonly jam = inject(JamService);
 	readonly app = inject(AppService);
@@ -33,12 +38,10 @@ export class SliderTimeComponent implements OnInit {
 		this.displayWaveForm();
 	}
 
-	@HostListener('keydown.arrowLeft', ['$event'])
 	rewind() {
 		this.player.rewind(2);
 	}
 
-	@HostListener('keydown.arrowRight', ['$event'])
 	forward() {
 		this.player.forward(2);
 	}
@@ -75,5 +78,4 @@ export class SliderTimeComponent implements OnInit {
 			}, 0);
 		}
 	}
-
 }

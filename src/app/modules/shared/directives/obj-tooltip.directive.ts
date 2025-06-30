@@ -1,9 +1,15 @@
-import {ComponentFactoryResolver, ComponentRef, Directive, HostListener, ViewContainerRef, inject, input} from '@angular/core';
+import {ComponentFactoryResolver, ComponentRef, Directive, ViewContainerRef, inject, input} from '@angular/core';
 import {ChildTooltipContentComponent, TooltipInfo} from '../components/obj-tooltip-content/child-tooltip-content.component';
 
 @Directive({
 	selector: '[appObjTooltip]',
-	standalone: false
+	standalone: false,
+	host: {
+		'(mouseenter)': 'show()',
+		'(focusin)': 'show()',
+		'(mouseleave)': 'hide()',
+		'(focusout)': 'hide()'
+	}
 })
 export class ObjTooltipDirective {
 	readonly appObjTooltip = input<any>();
@@ -27,8 +33,6 @@ export class ObjTooltipDirective {
 		return result;
 	}
 
-	@HostListener('focusin')
-	@HostListener('mouseenter')
 	show(): void {
 		if (this.tooltipDisabled() || this.visible) {
 			return;
@@ -42,8 +46,6 @@ export class ObjTooltipDirective {
 		this.tooltip.instance.animation.set(this.tooltipAnimation());
 	}
 
-	@HostListener('focusout')
-	@HostListener('mouseleave')
 	hide(): void {
 		if (!this.visible) {
 			return;
@@ -53,5 +55,4 @@ export class ObjTooltipDirective {
 			this.tooltip.destroy();
 		}
 	}
-
 }

@@ -73,5 +73,4 @@ export class DeferLoadService {
 		const isEdgeVersion16OrBetter = isEdge && (!!matches && parseInt(matches[1], 10) > 15);
 		return hasIntersectionObserver && (!isEdge || isEdgeVersion16OrBetter);
 	}
-
 }

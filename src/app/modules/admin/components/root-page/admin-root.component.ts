@@ -76,5 +76,4 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 	refreshRoots(): void {
 		this.rootService.rescanRoots();
 	}
-
 }

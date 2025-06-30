@@ -1,18 +1,6 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
 import {OverlayRef} from '@angular/cdk/overlay';
-import {
-	AfterViewInit,
-	Component,
-	ElementRef,
-	HostListener,
-	OnDestroy,
-	OnInit,
-	inject,
-	output,
-	viewChild,
-	viewChildren,
-	model
-} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, inject, output, viewChild, viewChildren, model} from '@angular/core';
 import {toObservable} from '@angular/core/rxjs-interop';
 import {ContextMenuContentItemComponent} from '@app/modules/ngx-contextmenu/lib/contextmenu-content-item.component';
 import {Subscription} from 'rxjs';
@@ -28,7 +16,18 @@ const ARROW_LEFT_KEYCODE = 37;
 	selector: 'context-menu-content',
 	styleUrls: ['./contextmenu-content.component.css'],
 	templateUrl: './contextmenu-content.component.html',
-	standalone: false
+	standalone: false,
+	host: {
+		'(window:keydown.ArrowDown)': 'onKeyEvent($event)',
+		'(window:keydown.ArrowUp)': 'onKeyEvent($event)',
+		'(window:keydown.ArrowRight)': 'keyboardOpenSubMenu($event)',
+		'(window:keydown.Space)': 'keyboardMenuItemSelect($event)',
+		'(window:keydown.Enter)': 'keyboardMenuItemSelect($event)',
+		'(window:keydown.ArrowLeft)': 'onCloseLeafMenu($event)',
+		'(window:keydown.Escape)': 'onCloseLeafMenu($event)',
+		'(document:contextmenu)': 'closeMenu($event)',
+		'(document:click)': 'closeMenu($event)'
+	}
 })
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
 	autoFocus = false;
@@ -55,10 +54,8 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	private subscription: Subscription = new Subscription();
 
 	constructor() {
-		const options = this.options;
-
-		if (options) {
-			this.autoFocus = !!options.autoFocus;
+		if (this.options) {
+			this.autoFocus = !!this.options.autoFocus;
 		}
 	}
 
@@ -103,13 +100,10 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		return this.menuItems()[this.keyManager.activeItemIndex || -1];
 	}
 
-	@HostListener('window:keydown.ArrowDown', ['$event'])
-	@HostListener('window:keydown.ArrowUp', ['$event'])
 	onKeyEvent(event: KeyboardEvent): void {
 		this.keyManager.onKeydown(event);
 	}
 
-	@HostListener('window:keydown.ArrowRight', ['$event'])
 	keyboardOpenSubMenu(event: KeyboardEvent): void {
 		if (!this.isLeaf()) {
 			return;
@@ -121,8 +115,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		}
 	}
 
-	@HostListener('window:keydown.Enter', ['$event'])
-	@HostListener('window:keydown.Space', ['$event'])
 	keyboardMenuItemSelect(event: KeyboardEvent): void {
 		if (!this.isLeaf()) {
 			return;
@@ -134,8 +126,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		}
 	}
 
-	@HostListener('window:keydown.Escape', ['$event'])
-	@HostListener('window:keydown.ArrowLeft', ['$event'])
 	onCloseLeafMenu(event: KeyboardEvent): void {
 		if (!this.isLeaf()) {
 			return;
@@ -147,8 +137,6 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		});
 	}
 
-	@HostListener('document:click', ['$event'])
-	@HostListener('document:contextmenu', ['$event'])
 	closeMenu(event: MouseEvent): void {
 		if (event.type === 'click' && event.button === 2) {
 			return;

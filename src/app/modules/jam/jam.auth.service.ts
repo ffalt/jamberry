@@ -134,5 +134,4 @@ export class JamAuthService {
 	isLoggedIn(): boolean {
 		return !!(this.user && this.auth);
 	}
-
 }

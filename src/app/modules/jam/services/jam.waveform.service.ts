@@ -40,5 +40,4 @@ export class JamWaveformService {
 		if (!params.id) { throw new Error('Invalid Parameter'); }
 		return this.base.binary(`/waveform/${params.id}${params.width ? `_${params.width}` : ''}${params.format ? `.${params.format}` : ''}`, {});
 	}
-
 }

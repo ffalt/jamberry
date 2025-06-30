@@ -218,5 +218,4 @@ export class QueueService {
 		const data = await this.jam.artist.tracks({ids: [artistID], trackIncTag: true, trackIncState: true});
 		return this.addMedias(data.items);
 	}
-
 }

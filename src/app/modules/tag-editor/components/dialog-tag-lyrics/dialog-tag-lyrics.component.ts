@@ -28,5 +28,4 @@ export class DialogTagLyricsComponent implements DialogOverlay<LyricsEdit> {
 			this.currentLyrics = this.edit.result[0];
 		}
 	}
-
 }

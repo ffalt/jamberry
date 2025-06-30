@@ -1,5 +1,5 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, HostBinding, OnDestroy, OnInit, inject, viewChildren, input} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, inject, viewChildren, input} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppService, SidebarProvider} from '@core/services';
 import {SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
@@ -9,13 +9,17 @@ import {SidebarList, SidebarListComponent} from '../sidebar-list/sidebar-list.co
 	selector: 'app-sidebar',
 	templateUrl: './sidebar.component.html',
 	styleUrls: ['./sidebar.component.scss'],
-	standalone: false
+	standalone: false,
+	host: {
+		'[class.active]': 'collapsed',
+		'[class.show]': 'showMobileNavig'
+	}
 })
 export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, SidebarProvider {
 	readonly sections = input<Array<SidebarList>>([]);
 	readonly listName = input<string>('');
-	@HostBinding('class.active') collapsed: boolean = false;
-	@HostBinding('class.show') showMobileNavig: boolean = false;
+	collapsed: boolean = false;
+	showMobileNavig: boolean = false;
 	private readonly app = inject(AppService);
 	private readonly router = inject(Router);
 	private readonly items = viewChildren(SidebarListComponent);
