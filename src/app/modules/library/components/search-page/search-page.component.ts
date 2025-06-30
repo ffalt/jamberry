@@ -1,6 +1,5 @@
 import {Component, inject} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
-import {NotifyService} from '@core/services';
 import {AlbumType, JamParameters, JamService} from '@jam';
 import {LibraryService} from '@library/services';
 import {HeaderTab} from '@shared/components';
@@ -54,9 +53,8 @@ export class SearchPageComponent implements AutocompleteDataControl {
 		};
 		return tab;
 	});
-	library = inject(LibraryService);
-	protected readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
+	readonly library = inject(LibraryService);
+	private readonly jam = inject(JamService);
 
 	constructor() {
 		this.currentTab = this.tabsObjs.artists;

@@ -1,4 +1,4 @@
-import {Component, ViewChild, inject} from '@angular/core';
+import {Component, inject, viewChild} from '@angular/core';
 import {JamAuthService} from '@app/modules/jam';
 import {NavigService} from '@core/services';
 import {ContextMenuHostComponentInterface} from '@shared/services';
@@ -13,5 +13,5 @@ import {ContextMenuComponent} from '@app/modules/ngx-contextmenu';
 export class ContextMenuUserComponent implements ContextMenuHostComponentInterface<any> {
 	readonly navig = inject(NavigService);
 	readonly auth = inject(JamAuthService);
-	@ViewChild('userMenu') contextMenu?: ContextMenuComponent;
+	readonly contextMenu = viewChild.required<ContextMenuComponent>('userMenu');
 }

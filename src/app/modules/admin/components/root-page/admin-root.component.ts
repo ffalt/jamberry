@@ -14,7 +14,7 @@ import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 })
 export class AdminRootComponent implements OnInit, OnDestroy {
 	roots?: Array<Jam.Root>;
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly notify = inject(NotifyService);
 	private readonly rootService = inject(AdminRootService);
 	private readonly dialogOverlay = inject(DialogOverlayService);

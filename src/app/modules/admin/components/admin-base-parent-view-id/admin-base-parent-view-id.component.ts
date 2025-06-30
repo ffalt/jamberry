@@ -12,7 +12,7 @@ import {takeUntil} from 'rxjs/operators';
 export class AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	id?: string;
 	protected readonly unsubscribe = new Subject<void>();
-	private readonly route = inject(ActivatedRoute);
+	protected readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {
 		if (this.route && this.route.parent) {

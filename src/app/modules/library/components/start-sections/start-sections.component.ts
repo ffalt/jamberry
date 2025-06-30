@@ -16,9 +16,9 @@ export class StartSectionsComponent implements OnInit {
 		albumFaved?: Array<StartSectionItem>;
 		albumRecent?: Array<StartSectionItem>;
 	} = {};
-	readonly jam = inject(JamService);
-	readonly navig = inject(NavigService);
-	protected readonly notify = inject(NotifyService);
+	private readonly jam = inject(JamService);
+	private readonly navig = inject(NavigService);
+	private readonly notify = inject(NotifyService);
 
 	ngOnInit(): void {
 		this.jam.artist.search({list: ListType.recent, take: 5})

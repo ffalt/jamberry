@@ -25,7 +25,9 @@ describe('SearchComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(GenrePageComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

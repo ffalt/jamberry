@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnDestroy, OnInit, ViewChild, inject} from '@angular/core';
+import {Component, HostBinding, OnDestroy, OnInit, inject, viewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UiStateService} from '@core/services';
 import {Jam} from '@jam';
@@ -14,18 +14,19 @@ import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
 	standalone: false
 })
 export class AdminFolderComponent implements OnInit, OnDestroy {
-	@ViewChild(FolderTreeComponent, {static: true}) tree?: FolderTreeComponent;
 	@HostBinding('class.right-active') rightActive: boolean = false;
 	id: string = '';
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly tree = viewChild(FolderTreeComponent);
+	private readonly unsubscribe = new Subject<void>();
 	private readonly route = inject(ActivatedRoute);
 	private readonly router = inject(Router);
 	private readonly uiState = inject(UiStateService);
 	private mode: string = 'overview';
 
 	refresh(): void {
-		if (this.tree) {
-			this.tree.refresh();
+		const tree = this.tree();
+		if (tree) {
+			tree.refresh();
 		}
 	}
 
@@ -37,8 +38,9 @@ export class AdminFolderComponent implements OnInit, OnDestroy {
 	}
 
 	onFolderUpdate(data: Jam.Folder): void {
-		if (this.tree) {
-			this.tree.onFolderUpdate(data);
+		const tree = this.tree();
+		if (tree) {
+			tree.onFolderUpdate(data);
 		}
 	}
 
@@ -57,24 +59,27 @@ export class AdminFolderComponent implements OnInit, OnDestroy {
 				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
 				const id = params.id;
 				this.id = id;
-				if (this.tree && id) {
+				if (this.tree() && id) {
 					setTimeout(() => {
-						if (this.tree) {
-							this.tree.selectFolderByID(id);
+						const tree = this.tree();
+						if (tree) {
+							tree.selectFolderByID(id);
 						}
 					});
 				}
 			});
 		}
-		if (this.tree) {
-			this.tree.expandIDs = this.uiState.data['app-admin-folders'] || [];
+		const tree = this.tree();
+		if (tree) {
+			tree.expandIDs = this.uiState.data['app-admin-folders'] || [];
 		}
 		this.refresh();
 	}
 
 	ngOnDestroy(): void {
-		if (this.tree) {
-			this.uiState.data['app-admin-folders'] = this.tree.expandIDs;
+		const tree = this.tree();
+		if (tree) {
+			this.uiState.data['app-admin-folders'] = tree.expandIDs;
 		}
 		this.unsubscribe.next();
 		this.unsubscribe.complete();

@@ -10,9 +10,7 @@ describe('ObjGroupsCardsComponent', () => {
 		TestBed.configureTestingModule({
     imports: [...TEST_LIBRARY_IMPORTS],
     providers: [...TEST_LIBRARY_PROVIDERS],
-    declarations: [
-        ObjGroupsCardsComponent
-    ],
+    declarations: [ObjGroupsCardsComponent],
     teardown: { destroyAfterEach: false }
 }).compileComponents()
 	);
@@ -20,7 +18,9 @@ describe('ObjGroupsCardsComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(ObjGroupsCardsComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

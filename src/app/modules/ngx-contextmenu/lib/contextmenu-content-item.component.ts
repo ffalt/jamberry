@@ -1,6 +1,11 @@
 import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, ElementRef, Input, ViewChild, output} from '@angular/core';
+import {Component, ElementRef, Input, output, viewChild} from '@angular/core';
 import {ContextMenuItemDirective} from './contextmenu.item.directive';
+
+interface ContextMenuItemDirectiveEvent {
+	event: Event;
+	menuItem: ContextMenuItemDirective;
+}
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
@@ -12,22 +17,16 @@ import {ContextMenuItemDirective} from './contextmenu.item.directive';
 export class ContextMenuContentItemComponent implements FocusableOption {
 	@Input() menuItem!: ContextMenuItemDirective;
 	@Input() item!: any;
-	@ViewChild('content', {static: false}) itemRef?: ElementRef;
-	readonly itemSelect = output<{
-		event: Event;
-		menuItem: ContextMenuItemDirective;
-	}>();
-	readonly openSubmenu = output<{
-		event: Event;
-		menuItem: ContextMenuItemDirective;
-	}>();
+	readonly itemRef = viewChild<ElementRef>('content');
+	readonly itemSelect = output<ContextMenuItemDirectiveEvent>();
+	readonly openSubmenu = output<ContextMenuItemDirectiveEvent>();
 
 	stopEvent($event: MouseEvent) {
 		$event.stopPropagation();
 	}
 
 	focus(): void {
-		this.itemRef?.nativeElement.focus();
+		this.itemRef()?.nativeElement.focus();
 	}
 
 	onMenuItemSelect(event: Event): void {

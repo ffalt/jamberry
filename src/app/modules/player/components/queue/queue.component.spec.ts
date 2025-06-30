@@ -18,7 +18,9 @@ describe('QueueComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(QueueComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

@@ -1,7 +1,6 @@
 import {TEST_ADMIN_MODULE_IMPORTS, TEST_ADMIN_MODULE_PROVIDERS} from '@admin/admin.module.mock';
 import {FolderTreeComponent} from '@admin/components';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MockComponent} from 'ng-mocks';
 import {DialogChooseFolderComponent} from './dialog-choose-folder.component';
 
 describe('DialogChooseFolderComponent', () => {
@@ -12,7 +11,7 @@ describe('DialogChooseFolderComponent', () => {
 		TestBed.configureTestingModule({
     imports: [...TEST_ADMIN_MODULE_IMPORTS],
     providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-    declarations: [DialogChooseFolderComponent, MockComponent(FolderTreeComponent)],
+    declarations: [DialogChooseFolderComponent, FolderTreeComponent],
     teardown: { destroyAfterEach: false }
 }).compileComponents()
 	);
@@ -20,7 +19,9 @@ describe('DialogChooseFolderComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(DialogChooseFolderComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

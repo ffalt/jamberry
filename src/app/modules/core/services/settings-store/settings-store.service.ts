@@ -11,10 +11,10 @@ import {UserStorageService} from '../userstorage/userstorage.service';
 })
 export class SettingsStoreService implements OnDestroy {
 	private static localstorageName = 'settings';
-	settingsChange = new EventEmitter<void>();
-	protected readonly unsubscribe = new Subject<void>();
-	private userStorage = inject(UserStorageService);
-	private pushNotificationService = inject(PushNotificationService);
+	readonly settingsChange = new EventEmitter<void>();
+	private readonly unsubscribe = new Subject<void>();
+	private readonly userStorage = inject(UserStorageService);
+	private readonly pushNotificationService = inject(PushNotificationService);
 	private readonly app = inject(AppService);
 
 	constructor() {

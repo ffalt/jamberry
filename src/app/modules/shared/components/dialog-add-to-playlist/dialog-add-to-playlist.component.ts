@@ -22,7 +22,7 @@ export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlayli
 	mediaList?: Array<Jam.MediaBase>;
 	showTrackPreview: boolean = false;
 	reference?: DialogOverlayRef;
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly notify = inject(NotifyService);
 	private readonly playlistService = inject(PlaylistService);
 

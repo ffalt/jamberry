@@ -1,6 +1,6 @@
 import {Component, OnInit, inject} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
-import {NavigService, NotifyService} from '@core/services';
+import {NotifyService} from '@core/services';
 import {AlbumType, JamService} from '@jam';
 import {filterStats, StatsList} from '@shared/components';
 
@@ -12,9 +12,8 @@ import {filterStats, StatsList} from '@shared/components';
 })
 export class StartStatsComponent implements OnInit {
 	stats?: StatsList;
-	readonly jam = inject(JamService);
-	readonly navig = inject(NavigService);
-	protected readonly notify = inject(NotifyService);
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
 	ngOnInit(): void {
 		this.jam.stats.get({})

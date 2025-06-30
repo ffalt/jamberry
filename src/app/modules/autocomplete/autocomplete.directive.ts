@@ -51,18 +51,18 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	@Input() appAutocomplete?: AutocompleteComponent;
 	@Input() appAutocompleteControl?: AutocompleteDataControl;
 	@Input() appAutocompleteSettings?: Partial<AutocompleteSettings>;
-	readonly appAutocompleteNavigKeyDown = output<KeyboardEvent>();
 	isVisible: boolean = false;
 	activeIndex: number = NO_INDEX;
 	query: string = '';
 	options: Array<AutocompleteOption> = [];
-	protected readonly unsubscribe = new Subject<void>();
-	private host = inject<ElementRef<HTMLInputElement>>(ElementRef);
-	private vcr = inject(ViewContainerRef);
-	private overlay = inject(Overlay);
+	readonly appAutocompleteNavigKeyDown = output<KeyboardEvent>();
+	private readonly unsubscribe = new Subject<void>();
+	private readonly host = inject<ElementRef<HTMLInputElement>>(ElementRef);
+	private readonly vcr = inject(ViewContainerRef);
+	private readonly overlay = inject(Overlay);
+	private readonly keydown$ = new Subject<KeyboardEvent>();
+	private readonly keyup$ = new Subject<KeyboardEvent>();
 	private overlayRef?: OverlayRef;
-	private keydown$ = new Subject<KeyboardEvent>();
-	private keyup$ = new Subject<KeyboardEvent>();
 	private settings: AutocompleteSettings = {allowEmpty: false, debounceTime: 300};
 	private isCreated: boolean = false;
 
@@ -230,11 +230,12 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	}
 
 	private openDropdown(): void {
-		if (!this.appAutocomplete?.rootTemplate) {
+		const rootTemplate = this.appAutocomplete?.rootTemplate();
+		if (!rootTemplate) {
 			return;
 		}
 		this.overlayRef = this.createOverlay();
-		const template = new TemplatePortal(this.appAutocomplete.rootTemplate, this.vcr, {control: this});
+		const template = new TemplatePortal(rootTemplate, this.vcr, {control: this});
 		this.overlayRef.attach(template);
 		overlayClickOutside(this.overlayRef, this.host.nativeElement)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {

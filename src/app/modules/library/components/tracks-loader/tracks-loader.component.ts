@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, ViewChild, inject} from '@angular/core';
+import {Component, Input, OnChanges, inject, viewChild} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
@@ -17,25 +17,26 @@ export class TracksLoaderComponent implements OnChanges {
 	@Input() listType?: ListType;
 	@Input() query?: string;
 	@Input() queryCmd?: JamParameters.TrackFilterArgs;
-	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
+	readonly loadMore = viewChild.required(LoadMoreButtonComponent);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private activeRequest?: Promise<void>;
 
 	getTracks(requestFunc: () => Promise<Jam.TrackPage>): void {
-		this.loadMore.loading = true;
+		const loadMore = this.loadMore()
+		loadMore.loading = true;
 		const request = requestFunc()
 			.then(data => {
 				if (this.activeRequest === request) {
 					this.tracks = (this.tracks || []).concat(data.items);
-					this.loadMore.hasMore = (data.total || 0) > this.tracks.length;
-					this.loadMore.total = data.total;
-					this.loadMore.loading = false;
+					loadMore.hasMore = (data.total || 0) > this.tracks.length;
+					loadMore.total = data.total;
+					loadMore.loading = false;
 				}
 			})
 			.catch(e => {
 				if (this.activeRequest === request) {
-					this.loadMore.loading = false;
+					this.loadMore().loading = false;
 				}
 				this.notify.error(e);
 			});
@@ -46,8 +47,8 @@ export class TracksLoaderComponent implements OnChanges {
 		this.getTracks(async () =>
 			this.jam.track.search({
 				query: this.query,
-				skip: this.loadMore.skip,
-				take: this.loadMore.take,
+				skip: this.loadMore().skip,
+				take: this.loadMore().take,
 				trackIncTag: true,
 				trackIncState: true
 			})
@@ -58,8 +59,8 @@ export class TracksLoaderComponent implements OnChanges {
 		this.getTracks(async () =>
 			this.jam.track.search({
 				...this.queryCmd,
-				skip: this.loadMore.skip,
-				take: this.loadMore.take,
+				skip: this.loadMore().skip,
+				take: this.loadMore().take,
 				trackIncTag: true,
 				trackIncState: true
 			})
@@ -72,8 +73,8 @@ export class TracksLoaderComponent implements OnChanges {
 				list: this.listType,
 				trackIncState: true,
 				trackIncTag: true,
-				skip: this.loadMore.skip,
-				take: this.loadMore.take
+				skip: this.loadMore().skip,
+				take: this.loadMore().take
 			}));
 	}
 
@@ -90,9 +91,10 @@ export class TracksLoaderComponent implements OnChanges {
 	}
 
 	ngOnChanges(): void {
-		this.loadMore.skip = 0;
-		this.loadMore.total = 0;
-		this.loadMore.hasMore = false;
+		const loadMore = this.loadMore()
+		loadMore.skip = 0;
+		loadMore.total = 0;
+		loadMore.hasMore = false;
 		this.showRating = this.listType === 'highest';
 		this.showPlayCount = this.listType === 'frequent';
 		this.showPlayDate = this.listType === 'recent';

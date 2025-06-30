@@ -16,9 +16,9 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 	index?: Index;
 	@Input() useMeta: boolean = true;
 	@HostBinding('class.active') collapsed: boolean = false;
-	notify = inject(NotifyService);
-	indexService = inject(IndexService);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly notify = inject(NotifyService);
+	private readonly indexService = inject(IndexService);
+	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		this.indexService.indexNotify

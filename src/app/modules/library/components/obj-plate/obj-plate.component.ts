@@ -1,5 +1,5 @@
 import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, HostBinding, Input, OnChanges, ViewChild} from '@angular/core';
+import {Component, HostBinding, Input, OnChanges, viewChild} from '@angular/core';
 import {JamObjectType} from '@jam';
 import {JamLibraryObject} from '@library/model/objects';
 import {MediaPlateComponent} from '@shared/components';
@@ -13,7 +13,6 @@ import {MediaPlateComponent} from '@shared/components';
 export class ObjPlateComponent implements OnChanges, FocusableOption {
 	@Input() obj?: JamLibraryObject;
 	@Input() showParent: boolean = false;
-	@ViewChild(MediaPlateComponent, {static: false}) plate?: MediaPlateComponent;
 	@HostBinding() tabindex = -1;
 	loading: boolean = false;
 	expanded: boolean = false;
@@ -21,6 +20,7 @@ export class ObjPlateComponent implements OnChanges, FocusableOption {
 	hasAlbums?: boolean = false;
 	hasEpisodes?: boolean = false;
 	hasMedia?: boolean = false;
+	protected readonly plate = viewChild(MediaPlateComponent);
 
 	ngOnChanges(): void {
 		this.expanded = false;
@@ -32,7 +32,7 @@ export class ObjPlateComponent implements OnChanges, FocusableOption {
 	}
 
 	focus() {
-		this.plate?.focus();
+		this.plate()?.focus();
 	}
 
 	check(): void {

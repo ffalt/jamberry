@@ -13,8 +13,8 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class TracksLoaderByTypeComponent implements OnInit, OnDestroy {
 	listType?: ListType;
-	protected readonly route = inject(ActivatedRoute);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		this.route.url

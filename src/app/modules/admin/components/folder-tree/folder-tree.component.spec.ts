@@ -18,7 +18,9 @@ describe('FolderTreeComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(FolderTreeComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

@@ -28,7 +28,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	maintainAspectRatio: boolean = true;
 	format: OutputFormat = 'jpeg';
 	readonly imageEdited = output();
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly folderService = inject(AdminFolderService);
 	private readonly notify = inject(NotifyService);

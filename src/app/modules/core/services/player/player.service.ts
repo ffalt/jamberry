@@ -51,15 +51,15 @@ export class PlayerService implements OnDestroy {
 	repeatTrack = false;
 	scrobbleWatch = new StopWatch();
 	scrobbled = false;
-	protected readonly unsubscribe = new Subject<void>();
 	private subscribers: { [key: number]: Array<(data: any) => void> } = {};
 	private positionStoreTimer?: number;
 	private soundPlayer: PlayerSoundmanager2;
-	private queue = inject(QueueService);
+	private readonly unsubscribe = new Subject<void>();
+	private readonly queue = inject(QueueService);
 	private readonly notify = inject(NotifyService);
-	private notification = inject(PushNotificationService);
-	private mediasession = inject(MediaSessionService);
-	private userStorage = inject(UserStorageService);
+	private readonly notification = inject(PushNotificationService);
+	private readonly mediasession = inject(MediaSessionService);
+	private readonly userStorage = inject(UserStorageService);
 	private readonly jam = inject(JamService);
 
 	constructor() {

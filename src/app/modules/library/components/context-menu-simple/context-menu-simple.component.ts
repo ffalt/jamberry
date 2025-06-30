@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, viewChild} from '@angular/core';
 import {ContextMenuHostComponentInterface} from '@shared/services';
 import {ContextMenuComponent} from '@app/modules/ngx-contextmenu';
 
@@ -13,7 +13,7 @@ export interface ContextMenuSimpleComponentOptions {
     standalone: false
 })
 export class ContextMenuSimpleComponent implements ContextMenuHostComponentInterface<ContextMenuSimpleComponentOptions> {
-	@ViewChild('entriesMenu') contextMenu?: ContextMenuComponent;
+	readonly contextMenu = viewChild.required<ContextMenuComponent>('entriesMenu');
 	entries?: Array<{ text: string; icon: string; click(): void }> = [];
 
 	initOpts(opts: ContextMenuSimpleComponentOptions): void {

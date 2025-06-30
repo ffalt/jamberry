@@ -19,8 +19,8 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 	section?: string;
 	sectionType?: string;
 	hasContextMenu: boolean = false;
-	protected readonly unsubscribe = new Subject<void>();
-	protected readonly route = inject(ActivatedRoute);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 	private readonly library = inject(LibraryService);
 
 	ngOnInit(): void {

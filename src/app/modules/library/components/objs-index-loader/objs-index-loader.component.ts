@@ -17,10 +17,10 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 	index?: Index;
 	objType?: JamObjectType;
 	query?: JamParameters.ArtistFilterArgs | JamParameters.SeriesFilterArgs | JamParameters.FolderFilterArgs | JamParameters.AlbumFilterArgs;
-	protected indexService = inject(IndexService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly route = inject(ActivatedRoute);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly indexService = inject(IndexService);
+	private readonly notify = inject(NotifyService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 
 	request(type?: JamType): void {
 		this.objType = undefined;

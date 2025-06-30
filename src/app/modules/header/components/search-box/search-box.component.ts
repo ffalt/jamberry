@@ -1,6 +1,6 @@
-import {Component, ViewChild, inject, output} from '@angular/core';
+import {Component, inject, output, viewChild} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteDirective, AutocompleteOption} from '@app/modules/autocomplete';
-import {NavigService, NotifyService} from '@core/services';
+import {NavigService} from '@core/services';
 import {Jam, JamService} from '@jam';
 
 const objTypes = {
@@ -20,10 +20,9 @@ const objTypes = {
 	standalone: false
 })
 export class SearchBoxComponent implements AutocompleteDataControl {
-	@ViewChild(AutocompleteDirective, {static: true}) autocomplete?: AutocompleteDirective;
+	readonly autocomplete = viewChild(AutocompleteDirective);
 	readonly searchStateChange = output<boolean>();
 	private readonly jam = inject(JamService);
-	private readonly notify = inject(NotifyService);
 	private readonly navig = inject(NavigService);
 
 	setSearchActive(active: boolean) {
@@ -35,7 +34,7 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 	}
 
 	search() {
-		this.autocomplete?.run();
+		this.autocomplete()?.run();
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption>> {

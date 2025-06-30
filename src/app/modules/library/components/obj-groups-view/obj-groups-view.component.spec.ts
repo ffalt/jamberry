@@ -1,7 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ObjGroupsCardsComponent, ObjGroupsPlatesComponent} from '@library/components';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';
-import {MockComponent} from 'ng-mocks';
 import {ObjGroupsViewComponent} from './obj-groups-view.component';
 
 describe('ObjGroupsViewComponent', () => {
@@ -14,8 +13,8 @@ describe('ObjGroupsViewComponent', () => {
     providers: [...TEST_LIBRARY_PROVIDERS],
     declarations: [
         ObjGroupsViewComponent,
-        MockComponent(ObjGroupsCardsComponent),
-        MockComponent(ObjGroupsPlatesComponent)
+        ObjGroupsCardsComponent,
+        ObjGroupsPlatesComponent
     ],
     teardown: { destroyAfterEach: false }
 }).compileComponents()
@@ -24,7 +23,9 @@ describe('ObjGroupsViewComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(ObjGroupsViewComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

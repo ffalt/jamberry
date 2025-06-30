@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NavigService, NotifyService, PlayerService} from '@core/services';
-import {Jam, JamService} from '@jam';
-import {ActionsService, PlaylistService} from '@shared/services';
+import {NavigService} from '@core/services';
+import {Jam} from '@jam';
+import {PlaylistService} from '@shared/services';
 import {Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -15,14 +15,10 @@ import {takeUntil} from 'rxjs/operators';
 export class PlaylistOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	playlist?: Jam.Playlist;
-	playlistService = inject(PlaylistService);
-	readonly navig = inject(NavigService);
-	readonly player = inject(PlayerService);
-	readonly actions = inject(ActionsService);
-	readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly route = inject(ActivatedRoute);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly playlistService = inject(PlaylistService);
+	private readonly navig = inject(NavigService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 	private playlistID?: string;
 	private subList?: Subscription;
 

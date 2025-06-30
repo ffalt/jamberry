@@ -1,9 +1,8 @@
-import {Component, Input, OnChanges, ViewChild, inject} from '@angular/core';
+import {Component, Input, OnChanges, inject, viewChild} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {AlbumType, Jam, JamService, ListType} from '@jam';
+import {AlbumType, Jam, ListType} from '@jam';
 import {JamObjsLoader} from '@library/model/loaders';
 import {JamLibraryObject} from '@library/model/objects';
-import {LibraryService} from '@library/services';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({
@@ -20,27 +19,26 @@ export class ObjsLoaderComponent implements OnChanges {
 	@Input() searchQuery?: { query?: string; albumType?: AlbumType; genre?: string; genreID?: string };
 	@Input() loadAll: boolean = false;
 	@Input() changeTrigger?: string;
-	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
 	objs?: Array<JamLibraryObject>;
-	protected library = inject(LibraryService);
-	protected readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
+	private readonly notify = inject(NotifyService);
+	private readonly loadMore = viewChild.required(LoadMoreButtonComponent);
 	private activeRequest?: Promise<void>;
 
 	getObjs(requestFunc: () => Promise<{ list: Jam.Page; items: Array<JamLibraryObject> }>): void {
-		this.loadMore.loading = true;
+		const loadMore = this.loadMore();
+		loadMore.loading = true;
 		const request = requestFunc()
 			.then(data => {
 				if (this.activeRequest === request) {
 					this.objs = (this.objs || []).concat(data.items || []);
-					this.loadMore.hasMore = (data.list.total || 0) > this.objs.length;
-					this.loadMore.total = data.list.total;
-					this.loadMore.loading = false;
+					loadMore.hasMore = (data.list.total || 0) > this.objs.length;
+					loadMore.total = data.list.total;
+					loadMore.loading = false;
 				}
 			})
 			.catch(e => {
 				if (this.activeRequest === request) {
-					this.loadMore.loading = false;
+					loadMore.loading = false;
 				}
 				this.notify.error(e);
 			});
@@ -55,25 +53,26 @@ export class ObjsLoaderComponent implements OnChanges {
 		}
 		const search = this.searchQuery;
 		if (search) {
-			this.getObjs(async () => loader.search(search, this.loadMore.skip, this.loadMore.take));
+			this.getObjs(async () => loader.search(search, this.loadMore().skip, this.loadMore().take));
 			return;
 		}
 		const list = this.listQuery;
 		if (list) {
-			this.getObjs(async () => loader.list(list, this.loadMore.skip, this.loadMore.take));
+			this.getObjs(async () => loader.list(list, this.loadMore().skip, this.loadMore().take));
 			return;
 		}
 		if (this.loadAll) {
-			this.getObjs(async () => loader.all(this.loadMore.skip, this.loadMore.take));
+			this.getObjs(async () => loader.all(this.loadMore().skip, this.loadMore().take));
 			return;
 		}
 		this.objs = [];
 	}
 
 	ngOnChanges(): void {
-		this.loadMore.skip = 0;
-		this.loadMore.total = 0;
-		this.loadMore.hasMore = false;
+		const loadMore = this.loadMore();
+		loadMore.skip = 0;
+		loadMore.total = 0;
+		loadMore.hasMore = false;
 		this.objs = undefined;
 		this.load();
 	}

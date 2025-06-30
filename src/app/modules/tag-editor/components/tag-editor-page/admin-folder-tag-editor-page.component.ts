@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild, inject} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, viewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {Subject} from 'rxjs';
@@ -13,8 +13,8 @@ import {TagEditorComponent} from '../../components/tag-editor/tag-editor.compone
 })
 export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
 	id?: string;
-	@ViewChild(TagEditorComponent, {static: true}) child?: TagEditorComponent;
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly child = viewChild(TagEditorComponent);
+	private readonly unsubscribe = new Subject<void>();
 	private readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {
@@ -32,7 +32,8 @@ export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, Com
 	}
 
 	canDeactivate(): boolean {
-		return !!(this.child && this.child.canDeactivate());
+		const child = this.child();
+		return !!(child && child.canDeactivate());
 	}
 
 }

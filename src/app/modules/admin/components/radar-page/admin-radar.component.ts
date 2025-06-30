@@ -1,5 +1,5 @@
 import {TrackHealthComponent} from '@admin/components/track-health/track-health.component';
-import {Component, OnDestroy, OnInit, QueryList, ViewChildren, inject} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, viewChildren} from '@angular/core';
 import {NotifyService, UiStateService, UserStorageService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
@@ -17,8 +17,8 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	folders?: Array<Jam.Folder>;
 	current?: { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> };
 	searching: boolean = false;
-	@ViewChildren(TrackHealthComponent) trackHealthComponents!: QueryList<TrackHealthComponent>;
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly trackHealthComponents = viewChildren(TrackHealthComponent);
+	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly uiState = inject(UiStateService);
@@ -60,10 +60,11 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	}
 
 	fixAll(): void {
-		if (this.searching || !this.current || !this.trackHealthComponents) {
+		const trackHealthComponents = this.trackHealthComponents();
+  if (this.searching || !this.current || !trackHealthComponents) {
 			return;
 		}
-		this.trackHealthComponents.forEach(trackHealthComponent => {
+		trackHealthComponents.forEach(trackHealthComponent => {
 			trackHealthComponent.fixAll();
 		});
 	}

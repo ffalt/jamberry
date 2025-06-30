@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, viewChild} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {Jam} from '@jam';
 import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
@@ -17,7 +17,7 @@ export interface SelectFolder {
 })
 export class DialogChooseFolderComponent implements DialogOverlay<SelectFolder> {
 	data?: SelectFolder;
-	@ViewChild(FolderTreeComponent, {static: true}) tree?: FolderTreeComponent;
+	private readonly tree = viewChild(FolderTreeComponent);
 
 	selectionChange(folder: Jam.Folder): void {
 		if (this.data) {
@@ -27,10 +27,11 @@ export class DialogChooseFolderComponent implements DialogOverlay<SelectFolder> 
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<SelectFolder>>): void {
 		this.data = options.data;
-		if (this.tree) {
-			this.tree.refresh();
+		const tree = this.tree();
+  if (tree) {
+			tree.refresh();
 			if (this.data?.selectID) {
-				this.tree.selectFolderByID(this.data.selectID);
+				tree.selectFolderByID(this.data.selectID);
 			}
 		}
 	}

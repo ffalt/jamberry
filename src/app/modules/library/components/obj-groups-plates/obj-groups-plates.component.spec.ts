@@ -23,7 +23,9 @@ describe('ObjGroupsPlatesComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(ObjGroupsPlatesComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

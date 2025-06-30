@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NavigService, NotifyService, PlayerService} from '@core/services';
+import {NotifyService} from '@core/services';
 import {AlbumType, Jam, JamService} from '@jam';
-import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -17,13 +16,10 @@ export class AlbumOverviewComponent implements OnInit, OnDestroy {
 	album?: Jam.Album;
 	tracks: Array<Jam.Track> = [];
 	isCompilation: boolean = false;
-	readonly navig = inject(NavigService);
-	readonly player = inject(PlayerService);
-	readonly actions = inject(ActionsService);
-	protected readonly unsubscribe = new Subject<void>();
-	protected readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {
 		if (this.route) {

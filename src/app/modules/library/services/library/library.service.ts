@@ -30,14 +30,14 @@ export class LibraryService {
 	playlistLoader = new PlaylistsLoader(this);
 	podcastLoader = new PodcastsLoader(this);
 	seriesLoader = new SeriesLoader(this);
-	readonly navig = inject(NavigService);
 	readonly actions = inject(ActionsService);
 	readonly player = inject(PlayerService);
-	menuService = inject(MenuService);
+	readonly playlistDialogsService = inject(PlaylistDialogsService);
+	readonly navig = inject(NavigService);
 	readonly jam = inject(JamService);
-	notify = inject(NotifyService);
-	playlistDialogsService = inject(PlaylistDialogsService);
-	podcastService = inject(PodcastService);
+	readonly notify = inject(NotifyService);
+	readonly podcastService = inject(PodcastService);
+	private readonly menuService = inject(MenuService);
 	private readonly router = inject(Router);
 
 	buildTabs(section: string): Array<HeaderTab> {

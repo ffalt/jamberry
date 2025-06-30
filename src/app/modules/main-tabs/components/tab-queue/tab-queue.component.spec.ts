@@ -17,7 +17,9 @@ describe('TabQueueComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(TabQueueComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

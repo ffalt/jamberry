@@ -1,7 +1,7 @@
 import {Component, Input, inject} from '@angular/core';
-import {NavigService, PlayerService} from '@core/services';
+import {PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
-import {ActionsService, PodcastService} from '@shared/services';
+import {PodcastService} from '@shared/services';
 
 @Component({
 	selector: 'app-episode-state-button',
@@ -12,10 +12,8 @@ import {ActionsService, PodcastService} from '@shared/services';
 export class EpisodeStateButtonComponent {
 	@Input() episode?: Jam.Episode;
 	@Input() showTitle: boolean = false;
-	readonly jam = inject(JamService);
+	readonly PodcastStatus = PodcastStatus;
 	readonly player = inject(PlayerService);
 	readonly podcastService = inject(PodcastService);
-	readonly actions = inject(ActionsService);
-	readonly navig = inject(NavigService);
-	readonly PodcastStatus = PodcastStatus;
+	readonly jam = inject(JamService);
 }

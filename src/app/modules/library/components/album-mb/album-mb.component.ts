@@ -15,10 +15,10 @@ export class AlbumMbComponent implements OnInit, OnDestroy {
 	id?: string;
 	album?: Jam.Album;
 	mbReleaseID?: string;
-	protected readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly route = inject(ActivatedRoute);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route && this.route.parent) {

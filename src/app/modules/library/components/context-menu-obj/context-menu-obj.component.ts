@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, viewChild} from '@angular/core';
 import {ContextMenuHostComponentInterface} from '@shared/services';
 import {ContextMenuComponent} from '@app/modules/ngx-contextmenu';
 
@@ -21,9 +21,9 @@ export interface ContextMenuObjComponentOptions {
     standalone: false
 })
 export class ContextMenuObjComponent implements ContextMenuHostComponentInterface<ContextMenuObjComponentOptions> {
-	@ViewChild('objMenu') contextMenu?: ContextMenuComponent;
 	extras?: Array<{ text: string; icon: string; click(): void }> = [];
 	showGoto: boolean = true;
+	readonly contextMenu = viewChild.required<ContextMenuComponent>('objMenu');
 
 	initOpts(opts: ContextMenuObjComponentOptions): void {
 		this.showGoto = !opts || !opts.hideGoto;
@@ -34,5 +34,4 @@ export class ContextMenuObjComponent implements ContextMenuHostComponentInterfac
 	trackByFn(index: number, value: { text: string; icon: string; click(): void }): string {
 		return index.toString();// value.text;
 	}
-
 }

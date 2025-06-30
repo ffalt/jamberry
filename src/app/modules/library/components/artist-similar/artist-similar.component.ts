@@ -16,10 +16,10 @@ import {takeUntil} from 'rxjs/operators';
 export class ArtistSimilarComponent implements OnInit, OnDestroy {
 	id?: string;
 	similar?: Array<JamArtistObject>;
-	protected readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly route = inject(ActivatedRoute);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 	private readonly library = inject(LibraryService);
 
 	ngOnInit(): void {

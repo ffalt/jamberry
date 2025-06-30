@@ -14,11 +14,11 @@ import {LibraryService} from '../../services';
 export class AlbumListComponent {
 	@Input() albums?: Array<Jam.Album>;
 	@Input() showArtist: boolean = false;
-	readonly jam = inject(JamService);
-	readonly player = inject(PlayerService);
-	readonly podcastService = inject(PodcastService);
 	readonly actions = inject(ActionsService);
 	readonly navig = inject(NavigService);
+	private readonly jam = inject(JamService);
+	private readonly player = inject(PlayerService);
+	private readonly podcastService = inject(PodcastService);
 	private readonly library = inject(LibraryService);
 
 	onContextMenu($event: Event, item: Jam.Album): void {

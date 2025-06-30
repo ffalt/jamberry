@@ -1,9 +1,8 @@
-import {Component, OnDestroy, OnInit, ViewChild, inject} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, viewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NavigService, NotifyService, PlayerService} from '@core/services';
+import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
-import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -16,14 +15,11 @@ import {takeUntil} from 'rxjs/operators';
 export class TrackSimilarComponent implements OnInit, OnDestroy {
 	id?: string;
 	similar?: Array<Jam.Track>;
-	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
-	readonly navig = inject(NavigService);
-	readonly player = inject(PlayerService);
-	readonly actions = inject(ActionsService);
-	protected readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly route = inject(ActivatedRoute);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly loadMore = viewChild.required(LoadMoreButtonComponent);
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route && this.route.parent) {
@@ -49,15 +45,16 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 			id,
 			trackIncState: true,
 			trackIncTag: true,
-			skip: this.loadMore.skip,
-			take: this.loadMore.take
+			skip: this.loadMore().skip,
+			take: this.loadMore().take
 		})
 			.then(data => {
 				if (this.id === id) {
 					this.similar = (this.similar || []).concat(data.items);
-					if (this.loadMore) {
-						this.loadMore.hasMore = this.similar.length < (data.total || 0);
-						this.loadMore.total = data.total;
+					const loadMore = this.loadMore();
+     if (loadMore) {
+						loadMore.hasMore = this.similar.length < (data.total || 0);
+						loadMore.total = data.total;
 					}
 				}
 			})
@@ -68,7 +65,7 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 
 	refresh(): void {
 		this.similar = undefined;
-		this.loadMore.skip = 0;
+		this.loadMore().skip = 0;
 		this.loadSimilar();
 	}
 

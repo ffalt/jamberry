@@ -17,7 +17,7 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 	user?: Jam.User;
 	userAvatar?: string;
 	hasChanged: boolean = false;
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 

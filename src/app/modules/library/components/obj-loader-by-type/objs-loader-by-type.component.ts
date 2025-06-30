@@ -26,10 +26,10 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	valid = false;
 	library = inject(LibraryService);
 	protected readonly route = inject(ActivatedRoute);
-	protected playlistService = inject(PlaylistService);
-	protected podcastService = inject(PodcastService);
-	protected readonly unsubscribe = new Subject<void>();
-	protected readonly unsubscribeRefresh = new Subject<void>();
+	protected readonly playlistService = inject(PlaylistService);
+	protected readonly podcastService = inject(PodcastService);
+	private readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribeRefresh = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route && this.route.parent) {

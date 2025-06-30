@@ -1,7 +1,7 @@
 <ng-template #root let-control="control">
   @if (control?.isVisible) {
     <div class="ac-content">
-      <ng-container *ngTemplateOutlet="content.tpl; context: {control: control}" />
+      <ng-container *ngTemplateOutlet="content().tpl; context: {control: control}" />
     </div>
   }
 </ng-template>

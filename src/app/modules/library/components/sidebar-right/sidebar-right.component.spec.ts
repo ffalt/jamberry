@@ -19,7 +19,9 @@ describe('SidebarRightComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(SidebarRightComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

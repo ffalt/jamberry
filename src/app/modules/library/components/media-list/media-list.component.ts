@@ -18,8 +18,8 @@ export class MediaListComponent {
 	@Input() showPlayCount: boolean = false;
 	@Input() showPlayDate: boolean = false;
 	readonly navig = inject(NavigService);
-	readonly player = inject(PlayerService);
 	readonly actions = inject(ActionsService);
+	private readonly player = inject(PlayerService);
 	private readonly library = inject(LibraryService);
 
 	onContextMenu($event: Event, item: Jam.MediaBase): void {

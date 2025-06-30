@@ -1,5 +1,5 @@
 import {Component, Input, inject} from '@angular/core';
-import {NavigService, PlayerService} from '@core/services';
+import {NavigService} from '@core/services';
 import {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
 
@@ -15,7 +15,6 @@ export class MediaPlaylistItemComponent {
 	@Input() showRating: boolean = false;
 	@Input() showPlayCount: boolean = false;
 	@Input() showPlayDate: boolean = false;
-	readonly player = inject(PlayerService);
 	readonly navig = inject(NavigService);
 	readonly actions = inject(ActionsService);
 }

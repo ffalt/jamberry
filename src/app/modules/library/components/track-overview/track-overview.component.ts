@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {extractSVGParts} from '@app/utils/svg-parts';
-import {NavigService, NotifyService, PlayerService} from '@core/services';
+import {NavigService, NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -17,13 +16,11 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	track?: Jam.Track;
 	svg?: { viewbox: string; path: string };
-	readonly actions = inject(ActionsService);
 	readonly navig = inject(NavigService);
-	readonly player = inject(PlayerService);
-	protected readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly route = inject(ActivatedRoute);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route) {

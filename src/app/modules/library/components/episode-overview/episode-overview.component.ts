@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NavigService, NotifyService, PlayerService} from '@core/services';
+import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
-import {ActionsService, PodcastService} from '@shared/services';
+import {PodcastService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -15,14 +15,11 @@ import {takeUntil} from 'rxjs/operators';
 export class EpisodeOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	episode?: Jam.Episode;
-	readonly podcastService = inject(PodcastService);
-	readonly navig = inject(NavigService);
-	readonly player = inject(PlayerService);
-	readonly actions = inject(ActionsService);
-	readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly route = inject(ActivatedRoute);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly podcastService = inject(PodcastService);
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route) {

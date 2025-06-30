@@ -1,5 +1,4 @@
-import {Component, inject} from '@angular/core';
-import {LibraryService} from '@library/services';
+import {Component} from '@angular/core';
 
 @Component({
 	selector: 'app-podcasts-page-latest',
@@ -8,5 +7,4 @@ import {LibraryService} from '@library/services';
 	standalone: false
 })
 export class PodcastsLatestEpisodesComponent {
-	library = inject(LibraryService);
 }

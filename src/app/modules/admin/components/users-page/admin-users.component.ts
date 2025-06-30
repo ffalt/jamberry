@@ -14,7 +14,7 @@ import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 })
 export class AdminUsersComponent implements OnInit, OnDestroy {
 	users?: Array<Jam.User>;
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly notify = inject(NotifyService);
 	private readonly userService = inject(AdminUserService);
 	private readonly dialogOverlay = inject(DialogOverlayService);

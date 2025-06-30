@@ -1,15 +1,15 @@
 import {
-	ApplicationRef,
-	Component,
-	ComponentFactoryResolver,
-	ElementRef,
-	HostBinding,
-	HostListener,
-	Injector,
-	OnDestroy,
-	OnInit,
-	ViewChild,
-	inject
+  ApplicationRef,
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  Injector,
+  OnDestroy,
+  OnInit,
+  inject,
+  viewChild
 } from '@angular/core';
 import {Router} from '@angular/router';
 import {DeferLoadService} from '@app/modules/defer-load';
@@ -31,20 +31,20 @@ import {takeUntil} from 'rxjs/operators';
 	standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
-	@ViewChild('tabContentOutlet', {static: true}) tabContentOutlet?: ElementRef;
+	readonly tabContentOutlet = viewChild<ElementRef>('tabContentOutlet');
 	readonly player = inject(PlayerService);
 	readonly app = inject(AppService);
 	readonly auth = inject(JamAuthService);
-	readonly tabService = inject(MainTabsService);
-	protected readonly unsubscribe = new Subject<void>();
-	private hotkeysService = inject(HotkeysService);
+	private readonly tabService = inject(MainTabsService);
+	private readonly unsubscribe = new Subject<void>();
+	private readonly hotkeysService = inject(HotkeysService);
 	private readonly router = inject(Router);
-	private deferLoadService = inject(DeferLoadService);
-	private settingsStore = inject(SettingsStoreService);
-	private themeService = inject(ThemeService);
-	private injector = inject(Injector);
-	private appRef = inject(ApplicationRef);
-	private componentFactoryResolver = inject(ComponentFactoryResolver);
+	private readonly deferLoadService = inject(DeferLoadService);
+	private readonly settingsStore = inject(SettingsStoreService);
+	private readonly themeService = inject(ThemeService);
+	private readonly injector = inject(Injector);
+	private readonly appRef = inject(ApplicationRef);
+	private readonly componentFactoryResolver = inject(ComponentFactoryResolver);
 
 	@HostBinding('class.expand') get expandBody(): boolean {
 		return !!this.tabService?.mainTab?.active;
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.tabService.init(
 			new TabPortalOutlet(this.tabService.tabs,
-				this.tabContentOutlet?.nativeElement,
+				this.tabContentOutlet()?.nativeElement,
 				this.componentFactoryResolver,
 				this.appRef,
 				this.injector)

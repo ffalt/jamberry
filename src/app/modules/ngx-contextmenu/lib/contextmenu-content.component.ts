@@ -8,12 +8,12 @@ import {
 	Input,
 	OnDestroy,
 	OnInit,
-	QueryList,
-	ViewChild,
-	ViewChildren,
 	inject,
-	output
+	output,
+	viewChild,
+	viewChildren
 } from '@angular/core';
+import {toObservable} from '@angular/core/rxjs-interop';
 import {ContextMenuContentItemComponent} from '@app/modules/ngx-contextmenu/lib/contextmenu-content-item.component';
 import {Subscription} from 'rxjs';
 import {ContextMenuItemDirective} from './contextmenu.item.directive';
@@ -31,6 +31,7 @@ const ARROW_LEFT_KEYCODE = 37;
 	standalone: false
 })
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
+	autoFocus = false;
 	@Input() menuItems: Array<ContextMenuItemDirective> = [];
 	@Input() item: any;
 	@Input() event?: Event;
@@ -45,14 +46,10 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}>();
 	readonly openSubMenu = output<IContextMenuClickEvent>();
 	readonly closeLeafMenu = output<CloseLeafMenuEvent>();
-	readonly closeAllMenus = output<{
-		event: MouseEvent;
-	}>();
-	@ViewChild('menu', {static: true}) menuElement!: ElementRef;
-	@ViewChildren('li') menuItemElements!: QueryList<ElementRef>;
-	@ViewChildren(ContextMenuContentItemComponent) menuItemFocusElements!: QueryList<ContextMenuContentItemComponent>;
-
-	autoFocus = false;
+	readonly closeAllMenus = output<{ event: MouseEvent }>();
+	readonly menuElement = viewChild.required<ElementRef>('menu');
+	readonly menuItemElements = viewChildren<ElementRef>('li');
+	readonly menuItemFocusElements = viewChildren(ContextMenuContentItemComponent);
 	private keyManager!: FocusKeyManager<ContextMenuContentItemComponent>;
 	private options = inject<IContextMenuOptions>(CONTEXT_MENU_OPTIONS, {optional: true});
 	private subscription: Subscription = new Subscription();
@@ -77,7 +74,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}
 
 	registerKeys() {
-		this.keyManager = new FocusKeyManager<ContextMenuContentItemComponent>(this.menuItemFocusElements).withWrap();
+		this.keyManager = new FocusKeyManager<ContextMenuContentItemComponent>(this.menuItemFocusElements()).withWrap();
 	}
 
 	ngAfterViewInit() {
@@ -85,9 +82,10 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 			setTimeout(() => this.focus());
 		}
 		this.registerKeys();
-		this.menuItemFocusElements.changes.subscribe(() => {
-			this.registerKeys();
-		});
+		toObservable(this.menuItemFocusElements)
+			.subscribe(() => {
+				this.registerKeys();
+			});
 		this.overlay?.updatePosition();
 	}
 
@@ -97,7 +95,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 
 	focus(): void {
 		if (this.autoFocus) {
-			this.menuElement.nativeElement.focus();
+			this.menuElement().nativeElement.focus();
 		}
 	}
 
@@ -159,7 +157,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}
 
 	onOpenSubMenu(context: { menuItem: ContextMenuItemDirective; event: Event }): void {
-		const anchorElementRef = this.menuItemElements.toArray()[this.keyManager.activeItemIndex || -1];
+		const anchorElementRef = this.menuItemElements()[this.keyManager.activeItemIndex || -1];
 		const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
 		this.openSubMenu.emit({
 			anchorElement,

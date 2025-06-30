@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnChanges, OnDestroy, ViewChild, inject} from '@angular/core';
+import {Component, HostBinding, Input, OnChanges, OnDestroy, inject, viewChild} from '@angular/core';
 import {MatchApplyComponent} from '@app/modules/tag-editor/components/match-apply/match-apply.component';
 import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -30,11 +30,11 @@ export interface ReleaseMatching {
 export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	@Input() data?: ReleaseMatching;
 	@HostBinding('class.right-active') rightActive: boolean = true;
-	@ViewChild(MatchApplyComponent) matchApply!: MatchApplyComponent;
-	@ViewChild('actionMenu', {static: false}) actionMenu?: ContextMenuComponent;
 	matcher: Matcher;
 	current?: { group: MatchReleaseGroup; release: MatchRelease };
 	readonly RunType = RunType;
+	private readonly matchApply = viewChild.required(MatchApplyComponent);
+	private readonly actionMenu = viewChild<ContextMenuComponent>('actionMenu');
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly contextMenuService = inject(ContextMenuService);
@@ -62,12 +62,12 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	}
 
 	apply(): void {
-		const genres = this.matchApply.getGenres();
+		const genres = this.matchApply().getGenres();
 		for (const match of this.matcher.matchings) {
 			match.genres = genres;
 		}
 		if (this.data) {
-			const images = this.matchApply.getCoverArtImages();
+			const images = this.matchApply().getCoverArtImages();
 			for (const result of this.data.matchings) {
 				const match = this.matcher.matchings.find(m => m.track.id === result.track.id);
 				result.rawTag = match ? toID3v24(match, genres, images) : undefined;
@@ -84,12 +84,12 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	chooseRelease({group, release}: { group: MatchReleaseGroup, release: MatchRelease }): void {
 		this.stopApply();
 		this.current = {group, release};
-		this.matchApply.coverArtSearch = {mbReleaseID: release.mbRelease.id, mbReleaseGroupID: group.mbGroup.id};
+		this.matchApply().coverArtSearch = {mbReleaseID: release.mbRelease.id, mbReleaseGroupID: group.mbGroup.id};
 		this.matcher.apply(group, release);
 		if (!this.data) {
 			return;
 		}
-		this.matchApply.loadGenres(this.data.matchings, group, release)
+		this.matchApply().loadGenres(this.data.matchings, group, release)
 			.catch(e => {
 				this.notify.error(e);
 			});
@@ -97,7 +97,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 	stopApply(): void {
 		this.current = undefined;
-		this.matchApply.genres = undefined;
+		this.matchApply().genres = undefined;
 		this.matcher.stopApply();
 	}
 
@@ -115,7 +115,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 	onContextMenu($event: Event) {
 		this.contextMenuService.show.next({
-			contextMenu: this.actionMenu,
+			contextMenu: this.actionMenu(),
 			event: $event,
 			item: undefined
 		});

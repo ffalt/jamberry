@@ -18,7 +18,7 @@ export class UserAvatarComponent implements OnDestroy {
 	refreshing: boolean = false;
 	readonly auth = inject(JamAuthService);
 	readonly app = inject(AppService);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 

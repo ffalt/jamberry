@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnChanges, QueryList, ViewChild, ViewChildren, inject} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, inject, viewChildren, viewChild} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
@@ -35,8 +35,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	activeCol?: RawTagEditColumn;
 	isSaving = false;
 	@Input() id?: string;
-	@ViewChildren(CellEditor) cellEditors!: QueryList<CellEditor>;
-	@ViewChild('actionMenu', {static: false}) actionMenu?: ContextMenuComponent;
+	private readonly cellEditors = viewChildren(CellEditor);
+	private readonly actionMenu = viewChild<ContextMenuComponent>('actionMenu');
 	private readonly folderService = inject(AdminFolderService);
 	private readonly contextMenuService = inject(ContextMenuService);
 	private readonly jam = inject(JamService);
@@ -108,7 +108,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			if (nextrow) {
 				const nextcell = nextrow.cells[data.cell.parent.cells.indexOf(data.cell)];
 				if (nextcell) {
-					const nexteditor = this.cellEditors.find(editor => editor.cell === nextcell);
+					const nexteditor = this.cellEditors().find(editor => editor.cell === nextcell);
 					if (nexteditor) {
 						setTimeout(() => {
 							nexteditor.navigTo();
@@ -119,7 +119,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		} else if (isLeftRightArrowKeys(data.event)) {
 			const nextcell = data.cell.parent.cells[data.cell.parent.cells.indexOf(data.cell) + (isRightArrowKey(data.event) ? 1 : -1)];
 			if (nextcell) {
-				const nexteditor = this.cellEditors.find(editor => editor.cell === nextcell);
+				const nexteditor = this.cellEditors().find(editor => editor.cell === nextcell);
 				if (nexteditor) {
 					setTimeout(() => {
 						nexteditor.navigTo();
@@ -282,7 +282,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 
 	onContextMenu($event: MouseEvent) {
 		this.contextMenuService.show.next({
-			contextMenu: this.actionMenu,
+			contextMenu: this.actionMenu(),
 			event: $event,
 			item: undefined
 		});

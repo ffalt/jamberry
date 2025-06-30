@@ -14,9 +14,9 @@ import {PlayerService} from '../player/player.service';
 export class TitleService implements OnDestroy {
 	title = inject(Title);
 	titles: Array<string> = [];
-	readonly app = inject(AppService);
-	readonly player = inject(PlayerService);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly app = inject(AppService);
+	private readonly player = inject(PlayerService);
+	private readonly unsubscribe = new Subject<void>();
 	private readonly router = inject(Router);
 	private readonly route = inject(ActivatedRoute);
 

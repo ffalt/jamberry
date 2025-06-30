@@ -1,18 +1,18 @@
 import {
-	Component,
-	ComponentFactoryResolver,
-	ComponentRef,
-	forwardRef,
-	HostListener,
-	Input,
-	OnChanges,
-	OnDestroy,
-	SimpleChanges,
-	Type,
-	ViewChild,
-	ViewContainerRef,
-	inject,
-	output
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  forwardRef,
+  HostListener,
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  Type,
+  ViewContainerRef,
+  inject,
+  output,
+  viewChild
 } from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
@@ -35,14 +35,14 @@ import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
 	@Input() cell?: RawTagEditCell = undefined;
+	lines: Array<string> = [];
+	inactive: boolean = true;
 	readonly navigKeyDownRequest = output<{
 		cell: RawTagEditCell;
 		event: KeyboardEvent;
 	}>();
-	@ViewChild('cellContainer', {static: false, read: ViewContainerRef}) container?: ViewContainerRef;
-	lines: Array<string> = [];
-	inactive: boolean = true;
-	protected readonly unsubscribe = new Subject<void>();
+	readonly container = viewChild('cellContainer', { read: ViewContainerRef });
+	private readonly unsubscribe = new Subject<void>();
 	private readonly dialogOverlay = inject(DialogOverlayService);
 	private readonly resolver = inject(ComponentFactoryResolver);
 	private componentRef?: ComponentRef<any>;
@@ -192,16 +192,18 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		if (this.componentRef) {
 			this.componentRef.destroy();
 		}
-		if (this.container) {
-			this.container.clear();
+		const container = this.container();
+  if (container) {
+			container.clear();
 		}
 	}
 
 	private createComponent(type: Type<any>): void {
 		this.clearEdit();
-		if (this.container) {
+		const container = this.container();
+  if (container) {
 			const factory = this.resolver.resolveComponentFactory(type);
-			this.componentRef = this.container.createComponent(factory);
+			this.componentRef = container.createComponent(factory);
 		}
 	}
 

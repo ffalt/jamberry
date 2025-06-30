@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {getUrlType, JamType} from '@app/utils/jam-lists';
-import {NavigService, NotifyService, PlayerService} from '@core/services';
+import {NotifyService} from '@core/services';
 import {Jam, JamObjectType, JamService} from '@jam';
 import {
 	JamAlbumObject,
@@ -16,7 +16,6 @@ import {
 } from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {HeaderInfo, HeaderTab} from '@shared/components';
-import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -33,13 +32,10 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 	infos: Array<HeaderInfo> = [];
 	tabs: Array<HeaderTab> = [];
 	isPodcastEpisode: boolean = false;
-	readonly navig = inject(NavigService);
-	readonly player = inject(PlayerService);
-	readonly actions = inject(ActionsService);
-	protected readonly unsubscribe = new Subject<void>();
-	protected readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly route = inject(ActivatedRoute);
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 	private readonly library = inject(LibraryService);
 
 	ngOnInit(): void {

@@ -30,7 +30,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	solutions: Array<TrackHealthHintSolution> = [];
 	@Input() trackHealth?: Jam.TrackHealth;
 	readonly resolvedEvent = output();
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);

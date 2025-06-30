@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, ViewChild, inject} from '@angular/core';
+import {Component, Input, OnChanges, inject, viewChild} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
@@ -15,25 +15,26 @@ export class EpisodesLoaderComponent implements OnChanges {
 	@Input() latest: boolean = false;
 	@Input() query?: string;
 	@Input() queryCmd?: JamParameters.EpisodeFilterArgs;
-	@ViewChild(LoadMoreButtonComponent, {static: true}) loadMore!: LoadMoreButtonComponent;
+	private readonly loadMore = viewChild.required(LoadMoreButtonComponent);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private activeRequest?: Promise<void>;
 
 	getEpisodes(requestFunc: () => Promise<Jam.EpisodePage>): void {
-		this.loadMore.loading = true;
+		const loadMore = this.loadMore();
+		loadMore.loading = true;
 		const request = requestFunc()
 			.then(data => {
 				if (this.activeRequest === request) {
 					this.episodes = (this.episodes || []).concat(data.items);
-					this.loadMore.hasMore = (data.total || 0) > this.episodes.length;
-					this.loadMore.total = data.total;
-					this.loadMore.loading = false;
+					loadMore.hasMore = (data.total || 0) > this.episodes.length;
+					loadMore.total = data.total;
+					loadMore.loading = false;
 				}
 			})
 			.catch(e => {
 				if (this.activeRequest === request) {
-					this.loadMore.loading = false;
+					this.loadMore().loading = false;
 				}
 				this.notify.error(e);
 			});
@@ -44,8 +45,8 @@ export class EpisodesLoaderComponent implements OnChanges {
 		this.getEpisodes(async () =>
 			this.jam.episode.search({
 				query: this.query,
-				skip: this.loadMore.skip,
-				take: this.loadMore.take,
+				skip: this.loadMore().skip,
+				take: this.loadMore().take,
 				episodeIncTag: true,
 				episodeIncState: true
 			})
@@ -56,8 +57,8 @@ export class EpisodesLoaderComponent implements OnChanges {
 		this.getEpisodes(async () =>
 			this.jam.episode.search({
 				...this.queryCmd,
-				skip: this.loadMore.skip,
-				take: this.loadMore.take,
+				skip: this.loadMore().skip,
+				take: this.loadMore().take,
 				episodeIncTag: true,
 				episodeIncState: true
 			})
@@ -70,8 +71,8 @@ export class EpisodesLoaderComponent implements OnChanges {
 				list: this.listType,
 				episodeIncState: true,
 				episodeIncTag: true,
-				skip: this.loadMore.skip,
-				take: this.loadMore.take
+				skip: this.loadMore().skip,
+				take: this.loadMore().take
 			}));
 	}
 
@@ -80,8 +81,8 @@ export class EpisodesLoaderComponent implements OnChanges {
 			this.jam.episode.search({
 				episodeIncState: true,
 				episodeIncTag: true,
-				skip: this.loadMore.skip,
-				take: this.loadMore.take
+				skip: this.loadMore().skip,
+				take: this.loadMore().take
 				// sortField: 'date', TODO: fix sort
 				// sortDescending: true TODO: fix sort
 			}));
@@ -102,9 +103,10 @@ export class EpisodesLoaderComponent implements OnChanges {
 	}
 
 	ngOnChanges(): void {
-		this.loadMore.skip = 0;
-		this.loadMore.total = 0;
-		this.loadMore.hasMore = false;
+		const loadMore = this.loadMore();
+		loadMore.skip = 0;
+		loadMore.total = 0;
+		loadMore.hasMore = false;
 		this.episodes = undefined;
 		this.load();
 	}

@@ -14,11 +14,11 @@ import {ActionsService, PodcastService} from '@shared/services';
 export class EpisodeListComponent {
 	@Input() episodes?: Array<Jam.Episode>;
 	@Input() showPodcast: boolean = false;
-	readonly jam = inject(JamService);
-	readonly player = inject(PlayerService);
-	readonly podcastService = inject(PodcastService);
-	readonly actions = inject(ActionsService);
 	readonly navig = inject(NavigService);
+	readonly actions = inject(ActionsService);
+	private readonly jam = inject(JamService);
+	private readonly player = inject(PlayerService);
+	private readonly podcastService = inject(PodcastService);
 	private readonly library = inject(LibraryService);
 
 	onContextMenu($event: Event, item: Jam.Episode): void {

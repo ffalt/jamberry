@@ -1,6 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {SidebarComponent} from '@shared/components';
-import {MockComponent} from 'ng-mocks';
 import {UserSidebarComponent} from './user-sidebar.component';
 
 describe('UserSidebarComponent', () => {
@@ -11,7 +10,7 @@ describe('UserSidebarComponent', () => {
 		TestBed.configureTestingModule({
     imports: [],
     providers: [],
-    declarations: [UserSidebarComponent, MockComponent(SidebarComponent)],
+    declarations: [UserSidebarComponent, SidebarComponent],
     teardown: { destroyAfterEach: false }
 }).compileComponents()
 	);

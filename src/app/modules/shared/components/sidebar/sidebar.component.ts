@@ -1,5 +1,5 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit, QueryList, ViewChildren, inject} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit, inject, viewChildren} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppService, SidebarProvider} from '@core/services';
 import {SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
@@ -15,10 +15,10 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 	@Input() sections: Array<SidebarList> = [];
 	@Input() listName: string = '';
 	@HostBinding('class.active') collapsed: boolean = false;
-	@ViewChildren(SidebarListComponent) items!: QueryList<SidebarListComponent>;
 	@HostBinding('class.show') showMobileNavig: boolean = false;
-	readonly app = inject(AppService);
-	protected router = inject(Router);
+	private readonly app = inject(AppService);
+	private readonly router = inject(Router);
+	private readonly items = viewChildren(SidebarListComponent);
 	private keyManager: FocusKeyManager<SidebarListItemComponent> | undefined;
 
 	ngOnInit(): void {
@@ -45,7 +45,7 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 	}
 
 	ngAfterViewInit(): void {
-		const matrix = this.items.map(e => e.items.toArray());
+		const matrix = this.items().map(e => e.items());
 		const merged = ([] as Array<SidebarListItemComponent>).concat(...matrix);
 		this.keyManager = new FocusKeyManager(merged).withWrap();
 	}

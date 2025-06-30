@@ -50,10 +50,9 @@ export class ToastComponent implements OnDestroy {
 		return 'inherit';
 	}
 
-	readonly toastPackage = inject(ToastPackage);
-	protected readonly ngZone? = inject(NgZone);
-	protected readonly unsubscribe = new Subject<void>();
-
+	private readonly toastPackage = inject(ToastPackage);
+	private readonly ngZone? = inject(NgZone);
+	private readonly unsubscribe = new Subject<void>();
 	private timeout: any;
 	private intervalId: any;
 	private hideTime?: number;

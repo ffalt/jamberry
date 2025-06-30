@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NavigService, NotifyService, PlayerService} from '@core/services';
+import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
 import {JamAlbumObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
-import {ActionsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -18,14 +17,11 @@ export class SeriesOverviewComponent implements OnInit, OnDestroy {
 	id?: string;
 	series?: Jam.Series;
 	albums?: Array<JamAlbumObject>;
-	readonly navig = inject(NavigService);
-	readonly player = inject(PlayerService);
-	readonly actions = inject(ActionsService);
-	protected library = inject(LibraryService);
-	protected readonly notify = inject(NotifyService);
-	protected readonly jam = inject(JamService);
-	protected readonly route = inject(ActivatedRoute);
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly library = inject(LibraryService);
+	private readonly notify = inject(NotifyService);
+	private readonly jam = inject(JamService);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		if (this.route) {

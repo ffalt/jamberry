@@ -12,7 +12,7 @@ import {ReleaseMatching} from '../match-release/match-release.component';
 })
 export class DialogMatchReleaseComponent implements DialogOverlay<ReleaseMatching>, OnDestroy {
 	data?: ReleaseMatching;
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ReleaseMatching>>): void {
 		this.data = options.data;

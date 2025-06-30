@@ -1,4 +1,4 @@
-import {Component, ContentChild, TemplateRef, ViewChild} from '@angular/core';
+import {Component, TemplateRef, viewChild, contentChild} from '@angular/core';
 import {AutocompleteContentDirective} from './autocomplete-content.directive';
 
 @Component({
@@ -9,6 +9,6 @@ import {AutocompleteContentDirective} from './autocomplete-content.directive';
     standalone: false
 })
 export class AutocompleteComponent {
-	@ViewChild('root', {static: true}) rootTemplate!: TemplateRef<any>;
-	@ContentChild(AutocompleteContentDirective, {static: true}) content!: AutocompleteContentDirective;
+	readonly rootTemplate = viewChild.required<TemplateRef<any>>('root');
+	readonly content = contentChild.required(AutocompleteContentDirective);
 }

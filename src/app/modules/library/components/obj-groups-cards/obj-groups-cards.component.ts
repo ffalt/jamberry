@@ -1,5 +1,6 @@
 import {FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, HostBinding, HostListener, Input, OnDestroy, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, HostListener, Input, OnDestroy, viewChildren} from '@angular/core';
+import {toObservable} from '@angular/core/rxjs-interop';
 import {JamLibraryObject} from '@library/model/objects';
 import {ObjCardComponent} from '@shared/components';
 import {Subject} from 'rxjs';
@@ -11,17 +12,17 @@ interface ObjCardsGroupsView {
 }
 
 @Component({
-    selector: 'app-obj-groups-cards',
-    templateUrl: './obj-groups-cards.component.html',
-    styleUrls: ['./obj-groups-cards.component.scss'],
-    standalone: false
+	selector: 'app-obj-groups-cards',
+	templateUrl: './obj-groups-cards.component.html',
+	styleUrls: ['./obj-groups-cards.component.scss'],
+	standalone: false
 })
 export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 	@Input() groups?: Array<ObjCardsGroupsView>;
 	@Input() showParent: boolean = false;
-	@ViewChildren(ObjCardComponent) cards!: QueryList<ObjCardComponent>;
 	@HostBinding() tabindex = '0';
-	protected readonly unsubscribe = new Subject<void>();
+	protected readonly cards = viewChildren(ObjCardComponent);
+	private readonly unsubscribe = new Subject<void>();
 	private keyManager: FocusKeyManager<FocusableOption> | undefined;
 
 	@HostListener('keydown.arrowUp', ['$event'])
@@ -32,7 +33,7 @@ export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 
 	ngAfterViewInit() {
 		this.processKeyList();
-		this.cards.changes
+		toObservable(this.cards)
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(() => this.processKeyList());
 	}
@@ -43,7 +44,7 @@ export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
 	}
 
 	processKeyList() {
-		this.keyManager = new FocusKeyManager<FocusableOption>(this.cards).withWrap();
+		this.keyManager = new FocusKeyManager<FocusableOption>(this.cards()).withWrap();
 	}
 
 }

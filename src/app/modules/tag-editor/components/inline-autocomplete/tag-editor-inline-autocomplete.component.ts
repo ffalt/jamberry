@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, ViewChild, output} from '@angular/core';
+import {Component, ElementRef, Input, output, viewChild} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 
@@ -18,22 +18,21 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	@Input() getList?: (data: any) => Array<string>;
 	@Input() value?: string;
 	@Input() data?: any;
+	editing: boolean = false; // Is Component in edit mode?
+	list: Array<string> = [];
 	readonly valueChange = output<string | undefined>();
 	readonly endEditRequest = output();
 	readonly navigKeyDownRequest = output<KeyboardEvent>();
-	@ViewChild('editorStart', {static: false}) editorStartRef?: ElementRef;
-	@ViewChild('editorInput', {static: false}) editorInput?: ElementRef;
-
-	editing: boolean = false; // Is Component in edit mode?
-	list: Array<string> = [];
-
+	readonly editorStartRef = viewChild<ElementRef>('editorStart');
+	readonly editorInput = viewChild<ElementRef>('editorInput');
 	private autoCompleteValue?: string = ''; // Private variable for input value
 	private onChange: any = Function.prototype; // Trascend the onChange event
 	private onTouched: any = Function.prototype; // Trascend the onTouch event
 
 	startEdit(): void {
-		if (this.editorStartRef) {
-			this.editorStartRef.nativeElement.focus();
+		const editorStartRef = this.editorStartRef();
+  if (editorStartRef) {
+			editorStartRef.nativeElement.focus();
 		}
 	}
 
@@ -79,8 +78,9 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 			this.list = this.getList(this.data);
 		}
 		setTimeout(() => {
-			if (this.editorInput) {
-				this.editorInput.nativeElement.focus();
+			const editorInput = this.editorInput();
+   if (editorInput) {
+				editorInput.nativeElement.focus();
 			}
 		});
 	}

@@ -20,7 +20,7 @@ export interface AdminRootServiceEditData {
 export class AdminRootService implements OnDestroy {
 	readonly rootsChange = new EventEmitter<Array<Jam.Root>>();
 	readonly rootChange = new Notifiers<Jam.Root>();
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);

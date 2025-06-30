@@ -15,8 +15,8 @@ import {takeUntil} from 'rxjs/operators';
 export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {
 	typeInfo?: JamType;
 	tabs?: Array<HeaderTab>;
-	protected readonly unsubscribe = new Subject<void>();
-	protected readonly route = inject(ActivatedRoute);
+	private readonly route = inject(ActivatedRoute);
+	private readonly unsubscribe = new Subject<void>();
 	private readonly library = inject(LibraryService);
 
 	ngOnInit(): void {

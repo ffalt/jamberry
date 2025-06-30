@@ -1,6 +1,5 @@
 import {TEST_ADMIN_MODULE_IMPORTS, TEST_ADMIN_MODULE_PROVIDERS} from '@admin/admin.module.mock';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {MockComponent} from 'ng-mocks';
 import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
 import {AdminFolderComponent} from './admin-folder.component';
 
@@ -10,20 +9,22 @@ describe('AdminFoldersComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-    imports: [...TEST_ADMIN_MODULE_IMPORTS],
-    providers: [...TEST_ADMIN_MODULE_PROVIDERS],
-    declarations: [
-        AdminFolderComponent,
-        MockComponent(FolderTreeComponent)
-    ],
-    teardown: { destroyAfterEach: false }
-}).compileComponents()
+			imports: [...TEST_ADMIN_MODULE_IMPORTS],
+			providers: [...TEST_ADMIN_MODULE_PROVIDERS],
+			declarations: [
+				AdminFolderComponent,
+				FolderTreeComponent
+			],
+			teardown: {destroyAfterEach: false}
+		}).compileComponents()
 	);
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(AdminFolderComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {

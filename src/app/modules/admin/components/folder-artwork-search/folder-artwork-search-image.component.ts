@@ -44,7 +44,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	isWorking = false;
 	isArtRefreshing = false;
 	searchSource: { name: string; url: string } = {name: '', url: ''};
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);

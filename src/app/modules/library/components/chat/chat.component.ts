@@ -13,8 +13,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 	messages: Array<Jam.Chat> = [];
 	isPolling: boolean = false;
 	timer: any;
-	protected readonly jam = inject(JamService);
-	protected readonly notify = inject(NotifyService);
+	private readonly jam = inject(JamService);
+	private readonly notify = inject(NotifyService);
 
 	poll(): void {
 		if (this.isPolling) {

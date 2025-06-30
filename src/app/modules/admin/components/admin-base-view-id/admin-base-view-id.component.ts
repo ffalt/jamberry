@@ -11,7 +11,7 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class AdminBaseViewIdComponent implements OnInit, OnDestroy {
 	id?: string;
-	protected readonly unsubscribe = new Subject<void>();
+	private readonly unsubscribe = new Subject<void>();
 	private readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {

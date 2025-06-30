@@ -20,7 +20,9 @@ describe('ArtworkListComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(ArtworkListComponent);
 		component = fixture.componentInstance;
-		fixture.detectChanges();
+		TestBed.runInInjectionContext(() => {
+			fixture.detectChanges();
+		});
 	});
 
 	it('should create', () => {
