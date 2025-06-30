@@ -1,15 +1,4 @@
-import {
-	Component,
-	ContentChildren,
-	ElementRef,
-	OnDestroy,
-	QueryList,
-	ViewChild,
-	ViewEncapsulation,
-	inject,
-	output,
-	input, model
-} from '@angular/core';
+import {Component, OnDestroy, ViewEncapsulation, inject, output, input, model, contentChildren} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {first} from 'rxjs/operators';
 
@@ -33,8 +22,8 @@ export class ContextMenuComponent implements OnDestroy {
 	readonly autoFocus = model<boolean | undefined>(false);
 	readonly closeEvent = output<CloseContextMenuEvent>();
 	readonly openEvent = output<IContextMenuClickEvent>();
-	@ContentChildren(ContextMenuItemDirective) menuItems!: QueryList<ContextMenuItemDirective>;
-	@ViewChild('menu', {static: false}) menuElement?: ElementRef;
+	readonly menuItems = contentChildren(ContextMenuItemDirective);
+	// menuElement = viewChild<ElementRef>('menu');
 	visibleMenuItems: Array<ContextMenuItemDirective> = [];
 	item: any;
 	event?: Event;
@@ -72,6 +61,6 @@ export class ContextMenuComponent implements OnDestroy {
 	}
 
 	setVisibleMenuItems(): void {
-		this.visibleMenuItems = this.menuItems.filter(menuItem => menuItem.isVisible);
+		this.visibleMenuItems = this.menuItems().filter(menuItem => menuItem.isVisible);
 	}
 }
