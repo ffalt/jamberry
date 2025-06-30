@@ -45,16 +45,16 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 			id,
 			trackIncState: true,
 			trackIncTag: true,
-			skip: this.loadMore().skip,
-			take: this.loadMore().take
+			skip: this.loadMore().skip(),
+			take: this.loadMore().take()
 		})
 			.then(data => {
 				if (this.id === id) {
 					this.similar = (this.similar || []).concat(data.items);
 					const loadMore = this.loadMore();
-     if (loadMore) {
-						loadMore.hasMore = this.similar.length < (data.total || 0);
-						loadMore.total = data.total;
+					if (loadMore) {
+						loadMore.hasMore.set(this.similar.length < (data.total || 0));
+						loadMore.total.set(data.total);
 					}
 				}
 			})
@@ -65,7 +65,7 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 
 	refresh(): void {
 		this.similar = undefined;
-		this.loadMore().skip = 0;
+		this.loadMore().skip.set(0);
 		this.loadSimilar();
 	}
 

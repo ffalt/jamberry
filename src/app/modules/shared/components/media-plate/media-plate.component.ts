@@ -1,5 +1,5 @@
 import {FocusableOption} from '@angular/cdk/a11y';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, HostListener, Input, inject} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, HostListener, inject, input} from '@angular/core';
 import {JamObject} from '@shared/model/helpers';
 
 @Component({
@@ -10,8 +10,8 @@ import {JamObject} from '@shared/model/helpers';
 	standalone: false
 })
 export class MediaPlateComponent implements FocusableOption {
-	@Input() obj?: JamObject;
-	@Input() showParent: boolean = false;
+	readonly obj = input<JamObject>();
+	readonly showParent = input<boolean>(false);
 	@HostBinding() tabindex = -1;
 	visible: boolean = false;
 	protected element = inject(ElementRef);
@@ -20,8 +20,9 @@ export class MediaPlateComponent implements FocusableOption {
 	@HostListener('keydown.enter', ['$event'])
 	@HostListener('contextmenu', ['$event'])
 	contextmenuEvent(event: Event): void {
-		if (this.obj) {
-			this.obj.onContextMenu(event);
+		const obj = this.obj();
+		if (obj) {
+			obj.onContextMenu(event);
 		}
 	}
 
@@ -34,10 +35,11 @@ export class MediaPlateComponent implements FocusableOption {
 	}
 
 	toggleFav(): void {
-		if (!this.obj) {
+		const obj = this.obj();
+		if (!obj) {
 			return;
 		}
-		this.obj.toggleFav()
+		obj.toggleFav()
 			.then(() => {
 				this.cdr.detectChanges();
 			})

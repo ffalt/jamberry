@@ -1,13 +1,13 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, OnChanges, input} from '@angular/core';
 
 @Component({
-    selector: 'app-score-box',
-    templateUrl: './score-box.component.html',
-    styleUrls: ['./score-box.component.scss'],
-    standalone: false
+	selector: 'app-score-box',
+	templateUrl: './score-box.component.html',
+	styleUrls: ['./score-box.component.scss'],
+	standalone: false
 })
 export class ScoreBoxComponent implements OnChanges {
-	@Input() score?: number;
+	readonly score = input<number>();
 	color?: string;
 
 	getMatchColor(score: number): string {
@@ -21,7 +21,8 @@ export class ScoreBoxComponent implements OnChanges {
 	}
 
 	ngOnChanges(): void {
-		this.color = (this.score === undefined) ? undefined : this.getMatchColor(this.score);
+		const score = this.score();
+		this.color = (score === undefined) ? undefined : this.getMatchColor(score);
 	}
 
 }

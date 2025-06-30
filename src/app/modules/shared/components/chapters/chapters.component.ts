@@ -1,4 +1,4 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {PlayerService, QueueService} from '@core/services';
 import {Jam} from '@jam';
 
@@ -9,7 +9,7 @@ import {Jam} from '@jam';
 	standalone: false
 })
 export class ChaptersComponent {
-	@Input() episode?: Jam.Episode;
+	readonly episode = input<Jam.Episode>();
 	readonly player = inject(PlayerService);
 	readonly queue = inject(QueueService);
 }

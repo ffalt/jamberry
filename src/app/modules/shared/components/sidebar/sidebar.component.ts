@@ -1,5 +1,5 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit, inject, viewChildren} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, OnDestroy, OnInit, inject, viewChildren, input} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppService, SidebarProvider} from '@core/services';
 import {SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
@@ -12,8 +12,8 @@ import {SidebarList, SidebarListComponent} from '../sidebar-list/sidebar-list.co
 	standalone: false
 })
 export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, SidebarProvider {
-	@Input() sections: Array<SidebarList> = [];
-	@Input() listName: string = '';
+	readonly sections = input<Array<SidebarList>>([]);
+	readonly listName = input<string>('');
 	@HostBinding('class.active') collapsed: boolean = false;
 	@HostBinding('class.show') showMobileNavig: boolean = false;
 	private readonly app = inject(AppService);
@@ -48,9 +48,5 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 		const matrix = this.items().map(e => e.items());
 		const merged = ([] as Array<SidebarListItemComponent>).concat(...matrix);
 		this.keyManager = new FocusKeyManager(merged).withWrap();
-	}
-
-	toggle() {
-		this.collapsed = !this.collapsed;
 	}
 }

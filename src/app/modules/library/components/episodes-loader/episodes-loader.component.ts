@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, inject, viewChild} from '@angular/core';
+import {Component, OnChanges, inject, viewChild, input} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
@@ -11,10 +11,10 @@ import {LoadMoreButtonComponent} from '@shared/components';
 })
 export class EpisodesLoaderComponent implements OnChanges {
 	episodes?: Array<Jam.Episode>;
-	@Input() listType?: ListType;
-	@Input() latest: boolean = false;
-	@Input() query?: string;
-	@Input() queryCmd?: JamParameters.EpisodeFilterArgs;
+	readonly listType = input<ListType>();
+	readonly latest = input<boolean>(false);
+	readonly query = input<string>();
+	readonly queryCmd = input<JamParameters.EpisodeFilterArgs>();
 	private readonly loadMore = viewChild.required(LoadMoreButtonComponent);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
@@ -22,19 +22,19 @@ export class EpisodesLoaderComponent implements OnChanges {
 
 	getEpisodes(requestFunc: () => Promise<Jam.EpisodePage>): void {
 		const loadMore = this.loadMore();
-		loadMore.loading = true;
+		loadMore.loading.set(true);
 		const request = requestFunc()
 			.then(data => {
 				if (this.activeRequest === request) {
 					this.episodes = (this.episodes || []).concat(data.items);
-					loadMore.hasMore = (data.total || 0) > this.episodes.length;
-					loadMore.total = data.total;
-					loadMore.loading = false;
+					loadMore.hasMore.set((data.total || 0) > this.episodes.length);
+					loadMore.total.set(data.total);
+					loadMore.loading.set(false);
 				}
 			})
 			.catch(e => {
 				if (this.activeRequest === request) {
-					this.loadMore().loading = false;
+					this.loadMore().loading.set(false);
 				}
 				this.notify.error(e);
 			});
@@ -44,9 +44,9 @@ export class EpisodesLoaderComponent implements OnChanges {
 	searchText(): void {
 		this.getEpisodes(async () =>
 			this.jam.episode.search({
-				query: this.query,
-				skip: this.loadMore().skip,
-				take: this.loadMore().take,
+				query: this.query(),
+				skip: this.loadMore().skip(),
+				take: this.loadMore().take(),
 				episodeIncTag: true,
 				episodeIncState: true
 			})
@@ -56,9 +56,9 @@ export class EpisodesLoaderComponent implements OnChanges {
 	searchCmd(): void {
 		this.getEpisodes(async () =>
 			this.jam.episode.search({
-				...this.queryCmd,
-				skip: this.loadMore().skip,
-				take: this.loadMore().take,
+				...this.queryCmd(),
+				skip: this.loadMore().skip(),
+				take: this.loadMore().take(),
 				episodeIncTag: true,
 				episodeIncState: true
 			})
@@ -68,11 +68,11 @@ export class EpisodesLoaderComponent implements OnChanges {
 	list(): void {
 		this.getEpisodes(async () =>
 			this.jam.episode.search({
-				list: this.listType,
+				list: this.listType(),
 				episodeIncState: true,
 				episodeIncTag: true,
-				skip: this.loadMore().skip,
-				take: this.loadMore().take
+				skip: this.loadMore().skip(),
+				take: this.loadMore().take()
 			}));
 	}
 
@@ -81,21 +81,21 @@ export class EpisodesLoaderComponent implements OnChanges {
 			this.jam.episode.search({
 				episodeIncState: true,
 				episodeIncTag: true,
-				skip: this.loadMore().skip,
-				take: this.loadMore().take
+				skip: this.loadMore().skip(),
+				take: this.loadMore().take()
 				// sortField: 'date', TODO: fix sort
 				// sortDescending: true TODO: fix sort
 			}));
 	}
 
 	load(): void {
-		if (this.latest) {
+		if (this.latest()) {
 			this.searchLatest();
-		} else if (this.query) {
+		} else if (this.query()) {
 			this.searchText();
-		} else if (this.queryCmd) {
+		} else if (this.queryCmd()) {
 			this.searchCmd();
-		} else if (this.listType) {
+		} else if (this.listType()) {
 			this.list();
 		} else {
 			this.episodes = [];
@@ -104,9 +104,9 @@ export class EpisodesLoaderComponent implements OnChanges {
 
 	ngOnChanges(): void {
 		const loadMore = this.loadMore();
-		loadMore.skip = 0;
-		loadMore.total = 0;
-		loadMore.hasMore = false;
+		loadMore.skip.set(0);
+		loadMore.total.set(0);
+		loadMore.hasMore.set(false);
 		this.episodes = undefined;
 		this.load();
 	}

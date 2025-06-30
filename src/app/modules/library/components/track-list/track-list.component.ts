@@ -1,4 +1,4 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam} from '@jam';
 import {JamTrackObject} from '@library/model/objects';
@@ -12,11 +12,11 @@ import {ActionsService} from '@shared/services';
 	standalone: false
 })
 export class TrackListComponent {
-	@Input() tracks?: Array<Jam.Track>;
-	@Input() showArtist: boolean = false;
-	@Input() showRating: boolean = false;
-	@Input() showPlayCount: boolean = false;
-	@Input() showPlayDate: boolean = false;
+	readonly tracks = input<Array<Jam.Track>>();
+	readonly showArtist = input<boolean>(false);
+	readonly showRating = input<boolean>(false);
+	readonly showPlayCount = input<boolean>(false);
+	readonly showPlayDate = input<boolean>(false);
 	readonly navig = inject(NavigService);
 	readonly actions = inject(ActionsService);
 	private readonly player = inject(PlayerService);

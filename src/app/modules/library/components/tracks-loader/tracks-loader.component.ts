@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, inject, viewChild} from '@angular/core';
+import {Component, OnChanges, inject, viewChild, input} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
@@ -14,29 +14,29 @@ export class TracksLoaderComponent implements OnChanges {
 	showPlayCount: boolean = false;
 	showPlayDate: boolean = false;
 	tracks?: Array<Jam.Track>;
-	@Input() listType?: ListType;
-	@Input() query?: string;
-	@Input() queryCmd?: JamParameters.TrackFilterArgs;
+	readonly listType = input<ListType>();
+	readonly query = input<string>();
+	readonly queryCmd = input<JamParameters.TrackFilterArgs>();
 	readonly loadMore = viewChild.required(LoadMoreButtonComponent);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private activeRequest?: Promise<void>;
 
 	getTracks(requestFunc: () => Promise<Jam.TrackPage>): void {
-		const loadMore = this.loadMore()
-		loadMore.loading = true;
+		const loadMore = this.loadMore();
+		loadMore.loading.set(true);
 		const request = requestFunc()
 			.then(data => {
 				if (this.activeRequest === request) {
 					this.tracks = (this.tracks || []).concat(data.items);
-					loadMore.hasMore = (data.total || 0) > this.tracks.length;
-					loadMore.total = data.total;
-					loadMore.loading = false;
+					loadMore.hasMore.set((data.total || 0) > this.tracks.length);
+					loadMore.total.set(data.total);
+					loadMore.loading.set(false);
 				}
 			})
 			.catch(e => {
 				if (this.activeRequest === request) {
-					this.loadMore().loading = false;
+					this.loadMore().loading.set(false);
 				}
 				this.notify.error(e);
 			});
@@ -46,9 +46,9 @@ export class TracksLoaderComponent implements OnChanges {
 	searchText(): void {
 		this.getTracks(async () =>
 			this.jam.track.search({
-				query: this.query,
-				skip: this.loadMore().skip,
-				take: this.loadMore().take,
+				query: this.query(),
+				skip: this.loadMore().skip(),
+				take: this.loadMore().take(),
 				trackIncTag: true,
 				trackIncState: true
 			})
@@ -58,9 +58,9 @@ export class TracksLoaderComponent implements OnChanges {
 	searchCmd(): void {
 		this.getTracks(async () =>
 			this.jam.track.search({
-				...this.queryCmd,
-				skip: this.loadMore().skip,
-				take: this.loadMore().take,
+				...this.queryCmd(),
+				skip: this.loadMore().skip(),
+				take: this.loadMore().take(),
 				trackIncTag: true,
 				trackIncState: true
 			})
@@ -70,20 +70,20 @@ export class TracksLoaderComponent implements OnChanges {
 	list(): void {
 		this.getTracks(async () =>
 			this.jam.track.search({
-				list: this.listType,
+				list: this.listType(),
 				trackIncState: true,
 				trackIncTag: true,
-				skip: this.loadMore().skip,
-				take: this.loadMore().take
+				skip: this.loadMore().skip(),
+				take: this.loadMore().take()
 			}));
 	}
 
 	load(): void {
-		if (this.query) {
+		if (this.query()) {
 			this.searchText();
-		} else if (this.queryCmd) {
+		} else if (this.queryCmd()) {
 			this.searchCmd();
-		} else if (this.listType) {
+		} else if (this.listType()) {
 			this.list();
 		} else {
 			this.tracks = [];
@@ -91,15 +91,14 @@ export class TracksLoaderComponent implements OnChanges {
 	}
 
 	ngOnChanges(): void {
-		const loadMore = this.loadMore()
-		loadMore.skip = 0;
-		loadMore.total = 0;
-		loadMore.hasMore = false;
-		this.showRating = this.listType === 'highest';
-		this.showPlayCount = this.listType === 'frequent';
-		this.showPlayDate = this.listType === 'recent';
+		const loadMore = this.loadMore();
+		loadMore.skip.set(0);
+		loadMore.total.set(0);
+		loadMore.hasMore.set(false);
+		this.showRating = this.listType() === 'highest';
+		this.showPlayCount = this.listType() === 'frequent';
+		this.showPlayDate = this.listType() === 'recent';
 		this.tracks = undefined;
 		this.load();
 	}
-
 }

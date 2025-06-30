@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnChanges, inject, viewChildren, viewChild} from '@angular/core';
+import {Component, HostListener, OnChanges, inject, viewChildren, viewChild, input} from '@angular/core';
 import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
@@ -9,7 +9,6 @@ import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-context
 import {TagEditor} from '../../model/tag-editor.class';
 import {FilenameColumnID, RawTagEditCell, RawTagEditColumn, RawTagEditRow} from '../../model/tag-editor.types';
 import {rebuildTag} from '../../model/tag-editor.utils';
-import {AlbumValuesEdit, DialogAlbumComponent} from '../dialog-album/dialog-album.component';
 import {DialogChooseColumnsComponent} from '../dialog-choose-columns/dialog-choose-columns.component';
 import {DialogMatchReleaseComponent} from '../dialog-match-release/dialog-match-release.component';
 import {ReleaseMatching} from '../match-release/match-release.component';
@@ -34,7 +33,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	canLoadRecursive = false;
 	activeCol?: RawTagEditColumn;
 	isSaving = false;
-	@Input() id?: string;
+	readonly id = input<string>();
 	private readonly cellEditors = viewChildren(CellEditor);
 	private readonly actionMenu = viewChild<ContextMenuComponent>('actionMenu');
 	private readonly folderService = inject(AdminFolderService);
@@ -45,10 +44,6 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 
 	constructor() {
 		this.editor = new TagEditor(this.jam);
-	}
-
-	onScroll(): void {
-		//
 	}
 
 	@HostListener('window:beforeunload')
@@ -64,9 +59,10 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		this.folder = undefined;
 		this.tracks = undefined;
 		this.activeCol = undefined;
-		if (this.id) {
+		const id = this.id();
+		if (id) {
 			this.jam.folder.id({
-				id: this.id,
+				id: id,
 				folderIncFolders: true,
 				folderIncTracks: true,
 				folderIncParents: true,
@@ -108,7 +104,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			if (nextrow) {
 				const nextcell = nextrow.cells[data.cell.parent.cells.indexOf(data.cell)];
 				if (nextcell) {
-					const nexteditor = this.cellEditors().find(editor => editor.cell === nextcell);
+					const nexteditor = this.cellEditors().find(editor => editor.cell && editor.cell() === nextcell);
 					if (nexteditor) {
 						setTimeout(() => {
 							nexteditor.navigTo();
@@ -119,7 +115,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		} else if (isLeftRightArrowKeys(data.event)) {
 			const nextcell = data.cell.parent.cells[data.cell.parent.cells.indexOf(data.cell) + (isRightArrowKey(data.event) ? 1 : -1)];
 			if (nextcell) {
-				const nexteditor = this.cellEditors().find(editor => editor.cell === nextcell);
+				const nexteditor = this.cellEditors().find(editor => editor.cell && editor.cell() === nextcell);
 				if (nexteditor) {
 					setTimeout(() => {
 						nexteditor.navigTo();
@@ -258,25 +254,6 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			childComponent: DialogMatchReleaseComponent,
 			data: matching,
 			panelClass: 'overlay-panel-large'
-		});
-	}
-
-	editAlbumValues(): void {
-		if (!this.canDeactivate()) {
-			this.notify.error(Error('Saving is in progress'));
-		}
-		if (!this.tracks) {
-			return;
-		}
-		const data: AlbumValuesEdit = {
-			tracks: this.tracks
-		};
-		this.dialogOverlay.open({
-			title: 'Edit Album Values',
-			childComponent: DialogAlbumComponent,
-			data,
-			onOkBtn: async () => Promise.resolve(),
-			onCancelBtn: async () => Promise.resolve()
 		});
 	}
 

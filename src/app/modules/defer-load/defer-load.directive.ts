@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, Input, OnDestroy, inject, output} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, OnDestroy, inject, output, input} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {DeferLoadService, ScrollNotifyEvent} from './defer-load.service';
 import {Rect} from './rect';
@@ -8,7 +8,7 @@ import {Rect} from './rect';
 	standalone: false
 })
 export class DeferLoadDirective implements AfterViewInit, OnDestroy {
-	@Input() preRender: boolean = false;
+	readonly preRender = input<boolean>(false);
 	readonly appDeferLoad = output();
 	private elementRef = inject(ElementRef);
 	private deferLoadService = inject(DeferLoadService);
@@ -25,7 +25,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 			} else {
 				this.addScrollListeners();
 			}
-		} else if (this.preRender) {
+		} else if (this.preRender()) {
 			this.load();
 		}
 	}

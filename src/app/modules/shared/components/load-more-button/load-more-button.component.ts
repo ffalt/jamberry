@@ -1,4 +1,4 @@
-import {Component, Input, output} from '@angular/core';
+import {Component, output, model} from '@angular/core';
 
 @Component({
 	selector: 'app-load-more-button',
@@ -7,15 +7,15 @@ import {Component, Input, output} from '@angular/core';
 	standalone: false
 })
 export class LoadMoreButtonComponent {
-	@Input() skip: number = 0;
-	@Input() take: number = 20;
-	@Input() total: number | undefined;
-	@Input() hasMore: boolean = false;
-	@Input() loading: boolean = false;
+	readonly skip = model<number>(0);
+	readonly take = model<number>(20);
+	readonly total = model<number>();
+	readonly hasMore = model<boolean>(false);
+	readonly loading = model<boolean>(false);
 	readonly requestLoad = output();
 
 	more(): void {
-		this.skip += this.take;
+		this.skip.set(this.skip() + this.take());
 		this.requestLoad.emit();
 	}
 }

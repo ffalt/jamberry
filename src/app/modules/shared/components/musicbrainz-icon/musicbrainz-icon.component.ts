@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
-    selector: 'app-mb-icon',
-    templateUrl: './musicbrainz-icon.component.html',
-    styleUrls: ['./musicbrainz-icon.component.scss'],
-    standalone: false
+	selector: 'app-mb-icon',
+	templateUrl: './musicbrainz-icon.component.html',
+	styleUrls: ['./musicbrainz-icon.component.scss'],
+	standalone: false
 })
 export class MusicbrainzIconComponent {
-	@Input() size: number = 16;
+	readonly size = input<number>(16);
 }

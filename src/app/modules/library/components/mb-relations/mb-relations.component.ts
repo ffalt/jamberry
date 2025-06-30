@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, OnChanges, input} from '@angular/core';
 import {MusicBrainz} from '@jam';
 
 export interface RelationType {
@@ -12,13 +12,13 @@ export interface RelationGroup {
 }
 
 @Component({
-    selector: 'app-mb-relations',
-    templateUrl: './mb-relations.component.html',
-    styleUrls: ['./mb-relations.component.scss'],
-    standalone: false
+	selector: 'app-mb-relations',
+	templateUrl: './mb-relations.component.html',
+	styleUrls: ['./mb-relations.component.scss'],
+	standalone: false
 })
 export class MbRelationsComponent implements OnChanges {
-	@Input() relations?: Array<MusicBrainz.Relation>;
+	readonly relations = input<Array<MusicBrainz.Relation>>();
 	urlRelationGroup?: RelationGroup;
 
 	ngOnChanges(): void {
@@ -26,8 +26,9 @@ export class MbRelationsComponent implements OnChanges {
 	}
 
 	refresh(): void {
-		if (this.relations) {
-			this.displayRelationGroups(this.relations);
+		const relations = this.relations();
+		if (relations) {
+			this.displayRelationGroups(relations);
 		}
 	}
 

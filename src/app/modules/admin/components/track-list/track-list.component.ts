@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, inject} from '@angular/core';
+import {Component, OnChanges, inject, input} from '@angular/core';
 import {Router} from '@angular/router';
 import {Jam} from '@jam';
 
@@ -15,7 +15,7 @@ export interface TrackItem {
 })
 export class TrackListComponent implements OnChanges {
 	trackItems?: Array<TrackItem>;
-	@Input() tracks: Array<Jam.Track> = [];
+	readonly tracks = input<Array<Jam.Track>>([]);
 	private readonly router = inject(Router);
 
 	getSortValue(column: string, trackItem: TrackItem): string | number | undefined {
@@ -36,7 +36,7 @@ export class TrackListComponent implements OnChanges {
 	}
 
 	ngOnChanges(): void {
-		this.trackItems = (this.tracks || []).map(track => ({track}));
+		this.trackItems = (this.tracks() || []).map(track => ({track}));
 	}
 
 	toTrackFolder(track: Jam.Track): void {

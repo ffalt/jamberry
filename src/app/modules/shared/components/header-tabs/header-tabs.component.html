@@ -1,14 +1,15 @@
-@if (tabs && tabs.length>1) {
-  <ul class="tabs" listRole="tablist" i18n-listRole appFocusKeyList [class.mini]="smallTabs">
-    @for (tab of tabs; track tab) {
-      <li>
-        @if (tab.link) {
-          <a routerLinkActive="active" appFocusKeyListItem listRole="tab" i18n-listRole [routerLink]="[tab.link.route]" [routerLinkActiveOptions]="{exact:!!tab.link.exact}">{{tab.label}}</a>
-        }
-        @if (!tab.link) {
-          <a appFocusKeyListItem listRole="tab" i18n-listRole [class.active]="tab.active" (click)="tab.click()" (keydown.enter)="tab.click()">{{tab.label}}</a>
-        }
-      </li>
-    }
-  </ul>
+@if (tabs(); as tabs) {
+	@if (tabs.length > 1) {
+		<ul class="tabs" appFocusKeyList role="tablist" [class.mini]="smallTabs()">
+			@for (tab of tabs; track tab) {
+				<li>
+					@if (tab.link) {
+						<a routerLinkActive="active" appFocusKeyListItem role="tab" [routerLink]="[tab.link.route]" [routerLinkActiveOptions]="{exact:!!tab.link.exact}">{{ tab.label }}</a>
+					} @else {
+						<a appFocusKeyListItem role="tab" [class.active]="tab.active" (click)="tab.click()" (keydown.enter)="tab.click()">{{ tab.label }}</a>
+					}
+				</li>
+			}
+		</ul>
+	}
 }

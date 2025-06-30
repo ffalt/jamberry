@@ -7,7 +7,6 @@ import {Directive, ElementRef, HostBinding, inject} from '@angular/core';
 })
 export class FocusKeyListItemDirective implements FocusableOption {
 	@HostBinding() tabindex = -1;
-	@HostBinding('attr.role') listRole = 'list-item';
 	protected readonly element = inject(ElementRef);
 
 	focus() {

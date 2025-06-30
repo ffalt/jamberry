@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, inject } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, model} from '@angular/core';
 import {positionElements} from './child-tooltip-content.position';
 
 export interface TooltipInfo {
@@ -7,16 +7,16 @@ export interface TooltipInfo {
 }
 
 @Component({
-    selector: 'app-child-tooltip-content',
-    templateUrl: './child-tooltip-content.component.html',
-    styleUrls: ['./child-tooltip-content.component.scss'],
-    standalone: false
+	selector: 'app-child-tooltip-content',
+	templateUrl: './child-tooltip-content.component.html',
+	styleUrls: ['./child-tooltip-content.component.scss'],
+	standalone: false
 })
 export class ChildTooltipContentComponent implements AfterViewInit {
-	@Input() hostElement?: HTMLElement;
-	@Input() content?: TooltipInfo;
-	@Input() placement: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
-	@Input() animation: boolean = true;
+	readonly hostElement = model<HTMLElement>();
+	readonly content = model<TooltipInfo>();
+	readonly placement = model<'top' | 'bottom' | 'left' | 'right'>('bottom');
+	readonly animation = model<boolean>(true);
 	top: number = -1000;
 	left: number = -1000;
 	isIn: boolean = false;
@@ -30,26 +30,17 @@ export class ChildTooltipContentComponent implements AfterViewInit {
 	}
 
 	show(): void {
-		if (!this.hostElement) {
+		const hostElement = this.hostElement();
+		if (!hostElement) {
 			return;
 		}
 		document.body.appendChild(this.element.nativeElement);
-		const p = positionElements(this.hostElement, this.element.nativeElement.children[0], this.placement, true);
+		const p = positionElements(hostElement, this.element.nativeElement.children[0], this.placement(), true);
 		this.top = p.top;
 		this.left = p.left;
 		this.isIn = true;
-		if (this.animation) {
+		if (this.animation()) {
 			this.isFade = true;
 		}
 	}
-
-	hide(): void {
-		this.top = -1000;
-		this.left = -1000;
-		this.isIn = true;
-		if (this.animation) {
-			this.isFade = false;
-		}
-	}
-
 }

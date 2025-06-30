@@ -1,4 +1,4 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {PodcastService} from '@shared/services';
@@ -10,8 +10,8 @@ import {PodcastService} from '@shared/services';
 	standalone: false
 })
 export class EpisodeStateButtonComponent {
-	@Input() episode?: Jam.Episode;
-	@Input() showTitle: boolean = false;
+	readonly episode = input<Jam.Episode>();
+	readonly showTitle = input<boolean>(false);
 	readonly PodcastStatus = PodcastStatus;
 	readonly player = inject(PlayerService);
 	readonly podcastService = inject(PodcastService);

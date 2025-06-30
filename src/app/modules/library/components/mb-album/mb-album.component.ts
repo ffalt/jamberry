@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, inject} from '@angular/core';
+import {Component, OnChanges, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {JamService, MusicBrainz, MusicBrainzLookupType} from '@jam';
 
@@ -19,7 +19,7 @@ export interface MBAlbumInfoGroup {
 	standalone: false
 })
 export class MbAlbumComponent implements OnChanges {
-	@Input() mbAlbumID?: string;
+	readonly mbAlbumID = input<string>();
 	mbAlbum?: MusicBrainz.Release;
 	infoGroups: Array<MBAlbumInfoGroup> = [];
 	private readonly jam = inject(JamService);
@@ -30,8 +30,9 @@ export class MbAlbumComponent implements OnChanges {
 	}
 
 	refresh(): void {
-		if (this.mbAlbumID) {
-			this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.release, mbID: this.mbAlbumID})
+		const mbAlbumID = this.mbAlbumID();
+		if (mbAlbumID) {
+			this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.release, mbID: mbAlbumID})
 				.then(data => {
 					this.display(data.data.release);
 				})

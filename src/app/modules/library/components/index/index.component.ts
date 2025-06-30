@@ -1,4 +1,4 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {AppService, NavigService} from '@core/services';
 import {Index, IndexEntry} from '@shared/services';
 
@@ -9,8 +9,8 @@ import {Index, IndexEntry} from '@shared/services';
 	standalone: false
 })
 export class IndexComponent {
-	@Input() index?: Index;
-	@Input() viewTypeList: boolean = false;
+	readonly index = input<Index>();
+	readonly viewTypeList = input<boolean>(false);
 	readonly app = inject(AppService);
 	private readonly navig = inject(NavigService);
 

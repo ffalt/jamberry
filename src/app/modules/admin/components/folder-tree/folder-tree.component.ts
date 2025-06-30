@@ -1,5 +1,5 @@
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {Component, Input, OnDestroy, OnInit, inject, output, viewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, output, viewChild, input} from '@angular/core';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
 import {FolderType, Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
@@ -35,7 +35,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 	selected?: TreeNode;
 	nodes: Array<TreeNode> = [];
 	expandIDs: Array<string> = [];
-	@Input() autoSelect: boolean = false;
+	readonly autoSelect = input<boolean>(false);
 	readonly selectionChange = output<Jam.Folder>();
 	private readonly viewport = viewChild(CdkVirtualScrollViewport);
 	private readonly unsubscribe = new Subject<void>();
@@ -80,7 +80,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 
 	selectNode(node: TreeNode): void {
 		this.selectionChange.emit(node.folder);
-		if (this.autoSelect) {
+		if (this.autoSelect()) {
 			this.selected = node;
 		}
 	}
@@ -181,7 +181,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 		if (node.folder.id === selectID) {
 			this.selected = node;
 			const viewport = this.viewport();
-   if (viewport) {
+			if (viewport) {
 				viewport.scrollToIndex(this.nodes.indexOf(node));
 			}
 		}

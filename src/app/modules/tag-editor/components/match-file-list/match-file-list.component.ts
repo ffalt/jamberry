@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, inject, output} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, output, input} from '@angular/core';
 import {Matching} from '../../model/release-matching.helper';
 
 @Component({
@@ -8,7 +8,7 @@ import {Matching} from '../../model/release-matching.helper';
 	standalone: false
 })
 export class MatchFileListComponent {
-	@Input() matchings: Array<Matching> = [];
+	readonly matchings = input<Array<Matching>>([]);
 	readonly dragStartRequest = output<{
 		event: DragEvent;
 		match: Matching;

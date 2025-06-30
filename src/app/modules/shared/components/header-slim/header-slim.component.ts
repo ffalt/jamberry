@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
-    selector: 'app-view-header-slim',
-    templateUrl: './header-slim.component.html',
-    styleUrls: ['./header-slim.component.scss'],
-    standalone: false
+	selector: 'app-view-header-slim',
+	templateUrl: './header-slim.component.html',
+	styleUrls: ['./header-slim.component.scss'],
+	standalone: false
 })
 export class HeaderSlimComponent {
-	@Input() section?: string;
+	readonly section = input<string>();
 }

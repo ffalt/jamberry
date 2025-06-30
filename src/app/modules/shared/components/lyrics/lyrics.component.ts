@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, inject} from '@angular/core';
+import {Component, OnChanges, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
 
@@ -9,7 +9,7 @@ import {JamService} from '@jam';
 	standalone: false
 })
 export class LyricsComponent implements OnChanges {
-	@Input() trackID?: string;
+	readonly trackID = input<string>();
 	lyrics?: Array<string>;
 	lyricsSource?: string;
 	private readonly jam = inject(JamService);
@@ -17,10 +17,11 @@ export class LyricsComponent implements OnChanges {
 
 	loadLyrics(): void {
 		this.lyrics = undefined;
-		if (!this.trackID) {
+		const trackID = this.trackID();
+		if (!trackID) {
 			return;
 		}
-		this.jam.track.lyrics({id: this.trackID})
+		this.jam.track.lyrics({id: trackID})
 			.then(data => {
 				this.lyrics = data.lyrics ? data.lyrics.split('\n') : undefined;
 				this.lyricsSource = data.source;

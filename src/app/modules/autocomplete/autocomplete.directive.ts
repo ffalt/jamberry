@@ -4,14 +4,14 @@ import {
 	Directive,
 	ElementRef,
 	HostListener,
-	Input,
 	OnChanges,
 	OnDestroy,
 	OnInit,
 	SimpleChanges,
 	ViewContainerRef,
 	inject,
-	output
+	output,
+	input
 } from '@angular/core';
 import {AutocompleteControl, AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
 import {isArrowKeys, isDownArrowKey, isEnterKey, isEscapeKey, isLeftArrowKey, isNonCharKey, isRightArrowKey} from '@app/utils/keys';
@@ -48,14 +48,14 @@ export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement)
 	standalone: false
 })
 export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, AutocompleteControl {
-	@Input() appAutocomplete?: AutocompleteComponent;
-	@Input() appAutocompleteControl?: AutocompleteDataControl;
-	@Input() appAutocompleteSettings?: Partial<AutocompleteSettings>;
+	readonly appAutocomplete = input<AutocompleteComponent>();
+	readonly appAutocompleteControl = input<AutocompleteDataControl>();
+	readonly appAutocompleteSettings = input<Partial<AutocompleteSettings>>();
+	readonly appAutocompleteNavigKeyDown = output<KeyboardEvent>();
 	isVisible: boolean = false;
 	activeIndex: number = NO_INDEX;
 	query: string = '';
 	options: Array<AutocompleteOption> = [];
-	readonly appAutocompleteNavigKeyDown = output<KeyboardEvent>();
 	private readonly unsubscribe = new Subject<void>();
 	private readonly host = inject<ElementRef<HTMLInputElement>>(ElementRef);
 	private readonly vcr = inject(ViewContainerRef);
@@ -79,14 +79,15 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes.appAutocompleteSettings) {
-			this.settings = {...this.settings, ...this.appAutocompleteSettings};
+			this.settings = {...this.settings, ...this.appAutocompleteSettings()};
 		}
 	}
 
 	selectOption(option: AutocompleteOption): void {
 		this.hide();
-		if (this.appAutocompleteControl) {
-			this.query = this.appAutocompleteControl.autocompleteSelectResult(option);
+		const appAutocompleteControl = this.appAutocompleteControl();
+		if (appAutocompleteControl) {
+			this.query = appAutocompleteControl.autocompleteSelectResult(option);
 		}
 	}
 
@@ -173,8 +174,9 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	}
 
 	private async request(query: string): Promise<Array<AutocompleteOption>> {
-		if (this.appAutocompleteControl) {
-			return this.appAutocompleteControl.autocompleteGetData(query);
+		const appAutocompleteControl = this.appAutocompleteControl();
+		if (appAutocompleteControl) {
+			return appAutocompleteControl.autocompleteGetData(query);
 		}
 		return [];
 	}
@@ -188,17 +190,19 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 			.subscribe(() => {
 				if (!this.isVisible) {
 					this.query = this.host.nativeElement.value;
-					if (this.appAutocompleteControl) {
-						this.appAutocompleteControl.autocompleteEnter(this.query);
+					const appAutocompleteControl = this.appAutocompleteControl();
+					if (appAutocompleteControl) {
+						appAutocompleteControl.autocompleteEnter(this.query);
 					}
 					return;
 				}
 				const result = this.options[this.activeIndex];
 				this.hide();
+				const appAutocompleteControl = this.appAutocompleteControl();
 				if (result) {
 					this.selectOption(result);
-				} else if (this.appAutocompleteControl) {
-					this.appAutocompleteControl.autocompleteEnter(this.query);
+				} else if (appAutocompleteControl) {
+					appAutocompleteControl.autocompleteEnter(this.query);
 				}
 			});
 	}
@@ -230,7 +234,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	}
 
 	private openDropdown(): void {
-		const rootTemplate = this.appAutocomplete?.rootTemplate();
+		const rootTemplate = this.appAutocomplete()?.rootTemplate();
 		if (!rootTemplate) {
 			return;
 		}

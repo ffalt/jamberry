@@ -1,33 +1,32 @@
-@if (trackHealth) {
-  @if (!(trackHealth.health && hints)) {
-    <div class="hints">
-      <div class="hint">
-        <i class="icon-spin icon-spinner"></i>
-      </div>
-    </div>
-  }
-  @if (trackHealth.health && hints) {
-    <div class="hints">
-      @for (hint of hints; track hint.hint.id) {
-        <div class="hint">
-          <i class="icon-warning"></i> {{hint.hint.name}}
-          <div class="details">{{hint.description}}</div>
-        </div>
-      } @empty {
-        <div i18n class="hint">No Hints</div>
-      }
-      <div class="solutions">
-        @for (sol of solutions; track sol.name) {
-          <button class="button-on-background" (click)="sol.click()">
-            @if (sol.running) {
-              <i class="icon-spin icon-spinner"></i>
-            }
-            @if (!sol.running) {
-              {{sol.name}}
-            }
-          </button>
-        }
-      </div>
-    </div>
-  }
+@if (trackHealth(); as trackHealth) {
+	@if (!(trackHealth.health && hints)) {
+		<div class="hints">
+			<div class="hint">
+				<i class="icon-spin icon-spinner"></i>
+			</div>
+		</div>
+	}
+	@if (trackHealth.health && hints) {
+		<div class="hints">
+			@for (hint of hints; track hint.hint.id) {
+				<div class="hint">
+					<i class="icon-warning"></i> {{ hint.hint.name }}
+					<div class="details">{{ hint.description }}</div>
+				</div>
+			} @empty {
+				<div i18n class="hint">No Hints</div>
+			}
+			<div class="solutions">
+				@for (sol of solutions; track sol.name) {
+					<button class="button-on-background" (click)="sol.click()">
+						@if (sol.running) {
+							<i class="icon-spin icon-spinner"></i>
+						} @else {
+							{{ sol.name }}
+						}
+					</button>
+				}
+			</div>
+		</div>
+	}
 }

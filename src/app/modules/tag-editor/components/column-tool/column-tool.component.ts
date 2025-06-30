@@ -1,4 +1,4 @@
-import {Component, Input, output} from '@angular/core';
+import {Component, output, input} from '@angular/core';
 import {RawTagEditColumn} from '@app/modules/tag-editor/model/tag-editor.types';
 import {TagEditor} from '../../model/tag-editor.class';
 
@@ -9,8 +9,8 @@ import {TagEditor} from '../../model/tag-editor.class';
 	standalone: false
 })
 export class ColumnToolComponent {
-	@Input() editor?: TagEditor;
-	@Input() activeCol?: RawTagEditColumn;
+	readonly editor = input<TagEditor>();
+	readonly activeCol = input<RawTagEditColumn>();
 	readonly requestClose = output();
 	sourceColumnIndex: number = 0;
 	multiStr: string = '';

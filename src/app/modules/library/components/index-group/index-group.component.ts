@@ -1,4 +1,4 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {AppService, NavigService} from '@core/services';
 import {JamObjectType} from '@jam';
 import {IndexEntry, IndexGroup} from '@shared/services';
@@ -10,8 +10,8 @@ import {IndexEntry, IndexGroup} from '@shared/services';
 	standalone: false
 })
 export class IndexGroupComponent {
-	@Input() indexType?: JamObjectType;
-	@Input() group?: IndexGroup;
+	readonly indexType = input<JamObjectType>();
+	readonly group = input<IndexGroup>();
 	visible: boolean = false;
 	readonly app = inject(AppService);
 	private readonly navig = inject(NavigService);

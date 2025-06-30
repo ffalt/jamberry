@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {Jam} from '@jam';
 
 export interface StartSectionItem {
@@ -8,12 +8,12 @@ export interface StartSectionItem {
 }
 
 @Component({
-    selector: 'app-start-section',
-    templateUrl: './start-section.component.html',
-    styleUrls: ['./start-section.component.scss'],
-    standalone: false
+	selector: 'app-start-section',
+	templateUrl: './start-section.component.html',
+	styleUrls: ['./start-section.component.scss'],
+	standalone: false
 })
 export class StartSectionComponent {
-	@Input() name?: string;
-	@Input() list?: Array<StartSectionItem>;
+	readonly name = input<string>();
+	readonly list = input<Array<StartSectionItem>>();
 }

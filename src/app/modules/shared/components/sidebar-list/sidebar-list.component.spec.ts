@@ -10,15 +10,16 @@ describe('SidebarListComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-    imports: [...TEST_SHARED_MODULE_IMPORTS],
-    providers: [...TEST_SHARED_MODULE_PROVIDERS],
-    declarations: [SidebarListComponent, MockComponent(SidebarListItemComponent)],
-    teardown: { destroyAfterEach: false }
-}).compileComponents()
+			imports: [...TEST_SHARED_MODULE_IMPORTS],
+			providers: [...TEST_SHARED_MODULE_PROVIDERS],
+			declarations: [SidebarListComponent, MockComponent(SidebarListItemComponent)],
+			teardown: {destroyAfterEach: false}
+		}).compileComponents()
 	);
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(SidebarListComponent);
+		fixture.componentRef.setInput('list', {name: 'test', entries: []});
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

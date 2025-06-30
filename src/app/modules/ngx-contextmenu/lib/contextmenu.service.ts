@@ -124,12 +124,13 @@ export class ContextMenuService {
 		const {event, item, menuItems, menuClass} = context;
 
 		const contextMenuContent: ComponentRef<ContextMenuContentComponent> = overlay.attach(new ComponentPortal(ContextMenuContentComponent));
-		contextMenuContent.instance.event = event;
-		contextMenuContent.instance.item = item;
-		contextMenuContent.instance.menuItems = menuItems;
-		contextMenuContent.instance.overlay = overlay;
-		contextMenuContent.instance.isLeaf = true;
-		contextMenuContent.instance.menuClass = menuClass;
+		const instance = contextMenuContent.instance;
+		instance.event.set(event);
+		instance.item.set(item);
+		instance.menuItems.set(menuItems);
+		instance.overlay.set(overlay);
+		instance.isLeaf.set(true);
+		instance.menuClass.set(menuClass);
 		(overlay as OverlayRefWithContextMenu).contextMenu = contextMenuContent.instance;
 
 		const subscriptions: Subscription = new Subscription();
@@ -143,10 +144,10 @@ export class ContextMenuService {
 			.subscribe(subMenuEvent => {
 				this.destroySubMenus(contextMenuContent.instance);
 				if (!subMenuEvent.contextMenu) {
-					contextMenuContent.instance.isLeaf = true;
+					contextMenuContent.instance.isLeaf.set(true);
 					return;
 				}
-				contextMenuContent.instance.isLeaf = false;
+				contextMenuContent.instance.isLeaf.set(false);
 				this.show.next(subMenuEvent);
 			}));
 		contextMenuContent.onDestroy(() => {
@@ -198,15 +199,14 @@ export class ContextMenuService {
 
 			const newLeaf = this.getLastAttachedOverlay();
 			if (newLeaf && newLeaf.contextMenu) {
-				newLeaf.contextMenu.isLeaf = true;
+				newLeaf.contextMenu.isLeaf.set(true);
 			}
-
 			this.isDestroyingLeafMenu = false;
 		});
 	}
 
 	destroySubMenus(contextMenu: ContextMenuContentComponent): void {
-		const overlay = contextMenu.overlay;
+		const overlay = contextMenu.overlay();
 		if (overlay) {
 			const index = this.overlays.indexOf(overlay);
 			this.overlays.slice(index + 1).forEach(subMenuOverlay => {
@@ -214,10 +214,5 @@ export class ContextMenuService {
 				subMenuOverlay.dispose();
 			});
 		}
-	}
-
-	isLeafMenu(contextMenuContent: ContextMenuContentComponent): boolean {
-		const overlay = this.getLastAttachedOverlay();
-		return contextMenuContent.overlay === overlay;
 	}
 }

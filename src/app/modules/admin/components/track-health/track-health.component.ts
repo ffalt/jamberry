@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, inject, output} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit, inject, output, input} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {AdminFolderService, NotifyService} from '@core/services';
@@ -28,7 +28,7 @@ export interface TrackHealthHint {
 export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	hints?: Array<TrackHealthHint>;
 	solutions: Array<TrackHealthHintSolution> = [];
-	@Input() trackHealth?: Jam.TrackHealth;
+	readonly trackHealth = input<Jam.TrackHealth>();
 	readonly resolvedEvent = output();
 	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
@@ -37,7 +37,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	private readonly router = inject(Router);
 
 	ngOnChanges(): void {
-		this.display(this.trackHealth);
+		this.display(this.trackHealth());
 	}
 
 	ngOnDestroy(): void {
@@ -48,7 +48,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.folderService.tracksChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(change => {
-				const health = this.trackHealth;
+				const health = this.trackHealth();
 				if (health && health.track.id === change.id) {
 					health.health = [];
 					this.jam.track.health({ids: [health.track.id], healthMedia: true})

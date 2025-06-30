@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, OnChanges, input} from '@angular/core';
 import {JamLibraryObject} from '@library/model/objects';
 
 interface ObjGroupsView {
@@ -7,29 +7,30 @@ interface ObjGroupsView {
 }
 
 @Component({
-    selector: 'app-obj-groups-view',
-    templateUrl: './obj-groups-view.component.html',
-    styleUrls: ['./obj-groups-view.component.scss'],
-    standalone: false
+	selector: 'app-obj-groups-view',
+	templateUrl: './obj-groups-view.component.html',
+	styleUrls: ['./obj-groups-view.component.scss'],
+	standalone: false
 })
 export class ObjGroupsViewComponent implements OnChanges {
-	@Input() objs?: Array<JamLibraryObject>;
-	@Input() showParent: boolean = false;
-	@Input() viewTypeList: boolean = false;
-	@Input() grouping: boolean = false;
-	@Input() typeName?: string;
-	@Input() headline?: string;
+	readonly objs = input<Array<JamLibraryObject>>();
+	readonly showParent = input<boolean>(false);
+	readonly viewTypeList = input<boolean>(false);
+	readonly grouping = input<boolean>(false);
+	readonly typeName = input<string>();
+	readonly headline = input<string>();
 	groups?: Array<ObjGroupsView>;
 
 	ngOnChanges(): void {
 		this.groups = undefined;
-		if (this.objs) {
-			if (!this.grouping) {
-				this.groups = (this.objs.length > 0) ? [{type: undefined, objs: this.objs}] : [];
+		const objs = this.objs();
+		if (objs) {
+			if (!this.grouping()) {
+				this.groups = (objs.length > 0) ? [{type: undefined, objs: objs}] : [];
 				return;
 			}
 			const groups = [];
-			for (const obj of this.objs) {
+			for (const obj of objs) {
 				const type = obj.groupType();
 				let group: ObjGroupsView | undefined = groups.find(g => g.type === type);
 				if (!group) {

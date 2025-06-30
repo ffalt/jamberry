@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
-    selector: 'app-logo-icon',
-    templateUrl: './logo-icon.component.html',
-    styleUrls: ['./logo-icon.component.scss'],
-    standalone: false
+	selector: 'app-logo-icon',
+	templateUrl: './logo-icon.component.html',
+	styleUrls: ['./logo-icon.component.scss'],
+	standalone: false
 })
 export class LogoIconComponent {
-	@Input() size: number = 30;
+	readonly size = input<number>(30);
 }

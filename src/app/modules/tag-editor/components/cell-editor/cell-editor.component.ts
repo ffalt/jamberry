@@ -1,18 +1,18 @@
 import {
-  Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  forwardRef,
-  HostListener,
-  Input,
-  OnChanges,
-  OnDestroy,
-  SimpleChanges,
-  Type,
-  ViewContainerRef,
-  inject,
-  output,
-  viewChild
+	Component,
+	ComponentFactoryResolver,
+	ComponentRef,
+	forwardRef,
+	HostListener,
+	OnChanges,
+	OnDestroy,
+	SimpleChanges,
+	Type,
+	ViewContainerRef,
+	inject,
+	output,
+	viewChild,
+	input
 } from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
@@ -34,14 +34,14 @@ import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-
 	standalone: false
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
-	@Input() cell?: RawTagEditCell = undefined;
+	readonly cell = input.required<RawTagEditCell>();
 	lines: Array<string> = [];
 	inactive: boolean = true;
 	readonly navigKeyDownRequest = output<{
 		cell: RawTagEditCell;
 		event: KeyboardEvent;
 	}>();
-	readonly container = viewChild('cellContainer', { read: ViewContainerRef });
+	readonly container = viewChild('cellContainer', {read: ViewContainerRef});
 	private readonly unsubscribe = new Subject<void>();
 	private readonly dialogOverlay = inject(DialogOverlayService);
 	private readonly resolver = inject(ComponentFactoryResolver);
@@ -56,10 +56,6 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	@HostListener('click', ['$event'])
 	clickEvent(): void {
 		this.edit();
-	}
-
-	onCellEditorNavigationKeyDown(data: { cell: RawTagEditCell; event: KeyboardEvent }): void {
-		this.navigKeyDownRequest.emit(data);
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -113,12 +109,13 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	private edit(): void {
-		switch (this.cell?.column.def.impl) {
+		const cell = this.cell();
+		switch (cell?.column.def.impl) {
 			case FrameType.Filename:
 			case FrameType.IdText:
 			case FrameType.LangDescText:
 			case FrameType.Text:
-				if (this.cell.column.def.id === 'USLT') {
+				if (cell.column.def.id === 'USLT') {
 					this.editLyrics();
 				} else {
 					this.startEdit(CellEditorTxtComponent);
@@ -167,11 +164,11 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		setTimeout(() => {
 			this.createComponent(type);
 			if (this.componentRef) {
-				this.componentRef.instance.cell = this.cell;
+				this.componentRef.instance.cell = this.cell();
 				// eslint-disable-next-line @angular-eslint/no-lifecycle-call
 				if (this.componentRef.instance.ngOnChanges) {
 					// eslint-disable-next-line @angular-eslint/no-lifecycle-call
-					this.componentRef.instance.ngOnChanges({cell: {current: this.cell}});
+					this.componentRef.instance.ngOnChanges({cell: {current: this.cell()}});
 				}
 				if (this.componentRef.instance.navigBlur) {
 					this.componentRef.instance.navigBlur.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
@@ -193,7 +190,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			this.componentRef.destroy();
 		}
 		const container = this.container();
-  if (container) {
+		if (container) {
 			container.clear();
 		}
 	}
@@ -201,32 +198,34 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	private createComponent(type: Type<any>): void {
 		this.clearEdit();
 		const container = this.container();
-  if (container) {
+		if (container) {
 			const factory = this.resolver.resolveComponentFactory(type);
 			this.componentRef = container.createComponent(factory);
 		}
 	}
 
 	private editBool(): void {
-		if (this.cell) {
-			if (this.cell.frames.length === 0) {
-				this.cell.frames.push({id: this.cell.column.def.id, value: {bool: false}});
+		const cell = this.cell();
+		if (cell) {
+			if (cell.frames.length === 0) {
+				cell.frames.push({id: cell.column.def.id, value: {bool: false}});
 			}
-			this.cell.frames[0].value.bool = !this.cell.frames[0].value.bool;
+			cell.frames[0].value.bool = !cell.frames[0].value.bool;
 			this.setChanged();
 		}
 	}
 
 	private setChanged(): void {
-		if (this.cell) {
-			this.cell.changed = true;
-			this.cell.parent.changed = true;
+		const cell = this.cell();
+		if (cell) {
+			cell.changed = true;
+			cell.parent.changed = true;
 			this.display();
 		}
 	}
 
 	private editPictures(): void {
-		const cell = this.cell;
+		const cell = this.cell();
 		if (cell) {
 			const data: PicEdit = {frames: cell.frames};
 			this.dialogOverlay.open({
@@ -244,7 +243,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	private editLyrics(): void {
-		const cell = this.cell;
+		const cell = this.cell();
 		if (cell) {
 			const data: LyricsEdit = {frames: cell.frames};
 			this.dialogOverlay.open({
@@ -263,12 +262,14 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	private display(): void {
-		this.lines = this.cell ? this.cell.frames.map(f => this.frameToString(f)) : [];
+		const cell = this.cell();
+		this.lines = cell ? cell.frames.map(f => this.frameToString(f)) : [];
 	}
 
 	// eslint-disable-next-line complexity
 	private frameToString(frame: RawTagEditFrame): string {
-		switch (this.cell?.column.def.impl) {
+		const cell = this.cell();
+		switch (cell?.column.def.impl) {
 			case FrameType.Filename:
 			case FrameType.Text:
 				return CellEditorComponent.textFrameToString(frame);
@@ -304,7 +305,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			case FrameType.CHAP:
 			case FrameType.Unknown:
 			default:
-				return `TODO CELLEDITOR: ${this.cell?.column.def.name}`;
+				return `TODO CELLEDITOR: ${cell?.column.def.name}`;
 		}
 	}
 

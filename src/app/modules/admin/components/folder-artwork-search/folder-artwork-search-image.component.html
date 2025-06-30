@@ -1,58 +1,58 @@
 <div class="image-selector">
-  <div class="art-source">
-    <div class="section">
-      <a rel="noopener" target="_blank" [href]="searchSource.url">{{searchSource.name}}</a>
-    </div>
-    @if (!nodes) {
-      <app-loading />
-    }
-    @if (nodes) {
-      <div>
-        <app-background-text-list name="Images" [list]="nodes" />
-        <div class="images" appFocusKeyList>
-          @for (node of nodes; track node.image) {
-            <div appFocusKeyListItem (keydown.enter)="node.checked=!node.checked">
-              <div class="image" (clickenter)="node.checked=!node.checked">
-                <img alt="{{node.name}}" [src]="node.thumbnail">
-              </div>
-              <div class="footer">
-                <div class="footer-content">
-                  <form><span class="label">
+	<div class="art-source">
+		<div class="section">
+			<a rel="noopener" target="_blank" [href]="searchSource.url">{{ searchSource.name }}</a>
+		</div>
+		@if (!nodes) {
+			<app-loading/>
+		} @else {
+			<div>
+				<app-background-text-list name="Images" [list]="nodes"/>
+				<div class="images" appFocusKeyList role="list">
+					@for (node of nodes; track node.image) {
+						<div appFocusKeyListItem role="listitem" (keydown.enter)="node.checked=!node.checked">
+							<div class="image" (clickenter)="node.checked=!node.checked">
+								<img alt="{{node.name}}" [src]="node.thumbnail">
+							</div>
+							<div class="footer">
+								<div class="footer-content">
+									<form><span class="label">
                     @if (node.storing) {
-                      <i class="icon-spin icon-spinner"></i>
-                    }
-                    @if (!node.storing) {
-                      <input type="checkbox" [checked]="node.checked" [(ngModel)]="node.checked">
-                      } {{node.name}}
+											<i class="icon-spin icon-spinner"></i>
+										}
+										@if (!node.storing) {
+											<input type="checkbox" [checked]="node.checked" [(ngModel)]="node.checked">
+										} {{ node.name }}
                     </span></form>
-                  </div>
-                </div>
-              </div>
-            }
-          </div>
-        </div>
-      }
-    </div>
-    <div class="artwork">
-      @if (data && artworks) {
-        <div class="current">
-          <div i18n class="section">Current Images</div>
-          @if (!isArtRefreshing) {
-            <app-admin-artwork-list [folderID]="data.folder.id" [artworks]="artworks" />
-          }
-        </div>
-      }
-    </div>
-  </div>
-  <div class="buttons">
-    @if (nodes && nodes.length>0) {
-      <div>
-        @if (isWorking) {
-          <button class="button-on-control"><i class="icon-spin icon-spinner"></i></button>
-        }
-        @if (!isWorking) {
-          <button i18n class="button-on-control" (click)="use()">Use Checked Artwork</button>
-        }
-      </div>
-    }
-  </div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		}
+	</div>
+	<div class="artwork">
+		@if (artworks) {
+			@if (data(); as data) {
+				<div class="current">
+					<div i18n class="section">Current Images</div>
+					@if (!isArtRefreshing) {
+						<app-admin-artwork-list [folderID]="data.folder.id" [artworks]="artworks"/>
+					}
+				</div>
+			}
+		}
+	</div>
+</div>
+<div class="buttons">
+	@if (nodes && nodes.length > 0) {
+		<div>
+			@if (isWorking) {
+				<button class="button-on-control"><i class="icon-spin icon-spinner"></i></button>
+			} @else {
+				<button i18n class="button-on-control" (click)="use()">Use Checked Artwork</button>
+			}
+		</div>
+	}
+</div>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, output, viewChild} from '@angular/core';
+import {Component, ElementRef, output, viewChild, input, model} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 
@@ -15,26 +15,18 @@ import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomp
 	standalone: false
 })
 export class TagEditorInlineAutocompleteComponent implements ControlValueAccessor, AutocompleteDataControl {
-	@Input() getList?: (data: any) => Array<string>;
-	@Input() value?: string;
-	@Input() data?: any;
+	readonly getList = input<(data: any) => Array<string>>();
+	readonly value = model<string>();
+	readonly data = input<any>();
 	editing: boolean = false; // Is Component in edit mode?
 	list: Array<string> = [];
 	readonly valueChange = output<string | undefined>();
 	readonly endEditRequest = output();
 	readonly navigKeyDownRequest = output<KeyboardEvent>();
-	readonly editorStartRef = viewChild<ElementRef>('editorStart');
 	readonly editorInput = viewChild<ElementRef>('editorInput');
 	private autoCompleteValue?: string = ''; // Private variable for input value
 	private onChange: any = Function.prototype; // Trascend the onChange event
 	private onTouched: any = Function.prototype; // Trascend the onTouch event
-
-	startEdit(): void {
-		const editorStartRef = this.editorStartRef();
-  if (editorStartRef) {
-			editorStartRef.nativeElement.focus();
-		}
-	}
 
 	onNavigKeyDown(event: KeyboardEvent): void {
 		this.navigKeyDownRequest.emit(event);
@@ -57,8 +49,9 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 
 	// Do stuff when the input element loses focus
 	onBlur(): void {
-		if (this.autoCompleteValue !== this.value) {
-			this.valueChange.emit(this.value);
+		const value = this.value();
+		if (this.autoCompleteValue !== value) {
+			this.valueChange.emit(value);
 		}
 		this.editing = false;
 		this.endEditRequest.emit();
@@ -73,20 +66,21 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	editValue(): void {
 		this.list = [];
 		this.editing = true;
-		this.autoCompleteValue = this.value;
-		if (this.getList) {
-			this.list = this.getList(this.data);
+		this.autoCompleteValue = this.value();
+		const getList = this.getList();
+		if (getList) {
+			this.list = getList(this.data());
 		}
 		setTimeout(() => {
 			const editorInput = this.editorInput();
-   if (editorInput) {
+			if (editorInput) {
 				editorInput.nativeElement.focus();
 			}
 		});
 	}
 
 	autocompleteEnter(query: string): void {
-		this.value = query;
+		this.value.set(query);
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption>> {
@@ -98,8 +92,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 
 	autocompleteSelectResult(result: AutocompleteOption): string {
 		this.autoCompleteValue = result.data;
-		this.value = result.data;
-		return this.value || '';
+		this.value.set(result.data);
+		return this.value() || '';
 	}
-
 }

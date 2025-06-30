@@ -1,6 +1,6 @@
 <div class="match-file-list">
-  <div i18n class="match-file-list-header">{{matchings.length}} Tracks</div>
-  @for (match of matchings; track match) {
+  <div i18n class="match-file-list-header">{{matchings().length}} Tracks</div>
+  @for (match of matchings(); track match) {
     <div class="match-file" draggable="true" (dragstart)="drag($event,match)">
       <div class="handle">
         <span class="grippy"></span>

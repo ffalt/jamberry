@@ -1,16 +1,16 @@
 <div class="heading">
-  <div class="handle"></div>
-  <div class="fav" title="Favorite Track" i18n-title><i class="icon-heart-empty"></i></div>
-  @if (showRating) {
-    <div class="rating" title="Rating" i18n-title><i class="icon-checkmark"></i></div>
-  }
-  @if (showPlayCount) {
-    <div class="play-count" title="Play Counter" i18n-title><i class="icon-headphones"></i></div>
-  }
-  @if (showPlayDate) {
-    <div class="play-date" title="Last Played" i18n-title><i class="icon-clock"></i></div>
-  }
-  <div class="number" title="Track Number" i18n-title>#</div>
-  <div i18n class="title" title="Title" i18n-title>Track</div>
-  <div class="length" title="Duration" i18n-title><i class="icon-stopwatch"></i></div>
+	<div class="handle"></div>
+	<div class="fav" title="Favorite Track" i18n-title><i class="icon-heart-empty"></i></div>
+	@if (showRating()) {
+		<div class="rating" title="Rating" i18n-title><i class="icon-checkmark"></i></div>
+	}
+	@if (showPlayCount()) {
+		<div class="play-count" title="Play Counter" i18n-title><i class="icon-headphones"></i></div>
+	}
+	@if (showPlayDate()) {
+		<div class="play-date" title="Last Played" i18n-title><i class="icon-clock"></i></div>
+	}
+	<div class="number" title="Track Number" i18n-title>#</div>
+	<div i18n class="title" title="Title" i18n-title>Track</div>
+	<div class="length" title="Duration" i18n-title><i class="icon-stopwatch"></i></div>
 </div>

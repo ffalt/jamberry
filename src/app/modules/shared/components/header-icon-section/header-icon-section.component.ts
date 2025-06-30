@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostListener, Input, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostListener, output, input} from '@angular/core';
 import {HeaderTab} from '@shared/components';
 
 @Component({
@@ -9,12 +9,12 @@ import {HeaderTab} from '@shared/components';
 	standalone: false
 })
 export class HeaderIconSectionComponent {
-	@Input() icon?: string;
-	@Input() section?: string;
-	@Input() sectionType?: string;
-	@Input() smallTabs: boolean = false;
-	@Input() hasContextMenu: boolean = false;
-	@Input() tabs?: Array<HeaderTab> = [];
+	readonly icon = input<string>();
+	readonly section = input<string>();
+	readonly sectionType = input<string>();
+	readonly smallTabs = input<boolean>(false);
+	readonly hasContextMenu = input<boolean>(false);
+	readonly tabs = input<Array<HeaderTab> | undefined>([]);
 	readonly contextMenuRequest = output<Event>();
 
 	@HostListener('contextmenu', ['$event'])

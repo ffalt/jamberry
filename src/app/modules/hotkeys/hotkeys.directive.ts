@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, inject} from '@angular/core';
+import {Directive, ElementRef, OnDestroy, OnInit, inject, input} from '@angular/core';
 import Mousetrap from 'mousetrap';
 import {ExtendedKeyboardEvent, Hotkey} from './hotkeys.model';
 import {HotkeysService} from './hotkeys.service';
@@ -10,7 +10,9 @@ import {HotkeysService} from './hotkeys.service';
 	standalone: false
 })
 export class HotkeysDirective implements OnInit, OnDestroy {
-	@Input() hotkeys: Array<{ [combo: string]: (event: KeyboardEvent, combo: string) => ExtendedKeyboardEvent }> = [];
+	readonly hotkeys = input<Array<{
+		[combo: string]: (event: KeyboardEvent, combo: string) => ExtendedKeyboardEvent;
+	}>>([]);
 	private readonly hotkeysService = inject(HotkeysService);
 	private readonly elementRef = inject(ElementRef);
 	private mousetrap: Mousetrap.MousetrapInstance;
@@ -22,7 +24,7 @@ export class HotkeysDirective implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		for (const hotkey of this.hotkeys) {
+		for (const hotkey of this.hotkeys()) {
 			const combo = Object.keys(hotkey)[0];
 			const hotkeyObj: Hotkey = new Hotkey(combo, hotkey[combo]);
 			const oldHotkey: Hotkey = this.hotkeysService.get(combo) as Hotkey;

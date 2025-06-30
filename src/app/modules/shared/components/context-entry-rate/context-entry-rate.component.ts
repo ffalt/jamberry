@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, inject} from '@angular/core';
+import {Component, OnChanges, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {Jam, JamObjectType, JamService} from '@jam';
 
@@ -9,27 +9,29 @@ import {Jam, JamObjectType, JamService} from '@jam';
 	standalone: false
 })
 export class ContextEntryRateComponent implements OnChanges {
-	@Input() base?: Jam.Base;
-	@Input() baseType?: string | JamObjectType;
+	readonly base = input<Jam.Base>();
+	readonly baseType = input<string | JamObjectType>();
 	rating: number = 0;
 	private readonly notify = inject(NotifyService);
 	private readonly jam = inject(JamService);
 
 	ngOnChanges(): void {
-		this.rating = (this.base && this.base.state ? this.base.state.rated : 0) || 0;
+		const base = this.base();
+		this.rating = (base && base.state ? base.state.rated : 0) || 0;
 	}
 
 	async onRating(num: number): Promise<void> {
-		if (!this.base) {
+		const base = this.base();
+		if (!base) {
 			return;
 		}
 		this.rating = num;
-		this.base.state = this.base.state || {};
-		if (this.base.state.rated !== this.rating) {
+		base.state = base.state || {};
+		if (base.state.rated !== this.rating) {
 			try {
-				await this.jam.state.rate({id: this.base.id, rating: this.rating});
-				this.base.state.rated = this.rating;
-				this.notify.success(`Rated ${this.baseType} with ${this.rating}`);
+				await this.jam.state.rate({id: base.id, rating: this.rating});
+				base.state.rated = this.rating;
+				this.notify.success(`Rated ${this.baseType()} with ${this.rating}`);
 			} catch (e: any) {
 				this.notify.error(e);
 				return Promise.reject(e);

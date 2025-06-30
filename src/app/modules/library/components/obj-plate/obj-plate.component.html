@@ -1,24 +1,24 @@
-@if (obj) {
-  <app-media-plate [obj]="obj" [showParent]="showParent"
-    (click)="toggleExpansion()"
-    (keydown.arrowLeft)="toggleExpansion()"
-    (keydown.arrowRight)="toggleExpansion()"
-    />
+@if (obj()) {
+	<app-media-plate [obj]="obj()" [showParent]="showParent()"
+									 (click)="toggleExpansion()"
+									 (keydown.arrowLeft)="toggleExpansion()"
+									 (keydown.arrowRight)="toggleExpansion()"
+	/>
 }
 @if (expanded) {
-  @if (loading) {
-    <app-loading [time]="100" />
-  }
-  @if (hasMedia) {
-    <app-media-list [entries]="obj?.media" [showArtist]="showParent" />
-  }
-  @if (hasTracks) {
-    <app-track-list [tracks]="obj?.tracks" [showArtist]="showParent" />
-  }
-  @if (hasEpisodes) {
-    <app-episode-list [episodes]="obj?.episodes" />
-  }
-  @if (hasAlbums) {
-    <app-album-list [albums]="obj?.albums" />
-  }
+	@if (loading) {
+		<app-loading [time]="100"/>
+	}
+	@if (hasMedia) {
+		<app-media-list [entries]="obj()?.media" [showArtist]="showParent()"/>
+	}
+	@if (hasTracks) {
+		<app-track-list [tracks]="obj()?.tracks" [showArtist]="showParent()"/>
+	}
+	@if (hasEpisodes) {
+		<app-episode-list [episodes]="obj()?.episodes"/>
+	}
+	@if (hasAlbums) {
+		<app-album-list [albums]="obj()?.albums"/>
+	}
 }

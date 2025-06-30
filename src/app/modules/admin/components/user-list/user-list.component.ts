@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, inject} from '@angular/core';
+import {Component, OnDestroy, inject, input} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminUserService, AdminUserServiceEditData, NotifyService} from '@core/services';
 import {Jam} from '@jam';
@@ -16,7 +16,7 @@ import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 	standalone: false
 })
 export class UserListComponent implements OnDestroy {
-	@Input() users?: Array<Jam.User> = [];
+	readonly users = input<Array<Jam.User> | undefined>([]);
 	private readonly unsubscribe = new Subject<void>();
 	private readonly notify = inject(NotifyService);
 	private readonly dialogs = inject(DialogsService);

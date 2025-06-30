@@ -1,8 +1,7 @@
-import {Component, Input, OnChanges, inject} from '@angular/core';
+import {Component, OnChanges, inject, input} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {ImageFormatType, Jam, JamService} from '@jam';
-import {ImageOverlayContentComponent} from '@shared/components';
 import {DialogsService} from '@shared/services';
 import {ImageEditOverlayContentComponent} from '../image-edit-overlay-content/image-edit-overlay-content.component';
 
@@ -31,8 +30,8 @@ function extractExt(filename: string): string {
 	standalone: false
 })
 export class ArtworkListComponent implements OnChanges {
-	@Input() artworks?: Array<Jam.Artwork>;
-	@Input() folderID?: string;
+	readonly artworks = input<Array<Jam.Artwork>>();
+	readonly folderID = input<string>();
 	nodes?: Array<ArtworkImageNode>;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
@@ -47,8 +46,9 @@ export class ArtworkListComponent implements OnChanges {
 	editArtworkName(node: ArtworkImageNode): void {
 		this.jam.artwork.rename({id: node.artwork.id, newName: node.name})
 			.then(item => {
+				const folderID = this.folderID();
 				this.folderService.waitForQueueResult('Renaming Artwork', item,
-					this.folderID ? [this.folderID] : [], []);
+					folderID ? [folderID] : [], []);
 			})
 			.catch(e => {
 				this.notify.error(e);
@@ -59,17 +59,8 @@ export class ArtworkListComponent implements OnChanges {
 		this.dialogOverlay.open({
 			childComponent: ImageEditOverlayContentComponent,
 			title: 'Edit Image',
-			data: {artwork, folderID: this.folderID},
+			data: {artwork, folderID: this.folderID()},
 			panelClass: ''
-		});
-	}
-
-	showArtwork(artwork: Jam.Artwork): void {
-		const name = artwork.types.join(', ');
-		this.dialogOverlay.open({
-			title: name,
-			childComponent: ImageOverlayContentComponent,
-			data: {name, url: this.jam.image.imageUrl({id: artwork.id})}
 		});
 	}
 
@@ -80,7 +71,8 @@ export class ArtworkListComponent implements OnChanges {
 					if (this.nodes) {
 						this.nodes = this.nodes.filter(n => n !== node);
 					}
-					this.folderService.waitForQueueResult('Removing Artwork', item, this.folderID ? [this.folderID] : []);
+					const folderID = this.folderID();
+					this.folderService.waitForQueueResult('Removing Artwork', item, folderID ? [folderID] : []);
 				})
 				.catch(e => {
 					this.notify.error(e);
@@ -90,8 +82,9 @@ export class ArtworkListComponent implements OnChanges {
 
 	private displayArtworks(): void {
 		this.nodes = [];
-		if (this.artworks) {
-			this.nodes = this.artworks.map(artwork =>
+		const artworks = this.artworks();
+		if (artworks) {
+			this.nodes = artworks.map(artwork =>
 				({
 					name: extractBasename(artwork.name),
 					type: extractExt(artwork.name),

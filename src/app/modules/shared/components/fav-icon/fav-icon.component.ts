@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
-    selector: 'app-fav-icon',
-    templateUrl: './fav-icon.component.html',
-    styleUrls: ['./fav-icon.component.scss'],
-    standalone: false
+	selector: 'app-fav-icon',
+	templateUrl: './fav-icon.component.html',
+	styleUrls: ['./fav-icon.component.scss'],
+	standalone: false
 })
 export class FavIconComponent {
-	@Input() faved?: number;
+	readonly faved = input<number>();
 }

@@ -1,4 +1,4 @@
-import {Component, Input, output} from '@angular/core';
+import {Component, output, input, model} from '@angular/core';
 
 export interface Tab {
 	id: string;
@@ -12,12 +12,12 @@ export interface Tab {
 	standalone: false
 })
 export class TabsComponent {
-	@Input() tabs?: Array<Tab>;
-	@Input() current?: Tab;
+	readonly tabs = input<Array<Tab>>();
+	readonly current = model<Tab>();
 	readonly tabChange = output<Tab>();
 
 	setTab(tab: Tab): void {
-		this.current = tab;
+		this.current.set(tab);
 		this.tabChange.emit(tab);
 	}
 }

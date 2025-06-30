@@ -1,4 +1,4 @@
-import {Component, Input, inject, output, viewChild} from '@angular/core';
+import {Component, inject, output, viewChild, input} from '@angular/core';
 import {MatchCoverartComponent, MatchImageNode, MatchImageSearch} from '@app/modules/tag-editor/components';
 import {
 	GenreTag,
@@ -17,7 +17,7 @@ import {JamService, LastFMLookupType} from '@jam';
 	standalone: false
 })
 export class MatchApplyComponent {
-	@Input() isRunning: boolean = false;
+	readonly isRunning = input<boolean>(false);
 	isGenreSearchRunning: boolean = false;
 	genres?: Array<{ tag: GenreTag; checked: boolean }>;
 	customGenre = {text: '', checked: true};

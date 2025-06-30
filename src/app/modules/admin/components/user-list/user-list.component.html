@@ -1,51 +1,55 @@
-@if (users && users.length>0) {
-  <table class="users" appFocusKeyList>
-    <tr class="user heading">
-      <td i18n class="avatar">Avatar</td>
-      <td i18n class="title">Name</td>
-      <td i18n class="email">Email</td>
-      <td i18n class="role">Administrator</td>
-      <td i18n class="role">Manage Podcasts</td>
-      <td i18n class="role">Can Upload</td>
-      <td i18n class="role">Can Stream</td>
-      <td i18n class="actions">Actions</td>
-    </tr>
-    @for (user of users; track user.id) {
-      <tr class="user" appFocusKeyListItem (dblclick)="editUser(user)" (keydown.enter)="editUser(user)">
-        <td class="avatar">
-          <app-coverart-image [coverArtObj]="user" [alt]="user.name" [size]="28" [round]="true" />
-        </td>
-        <td class="title">{{user.name}}</td>
-        <td class="email">{{user.email}}</td>
-        <td class="role">@if (user.roles.admin) {
-          <i class="icon-checkmark" aria-hidden="true"></i>
-          }@if (user.roles.admin) {
-          <span i18n class="visually-hidden">Is Admin</span>
-        }</td>
-        <td class="role">@if (user.roles.podcast) {
-          <i class="icon-checkmark" aria-hidden="true"></i>
-          }@if (user.roles.admin) {
-          <span i18n class="visually-hidden">Can manage podcast</span>
-        }</td>
-        <td class="role">@if (user.roles.upload) {
-          <i class="icon-checkmark" aria-hidden="true"></i>
-          }@if (user.roles.admin) {
-          <span i18n class="visually-hidden">Can upload</span>
-        }</td>
-        <td class="role">@if (user.roles.stream) {
-          <i class="icon-checkmark" aria-hidden="true"></i>
-          }@if (user.roles.stream) {
-          <span i18n class="visually-hidden">Can stream</span>
-        }</td>
-        <td class="actions">
-          <div class="action-buttons">
-            <button title="Change Avatar" i18n-title (click)="editUserAvatar(user)"><i class="icon-picture" aria-hidden="true"></i></button>
-            <button title="Set Password" i18n-title (click)="setUserPassword(user)"><i class="icon-key" aria-hidden="true"></i></button>
-            <button title="Edit User" i18n-title (click)="editUser(user)"><i class="icon-edit" aria-hidden="true"></i></button>
-            <button title="Delete User" i18n-title (click)="deleteUser(user)"><i class="icon-remove" aria-hidden="true"></i></button>
-          </div>
-        </td>
-      </tr>
-    }
-  </table>
+@if (users(); as users) {
+	@if (users.length > 0) {
+		<table class="users" appFocusKeyList role="list">
+			<tr class="user heading">
+				<td i18n class="avatar">Avatar</td>
+				<td i18n class="title">Name</td>
+				<td i18n class="email">Email</td>
+				<td i18n class="role">Administrator</td>
+				<td i18n class="role">Manage Podcasts</td>
+				<td i18n class="role">Can Upload</td>
+				<td i18n class="role">Can Stream</td>
+				<td i18n class="actions">Actions</td>
+			</tr>
+			@for (user of users; track user.id) {
+				<tr class="user" appFocusKeyListItem role="listitem" (dblclick)="editUser(user)" (keydown.enter)="editUser(user)">
+					<td class="avatar">
+						<app-coverart-image [coverArtObj]="user" [alt]="user.name" [size]="28" [round]="true"/>
+					</td>
+					<td class="title">{{ user.name }}</td>
+					<td class="email">{{ user.email }}</td>
+					<td class="role">@if (user.roles.admin) {
+						<i class="icon-checkmark" aria-hidden="true"></i>
+						<span i18n class="visually-hidden">Is Admin</span>
+					}</td>
+					<td class="role">@if (user.roles.podcast) {
+						<i class="icon-checkmark" aria-hidden="true"></i>
+					}
+						@if (user.roles.admin) {
+							<span i18n class="visually-hidden">Can manage podcast</span>
+						}</td>
+					<td class="role">@if (user.roles.upload) {
+						<i class="icon-checkmark" aria-hidden="true"></i>
+					}
+						@if (user.roles.admin) {
+							<span i18n class="visually-hidden">Can upload</span>
+						}</td>
+					<td class="role">@if (user.roles.stream) {
+						<i class="icon-checkmark" aria-hidden="true"></i>
+					}
+						@if (user.roles.stream) {
+							<span i18n class="visually-hidden">Can stream</span>
+						}</td>
+					<td class="actions">
+						<div class="action-buttons">
+							<button title="Change Avatar" i18n-title (click)="editUserAvatar(user)"><i class="icon-picture" aria-hidden="true"></i></button>
+							<button title="Set Password" i18n-title (click)="setUserPassword(user)"><i class="icon-key" aria-hidden="true"></i></button>
+							<button title="Edit User" i18n-title (click)="editUser(user)"><i class="icon-edit" aria-hidden="true"></i></button>
+							<button title="Delete User" i18n-title (click)="deleteUser(user)"><i class="icon-remove" aria-hidden="true"></i></button>
+						</div>
+					</td>
+				</tr>
+			}
+		</table>
+	}
 }

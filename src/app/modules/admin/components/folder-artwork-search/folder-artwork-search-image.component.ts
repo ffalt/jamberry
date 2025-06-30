@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {Component, Input, OnChanges, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit, inject, input} from '@angular/core';
 import {hasFileExtension} from '@app/modules/tag-editor/model/utils';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {
@@ -38,7 +38,7 @@ export interface ArtworkNode {
 	standalone: false
 })
 export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnDestroy {
-	@Input() data?: ArtworkSearch;
+	readonly data = input<ArtworkSearch>();
 	artworks?: Array<Jam.Artwork>;
 	nodes?: Array<ArtworkNode>;
 	isWorking = false;
@@ -57,9 +57,10 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 
 	ngOnChanges(): void {
 		this.search();
-		if (this.data && this.data.folder) {
-			if (this.data.folder.artworks) {
-				this.artworks = this.data.folder.artworks;
+		const data = this.data();
+		if (data && data.folder) {
+			if (data.folder.artworks) {
+				this.artworks = data.folder.artworks;
 			} else {
 				this.refreshArtworks();
 			}
@@ -67,11 +68,12 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	}
 
 	refreshArtworks(): void {
-		if (!this.data) {
+		const data = this.data();
+		if (!data) {
 			return;
 		}
 		this.isArtRefreshing = true;
-		this.jam.artwork.search({folderIDs: [this.data.folder.id]})
+		this.jam.artwork.search({folderIDs: [data.folder.id]})
 			.then(art => {
 				this.isArtRefreshing = false;
 				this.artworks = art.items;
@@ -177,7 +179,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 
 	use(): void {
 		const node = (this.nodes || []).find(i => i.checked && !i.storing);
-		const folder = this.data?.folder;
+		const folder = this.data()?.folder;
 		if (node && folder) {
 			this.isWorking = true;
 			node.storing = true;
@@ -206,7 +208,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	ngOnInit(): void {
 		this.folderService.foldersChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(change => {
-			if (change.id === this.data?.folder.id) {
+			if (change.id === this.data()?.folder.id) {
 				this.refreshArtworks();
 			}
 		});
@@ -247,10 +249,11 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 				.then(res => {
 					const nodes = this.coverArtResponseToNodes(res.data);
 					this.display(nodes);
+					const data = this.data();
 					if (nodes.length === 0 &&
-						this.data && this.data.folder && this.data.folder.tag && this.data.folder.tag.mbReleaseGroupID) {
+						data && data.folder && data.folder.tag && data.folder.tag.mbReleaseGroupID) {
 						this.nodes = undefined;
-						this.loadReleaseGroup(this.data.folder.tag.mbReleaseGroupID);
+						this.loadReleaseGroup(data.folder.tag.mbReleaseGroupID);
 					}
 				})
 				.catch(e => {
@@ -281,20 +284,21 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	}
 
 	private search(): void {
-		if (this.data && this.data.folder && this.data.folder.tag) {
-			if (this.data.folder.type === FolderType.artist) {
-				if (this.data.folder.tag.mbArtistID) {
+		const data = this.data();
+		if (data && data.folder && data.folder.tag) {
+			if (data.folder.type === FolderType.artist) {
+				if (data.folder.tag.mbArtistID) {
 					this.searchSource = {name: 'Wiki Commons', url: 'https://commons.wikimedia.org'};
-					this.loadWikiCommon(this.data.folder.tag.mbArtistID);
+					this.loadWikiCommon(data.folder.tag.mbArtistID);
 				}
-			} else if (this.data && this.data.folder && this.data.folder.tag) {
+			} else if (data && data.folder && data.folder.tag) {
 				this.searchSource = {name: 'Coverart Archive', url: 'https://coverartarchive.org'};
-				if (this.data.folder.tag.mbReleaseID && this.data.folder.tag.mbReleaseGroupID) {
-					this.loadReleaseGroupAndRelease(this.data.folder.tag.mbReleaseID, this.data.folder.tag.mbReleaseGroupID);
-				} else if (this.data.folder.tag.mbReleaseID) {
-					this.loadRelease(this.data.folder.tag.mbReleaseID);
-				} else if (this.data.folder.tag.mbReleaseGroupID) {
-					this.loadReleaseGroup(this.data.folder.tag.mbReleaseGroupID);
+				if (data.folder.tag.mbReleaseID && data.folder.tag.mbReleaseGroupID) {
+					this.loadReleaseGroupAndRelease(data.folder.tag.mbReleaseID, data.folder.tag.mbReleaseGroupID);
+				} else if (data.folder.tag.mbReleaseID) {
+					this.loadRelease(data.folder.tag.mbReleaseID);
+				} else if (data.folder.tag.mbReleaseGroupID) {
+					this.loadReleaseGroup(data.folder.tag.mbReleaseGroupID);
 				}
 			}
 		}

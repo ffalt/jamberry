@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, HostBinding, OnDestroy, OnInit, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamObjectType} from '@jam';
 import {Index, IndexGroup, IndexService} from '@shared/services';
@@ -14,7 +14,7 @@ import {takeUntil} from 'rxjs/operators';
 export class SidebarIndexComponent implements OnInit, OnDestroy {
 	current?: IndexGroup;
 	index?: Index;
-	@Input() useMeta: boolean = true;
+	readonly useMeta = input<boolean>(true);
 	@HostBinding('class.active') collapsed: boolean = false;
 	private readonly notify = inject(NotifyService);
 	private readonly indexService = inject(IndexService);
@@ -24,7 +24,7 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 		this.indexService.indexNotify
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			indexCache => {
-				if (this.useMeta) {
+				if (this.useMeta()) {
 					if (indexCache.matches(JamObjectType.artist, {albumType: AlbumType.album})) {
 						this.index = indexCache.index;
 					}
@@ -47,7 +47,7 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 	}
 
 	private refreshIndex(): void {
-		this.index = this.useMeta ?
+		this.index = this.useMeta() ?
 			this.indexService.requestIndex(JamObjectType.artist, {albumType: AlbumType.album}) :
 			this.indexService.requestIndex(JamObjectType.folder, {level: 1});
 	}

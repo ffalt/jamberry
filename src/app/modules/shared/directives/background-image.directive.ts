@@ -1,4 +1,4 @@
-import {Directive, HostBinding, Input, OnChanges, SimpleChange, inject} from '@angular/core';
+import {Directive, HostBinding, OnChanges, SimpleChange, inject, input} from '@angular/core';
 import {ImageFormatType, JamService} from '@jam';
 
 @Directive({
@@ -6,7 +6,7 @@ import {ImageFormatType, JamService} from '@jam';
 	standalone: false
 })
 export class BackgroundImageDirective implements OnChanges {
-	@Input('appBackgroundImage') backgroundImageID?: string;
+	readonly backgroundImageID = input<string>(undefined, {alias: 'appBackgroundImage'});
 	@HostBinding('style.backgroundImage') backgroundImage?: string;
 	private readonly jam = inject(JamService);
 

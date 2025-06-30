@@ -1,4 +1,4 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamObjectType} from '@jam';
 import {JamEpisodeObject, JamTrackObject} from '@library/model/objects';
@@ -12,11 +12,11 @@ import {ActionsService} from '@shared/services';
 	standalone: false
 })
 export class MediaListComponent {
-	@Input() entries?: Array<Jam.MediaBase>;
-	@Input() showArtist: boolean = false;
-	@Input() showRating: boolean = false;
-	@Input() showPlayCount: boolean = false;
-	@Input() showPlayDate: boolean = false;
+	readonly entries = input<Array<Jam.MediaBase>>();
+	readonly showArtist = input<boolean>(false);
+	readonly showRating = input<boolean>(false);
+	readonly showPlayCount = input<boolean>(false);
+	readonly showPlayDate = input<boolean>(false);
 	readonly navig = inject(NavigService);
 	readonly actions = inject(ActionsService);
 	private readonly player = inject(PlayerService);

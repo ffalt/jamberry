@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, inject} from '@angular/core';
+import {Component, OnChanges, inject, input} from '@angular/core';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {NotifyService} from '@core/services';
 import {CoverArtArchive, CoverArtArchiveLookupType, JamService} from '@jam';
@@ -23,7 +23,7 @@ export interface MatchImageNode {
 	standalone: false
 })
 export class MatchCoverartComponent implements OnChanges {
-	@Input() data?: MatchImageSearch;
+	readonly data = input<MatchImageSearch>();
 	isImageSearchRunning: boolean = false;
 	showFrontImagesOnly: boolean = true;
 	images?: Array<MatchImageNode>;
@@ -32,8 +32,9 @@ export class MatchCoverartComponent implements OnChanges {
 	private readonly notify = inject(NotifyService);
 
 	ngOnChanges(): void {
-		if (this.data) {
-			this.loadCoverartImages(this.data).catch(e => {
+		const data = this.data();
+		if (data) {
+			this.loadCoverartImages(data).catch(e => {
 				this.notify.error(e);
 			});
 		} else {

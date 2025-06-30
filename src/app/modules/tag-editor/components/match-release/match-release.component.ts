@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnChanges, OnDestroy, inject, viewChild} from '@angular/core';
+import {Component, HostBinding, OnChanges, OnDestroy, inject, viewChild, input} from '@angular/core';
 import {MatchApplyComponent} from '@app/modules/tag-editor/components/match-apply/match-apply.component';
 import {NotifyService} from '@core/services';
 import {Jam, JamService} from '@jam';
@@ -28,7 +28,7 @@ export interface ReleaseMatching {
 	standalone: false
 })
 export class MatchReleaseComponent implements OnChanges, OnDestroy {
-	@Input() data?: ReleaseMatching;
+	readonly data = input<ReleaseMatching>();
 	@HostBinding('class.right-active') rightActive: boolean = true;
 	matcher: Matcher;
 	current?: { group: MatchReleaseGroup; release: MatchRelease };
@@ -47,12 +47,13 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	}
 
 	ngOnChanges(): void {
-		if (!this.data) {
+		const data = this.data();
+		if (!data) {
 			this.matcher.abort();
 		} else {
 			this.matcher.prepare(
-				this.data.matchings.map(m => ({track: m.track})),
-				this.data.folder
+				data.matchings.map(m => ({track: m.track})),
+				data.folder
 			);
 		}
 	}
@@ -66,17 +67,18 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		for (const match of this.matcher.matchings) {
 			match.genres = genres;
 		}
-		if (this.data) {
+		const data = this.data();
+		if (data) {
 			const images = this.matchApply().getCoverArtImages();
-			for (const result of this.data.matchings) {
+			for (const result of data.matchings) {
 				const match = this.matcher.matchings.find(m => m.track.id === result.track.id);
 				result.rawTag = match ? toID3v24(match, genres, images) : undefined;
 			}
-			if (this.data.apply) {
-				this.data.apply();
+			if (data.apply) {
+				data.apply();
 			}
-			if (this.data.close) {
-				this.data.close();
+			if (data.close) {
+				data.close();
 			}
 		}
 	}
@@ -86,10 +88,11 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 		this.current = {group, release};
 		this.matchApply().coverArtSearch = {mbReleaseID: release.mbRelease.id, mbReleaseGroupID: group.mbGroup.id};
 		this.matcher.apply(group, release);
-		if (!this.data) {
+		const data = this.data();
+		if (!data) {
 			return;
 		}
-		this.matchApply().loadGenres(this.data.matchings, group, release)
+		this.matchApply().loadGenres(data.matchings, group, release)
 			.catch(e => {
 				this.notify.error(e);
 			});

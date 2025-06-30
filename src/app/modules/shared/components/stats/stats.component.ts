@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 export type StatsList = Array<{ text: string; link: string; value: number }>;
 
@@ -7,11 +7,11 @@ export function filterStats(data: Array<{ text?: string; link?: string; value?: 
 }
 
 @Component({
-    selector: 'app-stats',
-    templateUrl: './stats.component.html',
-    styleUrls: ['./stats.component.scss'],
-    standalone: false
+	selector: 'app-stats',
+	templateUrl: './stats.component.html',
+	styleUrls: ['./stats.component.scss'],
+	standalone: false
 })
 export class StatsComponent {
-	@Input() stats: StatsList = [];
+	readonly stats = input<StatsList>([]);
 }

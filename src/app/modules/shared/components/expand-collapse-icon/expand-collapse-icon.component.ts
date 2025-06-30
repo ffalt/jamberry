@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
-    selector: 'app-expand-collapse-icon',
-    templateUrl: './expand-collapse-icon.component.html',
-    styleUrls: ['./expand-collapse-icon.component.scss'],
-    standalone: false
+	selector: 'app-expand-collapse-icon',
+	templateUrl: './expand-collapse-icon.component.html',
+	styleUrls: ['./expand-collapse-icon.component.scss'],
+	standalone: false
 })
 export class ExpandCollapseIconComponent {
-	@Input() expanded: boolean = false;
+	readonly expanded = input<boolean>(false);
 }

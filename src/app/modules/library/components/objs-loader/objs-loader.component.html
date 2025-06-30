@@ -1,7 +1,7 @@
 @if (!objs) {
-  <app-loading />
+	<app-loading/>
 }
-@if (loader) {
-  <app-obj-groups-view [objs]="objs" [showParent]="showParent" [typeName]="loader.typeName" [grouping]="grouping" />
+@if (loader(); as loader) {
+	<app-obj-groups-view [objs]="objs" [showParent]="showParent()" [typeName]="loader.typeName" [grouping]="grouping()"/>
 }
-<app-load-more-button (requestLoad)="load()" />
+<app-load-more-button (requestLoad)="load()"/>

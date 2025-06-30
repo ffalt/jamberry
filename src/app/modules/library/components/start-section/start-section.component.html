@@ -1,20 +1,22 @@
-<div class="start-section">{{name}}</div>
-@if (list && list.length) {
-  <div class="start-items">
-    @for (item of list; track item.obj.id) {
-      <a class="start-item" tabindex="0" (clickenter)="item.click()">
-        <div class="image">
-          <app-coverart-image [coverArtObj]="item.obj" [size]="80" [alt]="item.obj.name" [fill]="true" />
-        </div>
-        <span class="title">
-          {{item.obj.name | limit:90}}
+<div class="start-section">{{ name() }}</div>
+@if (list(); as list) {
+	@if (list.length) {
+		<div class="start-items">
+			@for (item of list; track item.obj.id) {
+				<a class="start-item" tabindex="0" (clickenter)="item.click()">
+					<div class="image">
+						<app-coverart-image [coverArtObj]="item.obj" [size]="80" [alt]="item.obj.name" [fill]="true"/>
+					</div>
+					<span class="title">
+          {{ item.obj.name | limit:90 }}
         </span>
-      </a>
-    }
-  </div>
-}
-@if (list && list.length===0) {
-  <div i18n class="none">
-    [ None ]
-  </div>
+				</a>
+			}
+		</div>
+	}
+	@if (list.length === 0) {
+		<div i18n class="none">
+			[ None ]
+		</div>
+	}
 }

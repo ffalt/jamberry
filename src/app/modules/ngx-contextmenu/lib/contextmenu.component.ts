@@ -1,14 +1,14 @@
 import {
-  Component,
-  ContentChildren,
-  ElementRef,
-  Input,
-  OnDestroy,
-  QueryList,
-  ViewChild,
-  ViewEncapsulation,
-  inject,
-  output
+	Component,
+	ContentChildren,
+	ElementRef,
+	OnDestroy,
+	QueryList,
+	ViewChild,
+	ViewEncapsulation,
+	inject,
+	output,
+	input, model
 } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {first} from 'rxjs/operators';
@@ -28,9 +28,9 @@ import {CONTEXT_MENU_OPTIONS} from './contextmenu.tokens';
 	standalone: false
 })
 export class ContextMenuComponent implements OnDestroy {
-	@Input() menuClass = '';
-	@Input() autoFocus?: boolean = false;
-	@Input() disabled?: boolean = false;
+	readonly menuClass = input('');
+	readonly disabled = input<boolean | undefined>(false);
+	readonly autoFocus = model<boolean | undefined>(false);
 	readonly closeEvent = output<CloseContextMenuEvent>();
 	readonly openEvent = output<IContextMenuClickEvent>();
 	@ContentChildren(ContextMenuItemDirective) menuItems!: QueryList<ContextMenuItemDirective>;
@@ -44,7 +44,7 @@ export class ContextMenuComponent implements OnDestroy {
 
 	constructor() {
 		if (this.options) {
-			this.autoFocus = this.options.autoFocus;
+			this.autoFocus.set(this.options.autoFocus);
 		}
 		this.subscription.add(this.contextMenuService.show.subscribe(menuEvent => {
 			this.onMenuEvent(menuEvent);
@@ -56,7 +56,7 @@ export class ContextMenuComponent implements OnDestroy {
 	}
 
 	onMenuEvent(menuEvent: IContextMenuClickEvent): void {
-		if (this.disabled) {
+		if (this.disabled()) {
 			return;
 		}
 		const {contextMenu, event, item} = menuEvent;
@@ -66,7 +66,7 @@ export class ContextMenuComponent implements OnDestroy {
 		this.event = event;
 		this.item = item;
 		this.setVisibleMenuItems();
-		this.contextMenuService.openContextMenu({...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass});
+		this.contextMenuService.openContextMenu({...menuEvent, menuItems: this.visibleMenuItems, menuClass: this.menuClass()});
 		this.contextMenuService.close.asObservable().pipe(first()).subscribe(closeEvent => this.closeEvent.emit(closeEvent));
 		this.openEvent.emit(menuEvent);
 	}

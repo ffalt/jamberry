@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
-    selector: 'app-info-text',
-    templateUrl: './info-text.component.html',
-    styleUrls: ['./info-text.component.scss'],
-    standalone: false
+	selector: 'app-info-text',
+	templateUrl: './info-text.component.html',
+	styleUrls: ['./info-text.component.scss'],
+	standalone: false
 })
 export class InfoTextComponent {
-	@Input() info?: string;
+	readonly info = input<string>();
 }

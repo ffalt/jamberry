@@ -1,5 +1,5 @@
 import {Highlightable} from '@angular/cdk/a11y';
-import {Directive, Input, TemplateRef, inject, output} from '@angular/core';
+import {Directive, TemplateRef, inject, output, input} from '@angular/core';
 
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
@@ -7,11 +7,11 @@ import {Directive, Input, TemplateRef, inject, output} from '@angular/core';
 	standalone: false
 })
 export class ContextMenuItemDirective implements Highlightable {
-	@Input() subMenu: any;
-	@Input() divider = false;
-	@Input() enabled: boolean | ((item: any) => boolean) = true;
-	@Input() passive = false;
-	@Input() visible: boolean | ((item: any) => boolean) = true;
+	readonly subMenu = input<any>();
+	readonly divider = input(false);
+	readonly enabled = input<boolean | ((item: any) => boolean)>(true);
+	readonly passive = input(false);
+	readonly visible = input<boolean | ((item: any) => boolean)>(true);
 	readonly execute = output<{
 		event?: Event;
 		item: any;
@@ -21,17 +21,17 @@ export class ContextMenuItemDirective implements Highlightable {
 	isActive = false;
 
 	get isVisible(): boolean {
-		return this.evaluateIfFunction(this.visible, this);
+		return this.evaluateIfFunction(this.visible(), this);
 	}
 
 	get isEnabled(): boolean {
-		return this.evaluateIfFunction(this.enabled, this);
+		return this.evaluateIfFunction(this.enabled(), this);
 	}
 
 	get disabled() {
-		return this.passive ||
-			this.divider ||
-			!this.evaluateIfFunction(this.enabled, this.currentItem);
+		return this.passive() ||
+			this.divider() ||
+			!this.evaluateIfFunction(this.enabled(), this.currentItem);
 	}
 
 	evaluateIfFunction(value: any, item: any): any {

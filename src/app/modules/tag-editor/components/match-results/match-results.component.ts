@@ -1,4 +1,4 @@
-import {Component, Input, output} from '@angular/core';
+import {Component, output, input} from '@angular/core';
 import {Matcher} from '@app/modules/tag-editor/components/match-release/matcher';
 import {MatchingTrack, MatchRelease, MatchReleaseGroup} from '../../model/release-matching.helper';
 
@@ -9,7 +9,7 @@ import {MatchingTrack, MatchRelease, MatchReleaseGroup} from '../../model/releas
 	standalone: false
 })
 export class MatchResultsComponent {
-	@Input() matcher?: Matcher;
+	readonly matcher = input<Matcher>();
 	readonly chooseReleaseRequest = output<{
 		group: MatchReleaseGroup;
 		release: MatchRelease;
@@ -29,6 +29,6 @@ export class MatchResultsComponent {
 			return;
 		}
 		const id = event.dataTransfer.getData('text');
-		this.matcher?.selectMatch(id, group, release, track);
+		this.matcher()?.selectMatch(id, group, release, track);
 	}
 }

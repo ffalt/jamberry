@@ -1,19 +1,18 @@
-@if (group) {
-  <div appFocusKeyList (appDeferLoad)="gotInView()">
-    <div class="title" (click)="group.expanded=!group.expanded">{{group.name}}</div>
-    @if (group.expanded) {
-      <div class="index-cards">
-        @if (!visible) {
-          @for (entry of group.entries; track entry.id) {
-            <div class="index-card-placeholder" appFocusKeyListItem (clickenter)="navigTo(entry)"></div>
-          }
-        }
-        @if (visible) {
-          @for (entry of group.entries; track entry.id) {
-            <app-index-entry-card appFocusKeyListItem [entry]="entry" (clickenter)="navigTo(entry)" />
-          }
-        }
-      </div>
-    }
-  </div>
+@if (group(); as group) {
+	<div appFocusKeyList role="list" (appDeferLoad)="gotInView()">
+		<div class="title" (click)="group.expanded=!group.expanded">{{ group.name }}</div>
+		@if (group.expanded) {
+			<div class="index-cards">
+				@if (!visible) {
+					@for (entry of group.entries; track entry.id) {
+						<div class="index-card-placeholder" appFocusKeyListItem role="listitem" (clickenter)="navigTo(entry)"></div>
+					}
+				} @else {
+					@for (entry of group.entries; track entry.id) {
+						<app-index-entry-card appFocusKeyListItem role="listitem" [entry]="entry" (clickenter)="navigTo(entry)"/>
+					}
+				}
+			</div>
+		}
+	</div>
 }

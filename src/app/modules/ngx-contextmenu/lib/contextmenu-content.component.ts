@@ -5,13 +5,13 @@ import {
 	Component,
 	ElementRef,
 	HostListener,
-	Input,
 	OnDestroy,
 	OnInit,
 	inject,
 	output,
 	viewChild,
-	viewChildren
+	viewChildren,
+	model
 } from '@angular/core';
 import {toObservable} from '@angular/core/rxjs-interop';
 import {ContextMenuContentItemComponent} from '@app/modules/ngx-contextmenu/lib/contextmenu-content-item.component';
@@ -32,13 +32,13 @@ const ARROW_LEFT_KEYCODE = 37;
 })
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
 	autoFocus = false;
-	@Input() menuItems: Array<ContextMenuItemDirective> = [];
-	@Input() item: any;
-	@Input() event?: Event;
-	@Input() parentContextMenu?: ContextMenuContentComponent;
-	@Input() menuClass?: string;
-	@Input() overlay?: OverlayRef;
-	@Input() isLeaf: boolean = false;
+	readonly menuItems = model<Array<ContextMenuItemDirective>>([]);
+	readonly item = model<any>();
+	readonly event = model<Event>();
+	readonly parentContextMenu = model<ContextMenuContentComponent>();
+	readonly menuClass = model<string>();
+	readonly overlay = model<OverlayRef>();
+	readonly isLeaf = model<boolean>(false);
 	readonly execute = output<{
 		event?: Event;
 		item: any;
@@ -63,8 +63,8 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}
 
 	ngOnInit(): void {
-		this.menuItems.forEach(menuItem => {
-			menuItem.currentItem = this.item;
+		this.menuItems().forEach(menuItem => {
+			menuItem.currentItem = this.item();
 			this.subscription.add(
 				menuItem.execute.subscribe(event =>
 					this.execute.emit({...event, menuItem})
@@ -86,7 +86,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 			.subscribe(() => {
 				this.registerKeys();
 			});
-		this.overlay?.updatePosition();
+		this.overlay()?.updatePosition();
 	}
 
 	ngOnDestroy() {
@@ -100,7 +100,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}
 
 	getKeyManagerMenuItem(): ContextMenuItemDirective | undefined {
-		return this.menuItems[this.keyManager.activeItemIndex || -1];
+		return this.menuItems()[this.keyManager.activeItemIndex || -1];
 	}
 
 	@HostListener('window:keydown.ArrowDown', ['$event'])
@@ -111,7 +111,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 
 	@HostListener('window:keydown.ArrowRight', ['$event'])
 	keyboardOpenSubMenu(event: KeyboardEvent): void {
-		if (!this.isLeaf) {
+		if (!this.isLeaf()) {
 			return;
 		}
 		this.cancelEvent(event);
@@ -124,7 +124,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	@HostListener('window:keydown.Enter', ['$event'])
 	@HostListener('window:keydown.Space', ['$event'])
 	keyboardMenuItemSelect(event: KeyboardEvent): void {
-		if (!this.isLeaf) {
+		if (!this.isLeaf()) {
 			return;
 		}
 		this.cancelEvent(event);
@@ -137,7 +137,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	@HostListener('window:keydown.Escape', ['$event'])
 	@HostListener('window:keydown.ArrowLeft', ['$event'])
 	onCloseLeafMenu(event: KeyboardEvent): void {
-		if (!this.isLeaf) {
+		if (!this.isLeaf()) {
 			return;
 		}
 		this.cancelEvent(event);
@@ -161,16 +161,16 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
 		this.openSubMenu.emit({
 			anchorElement,
-			contextMenu: context.menuItem.subMenu,
+			contextMenu: context.menuItem.subMenu(),
 			event: context.event,
-			item: this.item,
+			item: this.item(),
 			parentContextMenu: this
 		});
 	}
 
 	onMenuItemSelect(context: { menuItem: ContextMenuItemDirective; event: Event }): void {
-		if (!context.menuItem.subMenu) {
-			context.menuItem.triggerExecute(this.item, context.event);
+		if (!context.menuItem.subMenu()) {
+			context.menuItem.triggerExecute(this.item(), context.event);
 		} else {
 			this.onOpenSubMenu(context);
 		}

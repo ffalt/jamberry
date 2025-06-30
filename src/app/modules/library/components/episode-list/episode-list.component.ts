@@ -1,4 +1,4 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {NavigService, PlayerService} from '@core/services';
 import {Jam, JamService, PodcastStatus} from '@jam';
 import {JamEpisodeObject} from '@library/model/objects';
@@ -12,8 +12,8 @@ import {ActionsService, PodcastService} from '@shared/services';
 	standalone: false
 })
 export class EpisodeListComponent {
-	@Input() episodes?: Array<Jam.Episode>;
-	@Input() showPodcast: boolean = false;
+	readonly episodes = input<Array<Jam.Episode>>();
+	readonly showPodcast = input<boolean>(false);
 	readonly navig = inject(NavigService);
 	readonly actions = inject(ActionsService);
 	private readonly jam = inject(JamService);

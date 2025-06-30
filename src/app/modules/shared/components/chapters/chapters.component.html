@@ -1,9 +1,11 @@
-@if (episode && episode.chapters) {
-  <ul class="chapters">
-    @for (chapter of episode.chapters; track chapter) {
-      <li class="chapter" (click)="player.startEpisodeSeek(episode, chapter.start)">
-        <span class="chapter-start">{{chapter.start | mediaduration}}</span> <span class="chapter-title">{{chapter.title}}</span>
-      </li>
-    }
-  </ul>
+@if (episode(); as episode) {
+	@if (episode.chapters) {
+		<ul class="chapters">
+			@for (chapter of episode.chapters; track chapter) {
+				<li class="chapter" (click)="player.startEpisodeSeek(episode, chapter.start)">
+					<span class="chapter-start">{{ chapter.start | mediaduration }}</span> <span class="chapter-title">{{ chapter.title }}</span>
+				</li>
+			}
+		</ul>
+	}
 }

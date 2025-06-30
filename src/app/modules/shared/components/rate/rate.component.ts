@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, output} from '@angular/core';
+import {Component, OnChanges, OnInit, output, model} from '@angular/core';
 
 @Component({
 	selector: 'app-rate',
@@ -7,7 +7,7 @@ import {Component, Input, OnChanges, OnInit, output} from '@angular/core';
 	standalone: false
 })
 export class RateComponent implements OnInit, OnChanges {
-	@Input() rating?: number = 0;
+	readonly rating = model<number | undefined>(0);
 	readonly hasRated = output<number>();
 	maxScore = 5;
 	range: Array<string> = [];
@@ -33,9 +33,9 @@ export class RateComponent implements OnInit, OnChanges {
 				index - 0.5 :
 				(this.marked === index - 0.5 ? index - 1 : index);
 		}
-		this.rating = this.marked + 1;
+		this.rating.set(this.marked + 1);
 		this.updateUI();
-		this.hasRated.emit(this.rating);
+		this.hasRated.emit(this.rating() as number);
 	}
 
 	markerClass(index: number): string {
@@ -49,7 +49,7 @@ export class RateComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(): void {
-		this.marked = (this.rating || 0) - 1;
+		this.marked = (this.rating() || 0) - 1;
 		this.updateUI();
 	}
 }

@@ -1,14 +1,14 @@
 <div class="navigation">
-  <ul class="tabs" listRole="tablist" i18n-listRole appFocusKeyList>
-    <li listRole="tab" i18n-listRole appFocusKeyListItem [class.active]="currentTab==='queue'" (clickenter)="currentTab='queue'"><a i18n>Queue</a></li>
-    <li listRole="tab" i18n-listRole appFocusKeyListItem [class.active]="currentTab==='chat'" (clickenter)="currentTab='chat'"><a i18n>Chat</a></li>
-  </ul>
+	<ul class="tabs" appFocusKeyList role="tablist">
+		<li appFocusKeyListItem role="tab" [class.active]="currentTab==='queue'" (clickenter)="currentTab='queue'"><a i18n>Queue</a></li>
+		<li appFocusKeyListItem role="tab" [class.active]="currentTab==='chat'" (clickenter)="currentTab='chat'"><a i18n>Chat</a></li>
+	</ul>
 </div>
 <div class="content">
-  @if (currentTab==='queue') {
-    <app-queue />
-  }
-  @if (currentTab==='chat') {
-    <app-chat />
-  }
+	@if (currentTab === 'queue') {
+		<app-queue/>
+	}
+	@if (currentTab === 'chat') {
+		<app-chat/>
+	}
 </div>

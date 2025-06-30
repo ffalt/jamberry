@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, output, viewChildren} from '@angular/core';
+import {Component, HostBinding, output, viewChildren, input} from '@angular/core';
 import {SidebarListItem, SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
 
 export interface SidebarList {
@@ -13,7 +13,7 @@ export interface SidebarList {
 	standalone: false
 })
 export class SidebarListComponent {
-	@Input() list?: SidebarList;
+	readonly list = input.required<SidebarList>();
 	@HostBinding('class.active') collapsed: boolean = false;
 	readonly items = viewChildren(SidebarListItemComponent);
 	readonly navigate = output();

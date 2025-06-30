@@ -1,119 +1,124 @@
-@if (matcher) {
-  <div class="match-results">
-    @for (group of matcher.matchTree.groups; track group) {
-      <div class="match-releasegroup">
-        <div class="match-releasegroup-title">
-          <span class="value">{{group.mbGroup.title}}</span>
-        </div>
-        @if (group.currentRelease) {
-          <div class="match-release-info">
-            <span i18n class="label">Score:</span>
-            <span class="value"><app-score-box [score]="group.currentRelease.score" /></span>
-            <span i18n class="label">Artist: </span> @if (group.mbGroup.artistCredit) {
-            <span class="value">{{group.mbGroup.artistCredit[0].name}}</span>
-          }
-          <span i18n class="label">Type: </span> <span class="value">{{group.mbGroup.primaryType}}
-          @if (group.mbGroup.secondaryTypes) {
-            @for (t of group.mbGroup.secondaryTypes; track t) {
-              /{{t}}
-            }
-          }</span><br/>
-          <span i18n class="label">Date:</span> <span class="value">{{group.currentRelease.mbRelease.date || '?'}}</span>
-          <span i18n class="label">Country:</span> <span class="value">{{group.currentRelease.mbRelease.country || '?'}}</span><br/>
-          <span i18n class="label">Tracks:</span>
-          @for (media of group.currentRelease.media; track media) {
-            <span class="value">{{media.tracks.length}} @if (media.complete) {
-              <i class="icon-checkmark" title="All tracks matched" i18n-title></i>
-              }@if (!media.complete) {
-              <i title="Unmatched tracks!" i18n-title class="icon-warning"></i>
-            }</span>
-          }
-          @if (group.currentRelease.media.length>1) {
-            <span i18n class="label">Total Tracks:</span>
-            <span class="value">{{group.currentRelease.totalTrack}}</span>
-          }
-        </div>
-      }
-      <div class="match-select-releases">
-        @if (!matcher.isRunning) {
-          <button i18n class="button-on-background" (click)="group.expanded = !group.expanded">Tracks</button>
-        }
-        @if (!matcher.isRunning && group.releases.length>1) {
-          <button i18n class="button-on-background" (click)="group.selecting=!group.selecting">Releases</button>
-        }
-        @if (!matcher.isRunning && group.currentRelease) {
-          <button i18n
-            class="button-primary"
-            [ngClass]="{'button-primary':group.currentRelease.complete,'button-on-background':!group.currentRelease.complete}"
-            (click)="chooseRelease(group,group.currentRelease)">Choose
-          </button>
-        }
-        @if (group.selecting) {
-          <div>
-            <form>
-              <fieldset>
-                @for (release of group.releases; track release) {
-                  <label class="select" (click)="matcher.setRelease(group, release)">
-                    <input type="radio" name="release" [checked]="release === group.currentRelease">
-                    <span i18n class="label">Score:</span> <span class="value"><app-score-box [score]="release.score" /></span>
-                    <span i18n class="label">Date:</span> <span class="value">{{release.mbRelease.date || '?'}}</span>
-                    <span i18n class="label">Country:</span> <span class="value">{{release.mbRelease.country || '?'}}</span>
-                    <span i18n class="label">Tracks:</span> <span class="value">
+@if (matcher(); as matcher) {
+	<div class="match-results">
+		@for (group of matcher.matchTree.groups; track group) {
+			<div class="match-releasegroup">
+				<div class="match-releasegroup-title">
+					<span class="value">{{ group.mbGroup.title }}</span>
+				</div>
+				@if (group.currentRelease) {
+					<div class="match-release-info">
+						<span i18n class="label">Score:</span>
+						<span class="value"><app-score-box [score]="group.currentRelease.score"/></span>
+						<span i18n class="label">Artist: </span> @if (group.mbGroup.artistCredit) {
+						<span class="value">{{ group.mbGroup.artistCredit[0].name }}</span>
+					}
+						<span i18n class="label">Type: </span> <span class="value">{{ group.mbGroup.primaryType }}
+						@if (group.mbGroup.secondaryTypes) {
+							@for (t of group.mbGroup.secondaryTypes; track t) {
+								/{{ t }}
+							}
+						}</span><br/>
+						<span i18n class="label">Date:</span> <span class="value">{{ group.currentRelease.mbRelease.date || '?' }}</span>
+						<span i18n class="label">Country:</span> <span class="value">{{ group.currentRelease.mbRelease.country || '?' }}</span><br/>
+						<span i18n class="label">Tracks:</span>
+						@for (media of group.currentRelease.media; track media) {
+							<span class="value">{{ media.tracks.length }} @if (media.complete) {
+								<i class="icon-checkmark" title="All tracks matched" i18n-title></i>
+							}
+								@if (!media.complete) {
+									<i title="Unmatched tracks!" i18n-title class="icon-warning"></i>
+								}</span>
+						}
+						@if (group.currentRelease.media.length > 1) {
+							<span i18n class="label">Total Tracks:</span>
+							<span class="value">{{ group.currentRelease.totalTrack }}</span>
+						}
+					</div>
+				}
+				<div class="match-select-releases">
+					@if (!matcher.isRunning) {
+						<button i18n class="button-on-background" (click)="group.expanded = !group.expanded">Tracks</button>
+						@if (group.releases.length > 1) {
+							<button i18n class="button-on-background" (click)="group.selecting=!group.selecting">Releases</button>
+						}
+						@if (group.currentRelease; as currentRelease) {
+							<button i18n
+											class="button-primary"
+											[ngClass]="{'button-primary':currentRelease.complete,'button-on-background':!currentRelease.complete}"
+											(click)="chooseRelease(group, currentRelease)">Choose
+							</button>
+						}
+					}
+					@if (group.selecting) {
+						<div>
+							<form>
+								<fieldset>
+									@for (release of group.releases; track release) {
+										<label class="select" (click)="matcher.setRelease(group, release)">
+											<input type="radio" name="release" [checked]="release === group.currentRelease">
+											<span i18n class="label">Score:</span> <span class="value"><app-score-box [score]="release.score"/></span>
+											<span i18n class="label">Date:</span> <span class="value">{{ release.mbRelease.date || '?' }}</span>
+											<span i18n class="label">Country:</span> <span class="value">{{ release.mbRelease.country || '?' }}</span>
+											<span i18n class="label">Tracks:</span> <span class="value">
                     @if (release.mbRelease.media) {
-                      @for (m of release.mbRelease.media; track m; let index = $index) {
-                        @if (index>0) {
-                          /
-                        }
-                        {{m.trackCount}}
-                      }
-                    }
-                    @if (!release.mbRelease.media) {
-                      ?
-                    }
+											@for (m of release.mbRelease.media; track m; let index = $index) {
+												@if (index > 0) {
+													/
+												}
+												{{ m.trackCount }}
+											}
+										}
+											@if (!release.mbRelease.media) {
+												?
+											}
                   </span>
-                </label>
-              }
-            </fieldset>
-          </form>
-        </div>
-      }
-    </div>
-    @if (group.expanded && group.currentRelease) {
-      <div class="match-tracks-info">
-        @for (media of group.currentRelease.media; track media) {
-          <div>
-            @if ($count>1) {
-              <div (click)="media.expanded=!media.expanded">
-                <i [class]="media.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
-                <ng-container i18n>Media</ng-container> {{media.mbMedia.position}}
-                @if (media.complete) {
-                  <i class="icon-checkmark" title="All tracks matched" i18n-title></i>
-                  }@if (!media.complete) {
-                  <i title="Unmatched tracks!" i18n-title class="icon-warning"></i>
-                }
-              </div>
-            }
-            @if (media.expanded || $count<2) {
-              <div>
-                @for (track of media.tracks; track track) {
-                  <div class="match-track-info" [ngClass]="{missing:!track.currentMatch}" (drop)="drop($event, group, group.currentRelease, track)" (dragover)="allowDrop($event)">
-                    {{track.mbTrack.position}} - {{track.mbTrack.title}} - {{track.mbTrack.artistCredit | mbArtistCredits}}
-                    @if (track.currentMatch) {
-                      <div title="Score: {{track.currentMatch.score | number}} {{track.currentMatch.scores|json}}">
-                        <app-score-box [score]="track.currentMatch.score" />
-                        <a title="Remove Matching" i18n-title (click)="matcher.removeMatching(group,group.currentRelease,track)"><i class="icon-trash"></i></a>
-                        {{track.currentMatch.match.track.name}}
-                      </div>
-                    }
-                  </div>
-                }
-              </div>
-            }
-          </div>
-        }
-      </div>
-    }
-  </div>
-}
-</div>
+										</label>
+									}
+								</fieldset>
+							</form>
+						</div>
+					}
+				</div>
+				@if (group.expanded) {
+					@if (group.currentRelease; as currentRelease) {
+						<div class="match-tracks-info">
+							@for (media of group.currentRelease.media; track media) {
+								<div>
+									@if ($count > 1) {
+										<div (click)="media.expanded=!media.expanded">
+											<i [class]="media.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
+											<ng-container i18n>Media</ng-container>
+											{{ media.mbMedia.position }}
+											@if (media.complete) {
+												<i class="icon-checkmark" title="All tracks matched" i18n-title></i>
+											}
+											@if (!media.complete) {
+												<i title="Unmatched tracks!" i18n-title class="icon-warning"></i>
+											}
+										</div>
+									}
+									@if (media.expanded || $count < 2) {
+										<div>
+											@for (track of media.tracks; track track) {
+												<div class="match-track-info" [ngClass]="{missing:!track.currentMatch}" (drop)="drop($event, group, currentRelease, track)" (dragover)="allowDrop($event)">
+													{{ track.mbTrack.position }} - {{ track.mbTrack.title }} - {{ track.mbTrack.artistCredit | mbArtistCredits }}
+													@if (track.currentMatch) {
+														<div title="Score: {{track.currentMatch.score | number}} {{track.currentMatch.scores|json}}">
+															<app-score-box [score]="track.currentMatch.score"/>
+															<a title="Remove Matching" i18n-title (click)="matcher.removeMatching(group,currentRelease,track)"><i class="icon-trash"></i></a>
+															{{ track.currentMatch.match.track.name }}
+														</div>
+													}
+												</div>
+											}
+										</div>
+									}
+								</div>
+							}
+						</div>
+					}
+				}
+			</div>
+		}
+	</div>
 }

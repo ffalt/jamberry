@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, ViewEncapsulation, output, viewChild} from '@angular/core';
+import {Component, ElementRef, ViewEncapsulation, output, viewChild, input} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
@@ -17,10 +17,10 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 })
 export class InlineEditComponent implements ControlValueAccessor {
 	editing: boolean = false; // Is Component in edit mode?
-	@Input() placeholder: string = ''; // The type of input element
-	@Input() type: string = 'text'; // The type of input element
-	@Input() required: boolean = false; // Is input requried?
-	@Input() disabled: boolean = false; // Is input disabled?
+	readonly placeholder = input<string>(''); // The type of input element
+	readonly type = input<string>('text'); // The type of input element
+	readonly required = input<boolean>(false); // Is input requried?
+	readonly disabled = input<boolean>(false); // Is input disabled?
 	readonly endEditRequest = output();
 	private readonly inlineEditControl = viewChild<ElementRef>('inlineEditControl'); // input DOM element
 	private editValue: string = ''; // Private variable for input value
@@ -70,7 +70,7 @@ export class InlineEditComponent implements ControlValueAccessor {
 
 	// Start the editing process for the input element
 	edit(value: string): void {
-		if (this.disabled) {
+		if (this.disabled()) {
 			return;
 		}
 		this.preValue = value;
@@ -78,7 +78,7 @@ export class InlineEditComponent implements ControlValueAccessor {
 		// Focus on the input element just as the editing begins
 		setTimeout(() => {
 			const inlineEditControl = this.inlineEditControl();
-   if (inlineEditControl?.nativeElement) {
+			if (inlineEditControl?.nativeElement) {
 				inlineEditControl.nativeElement.focus();
 			}
 		});

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input, model} from '@angular/core';
 
 @Component({
     selector: 'app-view-type-toggle',
@@ -7,6 +7,6 @@ import {Component, Input} from '@angular/core';
     standalone: false
 })
 export class ViewTypeToggleComponent {
-	@Input() viewTypeList: boolean = false;
-	@Input() headline?: string;
+	readonly viewTypeList = model<boolean>(false);
+	readonly headline = input<string>();
 }

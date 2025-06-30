@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnChanges, output, viewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnChanges, output, viewChild, input} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {RawTagEditCell} from '../../model/tag-editor.types';
 
@@ -11,20 +11,14 @@ import {RawTagEditCell} from '../../model/tag-editor.types';
 export class CellEditorTxtComponent implements OnChanges, AfterViewInit, AutocompleteDataControl {
 	original: string = '';
 	val: string = '';
-	@Input() cell?: RawTagEditCell;
+	readonly cell = input<RawTagEditCell>();
 	readonly navigKeyDownRequest = output<{ cell: RawTagEditCell; event: KeyboardEvent }>();
 	readonly navigBlur = output();
 	readonly navigChange = output();
 	readonly input = viewChild<ElementRef>('inputEl');
 
 	ngOnChanges(): void {
-		this.changeCell(this.cell);
-	}
-
-	onNavigKeyDown(event: KeyboardEvent): void {
-		if (this.cell) {
-			this.navigKeyDownRequest.emit({cell: this.cell, event});
-		}
+		this.changeCell(this.cell());
 	}
 
 	changeCell(cell?: RawTagEditCell): void {
@@ -48,32 +42,30 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 
 	onEnter(): void {
 		this.onChange();
-		// TODO: The 'emit' function requires a mandatory void argument
 		this.navigBlur.emit();
 	}
 
 	onChange(): void {
-		if (!this.cell) {
+		const cell = this.cell();
+		if (!cell) {
 			return;
 		}
 		if (this.val !== this.original) {
-			if (this.cell.frames.length === 0) {
-				this.cell.frames.push({
-					id: this.cell.column.def.id, value: {
-						id: this.cell.column.def.subid,
+			if (cell.frames.length === 0) {
+				cell.frames.push({
+					id: cell.column.def.id, value: {
+						id: cell.column.def.subid,
 						text: this.val
 					}
 				});
 			}
-			this.cell.frames[0].value.text = this.val;
-			// TODO: The 'emit' function requires a mandatory void argument
+			cell.frames[0].value.text = this.val;
 			this.navigChange.emit();
 		}
 	}
 
 	onBlur(): void {
 		this.onChange();
-		// TODO: The 'emit' function requires a mandatory void argument
 		this.navigBlur.emit();
 	}
 

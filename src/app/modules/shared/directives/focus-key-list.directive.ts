@@ -1,5 +1,5 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterContentInit, Directive, HostBinding, HostListener, Input, OnDestroy, contentChildren} from '@angular/core';
+import {AfterContentInit, Directive, HostBinding, HostListener, OnDestroy, contentChildren, input} from '@angular/core';
 import {toObservable} from '@angular/core/rxjs-interop';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -10,9 +10,9 @@ import {FocusKeyListItemDirective} from './focus-key-list-item.directive';
 	standalone: false
 })
 export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
-	@Input() withWrap = true;
-	@Input() @HostBinding('attr.tabindex') settabindex?: string = '0';
-	@Input() @HostBinding('attr.role') listRole = 'list';
+	readonly withWrap = input(true);
+	@HostBinding('attr.tabindex')
+	readonly settabindex = input<string | undefined>('0');
 	readonly components = contentChildren(FocusKeyListItemDirective, {descendants: true});
 	protected keyManager?: FocusKeyManager<FocusKeyListItemDirective>;
 	private readonly unsubscribe = new Subject<void>();
@@ -36,7 +36,7 @@ export class FocusKeyListDirective implements AfterContentInit, OnDestroy {
 
 	private processKeyList() {
 		this.keyManager = new FocusKeyManager<FocusKeyListItemDirective>(this.components());
-		if (this.withWrap) {
+		if (this.withWrap()) {
 			this.keyManager.withWrap();
 		}
 	}

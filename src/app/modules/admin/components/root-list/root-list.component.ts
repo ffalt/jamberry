@@ -1,4 +1,4 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminRootService, AdminRootServiceEditData, NotifyService} from '@core/services';
 import {Jam} from '@jam';
@@ -12,7 +12,7 @@ import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 	standalone: false
 })
 export class RootListComponent {
-	@Input() roots?: Array<Jam.Root> = [];
+	readonly roots = input<Array<Jam.Root> | undefined>([]);
 	private readonly notify = inject(NotifyService);
 	private readonly dialogs = inject(DialogsService);
 	private readonly rootService = inject(AdminRootService);

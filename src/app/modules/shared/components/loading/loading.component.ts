@@ -1,19 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit, input} from '@angular/core';
 
 @Component({
-    selector: 'app-loading',
-    templateUrl: './loading.component.html',
-    styleUrls: ['./loading.component.scss'],
-    standalone: false
+	selector: 'app-loading',
+	templateUrl: './loading.component.html',
+	styleUrls: ['./loading.component.scss'],
+	standalone: false
 })
 export class LoadingComponent implements OnInit {
-	@Input() time: number = 2000;
+	readonly time = input<number>(2000);
 	show: boolean = false;
 
 	ngOnInit(): void {
 		setTimeout(() => {
 			this.show = true;
-		}, this.time);
+		}, this.time());
 	}
-
 }

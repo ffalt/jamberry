@@ -1,5 +1,5 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, input} from '@angular/core';
 import {PlayerService} from '@core/services';
 import {Jam} from '@jam';
 
@@ -10,16 +10,17 @@ import {Jam} from '@jam';
 	standalone: false
 })
 export class MediaPlaylistComponent {
-	@Input() entries?: Array<Jam.MediaBase>;
-	@Input() showArtist: boolean = false;
-	@Input() showRating: boolean = false;
-	@Input() showPlayCount: boolean = false;
-	@Input() showPlayDate: boolean = false;
+	readonly entries = input<Array<Jam.MediaBase>>();
+	readonly showArtist = input<boolean>(false);
+	readonly showRating = input<boolean>(false);
+	readonly showPlayCount = input<boolean>(false);
+	readonly showPlayDate = input<boolean>(false);
 	private readonly player = inject(PlayerService);
 
 	onDrop(event: CdkDragDrop<Jam.MediaBase>): void {
-		if (this.entries) {
-			moveItemInArray(this.entries, event.previousIndex, event.currentIndex);
+		const entries = this.entries();
+		if (entries) {
+			moveItemInArray(entries, event.previousIndex, event.currentIndex);
 		}
 	}
 

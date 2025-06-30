@@ -1,5 +1,5 @@
 import {FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, HostBinding, HostListener, Input, OnDestroy, viewChildren} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, HostListener, OnDestroy, viewChildren, input} from '@angular/core';
 import {toObservable} from '@angular/core/rxjs-interop';
 import {JamLibraryObject} from '@library/model/objects';
 import {ObjCardComponent} from '@shared/components';
@@ -18,8 +18,8 @@ interface ObjCardsGroupsView {
 	standalone: false
 })
 export class ObjGroupsCardsComponent implements AfterViewInit, OnDestroy {
-	@Input() groups?: Array<ObjCardsGroupsView>;
-	@Input() showParent: boolean = false;
+	readonly groups = input<Array<ObjCardsGroupsView>>();
+	readonly showParent = input<boolean>(false);
 	@HostBinding() tabindex = '0';
 	protected readonly cards = viewChildren(ObjCardComponent);
 	private readonly unsubscribe = new Subject<void>();

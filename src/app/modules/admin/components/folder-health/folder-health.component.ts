@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, inject } from '@angular/core';
+import {Component, OnChanges, OnDestroy, inject, input} from '@angular/core';
 import {Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService} from '@core/services';
@@ -22,15 +22,15 @@ export interface FolderHealthHint {
 }
 
 @Component({
-    selector: 'app-folder-health',
-    templateUrl: './folder-health.component.html',
-    styleUrls: ['./folder-health.component.scss'],
-    standalone: false
+	selector: 'app-folder-health',
+	templateUrl: './folder-health.component.html',
+	styleUrls: ['./folder-health.component.scss'],
+	standalone: false
 })
 export class FolderHealthComponent implements OnChanges, OnDestroy {
 	hints?: Array<FolderHealthHint>;
 	solutions: Array<FolderHealthHintSolution> = [];
-	@Input() folderHealth?: Jam.FolderHealth;
+	readonly folderHealth = input<Jam.FolderHealth>();
 	private readonly unsubscribe = new Subject<void>();
 	private readonly router = inject(Router);
 	private readonly jam = inject(JamService);
@@ -51,8 +51,8 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 		});
 	}
 
-	ngOnChanges(/*changes: SimpleChanges*/): void {
-		this.display(this.folderHealth);
+	ngOnChanges(): void {
+		this.display(this.folderHealth());
 	}
 
 	private static describeImageInvalidHint(hint: Jam.FolderHealthHint): Array<string> {
@@ -146,7 +146,7 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 		}
 	}
 
-	private describeMBIDMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
+	private describeMBIDMissingHint(_hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		this.addEditTagSolution(folder);
 		return [];
 	}
@@ -169,12 +169,12 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 
 	}
 
-	private describeArtistImageMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
+	private describeArtistImageMissingHint(_hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		this.addArtistImageSearchSolution(folder);
 		return [];
 	}
 
-	private describeAlbumImageMissingHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
+	private describeAlbumImageMissingHint(_hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		this.addAlbumImageSearchSolution(folder);
 		return [];
 	}

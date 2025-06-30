@@ -1,5 +1,5 @@
 import {HttpEventType} from '@angular/common/http';
-import {Component, Input, OnChanges, OnDestroy, inject, output} from '@angular/core';
+import {Component, OnChanges, OnDestroy, inject, output, input} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, NotifyService} from '@core/services';
@@ -20,14 +20,14 @@ export interface ImageEdit {
 	standalone: false
 })
 export class ArtworkEditComponent implements OnChanges, OnDestroy {
-	@Input() data?: ImageEdit;
+	readonly data = input<ImageEdit>();
+	readonly imageEdited = output();
 	imageBase64: string = '';
 	croppedImage?: SafeUrl;
 	croppedImageFile?: Blob;
 	mimeType: string = 'image/jpeg';
 	maintainAspectRatio: boolean = true;
 	format: OutputFormat = 'jpeg';
-	readonly imageEdited = output();
 	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly folderService = inject(AdminFolderService);
@@ -40,8 +40,9 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	}
 
 	load(): void {
-		if (this.data) {
-			this.jam.image.imageBinary({id: this.data.artwork.id})
+		const dataValue = this.data();
+		if (dataValue) {
+			this.jam.image.imageBinary({id: dataValue.artwork.id})
 				.then(data => {
 					this.imageBase64 = `data:${(data.contentType || 'image/jpeg')};base64,${base64ArrayBuffer(data.buffer)}`;
 				}).catch(e => {
@@ -51,7 +52,6 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	}
 
 	imageCropped(event: ImageCroppedEvent): void {
-		// console.log('cropped', event);
 		if (event.objectUrl) {
 			this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
 		}
@@ -60,32 +60,18 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 		}
 	}
 
-	imageLoaded(): void {
-		// console.log('imageLoaded');
-		// show cropper
-	}
-
-	cropperReady(): void {
-		// console.log('cropperReady');
-		// cropper ready
-	}
-
-	loadImageFailed(): void {
-		// console.log('loadImageFailed');
-		// show message
-	}
-
 	ngOnChanges(): void {
 		this.load();
 	}
 
 	upload(): void {
-		if (!this.croppedImageFile || !this.data) {
+		const data = this.data();
+		if (!this.croppedImageFile || !data) {
 			return;
 		}
-		const folderID = this.data.folderID;
-		const file = new File([this.croppedImageFile], this.data.artwork.name, {type: this.croppedImageFile.type});
-		this.jam.artwork.update({id: this.data.artwork.id}, file)
+		const folderID = data.folderID;
+		const file = new File([this.croppedImageFile], data.artwork.name, {type: this.croppedImageFile.type});
+		this.jam.artwork.update({id: data.artwork.id}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
 			event => {
 				if (event.type === HttpEventType.Response) {

@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, HostBinding, Input, OnChanges, SimpleChange, inject} from '@angular/core';
+import {AfterContentInit, Component, HostBinding, OnChanges, SimpleChange, inject, input} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {ImageFormatType, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '../image-overlay-content/image-overlay-content.component';
@@ -10,15 +10,22 @@ import {ImageOverlayContentComponent} from '../image-overlay-content/image-overl
 	standalone: false
 })
 export class CoverartImageComponent implements OnChanges, AfterContentInit {
-	@Input() coverArtObj?: { id: string; name: string };
-	@Input() size?: number;
-	@Input() alt: string = '';
-	@Input() refreshRandom: string = '';
-	@Input() allowEnlarge: boolean = false;
-	@Input() @HostBinding('class.fill') fill: boolean = false;
-	@Input() @HostBinding('class.round') round: boolean = false;
-	@Input() @HostBinding('class.border') border: boolean = true;
-	@Input() @HostBinding('class.border-hover') hoverBorder: boolean = false;
+	readonly coverArtObj = input<{
+		id: string;
+		name: string;
+	}>();
+	readonly size = input<number>();
+	readonly alt = input<string>('');
+	readonly refreshRandom = input<string>('');
+	readonly allowEnlarge = input<boolean>(false);
+	@HostBinding('class.fill')
+	readonly fill = input<boolean>(false);
+	@HostBinding('class.round')
+	readonly round = input<boolean>(false);
+	@HostBinding('class.border')
+	readonly border = input<boolean>(true);
+	@HostBinding('class.border-hover')
+	readonly hoverBorder = input<boolean>(false);
 	@HostBinding('style.minWidth.px') @HostBinding('style.minHeight.px') minSize?: number;
 	@HostBinding('style.height.px') @HostBinding('style.width.px') hostSize?: number;
 	isLoaded: boolean = false;
@@ -33,11 +40,12 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 	}
 
 	updateSize(): void {
-		if (this.fill) {
+		const size = this.size();
+		if (this.fill()) {
 			this.minSize = undefined;
 			this.hostSize = undefined;
-		} else if (this.size) {
-			this.minSize = this.size - (this.border ? 2 : 0);
+		} else if (size) {
+			this.minSize = size - (this.border() ? 2 : 0);
 			this.hostSize = this.minSize;
 		}
 	}
@@ -64,28 +72,31 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 
 	onImgLoad(): void {
 		this.isLoaded = true;
-		this.altSrc = this.alt;
+		this.altSrc = this.alt();
 	}
 
 	showImageOverlay(event: MouseEvent): void {
-		if (this.allowEnlarge && this.coverArtObj) {
+		const coverArtObj = this.coverArtObj();
+		if (this.allowEnlarge() && coverArtObj) {
 			event.stopPropagation();
 			this.dialogOverlay.open({
-				title: this.coverArtObj.name,
+				title: coverArtObj.name,
 				childComponent: ImageOverlayContentComponent,
 				data: {
-					name: this.coverArtObj.name,
-					url: this.jam.image.imageUrl({id: this.coverArtObj.id})
+					name: coverArtObj.name,
+					url: this.jam.image.imageUrl({id: coverArtObj.id})
 				}
 			});
 		}
 	}
 
 	private buildUrl(): void {
-		if (this.coverArtObj) {
-			let url = this.jam.image.imageUrl({id: this.coverArtObj.id, size: this.size, format: ImageFormatType.webp});
-			if (this.refreshRandom) {
-				url += `${url.includes('?') ? '&' : '?'}refresh=${this.refreshRandom}`;
+		const coverArtObj = this.coverArtObj();
+		if (coverArtObj) {
+			let url = this.jam.image.imageUrl({id: coverArtObj.id, size: this.size(), format: ImageFormatType.webp});
+			const refreshRandom = this.refreshRandom();
+			if (refreshRandom) {
+				url += `${url.includes('?') ? '&' : '?'}refresh=${refreshRandom}`;
 			}
 			this.imageSrc = url;
 		}

@@ -1,15 +1,17 @@
-<app-background-text-list name="Tracks" [list]="entries" />
-@if (entries && entries.length>0) {
-  <div class="tracks">
-    <app-media-playlist-header [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"/>
-    <div cdkDropList (cdkDropListDropped)="onDrop($event)">
-      @for (media of entries; track $index) {
-        <app-media-playlist-item
-          class="track-wrapper" cdkDrag
-          [media]="media" [showArtist]="showArtist" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate"
-          (tap)="tapTrack($event, media)"
-          />
-      }
-    </div>
-  </div>
+<app-background-text-list name="Tracks" [list]="entries()"/>
+@if (entries(); as entries) {
+	@if (entries.length > 0) {
+		<div class="tracks">
+			<app-media-playlist-header [showArtist]="showArtist()" [showPlayCount]="showPlayCount()" [showPlayDate]="showPlayDate()"/>
+			<div cdkDropList (cdkDropListDropped)="onDrop($event)">
+				@for (media of entries; track $index) {
+					<app-media-playlist-item
+						class="track-wrapper" cdkDrag
+						[media]="media" [showArtist]="showArtist()" [showPlayCount]="showPlayCount()" [showPlayDate]="showPlayDate()"
+						(tap)="tapTrack($event, media)"
+					/>
+				}
+			</div>
+		</div>
+	}
 }

@@ -1,45 +1,47 @@
-<app-background-text-list name="Roots" [list]="roots" />
-@if (roots && roots.length>0) {
-  <table class="roots" appFocusKeyList>
-    <tr class="root heading">
-      <td i18n class="title">Name</td>
-      <td i18n class="path">Path</td>
-      <td i18n class="strategy">Strategy</td>
-      <td i18n class="status">Status</td>
-      <td i18n class="actions">Actions</td>
-    </tr>
-    @for (root of roots; track root.id) {
-      <tr class="root" appFocusKeyListItem (dblclick)="editRoot(root)" (keydown.enter)="editRoot(root)">
-        <td class="title">{{root.name}}</td>
-        <td class="path">{{root.path}}</td>
-        <td class="strategy">{{root.strategy}}</td>
-        <td class="status">
-          @if (!root.status) {
-            <span i18n>Not scanned</span>
-          }
-          @if (root.status && root.status.error) {
-            <span class="error"><ng-container i18n>Error:</ng-container><br>{{root.status.error}}</span>
-          }
-          @if (root.status && !root.status.error) {
-            <span>
+<app-background-text-list name="Roots" [list]="roots()"/>
+@if (roots(); as roots) {
+	@if (roots.length > 0) {
+		<table class="roots" appFocusKeyList role="list">
+			<tr class="root heading">
+				<td i18n class="title">Name</td>
+				<td i18n class="path">Path</td>
+				<td i18n class="strategy">Strategy</td>
+				<td i18n class="status">Status</td>
+				<td i18n class="actions">Actions</td>
+			</tr>
+			@for (root of roots; track root.id) {
+				<tr class="root" appFocusKeyListItem role="listitem" (dblclick)="editRoot(root)" (keydown.enter)="editRoot(root)">
+					<td class="title">{{ root.name }}</td>
+					<td class="path">{{ root.path }}</td>
+					<td class="strategy">{{ root.strategy }}</td>
+					<td class="status">
+						@if (!root.status) {
+							<span i18n>Not scanned</span>
+						}
+						@if (root.status && root.status.error) {
+							<span class="error"><ng-container i18n>Error:</ng-container><br>{{ root.status.error }}</span>
+						}
+						@if (root.status && !root.status.error) {
+							<span>
               @if (root.status.scanning) {
-                <ng-container i18n>Working…</ng-container>
-              }
-              @if (!root.status.scanning) {
-                <ng-container i18n>Last Change:</ng-container><br>{{root.status.lastScan | date:'medium'}}
-              }
+								<ng-container i18n>Working…</ng-container>
+							}
+								@if (!root.status.scanning) {
+									<ng-container i18n>Last Change:</ng-container><br>{{ root.status.lastScan | date:'medium' }}
+								}
             </span>
-          }
-        </td>
-        <td class="actions">
-          <div class="action-buttons">
-            <button title="Rescan Root" i18n-title appClickStop (click)="refreshRoot(root)"><i class="icon-rescan" aria-hidden="true"></i></button>
-            <button title="Refresh Root Meta" i18n-title appClickStop (click)="refreshRootMeta(root)"><i class="icon-broom" aria-hidden="true"></i></button>
-            <button title="Edit Root" i18n-title appClickStop (click)="editRoot(root)"><i class="icon-edit" aria-hidden="true"></i></button>
-            <button title="Delete Root" i18n-title appClickStop (click)="deleteRoot(root)"><i class="icon-remove" aria-hidden="true"></i></button>
-          </div>
-        </td>
-      </tr>
-    }
-  </table>
+						}
+					</td>
+					<td class="actions">
+						<div class="action-buttons">
+							<button title="Rescan Root" i18n-title appClickStop (click)="refreshRoot(root)"><i class="icon-rescan" aria-hidden="true"></i></button>
+							<button title="Refresh Root Meta" i18n-title appClickStop (click)="refreshRootMeta(root)"><i class="icon-broom" aria-hidden="true"></i></button>
+							<button title="Edit Root" i18n-title appClickStop (click)="editRoot(root)"><i class="icon-edit" aria-hidden="true"></i></button>
+							<button title="Delete Root" i18n-title appClickStop (click)="deleteRoot(root)"><i class="icon-remove" aria-hidden="true"></i></button>
+						</div>
+					</td>
+				</tr>
+			}
+		</table>
+	}
 }

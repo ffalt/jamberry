@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, OnChanges, input} from '@angular/core';
 import {Jam} from '@jam';
 
 function splitLines(text: string): Array<string> {
@@ -9,13 +9,13 @@ function splitLines(text: string): Array<string> {
 }
 
 @Component({
-    selector: 'app-info-note',
-    templateUrl: './info-note.component.html',
-    styleUrls: ['./info-note.component.scss'],
-    standalone: false
+	selector: 'app-info-note',
+	templateUrl: './info-note.component.html',
+	styleUrls: ['./info-note.component.scss'],
+	standalone: false
 })
 export class InfoNoteComponent implements OnChanges {
-	@Input() info?: Jam.ExtendedInfo;
+	readonly info = input<Jam.ExtendedInfo>();
 	longInfo = false;
 	notes: Array<string> = [];
 
@@ -24,6 +24,7 @@ export class InfoNoteComponent implements OnChanges {
 	}
 
 	private refresh(): void {
-		this.notes = this.info ? splitLines(this.info.description) : [];
+		const info = this.info();
+		this.notes = info ? splitLines(info.description) : [];
 	}
 }

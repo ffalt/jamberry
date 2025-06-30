@@ -1,27 +1,27 @@
-<app-background-text-list name="Tracks" [list]="tracks" />
-@if (tracks && tracks.length>0) {
-  <table class="tracks">
-    <tr class="track heading">
-      <td i18n class="number">Track Nr.</td>
-      <td i18n class="title">Title</td>
-      <td i18n class="artist">Artist</td>
-      <td i18n class="album">Album</td>
-      <td i18n class="format">Format</td>
-      <td i18n class="bitrate">BitRate</td>
-      <td i18n class="samplerate">SampleRate</td>
-      <td i18n class="duration">Duration</td>
-    </tr>
-    @for (trackItem of trackItems; track trackItem.track.id) {
-      <tr class="track" [class.selected]="trackItem.selected" (click)="trackItem.selected=!trackItem.selected">
-        <td class="number">{{trackItem.track.tag?.trackNr}}</td>
-        <td class="title">{{trackItem.track.tag?.title}}</td>
-        <td class="artist">{{trackItem.track.tag?.artist}}</td>
-        <td class="album">{{trackItem.track.tag?.album}}</td>
-        <td class="format">{{trackItem.track.media?.format}}</td>
-        <td class="bitrate">{{trackItem.track.media?.bitRate}}</td>
-        <td class="samplerate">{{trackItem.track.media?.sampleRate}}</td>
-        <td class="duration">{{trackItem.track.duration | duration}}</td>
-      </tr>
-    }
-  </table>
+<app-background-text-list name="Tracks" [list]="tracks()"/>
+@if (tracks() && tracks().length > 0) {
+	<table class="tracks">
+		<tr class="track heading">
+			<td i18n class="number">Track Nr.</td>
+			<td i18n class="title">Title</td>
+			<td i18n class="artist">Artist</td>
+			<td i18n class="album">Album</td>
+			<td i18n class="format">Format</td>
+			<td i18n class="bitrate">BitRate</td>
+			<td i18n class="samplerate">SampleRate</td>
+			<td i18n class="duration">Duration</td>
+		</tr>
+		@for (trackItem of trackItems; track trackItem.track.id) {
+			<tr class="track" [class.selected]="trackItem.selected" (click)="trackItem.selected=!trackItem.selected">
+				<td class="number">{{ trackItem.track.tag?.trackNr }}</td>
+				<td class="title">{{ trackItem.track.tag?.title }}</td>
+				<td class="artist">{{ trackItem.track.tag?.artist }}</td>
+				<td class="album">{{ trackItem.track.tag?.album }}</td>
+				<td class="format">{{ trackItem.track.media?.format }}</td>
+				<td class="bitrate">{{ trackItem.track.media?.bitRate }}</td>
+				<td class="samplerate">{{ trackItem.track.media?.sampleRate }}</td>
+				<td class="duration">{{ trackItem.track.duration | duration }}</td>
+			</tr>
+		}
+	</table>
 }

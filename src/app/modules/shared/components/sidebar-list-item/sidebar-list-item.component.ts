@@ -1,5 +1,5 @@
 import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, ElementRef, Input, output, viewChild} from '@angular/core';
+import {Component, ElementRef, output, viewChild, input} from '@angular/core';
 
 export interface SidebarListItem {
 	name: string;
@@ -17,7 +17,7 @@ export interface SidebarListItem {
 	standalone: false
 })
 export class SidebarListItemComponent implements FocusableOption {
-	@Input() entry?: SidebarListItem;
+	readonly entry = input<SidebarListItem>();
 	readonly navigate = output();
 	readonly element = viewChild<ElementRef>('item');
 

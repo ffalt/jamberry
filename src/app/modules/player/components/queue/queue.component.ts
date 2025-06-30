@@ -1,5 +1,5 @@
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {Component, Input, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, OnDestroy, OnInit, inject, input} from '@angular/core';
 import {PlayerService, QueueService} from '@core/services';
 import {Jam} from '@jam';
 import {MenuService} from '@shared/services';
@@ -14,7 +14,7 @@ import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/contex
 	standalone: false
 })
 export class QueueComponent implements OnInit, OnDestroy {
-	@Input() showControls: boolean = true;
+	readonly showControls = input<boolean>(true);
 	entries: Array<Jam.MediaBase> = [];
 	readonly queue = inject(QueueService);
 	private readonly player = inject(PlayerService);

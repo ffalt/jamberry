@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnChanges, SimpleChanges, output, input} from '@angular/core';
 import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 
 @Component({
@@ -12,12 +12,12 @@ export class TagEditorAutocompleteComponent implements AutocompleteDataControl, 
 	list: Array<{ text: string }> = [];
 	focused: boolean = false;
 	edit: string = '';
-	@Input() standalone: boolean = false;
-	@Input() field: string = 'text';
-	@Input() value: string = '';
-	@Input() data: any;
-	@Input() getList?: (data: any) => Array<string>;
-	@Input() onAutoComplete?: (query: string) => Promise<Array<string>>;
+	readonly standalone = input<boolean>(false);
+	readonly field = input<string>('text');
+	readonly value = input<string>('');
+	readonly data = input<any>();
+	readonly getList = input<(data: any) => Array<string>>();
+	readonly onAutoComplete = input<(query: string) => Promise<Array<string>>>();
 	readonly valueChange = output<string>();
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -43,7 +43,7 @@ export class TagEditorAutocompleteComponent implements AutocompleteDataControl, 
 	}
 
 	onValueChange(): void {
-		if (this.value !== this.edit) {
+		if (this.value() !== this.edit) {
 			this.valueChange.emit(this.edit);
 		}
 	}
@@ -53,8 +53,9 @@ export class TagEditorAutocompleteComponent implements AutocompleteDataControl, 
 		if (this.edit === undefined) {
 			this.edit = '';
 		}
-		if (this.getList) {
-			this.list = this.getList(this.data)
+		const getList = this.getList();
+		if (getList) {
+			this.list = getList(this.data())
 				.map(text => ({text}));
 		}
 	}
