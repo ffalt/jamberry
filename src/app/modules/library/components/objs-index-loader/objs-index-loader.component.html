@@ -1,6 +1,5 @@
-@if (!index) {
-  <app-loading />
-}
 @if (index) {
-  <app-index [viewTypeList]="true" [index]="index" />
+	<app-index [viewTypeList]="true" [index]="index"/>
+} @else {
+	<app-loading/>
 }

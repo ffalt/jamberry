@@ -6,8 +6,7 @@
   <button class="button-primary" (click)="randomAvatar()">
     @if (refreshing) {
       <i class="icon-spin icon-spinner"></i>
-    }
-    @if (!refreshing) {
+    } @else {
       <span i18n>Random Image</span>
     }
   </button>

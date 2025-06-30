@@ -1,6 +1,3 @@
-@if (!track) {
-  <app-loading />
-}
 @if (track) {
   <div>
     <div i18n class="section-title">Waveform</div>
@@ -119,4 +116,6 @@
       <div>{{track.state?.played}}</div>
     </div>
   </div>
+} @else {
+	<app-loading />
 }

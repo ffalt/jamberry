@@ -1,9 +1,8 @@
 <button class="toggle" (click)="rightActive=!rightActive">
-  @if (!rightActive) {
+	@if (rightActive) {
+		<a><i class="icon-left"></i> <ng-container i18n>Show Folder Tree</ng-container></a>
+	} @else {
     <a><i class="icon-right"></i> <ng-container i18n>Show Folder Tools</ng-container></a>
-  }
-  @if (rightActive) {
-    <a><i class="icon-left"></i> <ng-container i18n>Show Folder Tree</ng-container></a>
   }
 </button>
 <div class="content">

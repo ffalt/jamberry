@@ -1,4 +1,5 @@
-@if (!albums) {
-  <app-loading />
+@if (albums) {
+	<app-obj-groups-view [objs]="albums" [viewTypeList]="true" [grouping]="true"/>
+} @else {
+	<app-loading/>
 }
-<app-obj-groups-view [objs]="albums" [viewTypeList]="true" [grouping]="true" />

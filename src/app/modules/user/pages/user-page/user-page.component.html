@@ -12,7 +12,7 @@
 						<div i18n class="section-title">Name</div>
 						<div>{{ auth.user.name }}</div>
 					</div>
-					@if (auth.user && auth.user.roles) {
+					@if (auth.user.roles) {
 						<div class="section">
 							<div i18n class="section-title">Permissions</div>
 							<div class="roles">

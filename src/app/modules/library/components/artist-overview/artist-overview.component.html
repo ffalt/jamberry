@@ -1,23 +1,22 @@
-@if (!artist) {
-  <app-loading />
-}
 @if (artist) {
-  <div class="overview">
-    @if (artist.info) {
-      <div class="info">
-        <div i18n class="section-title">Description</div>
-        <app-info-note [info]="artist.info" />
-      </div>
-    }
-  </div>
+	<div class="overview">
+		@if (artist.info) {
+			<div class="info">
+				<div i18n class="section-title">Description</div>
+				<app-info-note [info]="artist.info"/>
+			</div>
+		}
+	</div>
+} @else {
+	<app-loading/>
 }
 @if (albums && !tracksQuery) {
-  <div class="artist-albums">
-    <app-obj-groups-view [objs]="albums" [viewTypeList]="true" [grouping]="true" />
-  </div>
+	<div class="artist-albums">
+		<app-obj-groups-view [objs]="albums" [viewTypeList]="true" [grouping]="true"/>
+	</div>
 }
 @if (tracksQuery) {
-  <div class="artist-tracks">
-    <app-tracks-loader [queryCmd]="tracksQuery" />
-  </div>
+	<div class="artist-tracks">
+		<app-tracks-loader [queryCmd]="tracksQuery"/>
+	</div>
 }

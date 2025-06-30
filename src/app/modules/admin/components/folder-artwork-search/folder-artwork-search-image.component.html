@@ -19,8 +19,7 @@
 									<form><span class="label">
                     @if (node.storing) {
 											<i class="icon-spin icon-spinner"></i>
-										}
-										@if (!node.storing) {
+										} @else {
 											<input type="checkbox" [checked]="node.checked" [(ngModel)]="node.checked">
 										} {{ node.name }}
                     </span></form>

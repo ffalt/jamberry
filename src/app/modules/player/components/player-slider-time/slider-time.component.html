@@ -1,20 +1,20 @@
 <div class="slider" (mousedown)="changePlaybackTime($event)">
-  @if (!this.app.settings.showWaveform|| !svg) {
-    <div class="back"></div>
-  }
-  @if (this.app.settings.showWaveform && svg) {
-    <div class="waveform">
-      <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" i18n-preserveAspectRatio style="fill-rule:evenodd;clip-rule:evenodd;" [attr.viewBox]="svg.viewbox">
-        <defs>
-          <clipPath id="cut-off-right">
-						<rect x="0" y="0" height="256" [style.width.%]="timePC" />
-          </clipPath>
-					<path id="waveform-path" [attr.d]="svg.path" />
-        </defs>
-        <use xlink:href="#waveform-path" stroke="#1ed760" fill="#1ed760"/>
-        <use xlink:href="#waveform-path" stroke="#2B7343" fill="#2B7343" clip-path="url(#cut-off-right)"/>
-      </svg>
-    </div>
-  }
-  <div class="scrubber" [style.width.%]="timePC" [class.line]="!!svg"></div>
+	@if (!this.app.settings.showWaveform || !svg) {
+		<div class="back"></div>
+	}
+	@if (this.app.settings.showWaveform && svg) {
+		<div class="waveform">
+			<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" i18n-preserveAspectRatio style="fill-rule:evenodd;clip-rule:evenodd;" [attr.viewBox]="svg.viewbox">
+				<defs>
+					<clipPath id="cut-off-right">
+						<rect x="0" y="0" height="256" [style.width.%]="timePC"/>
+					</clipPath>
+					<path id="waveform-path" [attr.d]="svg.path"/>
+				</defs>
+				<use xlink:href="#waveform-path" stroke="#1ed760" fill="#1ed760"/>
+				<use xlink:href="#waveform-path" stroke="#2B7343" fill="#2B7343" clip-path="url(#cut-off-right)"/>
+			</svg>
+		</div>
+	}
+	<div class="scrubber" [style.width.%]="timePC" [class.line]="!!svg"></div>
 </div>

@@ -1,6 +1,3 @@
-@if (!folder) {
-	<app-loading/>
-}
 <context-menu #actionMenu>
 	<ng-template contextMenuItem (execute)="editor.setAudiobookFrames(this.tracks)"><i class="icon-edit"></i>
 		<ng-container i18n>Set Audiobook Frames</ng-container>
@@ -40,11 +37,10 @@
 				<app-mb-icon [size]="12"/>
 			</button>
 			<button class="button-on-control" title="Choose Columns" i18n-title (click)="chooseColumns()"><i class="icon-list-add"></i></button>
-			@if (!isSaving) {
-				<button class="button-on-control" title="Save" i18n-title (click)="save()"><i class="icon-floppy"></i></button>
-			}
 			@if (isSaving) {
 				<button class="button-on-control" title="Save" i18n-title><i class="icon-spin icon-spnner"></i></button>
+			} @else {
+				<button class="button-on-control" title="Save" i18n-title (click)="save()"><i class="icon-floppy"></i></button>
 			}
 			<button class="button-on-control" title="More" i18n-title (click)="onContextMenu($event)">…</button>
 		</div>
@@ -80,11 +76,10 @@
 							<td class="col-state">
 								<div class="cell-editor">
 									@if (edit.changed) {
-										@if (!edit.saving) {
-											<i class="icon-floppy" (click)="saveEdit(edit)"></i>
-										}
 										@if (edit.saving) {
 											<i class="icon-spin icon-spinner"></i>
+										} @else {
+											<i class="icon-floppy" (click)="saveEdit(edit)"></i>
 										}
 									}
 								</div>
@@ -100,4 +95,6 @@
 			</table>
 		</div>
 	}
+} @else {
+	<app-loading/>
 }

@@ -1,62 +1,63 @@
 <div class="settings">
-  <app-view-header-slim section="Admin Settings" i18n-section>
-    <button class="button-on-control" title="Save" i18n-title (click)="save()"><i class="icon-floppy"></i> <ng-container i18n>Save Settings</ng-container></button>
-  </app-view-header-slim>
-  <div class="content">
-    @if (!settings) {
-      <app-loading />
-    }
-    @if (settings) {
-      <div>
-        <div i18n class="section-title">Server</div>
-        <div class="section-entry">
-          <label>
-            <input type="checkbox" title="Scan all Roots on Server Start" i18n-title [(ngModel)]="settings.library.scanAtStart" (ngModelChange)="onChange()"/>
-            <ng-container i18n>Scan all Roots on Server Start</ng-container>
-          </label>
-        </div>
-      </div>
-      <div>
-        <div i18n class="section-title">External Services</div>
-        <div class="section-entry">
-          <label>
-            <input type="checkbox" title="Allow Request to External Services" i18n-title [(ngModel)]="settings.externalServices.enabled" (ngModelChange)="onChange()"/>
-            <ng-container i18n>Allow Request to External Services</ng-container>
-          </label>
-        </div>
-      </div>
-      <div>
-        <div i18n class="section-title">Chat</div>
-        <div class="section-entry">
-          <label i18n for="max_messages">Maximum Number of Messages</label>
-          <input id="max_messages" type="number" [(ngModel)]="settings.chat.maxMessages" (ngModelChange)="onChange()"/>
-        </div>
-        <div class="section-entry">
-          <div class="chat-max-age">
-            <label i18n for="max_age">Maximum Age of Message</label>
-            <input id="max_age" type="number" [(ngModel)]="settings.chat.maxAge.value" (ngModelChange)="onChange()"/>
-          </div>
-          <select title="Unit of Age" i18n-title [(ngModel)]="settings.chat.maxAge.unit" (ngModelChange)="onChange()">
-            <option i18n value="year">year</option>
-            <option i18n value="years">years</option>
-            <option i18n value="month">month</option>
-            <option i18n value="months">months</option>
-            <option i18n value="day">day</option>
-            <option i18n value="days">days</option>
-            <option i18n value="minute">minute</option>
-            <option i18n value="minutes">minutes</option>
-            <option i18n value="second">second</option>
-            <option i18n value="seconds">seconds</option>
-          </select>
-        </div>
-      </div>
-      <div>
-        <div i18n class="section-title">Artist Index</div>
-        <div class="section-entry">
-          <label i18n for="ignore_articles">Ignored Articles in Artist Names</label>
-          <textarea id="ignore_articles" rows="10" cols="20" [(ngModel)]="ignoreArticles" (ngModelChange)="onChange()"></textarea>
-        </div>
-      </div>
-    }
-  </div>
+	<app-view-header-slim section="Admin Settings" i18n-section>
+		<button class="button-on-control" title="Save" i18n-title (click)="save()"><i class="icon-floppy"></i>
+			<ng-container i18n>Save Settings</ng-container>
+		</button>
+	</app-view-header-slim>
+	<div class="content">
+		@if (settings) {
+			<div>
+				<div i18n class="section-title">Server</div>
+				<div class="section-entry">
+					<label>
+						<input type="checkbox" title="Scan all Roots on Server Start" i18n-title [(ngModel)]="settings.library.scanAtStart" (ngModelChange)="onChange()"/>
+						<ng-container i18n>Scan all Roots on Server Start</ng-container>
+					</label>
+				</div>
+			</div>
+			<div>
+				<div i18n class="section-title">External Services</div>
+				<div class="section-entry">
+					<label>
+						<input type="checkbox" title="Allow Request to External Services" i18n-title [(ngModel)]="settings.externalServices.enabled" (ngModelChange)="onChange()"/>
+						<ng-container i18n>Allow Request to External Services</ng-container>
+					</label>
+				</div>
+			</div>
+			<div>
+				<div i18n class="section-title">Chat</div>
+				<div class="section-entry">
+					<label i18n for="max_messages">Maximum Number of Messages</label>
+					<input id="max_messages" type="number" [(ngModel)]="settings.chat.maxMessages" (ngModelChange)="onChange()"/>
+				</div>
+				<div class="section-entry">
+					<div class="chat-max-age">
+						<label i18n for="max_age">Maximum Age of Message</label>
+						<input id="max_age" type="number" [(ngModel)]="settings.chat.maxAge.value" (ngModelChange)="onChange()"/>
+					</div>
+					<select title="Unit of Age" i18n-title [(ngModel)]="settings.chat.maxAge.unit" (ngModelChange)="onChange()">
+						<option i18n value="year">year</option>
+						<option i18n value="years">years</option>
+						<option i18n value="month">month</option>
+						<option i18n value="months">months</option>
+						<option i18n value="day">day</option>
+						<option i18n value="days">days</option>
+						<option i18n value="minute">minute</option>
+						<option i18n value="minutes">minutes</option>
+						<option i18n value="second">second</option>
+						<option i18n value="seconds">seconds</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<div i18n class="section-title">Artist Index</div>
+				<div class="section-entry">
+					<label i18n for="ignore_articles">Ignored Articles in Artist Names</label>
+					<textarea id="ignore_articles" rows="10" cols="20" [(ngModel)]="ignoreArticles" (ngModelChange)="onChange()"></textarea>
+				</div>
+			</div>
+		} @else {
+			<app-loading/>
+		}
+	</div>
 </div>

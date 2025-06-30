@@ -16,9 +16,11 @@
 			<div title="{{media.state?.lastPlayed | date:'long'}}" class="play-date">{{ media.state?.lastPlayed | date }}</div>
 		}
 		<div class="number">{{ media.tag?.trackNr }}</div>
-		<div class="title"><p>{{ media.tag?.title }}</p>@if (showArtist() && media.tag?.artist) {
-			<a title="Artist" i18n-title (click)="navig.toMediaArtist(media)">{{ media.tag?.artist }}</a>
-		}</div>
+		<div class="title"><p>{{ media.tag?.title }}</p>
+			@if (showArtist() && media.tag?.artist) {
+				<a title="Artist" i18n-title (click)="navig.toMediaArtist(media)">{{ media.tag?.artist }}</a>
+			}
+		</div>
 		<div class="length">{{ media.duration|duration }}</div>
 	</div>
 }

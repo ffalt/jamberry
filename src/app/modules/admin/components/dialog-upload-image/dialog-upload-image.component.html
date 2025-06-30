@@ -1,20 +1,18 @@
-@if (!isIdle) {
-  <div>
-    <div>
-      @if (isUploading) {
-        <ng-container i18n>Uploading</ng-container>
-      }
-      @if (!isUploading) {
-        <ng-container i18n>Creating Artwork</ng-container>
-      }
-    </div>
-    <app-loading />
-  </div>
-}
 @if (isIdle) {
-  <div class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)">
-    <form>
-      <input type="file" placeholder="Upload image" i18n-placeholder accept=".png,.jpeg,.jpg" (change)="selectFile($event)">
-    </form>
-  </div>
+	<div class="drop-zone" (drop)="onDropFile($event)" (dragover)="onDragOverFile($event)">
+		<form>
+			<input type="file" placeholder="Upload image" i18n-placeholder accept=".png,.jpeg,.jpg" (change)="selectFile($event)">
+		</form>
+	</div>
+} @else {
+	<div>
+		<div>
+			@if (isUploading) {
+				<ng-container i18n>Uploading</ng-container>
+			} @else {
+				<ng-container i18n>Creating Artwork</ng-container>
+			}
+		</div>
+		<app-loading/>
+	</div>
 }

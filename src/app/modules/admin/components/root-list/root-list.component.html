@@ -15,21 +15,20 @@
 					<td class="path">{{ root.path }}</td>
 					<td class="strategy">{{ root.strategy }}</td>
 					<td class="status">
-						@if (!root.status) {
-							<span i18n>Not scanned</span>
-						}
-						@if (root.status && root.status.error) {
-							<span class="error"><ng-container i18n>Error:</ng-container><br>{{ root.status.error }}</span>
-						}
-						@if (root.status && !root.status.error) {
-							<span>
-              @if (root.status.scanning) {
-								<ng-container i18n>Working…</ng-container>
-							}
-								@if (!root.status.scanning) {
+						@if (root.status) {
+							@if (root.status.error) {
+								<span class="error"><ng-container i18n>Error:</ng-container><br>{{ root.status.error }}</span>
+							} @else {
+								<span>
+								@if (root.status.scanning) {
+									<ng-container i18n>Working…</ng-container>
+								} @else {
 									<ng-container i18n>Last Change:</ng-container><br>{{ root.status.lastScan | date:'medium' }}
 								}
-            </span>
+							</span>
+							}
+						} @else {
+							<span i18n>Not scanned</span>
 						}
 					</td>
 					<td class="actions">

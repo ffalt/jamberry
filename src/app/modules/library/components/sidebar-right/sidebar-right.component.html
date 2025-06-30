@@ -7,8 +7,7 @@
 <div class="content">
 	@if (currentTab === 'queue') {
 		<app-queue/>
-	}
-	@if (currentTab === 'chat') {
+	} @else if (currentTab === 'chat') {
 		<app-chat/>
 	}
 </div>

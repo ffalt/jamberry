@@ -1,11 +1,9 @@
-@if (!folder) {
-  <app-loading />
-}
 @if (folder) {
-  @if (hasArtistID) {
-    <app-mb-artist [mbArtistID]="folder.tag?.mbArtistID" />
-  }
-  @if (!hasArtistID) {
-    <app-background-text text="No Musicbrainz ArtistID available" i18n-text />
-  }
+	@if (hasArtistID) {
+		<app-mb-artist [mbArtistID]="folder.tag?.mbArtistID"/>
+	} @else {
+		<app-background-text text="No Musicbrainz ArtistID available" i18n-text/>
+	}
+} @else {
+	<app-loading/>
 }
