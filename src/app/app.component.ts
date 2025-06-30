@@ -34,7 +34,7 @@ import {takeUntil} from 'rxjs/operators';
 	}
 })
 export class AppComponent implements OnInit, OnDestroy {
-	readonly tabContentOutlet = viewChild<ElementRef>('tabContentOutlet');
+	readonly tabContentOutlet = viewChild.required<ElementRef>('tabContentOutlet');
 	readonly player = inject(PlayerService);
 	readonly app = inject(AppService);
 	readonly auth = inject(JamAuthService);
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.tabService.init(
 			new TabPortalOutlet(this.tabService.tabs,
-				this.tabContentOutlet()?.nativeElement,
+				this.tabContentOutlet(),
 				this.componentFactoryResolver,
 				this.appRef,
 				this.injector)

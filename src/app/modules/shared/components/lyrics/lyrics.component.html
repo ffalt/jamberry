@@ -2,7 +2,7 @@
   <div class="info">
     <div class="description">
       <div class="note">
-        @for (note of lyrics; track note) {
+        @for (note of lyrics; track $index) {
           <div>
             <div [innerHTML]="note"></div>
           </div>
