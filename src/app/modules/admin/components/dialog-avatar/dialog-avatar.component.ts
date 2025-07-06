@@ -1,4 +1,4 @@
-import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {Component, OnDestroy, inject} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {randomString} from '@app/utils/random';
@@ -69,10 +69,7 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 
 		this.jam.user.uploadUserImage({id: this.user.id}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
-				if (event.type === HttpEventType.UploadProgress) {
-					// const percentDone = Math.round(100 * event.loaded / event.total);
-					// console.log(`File is ${percentDone}% loaded.`);
-				} else if (event instanceof HttpResponse) {
+				if (event instanceof HttpResponse) {
 					this.setImageSource();
 					this.hasChanged = true;
 				}

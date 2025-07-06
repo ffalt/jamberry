@@ -2,16 +2,18 @@ import {Injectable} from '@angular/core';
 import Mousetrap from 'mousetrap';
 import {Hotkey} from './hotkeys.model';
 
+type HotkeyLike = Hotkey | Array<Hotkey>;
+
 @Injectable()
 export class HotkeysService {
 	hotkeys: Array<Hotkey> = [];
 	pausedHotkeys: Array<Hotkey> = [];
 	mousetrap: Mousetrap.MousetrapInstance;
 
-	private preventIn = ['INPUT', 'SELECT', 'TEXTAREA'];
+	private readonly preventIn = ['INPUT', 'SELECT', 'TEXTAREA'];
 
 	constructor() {
-		Mousetrap.prototype.stopCallback = (event: KeyboardEvent, element: HTMLElement): boolean => {
+		Mousetrap.prototype.stopCallback = (_event: KeyboardEvent, element: HTMLElement): boolean => {
 			// if the element has the class "mousetrap" then no need to stop
 			if ((` ${element.className} `).includes(' mousetrap ')) {
 				return false;
@@ -21,7 +23,7 @@ export class HotkeysService {
 		this.mousetrap = new (Mousetrap as any)();
 	}
 
-	add(hotkey: Hotkey | Array<Hotkey>, specificEvent?: string): Hotkey | Array<Hotkey> {
+	add(hotkey: HotkeyLike, specificEvent?: string): HotkeyLike {
 		if (Array.isArray(hotkey)) {
 			const temp: Array<Hotkey> = [];
 			for (const key of hotkey) {
@@ -37,18 +39,17 @@ export class HotkeysService {
 			// if the callback is executed directly `hotkey.get('w').callback()`
 			// there will be no event, so just execute the callback.
 			if (event) {
-				const target: HTMLElement = (event.target || event.srcElement) as HTMLElement; // srcElement is IE only
-				const nodeName: string = target.nodeName.toUpperCase();
-
-				// check if the input has a mousetrap class, and skip checking preventIn if so
-				if ((` ${target.className} `).includes(' mousetrap ')) {
-					shouldExecute = true;
-				} else if (this.preventIn.includes(nodeName) && !(hotkey.allowIn || []).map(allow => allow.toUpperCase()).includes(nodeName)) {
-					// don't execute callback if the event was fired from inside an element listed in preventIn but not in allowIn
-					shouldExecute = false;
+				const target = event.target as HTMLElement;
+				if (!target) {
+					return;
 				}
+				const nodeName: string = target.nodeName.toUpperCase();
+				// check if the input has a mousetrap class, and skip checking preventIn if so
+				// don't execute callback if the event was fired from inside an element listed in preventIn but not in allowIn
+				shouldExecute = (` ${target.className} `).includes(' mousetrap ') ||
+					!(this.preventIn.includes(nodeName) &&
+						!(hotkey.allowIn || []).map(allow => allow.toUpperCase()).includes(nodeName));
 			}
-
 			if (shouldExecute) {
 				return (hotkey).callback.apply(this, [event, combo]);
 			}
@@ -58,7 +59,7 @@ export class HotkeysService {
 		return hotkey;
 	}
 
-	remove(hotkey?: Hotkey | Array<Hotkey>): Hotkey | Array<Hotkey> | undefined {
+	remove(hotkey?: HotkeyLike): HotkeyLike | undefined {
 		const temp: Array<Hotkey> = [];
 		if (!hotkey) {
 			for (const key of this.hotkeys) {
@@ -81,7 +82,7 @@ export class HotkeysService {
 		return;
 	}
 
-	get(combo?: string | Array<string>): Hotkey | Array<Hotkey> | undefined {
+	get(combo?: string | Array<string>): HotkeyLike | undefined {
 		if (!combo) {
 			return this.hotkeys;
 		}
@@ -95,7 +96,7 @@ export class HotkeysService {
 		return this.hotkeys.find(hotk => hotk.combo.includes(combo));
 	}
 
-	pause(hotkey?: Hotkey | Array<Hotkey>): Hotkey | Array<Hotkey> {
+	pause(hotkey?: HotkeyLike): HotkeyLike {
 		if (!hotkey) {
 			return this.pause(this.hotkeys);
 		}
@@ -111,7 +112,7 @@ export class HotkeysService {
 		return hotkey;
 	}
 
-	unpause(hotkey?: Hotkey | Array<Hotkey>): Hotkey | Array<Hotkey> | undefined {
+	unpause(hotkey?: HotkeyLike): HotkeyLike | undefined {
 		if (!hotkey) {
 			return this.unpause(this.pausedHotkeys);
 		}

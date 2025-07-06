@@ -101,51 +101,39 @@ function fillTypes(builder: ID3V24TagBuilder, match: Matching, track: MusicBrain
 
 function fillImages(builder: ID3V24TagBuilder, match: Matching, images: Array<MatchImageNode>): void {
 	if (images && images.length > 0) {
-		for (const image of images) {
-			// export const ID3v2_ValuePicTypes: { [name: string]: string; } = {
-			// 	'0': 'Other',
-			// 	'1': '32x32 pixels \'file icon\' (PNG only)',
-			// 	'2': 'Other file icon',
-			// 	'3': 'Cover (front)',
-			// 	'4': 'Cover (back)',
-			// 	'5': 'Leaflet page',
-			// 	'6': 'Media (e.g. lable side of CD)',
-			// 	'7': 'Lead artist/lead performer/soloist',
-			// 	'8': 'Artist/performer',
-			// 	'9': 'Conductor',
-			// 	'10': 'Band/Orchestra',
-			// 	'11': 'Composer',
-			// 	'12': 'Lyricist/text writer',
-			// 	'13': 'Recording Location',
-			// 	'14': 'During recording',
-			// 	'15': 'During performance',
-			// 	'16': 'Movie/video screen capture',
-			// 	'17': 'A bright coloured fish',
-			// 	'18': 'Illustration',
-			// 	'19': 'Band/artist logotype',
-			// 	'20': 'Publisher/Studio logotype'
-			// };
-			let pictureType = 0;
-			if (image.image.types.includes('Medium')) {
-				pictureType = 6;
-			} else if (image.image.types.includes('Booklet')) {
-				pictureType = 5;
-			} else if (image.image.types.includes('Front')) {
-				pictureType = 3;
-			} else if (image.image.types.includes('Back')) {
-				pictureType = 4;
-			}
-			if (image.base64) {
-				builder.addPicture(pictureType, '', image.base64.mimeType, image.base64.base64);
-			}
-		}
+		addNewImages(builder, images);
 	} else if (match.track.tagRaw) {
-		const oldimages = match.track.tagRaw.frames.APIC;
-		if (oldimages) {
-			for (const f of oldimages) {
-				builder.addPicture(f.value.pictureType, f.value.description, f.value.mimeType, f.value.bin);
-			}
-		}
+		addExistingImages(builder, match.track.tagRaw.frames.APIC);
+	}
+}
+
+function getPictureType(types: Array<string>): number {
+	if (types.includes('Medium')) return 6;
+	if (types.includes('Booklet')) return 5;
+	if (types.includes('Front')) return 3;
+	if (types.includes('Back')) return 4;
+	return 0;
+}
+
+function addNewImages(builder: ID3V24TagBuilder, images: Array<MatchImageNode>): void {
+	for (const image of images) {
+		if (!image.base64) continue;
+
+		const pictureType = getPictureType(image.image.types);
+		builder.addPicture(pictureType, '', image.base64.mimeType, image.base64.base64);
+	}
+}
+
+function addExistingImages(builder: ID3V24TagBuilder, oldImages: Array<any>): void {
+	if (!oldImages) return;
+
+	for (const frame of oldImages) {
+		builder.addPicture(
+			frame.value.pictureType,
+			frame.value.description,
+			frame.value.mimeType,
+			frame.value.bin
+		);
 	}
 }
 

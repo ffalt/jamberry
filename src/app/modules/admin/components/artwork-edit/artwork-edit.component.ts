@@ -76,14 +76,9 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 			event => {
 				if (event.type === HttpEventType.Response) {
 					this.folderService.waitForQueueResult('Updating Folder Artwork', event.body, [folderID]);
-					// TODO: The 'emit' function requires a mandatory void argument
 					this.imageEdited.emit();
-				} else if (event.type === HttpEventType.UploadProgress) {
-					// const percentDone = Math.round(100 * event.loaded / event.total);
-					// console.log(`File is ${percentDone}% loaded.`);
 				}
 			}, err => {
-				// this.setImageSource();
 				this.notify.error(err);
 			},
 			() => {

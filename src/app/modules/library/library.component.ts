@@ -13,7 +13,7 @@ import {DeferLoadService} from '@app/modules/defer-load';
 
 export class LibraryComponent {
 	private readonly element = inject(ElementRef);
-	private deferLoadService = inject(DeferLoadService);
+	private readonly deferLoadService = inject(DeferLoadService);
 
 	scrollTrack(): void {
 		this.deferLoadService.notifyScroll({name: 'library', element: this.element.nativeElement});

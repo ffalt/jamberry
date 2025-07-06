@@ -67,7 +67,7 @@ export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent i
 	private reDisplay(): void {
 		this.hints = !this.filter || !this.all ?
 			this.all :
-			this.all.filter(f => f.health && f.health.find(p => p.name === this.filter));
+			this.all.filter(f => f.health?.find(p => p.name === this.filter));
 	}
 
 	private display(trackHealths: Array<Jam.TrackHealth>): void {

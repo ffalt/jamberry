@@ -1,6 +1,5 @@
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {RouterTestingModule} from '@angular/router/testing';
 import {AutocompleteModule} from '@app/modules/autocomplete';
 import {MenuService} from '@shared/services';
 import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
@@ -14,7 +13,6 @@ export const TEST_HEADER_MODULE_IMPORTS = [
 	FormsModule,
 	ContextMenuModule.forRoot(),
 	AutocompleteModule,
-	RouterTestingModule,
 	SharedModule,
 	ToastModule.forRoot(),
 	TEST_JAM_MODULE

@@ -7,7 +7,7 @@ import {MediaSessionEvents} from './mediasession.events';
 })
 export class MediaSessionService {
 	private readonly jam = inject(JamService);
-	private ngZone = inject(NgZone);
+	private readonly ngZone = inject(NgZone);
 	private subscribers: { [key: number]: Array<any> } = {};
 	private readonly mediaSession?: MediaSession;
 
@@ -39,11 +39,10 @@ export class MediaSessionService {
 
 	updatePositionState = (duration?: number, playbackRate?: number, position?: number) => {
 		if (this.mediaSession && 'setPositionState' in navigator.mediaSession) {
-			/* Position state (supported since Chrome 81) */
-			const d = (duration || 0) / 1000;
+			const d = (duration ?? 0) / 1000;
 			const state = {
 				duration: d,
-				playbackRate: playbackRate || 1.0,
+				playbackRate: playbackRate ?? 1.0,
 				position: Math.min(d, (position || 0) / 1000)
 			};
 			try {
@@ -56,7 +55,13 @@ export class MediaSessionService {
 
 	setPlaybackState(playing: boolean, paused: boolean): void {
 		if (this.mediaSession) {
-			this.mediaSession.playbackState = playing ? 'playing' : (paused ? 'paused' : 'none');
+			let playbackState: MediaSessionPlaybackState = 'none';
+			if (playing) {
+				playbackState = 'playing';
+			} else if (paused) {
+				playbackState = 'paused';
+			}
+			this.mediaSession.playbackState = playbackState;
 		}
 	}
 

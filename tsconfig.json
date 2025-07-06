@@ -8,7 +8,7 @@
     "strict": true,
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
+    "module": "es2022",
     "moduleResolution": "bundler",
     "noImplicitReturns": true,
     "noImplicitAny": true,
@@ -19,13 +19,12 @@
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "target": "ES2022",
+    "target": "ES2023",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
-      "es2018.promise",
+      "es2023",
       "dom",
       "esnext.asynciterable"
     ],

@@ -17,9 +17,9 @@ export class AdminSidebarComponent {
 			.filter(route => route.path && route.path.length > 0 && route.data?.name)
 			.map(route =>
 				({
-					link: `/admin/${route.data && route.data.link ? route.data.link : route.path}`,
+					link: `/admin/${route.data?.link ?? route.path}`,
 					name: route.data ? route.data.name : '',
-					icon: route.data && route.data.icon ? route.data.icon : 'icon-admin'
+					icon: route.data?.icon ?? 'icon-admin'
 				}));
 		this.sections = [{name: 'Administration', entries}];
 	}

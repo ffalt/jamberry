@@ -33,6 +33,6 @@ export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, Com
 
 	canDeactivate(): boolean {
 		const child = this.child();
-		return !!(child && child.canDeactivate());
+		return !!(child?.canDeactivate());
 	}
 }

@@ -6,10 +6,10 @@ import {DialogOverlayComponent} from './dialog-overlay.component';
 export class DialogOverlayRef {
 	componentInstance?: DialogOverlayComponent;
 
-	private beforeCloseSubj = new Subject<any>();
-	private afterClosedSubj = new Subject<any>();
+	private readonly beforeCloseSubj = new Subject<any>();
+	private readonly afterClosedSubj = new Subject<any>();
 
-	constructor(private overlayRef: OverlayRef) {
+	constructor(private readonly overlayRef: OverlayRef) {
 	}
 
 	close(): void {

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-redeclare
 import {TextEncoder, TextDecoder} from 'util';
 
 Object.assign(global, {TextDecoder, TextEncoder});

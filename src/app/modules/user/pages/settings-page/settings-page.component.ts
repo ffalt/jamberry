@@ -12,8 +12,8 @@ import {AppService, PlayerService, SettingsStoreService} from '@core/services';
 export class SettingsPageComponent {
 	readonly app = inject(AppService);
 	readonly player = inject(PlayerService);
-	themes = themeConfig.themes;
-	private settings = inject(SettingsStoreService);
+	readonly themes = themeConfig.themes;
+	private readonly settings = inject(SettingsStoreService);
 
 	onChange(): void {
 		this.settings.applySettings();

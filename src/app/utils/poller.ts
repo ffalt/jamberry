@@ -22,6 +22,7 @@ export class Poller<T extends { id: string }> {
 
 	private pollIt(o: T, cb: () => void): void {
 		this.pollFn(o, next => {
+			// qlty-ignore: radarlint-js:typescript:S2301
 			if (next) {
 				this.doPoll(o, cb);
 			} else {
@@ -33,6 +34,7 @@ export class Poller<T extends { id: string }> {
 	private doPoll(o: T, cb: () => void): void {
 		setTimeout(() => {
 			this.pollFn(o, next => {
+				// qlty-ignore: radarlint-js:typescript:S2301
 				if (next) {
 					this.doPoll(o, cb);
 				} else {

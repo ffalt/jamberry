@@ -12,17 +12,18 @@ export class ToastRef<T> {
 	private duplicatesCount = 0;
 
 	/** Subject for notifying the user that the toast has finished closing. */
-	private afterClosedSubj = new Subject<void>();
+	private readonly afterClosedSubj = new Subject<void>();
 	/** triggered when toast is activated */
-	private activateSubj = new Subject<void>();
+	private readonly activateSubj = new Subject<void>();
 	/** notifies the toast that it should close before the timeout */
-	private manualCloseSubj = new Subject<void>();
+	private readonly manualCloseSubj = new Subject<void>();
 	/** notifies the toast that it should reset the timeouts */
-	private resetTimeoutSubj = new Subject<void>();
+	private readonly resetTimeoutSubj = new Subject<void>();
 	/** notifies the toast that it should count a duplicate toast */
-	private countDuplicateSubj = new Subject<number>();
+	private readonly countDuplicateSubj = new Subject<number>();
+	private isActivateCompleted = false;
 
-	constructor(private overlayRef: OverlayRef) {
+	constructor(private readonly overlayRef: OverlayRef) {
 	}
 
 	manualClose(): void {
@@ -62,12 +63,13 @@ export class ToastRef<T> {
 	}
 
 	isInactive(): boolean {
-		return this.activateSubj.isStopped;
+		return this.isActivateCompleted;
 	}
 
 	activate(): void {
 		this.activateSubj.next();
 		this.activateSubj.complete();
+		this.isActivateCompleted = true;
 	}
 
 	/** Gets an observable that is notified when the toast has started opening. */

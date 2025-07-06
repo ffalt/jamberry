@@ -43,7 +43,7 @@ export class AdminFolderService {
 		if (!old && this.current && this.current.id === item.id) {
 			old = this.current;
 		}
-		if (old && old.notifyAfter) {
+		if (old?.notifyAfter) {
 			if (folderIDs) {
 				for (const id of folderIDs) {
 					old.folderIDs = old.folderIDs || [];
@@ -99,7 +99,7 @@ export class AdminFolderService {
 					})
 					.catch(err => {
 						console.error('error while polling admin change queue status', err);
-						this.pollEnd(data, undefined);
+						this.pollEnd(data);
 						cb(false);
 					});
 			});

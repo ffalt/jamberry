@@ -37,17 +37,7 @@ export function cleanGenre(genre: string): string {
 			}
 		}
 		if (value.length > 0) {
-			const slug = slugify(value);
-			let result: string | undefined;
-			if (!GenresSlugs) {
-				GenresSlugs = {};
-				Genres.forEach(g => {
-					GenresSlugs[slugify(g)] = g;
-				});
-			}
-			if (GenresSlugs && GenresSlugs[slug]) {
-				result = GenresSlugs[slug];
-			}
+			const result = getKnownGenre(value);
 			if (!result && value.includes(' & ')) {
 				const subParts = value.split('&');
 				subParts.forEach(sub => {
@@ -60,10 +50,8 @@ export function cleanGenre(genre: string): string {
 				if (!results.includes(result)) {
 					results.push(result);
 				}
-			} else {
-				if (!results.includes(value)) {
-					results.push(value);
-				}
+			} else if (!results.includes(value)) {
+				results.push(value);
 			}
 		}
 	});
@@ -89,7 +77,7 @@ export function mergeGenres(tags: Array<GenreTag>, other: Array<GenreTag>): Arra
 }
 
 export function getTrackGenres(tags: Array<{ count: number; name: string }>): Array<GenreTag> {
-	if (!tags || !tags.length) {
+	if (!tags?.length) {
 		return [];
 	}
 	const result: Array<GenreTag> = [];
@@ -111,7 +99,7 @@ export function getTrackGenres(tags: Array<{ count: number; name: string }>): Ar
 }
 
 export function getMusicBrainzGenres(tags: Array<{ count: number; name: string }>): Array<GenreTag> {
-	if (!tags || !tags.length) {
+	if (!tags?.length) {
 		return [];
 	}
 	const result: Array<GenreTag> = [];

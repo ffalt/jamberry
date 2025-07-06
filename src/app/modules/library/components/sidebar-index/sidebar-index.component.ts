@@ -31,10 +31,8 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 					if (indexCache.matches(JamObjectType.artist, {albumType: AlbumType.album})) {
 						this.index = indexCache.index;
 					}
-				} else {
-					if (indexCache.matches(JamObjectType.folder, {level: 1})) {
-						this.index = indexCache.index;
-					}
+				} else if (indexCache.matches(JamObjectType.folder, {level: 1})) {
+					this.index = indexCache.index;
 				}
 			},
 			e => {

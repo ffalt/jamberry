@@ -13,7 +13,7 @@ import {ContextMenuService} from './contextmenu.service';
 export class ContextMenuAttachDirective {
 	readonly contextMenuSubject = input<any>();
 	readonly contextMenu = input.required<ContextMenuComponent>();
-	private contextMenuService = inject(ContextMenuService);
+	private readonly contextMenuService = inject(ContextMenuService);
 
 	onContextMenu(event: Event): void {
 		const contextMenu = this.contextMenu();

@@ -50,7 +50,7 @@ export class AdminFolderComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.router.events
 			.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
-			if (event instanceof NavigationEnd && this.route.firstChild && this.route.firstChild.snapshot.url[0]) {
+			if (event instanceof NavigationEnd && this.route.firstChild?.snapshot.url[0]) {
 				const m = this.route.firstChild.snapshot.url[0].path;
 				if (folderSubSections.includes(m)) {
 					this.mode = m;

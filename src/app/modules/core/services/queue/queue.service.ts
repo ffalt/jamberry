@@ -73,12 +73,10 @@ export class QueueService {
 		let i = this.currentIndex;
 		if (i < this.entries.length - 1) {
 			i++;
+		} else if (this.repeatQueue) {
+			i = 0;
 		} else {
-			if (this.repeatQueue) {
-				i = 0;
-			} else {
-				return;
-			}
+			return;
 		}
 		return this.entries[i];
 	}
@@ -89,12 +87,10 @@ export class QueueService {
 		}
 		if (this.currentIndex < this.entries.length - 1) {
 			this.currentIndex++;
+		} else if (this.repeatQueue) {
+			this.currentIndex = 0;
 		} else {
-			if (this.repeatQueue) {
-				this.currentIndex = 0;
-			} else {
-				return;
-			}
+			return;
 		}
 		return this.entries[this.currentIndex];
 	}

@@ -52,7 +52,7 @@ jobs:
           cd dist && zip -r ./jamberry-release.zip .
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           body_path: ./RELEASELOG.md
           name: Release ${{ github.ref_name }}

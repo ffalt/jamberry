@@ -72,8 +72,7 @@ export class MbAlbumComponent implements OnChanges {
 	}
 
 	compactArtist(artistCredit: Array<MusicBrainz.ArtistCredit>): string {
-		// TODO: extract to a pipe
-		if (!artistCredit || artistCredit.length === 0) {
+		if (!artistCredit?.length) {
 			return '';
 		}
 		return artistCredit.map(a => a.name + (a.joinphrase || ' ')).join('').trim();

@@ -8,8 +8,8 @@ import {LocalstorageService} from '../localstorage/localstorage.service';
 })
 export class UserStorageService {
 	userChange: Observable<Jam.SessionUser | undefined>;
-	private localStorageService = inject(LocalstorageService);
-	private subjectUser = new Subject<Jam.SessionUser | undefined>();
+	private readonly localStorageService = inject(LocalstorageService);
+	private readonly subjectUser = new Subject<Jam.SessionUser | undefined>();
 	private userSuffix?: string;
 
 	constructor() {

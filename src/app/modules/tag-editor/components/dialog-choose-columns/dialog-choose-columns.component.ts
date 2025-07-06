@@ -86,7 +86,7 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 				}
 			}
 		});
-		this.allColumns = this.allColumns.sort((a, b) => (a.name || a.frameDef.title).localeCompare(b.name || b.frameDef.title));
+		this.allColumns = this.allColumns.toSorted((a, b) => (a.name || a.frameDef.title).localeCompare(b.name || b.frameDef.title));
 		this.refresh();
 	}
 }

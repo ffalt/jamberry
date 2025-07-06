@@ -11,7 +11,7 @@ module.exports = [
 		target: "http://localhost:4040",
 		bypass: function (request, response, _proxyOptions) {
 			if (request.url === '/assets/config/config.js') {
-				config_json = {
+				const config_json = {
 					name: 'Jam Debug',
 					fixed: {
 						server: 'http://localhost:4200',

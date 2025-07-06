@@ -15,7 +15,7 @@ export class AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	protected readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {
-		if (this.route && this.route.parent) {
+		if (this.route?.parent) {
 			this.route.parent.params
 				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
 				this.resolve(params);

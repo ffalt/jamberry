@@ -31,7 +31,7 @@ import {DefaultNoComponentGlobalConfig, IndividualConfig, ToastPackage} from './
 	}
 })
 export class ToastComponent implements OnDestroy {
-	message?: string | undefined;
+	message?: string;
 	title?: string;
 	options: IndividualConfig;
 	duplicatesCount?: number;
@@ -123,7 +123,7 @@ export class ToastComponent implements OnDestroy {
 			return;
 		}
 		const now = new Date().getTime();
-		const remaining = (this.hideTime || 0) - now;
+		const remaining = (this.hideTime ?? 0) - now;
 		this.width = (remaining / this.options.timeOut) * 100;
 		if (this.options.progressAnimation === 'increasing') {
 			this.width = 100 - this.width;
@@ -143,9 +143,9 @@ export class ToastComponent implements OnDestroy {
 
 		this.outsideTimeout(() => {
 			this.remove();
-		}, this.originalTimeout || 0);
-		this.options.timeOut = this.originalTimeout || 0;
-		this.hideTime = new Date().getTime() + (this.options.timeOut || 0);
+		}, this.originalTimeout ?? 0);
+		this.options.timeOut = this.originalTimeout ?? 0;
+		this.hideTime = new Date().getTime() + (this.options.timeOut ?? 0);
 		this.width = -1;
 		if (this.options.progressBar) {
 			this.outsideInterval(() => {

@@ -18,8 +18,8 @@ export class ObjCardComponent implements FocusableOption {
 	readonly showParent = input<boolean>(false);
 	tabindex = -1;
 	visible: boolean = false;
-	protected element = inject(ElementRef);
-	private cdr = inject(ChangeDetectorRef);
+	protected readonly element = inject(ElementRef);
+	private readonly cdr = inject(ChangeDetectorRef);
 
 	focus() {
 		this.element.nativeElement.focus();

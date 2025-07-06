@@ -21,7 +21,7 @@ export class TagEditorAutocompleteComponent implements AutocompleteDataControl, 
 	readonly valueChange = output<string>();
 
 	ngOnChanges(changes: SimpleChanges): void {
-		if (changes.value && changes.value.currentValue && changes.value.currentValue !== this.edit) {
+		if (changes.value?.currentValue && changes.value.currentValue !== this.edit) {
 			this.edit = changes.value.currentValue;
 		}
 	}

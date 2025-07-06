@@ -45,13 +45,13 @@ export class PushNotificationService implements OnDestroy {
 		}
 		this.title = notify.title;
 		this.body = notify.body;
-		if (Object.prototype.hasOwnProperty.call(notify, 'silent')) {
+		if (Object.hasOwn(notify, 'silent')) {
 			this.silent = notify.silent;
 		}
-		if (Object.prototype.hasOwnProperty.call(notify, 'autoclose')) {
+		if (Object.hasOwn(notify, 'autoclose')) {
 			this.closeDelay = notify.autoclose * 1000;
 		}
-		if (Object.prototype.hasOwnProperty.call(notify, 'icon')) {
+		if (Object.hasOwn(notify, 'icon')) {
 			this.icon = notify.icon;
 		}
 		if (!this.checkCompatibility()) {
@@ -78,23 +78,6 @@ export class PushNotificationService implements OnDestroy {
 			vibrate: this.vibrate,
 			noscreen: this.noscreen
 		});
-
-		// notification.onshow = () => {
-		// 	this.onShow.emit({notification});
-		// };
-		//
-		// notification.onclick = (event) => {
-		// 	this.onClick.emit({event, notification});
-		// };
-		//
-		// notification.onerror = () => {
-		// 	this.onError.emit({notification});
-		// };
-		//
-		// notification.onclose = () => {
-		// 	this.onClose.emit({notification});
-		// };
-
 		this.close(notification);
 		return notification;
 	}

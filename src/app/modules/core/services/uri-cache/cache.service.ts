@@ -5,7 +5,7 @@ import {share, tap} from 'rxjs/operators';
 
 @Injectable()
 export class CacheService {
-	private cachedData = new Map<string, any>();
+	private readonly cachedData = new Map<string, any>();
 
 	getConfig(request: HttpRequest<any>): { needsRefresh?: boolean } | undefined {
 		const path = request.url.slice(request.url.indexOf('jam/v1/') + 7);

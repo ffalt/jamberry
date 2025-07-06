@@ -1,4 +1,4 @@
-import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {Component, OnDestroy, inject} from '@angular/core';
 import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
@@ -77,10 +77,7 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 		this.isUploading = true;
 		this.jam.artwork.createByUpload({folderID: this.folder.id, types: []}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
-				if (event.type === HttpEventType.UploadProgress) {
-					// const percentDone = Math.round(100 * event.loaded / event.total);
-					// console.log(`File is ${percentDone}% loaded.`);
-				} else if (event instanceof HttpResponse) {
+				if (event instanceof HttpResponse) {
 					const result = event.body;
 					if (result) {
 						this.waitForCreationEnd(result as Jam.AdminChangeQueueInfo);

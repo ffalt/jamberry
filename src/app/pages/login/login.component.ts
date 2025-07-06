@@ -28,9 +28,9 @@ export class LoginComponent implements OnInit {
 	constructor() {
 		const fixed = this.getFixed();
 		if (fixed) {
-			this.credentials.server = fixed.server || '';
-			this.credentials.username = fixed.user || '';
-			this.credentials.password = fixed.pass || '';
+			this.credentials.server = fixed.server ?? '';
+			this.credentials.username = fixed.user ?? '';
+			this.credentials.password = fixed.pass ?? '';
 			this.showServer = this.credentials.server === '';
 		}
 		this.auth.clear().catch(console.error);
@@ -38,22 +38,18 @@ export class LoginComponent implements OnInit {
 
 	getFixed(): { server?: string; user?: string; pass?: string } {
 		const conf: { fixed: { server: string; user: string; pass: string } } = (document as any).jamberry_config;
-		return conf && conf.fixed ? conf.fixed : {};
+		return conf?.fixed ?? {};
 	}
 
 	ngOnInit(): void {
-		this.returnUrl = decodeURIComponent(this.route.snapshot.queryParams.returnUrl || '/library');
-	}
-
-	passwdReset(): void {
-		alert('TODO');
+		this.returnUrl = decodeURIComponent(this.route.snapshot.queryParams.returnUrl ?? '/library');
 	}
 
 	login(event: Event): void {
 		event.preventDefault();
 		this.auth.login(this.credentials.server, this.credentials.username, this.credentials.password)
 			.then(() => {
-				this.router.navigateByUrl(this.returnUrl || '/library')
+				this.router.navigateByUrl(this.returnUrl ?? '/library')
 					.catch(e => {
 						console.error(e);
 					});

@@ -70,7 +70,7 @@ export class TitleService implements OnDestroy {
 	}
 
 	refreshTitleSong(track: Jam.Track): void {
-		const title = `${track.tag?.title || 'Unknown Title'} - ${track.tag?.artist || 'Unknown Artist'} • ${this.app.name}`;
+		const title = `${track.tag?.title ?? 'Unknown Title'} - ${track.tag?.artist ?? 'Unknown Artist'} • ${this.app.name}`;
 		this.title.setTitle(title);
 	}
 

@@ -38,8 +38,8 @@ class StopWatch {
 	providedIn: 'root'
 })
 export class PlayerService implements OnDestroy {
-	static localPlayerStorageName = 'player';
-	static localQueueStorageName = 'queue';
+	static readonly localPlayerStorageName = 'player';
+	static readonly localQueueStorageName = 'queue';
 	currentEpisode?: Jam.Episode;
 	currentTrack?: Jam.Track;
 	currentMedia?: Jam.MediaBase;
@@ -53,7 +53,7 @@ export class PlayerService implements OnDestroy {
 	scrobbled = false;
 	private subscribers: { [key: number]: Array<(data: any) => void> } = {};
 	private positionStoreTimer?: number;
-	private soundPlayer: PlayerSoundmanager2;
+	private readonly soundPlayer: PlayerSoundmanager2;
 	private readonly unsubscribe = new Subject<void>();
 	private readonly queue = inject(QueueService);
 	private readonly notify = inject(NotifyService);
@@ -109,7 +109,7 @@ export class PlayerService implements OnDestroy {
 		this.currentEpisode = undefined;
 		this.currentTrack = undefined;
 		this.currentMedia = media;
-		this.currentTime = (startSeek || 0);
+		this.currentTime = (startSeek ?? 0);
 		this.scrobbleWatch.reset();
 		if (media.objType === JamObjectType.episode) {
 			this.currentEpisode = media as Jam.Episode;
@@ -408,7 +408,6 @@ export class PlayerService implements OnDestroy {
 	addTrack(track: Jam.Track): void {
 		this.queue.add(track, true);
 		this.resolveAddTracks(Promise.resolve(1));
-		// this.notify.success(`Tracks added to queue (${trackCount})`);
 	}
 
 	currentPercent(): number {
@@ -607,8 +606,8 @@ export class PlayerService implements OnDestroy {
 	private setPushNotification(media: Jam.MediaBase): void {
 		if (media) {
 			this.notification.show({
-				body: media.tag?.artist || '[Unknown Artist]',
-				title: media.tag?.title || '[Unknown Title]',
+				body: media.tag?.artist ?? '[Unknown Artist]',
+				title: media.tag?.title ?? '[Unknown Title]',
 				autoclose: 30,
 				icon: this.jam.image.imageUrl({id: media.id, size: 128, format: ImageFormatType.webp})
 			})

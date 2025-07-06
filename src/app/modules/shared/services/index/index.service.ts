@@ -158,7 +158,7 @@ export class IndexService {
 	private readonly app = inject(AppService);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
-	private indexes: Array<IndexCache> = [];
+	private readonly indexes: Array<IndexCache> = [];
 
 	findIndex(type: JamObjectType, query: any): IndexCache | undefined {
 		return this.indexes.find(index => index.matches(type, query));
@@ -195,7 +195,7 @@ export class IndexService {
 
 	requestIndex(objType: JamObjectType, query: any): Index | undefined {
 		const item = this.findIndex(objType, query);
-		if (item && item.index) {
+		if (item?.index) {
 			return item.index;
 		}
 		if (item) {

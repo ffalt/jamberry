@@ -14,43 +14,43 @@
 config_version = "0"
 
 exclude_patterns = [
-  "*_min.*",
-  "*-min.*",
-  "*.min.*",
-  "**/.yarn/**",
-  "**/*.d.ts",
-  "**/assets/**",
-  "**/bower_components/**",
-  "**/build/**",
-  "**/cache/**",
-  "**/config/**",
-  "**/db/**",
-  "**/deps/**",
-  "**/dist/**",
-  "**/extern/**",
-  "**/external/**",
-  "**/generated/**",
-  "**/Godeps/**",
-  "**/gradlew/**",
-  "**/mvnw/**",
-  "**/node_modules/**",
-  "**/protos/**",
-  "**/seed/**",
-  "**/target/**",
-  "**/templates/**",
-  "**/testdata/**",
-  "**/vendor/**",
+	"*_min.*",
+	"*-min.*",
+	"*.min.*",
+	"**/.yarn/**",
+	"**/*.d.ts",
+	"**/assets/**",
+	"**/bower_components/**",
+	"**/build/**",
+	"**/cache/**",
+	"**/config/**",
+	"**/db/**",
+	"**/deps/**",
+	"**/dist/**",
+	"**/extern/**",
+	"**/external/**",
+	"**/generated/**",
+	"**/Godeps/**",
+	"**/gradlew/**",
+	"**/mvnw/**",
+	"**/node_modules/**",
+	"**/protos/**",
+	"**/seed/**",
+	"**/target/**",
+	"**/templates/**",
+	"**/testdata/**",
+	"**/vendor/**",
 ]
 
 test_patterns = [
-  "**/test/**",
-  "**/spec/**",
-  "**/*.test.*",
-  "**/*.spec.*",
-  "**/*_test.*",
-  "**/*_spec.*",
-  "**/test_*.*",
-  "**/spec_*.*",
+	"**/test/**",
+	"**/spec/**",
+	"**/*.test.*",
+	"**/*.spec.*",
+	"**/*_test.*",
+	"**/*_spec.*",
+	"**/test_*.*",
+	"**/spec_*.*",
 ]
 
 [smells]
@@ -90,8 +90,8 @@ mode = "comment"
 [[plugin]]
 name = "trivy"
 drivers = [
-  "config",
-  "fs-vuln",
+	"config",
+	"fs-vuln",
 ]
 
 [[plugin]]
@@ -99,3 +99,23 @@ name = "trufflehog"
 
 [[plugin]]
 name = "yamllint"
+
+[[triage]]
+match.rules = [
+	"yamllint:quoted-strings", # string value is redundantly quoted with any quotes
+	"ripgrep:TODO", # TODOs
+	"markdownlint:MD013", # Line length
+	"markdownlint:MD024", # Multiple headings with the same content
+	"radarlint-js:typescript:S4335", # Remove this type without members or change this type intersection.
+	"radarlint-js:typescript:S6564", # Remove this redundant type alias
+	"radarlint-js:typescript:S3626", # Remove this redundant jump.
+	"radarlint-js:typescript:S1135" # Complete the task associated to this "TODO" comment.
+]
+set.ignored = true
+
+[[triage]]
+match.file_patterns = ["**/jam.*.service.ts"]
+match.rules = [
+	"radarlint-js:typescript:S4624" # Refactor this code to not use nested template literals.
+]
+set.ignored = true

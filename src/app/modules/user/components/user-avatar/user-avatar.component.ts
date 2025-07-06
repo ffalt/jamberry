@@ -1,4 +1,3 @@
-import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {Component, OnDestroy, inject} from '@angular/core';
 import {randomString} from '@app/utils/random';
 
@@ -56,16 +55,9 @@ export class UserAvatarComponent implements OnDestroy {
 
 		this.jam.user.uploadUserImage({id: this.auth.user.id}, file)
 			.pipe(takeUntil(this.unsubscribe)).subscribe(
-			event => {
-				if (event.type === HttpEventType.UploadProgress) {
-					// const percentDone = Math.round(100 * event.loaded / event.total);
-					// console.log(`File is ${percentDone}% loaded.`);
-				} else if (event instanceof HttpResponse) {
-					// this.setImageSource();
-					// this.hasChanged = true;
-				}
+			() => {
+				//nop
 			}, err => {
-				// this.setImageSource();
 				this.notify.error(err);
 			},
 			() => {

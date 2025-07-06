@@ -3,7 +3,7 @@
 
 import {HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest, HttpSentEvent} from '@angular/common/http';
 import {Injectable, inject} from '@angular/core';
-import {Observable} from 'rxjs';
+import {firstValueFrom, Observable} from 'rxjs';
 
 export interface HTTPOptions {
 	headers?: HttpHeaders;
@@ -37,36 +37,36 @@ export class JamHttpService {
 					observe: 'response'
 				})
 					.subscribe(res => {
-						if (!res || !res.body) {
-							return reject(new Error('Invalid Binary Server Response'));
+						if (!res?.body) {
+							return reject(Error('Invalid Binary Server Response'));
 						}
-						resolve({buffer: res.body as ArrayBuffer, contentType: res.headers.get('content-type') || 'invalid'});
+						resolve({buffer: res.body, contentType: res.headers.get('content-type') || 'invalid'});
 					});
 			});
-		} catch (e: any) {
+		} catch (e) {
 			return handleError(e);
 		}
 	}
 
 	async get<T>(url: string, options: HTTPOptions): Promise<T> {
 		try {
-			return await this.client.get<T>(url,
+			return await firstValueFrom(this.client.get<T>(url,
 				{
 					params: options.params, headers: options.headers, reportProgress: options.reportProgress,
 					withCredentials: options.withCredentials, responseType: options.responseType as 'json'
 				}
-			).toPromise() as Promise<T>;
-		} catch (e: any) {
+			)) as Promise<T>;
+		} catch (e) {
 			return handleError(e);
 		}
 	}
 
 	async post<T>(url: string, body: any, options: HTTPOptions): Promise<T> {
 		try {
-			return await this.client.post<T>(url, body,
+			return await firstValueFrom(this.client.post<T>(url, body,
 				{params: options.params, headers: options.headers, reportProgress: options.reportProgress, withCredentials: options.withCredentials}
-			).toPromise() as Promise<T>;
-		} catch (e: any) {
+			)) as Promise<T>;
+		} catch (e) {
 			return handleError(e);
 		}
 	}

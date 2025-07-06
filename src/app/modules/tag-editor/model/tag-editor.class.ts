@@ -17,7 +17,7 @@ export class TagEditor {
 	columns: Array<RawTagEditColumn> = [];
 	edits: Array<RawTagEditRow> = [];
 
-	constructor(private jam: JamService) {
+	constructor(private readonly jam: JamService) {
 	}
 
 	removeColumnText(column: RawTagEditColumn, text: string): void {
@@ -34,7 +34,7 @@ export class TagEditor {
 	updateEditTextCell(edit: RawTagEditRow, column: RawTagEditColumn, value?: string): void {
 		const index = this.columns.indexOf(column);
 		const cell = edit.cells[index];
-		const text = value ? value : '';
+		const text = value ?? '';
 		let frames: Array<RawTagEditFrame> = [];
 		if (text.length > 0) {
 			frames = [{
@@ -404,22 +404,21 @@ export class TagEditor {
 		}
 		const dateFrames: Array<ID3v2Frames.Frame> = [];
 		const result: Array<string> = [];
-		if (year && year.value && Object.prototype.hasOwnProperty.call(year.value, 'text')) {
+		if (year?.value && Object.hasOwn(year.value, 'text')) {
 			dateFrames.push(year);
 			result.push((year as ID3v2Frames.Text).value.text);
 		}
-		if (date && date.value && Object.prototype.hasOwnProperty.call(date.value, 'text')) {
+		if (date?.value && Object.hasOwn(date.value, 'text')) {
 			dateFrames.push(date);
 			result.push((date as ID3v2Frames.Text).value.text);
 		}
-		if (time && time.value && Object.prototype.hasOwnProperty.call(time.value, 'text')) {
+		if (time?.value && Object.hasOwn(time.value, 'text')) {
 			dateFrames.push(time);
 			result.push((time as ID3v2Frames.Text).value.text);
 		}
 		return {
 			newFrame: {
 				id: 'TDRC',
-				// title: 'Recording time',
 				value: {text: result.join('-')}
 			},
 			dateFrames
@@ -493,7 +492,7 @@ export class TagEditor {
 
 	private static matchColumn(frame: { id: string; value?: { id?: string } }, column: { id: string; subid?: string }): boolean {
 		if (column.subid) {
-			if (!frame.value || !frame.value.id || frame.value.id !== column.subid) {
+			if (!frame.value?.id || frame.value.id !== column.subid) {
 				return false;
 			}
 		}
@@ -552,7 +551,7 @@ export class TagEditor {
 		const list: Array<string> = [];
 		for (const edit of this.edits) {
 			const c = edit.cells[index];
-			if (c !== cell && c.frames.length > 0 && c.frames[0].value && c.frames[0].value.text) {
+			if (c !== cell && c.frames.length > 0 && c.frames[0].value?.text) {
 				const txt = c.frames[0].value.text;
 				if (!list.includes(txt)) {
 					list.push(txt);
@@ -684,8 +683,8 @@ export class TagEditor {
 		const col: RawTagEditColumn = {
 			def: {
 				id: frame.id,
-				name: frame.id + (frame.value && frame.value.id ? ` - ${frame.value.id as string}` : ''),
-				subid: frame.value && frame.value.id ? frame.value.id : undefined,
+				name: frame.id + (frame.value?.id ? ` - ${frame.value.id as string}` : ''),
+				subid: frame.value?.id,
 				width: sort >= 0 ? DefaultFrameColumns[sort].width : 100,
 				impl: FrameType.Unknown
 			},
@@ -709,7 +708,7 @@ export class TagEditor {
 			}
 		});
 		tracks.forEach(track => {
-			if (!track.tagRaw || !track.tagRaw.frames) {
+			if (!track.tagRaw?.frames) {
 				return;
 			}
 			const frames: Array<RawTagEditFrame> = TagEditor.getRawTagFrames(track.tagRaw);

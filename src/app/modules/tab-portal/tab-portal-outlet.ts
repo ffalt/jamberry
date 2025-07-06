@@ -16,7 +16,7 @@ export class TabPortalOutlet {
 	constructor(
 		public availableTabs: Array<TabInterface>,
 		public outletElement: ViewContainerRef,
-		private injector: Injector) {
+		private readonly injector: Injector) {
 	}
 
 	switchTo(name: string): void {

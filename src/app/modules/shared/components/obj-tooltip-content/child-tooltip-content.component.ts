@@ -22,7 +22,7 @@ export class ChildTooltipContentComponent implements AfterViewInit {
 	isIn: boolean = false;
 	isFade: boolean = false;
 	private readonly element = inject(ElementRef);
-	private cdr = inject(ChangeDetectorRef);
+	private readonly cdr = inject(ChangeDetectorRef);
 
 	ngAfterViewInit(): void {
 		this.show();

@@ -2,7 +2,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CommonModule} from '@angular/common';
 import {HammerModule} from '@angular/platform-browser';
-import {RouterTestingModule} from '@angular/router/testing';
 import {MenuService} from '@shared/services';
 import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {DialogOverlayModule} from '@app/modules/dialog-overlay';
@@ -13,7 +12,6 @@ import {SharedModule} from '@shared/shared.module';
 
 export const TEST_PLAYER_MODULE_IMPORTS = [
 	CommonModule,
-	RouterTestingModule,
 	ScrollingModule,
 	DragDropModule,
 	HammerModule,

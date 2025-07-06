@@ -1,5 +1,4 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 import {ToastModule} from '@app/modules/toast';
 import {TEST_JAM_MODULE} from '@core/jam.module.mock';
 import {LogoutComponent} from './logout.component';
@@ -10,7 +9,7 @@ describe('LogoutComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-    imports: [RouterTestingModule, ToastModule.forRoot(), TEST_JAM_MODULE],
+    imports: [ToastModule.forRoot(), TEST_JAM_MODULE],
     providers: [],
     declarations: [LogoutComponent],
     teardown: { destroyAfterEach: false }

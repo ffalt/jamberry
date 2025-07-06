@@ -25,9 +25,7 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 	changeCell(cell?: RawTagEditCell): void {
 		if (cell) {
 			this.original =
-				(cell.frames.length === 0 || !cell.frames[0].value || !cell.frames[0].value.text) ?
-					'' :
-					this.original = cell.frames[0].value.text;
+				(cell.frames.length === 0 || !cell.frames[0].value?.text) ? '' : cell.frames[0].value.text;
 			this.val = this.original;
 		}
 	}
@@ -76,10 +74,6 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption>> {
-		// if (query.length === 0) {
-		// 	return this.list.map(data => ({data}));
-		// }
-		// return this.list.filter(data => data.includes(query)).map(data => ({data}));
 		return [];
 	}
 

@@ -3,10 +3,10 @@ import {ACTIVE_THEME, Theme, THEMES} from './theme.model';
 
 @Injectable()
 export class ThemeService {
-	themes = inject<Array<Theme>>(THEMES);
 	theme = inject<string>(ACTIVE_THEME);
+	readonly themes = inject<Array<Theme>>(THEMES);
 	readonly themeChange = new EventEmitter<Theme>();
-	private document = inject<Document>(DOCUMENT);
+	private readonly document = inject<Document>(DOCUMENT);
 
 	getTheme(name?: string): Theme {
 		const theme = this.themes.find(t => t.name === name);
@@ -20,10 +20,6 @@ export class ThemeService {
 		return this.getTheme(this.theme);
 	}
 
-	getProperty(propName: string): string {
-		return this.getActiveTheme().properties[propName];
-	}
-
 	setTheme(name: string): void {
 		this.theme = name;
 		const theme = this.getActiveTheme();
@@ -31,16 +27,10 @@ export class ThemeService {
 		this.themeChange.emit(theme);
 	}
 
-	registerTheme(theme: Theme): void {
-		this.themes.push(theme);
-	}
-
 	private updateDom(theme: Theme): void {
 		// project properties onto the element
 		for (const key of Object.keys(theme.properties)) {
-			// if (theme.properties.hasOwnProperty(key)) {
 			this.document.body.style.setProperty(key, theme.properties[key]);
-			// }
 		}
 		// remove old theme
 		for (const t of this.themes) {
@@ -49,17 +39,4 @@ export class ThemeService {
 		// alias element with theme name
 		this.document.body.classList.add(`${theme.name}-theme`);
 	}
-
-	// updateTheme(name: string, properties: { [key: string]: string; }) {
-	// 	const theme = this.getTheme(name);
-	// 	theme.properties = {
-	// 		...theme.properties,
-	// 		...properties
-	// 	};
-	//
-	// 	if (name === this.theme) {
-	// 		this.themeChange.emit(theme);
-	// 	}
-	// }
-
 }

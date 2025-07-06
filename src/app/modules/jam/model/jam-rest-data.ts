@@ -1762,6 +1762,8 @@ export declare namespace Jam {
 		lyrics?: string;
 		/** Synced Lyrics */
 		syncedLyrics?: string;
+		/** Language of the the lyrics */
+		language?: string;
 		/** Audio Tag or External Service */
 		source?: string;
 	}

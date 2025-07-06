@@ -20,8 +20,6 @@ import {IContextMenuOptions} from './contextmenu.options';
 import {CloseLeafMenuEvent, IContextMenuClickEvent} from './contextmenu.service';
 import {CONTEXT_MENU_OPTIONS} from './contextmenu.tokens';
 
-const ARROW_LEFT_KEYCODE = 37;
-
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'context-menu-content',
@@ -61,8 +59,8 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	readonly menuItemElements = viewChildren<ElementRef>('li');
 	@ViewChildren(ContextMenuContentItemComponent) menuItemFocusElements!: QueryList<ContextMenuContentItemComponent>;
 	private keyManager!: FocusKeyManager<ContextMenuContentItemComponent>;
-	private options = inject<IContextMenuOptions>(CONTEXT_MENU_OPTIONS, {optional: true});
-	private subscription: Subscription = new Subscription();
+	private readonly options = inject<IContextMenuOptions>(CONTEXT_MENU_OPTIONS, {optional: true});
+	private readonly subscription: Subscription = new Subscription();
 
 	constructor() {
 		if (this.options) {
@@ -108,7 +106,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}
 
 	getKeyManagerMenuItem(): ContextMenuItemDirective | undefined {
-		return this.menuItems()[this.keyManager.activeItemIndex || -1];
+		return this.menuItems()[this.keyManager.activeItemIndex ?? -1];
 	}
 
 	onKeyEvent(event: KeyboardEvent): void {
@@ -142,10 +140,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 			return;
 		}
 		this.cancelEvent(event);
-		this.closeLeafMenu.emit({
-			exceptRootMenu: event.keyCode === ARROW_LEFT_KEYCODE,
-			event
-		});
+		this.closeLeafMenu.emit({exceptRootMenu: event.code === 'ArrowLeft', event});
 	}
 
 	closeMenu(event: MouseEvent): void {
@@ -156,8 +151,8 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}
 
 	onOpenSubMenu(context: { menuItem: ContextMenuItemDirective; event: Event }): void {
-		const anchorElementRef = this.menuItemElements()[this.keyManager.activeItemIndex || -1];
-		const anchorElement = anchorElementRef && anchorElementRef.nativeElement;
+		const anchorElementRef = this.menuItemElements()[this.keyManager.activeItemIndex ?? -1];
+		const anchorElement = anchorElementRef?.nativeElement;
 		this.openSubMenu.emit({
 			anchorElement,
 			contextMenu: context.menuItem.subMenu(),

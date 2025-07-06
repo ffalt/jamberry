@@ -42,6 +42,20 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	constructor() {
+		this.init();
+	}
+
+	ngOnInit(): void {
+		this.tabService.init(new TabPortalOutlet(this.tabService.tabs, this.tabContentOutlet(), this.injector));
+	}
+
+	ngOnDestroy(): void {
+		this.tabService.dispose();
+		this.unsubscribe.next();
+		this.unsubscribe.complete();
+	}
+
+	init() {
 		this.settingsStore.settingsChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
 			this.setTheme();
@@ -60,16 +74,6 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.setTheme();
 		this.setKeyboardShortcuts();
 		this.determinateScreen();
-	}
-
-	ngOnInit(): void {
-		this.tabService.init(new TabPortalOutlet(this.tabService.tabs, this.tabContentOutlet(), this.injector));
-	}
-
-	ngOnDestroy(): void {
-		this.tabService.dispose();
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 
 	isStandaloneWebApp(): boolean {
@@ -138,10 +142,5 @@ export class AppComponent implements OnInit, OnDestroy {
 			this.player.volumeDown();
 			return false; // Prevent bubbling
 		}, undefined, HOTKEYS.volumeDown.name));
-
-		// this.hotkeysService.add(new Hotkey('q', (event: KeyboardEvent): boolean => {
-		// 	this.player.showQueue = !this.player.showQueue;
-		// 	return false; // Prevent bubbling
-		// }, undefined, 'Show / Hide Queue'));
 	}
 }

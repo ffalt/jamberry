@@ -1,10 +1,10 @@
 export class MediaSessionEvents {
-	static PLAY = 1;
-	static PAUSE = 2;
-	static REWIND = 3;
-	static FORWARD = 4;
-	static PREVIOUS = 5;
-	static NEXT = 6;
-	static SEEK = 7;
-	static STOP = 8;
+	static readonly PLAY = 1;
+	static readonly PAUSE = 2;
+	static readonly REWIND = 3;
+	static readonly FORWARD = 4;
+	static readonly PREVIOUS = 5;
+	static readonly NEXT = 6;
+	static readonly SEEK = 7;
+	static readonly STOP = 8;
 }

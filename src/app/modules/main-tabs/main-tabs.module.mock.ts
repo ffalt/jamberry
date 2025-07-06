@@ -1,5 +1,4 @@
 import {FormsModule} from '@angular/forms';
-import {RouterTestingModule} from '@angular/router/testing';
 import {DialogOverlayModule} from '@app/modules/dialog-overlay';
 import {PlayerModule} from '@app/modules/player';
 import {ToastModule} from '@app/modules/toast';
@@ -10,7 +9,6 @@ import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 
 export const TEST_MAINTABS_IMPORTS = [
 	FormsModule,
-	RouterTestingModule,
 	PlayerModule,
 	SharedModule,
 	ContextMenuModule.forRoot(),

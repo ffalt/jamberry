@@ -19,8 +19,8 @@ export class MediaPlateComponent implements FocusableOption {
 	readonly showParent = input<boolean>(false);
 	tabindex = -1;
 	visible: boolean = false;
-	protected element = inject(ElementRef);
-	private cdr = inject(ChangeDetectorRef);
+	protected readonly element = inject(ElementRef);
+	private readonly cdr = inject(ChangeDetectorRef);
 
 	contextmenuEvent(event: Event): void {
 		const obj = this.obj();

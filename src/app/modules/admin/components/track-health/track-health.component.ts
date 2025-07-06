@@ -54,14 +54,13 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 					this.jam.track.health({ids: [health.track.id], healthMedia: true})
 						.then(data => {
 							const h = data.find(d => d.track.id === health.track.id);
-							if (h && h.health) {
+							if (h?.health) {
 								health.track = h.track;
 								health.health = h.health;
 							} else {
 								health.health = [];
 							}
 							if (health.health.length === 0) {
-								// TODO: The 'emit' function requires a mandatory void argument
 								this.resolvedEvent.emit();
 							}
 							this.display(health);

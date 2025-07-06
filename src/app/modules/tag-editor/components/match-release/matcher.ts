@@ -25,7 +25,11 @@ class MusicbrainzSearchQuery {
 
 	constructor(public q: JamParameters.MusicBrainzSearchArgs) {
 		this.id = `musicbrainz-${JSON.stringify(q)}`;
-		this.name = `MusicBrainz Search for ${Object.keys(q).filter(key => key !== 'type').map(key => `${key}: "${(q as any)[key]}"`).join(', ')}`;
+		const searchFields = Object.keys(q)
+			.filter(key => key !== 'type')
+			.map(key => `${key}: "${(q as any)[key]}"`)
+			.join(', ');
+		this.name = `MusicBrainz Search for ${searchFields}`;
 	}
 }
 
@@ -53,7 +57,7 @@ export class Matcher {
 		getAutoCompleteAlbumList: () => {
 			if (this.manualSearchData.albums.length === 0) {
 				for (const match of this.matchings) {
-					const txt = (match.track?.tag?.album || '').trim();
+					const txt = (match.track?.tag?.album ?? '').trim();
 					if (txt.length > 0 && !this.manualSearchData.albums.includes(txt)) {
 						this.manualSearchData.albums.push(txt);
 					}
@@ -65,7 +69,7 @@ export class Matcher {
 		getAutoCompleteArtistList: () => {
 			if (this.manualSearchData.artists.length === 0) {
 				for (const match of this.matchings) {
-					const txt = (match.track?.tag?.artist || '').trim();
+					const txt = (match.track?.tag?.artist ?? '').trim();
 					if (txt.length > 0 && !this.manualSearchData.artists.includes(txt)) {
 						this.manualSearchData.artists.push(txt);
 					}
@@ -75,7 +79,7 @@ export class Matcher {
 		}
 	};
 
-	constructor(private jam: JamService, private notify: NotifyService) {
+	constructor(private readonly jam: JamService, private readonly notify: NotifyService) {
 	}
 
 	static cleanAlbumName(s: string): string {
@@ -328,10 +332,8 @@ export class Matcher {
 									if (!tonal.includes(value)) {
 										tonal.push(value);
 									}
-								} else {
-									if (!other.includes(value)) {
-										other.push(value);
-									}
+								} else if (!other.includes(value)) {
+									other.push(value);
 								}
 							}
 						}
@@ -424,7 +426,7 @@ export class Matcher {
 			release.isLoading = false;
 		} catch (e: any) {
 			release.isLoading = false;
-			return Promise.reject(e);
+			return Promise.reject(e as Error);
 		}
 	}
 
@@ -452,7 +454,7 @@ export class Matcher {
 		const albums: Array<string> = [];
 		const artists: Array<string> = [];
 		for (const match of this.matchings) {
-			if (match.track.tag && match.track.tag.album) {
+			if (match.track.tag?.album) {
 				const s = Matcher.cleanAlbumName(match.track.tag.album);
 				if (match.track.tag.album && !albums.includes(s)) {
 					albums.push(s);
@@ -585,8 +587,8 @@ export class Matcher {
 
 	private async loadBestMatchingCurrentRelease(rg: MatchReleaseGroup): Promise<void> {
 		const releases = rg.releases.sort((a, b) => {
-			const resA = Math.abs((a.totalTrack || 0) - this.matchings.length);
-			const resB = Math.abs((b.totalTrack || 0) - this.matchings.length);
+			const resA = Math.abs((a.totalTrack ?? 0) - this.matchings.length);
+			const resB = Math.abs((b.totalTrack ?? 0) - this.matchings.length);
 			if (resA === resB) {
 				return a.sortDate - b.sortDate;
 			}
@@ -673,7 +675,7 @@ export class Matcher {
 		} else if (res.recordings) {
 			await this.loadByRecordings(res.recordings);
 		} else {
-			console.error('TODO', res);
+			console.error('Not implemented result set', res);
 		}
 		this.matchTree.sort();
 		if (this.shouldStop()) {

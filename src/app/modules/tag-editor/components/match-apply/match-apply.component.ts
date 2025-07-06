@@ -77,7 +77,7 @@ export class MatchApplyComponent {
 				type: LastFMLookupType.artist,
 				mbID: release.mbRelease.artistCredit[0].artist.id
 			})).data;
-			if (artistData && artistData.artist) {
+			if (artistData?.artist) {
 				genres = mergeGenres(genres, getLastFMArtistGenres(artistData.artist));
 			}
 		}

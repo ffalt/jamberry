@@ -1,6 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
 import {themeConfig} from '@app/app.module';
 import {AuthCanActivateGuard} from '@app/guards';
 import {HeaderModule} from '@app/modules/header';
@@ -24,7 +23,7 @@ describe('AppComponent', () => {
         NoopAnimationsModule,
         ThemeModule.forRoot(themeConfig),
         HeaderModule, PlayerModule, SharedModule, MainTabsModule,
-        RouterTestingModule, HotkeyModule.forRoot(),
+        HotkeyModule.forRoot(),
         ToastModule.forRoot(), TEST_JAM_MODULE
     ],
     providers: [MainTabsService, AuthCanActivateGuard],

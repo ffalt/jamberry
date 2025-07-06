@@ -28,13 +28,13 @@ export class ObjPlateComponent implements OnChanges, FocusableOption {
 	ngOnChanges(): void {
 		this.expanded = false;
 		const obj = this.obj();
-		this.hasTracks = obj?.childrenTypes && obj.childrenTypes.includes(JamObjectType.track);
+		this.hasTracks = obj?.childrenTypes?.includes(JamObjectType.track);
 		const objValue = this.obj();
-		this.hasAlbums = objValue?.childrenTypes && objValue.childrenTypes.includes(JamObjectType.album);
+		this.hasAlbums = objValue?.childrenTypes?.includes(JamObjectType.album);
 		const objVal = this.obj();
-		this.hasEpisodes = objVal?.childrenTypes && objVal.childrenTypes.includes(JamObjectType.episode);
+		this.hasEpisodes = objVal?.childrenTypes?.includes(JamObjectType.episode);
 		const objInput = this.obj();
-		this.hasMedia = objInput?.childrenTypes && objInput.childrenTypes.includes('media');
+		this.hasMedia = objInput?.childrenTypes?.includes('media');
 		this.check();
 	}
 

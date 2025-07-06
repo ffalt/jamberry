@@ -133,9 +133,6 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		if (currentResultIndex === bottomLimit - 1) {
 			resultIndex = topLimit;
 		}
-		// if (list[resultIndex] && list[resultIndex].header) {
-		// 	return resolveNextIndex(resultIndex, stepUp, list);
-		// }
 		return resultIndex;
 	}
 

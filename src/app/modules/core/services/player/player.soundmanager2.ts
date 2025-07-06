@@ -1,6 +1,7 @@
 import {Jam, JamService} from '@jam';
 import {SMSound, soundManager} from 'soundmanager2';
 import {PlayerEvents, SoundPlayer, SoundPlayerAudioSupport} from './player.interface';
+
 soundManager.debugMode = false;
 soundManager.forceUseGlobalHTML5Audio = true;
 soundManager.useHTML5Audio = true;
@@ -13,18 +14,18 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	private volume: number = 50;
 	private isMute: boolean = false;
 
-	constructor(private jam: JamService) {
+	constructor(private readonly jam: JamService) {
 	}
 
 	duration(): number {
-		return this.soundObject ? (this.soundObject.duration || 0) : 0;
+		return this.soundObject ? (this.soundObject.duration ?? 0) : 0;
 	}
 
 	getAudioSupport(): SoundPlayerAudioSupport {
 		const result: SoundPlayerAudioSupport = {
 			formats: Object.keys(soundManager.audioFormats || {})
 		};
-		result.formats.sort();
+		result.formats.sort((a, b) => a.localeCompare(b));
 		return result;
 	}
 
@@ -164,7 +165,6 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 
 	speed(): number {
 		if (this.soundObject) {
-			// TODO: is there no api for getting internal playbackRate?
 			return (this.soundObject as any)._iO.playbackRate;
 		}
 		return 1;
@@ -187,7 +187,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	private getLoading(): number {
-		return this.soundObject ? (this.soundObject.bytesLoaded || 0) : 0;
+		return this.soundObject ? (this.soundObject.bytesLoaded ?? 0) : 0;
 	}
 
 	private publish(event: number, data?: any): void {

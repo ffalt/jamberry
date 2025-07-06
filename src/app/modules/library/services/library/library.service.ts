@@ -42,7 +42,7 @@ export class LibraryService {
 
 	buildTabs(section: string): Array<HeaderTab> {
 		const lib: any = this.router.config.find(r => r.path === 'library');
-		if (lib && lib._loadedConfig && lib._loadedConfig.routes) {
+		if (lib?._loadedConfig?.routes) {
 			const tabSection = lib._loadedConfig.routes[0].children.find((r: Route) => r.path === section);
 			if (tabSection) {
 				return tabSection.children
@@ -59,7 +59,7 @@ export class LibraryService {
 
 	buildIDTabs(section: string, id: string): Array<HeaderTab> {
 		const lib: any = this.router.config.find(r => r.path === 'library');
-		if (lib && lib._loadedConfig && lib._loadedConfig.routes) {
+		if (lib?._loadedConfig?.routes) {
 			const tabSection = lib._loadedConfig.routes[0].children
 				.find((r: Route) => r.path === `${section}/id/:id`);
 			if (tabSection) {

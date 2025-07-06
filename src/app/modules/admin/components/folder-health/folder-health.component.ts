@@ -88,7 +88,7 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 	}
 
 	private addArtistImageSearchSolution(folder: Jam.Folder): void {
-		if (folder.tag && folder.tag.mbArtistID) {
+		if (folder.tag?.mbArtistID) {
 			const sol: FolderHealthHintSolution = {
 				name: 'Search',
 				click: async () => {

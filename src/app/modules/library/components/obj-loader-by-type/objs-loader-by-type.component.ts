@@ -32,7 +32,7 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	private readonly unsubscribeRefresh = new Subject<void>();
 
 	ngOnInit(): void {
-		if (this.route && this.route.parent) {
+		if (this.route?.parent) {
 			this.route.url
 				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
 				const type = val.length > 0 ? val[0].path : undefined;

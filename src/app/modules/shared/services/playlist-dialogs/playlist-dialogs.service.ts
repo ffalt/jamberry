@@ -18,7 +18,7 @@ export interface PlaylistEdit {
 export class PlaylistDialogsService {
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
-	private playlistService = inject(PlaylistService);
+	private readonly playlistService = inject(PlaylistService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
 	private readonly dialogsService = inject(DialogsService);
 
@@ -182,8 +182,6 @@ export class PlaylistDialogsService {
 	}
 
 	private static async mediasPromise(medias: Array<Jam.MediaBase>): Promise<Array<Jam.MediaBase>> {
-		return new Promise<Array<Jam.MediaBase>>(resolve => {
-			resolve(medias);
-		});
+		return Promise.resolve(medias);
 	}
 }

@@ -58,10 +58,10 @@ export class ContextMenuService {
 	isDestroyingLeafMenu = false;
 	show: Subject<IContextMenuClickEvent> = new Subject<IContextMenuClickEvent>();
 	close: Subject<CloseContextMenuEvent> = new Subject();
-	private overlay = inject(Overlay);
-	private scrollStrategy = inject(ScrollStrategyOptions);
+	private readonly overlay = inject(Overlay);
+	private readonly scrollStrategy = inject(ScrollStrategyOptions);
 	private overlays: Array<OverlayRef> = [];
-	private fakeElement: any = {
+	private readonly fakeElement: any = {
 		getBoundingClientRect: (): Rect => ({bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0})
 	};
 
@@ -198,7 +198,7 @@ export class ContextMenuService {
 			}
 
 			const newLeaf = this.getLastAttachedOverlay();
-			if (newLeaf && newLeaf.contextMenu) {
+			if (newLeaf?.contextMenu) {
 				newLeaf.contextMenu.isLeaf.set(true);
 			}
 			this.isDestroyingLeafMenu = false;

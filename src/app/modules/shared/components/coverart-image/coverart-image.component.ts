@@ -57,7 +57,7 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 	}
 
 	ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
-		if (changes.coverArtObj && changes.coverArtObj.currentValue) {
+		if (changes.coverArtObj?.currentValue) {
 			if (this.isLoaded) {
 				this.buildUrl();
 			} else {

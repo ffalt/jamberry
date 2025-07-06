@@ -75,7 +75,6 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			})
 				.then(data => {
 					this.display(data);
-					// 	this.brainz();
 				})
 				.catch(e => {
 					this.notify.error(e);
@@ -209,7 +208,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 					}
 				} catch (e: any) {
 					this.notify.error(e);
-					return Promise.reject(e);
+					return Promise.reject(e as Error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()
@@ -285,7 +284,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			}
 			action.edit.changed = false;
 		} catch (e: any) {
-			return Promise.reject(e);
+			return Promise.reject(e as Error);
 		}
 		const next = actions.shift();
 		if (next) {

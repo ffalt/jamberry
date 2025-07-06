@@ -22,9 +22,9 @@ export class DeferLoadService {
 	currentViewport: Rect = new Rect(0, 0, 0, 0);
 	readonly isBrowser: boolean;
 	readonly hasIntersectionObserver: boolean;
-	private platformId = inject(PLATFORM_ID);
+	private readonly platformId = inject(PLATFORM_ID);
 	private readonly scrollSubject = new Subject<ScrollNotifyEvent>();
-	private scrollObservable: Observable<ScrollNotifyEvent>;
+	private readonly scrollObservable: Observable<ScrollNotifyEvent>;
 	private intersectionObserver?: IntersectionObserver;
 
 	constructor() {

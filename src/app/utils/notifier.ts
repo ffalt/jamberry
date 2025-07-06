@@ -10,8 +10,8 @@ export class Notifiers<T> {
 		return this.notifiers[id];
 	}
 
-	listeners(id: string): number {
-		return !this.notifiers[id] ? 0 : this.notifiers[id].observers.length;
+	observed(id: string): boolean {
+		return !this.notifiers[id] ? false : this.notifiers[id].observed;
 	}
 
 	emit(id: string, data?: T): void {

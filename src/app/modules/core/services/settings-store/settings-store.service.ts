@@ -10,7 +10,7 @@ import {UserStorageService} from '../userstorage/userstorage.service';
 	providedIn: 'root'
 })
 export class SettingsStoreService implements OnDestroy {
-	private static localstorageName = 'settings';
+	private static readonly localstorageName = 'settings';
 	readonly settingsChange = new EventEmitter<void>();
 	private readonly unsubscribe = new Subject<void>();
 	private readonly userStorage = inject(UserStorageService);
@@ -37,7 +37,7 @@ export class SettingsStoreService implements OnDestroy {
 		if (load) {
 			Object.keys(this.app.settings)
 				.forEach(key => {
-					(this.app.settings as any)[key] = (load as any)[key]; // TODO: save & typed settings restore
+					this.app.settings[key] = load[key];
 				});
 			this.setTheme();
 			this.pushNotificationService.enabled = this.app.settings.notificationSong;

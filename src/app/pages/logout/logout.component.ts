@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {AppService} from '@core/services';
@@ -10,12 +10,12 @@ import {JamAuthService} from '@jam';
 	styleUrls: ['./logout.component.scss'],
 	standalone: false
 })
-export class LogoutComponent {
+export class LogoutComponent implements OnInit {
 	readonly app = inject(AppService);
 	private readonly router = inject(Router);
 	private readonly auth = inject(JamAuthService);
 
-	constructor() {
+	ngOnInit(): void {
 		this.logout().catch(console.error);
 	}
 

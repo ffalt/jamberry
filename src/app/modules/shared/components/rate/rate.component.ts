@@ -26,16 +26,16 @@ export class RateComponent implements OnInit, OnChanges {
 	}
 
 	mark(index: number): void {
-		if (!this.allowHalf) {
-			this.marked = (this.marked === index) ? index - 1 : index;
-		} else {
-			this.marked = (this.marked === index) ?
-				index - 0.5 :
-				(this.marked === index - 0.5 ? index - 1 : index);
+		let newMarked = index;
+		if (this.marked === index) {
+			newMarked = index - (this.allowHalf ? 0.5 : 1);
+		} else if (this.allowHalf && this.marked === index - 0.5) {
+			newMarked = index - 1;
 		}
+		this.marked = newMarked;
 		this.rating.set(this.marked + 1);
 		this.updateUI();
-		this.hasRated.emit(this.rating() as number);
+		this.hasRated.emit(this.rating() ?? 0);
 	}
 
 	markerClass(index: number): string {
@@ -49,7 +49,7 @@ export class RateComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(): void {
-		this.marked = (this.rating() || 0) - 1;
+		this.marked = (this.rating() ?? 0) - 1;
 		this.updateUI();
 	}
 }

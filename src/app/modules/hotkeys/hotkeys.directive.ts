@@ -15,9 +15,9 @@ export class HotkeysDirective implements OnInit, OnDestroy {
 	}>>([]);
 	private readonly hotkeysService = inject(HotkeysService);
 	private readonly elementRef = inject(ElementRef);
-	private mousetrap: Mousetrap.MousetrapInstance;
-	private hotkeysList: Array<Hotkey> = [];
-	private oldHotkeys: Array<Hotkey> = [];
+	private readonly mousetrap: Mousetrap.MousetrapInstance;
+	private readonly hotkeysList: Array<Hotkey> = [];
+	private readonly oldHotkeys: Array<Hotkey> = [];
 
 	constructor() {
 		this.mousetrap = new Mousetrap(this.elementRef.nativeElement); // Bind hotkeys to the current element (and any children)

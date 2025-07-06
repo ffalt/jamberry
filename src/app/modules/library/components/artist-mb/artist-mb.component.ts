@@ -21,7 +21,7 @@ export class ArtistMbComponent implements OnInit, OnDestroy {
 	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
-		if (this.route && this.route.parent) {
+		if (this.route?.parent) {
 			this.route.parent.params
 				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
 				this.id = params.id;
@@ -43,7 +43,7 @@ export class ArtistMbComponent implements OnInit, OnDestroy {
 		this.jam.artist.id({id: this.id})
 			.then(artist => {
 				this.artist = artist;
-				this.mbArtistID = artist && artist.mbArtistID ? artist.mbArtistID : undefined;
+				this.mbArtistID = artist?.mbArtistID;
 			})
 			.catch(e => {
 				this.notify.error(e);

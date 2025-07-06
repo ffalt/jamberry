@@ -14,7 +14,7 @@ export class DeferLoadScrollHostDirective implements OnChanges {
 	private readonly scrollNotify = inject(DeferLoadService);
 
 	ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
-		if (changes.scrollTo && changes.scrollTo.currentValue) {
+		if (changes.scrollTo?.currentValue) {
 			const o = changes.scrollTo.currentValue;
 			if (o.id && o.id.length > 0) {
 				const elm = document.getElementById(o.id);

@@ -13,7 +13,7 @@ export class MatchFileListComponent {
 		event: DragEvent;
 		match: Matching;
 	}>();
-	private cd = inject(ChangeDetectorRef);
+	private readonly cd = inject(ChangeDetectorRef);
 
 	drag(event: DragEvent, match: Matching): void {
 		this.cd.markForCheck();

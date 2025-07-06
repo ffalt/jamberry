@@ -25,11 +25,11 @@ export class AdminRootService implements OnDestroy {
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
 	private roots: Array<Jam.Root> = [];
-	private rootPoll = new Poller<Jam.Root>((root, cb) => {
+	private readonly rootPoll = new Poller<Jam.Root>((root, cb) => {
 		this.jam.root.status({id: root.id})
 			.then(data => {
-				const listeners = this.rootsChange.observers.length + this.rootChange.listeners(root.id);
-				if (listeners <= 0) {
+				const observed = this.rootsChange.observed || this.rootChange.observed(root.id);
+				if (!observed) {
 					cb(false);
 					return;
 				}
@@ -105,7 +105,7 @@ export class AdminRootService implements OnDestroy {
 				this.folderService.waitForQueueResult('Removing Root', item, [])
 					.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
 					this.roots = this.roots.filter(r => r.id !== root.id);
-					this.rootChange.emit(root.id, undefined);
+					this.rootChange.emit(root.id);
 					this.notify.success('Root removed');
 					this.refreshRoots();
 				});
@@ -126,7 +126,7 @@ export class AdminRootService implements OnDestroy {
 				}
 				this.rootChange.emit(id, root);
 				this.rootsChange.emit(this.roots);
-				if (root.status && root.status.scanning) {
+				if (root.status?.scanning) {
 					this.rootPoll.poll(root);
 				}
 			})
@@ -140,7 +140,7 @@ export class AdminRootService implements OnDestroy {
 			.then(data => {
 				this.roots = data.items;
 				this.roots.forEach(root => {
-					if (root.status && root.status.scanning) {
+					if (root.status?.scanning) {
 						this.rootPoll.poll(root);
 					}
 				});

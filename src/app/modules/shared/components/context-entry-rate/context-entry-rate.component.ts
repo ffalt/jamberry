@@ -17,7 +17,7 @@ export class ContextEntryRateComponent implements OnChanges {
 
 	ngOnChanges(): void {
 		const base = this.base();
-		this.rating = (base && base.state ? base.state.rated : 0) || 0;
+		this.rating = base?.state?.rated ?? 0;
 	}
 
 	async onRating(num: number): Promise<void> {
@@ -34,7 +34,7 @@ export class ContextEntryRateComponent implements OnChanges {
 				this.notify.success(`Rated ${this.baseType()} with ${this.rating}`);
 			} catch (e: any) {
 				this.notify.error(e);
-				return Promise.reject(e);
+				return Promise.reject(e as Error);
 			}
 		}
 	}

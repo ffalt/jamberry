@@ -21,7 +21,7 @@ export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
-		if (this.route && this.route.parent) {
+		if (this.route?.parent) {
 			this.route.parent.params
 				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
 				this.id = params.id;

@@ -10,13 +10,13 @@ import {Rect} from './rect';
 export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	readonly preRender = input<boolean>(false);
 	readonly appDeferLoad = output();
-	private elementRef = inject(ElementRef);
-	private deferLoadService = inject(DeferLoadService);
+	private readonly elementRef = inject(ElementRef);
+	private readonly deferLoadService = inject(DeferLoadService);
 	private intersectionObserver?: IntersectionObserver;
 	private scrollSubscription?: Subscription;
 	private observeSubscription?: Subscription;
 	private timeoutId?: number;
-	private timeoutLoadMS: number = 50;
+	private readonly timeoutLoadMS: number = 50;
 
 	ngAfterViewInit(): void {
 		if (this.deferLoadService.isBrowser) {
@@ -35,9 +35,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	}
 
 	private static getScrollPosition(): number {
-		// Getting screen size and scroll position for IE
-		return (window.scrollY || window.pageYOffset)
-			+ (document.documentElement.clientHeight || document.body.clientHeight);
+		return window.scrollY + (document.documentElement.clientHeight || document.body.clientHeight);
 	}
 
 	private loadAndUnobserve(): void {
@@ -87,7 +85,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 		}
 	}
 
-	private checkForIntersection = (entries: Array<IntersectionObserverEntry>): void => {
+	private checkForIntersection(entries: Array<IntersectionObserverEntry>): void {
 		entries.forEach((entry: IntersectionObserverEntry) => {
 			if (entry.target === this.elementRef.nativeElement) {
 				this.manageIntersection(entry);
@@ -98,7 +96,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	private checkIfIntersecting(entry: IntersectionObserverEntry): boolean {
 		// For Samsung native browser, IO has been partially implemented where by the
 		// callback fires, but entry object is empty. We will check manually.
-		if (entry && entry.time) {
+		if (entry?.time) {
 			return entry.isIntersecting;
 		}
 		return this.isVisible();

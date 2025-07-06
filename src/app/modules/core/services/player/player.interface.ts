@@ -1,25 +1,25 @@
 import {Jam} from '@jam';
 
 export class PlayerEvents {
-	static TRACK = 1;
-	static PLAY = 2;
-	static PLAYSTART = 3;
-	static PLAYRESUME = 4;
-	static PAUSE = 5;
-	static FINISH = 6;
-	static SEEK = 7;
-	static SEEKED = 8;
-	static BUFFERINGSTART = 9;
-	static BUFFERINGEND = 10;
-	static AUDIOERROR = 11;
-	static TIME = 12;
-	static NOSTREAM = 13;
-	static NOPROTOCOL = 14;
-	static NOCONNECTION = 15;
-	static MUTE = 16;
-	static VOLUME = 17;
-	static LOADING = 18;
-	static SPEED = 19;
+	static readonly TRACK = 1;
+	static readonly PLAY = 2;
+	static readonly PLAYSTART = 3;
+	static readonly PLAYRESUME = 4;
+	static readonly PAUSE = 5;
+	static readonly FINISH = 6;
+	static readonly SEEK = 7;
+	static readonly SEEKED = 8;
+	static readonly BUFFERINGSTART = 9;
+	static readonly BUFFERINGEND = 10;
+	static readonly AUDIOERROR = 11;
+	static readonly TIME = 12;
+	static readonly NOSTREAM = 13;
+	static readonly NOPROTOCOL = 14;
+	static readonly NOCONNECTION = 15;
+	static readonly MUTE = 16;
+	static readonly VOLUME = 17;
+	static readonly LOADING = 18;
+	static readonly SPEED = 19;
 }
 
 export interface SoundPlayerAudioSupport {

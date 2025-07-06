@@ -7,7 +7,7 @@ export class Hotkey {
 	get formatted(): Array<string> {
 		if (!this.formattedVal) {
 			const combo: string = this.combo[0];
-			const sequence: Array<string> = combo.split(/[\s]/);
+			const sequence: Array<string> = combo.split(/\s/);
 			for (let i = 0; i < sequence.length; i++) {
 				sequence[i] = Hotkey.symbolize(sequence[i]);
 			}
@@ -54,7 +54,7 @@ export class Hotkey {
 		for (let i = 0; i < comboSplit.length; i++) {
 			// try to resolve command / ctrl based on OS:
 			if (comboSplit[i] === 'mod') {
-				comboSplit[i] = (window.navigator && window.navigator.platform.includes('Mac')) ? 'command' : 'ctrl';
+				comboSplit[i] = (/macOS|Mac|iPhone|iPad|iPod/.test(navigator.userAgent)) ? 'command' : 'ctrl';
 			}
 			comboSplit[i] = map[comboSplit[i]] || comboSplit[i];
 		}

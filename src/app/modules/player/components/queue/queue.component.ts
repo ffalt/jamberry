@@ -60,7 +60,7 @@ export class QueueComponent implements OnInit, OnDestroy {
 		if (element && !element.classList.contains('track')) {
 			element = element.parentElement;
 		}
-		if (element && element.classList.contains('track')) {
+		if (element?.classList.contains('track')) {
 			this.currentSwipeElement = element;
 		}
 	}

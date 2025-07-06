@@ -14,7 +14,7 @@ function levenshtein(str1: string, str2: string): number {
 			current[j] = value;
 		}
 	}
-	return current.pop() || 0;
+	return current.pop() ?? 0;
 }
 
 // return an edit distance from 0 to 1
@@ -38,14 +38,7 @@ function iterateGrams(value: string, gramSize: number): Array<string> {
 	const nonWordRe = /[^\w, ]+/;
 	const gs = gramSize || 2;
 	const simplified = `-${value.toLowerCase().replace(nonWordRe, '')}-`;
-// const lenDiff = gs - simplified.length;
 	const results = [];
-// let val = value;
-// if (lenDiff > 0) {
-// 	for (let i = 0; i < lenDiff; i += 1) {
-// 		val += '-';
-// 	}
-// }
 	for (let i = 0; i < simplified.length - gs + 1; i += 1) {
 		results.push(simplified.slice(i, i + gs));
 	}
@@ -68,7 +61,7 @@ function gramCounter(value: string, gramSize: number): { [name: string]: number 
 
 function isEmptyObject(obj: any): boolean {
 	for (const prop in obj) {
-		if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+		if (Object.hasOwn(obj, prop)) {
 			return false;
 		}
 	}
@@ -130,7 +123,7 @@ export class FuzzySet {
 		// return length of items in set
 		let count = 0;
 		for (const prop in this.exactSet) {
-			if (Object.prototype.hasOwnProperty.call(this.exactSet, prop)) {
+			if (Object.hasOwn(this.exactSet, prop)) {
 				count += 1;
 			}
 		}
@@ -140,7 +133,7 @@ export class FuzzySet {
 	isEmpty(): boolean {
 		// return is set is empty
 		for (const prop in this.exactSet) {
-			if (Object.prototype.hasOwnProperty.call(this.exactSet, prop)) {
+			if (Object.hasOwn(this.exactSet, prop)) {
 				return false;
 			}
 		}
@@ -151,7 +144,7 @@ export class FuzzySet {
 		// return list of values loaded into set
 		const values = [];
 		for (const prop in this.exactSet) {
-			if (Object.prototype.hasOwnProperty.call(this.exactSet, prop)) {
+			if (Object.hasOwn(this.exactSet, prop)) {
 				values.push(this.exactSet[prop]);
 			}
 		}
@@ -182,7 +175,7 @@ export class FuzzySet {
 		let sumOfSquareGramCounts = 0;
 		let otherGramCount;
 		for (const gram in gramCounts) {
-			if (Object.prototype.hasOwnProperty.call(gramCounts, gram)) {
+			if (Object.hasOwn(gramCounts, gram)) {
 				const gramCount = gramCounts[gram];
 				sumOfSquareGramCounts += Math.pow(gramCount, 2);
 				if (gram in this.matchDict) {
@@ -247,7 +240,7 @@ export class FuzzySet {
 		const gramCounts = gramCounter(normalizedValue, gramSize);
 		let sumOfSquareGramCounts = 0;
 		for (const gram in gramCounts) {
-			if (Object.prototype.hasOwnProperty.call(gramCounts, gram)) {
+			if (Object.hasOwn(gramCounts, gram)) {
 				const gramCount = gramCounts[gram];
 				sumOfSquareGramCounts += Math.pow(gramCount, 2);
 				if (gram in this.matchDict) {

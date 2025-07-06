@@ -7,7 +7,7 @@ import {Directive, ElementRef, inject} from '@angular/core';
 	standalone: false
 })
 export class ToastContainerDirective {
-	private el = inject(ElementRef);
+	private readonly el = inject(ElementRef);
 
 	getContainerElement(): HTMLElement {
 		return this.el.nativeElement;

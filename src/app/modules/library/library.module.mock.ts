@@ -1,6 +1,6 @@
 import {FormsModule} from '@angular/forms';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterTestingModule} from '@angular/router/testing';
+import {ActivatedRoute} from '@angular/router';
 import {AutocompleteModule} from '@app/modules/autocomplete';
 import {DeferLoadModule} from '@app/modules/defer-load';
 import {DialogOverlayModule} from '@app/modules/dialog-overlay';
@@ -11,6 +11,7 @@ import {LibraryService} from '@library/services';
 import {IndexService, PlaylistService, PodcastService} from '@shared/services';
 import {SharedModule} from '@shared/shared.module';
 import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
+import {of} from 'rxjs';
 
 export const TEST_LIBRARY_IMPORTS = [
 	FormsModule,
@@ -18,7 +19,6 @@ export const TEST_LIBRARY_IMPORTS = [
 	SharedModule,
 	PlayerModule,
 	DialogOverlayModule,
-	RouterTestingModule,
 	ContextMenuModule.forRoot(),
 	NoopAnimationsModule,
 	DeferLoadModule,
@@ -26,5 +26,20 @@ export const TEST_LIBRARY_IMPORTS = [
 	TEST_JAM_MODULE
 ];
 export const TEST_LIBRARY_PROVIDERS = [
-	IndexService, PlaylistService, PodcastService, LibraryService
+	IndexService, PlaylistService, PodcastService, LibraryService,
+	{
+		provide: ActivatedRoute,
+		useValue: {
+			snapshot: {
+				params: {},
+				queryParams: {}
+			},
+			url: {
+				pipe: () => of([])
+			},
+			params: of({}),
+			queryParams: of({}),
+			pipe: () => of({})
+		}
+	}
 ];

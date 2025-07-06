@@ -95,11 +95,11 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	private static geobFrameToString(frame: ID3v2Frames.GEOB): string {
-		return `Binary ${(frame.value && frame.value.bin ? frame.value.bin.length : 0)} bytes`;
+		return `Binary ${(frame.value?.bin?.length ?? 0)} bytes`;
 	}
 
 	private static idBinFrameToString(frame: ID3v2Frames.IdBin): string {
-		return `Binary ${(frame.value && frame.value.bin ? frame.value.bin.length : 0)} bytes`;
+		return `Binary ${(frame.value?.bin?.length ?? 0)} bytes`;
 	}
 
 	private static langDescFrameToString(frame: ID3v2Frames.LangDescText): string {
@@ -301,7 +301,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			case FrameType.CHAP:
 			case FrameType.Unknown:
 			default:
-				return `TODO CELLEDITOR: ${cell?.column.def.name}`;
+				return `Not implemented celleditor for: ${cell?.column.def.name}`;
 		}
 	}
 }

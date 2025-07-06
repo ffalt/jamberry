@@ -16,10 +16,10 @@ export class UserSidebarComponent {
 		const entries: Array<SidebarListItem> = (root?.children || [])
 			.filter(route => route.path && route.path.length > 0 && route.data?.name)
 			.map(route => {
-				const id = route.data?.link ? route.data.link : route.path;
+				const id = route.data?.link ?? route.path;
 				return ({
-					name: route.data ? route.data.name : '',
-					icon: route.data && route.data.icon ? route.data.icon : 'icon-admin',
+					name: route.data?.name ?? '',
+					icon: route.data?.icon ?? 'icon-admin',
 					link: `/user/${id}`
 				});
 			});

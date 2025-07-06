@@ -241,7 +241,7 @@ export class MatchReleaseGroup {
 		for (const release of (mbGroup.releases || [])) {
 			this.releases.push(new MatchRelease(release));
 		}
-		this.releases = this.releases.sort((a, b) => a.sortDate - b.sortDate);
+		this.releases = this.releases.toSorted((a, b) => a.sortDate - b.sortDate);
 	}
 
 	findRelease(releaseID: string): MatchRelease | undefined {
@@ -281,6 +281,6 @@ export class MatchTree {
 		for (const group of this.groups) {
 			group.updateScore();
 		}
-		this.groups = this.groups.sort((a, b) => b.score - a.score);
+		this.groups = this.groups.toSorted((a, b) => b.score - a.score);
 	}
 }

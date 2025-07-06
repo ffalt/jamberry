@@ -1,21 +1,17 @@
 /// <reference types="@angular/localize" />
 
-import {enableProdMode} from '@angular/core';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-
-/**
- * Hammerjs for gestures
- */
 import 'hammerjs';
 import {AppModule} from './app/app.module';
+import {enableProdMode} from '@angular/core';
+import {platformBrowser} from '@angular/platform-browser';
 import {environment} from './environments/environment';
 
 if (environment.production) {
 	enableProdMode();
 }
 
-platformBrowserDynamic()
+platformBrowser()
 	.bootstrapModule(AppModule)
-	.catch(err => {
+	.catch((err: Error) => {
 		console.error(err);
 	});

@@ -31,7 +31,7 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	}
 
 	displayFrame(frame: ID3v2Frames.Pic): void {
-		const base64 = `data:${(frame.value.mimeType || 'image/jpeg')};base64,${frame.value.bin}`;
+		const base64 = `data:${(frame.value.mimeType ?? 'image/jpeg')};base64,${frame.value.bin}`;
 		this.current.frame = frame;
 		this.current.source = base64;
 	}
@@ -89,20 +89,7 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 		};
 	}
 
-	loadImageFailed(): void {
-		// console.log('loadImageFailed');
-	}
-
-	cropperReady(): void {
-		// console.log('cropperReady');
-	}
-
-	imageLoaded(): void {
-		// console.log('imageLoaded');
-	}
-
 	imageCropped(event: ImageCroppedEvent): void {
-		// console.log('imageCropped', event);
 		if (this.current?.frame && event.base64) {
 			const {mimeType, base64} = this.splitBase64(event.base64);
 			this.current.frame.value.mimeType = mimeType;

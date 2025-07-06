@@ -3,8 +3,8 @@ function offset(nativeEl: HTMLElement): { width: number; height: number; top: nu
 	return {
 		width: boundingClientRect.width || nativeEl.offsetWidth,
 		height: boundingClientRect.height || nativeEl.offsetHeight,
-		top: boundingClientRect.top + (window.pageYOffset || window.document.documentElement.scrollTop),
-		left: boundingClientRect.left + (window.pageXOffset || window.document.documentElement.scrollLeft)
+		top: boundingClientRect.top + (window.scrollY ?? window.document.documentElement.scrollTop),
+		left: boundingClientRect.left + (window.scrollX ?? window.document.documentElement.scrollLeft)
 	};
 }
 
@@ -49,7 +49,10 @@ function position(nativeEl: HTMLElement): { width: number; height: number; top: 
 	};
 }
 
-export function positionElements(hostEl: HTMLElement, targetEl: HTMLElement, positionStr: string, appendToBody = false): { top: number; left: number } {
+export function positionElements(hostEl: HTMLElement, targetEl: HTMLElement, positionStr: string, appendToBody = false): {
+	top: number;
+	left: number
+} {
 	const positionStrParts = positionStr.split('-');
 	const pos0 = positionStrParts[0];
 	const pos1 = positionStrParts[1] || 'center';

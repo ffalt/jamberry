@@ -13,7 +13,7 @@ import {
 	MusicBrainzLookupType,
 	WikiData
 } from '@jam';
-import {Subject} from 'rxjs';
+import {firstValueFrom, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 export interface ArtworkSearch {
@@ -58,7 +58,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	ngOnChanges(): void {
 		this.search();
 		const data = this.data();
-		if (data && data.folder) {
+		if (data?.folder) {
 			if (data.folder.artworks) {
 				this.artworks = data.folder.artworks;
 			} else {
@@ -116,7 +116,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			if (claim) {
 				const filename = claim.mainsnak.datavalue.value;
 				const url = `https://en.wikipedia.org/w/api.php?format=json&action=query&origin=*&titles=File:${filename}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=LicenseShortName`;
-				const data = await this.http.get<{
+				const data = await firstValueFrom(this.http.get<{
 					batchcomplete: string;
 					query: {
 						normalized: Array<{ from: string; to: string }>;
@@ -142,15 +142,16 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 							};
 						};
 					};
-				}>(url).toPromise();
-				if (data && data.query.pages) {
+				}>(url));
+				if (data?.query.pages) {
 					const page = data.query.pages[Object.keys(data.query.pages)[0]];
-					if (page && page.imageinfo[0]) {
+					const imageinfo = page?.imageinfo[0];
+					if (imageinfo) {
 						return {
 							name: ArtworkImageType.artist,
-							thumbnail: page.imageinfo[0].url,
-							image: page.imageinfo[0].url,
-							licence: page.imageinfo[0].extmetadata.LicenseShortName.value,
+							thumbnail: imageinfo.url,
+							image: imageinfo.url,
+							licence: imageinfo.extmetadata.LicenseShortName.value,
 							checked: true,
 							storing: false,
 							types: [ArtworkImageType.artist]
@@ -250,8 +251,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 					const nodes = this.coverArtResponseToNodes(res.data);
 					this.display(nodes);
 					const data = this.data();
-					if (nodes.length === 0 &&
-						data && data.folder && data.folder.tag && data.folder.tag.mbReleaseGroupID) {
+					if (nodes.length === 0 && data?.folder?.tag?.mbReleaseGroupID) {
 						this.nodes = undefined;
 						this.loadReleaseGroup(data.folder.tag.mbReleaseGroupID);
 					}
@@ -285,13 +285,13 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 
 	private search(): void {
 		const data = this.data();
-		if (data && data.folder && data.folder.tag) {
+		if (data?.folder?.tag) {
 			if (data.folder.type === FolderType.artist) {
 				if (data.folder.tag.mbArtistID) {
 					this.searchSource = {name: 'Wiki Commons', url: 'https://commons.wikimedia.org'};
 					this.loadWikiCommon(data.folder.tag.mbArtistID);
 				}
-			} else if (data && data.folder && data.folder.tag) {
+			} else {
 				this.searchSource = {name: 'Coverart Archive', url: 'https://coverartarchive.org'};
 				if (data.folder.tag.mbReleaseID && data.folder.tag.mbReleaseGroupID) {
 					this.loadReleaseGroupAndRelease(data.folder.tag.mbReleaseID, data.folder.tag.mbReleaseGroupID);

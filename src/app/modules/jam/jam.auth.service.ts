@@ -39,7 +39,7 @@ export class JamAuthService {
 
 	async check(): Promise<void> {
 		this.checked = true;
-		if (!this.auth || this.auth.server === undefined) {
+		if (!this.auth?.server) {
 			return;
 		}
 		try {
@@ -51,7 +51,7 @@ export class JamAuthService {
 			} else {
 				this.user = undefined;
 			}
-		} catch (e: any) {
+		} catch (e) {
 			return Promise.reject(e || Error('Server error'));
 		}
 	}
@@ -89,7 +89,7 @@ export class JamAuthService {
 			await this.configuration.userChangeNotify(this.user);
 		} catch (e: any) {
 			await this.clear();
-			if (e.error && e.error.error) {
+			if (e.error?.error) {
 				return Promise.reject(Error(e.error.error));
 			}
 			if (e instanceof HttpErrorResponse) {
@@ -100,14 +100,14 @@ export class JamAuthService {
 	}
 
 	getHTTPHeaders(): HttpHeaders | undefined {
-		if (this.auth && this.auth.token) {
+		if (this.auth?.token) {
 			return new HttpHeaders({Authorization: `Bearer ${this.auth.token}`});
 		}
-		return undefined;
+		return;
 	}
 
 	getHTTPOptions(): HTTPOptions {
-		if (this.auth && this.auth.token) {
+		if (this.auth?.token) {
 			return {withCredentials: false, headers: this.getHTTPHeaders()};
 		}
 		return {withCredentials: true};

@@ -12,7 +12,7 @@ export const WINDOW = new InjectionToken('window',
 	providedIn: 'root'
 })
 export class ConfigurationService extends JamConfiguration {
-	static localStorageName = 'jam.auth';
+	static readonly localStorageName = 'jam.auth';
 	clientName: string;
 	clientDomain?: string = undefined;
 	forceSessionUsage = false;
@@ -31,7 +31,7 @@ export class ConfigurationService extends JamConfiguration {
 	}
 
 	domain(): string {
-		return this.clientDomain || '';
+		return this.clientDomain ?? '';
 	}
 
 	async fromStorage(): Promise<{ user: Jam.User; auth: Auth } | undefined> {

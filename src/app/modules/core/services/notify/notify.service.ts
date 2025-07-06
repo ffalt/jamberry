@@ -6,10 +6,21 @@ export type BrowserError = { error?: string } | Error | null | undefined | HttpE
 
 export function serverErrorMsg(error: any): string {
 	let e = error;
-	if (e.error && e.error.error) {
+	if (e.error?.error) {
 		e = e.error;
 	}
-	let msg = (e.error) ? (typeof e.error === 'string' ? e.error : 'Invalid Server Response') : e.status ? `${e.status} - ${e.statusText}` : (e.toString() || 'Unknown error');
+	let msg: string;
+	if (e.error) {
+		if (typeof e.error === 'string') {
+			msg = e.error;
+		} else {
+			msg = 'Invalid Server Response';
+		}
+	} else if (e.status) {
+		msg = `${e.status} - ${e.statusText}`;
+	} else {
+		msg = e.toString() || 'Unknown error';
+	}
 	if (msg.startsWith('Error:')) {
 		msg = msg.slice(6).trim();
 	}
@@ -20,7 +31,7 @@ export function serverErrorMsg(error: any): string {
 	providedIn: 'root'
 })
 export class NotifyService {
-	private toastService = inject(ToastService);
+	private readonly toastService = inject(ToastService);
 	private lastError?: string;
 	private lastErrorTimestamp: number = 0;
 

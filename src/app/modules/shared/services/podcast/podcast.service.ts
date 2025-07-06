@@ -14,7 +14,7 @@ export class PodcastService {
 	private readonly notify = inject(NotifyService);
 	private readonly dialogsService = inject(DialogsService);
 	private podcasts: Array<Jam.Podcast> = [];
-	private episodePoll = new Poller<Jam.Episode>((episode, cb) => {
+	private readonly episodePoll = new Poller<Jam.Episode>((episode, cb) => {
 		this.jam.episode.status({id: episode.id})
 			.then(data => {
 				if (data.status !== 'downloading') {
@@ -30,7 +30,7 @@ export class PodcastService {
 				console.error('error while polling episode download status', err);
 			});
 	});
-	private podcastPoll = new Poller<Jam.Podcast>((podcast, cb) => {
+	private readonly podcastPoll = new Poller<Jam.Podcast>((podcast, cb) => {
 		this.jam.podcast.status({id: podcast.id})
 			.then(data => {
 				if (data.status !== 'downloading') {

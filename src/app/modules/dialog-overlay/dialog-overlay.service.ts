@@ -9,7 +9,10 @@ import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
 import {DEFAULT_CONFIG, DialogOverlayDialogConfig} from './dialog-overlay.types';
 
 export class PortalInjector implements Injector {
-	constructor(private parentInjector: Injector, private customTokens: WeakMap<any, any>) {
+	constructor(
+		private readonly parentInjector: Injector,
+		private readonly customTokens: WeakMap<any, any>
+	) {
 	}
 
 	get(token: any, notFoundValue?: any): any {

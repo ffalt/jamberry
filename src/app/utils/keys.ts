@@ -1,18 +1,3 @@
-import {
-	DOWN_ARROW,
-	ENTER,
-	ESCAPE,
-	LEFT_ARROW,
-	MAC_ENTER,
-	MAC_META,
-	MAC_WK_CMD_LEFT,
-	MAC_WK_CMD_RIGHT,
-	RIGHT_ARROW,
-	SHIFT,
-	TAB,
-	UP_ARROW
-} from '@angular/cdk/keycodes';
-
 export const HOTKEYS = {
 	playPause: {shortcut: 'space', name: 'Play / Pause'},
 	nextTrack: {shortcut: 'alt+right', name: 'Next Track'},
@@ -25,52 +10,52 @@ export const HOTKEYS = {
 
 export function isNonCharKey(event: KeyboardEvent): boolean {
 	return [
-		ENTER,
-		TAB,
-		SHIFT,
-		LEFT_ARROW,
-		UP_ARROW,
-		RIGHT_ARROW,
-		DOWN_ARROW,
-		MAC_ENTER,
-		MAC_WK_CMD_LEFT,
-		MAC_WK_CMD_RIGHT,
-		MAC_META
-	].includes(event.keyCode);
+		'Enter',
+		'NumpadEnter',
+		'Tab',
+		'ShiftLeft',
+		'ShiftRight',
+		'ArrowLeft',
+		'ArrowUp',
+		'ArrowRight',
+		'ArrowDown',
+		'MetaLeft',
+		'MetaRight'
+	].includes(event.code);
 }
 
 export function isUpDownArrowKeys(event: KeyboardEvent): boolean {
-	return [DOWN_ARROW, UP_ARROW].includes(event.keyCode);
+	return ['ArrowDown', 'ArrowUp'].includes(event.code);
 }
 
 export function isArrowKeys(event: KeyboardEvent): boolean {
-	return [LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW].includes(event.keyCode);
+	return ['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(event.code);
 }
 
 export function isLeftRightArrowKeys(event: KeyboardEvent): boolean {
-	return [LEFT_ARROW, RIGHT_ARROW].includes(event.keyCode);
+	return ['ArrowLeft', 'ArrowRight'].includes(event.code);
 }
 
 export function isRightArrowKey(event: KeyboardEvent): boolean {
-	return RIGHT_ARROW === event.keyCode;
+	return event.code === 'ArrowRight';
 }
 
 export function isLeftArrowKey(event: KeyboardEvent): boolean {
-	return LEFT_ARROW === event.keyCode;
+	return event.code === 'ArrowLeft';
 }
 
 export function isUpArrowKey(event: KeyboardEvent): boolean {
-	return UP_ARROW === event.keyCode;
+	return event.code === 'ArrowUp';
 }
 
 export function isDownArrowKey(event: KeyboardEvent): boolean {
-	return DOWN_ARROW === event.keyCode;
+	return event.code === 'ArrowDown';
 }
 
 export function isEnterKey(event: KeyboardEvent): boolean {
-	return [ENTER, MAC_ENTER].includes(event.keyCode);
+	return ['Enter', 'NumpadEnter'].includes(event.code);
 }
 
 export function isEscapeKey(event: KeyboardEvent): boolean {
-	return event.keyCode === ESCAPE;
+	return event.code === 'Escape';
 }

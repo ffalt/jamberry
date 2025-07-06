@@ -164,7 +164,6 @@ export class ToastService {
 	}
 
 	private getOverlayConfig(config: GlobalConfig): OverlayConfig {
-		// const positionStrategy = this.overlay.position().global().right().top();
 		return new OverlayConfig({
 			hasBackdrop: false,
 			panelClass: ['toast-container', config.positionClass],

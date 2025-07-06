@@ -22,9 +22,9 @@ export class SectionCardsComponent {
 			.filter(route => route.path && route.path.length > 0 && route.data?.name)
 			.map(route =>
 				({
-					id: route.data && route.data.link ? route.data.link : route.path,
-					text: route.data ? route.data.name : '',
-					icon: route.data && route.data.icon ? route.data.icon : 'icon-admin'
+					id: route.data?.link ?? route.path,
+					text: route.data?.name ?? '',
+					icon: route.data?.icon ?? 'icon-admin'
 				}));
 	}
 }

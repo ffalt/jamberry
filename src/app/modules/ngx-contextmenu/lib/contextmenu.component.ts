@@ -23,7 +23,6 @@ export class ContextMenuComponent implements OnDestroy {
 	readonly closeEvent = output<CloseContextMenuEvent>();
 	readonly openEvent = output<IContextMenuClickEvent>();
 	readonly menuItems = contentChildren(ContextMenuItemDirective);
-	// menuElement = viewChild<ElementRef>('menu');
 	visibleMenuItems: Array<ContextMenuItemDirective> = [];
 	item: any;
 	event?: Event;
