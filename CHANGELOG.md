@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.4.27](https://github.com/ffalt/jamberry/compare/v0.4.26...v0.4.27) (2025-07-01)
 
+* bump dependencies
+
 ## [0.4.26](https://github.com/ffalt/jamberry/compare/v0.4.25...v0.4.26) (2025-06-06)
+
+* bump dependencies
 
 ## [0.4.25](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.24...v0.4.25) (2024-10-07)
 
@@ -13,6 +17,8 @@ All notable changes to this project will be documented in this file. See [commit
 * **sessions:** create subsonic token ui ([44c8904](https://github.com-ffalt/ffalt/jamberry/commit/44c8904d51f2d842547fdcfd25c7614173f85d96))
 
 ## [0.4.24](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.23...v0.4.24) (2024-09-13)
+
+* bump dependencies
 
 ## [0.4.23](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.22...v0.4.23) (2024-03-23)
 
@@ -45,7 +51,7 @@ All notable changes to this project will be documented in this file. See [commit
 
 ### [0.4.19](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.17...v0.4.19) (2023-01-13)
 
-chore(angular: bump angular to 15.1.0
+chore(angular): bump angular to 15.1.0
 
 ### [0.4.18](https://github.com/ffalt/jamberry/compare/v0.4.17...v0.4.18) (2022-12-13)
 
