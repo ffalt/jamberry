@@ -8,7 +8,6 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.4.25](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.24...v0.4.25) (2024-10-07)
 
-
 ### Features
 
 * **sessions:** create subsonic token ui ([44c8904](https://github.com-ffalt/ffalt/jamberry/commit/44c8904d51f2d842547fdcfd25c7614173f85d96))
@@ -17,7 +16,6 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.4.23](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.22...v0.4.23) (2024-03-23)
 
-
 ### Features
 
 * **i18n:** mark text to extract ([a4799a4](https://github.com-ffalt/ffalt/jamberry/commit/a4799a46e49ac19f5e794d41de3afbe9dde694cf))
@@ -25,14 +23,12 @@ All notable changes to this project will be documented in this file. See [commit
 
 ## [0.4.22](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.21...v0.4.22) (2023-05-19)
 
-
 ### Bug Fixes
 
 * **sidebar:** browse entry active detection ([d14efa5](https://github.com-ffalt/ffalt/jamberry/commit/d14efa582be6bd35c25e56bd470f00c1c9b5b21f))
 * **theme:** refine themes ([68c52fd](https://github.com-ffalt/ffalt/jamberry/commit/68c52fd467602bd1c1cafe00b02d6b0abe7b132b))
 
 ## [0.4.21](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.20...v0.4.21) (2023-05-19)
-
 
 ### Features
 
@@ -42,7 +38,6 @@ All notable changes to this project will be documented in this file. See [commit
 * **themes:** add missing hover ([60d0cec](https://github.com-ffalt/ffalt/jamberry/commit/60d0cec864552f706b8f6a4bc52ff7df1881a76d))
 
 ### [0.4.20](https://github.com-ffalt/ffalt/jamberry/compare/v0.4.19...v0.4.20) (2023-01-14)
-
 
 ### Bug Fixes
 
@@ -54,7 +49,6 @@ chore(angular: bump angular to 15.1.0
 
 ### [0.4.18](https://github.com/ffalt/jamberry/compare/v0.4.17...v0.4.18) (2022-12-13)
 
-
 ### Features
 
 * **dev:** autofill debug login via proxy config.js ([9041578](https://github.com/ffalt/jamberry/commit/9041578eed09485e9fb2d420bdf981c65cac94ef))
@@ -62,11 +56,9 @@ chore(angular: bump angular to 15.1.0
 
 ### [0.4.17](https://github.com/ffalt/jamberry/compare/v0.4.16...v0.4.17) (2022-09-19)
 
-
 ### Features
 
 * **series:** sort series extras into own group ([e20972a](https://github.com/ffalt/jamberry/commit/e20972ac8031e164c9357b70d5bd05c8a6d9c480))
-
 
 ### Bug Fixes
 
@@ -74,13 +66,11 @@ chore(angular: bump angular to 15.1.0
 
 ### [0.4.16](https://github.com/ffalt/jamberry/compare/v0.4.15...v0.4.16) (2022-03-26)
 
-
 ### Bug Fixes
 
 * **playlist-dialog:** add missing entry styling ([f40c023](https://github.com/ffalt/jamberry/commit/f40c023784ad8891542d299596e1101140019b72))
 
 ### [0.4.15](https://github.com/ffalt/jamberry/compare/v0.4.14...v0.4.15) (2021-11-14)
-
 
 ### Features
 
@@ -88,13 +78,11 @@ chore(angular: bump angular to 15.1.0
 
 ### [0.4.14](https://github.com/ffalt/jamberry/compare/v0.4.13...v0.4.14) (2021-10-29)
 
-
 ### Bug Fixes
 
 * **theme:** remove debugging focus color ([cb431fe](https://github.com/ffalt/jamberry/commit/cb431fe8b3b7b42259df67e81c30ec5f0ce6bfc6))
 
 ### [0.4.13](https://github.com/ffalt/jamberry/compare/v0.4.12...v0.4.13) (2021-10-13)
-
 
 ### Features
 
@@ -107,13 +95,11 @@ chore(angular: bump angular to 15.1.0
 
 ### [0.4.12](https://github.com/ffalt/jamberry/compare/v0.4.11...v0.4.12) (2021-08-06)
 
-
 ### Features
 
 * **tag-editor:** add set-compilation cmd ([1b56941](https://github.com/ffalt/jamberry/commit/1b5694106d266db1d64842e1ebf2ca0ce990d8dd))
 
 ### [0.4.11](https://github.com/ffalt/jamberry/compare/v0.4.10...v0.4.11) (2021-07-31)
-
 
 ### Features
 
@@ -121,13 +107,11 @@ chore(angular: bump angular to 15.1.0
 
 ### [0.4.10](https://github.com///compare/v0.4.9...v0.4.10) (2021-07-31)
 
-
 ### Bug Fixes
 
 * **overlays:** anchorElement for cdk-overlay context menu ([7058167](https://github.com///commit/7058167b963924db674d751097cefe54e3ee441c))
 
 ### [0.4.9](https://github.com///compare/v0.4.8...v0.4.9) (2021-05-17)
-
 
 ### Bug Fixes
 
@@ -138,13 +122,11 @@ chore(angular: bump angular to 15.1.0
 
 ### [0.4.7](https://github.com///compare/v0.4.6...v0.4.7) (2021-04-04)
 
-
 ### Bug Fixes
 
 * **player:** repeat track did not repeat track ([19a928c](https://github.com///commit/19a928c23021a5cedf111716fcd6a63b76dd0f02))
 
 ### [0.4.6](https://github.com/ffalt/jamberry/compare/v0.4.5...v0.4.6) (2020-12-21)
-
 
 ### Bug Fixes
 
@@ -153,18 +135,15 @@ chore(angular: bump angular to 15.1.0
 
 ### [0.4.5](https://github.com/ffalt/jamberry/compare/v0.4.4...v0.4.5) (2020-12-18)
 
-
 ### Features
 
 * **meta:** use proxy coverartarchive request to avoid csp violations ([f3a5470](https://github.com/ffalt/jamberry/commit/f3a54708323cd2ac23f314c983c046587e4f91f6))
 
 ### [0.4.4](https://github.com/ffalt/jamberry/compare/v0.4.3...v0.4.4) (2020-09-24)
 
-
 ### Features
 
 * **podcast discover:** use jam api & gpodder scaled images ([a262a3f](https://github.com/ffalt/jamberry/commit/a262a3f4921747903af919f30623fbbb3c8c0b79))
-
 
 ### Bug Fixes
 
@@ -172,20 +151,17 @@ chore(angular: bump angular to 15.1.0
 
 ### [0.4.3](https://github.com/ffalt/jamberry/compare/v0.4.2...v0.4.3) (2020-09-23)
 
-
 ### Bug Fixes
 
 * **mediasession:** extending global MediaMetaData obj no longer works, just declare it where it's used ([b3362ee](https://github.com/ffalt/jamberry/commit/b3362eecf4fd978b224c3b81241e593f71e50f1c))
 
 ### [0.4.2](https://github.com/ffalt/jamberry/compare/v0.4.0...v0.4.2) (2020-09-22)
 
-
 ### Features
 
 * **admin:** refresh root meta cmd ([afe64a2](https://github.com/ffalt/jamberry/commit/afe64a2bc893c7208608685d9367c205a47ec150))
 * **genre:** genres with id & state support ([e4083d8](https://github.com/ffalt/jamberry/commit/e4083d80c10f4913c1f83a2135bc96c6c7c8d24c))
 * **info:** show info if server api mismatch client version ([0342500](https://github.com/ffalt/jamberry/commit/03425000d1c48ef62858c8c91173e9252f3d4f3d))
-
 
 ### Bug Fixes
 
