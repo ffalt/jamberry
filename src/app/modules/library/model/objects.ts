@@ -44,11 +44,11 @@ export class JamAlbumObject extends JamLibraryObject {
 
 	constructor(public album: Jam.Album, library: LibraryService) {
 		super(album, library);
-		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.year || ''}`;
+		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.year ?? ''}`;
 		this.parent = album.artistName;
 		this.mediaType = album.albumType;
 		this.group = album.albumType;
-		if ((album.albumType === AlbumType.series) && isNaN((album.seriesNr || '') as any)) {
+		if ((album.albumType === AlbumType.series) && isNaN((album.seriesNr ?? '') as any)) {
 			this.group = `${album.albumType} Extras`;
 		}
 		this.genre = album.genres?.length ? album.genres.map(g => g.name).join(' / ') : undefined;
@@ -103,7 +103,7 @@ export class JamAlbumObject extends JamLibraryObject {
 				},
 				{
 					label: 'Series', value: this.album.seriesID ? this.album.series : undefined, click: (): void => {
-						this.library.navig.toSeriesID(this.album.seriesID || '', this.album.series || '');
+						this.library.navig.toSeriesID(this.album.seriesID ?? '', this.album.series ?? '');
 					}
 				},
 				{label: 'Episode', value: this.album.seriesNr}
@@ -133,11 +133,11 @@ export class JamFolderObject extends JamLibraryObject {
 		this.genre = folder?.tag?.genres?.length ? folder.tag.genres.join(' / ') : undefined;
 		switch (folder.type) {
 			case FolderType.artist:
-				this.name = folder.tag?.artist || '[Unknown Artist]';
+				this.name = folder.tag?.artist ?? '[Unknown Artist]';
 				break;
 			case FolderType.album:
 			case FolderType.multialbum:
-				this.name = folder.tag?.album || '[Unknown Album]';
+				this.name = folder.tag?.album ?? '[Unknown Album]';
 				this.parent = folder.tag?.artist;
 				this.year = folder.tag?.year ? `${folder.tag.year}` : undefined;
 				break;
@@ -342,7 +342,7 @@ export class JamTrackObject extends JamLibraryObject {
 
 	constructor(public track: Jam.Track, library: LibraryService) {
 		super(track, library);
-		this.name = track.tag?.title || track.name;
+		this.name = track.tag?.title ?? track.name;
 		this.genre = track.tag?.genres ? track.tag.genres.join(' / ') : undefined;
 	}
 
@@ -394,16 +394,16 @@ export class JamTrackObject extends JamLibraryObject {
 		return [
 			{
 				label: 'Artist', value: this.track.tag?.artist, click: (): void => {
-					this.library.navig.toArtistID(this.track.artistID || '', this.track.tag?.artist || '');
+					this.library.navig.toArtistID(this.track.artistID ?? '', this.track.tag?.artist ?? '');
 				}
 			},
 			{
 				label: 'Album', value: this.track.tag?.album, click: (): void => {
-					this.library.navig.toAlbumID(this.track.albumID || '', this.track.tag?.album || '');
+					this.library.navig.toAlbumID(this.track.albumID ?? '', this.track.tag?.album ?? '');
 				}
 			},
 			{label: 'Genre', value: this.genre}
-			// {label: 'Played', value: this.track.state.played || 0}
+			// {label: 'Played', value: this.track.state.played ?? 0}
 		].filter(info => info.value !== undefined) as Array<HeaderInfo>;
 	}
 }

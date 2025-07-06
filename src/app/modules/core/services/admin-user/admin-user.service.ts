@@ -33,7 +33,7 @@ export class AdminUserService {
 		await this.jam.user.remove({id: user.id});
 		this.users = this.users.filter(r => r.id !== user.id);
 		this.usersChange.emit(this.users);
-		this.userChange.emit(user.id, undefined);
+		this.userChange.emit(user.id);
 	}
 
 	refreshUser(id: string): void {

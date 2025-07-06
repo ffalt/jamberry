@@ -43,7 +43,7 @@ export class MediaSessionService {
 			const state = {
 				duration: d,
 				playbackRate: playbackRate ?? 1.0,
-				position: Math.min(d, (position || 0) / 1000)
+				position: Math.min(d, (position ?? 0) / 1000)
 			};
 			try {
 				navigator.mediaSession.setPositionState(state);

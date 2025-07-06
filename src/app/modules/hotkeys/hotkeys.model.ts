@@ -35,7 +35,7 @@ export class Hotkey {
 	) {
 		this.combo = (Array.isArray(combo) ? combo : [combo]);
 		this.allowIn = allowIn || [];
-		this.description = description || '';
+		this.description = description ?? '';
 	}
 
 	static symbolize(combo: string): string {
