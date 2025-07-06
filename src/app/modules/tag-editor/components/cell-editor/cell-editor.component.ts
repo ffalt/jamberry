@@ -27,7 +27,6 @@ import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-
 	selector: 'app-cell-editor',
 	templateUrl: './cell-editor.component.html',
 	styleUrls: ['./cell-editor.component.scss'],
-	// eslint-disable-next-line @typescript-eslint/no-use-before-define
 	providers: [{provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent)}],
 	standalone: false,
 	host: {
@@ -164,7 +163,6 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			this.createComponent(type);
 			if (this.componentRef) {
 				this.componentRef.instance.cell = this.cell();
-				// eslint-disable-next-line @angular-eslint/no-lifecycle-call
 				if (this.componentRef.instance.ngOnChanges) {
 					// eslint-disable-next-line @angular-eslint/no-lifecycle-call
 					this.componentRef.instance.ngOnChanges({cell: {current: this.cell()}});

@@ -5,7 +5,6 @@ function levenshtein(str1: string, str2: string): number {
 	let value;
 	for (let i = 0; i <= str2.length; i++) {
 		for (let j = 0; j <= str1.length; j++) {
-			// eslint-disable-next-line
 			if (i && j) {
 				value = (str1.charAt(j - 1) === str2.charAt(i - 1)) ? prev : Math.min(current[j], current[j - 1], prev) + 1;
 			} else {

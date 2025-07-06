@@ -1,6 +1,3 @@
-/* eslint-disable quote-props */
-/* eslint-disable max-lines */
-
 export interface FrameDef {
 	title: string;
 	versions: Array<number>;

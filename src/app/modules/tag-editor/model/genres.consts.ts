@@ -1070,4 +1070,3 @@ export const Genres: Array<string> = [
 	'Zouk-Lambada',
 	'Zydeco'
 ];
-// eslint-disable-next-line max-lines

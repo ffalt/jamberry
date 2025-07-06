@@ -4,6 +4,7 @@
 
 import {Injectable, OnDestroy} from '@angular/core';
 
+// eslint-disable-next-line no-redeclare
 declare const Notification: any;
 
 @Injectable({

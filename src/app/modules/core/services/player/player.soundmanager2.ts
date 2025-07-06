@@ -165,7 +165,6 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	speed(): number {
 		if (this.soundObject) {
 			// TODO: is there no api for getting internal playbackRate?
-			// eslint-disable-next-line no-underscore-dangle
 			return (this.soundObject as any)._iO.playbackRate;
 		}
 		return 1;

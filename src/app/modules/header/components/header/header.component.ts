@@ -1,4 +1,4 @@
-import {Location} from '@angular/common';
+import {Location as AngularLocation} from '@angular/common';
 import {Component, inject} from '@angular/core';
 import {ContextMenuUserComponent} from '@app/modules/header/components/context-menu-user/context-menu-user.component';
 import {MainTabsService} from '@app/modules/main-tabs/services';
@@ -18,7 +18,7 @@ export class HeaderComponent {
 	readonly auth = inject(JamAuthService);
 	readonly navig = inject(NavigService);
 	readonly tabService = inject(MainTabsService);
-	private readonly location = inject(Location);
+	private readonly location = inject(AngularLocation);
 	private readonly menuService = inject(MenuService);
 
 	back(): void {
