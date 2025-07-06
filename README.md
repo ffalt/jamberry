@@ -3,6 +3,7 @@
 html5 web frontend for [jamserve](https://github.com/ffalt/jamserve)
 
 ![test](https://github.com/ffalt/jamberry/workflows/test/badge.svg)
+[![Maintainability](https://qlty.sh/gh/ffalt/projects/jamberry/maintainability.svg)](https://qlty.sh/gh/ffalt/projects/jamberry)
 
 ## Development server
 
