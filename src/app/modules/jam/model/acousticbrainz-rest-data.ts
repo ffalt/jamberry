@@ -7,8 +7,26 @@ export declare namespace AcousticBrainz {
 		metadata?: MetaData;
 	}
 
-	export type KnownSections = 'danceability' | 'gender' | 'genre_dortmund' | 'genre_electronic' | 'genre_rosamerica' | 'genre_tzanetakis' | 'ismir04_rhythm' | 'mood_acoustic' |
-		'mood_aggressive' | 'mood_electronic' | 'mood_happy' | 'mood_party' | 'mood_relaxed' | 'mood_sad' | 'moods_mirex' | 'timbre' | 'tonal_atonal' | 'voice_instrumental';
+	export type KnownSections =
+		'danceability'
+		| 'gender'
+		| 'genre_dortmund'
+		| 'genre_electronic'
+		| 'genre_rosamerica'
+		| 'genre_tzanetakis'
+		| 'ismir04_rhythm'
+		| 'mood_acoustic'
+		|
+		'mood_aggressive'
+		| 'mood_electronic'
+		| 'mood_happy'
+		| 'mood_party'
+		| 'mood_relaxed'
+		| 'mood_sad'
+		| 'moods_mirex'
+		| 'timbre'
+		| 'tonal_atonal'
+		| 'voice_instrumental';
 
 	export interface HighLevelSection {
 		all: {
@@ -30,6 +48,8 @@ export declare namespace AcousticBrainz {
 	}
 
 	export interface HighLevel {
+		[key: string]: HighLevelSection | undefined;
+
 		danceability?: HighLevelSection;
 		gender?: HighLevelSection;
 		genre_dortmund?: HighLevelSection;

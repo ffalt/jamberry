@@ -1,36 +1,24 @@
 import {AcoustIDEntry, acoustidResultToList, AcoustidTree} from '@app/modules/tag-editor/model/acoustid.helper';
 import {
-	ABData,
 	Matching,
 	MatchingTrack,
 	MatchRelease,
 	MatchReleaseGroup,
 	MatchTree
 } from '@app/modules/tag-editor/model/release-matching.helper';
-import {stripExtension} from '@app/modules/tag-editor/model/utils';
 import {NotifyService} from '@core/services';
 import {Jam, JamParameters, JamService, MusicBrainz, MusicBrainzLookupType, MusicBrainzSearchType} from '@jam';
+import {AcousticBrainzHelper} from './acoustic-brainz.helper';
+import {ManualSearchData} from './manual-search-data';
+import {MusicbrainzSearchQuery, QueryBuilderHelper} from './query-builder.helper';
+import {ReleaseLoaderHelper} from './release-loader.helper';
+import {RunStrategyHelper} from './run-strategy.helper';
 
 export enum RunType {
 	acoustID,
 	musicbrainzRefresh,
 	musicbrainzByTags,
 	auto
-}
-
-class MusicbrainzSearchQuery {
-	id: string;
-	name: string;
-	matchings: Array<Matching> = [];
-
-	constructor(public q: JamParameters.MusicBrainzSearchArgs) {
-		this.id = `musicbrainz-${JSON.stringify(q)}`;
-		const searchFields = Object.keys(q)
-			.filter(key => key !== 'type')
-			.map(key => `${key}: "${(q as any)[key]}"`)
-			.join(', ');
-		this.name = `MusicBrainz Search for ${searchFields}`;
-	}
 }
 
 export class Matcher {
@@ -41,63 +29,17 @@ export class Matcher {
 	folder?: Jam.Folder;
 	matchings: Array<Matching> = [];
 	matchTree = new MatchTree();
-	manualSearchData: {
-		artists: Array<string>;
-		albums: Array<string>;
-		artist: string;
-		releaseGroup: string;
-		getAutoCompleteAlbumList(): Array<string>;
-		getAutoCompleteArtistList(): Array<string>;
-	} = {
-		artists: [],
-		albums: [],
-		artist: '',
-		releaseGroup: '',
-
-		getAutoCompleteAlbumList: () => {
-			if (this.manualSearchData.albums.length === 0) {
-				for (const match of this.matchings) {
-					const txt = (match.track?.tag?.album ?? '').trim();
-					if (txt.length > 0 && !this.manualSearchData.albums.includes(txt)) {
-						this.manualSearchData.albums.push(txt);
-					}
-				}
-			}
-			return this.manualSearchData.albums;
-		},
-
-		getAutoCompleteArtistList: () => {
-			if (this.manualSearchData.artists.length === 0) {
-				for (const match of this.matchings) {
-					const txt = (match.track?.tag?.artist ?? '').trim();
-					if (txt.length > 0 && !this.manualSearchData.artists.includes(txt)) {
-						this.manualSearchData.artists.push(txt);
-					}
-				}
-			}
-			return this.manualSearchData.artists;
-		}
-	};
+	manualSearchData: ManualSearchData;
+	private releaseLoader: ReleaseLoaderHelper;
 
 	constructor(private readonly jam: JamService, private readonly notify: NotifyService) {
-	}
-
-	static cleanAlbumName(s: string): string {
-		// TODO: better sanitize album name
-		let i = s.indexOf('(');
-		let result = s;
-		if (i > 1) {
-			result = result.slice(0, i);
-		}
-		i = result.indexOf('[');
-		if (i > 1) {
-			result = result.slice(0, i);
-		}
-		result = result.trim();
-		if (result.length === 0) {
-			return s;
-		}
-		return result;
+		this.manualSearchData = new ManualSearchData(() => this.matchings);
+		this.releaseLoader = new ReleaseLoaderHelper(
+			this.matchTree,
+			() => this.shouldStop(),
+			async (id: string) => this.addReleaseGroupByID(id),
+			async (rg: MatchReleaseGroup) => this.loadBestMatchingCurrentRelease(rg)
+		);
 	}
 
 	abort() {
@@ -304,40 +246,14 @@ export class Matcher {
 			});
 	}
 
-	// eslint-disable-next-line complexity
 	private async loadAcousticBrainz(release: MatchRelease): Promise<void> {
 		for (const media of release.media) {
 			for (const track of media.tracks) {
 				if (!track.abData && track.currentMatch?.match?.mbTrack?.recording?.id) {
-					const res = (await this.jam.metadata.acousticbrainzLookup({mbID: track.currentMatch.match.mbTrack.recording.id})).data;
-					if (res.highlevel) {
-						const genres: Array<string> = [];
-						const moods: Array<string> = [];
-						const tonal: Array<string> = [];
-						const other: Array<string> = [];
-						const keys = Object.keys(res.highlevel);
-						for (const key of keys) {
-							const value = res.highlevel[key].value;
-							const prop = res.highlevel[key].probability;
-							if (prop > 0.8 && !value.includes('not_')) {
-								if (key.startsWith('mood_') || key === 'timbre' || key === 'danceability') {
-									if (!moods.includes(value)) {
-										moods.push(value);
-									}
-								} else if (key.startsWith('genre_')) {
-									if (!genres.includes(value)) {
-										genres.push(value);
-									}
-								} else if (key.startsWith('tonal_') || key === 'voice_instrumental') {
-									if (!tonal.includes(value)) {
-										tonal.push(value);
-									}
-								} else if (!other.includes(value)) {
-									other.push(value);
-								}
-							}
-						}
-						const abData: ABData = {genres, moods, tonal, other};
+					const recordingId = track.currentMatch.match.mbTrack.recording.id;
+					const res = (await this.jam.metadata.acousticbrainzLookup({mbID: recordingId})).data;
+					const abData = AcousticBrainzHelper.processAcousticBrainzData(res);
+					if (abData) {
 						track.abData = abData;
 						track.currentMatch.match.abdata = abData;
 					}
@@ -450,139 +366,11 @@ export class Matcher {
 	}
 
 	private buildQuickQueries(): Array<MusicbrainzSearchQuery> {
-		const queries: Array<MusicbrainzSearchQuery> = [];
-		const albums: Array<string> = [];
-		const artists: Array<string> = [];
-		for (const match of this.matchings) {
-			if (match.track.tag?.album) {
-				const s = Matcher.cleanAlbumName(match.track.tag.album);
-				if (match.track.tag.album && !albums.includes(s)) {
-					albums.push(s);
-				}
-				if (match.track.tag.artist && !artists.includes(match.track.tag.artist)) {
-					artists.push(match.track.tag.artist);
-				}
-			}
-		}
-		if (albums.length === 1) {
-			queries.push(new MusicbrainzSearchQuery({
-				type: MusicBrainzSearchType.releaseGroup,
-				releasegroup: albums[0],
-				artist: artists.length > 0 ? artists[0] : undefined
-			}));
-		}
-
-		if (this.folder?.tag) {
-			queries.push(new MusicbrainzSearchQuery({
-				type: MusicBrainzSearchType.releaseGroup,
-				releasegroup: this.folder.name,
-				artist: this.folder.tag.artist
-			}));
-		}
-
-		return queries;
+		return QueryBuilderHelper.buildQuickQueries(this.matchings, this.folder);
 	}
 
-	// eslint-disable-next-line complexity
 	private buildQueries(): Array<MusicbrainzSearchQuery> {
-		const queries: Array<MusicbrainzSearchQuery> = [];
-
-		const addQuery = (q: MusicbrainzSearchQuery, match: Matching): void => {
-			const samequery = queries.find(qu => qu.id === q.id);
-			if (samequery) {
-				samequery.matchings.push(match);
-				return;
-			}
-			q.matchings.push(match);
-			queries.push(q);
-		};
-
-		const addMBQuery = (fields: JamParameters.MusicBrainzSearchArgs, match: Matching, trackslength?: boolean): void => {
-			const q: JamParameters.MusicBrainzSearchArgs = {type: fields.type};
-			for (const key of Object.keys(fields)) {
-				const val = (fields as any)[key];
-				if ((val === undefined) || (val === '') || (val.toString().trim() === '')) {
-					// if one is invalid, don't add
-					return;
-				}
-				const parts = val.toString().split('(');
-				if (parts.length > 0) {
-					(q as any)[key] = parts[0];
-				}
-			}
-			if (trackslength) {
-				q.tracks = this.matchings.length;
-			}
-			addQuery(new MusicbrainzSearchQuery(q), match);
-		};
-
-		// next we search the release group
-		for (const match of this.matchings) {
-			addMBQuery({type: MusicBrainzSearchType.releaseGroup, releasegroup: match.track.tag?.album, artist: match.track.tag?.artist}, match);
-		}
-
-		// check releases with track length
-		// addQuery('release', {release: tag.album, artist: tag.artist}, null, true);
-		for (const match of this.matchings) {
-			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag?.album, artist: match.track.tag?.artist}, match, true);
-		}
-
-		// now without track length
-		for (const match of this.matchings) {
-			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag?.album, artist: match.track.tag?.artist}, match);
-		}
-
-		// now check recordings
-		for (const match of this.matchings) {
-			if (!match.track.tag?.title) {
-				const trackname = stripExtension(match.track.name);
-				addMBQuery({
-					type: MusicBrainzSearchType.recording,
-					recording: trackname,
-					release: match.track.tag?.album,
-					artist: match.track.tag?.artist
-				}, match);
-			} else {
-				addMBQuery({
-					type: MusicBrainzSearchType.recording,
-					recording: match.track.tag.title,
-					release: match.track.tag.album,
-					artist: match.track.tag.artist
-				}, match);
-			}
-		}
-
-		// now get even fuzzier
-		for (const match of this.matchings) {
-			if (!match.track.tag?.title) {
-				const trackname = stripExtension(match.track.name);
-				addMBQuery({type: MusicBrainzSearchType.recording, recording: trackname, release: match.track.tag?.album}, match);
-				addMBQuery({type: MusicBrainzSearchType.recording, recording: trackname, artist: match.track.tag?.artist}, match);
-			} else {
-				addMBQuery({type: MusicBrainzSearchType.recording, recording: match.track.tag.title, release: match.track.tag.album}, match);
-				addMBQuery({type: MusicBrainzSearchType.recording, recording: match.track.tag.title, artist: match.track.tag.artist}, match);
-			}
-		}
-
-		// now get even more fuzzier
-		for (const match of this.matchings) {
-			addMBQuery({type: MusicBrainzSearchType.releaseGroup, releasegroup: match.track.tag?.album}, match);
-			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag?.album}, match, true);
-			addMBQuery({type: MusicBrainzSearchType.release, release: match.track.tag?.album}, match);
-		}
-
-		// the fuzziest
-		for (const match of this.matchings) {
-			if (!match.track.tag?.title) {
-				const trackname = stripExtension(match.track.name);
-				addMBQuery({type: MusicBrainzSearchType.recording, recording: trackname}, match);
-			} else {
-				addMBQuery({type: MusicBrainzSearchType.recording, recording: match.track.tag.title}, match);
-			}
-		}
-
-		// ok, give up
-		return queries;
+		return QueryBuilderHelper.buildQueries(this.matchings);
 	}
 
 	private async loadBestMatchingCurrentRelease(rg: MatchReleaseGroup): Promise<void> {
@@ -611,55 +399,15 @@ export class Matcher {
 	}
 
 	private async loadByReleaseGroups(releaseGroups: Array<MusicBrainz.ReleaseGroup>): Promise<void> {
-		for (const r of releaseGroups) {
-			if (this.shouldStop()) {
-				return;
-			}
-			let rg = this.matchTree.findReleaseGroup(r.id);
-			if (!rg) {
-				rg = await this.addReleaseGroupByID(r.id);
-			}
-			if (rg && !rg.currentRelease) {
-				await this.loadBestMatchingCurrentRelease(rg);
-			}
-		}
+		await this.releaseLoader.loadByReleaseGroups(releaseGroups);
 	}
 
 	private async loadByReleases(releases: Array<MusicBrainz.Release>): Promise<void> {
-		for (const rel of releases) {
-			if (this.shouldStop()) {
-				return;
-			}
-			let rg = this.matchTree.findReleaseGroup(rel.releaseGroup.id);
-			if (!rg) {
-				rg = await this.addReleaseGroupByID(rel.releaseGroup.id);
-			}
-			if (rg && !rg.currentRelease) {
-				await this.loadBestMatchingCurrentRelease(rg);
-			}
-		}
+		await this.releaseLoader.loadByReleases(releases);
 	}
 
 	private async loadByRecordings(recordings: Array<MusicBrainz.Recording>): Promise<void> {
-		for (const rec of recordings) {
-			if (this.shouldStop()) {
-				return;
-			}
-			if (rec.releases) {
-				for (const rel of rec.releases) {
-					if (this.shouldStop()) {
-						return;
-					}
-					let rg = this.matchTree.findReleaseGroup(rel.releaseGroup.id);
-					if (!rg) {
-						rg = await this.addReleaseGroupByID(rel.releaseGroup.id);
-					}
-					if (rg && !rg.currentRelease) {
-						await this.loadBestMatchingCurrentRelease(rg);
-					}
-				}
-			}
-		}
+		await this.releaseLoader.loadByRecordings(recordings);
 	}
 
 	private async runQuery(q: MusicbrainzSearchQuery, queries: Array<MusicbrainzSearchQuery>): Promise<void> {
@@ -738,37 +486,13 @@ export class Matcher {
 	}
 
 	private async run(type: RunType): Promise<void> {
-		switch (type) {
-			case RunType.acoustID:
-				await this.acoustId();
-				break;
-			case RunType.musicbrainzByTags:
-				await this.musicBrainzByQuickTags();
-				if (this.shouldStop()) {
-					return;
-				}
-				await this.musicBrainzByTags();
-				break;
-			case RunType.musicbrainzRefresh:
-				await this.musicBrainzRefresh();
-				break;
-			case RunType.auto:
-				await this.musicBrainzRefresh();
-				if (this.shouldStop()) {
-					return;
-				}
-				await this.musicBrainzByQuickTags();
-				if (this.shouldStop()) {
-					return;
-				}
-				await this.acoustId();
-				if (this.shouldStop()) {
-					return;
-				}
-				await this.musicBrainzByTags();
-				break;
-			default:
-				break;
-		}
+		await RunStrategyHelper.executeStrategy(
+			type,
+			async () => this.acoustId(),
+			async () => this.musicBrainzRefresh(),
+			async () => this.musicBrainzByQuickTags(),
+			async () => this.musicBrainzByTags(),
+			() => this.shouldStop()
+		);
 	}
 }
