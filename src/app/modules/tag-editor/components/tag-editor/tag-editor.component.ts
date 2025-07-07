@@ -11,7 +11,7 @@ import {FilenameColumnID, RawTagEditCell, RawTagEditColumn, RawTagEditRow} from 
 import {rebuildTag} from '../../model/tag-editor.utils';
 import {DialogChooseColumnsComponent} from '../dialog-choose-columns/dialog-choose-columns.component';
 import {DialogMatchReleaseComponent} from '../dialog-match-release/dialog-match-release.component';
-import {ReleaseMatching} from '../match-release/match-release.component';
+import {ReleaseDataMatching, ReleaseMatching} from '../match-release/match-release.component';
 
 export interface SaveAction {
 	edit: RawTagEditRow;
@@ -96,34 +96,6 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			.catch(e => {
 				this.notify.error(e);
 			});
-	}
-
-	onCellEditorNavigationKeyDown(data: { cell: RawTagEditCell; event: KeyboardEvent }): void {
-		if (isUpDownArrowKeys(data.event)) {
-			const rowIndex = this.editor.edits.findIndex(e => e === data.cell.parent);
-			const nextrow = this.editor.edits[rowIndex + (isDownArrowKey(data.event) ? 1 : -1)];
-			if (nextrow) {
-				const nextcell = nextrow.cells[data.cell.parent.cells.indexOf(data.cell)];
-				if (nextcell) {
-					const nexteditor = this.cellEditors().find(editor => editor.cell && editor.cell() === nextcell);
-					if (nexteditor) {
-						setTimeout(() => {
-							nexteditor.navigTo();
-						});
-					}
-				}
-			}
-		} else if (isLeftRightArrowKeys(data.event)) {
-			const nextcell = data.cell.parent.cells[data.cell.parent.cells.indexOf(data.cell) + (isRightArrowKey(data.event) ? 1 : -1)];
-			if (nextcell) {
-				const nexteditor = this.cellEditors().find(editor => editor.cell && editor.cell() === nextcell);
-				if (nexteditor) {
-					setTimeout(() => {
-						nexteditor.navigTo();
-					});
-				}
-			}
-		}
 	}
 
 	save(): void {
@@ -224,30 +196,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		}
 		const matching: ReleaseMatching = {
 			folder: this.folder,
-			matchings: this.tracks.map(t =>
-				({track: t})),
+			matchings: this.tracks.map(t => ({track: t})),
 			apply: () => {
-				for (const match of matching.matchings) {
-					if (match.track && match.rawTag) {
-						match.track.tagRaw = match.rawTag;
-					}
-				}
-				if (this.tracks) {
-					this.editor.build(this.tracks);
-					for (const match of matching.matchings) {
-						if (match.track && match.rawTag) {
-							const edit = this.editor.edits.find(e => e.track === match.track);
-							if (edit) {
-								edit.changed = true;
-								for (const cell of edit.cells) {
-									if (cell.column.def.id !== FilenameColumnID) {
-										cell.changed = true;
-									}
-								}
-							}
-						}
-					}
-				}
+				this.applyMatching(matching);
 			}
 		};
 		this.dialogOverlay.open({
@@ -266,6 +217,74 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		});
 		$event.preventDefault();
 		$event.stopPropagation();
+	}
+
+	onCellEditorNavigationKeyDown(data: { cell: RawTagEditCell; event: KeyboardEvent }): void {
+		if (isUpDownArrowKeys(data.event)) {
+			this.onCellEditorNavigationKeyDownUpDown(data);
+		} else if (isLeftRightArrowKeys(data.event)) {
+			this.onCellEditorNavigationKeyDownLeftRight(data);
+		}
+	}
+
+	private applyMatching(matching: ReleaseMatching) {
+		for (const match of matching.matchings) {
+			if (match.track && match.rawTag) {
+				match.track.tagRaw = match.rawTag;
+			}
+		}
+		if (this.tracks) {
+			this.editor.build(this.tracks);
+			this.applyMatchingTracks(matching);
+		}
+	}
+
+	private applyMatchingTracks(matching: ReleaseMatching) {
+		for (const match of matching.matchings) {
+			if (match.track && match.rawTag) {
+				this.applyMatchingTrack(match);
+			}
+		}
+	}
+
+	private applyMatchingTrack(match: ReleaseDataMatching) {
+		const edit = this.editor.edits.find(e => e.track === match.track);
+		if (edit) {
+			edit.changed = true;
+			for (const cell of edit.cells) {
+				if (cell.column.def.id !== FilenameColumnID) {
+					cell.changed = true;
+				}
+			}
+		}
+	}
+
+	private onCellEditorNavigationKeyDownLeftRight(data: { cell: RawTagEditCell; event: KeyboardEvent }) {
+		const nextcell = data.cell.parent.cells[data.cell.parent.cells.indexOf(data.cell) + (isRightArrowKey(data.event) ? 1 : -1)];
+		if (nextcell) {
+			const nexteditor = this.cellEditors().find(editor => editor.cell && editor.cell() === nextcell);
+			if (nexteditor) {
+				setTimeout(() => {
+					nexteditor.navigTo();
+				});
+			}
+		}
+	}
+
+	private onCellEditorNavigationKeyDownUpDown(data: { cell: RawTagEditCell; event: KeyboardEvent }) {
+		const rowIndex = this.editor.edits.findIndex(e => e === data.cell.parent);
+		const nextrow = this.editor.edits[rowIndex + (isDownArrowKey(data.event) ? 1 : -1)];
+		if (nextrow) {
+			const nextcell = nextrow.cells[data.cell.parent.cells.indexOf(data.cell)];
+			if (nextcell) {
+				const nexteditor = this.cellEditors().find(editor => editor.cell && editor.cell() === nextcell);
+				if (nexteditor) {
+					setTimeout(() => {
+						nexteditor.navigTo();
+					});
+				}
+			}
+		}
 	}
 
 	private async runSave(action: SaveAction, actions: Array<SaveAction>): Promise<void> {

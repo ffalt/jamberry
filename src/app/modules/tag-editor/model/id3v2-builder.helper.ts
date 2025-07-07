@@ -59,8 +59,8 @@ export class ID3V2RawBuilder {
 
 	idLangText(key: string, value: string | undefined, lang: string | undefined, id: string | undefined): this {
 		if (value) {
-			const cid = id || '';
-			const list = ((this.frameValues[key] || []) as Array<ID3v2Frames.LangDescText>)
+			const cid = id ?? '';
+			const list = ((this.frameValues[key] ?? []) as Array<ID3v2Frames.LangDescText>)
 				.filter(f => f.value.id !== cid);
 			const frame: ID3v2Frames.LangDescText = {id: key, value: {id: cid, language: lang || '', text: value}};
 			this.frameValues[key] = list.concat([frame]);

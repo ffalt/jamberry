@@ -109,17 +109,18 @@ export class MatchingTrack {
 	}
 
 	private scoreTrackNr(match: Matching, scores: Array<Score>): void {
-		const trackNr = match.track.tag?.trackNr || findTrackNr(match.track.name);
+		const trackNr = match.track.tag?.trackNr ?? findTrackNr(match.track.name);
 		if (trackNr > 0) {
 			scores.push({name: 'trackNr', score: (trackNr === this.mbTrack.position) ? 1 : 0, weight: 0.2});
 		}
 	}
 
 	private scoreTitle(match: Matching, scores: Array<Score>): void {
-		const title = match.track.tag?.title || stripExtension(match.track.name);
+		const title = match.track.tag?.title ?? stripExtension(match.track.name);
 		if (title && title.trim().length > 0) {
-			const titles = [slugify(this.mbTrack.title || this.mbTrack.recording?.title || 'Unknown')];
-			for (const alias of (this.mbTrack.recording?.aliases || [])) {
+			const titles = [slugify(this.mbTrack.title ?? this.mbTrack.recording?.title ?? 'Unknown')];
+			const list = this.mbTrack.recording?.aliases ?? [];
+			for (const alias of list) {
 				const aliasTitle = slugify(alias.name);
 				titles.push(aliasTitle);
 			}
@@ -220,7 +221,7 @@ export class MatchRelease {
 		for (const key of Object.keys(matchings)) {
 			let tracks = matchings[key];
 			if (tracks.length > 1) {
-				tracks = tracks.sort((a, b) => (b.currentMatch?.score || 0) - (a.currentMatch?.score || 0));
+				tracks = tracks.sort((a, b) => (b.currentMatch?.score ?? 0) - (a.currentMatch?.score ?? 0));
 				tracks.shift();
 				for (const track of tracks) {
 					track.currentMatch = undefined;

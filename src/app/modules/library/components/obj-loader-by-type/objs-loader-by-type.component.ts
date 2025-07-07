@@ -32,89 +32,8 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	private readonly unsubscribeRefresh = new Subject<void>();
 
 	ngOnInit(): void {
-		if (this.route?.parent) {
-			this.route.url
-				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
-				const type = val.length > 0 ? val[0].path : undefined;
-				this.listType = type ? ListTypeUrlNamesKeys[type] : undefined;
-			});
-			this.route.parent.url
-				.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
-				this.valid = false;
-				this.loadAll = false;
-				this.albumType = undefined;
-				this.loader = undefined;
-				const type = getUrlType(val);
-				this.jamType = type?.type;
-				switch (this.jamType) {
-					case JamObjectType.folder:
-						this.loader = this.library.folderLoader;
-						if (this.listType) {
-							this.listQuery = {listType: this.listType, albumType: this.albumType};
-							this.valid = true;
-						}
-						break;
-					case JamObjectType.playlist:
-						this.loader = this.library.playlistLoader;
-						if (this.listType) {
-							this.listQuery = {listType: this.listType};
-						} else {
-							this.loadAll = true;
-						}
-						this.unsubscribeRefresh.next();
-						this.unsubscribeRefresh.complete();
-						this.playlistService.playlistsChange.pipe(takeUntil(this.unsubscribeRefresh)).subscribe(() => {
-							this.changeTrigger = randomString();
-						});
-						this.valid = true;
-						break;
-					case JamObjectType.podcast:
-						this.loader = this.library.podcastLoader;
-						if (this.listType) {
-							this.listQuery = {listType: this.listType};
-						} else {
-							this.loadAll = true;
-						}
-						this.unsubscribeRefresh.next();
-						this.unsubscribeRefresh.complete();
-						this.podcastService.podcastsChange.pipe(takeUntil(this.unsubscribeRefresh)).subscribe(() => {
-							this.changeTrigger = randomString();
-						});
-						this.valid = true;
-						break;
-					case JamObjectType.series:
-						this.loader = this.library.seriesLoader;
-						if (this.listType) {
-							this.listQuery = {listType: this.listType, albumType: this.albumType};
-							this.valid = true;
-						}
-						break;
-					case JamObjectType.album:
-						this.loader = this.library.albumLoader;
-						if (this.listType) {
-							this.albumType = type?.albumType;
-							this.valid = !!this.albumType;
-							this.listQuery = {listType: this.listType, albumType: this.albumType};
-						}
-						break;
-					case JamObjectType.artist:
-						this.loader = this.library.artistLoader;
-						if (this.listType) {
-							this.listQuery = {listType: this.listType, albumType: AlbumType.album};
-							this.valid = true;
-						}
-						break;
-					case JamObjectType.genre:
-						this.loader = this.library.genreLoader;
-						if (this.listType) {
-							this.listQuery = {listType: this.listType};
-							this.valid = true;
-						}
-						break;
-					default:
-				}
-			});
-		}
+		this.subscribe_to_url();
+		this.subscribe_to_parent_url();
 	}
 
 	ngOnDestroy(): void {
@@ -122,5 +41,122 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 		this.unsubscribe.complete();
 		this.unsubscribeRefresh.next();
 		this.unsubscribeRefresh.complete();
+	}
+
+	private subscribe_to_url() {
+		this.route.url
+			.pipe(takeUntil(this.unsubscribe)).subscribe(val => {
+			const type = val.length > 0 ? val[0].path : undefined;
+			this.listType = type ? ListTypeUrlNamesKeys[type] : undefined;
+		});
+	}
+
+	private subscribe_to_parent_url() {
+		if (!this.route?.parent) {
+			return;
+		}
+		this.route.parent.url
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(val => {
+				this.resetState();
+				const type = getUrlType(val);
+				this.jamType = type?.type;
+				this.handleJamType(type);
+			});
+	}
+
+	private resetState(): void {
+		this.valid = false;
+		this.loadAll = false;
+		this.albumType = undefined;
+		this.loader = undefined;
+	}
+
+	private handleJamType(type: { type: JamObjectType; albumType?: AlbumType } | undefined): void {
+		if (!this.jamType) {
+			return;
+		}
+
+		const handlers: Partial<Record<JamObjectType, () => void>> = {
+			[JamObjectType.folder]: () => this.handleFolderType(),
+			[JamObjectType.playlist]: () => this.handlePlaylistType(),
+			[JamObjectType.podcast]: () => this.handlePodcastType(),
+			[JamObjectType.series]: () => this.handleSeriesType(),
+			[JamObjectType.album]: () => this.handleAlbumType(type?.albumType),
+			[JamObjectType.artist]: () => this.handleArtistType(),
+			[JamObjectType.genre]: () => this.handleGenreType()
+		};
+
+		const handler = handlers[this.jamType];
+		if (handler) {
+			handler();
+		}
+	}
+
+	private handleFolderType(): void {
+		this.loader = this.library.folderLoader;
+		if (this.listType) {
+			this.listQuery = {listType: this.listType, albumType: this.albumType};
+			this.valid = true;
+		}
+	}
+
+	private handlePlaylistType(): void {
+		this.loader = this.library.playlistLoader;
+		this.listQuery = this.listType ? {listType: this.listType} : undefined;
+		this.loadAll = !this.listType;
+		this.setupChangeListener(this.playlistService.playlistsChange);
+		this.valid = true;
+	}
+
+	private handlePodcastType(): void {
+		this.loader = this.library.podcastLoader;
+		this.listQuery = this.listType ? {listType: this.listType} : undefined;
+		this.loadAll = !this.listType;
+		this.setupChangeListener(this.podcastService.podcastsChange);
+		this.valid = true;
+	}
+
+	private handleSeriesType(): void {
+		this.loader = this.library.seriesLoader;
+		if (this.listType) {
+			this.listQuery = {listType: this.listType, albumType: this.albumType};
+			this.valid = true;
+		}
+	}
+
+	private handleAlbumType(albumType?: AlbumType): void {
+		this.loader = this.library.albumLoader;
+		if (this.listType) {
+			this.albumType = albumType;
+			this.valid = !!this.albumType;
+			this.listQuery = {listType: this.listType, albumType: this.albumType};
+		}
+	}
+
+	private handleArtistType(): void {
+		this.loader = this.library.artistLoader;
+		if (this.listType) {
+			this.listQuery = {listType: this.listType, albumType: AlbumType.album};
+			this.valid = true;
+		}
+	}
+
+	private handleGenreType(): void {
+		this.loader = this.library.genreLoader;
+		if (this.listType) {
+			this.listQuery = {listType: this.listType};
+			this.valid = true;
+		}
+	}
+
+	private setupChangeListener(changeObservable: Subject<any>): void {
+		this.unsubscribeRefresh.next();
+		this.unsubscribeRefresh.complete();
+		changeObservable
+			.pipe(takeUntil(this.unsubscribeRefresh))
+			.subscribe(() => {
+				this.changeTrigger = randomString();
+			});
 	}
 }

@@ -75,6 +75,12 @@ function normalizeStr(str: string): string {
 	return str.toLowerCase();
 }
 
+function sortDescending(a: Array<number>, b: Array<number>): number {
+	if (a[0] < b[0]) return 1;
+	if (a[0] > b[0]) return -1;
+	return 0;
+}
+
 export class FuzzySet {
 	version = '0.0.1';
 	arr: Array<string>;
@@ -87,9 +93,9 @@ export class FuzzySet {
 
 	constructor(arr?: Array<string>, useLevenshtein?: boolean, gramSizeLower?: number, gramSizeUpper?: number) {
 		this.arr = arr || [];
-		this.useLevenshtein = useLevenshtein || true;
-		this.gramSizeLower = gramSizeLower || 2;
-		this.gramSizeUpper = gramSizeUpper || 3;
+		this.useLevenshtein = useLevenshtein ?? true;
+		this.gramSizeLower = gramSizeLower ?? 2;
+		this.gramSizeUpper = gramSizeUpper ?? 3;
 		// initialization
 		for (let i = this.gramSizeLower; i < this.gramSizeUpper + 1; i += 1) {
 			this.items[i] = [];
@@ -169,67 +175,84 @@ export class FuzzySet {
 
 	private getValGram(value: string, gramSize: number): Array<Array<number>> | undefined {
 		const normalizedValue = normalizeStr(value);
-		const matches: { [num: string]: number } = {};
 		const gramCounts = gramCounter(normalizedValue, gramSize);
-		const items = this.items[gramSize];
+
+		// Calculate matches and vector normal
+		const {matches, sumOfSquareGramCounts} = this.calculateMatches(gramCounts);
+
+		if (isEmptyObject(matches)) {
+			return undefined;
+		}
+
+		// Process initial results
+		let results = this.processInitialResults(matches, sumOfSquareGramCounts, gramSize);
+
+		// Apply Levenshtein distance if needed
+		if (this.useLevenshtein) {
+			results = this.applyLevenshteinDistance(results, normalizedValue);
+		}
+
+		// Filter final results
+		return this.filterFinalResults(results);
+	}
+
+	private calculateMatches(gramCounts: { [name: string]: number }): {
+		matches: { [num: string]: number },
+		sumOfSquareGramCounts: number
+	} {
+		const matches: { [num: string]: number } = {};
 		let sumOfSquareGramCounts = 0;
-		let otherGramCount;
+
 		for (const gram in gramCounts) {
 			if (Object.hasOwn(gramCounts, gram)) {
 				const gramCount = gramCounts[gram];
 				sumOfSquareGramCounts += Math.pow(gramCount, 2);
+
 				if (gram in this.matchDict) {
-					for (const m of this.matchDict[gram]) {
-						const index = m[0];
-						otherGramCount = m[1];
-						if (index in matches) {
-							matches[index] += gramCount * otherGramCount;
-						} else {
-							matches[index] = gramCount * otherGramCount;
-						}
-					}
+					this.updateMatches(matches, gram, gramCount);
 				}
 			}
 		}
-		if (isEmptyObject(matches)) {
-			return undefined;
+
+		return {matches, sumOfSquareGramCounts};
+	}
+
+	private updateMatches(matches: { [num: string]: number }, gram: string, gramCount: number): void {
+		for (const m of this.matchDict[gram]) {
+			const [index, otherGramCount] = m;
+			matches[index] = (index in matches)
+				? matches[index] + gramCount * otherGramCount
+				: gramCount * otherGramCount;
 		}
+	}
+
+	private processInitialResults(
+		matches: { [num: string]: number },
+		sumOfSquareGramCounts: number,
+		gramSize: number
+	): Array<Array<any>> {
 		const vectorNormal = Math.sqrt(sumOfSquareGramCounts);
-		let results: Array<Array<any>> = [];
-		let matchScore;
-		// build a results list of [score, str]
-		Object.keys(matches).forEach(matchIndex => {
-			matchScore = matches[matchIndex];
+		const items = this.items[gramSize];
+		const results = Object.entries(matches).map(([matchIndex, matchScore]) => {
 			const index = parseInt(matchIndex, 10);
-			results.push([matchScore / (vectorNormal * items[index][0]), items[index][1]]);
+			return [matchScore / (vectorNormal * items[index][0]), items[index][1]];
 		});
-		const sortDescending = (a: Array<number>, b: Array<number>): number => {
-			if (a[0] < b[0]) {
-				return 1;
-			}
-			if (a[0] > b[0]) {
-				return -1;
-			}
-			return 0;
-		};
-		results.sort(sortDescending);
-		if (this.useLevenshtein) {
-			const newLevResults = [];
-			const endIndex = Math.min(50, results.length);
-			// truncate somewhat arbitrarily to 50
-			for (let i = 0; i < endIndex; i += 1) {
-				newLevResults.push([distance(results[i][1], normalizedValue), results[i][1]]);
-			}
-			results = newLevResults;
-			results.sort(sortDescending);
-		}
-		const newResults = [];
-		for (const r of results) {
-			if (r[0] === results[0][0]) {
-				newResults.push([r[0], this.exactSet[r[1]]]);
-			}
-		}
-		return newResults;
+		return results.sort(sortDescending);
+	}
+
+	private applyLevenshteinDistance(results: Array<Array<any>>, normalizedValue: string): Array<Array<any>> {
+		const endIndex = Math.min(50, results.length);
+		const newResults = results
+			.slice(0, endIndex)
+			.map(result => [distance(result[1], normalizedValue), result[1]]);
+		return newResults.sort(sortDescending);
+	}
+
+	private filterFinalResults(results: Array<Array<any>>): Array<Array<number>> {
+		const topScore = results[0][0];
+		return results
+			.filter(r => r[0] === topScore)
+			.map(r => [r[0], this.exactSet[r[1]]]);
 	}
 
 	private addVal(value: string, gramSize: number): void {

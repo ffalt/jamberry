@@ -26,6 +26,10 @@ export class LoginComponent implements OnInit {
 	private readonly notify = inject(NotifyService);
 
 	constructor() {
+		this.init();
+	}
+
+	init() {
 		const fixed = this.getFixed();
 		if (fixed) {
 			this.credentials.server = fixed.server ?? '';
