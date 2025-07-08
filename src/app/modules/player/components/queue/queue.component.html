@@ -13,10 +13,10 @@
 						 appFocusKeyListItem role="listitem"
 						 (tap)="tapPlayQueuePos($event, index)"
 						 (keydown.enter)="playQueuePos(index)"
-						 (panstart)="onPanStart($event)"
-						 (panmove)="onPanMove($event)"
-						 (panend)="onPanEnd($event, entry)"
-						 (pancancel)="onPanCancel()"
+						 (touchstart)="onTouchStart($event)"
+						 (touchmove)="onTouchMove($event)"
+						 (touchend)="onTouchEnd($event, entry)"
+						 (touchcancel)="onTouchCancel()"
 						 (contextmenu)="onContextMenu($event, entry)"
 				>
 					<app-queue-item [entry]="entry" [index]="index"/>

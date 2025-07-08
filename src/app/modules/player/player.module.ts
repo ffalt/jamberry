@@ -2,7 +2,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {HammerModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {SharedModule} from '@shared/shared.module';
@@ -14,7 +13,6 @@ import {components} from './components';
         RouterModule,
         ScrollingModule,
         DragDropModule,
-        HammerModule,
         ContextMenuModule,
         SharedModule
     ],

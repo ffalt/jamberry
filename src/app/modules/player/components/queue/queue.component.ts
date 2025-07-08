@@ -21,6 +21,8 @@ export class QueueComponent implements OnInit, OnDestroy {
 	private currentSwipeElement?: HTMLElement;
 	private readonly unsubscribe = new Subject<void>();
 	private readonly menuService = inject(MenuService);
+	private touchStartX = 0;
+	private currentTouchX = 0;
 
 	ngOnInit(): void {
 		this.entries = this.queue.entries.slice(0);
@@ -54,9 +56,15 @@ export class QueueComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onPanStart(event: Event): void {
+	onTouchStart(event: TouchEvent): void {
 		this.currentSwipeElement = undefined;
-		let element: HTMLElement | null = (event as unknown as HammerInput).target;
+		if (event.touches.length !== 1) {
+			return;
+		}
+		this.touchStartX = event.touches[0].clientX;
+		this.currentTouchX = this.touchStartX;
+
+		let element: HTMLElement | null = event.target as HTMLElement;
 		if (element && !element.classList.contains('track')) {
 			element = element.parentElement;
 		}
@@ -65,18 +73,23 @@ export class QueueComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onPanMove(event: Event): void {
-		if (this.currentSwipeElement) {
-			const deltaX = (event as unknown as HammerInput).deltaX;
-			this.currentSwipeElement.style.marginLeft = `${Math.min(Math.max(0, deltaX), 200).toString()}px`;
+	onTouchMove(event: TouchEvent): void {
+		if (!this.currentSwipeElement || event.touches.length !== 1) {
+			return;
 		}
+		this.currentTouchX = event.touches[0].clientX;
+		const deltaX = this.currentTouchX - this.touchStartX;
+		this.currentSwipeElement.style.marginLeft = `${Math.min(Math.max(0, deltaX), 200).toString()}px`;
 	}
 
-	onPanEnd(event: Event, track: Jam.MediaBase): void {
+	onTouchEnd(event: TouchEvent, track: Jam.MediaBase): void {
 		if (this.currentSwipeElement) {
 			this.currentSwipeElement.style.marginLeft = '0px';
+			const deltaX = this.currentTouchX - this.touchStartX;
 			this.currentSwipeElement = undefined;
-			const deltaX = (event as unknown as HammerInput).deltaX;
+			this.touchStartX = 0;
+			this.currentTouchX = 0;
+
 			if (deltaX >= 200) {
 				setTimeout(() => {
 					this.queue.remove(track);
@@ -85,10 +98,12 @@ export class QueueComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onPanCancel(): void {
+	onTouchCancel(): void {
 		if (this.currentSwipeElement) {
 			this.currentSwipeElement.style.marginLeft = '0px';
 			this.currentSwipeElement = undefined;
+			this.touchStartX = 0;
+			this.currentTouchX = 0;
 		}
 	}
 }

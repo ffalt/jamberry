@@ -2,7 +2,7 @@ import {PortalModule} from '@angular/cdk/portal';
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withJsonpSupport} from '@angular/common/http';
 import {Injectable, NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule} from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ContextMenuModule} from '@app/modules/ngx-contextmenu';
 import {blackTheme} from '@app/modules/theme/theme.black';
@@ -26,15 +26,6 @@ import {darkTheme, lightTheme, catppuccinTheme, ThemeModule} from './modules/the
 import {ToastModule} from './modules/toast';
 import {pages} from './pages';
 
-@Injectable()
-export class CustomHammerConfig extends HammerGestureConfig {
-	overrides = {
-		pinch: {enable: false},
-		swipe: {enable: false},
-		rotate: {enable: false}
-	} as any;
-}
-
 export const themeConfig = {
 	themes: [lightTheme, catppuccinTheme, darkTheme, blackTheme],
 	active: 'dark'
@@ -48,7 +39,6 @@ export function ConfigurationServiceFactory(service: ConfigurationService): JamC
 	declarations: [AppComponent, ...pages],
 	bootstrap: [AppComponent], imports: [NoopAnimationsModule,
 		BrowserModule,
-		HammerModule,
 		FormsModule,
 		CoreModule,
 		JamModule.forRoot({
@@ -69,10 +59,6 @@ export function ConfigurationServiceFactory(service: ConfigurationService): JamC
 		HeaderModule,
 		routing], providers: [
 		...guards,
-		{
-			provide: HAMMER_GESTURE_CONFIG,
-			useClass: CustomHammerConfig
-		},
 		CacheService,
 		{
 			provide: HTTP_INTERCEPTORS,

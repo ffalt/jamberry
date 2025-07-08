@@ -28,7 +28,6 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
-              "hammerjs",
               "soundmanager2",
               "mousetrap"
             ],

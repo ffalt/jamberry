@@ -7,10 +7,13 @@ import {Component, ElementRef, inject, input} from '@angular/core';
 	standalone: false,
 	host: {
 		'[class.dragging]': 'dragging',
-		'(panstart)': 'onPanStart()',
-		'(panmove)': 'onPanMove($event)',
-		'(panend)': 'onPanEnd()',
-		'(pancancel)': 'onPanCancel()'
+		'(touchstart)': 'onTouchStart($event)',
+		'(touchmove)': 'onTouchMove($event)',
+		'(touchend)': 'onTouchEnd()',
+		'(touchcancel)': 'onTouchCancel()',
+		'(mousedown)': 'onMouseDown($event)',
+		'(document:mousemove)': 'onMouseMove($event)',
+		'(document:mouseup)': 'onMouseUp()'
 	}
 })
 export class SplitterComponent {
@@ -18,6 +21,7 @@ export class SplitterComponent {
 	dragging: boolean = false;
 	element = inject(ElementRef);
 	private drag?: { element: HTMLElement; width: number };
+	private dragStartX = 0;
 
 	startDrag(): void {
 		this.drag = {
@@ -42,19 +46,50 @@ export class SplitterComponent {
 		}
 	}
 
-	onPanStart(): void {
+	onTouchStart(event: TouchEvent): void {
+		if (event.touches.length !== 1) {
+			return;
+		}
+		this.dragStartX = event.touches[0].clientX;
 		this.startDrag();
 	}
 
-	onPanMove(event: { deltaX: number }): void {
-		this.doDrag(event.deltaX);
+	onTouchMove(event: TouchEvent): void {
+		if (event.touches.length !== 1 || !this.dragging) {
+			return;
+		}
+		const currentX = event.touches[0].clientX;
+		const deltaX = currentX - this.dragStartX;
+		this.doDrag(deltaX);
 	}
 
-	onPanEnd(): void {
+	onTouchEnd(): void {
+		this.dragStartX = 0;
 		this.stopDrag();
 	}
 
-	onPanCancel(): void {
+	onTouchCancel(): void {
+		this.dragStartX = 0;
+		this.stopDrag();
+	}
+
+	onMouseDown(event: MouseEvent): void {
+		this.dragStartX = event.clientX;
+		this.startDrag();
+		event.preventDefault(); // Prevent text selection during drag
+	}
+
+	onMouseMove(event: MouseEvent): void {
+		if (!this.dragging) {
+			return;
+		}
+		const deltaX = event.clientX - this.dragStartX;
+		this.doDrag(deltaX);
+		event.preventDefault(); // Prevent text selection during drag
+	}
+
+	onMouseUp(): void {
+		this.dragStartX = 0;
 		this.stopDrag();
 	}
 }
