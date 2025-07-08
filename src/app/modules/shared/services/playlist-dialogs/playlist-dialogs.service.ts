@@ -39,7 +39,7 @@ export class PlaylistDialogsService {
 					this.notify.success('Playlist created');
 				} catch (e: any) {
 					this.notify.error(e);
-					return Promise.reject(e);
+					return Promise.reject(e as Error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()
@@ -63,7 +63,7 @@ export class PlaylistDialogsService {
 			.then(medias => {
 				const edit: PlaylistEdit = {
 					name: playlist.name,
-					comment: playlist.comment || '',
+					comment: playlist.comment ?? '',
 					isPublic: playlist.isPublic,
 					entries: medias.slice(0),
 					playlist
@@ -78,7 +78,7 @@ export class PlaylistDialogsService {
 								this.notify.success('Playlist updated');
 							} catch (e: any) {
 								this.notify.error(e);
-								return Promise.reject(e);
+								return Promise.reject(e as Error);
 							}
 						},
 						onCancelBtn: async () => Promise.resolve()
