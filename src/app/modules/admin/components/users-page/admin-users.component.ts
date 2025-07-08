@@ -81,7 +81,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 					this.notify.success('User created');
 				} catch (e: any) {
 					this.notify.error(e);
-					return Promise.reject(e);
+					return Promise.reject(e as Error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()

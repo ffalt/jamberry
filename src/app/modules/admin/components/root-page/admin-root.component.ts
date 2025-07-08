@@ -66,7 +66,7 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 					await this.rootService.applyDialogRoot(edit);
 				} catch (e: any) {
 					this.notify.error(e);
-					return Promise.reject(e);
+					return Promise.reject(e as Error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()

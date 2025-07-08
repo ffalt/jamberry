@@ -18,7 +18,7 @@ async function handleError(e: any): Promise<any> {
 	if (e.status === 0) {
 		return Promise.reject(Error('Could not reach server'));
 	}
-	return Promise.reject(e);
+	return Promise.reject(e as Error);
 }
 
 @Injectable()

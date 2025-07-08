@@ -34,7 +34,7 @@ export class UserListComponent implements OnDestroy {
 			edit: {
 				password: '',
 				name: user.name,
-				email: user.email || '',
+				email: user.email ?? '',
 				roleAdmin: user.roles.admin,
 				rolePodcast: user.roles.podcast,
 				roleStream: user.roles.stream,
@@ -51,7 +51,7 @@ export class UserListComponent implements OnDestroy {
 					this.notify.success('User edited');
 				} catch (e: any) {
 					this.notify.error(e);
-					return Promise.reject(e);
+					return Promise.reject(e as Error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()
@@ -82,7 +82,7 @@ export class UserListComponent implements OnDestroy {
 					this.notify.success('Password changed');
 				} catch (e: any) {
 					this.notify.error(e);
-					return Promise.reject(e);
+					return Promise.reject(e as Error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()

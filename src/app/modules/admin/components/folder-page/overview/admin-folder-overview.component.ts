@@ -154,7 +154,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 						});
 				} catch (e: any) {
 					this.notify.error(e);
-					return Promise.reject(e);
+					return Promise.reject(e as Error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()

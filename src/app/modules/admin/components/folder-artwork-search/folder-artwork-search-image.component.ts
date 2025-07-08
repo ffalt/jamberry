@@ -115,6 +115,9 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			const claim = claims[0];
 			if (claim) {
 				const filename = claim.mainsnak.datavalue.value;
+				if (typeof filename !== 'string') {
+					return;
+				}
 				const url = `https://en.wikipedia.org/w/api.php?format=json&action=query&origin=*&titles=File:${filename}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=LicenseShortName`;
 				const data = await firstValueFrom(this.http.get<{
 					batchcomplete: string;

@@ -59,7 +59,7 @@ export class ActionsService {
 					this.notify.success(`Rated ${type}`);
 				} catch (e: any) {
 					this.notify.error(e);
-					return Promise.reject(e);
+					return Promise.reject(e as Error);
 				}
 			}
 		});
