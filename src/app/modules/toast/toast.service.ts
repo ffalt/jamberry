@@ -54,25 +54,25 @@ export class ToastService {
 
 	/** show successful toast */
 	success(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
-		const type = this.toastrConfig.iconClasses.success || '';
+		const type = this.toastrConfig.iconClasses.success ?? '';
 		return this.preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show error toast */
 	error(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
-		const type = this.toastrConfig.iconClasses.error || '';
+		const type = this.toastrConfig.iconClasses.error ?? '';
 		return this.preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show info toast */
 	info(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
-		const type = this.toastrConfig.iconClasses.info || '';
+		const type = this.toastrConfig.iconClasses.info ?? '';
 		return this.preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
 	/** show warning toast */
 	warning(message?: string, title?: string, override: Partial<IndividualConfig> = {}): ActiveToast<any> | undefined {
-		const type = this.toastrConfig.iconClasses.warning || '';
+		const type = this.toastrConfig.iconClasses.warning ?? '';
 		return this.preBuildNotification(type, message, title, this.applyConfig(override));
 	}
 
@@ -182,7 +182,7 @@ export class ToastService {
 	private buildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | undefined {
 		// max opened and auto dismiss = true
 		const duplicate = this.findDuplicate(
-			message || '',
+			message ?? '',
 			this.toastrConfig.resetTimeoutOnDuplicate,
 			this.toastrConfig.countDuplicates
 		);
@@ -214,7 +214,7 @@ export class ToastService {
 		toastRef.componentInstance = containerRef.instance;
 		const ins: ActiveToast<any> = {
 			toastId: this.index,
-			message: message || '',
+			message: message ?? '',
 			toastRef,
 			onShown: toastRef.afterActivate(),
 			onHidden: toastRef.afterClosed(),
