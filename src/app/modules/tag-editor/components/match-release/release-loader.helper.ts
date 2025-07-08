@@ -21,13 +21,7 @@ export class ReleaseLoaderHelper {
 			if (this.shouldStop()) {
 				return;
 			}
-			let rg = this.matchTree.findReleaseGroup(r.id);
-			if (!rg) {
-				rg = await this.addReleaseGroupByID(r.id);
-			}
-			if (rg && !rg.currentRelease) {
-				await this.loadBestMatchingCurrentRelease(rg);
-			}
+			await this.processRelease(r.id);
 		}
 	}
 
@@ -39,13 +33,7 @@ export class ReleaseLoaderHelper {
 			if (this.shouldStop()) {
 				return;
 			}
-			let rg = this.matchTree.findReleaseGroup(rel.releaseGroup.id);
-			if (!rg) {
-				rg = await this.addReleaseGroupByID(rel.releaseGroup.id);
-			}
-			if (rg && !rg.currentRelease) {
-				await this.loadBestMatchingCurrentRelease(rg);
-			}
+			await this.processRelease(rel.releaseGroup.id);
 		}
 	}
 
@@ -57,20 +45,29 @@ export class ReleaseLoaderHelper {
 			if (this.shouldStop()) {
 				return;
 			}
-			if (rec.releases) {
-				for (const rel of rec.releases) {
-					if (this.shouldStop()) {
-						return;
-					}
-					let rg = this.matchTree.findReleaseGroup(rel.releaseGroup.id);
-					if (!rg) {
-						rg = await this.addReleaseGroupByID(rel.releaseGroup.id);
-					}
-					if (rg && !rg.currentRelease) {
-						await this.loadBestMatchingCurrentRelease(rg);
-					}
-				}
+			if (!rec.releases) {
+				continue;
 			}
+
+			for (const rel of rec.releases) {
+				if (this.shouldStop()) {
+					return;
+				}
+				await this.processRelease(rel.releaseGroup.id);
+			}
+		}
+	}
+
+	/**
+	 * Process a single release to find or create a release group and load the best matching release
+	 */
+	private async processRelease(releaseGroupId: string): Promise<void> {
+		let rg = this.matchTree.findReleaseGroup(releaseGroupId);
+		if (!rg) {
+			rg = await this.addReleaseGroupByID(releaseGroupId);
+		}
+		if (rg && !rg.currentRelease) {
+			await this.loadBestMatchingCurrentRelease(rg);
 		}
 	}
 }

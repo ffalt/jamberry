@@ -44,37 +44,41 @@ export class AdminFolderService {
 			old = this.current;
 		}
 		if (old?.notifyAfter) {
-			if (folderIDs) {
-				for (const id of folderIDs) {
-					old.folderIDs = old.folderIDs || [];
-					if (!old.folderIDs.includes(id)) {
-						old.folderIDs.push(id);
-					}
-				}
-			}
-			if (refreshChildsFolderIDs) {
-				for (const id of refreshChildsFolderIDs) {
-					old.refreshChildsFolderIDs = old.refreshChildsFolderIDs || [];
-					if (!old.refreshChildsFolderIDs.includes(id)) {
-						old.refreshChildsFolderIDs.push(id);
-					}
-				}
-			}
-			if (trackIDs) {
-				for (const id of trackIDs) {
-					old.trackIDs = old.trackIDs || [];
-					if (!old.trackIDs.includes(id)) {
-						old.trackIDs.push(id);
-					}
-				}
-			}
-			old.count++;
+			this.appendToExistingWaiter(old, folderIDs, refreshChildsFolderIDs, trackIDs);
 			return old.notifyAfter;
 		}
 		const notifyAfter = new EventEmitter<Jam.AdminChangeQueueInfo>();
 		this.queue.push({title, id: item.id, item, folderIDs, refreshChildsFolderIDs, trackIDs, count: 1, notifyAfter});
 		this.nextPoll();
 		return notifyAfter;
+	}
+
+	private appendToExistingWaiter(
+		waiter: AdminChangeQueueInfoPoll,
+		folderIDs?: Array<string>,
+		refreshChildsFolderIDs?: Array<string>,
+		trackIDs?: Array<string>
+	): void {
+		this.appendIds(waiter, 'folderIDs', folderIDs);
+		this.appendIds(waiter, 'refreshChildsFolderIDs', refreshChildsFolderIDs);
+		this.appendIds(waiter, 'trackIDs', trackIDs);
+		waiter.count++;
+	}
+
+	private appendIds(
+		waiter: AdminChangeQueueInfoPoll,
+		property: keyof Pick<AdminChangeQueueInfoPoll, 'folderIDs' | 'refreshChildsFolderIDs' | 'trackIDs'>,
+		ids?: Array<string>
+	): void {
+		if (!ids) {
+			return;
+		}
+		waiter[property] = waiter[property] || [];
+		for (const id of ids) {
+			if (!waiter[property]!.includes(id)) {
+				waiter[property]!.push(id);
+			}
+		}
 	}
 
 	private nextPoll(): void {

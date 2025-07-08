@@ -30,7 +30,7 @@ export class Matcher {
 	matchings: Array<Matching> = [];
 	matchTree = new MatchTree();
 	manualSearchData: ManualSearchData;
-	private releaseLoader: ReleaseLoaderHelper;
+	private readonly releaseLoader: ReleaseLoaderHelper;
 
 	constructor(private readonly jam: JamService, private readonly notify: NotifyService) {
 		this.manualSearchData = new ManualSearchData(() => this.matchings);
@@ -266,10 +266,7 @@ export class Matcher {
 		return (this.matchTree.enough(this.matchings.length) || this.isAborted);
 	}
 
-	private async acoustId(): Promise<void> {
-		this.currentAction = 'Checking files with AcoustID';
-
-		// first make a list of all entries
+	private async collectList(): Promise<Array<AcoustIDEntry>> {
 		let list: Array<AcoustIDEntry> = [];
 		for (const match of this.matchings) {
 			if (!match.acoustidEntries) {
@@ -281,21 +278,33 @@ export class Matcher {
 					console.error(e);
 				}
 				if (this.isAborted) {
-					return;
+					return list;
 				}
 			}
 			if (match.acoustidEntries) {
 				list = list.concat(match.acoustidEntries);
 			}
 		}
+		return list;
+	}
 
+	private async acoustId(): Promise<void> {
+		this.currentAction = 'Checking files with AcoustID';
+		// first make a list of all entries
+		const list: Array<AcoustIDEntry> = await this.collectList();
+		if (this.isAborted) {
+			return;
+		}
 		// build best matching sorted releases tree
 		const acousticResults = new AcoustidTree();
 		for (const item of list) {
 			acousticResults.add(item);
 		}
-
 		// add release to result
+		await this.addResultReleases(acousticResults);
+	}
+
+	private async addResultReleases(acousticResults: AcoustidTree) {
 		for (const rg of acousticResults.releasegroups) {
 			if (this.shouldStop()) {
 				return;
@@ -456,32 +465,43 @@ export class Matcher {
 			if (this.shouldStop()) {
 				return;
 			}
-			if (match.track.tag) {
-				let rg: MatchReleaseGroup | undefined;
-				if (match.track.tag.mbReleaseGroupID) {
-					rg = await this.addReleaseGroupByID(match.track.tag.mbReleaseGroupID);
-				}
-				if (!rg && match.track.tag.mbReleaseID) {
-					rg = await this.addReleaseGroupByReleaseID(match.track.tag.mbReleaseID);
-				}
-				if (rg) {
-					if (match.track.tag.mbReleaseID) {
-						const rel = rg.findRelease(match.track.tag.mbReleaseID);
-						if (!rel) {
-							console.error('Could not find the release with id', match.track.tag.mbReleaseID);
-						} else {
-							await this.loadRelease(rel);
-						}
-						rg.currentRelease = rel;
-						if (!rg.enough(this.matchings.length)) {
-							rg.currentRelease = undefined;
-						}
-					}
-					if (!rg.currentRelease) {
-						await this.loadBestMatchingCurrentRelease(rg);
-					}
-				}
+			if (!match.track.tag) {
+				await this.musicBrainzByTrackTag(match);
 			}
+		}
+	}
+
+	private async musicBrainzByTrackTag(match: Matching) {
+		if (!match.track.tag) {
+			return;
+		}
+		let matchReleaseGroup: MatchReleaseGroup | undefined;
+		if (match.track.tag.mbReleaseGroupID) {
+			matchReleaseGroup = await this.addReleaseGroupByID(match.track.tag.mbReleaseGroupID);
+		}
+		if (!matchReleaseGroup && match.track.tag.mbReleaseID) {
+			matchReleaseGroup = await this.addReleaseGroupByReleaseID(match.track.tag.mbReleaseID);
+		}
+		if (matchReleaseGroup) {
+			await this.applyMatchReleaseGroup(match, matchReleaseGroup);
+		}
+	}
+
+	private async applyMatchReleaseGroup(match: Matching, matchReleaseGroup: MatchReleaseGroup) {
+		if (match.track.tag?.mbReleaseID) {
+			const rel = matchReleaseGroup.findRelease(match.track.tag.mbReleaseID);
+			if (!rel) {
+				console.error('Could not find the release with id', match.track.tag.mbReleaseID);
+			} else {
+				await this.loadRelease(rel);
+			}
+			matchReleaseGroup.currentRelease = rel;
+			if (!matchReleaseGroup.enough(this.matchings.length)) {
+				matchReleaseGroup.currentRelease = undefined;
+			}
+		}
+		if (!matchReleaseGroup.currentRelease) {
+			await this.loadBestMatchingCurrentRelease(matchReleaseGroup);
 		}
 	}
 
