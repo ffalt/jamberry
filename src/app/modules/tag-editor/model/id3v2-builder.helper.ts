@@ -62,7 +62,7 @@ export class ID3V2RawBuilder {
 			const cid = id ?? '';
 			const list = ((this.frameValues[key] ?? []) as Array<ID3v2Frames.LangDescText>)
 				.filter(f => f.value.id !== cid);
-			const frame: ID3v2Frames.LangDescText = {id: key, value: {id: cid, language: lang || '', text: value}};
+			const frame: ID3v2Frames.LangDescText = {id: key, value: {id: cid, language: lang ?? '', text: value}};
 			this.frameValues[key] = list.concat([frame]);
 		}
 		return this;
@@ -77,7 +77,7 @@ export class ID3V2RawBuilder {
 				mimeType
 			}
 		};
-		this.frameValues[key] = (this.frameValues[key] || []).concat([frame]);
+		this.frameValues[key] = (this.frameValues[key] ?? []).concat([frame]);
 		return this;
 	}
 

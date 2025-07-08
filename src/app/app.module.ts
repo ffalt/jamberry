@@ -1,6 +1,6 @@
 import {PortalModule} from '@angular/cdk/portal';
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withJsonpSupport} from '@angular/common/http';
-import {Injectable, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
