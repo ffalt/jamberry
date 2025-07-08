@@ -44,7 +44,8 @@ export class ObjPlateComponent implements OnChanges, FocusableOption {
 
 	check(): void {
 		const obj = this.obj();
-		this.loading = !obj || !(obj.tracks || obj.albums || obj.episodes || obj.media);
+		const hasResult = obj?.tracks || obj?.albums || obj?.episodes || obj?.media;
+		this.loading = !obj || !hasResult;
 	}
 
 	toggleExpansion(): void {
