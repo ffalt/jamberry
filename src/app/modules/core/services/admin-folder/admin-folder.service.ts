@@ -75,8 +75,8 @@ export class AdminFolderService {
 		}
 		waiter[property] = waiter[property] || [];
 		for (const id of ids) {
-			if (!waiter[property]!.includes(id)) {
-				waiter[property]!.push(id);
+			if (!waiter[property].includes(id)) {
+				waiter[property].push(id);
 			}
 		}
 	}
