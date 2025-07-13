@@ -4,9 +4,6 @@
 
 import {Injectable, type OnDestroy} from '@angular/core';
 
-// eslint-disable-next-line no-redeclare
-declare const Notification: any;
-
 @Injectable({
 	providedIn: 'root'
 })
@@ -17,7 +14,7 @@ export class PushNotificationService implements OnDestroy {
 	sound?: string;
 	data?: any;
 	tag?: string;
-	dir: string = 'auto';
+	dir: NotificationDirection = 'auto';
 	lang: string = 'en-US';
 	renotify: boolean = false;
 	sticky: boolean = false;
@@ -64,7 +61,7 @@ export class PushNotificationService implements OnDestroy {
 	}
 
 	create(): Notification {
-		const notification = new Notification(this.title, {
+		const notification = new Notification(this.title || '', {
 			dir: this.dir || 'auto',
 			lang: this.lang || 'en-US',
 			data: this.data,
@@ -77,7 +74,7 @@ export class PushNotificationService implements OnDestroy {
 			sticky: this.sticky,
 			vibrate: this.vibrate,
 			noscreen: this.noscreen
-		});
+		} as any);
 		this.close(notification);
 		return notification;
 	}
@@ -93,7 +90,7 @@ export class PushNotificationService implements OnDestroy {
 	}
 
 	closeAll(): void {
-		Notification.close();
+		(Notification as any).close && (Notification as any).close();
 	}
 
 	ngOnDestroy(): void {

@@ -269,9 +269,9 @@ declare module 'soundmanager2' {
 		id?: string;
 	}
 
-	export interface GetInstance {
-		(): SoundManager;
-	}
+	// export interface GetInstance {
+	// 	(): SoundManager;
+	// }
 
 	export const soundManager: SoundManager;
 }

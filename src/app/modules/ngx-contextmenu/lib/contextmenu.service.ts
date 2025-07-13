@@ -57,7 +57,7 @@ interface Rect {
 export class ContextMenuService {
 	isDestroyingLeafMenu = false;
 	show: Subject<IContextMenuClickEvent> = new Subject<IContextMenuClickEvent>();
-	close: Subject<CloseContextMenuEvent> = new Subject();
+	close: Subject<CloseContextMenuEvent> = new Subject<CloseContextMenuEvent>();
 	private readonly overlay = inject(Overlay);
 	private readonly scrollStrategy = inject(ScrollStrategyOptions);
 	private overlays: Array<OverlayRef> = [];

@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-redeclare
 import {TextEncoder, TextDecoder} from 'node:util';
 
 Object.assign(global, {TextDecoder, TextEncoder});
@@ -29,16 +28,16 @@ Object.defineProperty(document.body.style, 'transform', {
 });
 
 // global mocks for jsdom
-const mock = (): any => {
-	const storage = new Map<string, any>();
+const mockBrowser = () => {
+	const storage = new Map<string, unknown>();
 	return {
-		getItem: (key: string): any => storage.get(key),
-		setItem: (key: string, value: string): Map<string, any> => storage.set(key, value || ''),
+		getItem: (key: string): unknown => storage.get(key),
+		setItem: (key: string, value: string): Map<string, unknown> => storage.set(key, value || ''),
 		removeItem: (key: string): boolean => storage.delete(key),
 		clear: (): void => storage.clear()
 	};
 };
 
-Object.defineProperty(window, 'localStorage', {value: mock()});
-Object.defineProperty(window, 'sessionStorage', {value: mock()});
+Object.defineProperty(window, 'localStorage', {value: mockBrowser()});
+Object.defineProperty(window, 'sessionStorage', {value: mockBrowser()});
 Object.defineProperty(window, 'getComputedStyle', {value: () => ['-webkit-appearance']});
