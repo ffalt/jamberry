@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, output, model} from '@angular/core';
+import {Component, type OnChanges, type OnInit, output, model} from '@angular/core';
 
 @Component({
 	selector: 'app-rate',

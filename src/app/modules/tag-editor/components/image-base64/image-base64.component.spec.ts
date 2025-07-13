@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {ImageBase64Component} from './image-base64.component';
 
 describe('ImageBase64Component', () => {

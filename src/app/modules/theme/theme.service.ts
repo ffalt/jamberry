@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable, DOCUMENT, inject} from '@angular/core';
-import {ACTIVE_THEME, Theme, THEMES} from './theme.model';
+import {ACTIVE_THEME, type Theme, THEMES} from './theme.model';
 
 @Injectable()
 export class ThemeService {

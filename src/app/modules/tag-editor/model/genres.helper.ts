@@ -1,4 +1,4 @@
-import {LastFM} from '@jam';
+import type {LastFM} from '@jam';
 import {Genres, GenresByNumbers} from './genres.consts';
 
 let GenresSlugs: { [slug: string]: string }; // will be build on first use
@@ -11,9 +11,9 @@ export function getKnownGenre(genre: string): string | undefined {
 	const slug = slugify(genre);
 	if (!GenresSlugs) {
 		GenresSlugs = {};
-		Genres.forEach(g => {
+		for (const g of Genres) {
 			GenresSlugs[slugify(g)] = g;
-		});
+		}
 	}
 	return GenresSlugs[slug];
 }
@@ -27,7 +27,7 @@ export function cleanGenre(genre: string): string {
 		const numpart = /\((\d+)\)/.exec(value);
 		let num: number | undefined;
 		if (numpart) {
-			num = parseInt(numpart[1], 10);
+			num = Number.parseInt(numpart[1], 10);
 			value = value.slice(0, numpart.index) + value.slice(numpart.index + numpart[0].length);
 		}
 		if (value.length === 0 && (num !== undefined)) {

@@ -1,6 +1,6 @@
-import {Component, OnChanges, inject, input} from '@angular/core';
+import {Component, type OnChanges, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {Jam, JamService, MusicBrainz, MusicBrainzLookupType} from '@jam';
+import {type Jam, JamService, type MusicBrainz, MusicBrainzLookupType} from '@jam';
 
 export interface ReleaseGroup {
 	group: MusicBrainz.ReleaseGroupBase;

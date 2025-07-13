@@ -1,8 +1,8 @@
-import {Component, OnChanges, OnDestroy, OnInit, inject, output, input} from '@angular/core';
+import {Component, type OnChanges, type OnDestroy, type OnInit, inject, output, input} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {AdminFolderService, NotifyService} from '@core/services';
-import {Jam, JamService, TrackHealthID} from '@jam';
+import {type Jam, JamService, TrackHealthID} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -248,7 +248,6 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 			case TrackHealthID.mp3HeaderExists:
 			case TrackHealthID.mp3HeaderValid:
 				return this.describeMP3HeaderHint(hint, track);
-			case TrackHealthID.flacMediaValid:
 			default:
 				break;
 		}

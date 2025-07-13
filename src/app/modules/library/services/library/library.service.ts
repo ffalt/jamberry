@@ -1,12 +1,12 @@
 import {Injectable, inject} from '@angular/core';
-import {Route, Router} from '@angular/router';
+import {type Route, Router} from '@angular/router';
 import {NavigService, NotifyService, PlayerService} from '@core/services';
 import {JamService} from '@jam';
 import {
 	ContextMenuObjComponent,
-	ContextMenuObjComponentOptions,
+	type ContextMenuObjComponentOptions,
 	ContextMenuSimpleComponent,
-	ContextMenuSimpleComponentOptions
+	type ContextMenuSimpleComponentOptions
 } from '@library/components';
 import {
 	AlbumsLoader,
@@ -17,8 +17,8 @@ import {
 	PodcastsLoader,
 	SeriesLoader
 } from '@library/model/loaders';
-import {JamLibraryObject} from '@library/model/objects';
-import {HeaderTab} from '@shared/components';
+import type {JamLibraryObject} from '@library/model/objects';
+import type {HeaderTab} from '@shared/components';
 import {ActionsService, MenuService, PlaylistDialogsService, PodcastService} from '@shared/services';
 
 @Injectable()

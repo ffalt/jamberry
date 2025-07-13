@@ -1,5 +1,5 @@
-import {ID3v2Frames, Jam} from '@jam';
-import {FilenameColumnID, RawTagEditRow} from './tag-editor.types';
+import type {ID3v2Frames, Jam} from '@jam';
+import {FilenameColumnID, type RawTagEditRow} from './tag-editor.types';
 import {extractFileExtension, replaceFileSystemChars, splitFilename} from './utils';
 
 export function rebuildTag(edit: RawTagEditRow): Jam.MediaTagRaw {
@@ -19,7 +19,7 @@ export function rebuildTag(edit: RawTagEditRow): Jam.MediaTagRaw {
 export function getTackNrFromFile(filename: string): string | undefined {
 	let parts = splitFilename(filename);
 	parts = parts.filter(p =>
-		(!isNaN(Number(p))));
+		(!Number.isNaN(Number(p))));
 	if (parts.length > 0) {
 		return parts[0];
 	}

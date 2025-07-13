@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {TEST_HEADER_MODULE_IMPORTS, TEST_HEADER_MODULE_PROVIDERS} from '@app/modules/header/header.module.mock';
 import {SearchBoxComponent} from './search-box.component';
 

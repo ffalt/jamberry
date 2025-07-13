@@ -1,5 +1,5 @@
 import {TEST_ADMIN_MODULE_IMPORTS, TEST_ADMIN_MODULE_PROVIDERS} from '@admin/admin.module.mock';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {DialogAvatarComponent} from './dialog-avatar.component';
 
 describe('DialogAvatarComponent', () => {

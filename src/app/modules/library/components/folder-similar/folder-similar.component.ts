@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {type Jam, JamService} from '@jam';
 import {JamFolderObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {Subject} from 'rxjs';

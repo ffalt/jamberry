@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, ElementRef, OnChanges, output, viewChild, Input} from '@angular/core';
-import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
+import {type AfterViewInit, Component, type ElementRef, type OnChanges, output, viewChild, Input} from '@angular/core';
+import type {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 import {Subject} from 'rxjs';
-import {RawTagEditCell} from '../../model/tag-editor.types';
+import type {RawTagEditCell} from '../../model/tag-editor.types';
 
 @Component({
 	selector: 'app-cell-editor-txt',

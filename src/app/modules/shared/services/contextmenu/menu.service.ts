@@ -1,7 +1,7 @@
-import {Overlay, OverlayRef} from '@angular/cdk/overlay';
-import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
-import {ComponentRef, Injectable, inject, Signal} from '@angular/core';
-import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
+import {Overlay, type OverlayRef} from '@angular/cdk/overlay';
+import {ComponentPortal, type ComponentType} from '@angular/cdk/portal';
+import {type ComponentRef, Injectable, inject, type Signal} from '@angular/core';
+import {type ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
 
 export interface ContextMenuHostComponentInterface<T> {
 	contextMenu?: Signal<ContextMenuComponent>;

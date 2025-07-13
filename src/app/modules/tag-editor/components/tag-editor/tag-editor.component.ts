@@ -1,17 +1,17 @@
-import {Component, OnChanges, inject, viewChildren, viewChild, input} from '@angular/core';
-import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
+import {Component, type OnChanges, inject, viewChildren, viewChild, input} from '@angular/core';
+import type {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {isDownArrowKey, isLeftRightArrowKeys, isRightArrowKey, isUpDownArrowKeys} from '@app/utils/keys';
 import {AdminFolderService, NotifyService} from '@core/services';
-import {FolderType, Jam, JamService, TrackOrderFields} from '@jam';
-import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
+import {FolderType, type Jam, JamService, TrackOrderFields} from '@jam';
+import {type ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
 import {TagEditor} from '../../model/tag-editor.class';
-import {FilenameColumnID, RawTagEditCell, RawTagEditColumn, RawTagEditRow} from '../../model/tag-editor.types';
+import {FilenameColumnID, type RawTagEditCell, type RawTagEditColumn, type RawTagEditRow} from '../../model/tag-editor.types';
 import {rebuildTag} from '../../model/tag-editor.utils';
 import {DialogChooseColumnsComponent} from '../dialog-choose-columns/dialog-choose-columns.component';
 import {DialogMatchReleaseComponent} from '../dialog-match-release/dialog-match-release.component';
-import {ReleaseDataMatching, ReleaseMatching} from '../match-release/match-release.component';
+import type {ReleaseDataMatching, ReleaseMatching} from '../match-release/match-release.component';
 
 export interface SaveAction {
 	edit: RawTagEditRow;

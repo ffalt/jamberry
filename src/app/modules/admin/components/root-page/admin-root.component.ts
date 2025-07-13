@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminRootService, AdminRootServiceEditData, NotifyService} from '@core/services';
-import {Jam, RootScanStrategy} from '@jam';
+import {AdminRootService, type AdminRootServiceEditData, NotifyService} from '@core/services';
+import {type Jam, RootScanStrategy} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogRootComponent} from '../dialog-root/dialog-root.component';

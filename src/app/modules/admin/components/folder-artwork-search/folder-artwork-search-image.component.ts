@@ -1,17 +1,17 @@
 import {HttpClient} from '@angular/common/http';
-import {Component, OnChanges, OnDestroy, OnInit, inject, input} from '@angular/core';
+import {Component, type OnChanges, type OnDestroy, type OnInit, inject, input} from '@angular/core';
 import {hasFileExtension} from '@app/modules/tag-editor/model/utils';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {
 	ArtworkImageType,
-	CoverArtArchive,
+	type CoverArtArchive,
 	CoverArtArchiveLookupType,
 	FolderType,
-	Jam,
+	type Jam,
 	JamService,
-	MusicBrainz,
+	type MusicBrainz,
 	MusicBrainzLookupType,
-	WikiData
+	type WikiData
 } from '@jam';
 import {firstValueFrom, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

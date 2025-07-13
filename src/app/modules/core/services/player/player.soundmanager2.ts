@@ -1,6 +1,6 @@
-import {Jam, JamService} from '@jam';
-import {SMSound, soundManager} from 'soundmanager2';
-import {PlayerEvents, SoundPlayer, SoundPlayerAudioSupport} from './player.interface';
+import type {Jam, JamService} from '@jam';
+import {type SMSound, soundManager} from 'soundmanager2';
+import {PlayerEvents, type SoundPlayer, type SoundPlayerAudioSupport} from './player.interface';
 
 soundManager.debugMode = false;
 soundManager.forceUseGlobalHTML5Audio = true;

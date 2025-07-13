@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {TabComponent} from '@app/modules/tab-portal';
+import type {TabComponent} from '@app/modules/tab-portal';
 
 @Component({
     selector: 'app-tab-main',

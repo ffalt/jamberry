@@ -1,6 +1,6 @@
 import {Injectable, inject} from '@angular/core';
-import {Jam} from '@jam';
-import {Observable, Subject} from 'rxjs';
+import type {Jam} from '@jam';
+import {type Observable, Subject} from 'rxjs';
 import {LocalstorageService} from '../localstorage/localstorage.service';
 
 @Injectable({

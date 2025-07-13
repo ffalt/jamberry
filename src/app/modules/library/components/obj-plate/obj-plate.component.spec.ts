@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {AlbumListComponent, EpisodeListComponent, ObjPlateComponent, TrackListComponent} from '@library/components';
 import {MediaListComponent} from '@library/components/media-list/media-list.component';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '@library/library.module.mock';

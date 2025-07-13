@@ -1,5 +1,5 @@
 import {Injectable, inject} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {type ActivatedRouteSnapshot, type CanActivate, Router, type RouterStateSnapshot} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {JamAuthService} from '@jam';
 

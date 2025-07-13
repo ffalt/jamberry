@@ -37,7 +37,7 @@ export function findTrackNr(filename: string): number {
 	const s = stripExtension(filename);
 	const parts = s.split(/[ \-_.:;?!~,`"&|()<>{}[\]\r\n/\\]+/)
 		.map(Number)
-		.filter(p => !isNaN(p));
+		.filter(p => !Number.isNaN(p));
 	if (parts.length > 0) {
 		return parts[0];
 	}

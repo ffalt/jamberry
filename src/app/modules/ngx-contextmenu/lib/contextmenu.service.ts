@@ -1,11 +1,11 @@
-import {Overlay, OverlayRef, ScrollStrategyOptions} from '@angular/cdk/overlay';
+import {Overlay, type OverlayRef, ScrollStrategyOptions} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
-import {ComponentRef, ElementRef, Injectable, inject} from '@angular/core';
+import {type ComponentRef, ElementRef, Injectable, inject} from '@angular/core';
 import {outputToObservable} from '@angular/core/rxjs-interop';
 import {Subject, Subscription} from 'rxjs';
 import {ContextMenuContentComponent} from './contextmenu-content.component';
-import {ContextMenuComponent} from './contextmenu.component';
-import {ContextMenuItemDirective} from './contextmenu.item.directive';
+import type {ContextMenuComponent} from './contextmenu.component';
+import type {ContextMenuItemDirective} from './contextmenu.item.directive';
 
 export interface IContextMenuClickEvent {
 	anchorElement?: Element | EventTarget;

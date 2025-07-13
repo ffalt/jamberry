@@ -1,6 +1,6 @@
 import {TEST_ADMIN_MODULE_IMPORTS, TEST_ADMIN_MODULE_PROVIDERS} from '@admin/admin.module.mock';
 import {InlineEditComponent} from '@admin/components/inline-edit/inline-edit.component';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {MockComponent} from 'ng-mocks';
 import {ArtworkListComponent} from './artwork-list.component';
 

@@ -1,17 +1,17 @@
 /* eslint-disable max-classes-per-file */
 import {MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@app/utils/jam-lists';
-import {AlbumType, Jam, ListType} from '@jam';
+import {AlbumType, type Jam, type ListType} from '@jam';
 import {
 	JamAlbumObject,
 	JamArtistObject,
 	JamFolderObject,
 	JamGenreObject,
-	JamLibraryObject,
+	type JamLibraryObject,
 	JamPlaylistObject,
 	JamPodcastObject,
 	JamSeriesObject
 } from '@library/model/objects';
-import {LibraryService} from '@library/services';
+import type {LibraryService} from '@library/services';
 
 export interface JamObjsLoaderSearchQuery {
 	query?: string;

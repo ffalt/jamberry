@@ -1,4 +1,4 @@
-import {Directive, OnChanges, SimpleChange, inject, input} from '@angular/core';
+import {Directive, type OnChanges, type SimpleChange, inject, input} from '@angular/core';
 import {ImageFormatType, JamService} from '@jam';
 
 @Directive({

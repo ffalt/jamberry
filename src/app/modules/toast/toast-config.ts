@@ -1,7 +1,7 @@
 import {InjectionToken} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {type Observable, Subject} from 'rxjs';
 
-import {ToastRef} from './toast-ref';
+import type {ToastRef} from './toast-ref';
 
 export type ProgressAnimationType = 'increasing' | 'decreasing';
 

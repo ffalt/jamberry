@@ -1,8 +1,8 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, type OnInit, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
-import {Jam, JamAuthService, JamService} from '@jam';
-import {DialogPasswordComponent, PasswordEdit} from '@shared/components';
+import {type Jam, JamAuthService, JamService} from '@jam';
+import {DialogPasswordComponent, type PasswordEdit} from '@shared/components';
 
 @Component({
 	selector: 'app-sessions-page',

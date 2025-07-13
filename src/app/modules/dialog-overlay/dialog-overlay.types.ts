@@ -1,4 +1,4 @@
-import {DialogOverlayRef} from '@app/modules/dialog-overlay/dialog-overlay-ref.class';
+import type {DialogOverlayRef} from '@app/modules/dialog-overlay/dialog-overlay-ref.class';
 
 export interface DialogOverlayDialogConfig<T> {
 	panelClass?: string;

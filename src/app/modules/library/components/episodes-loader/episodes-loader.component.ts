@@ -1,6 +1,6 @@
-import {Component, OnChanges, inject, viewChild, input} from '@angular/core';
+import {Component, type OnChanges, inject, viewChild, input} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {Jam, JamParameters, JamService, ListType} from '@jam';
+import {type Jam, type JamParameters, JamService, type ListType} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({

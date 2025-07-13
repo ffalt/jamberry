@@ -1,10 +1,10 @@
 import {HttpEventType} from '@angular/common/http';
-import {Component, OnChanges, OnDestroy, inject, output, input} from '@angular/core';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {Component, type OnChanges, type OnDestroy, inject, output, input} from '@angular/core';
+import {DomSanitizer, type SafeUrl} from '@angular/platform-browser';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
-import {ImageCroppedEvent, OutputFormat} from 'ngx-image-cropper';
+import {type Jam, JamService} from '@jam';
+import type {ImageCroppedEvent, OutputFormat} from 'ngx-image-cropper';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, inject} from '@angular/core';
+import {Component, type OnDestroy, inject} from '@angular/core';
 import {randomString} from '@app/utils/random';
 
 import {AppService, NotifyService} from '@core/services';

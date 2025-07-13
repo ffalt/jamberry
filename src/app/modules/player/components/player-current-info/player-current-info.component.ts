@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {TabComponent} from '@app/modules/tab-portal';
+import type {TabComponent} from '@app/modules/tab-portal';
 import {NavigService, PlayerService} from '@core/services';
 import {ActionsService} from '@shared/services';
 

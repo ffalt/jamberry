@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit, inject, input} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamObjectType} from '@jam';
-import {Index, IndexGroup, IndexService} from '@shared/services';
+import {type Index, type IndexGroup, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

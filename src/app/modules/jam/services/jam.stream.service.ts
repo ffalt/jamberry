@@ -4,7 +4,7 @@
 import {Injectable, inject} from '@angular/core';
 
 import {JamBaseService} from '../jam.base.service';
-import {JamParameters} from '../model/jam-rest-params';
+import type {JamParameters} from '../model/jam-rest-params';
 
 @Injectable()
 export class JamStreamService {

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
-import {ID3v2Frames} from '@jam';
-import {ImageCroppedEvent, OutputFormat} from 'ngx-image-cropper';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import type {ID3v2Frames} from '@jam';
+import type {ImageCroppedEvent, OutputFormat} from 'ngx-image-cropper';
 
 export interface PicEdit {
 	frames: Array<ID3v2Frames.Pic>;

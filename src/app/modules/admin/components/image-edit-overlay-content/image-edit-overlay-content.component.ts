@@ -1,6 +1,6 @@
-import {ImageEdit} from '@admin/components/artwork-edit/artwork-edit.component';
+import type {ImageEdit} from '@admin/components/artwork-edit/artwork-edit.component';
 import {Component} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 
 @Component({
     selector: 'app-image-edit-overlay-content',

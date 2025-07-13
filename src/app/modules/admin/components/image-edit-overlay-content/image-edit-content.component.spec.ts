@@ -1,5 +1,5 @@
 import {ArtworkEditComponent} from '@admin/components/artwork-edit/artwork-edit.component';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {ImageCropperComponent} from 'ngx-image-cropper';
 import {ImageEditOverlayContentComponent} from './image-edit-overlay-content.component';

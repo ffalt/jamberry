@@ -1,6 +1,6 @@
-import {AfterViewInit, Directive, ElementRef, OnDestroy, inject, output, input} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {DeferLoadService, ScrollNotifyEvent} from './defer-load.service';
+import {type AfterViewInit, Directive, ElementRef, type OnDestroy, inject, output, input} from '@angular/core';
+import type {Subscription} from 'rxjs';
+import {DeferLoadService, type ScrollNotifyEvent} from './defer-load.service';
 import {Rect} from './rect';
 
 @Directive({

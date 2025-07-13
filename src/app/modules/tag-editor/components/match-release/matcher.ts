@@ -1,13 +1,13 @@
-import {AcoustIDEntry, acoustidResultToList, AcoustidTree} from '@app/modules/tag-editor/model/acoustid.helper';
+import {type AcoustIDEntry, acoustidResultToList, AcoustidTree} from '@app/modules/tag-editor/model/acoustid.helper';
 import {
-	Matching,
-	MatchingTrack,
-	MatchRelease,
-	MatchReleaseGroup,
+	type Matching,
+	type MatchingTrack,
+	type MatchRelease,
+	type MatchReleaseGroup,
 	MatchTree
 } from '@app/modules/tag-editor/model/release-matching.helper';
-import {NotifyService} from '@core/services';
-import {Jam, JamParameters, JamService, MusicBrainz, MusicBrainzLookupType, MusicBrainzSearchType} from '@jam';
+import type {NotifyService} from '@core/services';
+import {type Jam, type JamParameters, type JamService, type MusicBrainz, MusicBrainzLookupType, MusicBrainzSearchType} from '@jam';
 import {AcousticBrainzHelper} from './acoustic-brainz.helper';
 import {ManualSearchData} from './manual-search-data';
 import {MusicbrainzSearchQuery, QueryBuilderHelper} from './query-builder.helper';

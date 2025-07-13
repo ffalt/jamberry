@@ -1,5 +1,5 @@
 import {Injectable, NgZone, inject} from '@angular/core';
-import {ImageFormatType, Jam, JamService} from '@jam';
+import {ImageFormatType, type Jam, JamService} from '@jam';
 import {MediaSessionEvents} from './mediasession.events';
 
 @Injectable({

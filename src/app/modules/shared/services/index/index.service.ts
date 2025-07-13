@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, inject} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {AppService, NotifyService} from '@core/services';
-import {ImageFormatType, Jam, JamObjectType, JamService} from '@jam';
+import {ImageFormatType, type Jam, JamObjectType, JamService} from '@jam';
 
 export interface IndexEntry {
 	id: string;

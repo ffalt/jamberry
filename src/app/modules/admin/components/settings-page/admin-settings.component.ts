@@ -1,6 +1,6 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, type OnInit, inject} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {type Jam, JamService} from '@jam';
 
 @Component({
 	selector: 'app-admin-settings',

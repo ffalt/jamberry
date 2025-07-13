@@ -55,44 +55,28 @@ export default defineConfig([globalIgnores([
 
 	rules: {
 		"@angular-eslint/component-max-inline-declarations": "error",
-
-		"@angular-eslint/component-selector": ["error", {
-			type: "element",
-			prefix: "app",
-			style: "kebab-case",
-		}],
-
-		"@angular-eslint/directive-selector": ["error", {
-			type: "attribute",
-			prefix: "app",
-			style: "camelCase",
-		}],
-
-		"@angular-eslint/prefer-standalone": "off",
+		"@angular-eslint/component-selector": ["error", {type: "element", prefix: "app", style: "kebab-case"}],
+		"@angular-eslint/directive-selector": ["error", {type: "attribute", prefix: "app", style: "camelCase"}],
 		"@angular-eslint/no-attribute-decorator": "error",
 		"@angular-eslint/no-forward-ref": "off",
 		"@angular-eslint/no-lifecycle-call": "error",
 		"@angular-eslint/no-pipe-impure": "error",
 		"@angular-eslint/no-queries-metadata-property": "error",
 		"@angular-eslint/prefer-output-readonly": "error",
+		"@angular-eslint/prefer-standalone": "off",
 		"@angular-eslint/relative-url-prefix": "error",
 		"@angular-eslint/use-component-view-encapsulation": "error",
 
-		"@typescript-eslint/array-type": ["error", {
-			default: "generic",
-		}],
-
+		"@typescript-eslint/array-type": ["error", {default: "generic"}],
 		"@typescript-eslint/await-thenable": "error",
 		"@typescript-eslint/ban-ts-comment": "error",
 		"@typescript-eslint/consistent-type-definitions": "error",
-
-		"@typescript-eslint/explicit-member-accessibility": ["error", {
-			accessibility: "no-public",
-		}],
-
-		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/explicit-member-accessibility": ["error", {accessibility: "no-public"}],
+		"@typescript-eslint/naming-convention": "off",
 		"@typescript-eslint/no-empty-function": "error",
 		"@typescript-eslint/no-empty-interface": "off",
+		"@typescript-eslint/no-empty-object-type": "off",
+		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/no-extraneous-class": "off",
 		"@typescript-eslint/no-floating-promises": "error",
 		"@typescript-eslint/no-for-in-array": "error",
@@ -103,24 +87,14 @@ export default defineConfig([globalIgnores([
 		"@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
 		"@typescript-eslint/no-unnecessary-type-arguments": "error",
 		"@typescript-eslint/no-unnecessary-type-assertion": "off",
-
-		"@typescript-eslint/no-unused-expressions": ["error", {
-			allowShortCircuit: true,
-		}],
-
+		"@typescript-eslint/no-unused-expressions": ["error", {allowShortCircuit: true}],
+		"@typescript-eslint/no-useless-constructor": "error",
 		"@typescript-eslint/no-var-requires": "error",
 		"@typescript-eslint/prefer-readonly": "off",
-		"@typescript-eslint/no-empty-object-type": "off",
 		"@typescript-eslint/promise-function-async": "error",
 		"@typescript-eslint/restrict-plus-operands": "error",
-
-		"@typescript-eslint/strict-boolean-expressions": ["off", {
-			allowNullable: true,
-		}],
-
+		"@typescript-eslint/strict-boolean-expressions": ["off", {allowNullable: true}],
 		"@typescript-eslint/unbound-method": "error",
-		"@typescript-eslint/no-useless-constructor": "error",
-
 		"@typescript-eslint/member-ordering": ["error", {
 			default: [
 				"public-static-field",
@@ -141,53 +115,37 @@ export default defineConfig([globalIgnores([
 			],
 		}],
 
-		"@typescript-eslint/naming-convention": "off",
 		"jsdoc/no-types": "off",
 		"jsdoc/check-alignment": "off",
 		"jsdoc/newline-after-description": "off",
+
+		"no-null/no-null": "off",
+
 		"rxjs-x/no-create": "error",
 		"rxjs-x/no-unsafe-takeuntil": "error",
 
-		"prefer-arrow/prefer-arrow-functions": ["error", {
-			allowStandaloneDeclarations: true,
-		}],
+		"prefer-arrow/prefer-arrow-functions": ["error", {allowStandaloneDeclarations: true}],
 
 		"arrow-body-style": ["error", "as-needed"],
 		"arrow-parens": ["error", "as-needed"],
-
-		"brace-style": ["error", "1tbs", {
-			allowSingleLine: true,
-		}],
-
+		"brace-style": ["error", "1tbs", {allowSingleLine: true}],
 		"class-methods-use-this": "off",
 		"comma-dangle": "error",
-
-		complexity: ["error", {
-			max: 20,
-		}],
-
+		"complexity": ["error", {max: 10}],
 		"default-case": "error",
+		"id-blacklist": "off",
 		"max-classes-per-file": ["error", 2],
-
-		"max-len": ["error", {
-			code: 240,
-		}],
-
+		"max-len": ["error", {code: 240}],
 		"max-lines": ["error", 2000],
 		"newline-per-chained-call": "off",
-		"no-param-reassign": "error",
 		"no-duplicate-case": "error",
 		"no-duplicate-imports": "error",
 		"no-empty": "error",
 		"no-extra-bind": "error",
 		"no-invalid-this": "off",
-
-		"no-multiple-empty-lines": ["error", {
-			max: 1,
-		}],
-
+		"no-multiple-empty-lines": ["error", {max: 1}],
 		"no-new-func": "error",
-		"no-null/no-null": "off",
+		"no-param-reassign": "error",
 		"no-plusplus": "off",
 		"no-redeclare": "error",
 		"no-return-await": "error",
@@ -195,19 +153,12 @@ export default defineConfig([globalIgnores([
 		"no-sparse-arrays": "error",
 		"no-template-curly-in-string": "error",
 		"no-useless-constructor": "off",
-		"id-blacklist": "off",
 		"no-void": "error",
-
-		"padding-line-between-statements": ["off", {
-			blankLine: "always",
-			prev: "*",
-			next: "return",
-		}],
-
+		"padding-line-between-statements": ["off", {blankLine: "always", prev: "*", next: "return"}],
 		"prefer-object-spread": "error",
 		"prefer-template": "error",
 		"space-in-parens": ["error", "never"],
-		yoda: "error",
+		"yoda": "error",
 	},
 }, {
 	files: ["**/*.html"],

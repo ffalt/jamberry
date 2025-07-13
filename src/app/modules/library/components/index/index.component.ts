@@ -1,6 +1,6 @@
 import {Component, inject, input} from '@angular/core';
 import {AppService, NavigService} from '@core/services';
-import {Index, IndexEntry} from '@shared/services';
+import type {Index, IndexEntry} from '@shared/services';
 
 @Component({
 	selector: 'app-index',

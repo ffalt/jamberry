@@ -1,8 +1,8 @@
 import {HttpResponse} from '@angular/common/http';
-import {Component, OnDestroy, inject} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import {Component, type OnDestroy, inject} from '@angular/core';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {type Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

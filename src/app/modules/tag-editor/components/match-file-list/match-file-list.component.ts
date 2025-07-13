@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, inject, output, input} from '@angular/core';
-import {Matching} from '../../model/release-matching.helper';
+import type {Matching} from '../../model/release-matching.helper';
 
 @Component({
 	selector: 'app-match-file-list',

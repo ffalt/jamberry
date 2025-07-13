@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, output, input} from '@angular/core';
-import {HeaderTab} from '@shared/components';
+import type {HeaderTab} from '@shared/components';
 
 @Component({
 	selector: 'app-view-header-icon-section',

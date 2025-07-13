@@ -1,22 +1,22 @@
-import {ConnectionPositionPair, Overlay, OverlayConfig, OverlayRef, PositionStrategy} from '@angular/cdk/overlay';
+import {ConnectionPositionPair, Overlay, OverlayConfig, type OverlayRef, type PositionStrategy} from '@angular/cdk/overlay';
 import {TemplatePortal} from '@angular/cdk/portal';
 import {
 	Directive,
 	ElementRef,
-	OnChanges,
-	OnDestroy,
-	OnInit,
-	SimpleChanges,
+	type OnChanges,
+	type OnDestroy,
+	type OnInit,
+	type SimpleChanges,
 	ViewContainerRef,
 	inject,
 	output,
 	input
 } from '@angular/core';
-import {AutocompleteControl, AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
+import type {AutocompleteControl, AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
 import {isArrowKeys, isDownArrowKey, isEnterKey, isEscapeKey, isLeftArrowKey, isNonCharKey, isRightArrowKey} from '@app/utils/keys';
-import {concat, fromEvent, Observable, Subject} from 'rxjs';
+import {concat, fromEvent, type Observable, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil, tap} from 'rxjs/operators';
-import {AutocompleteComponent} from './autocomplete.component';
+import type {AutocompleteComponent} from './autocomplete.component';
 
 export function toFormControlValue(e: any): any {
 	return e.target.value;
@@ -109,7 +109,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	}
 
 	run(): void {
-		if (!this.query || this.query.length == 0) {
+		if (!this.query || this.query.length === 0) {
 			return;
 		}
 		this.request(this.query)

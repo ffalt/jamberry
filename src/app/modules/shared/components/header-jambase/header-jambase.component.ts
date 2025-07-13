@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, output, input} from '@angular/core';
-import {Jam} from '@jam';
-import {HeaderTab} from '@shared/components';
+import type {Jam} from '@jam';
+import type {HeaderTab} from '@shared/components';
 
 export interface HeaderInfo {
 	label: string;

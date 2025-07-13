@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {PlaylistService} from '../../services/playlist/playlist.service';

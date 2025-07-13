@@ -1,6 +1,6 @@
 import {Component, inject, input} from '@angular/core';
 import {NavigService} from '@core/services';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 import {ActionsService} from '@shared/services';
 
 @Component({

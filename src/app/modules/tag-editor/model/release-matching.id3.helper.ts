@@ -1,7 +1,7 @@
-import {Jam, MusicBrainz} from '@jam';
-import {MatchImageNode} from '../components/match-coverart/match-coverart.component';
+import type {Jam, MusicBrainz} from '@jam';
+import type {MatchImageNode} from '../components/match-coverart/match-coverart.component';
 import {ID3V24TagBuilder} from './id3v2-builder.helper';
-import {Matching} from './release-matching.helper';
+import type {Matching} from './release-matching.helper';
 
 function fillGenres(builder: ID3V24TagBuilder, match: Matching, genres: Array<string>): void {
 	if (genres && genres.length > 0) {

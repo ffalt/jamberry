@@ -1,10 +1,10 @@
-import {Component, OnDestroy, inject} from '@angular/core';
+import {Component, type OnDestroy, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
-import {SearchTab} from '@library/components';
+import type {SearchTab} from '@library/components';
 import {LibraryService} from '@library/services';
-import {HeaderTab} from '@shared/components';
+import type {HeaderTab} from '@shared/components';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

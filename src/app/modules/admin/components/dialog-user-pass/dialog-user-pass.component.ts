@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
-import {Jam} from '@jam';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import type {Jam} from '@jam';
 
 export interface UserPasswordEdit {
 	user: Jam.User;

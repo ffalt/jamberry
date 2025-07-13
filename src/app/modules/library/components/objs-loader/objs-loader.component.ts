@@ -1,8 +1,8 @@
-import {Component, OnChanges, inject, viewChild, input} from '@angular/core';
+import {Component, type OnChanges, inject, viewChild, input} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {AlbumType, Jam, ListType} from '@jam';
-import {JamObjsLoader} from '@library/model/loaders';
-import {JamLibraryObject} from '@library/model/objects';
+import type {AlbumType, Jam, ListType} from '@jam';
+import type {JamObjsLoader} from '@library/model/loaders';
+import type {JamLibraryObject} from '@library/model/objects';
 import {LoadMoreButtonComponent} from '@shared/components';
 
 @Component({

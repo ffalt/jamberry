@@ -1,6 +1,6 @@
-import {FocusableOption} from '@angular/cdk/a11y';
+import type {FocusableOption} from '@angular/cdk/a11y';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, input} from '@angular/core';
-import {JamObject} from '@shared/model/helpers';
+import type {JamObject} from '@shared/model/helpers';
 
 @Component({
 	selector: 'app-media-plate',

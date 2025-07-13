@@ -1,7 +1,7 @@
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {type CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Component, inject, input} from '@angular/core';
 import {PlayerService} from '@core/services';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 
 @Component({
 	selector: 'app-media-playlist',

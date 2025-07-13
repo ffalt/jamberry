@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {SidebarComponent} from '@shared/components';
 import {UserSidebarComponent} from './user-sidebar.component';
 

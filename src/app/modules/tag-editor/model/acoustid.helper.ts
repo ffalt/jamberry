@@ -1,4 +1,4 @@
-import {Acoustid, Jam} from '@jam';
+import type {Acoustid, Jam} from '@jam';
 
 export interface AcoustIDEntry {
 	releaseGroupID: string;

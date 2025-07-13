@@ -1,4 +1,4 @@
-import {HttpErrorResponse} from '@angular/common/http';
+import type {HttpErrorResponse} from '@angular/common/http';
 import {Injectable, inject} from '@angular/core';
 import {ToastService} from '@app/modules/toast';
 

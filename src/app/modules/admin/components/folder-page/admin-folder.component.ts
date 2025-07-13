@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit, inject, viewChild} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject, viewChild} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UiStateService} from '@core/services';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {folderSubSections} from '../../admin.types';

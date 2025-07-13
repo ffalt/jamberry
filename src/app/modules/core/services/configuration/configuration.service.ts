@@ -1,5 +1,5 @@
 import {Injectable, InjectionToken, inject} from '@angular/core';
-import {Auth, Jam, JamConfiguration} from '@jam';
+import {type Auth, type Jam, JamConfiguration} from '@jam';
 import {AppService} from '../app/app.service';
 import {LocalstorageService} from '../localstorage/localstorage.service';
 import {UserStorageService} from '../userstorage/userstorage.service';

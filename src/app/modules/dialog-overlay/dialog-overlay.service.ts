@@ -1,12 +1,12 @@
-import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
+import {Overlay, OverlayConfig, type OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
-import {ComponentRef, Injectable, Injector, OnDestroy, inject} from '@angular/core';
+import {type ComponentRef, Injectable, Injector, type OnDestroy, inject} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogOverlayRef} from './dialog-overlay-ref.class';
 import {DialogOverlayComponent} from './dialog-overlay.component';
 import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
-import {DEFAULT_CONFIG, DialogOverlayDialogConfig} from './dialog-overlay.types';
+import {DEFAULT_CONFIG, type DialogOverlayDialogConfig} from './dialog-overlay.types';
 
 export class PortalInjector implements Injector {
 	constructor(

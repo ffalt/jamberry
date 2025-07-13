@@ -1,5 +1,5 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {MusicBrainz} from '@jam';
+import {Pipe, type PipeTransform} from '@angular/core';
+import type {MusicBrainz} from '@jam';
 
 @Pipe({
     name: 'mbArtistCredits',

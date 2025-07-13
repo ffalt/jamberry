@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {FolderTypesAlbum} from '@app/utils/jam-lists';
 import {AdminFolderService, NotifyService} from '@core/services';
-import {FolderType, Jam, JamService} from '@jam';
+import {FolderType, type Jam, JamService} from '@jam';
 import {DialogsService} from '@shared/services';
 import {takeUntil} from 'rxjs/operators';
 import {AdminBaseParentViewIdComponent} from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
-import {DialogChooseFolderComponent, SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
+import {DialogChooseFolderComponent, type SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
 import {DialogFolderArtworkSearchComponent} from '../../dialog-folder-artwork-search/dialog-folder-artwork-search.component';
 import {DialogUploadImageComponent} from '../../dialog-upload-image/dialog-upload-image.component';
 

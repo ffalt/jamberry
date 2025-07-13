@@ -1,7 +1,7 @@
 import {TrackHealthComponent} from '@admin/components/track-health/track-health.component';
-import {Component, OnDestroy, OnInit, inject, viewChildren} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject, viewChildren} from '@angular/core';
 import {NotifyService, UiStateService, UserStorageService} from '@core/services';
-import {FolderType, Jam, JamService} from '@jam';
+import {FolderType, type Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

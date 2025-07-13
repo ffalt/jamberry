@@ -4,7 +4,7 @@
 import {Injectable, inject} from '@angular/core';
 
 import {JamBaseService} from '../jam.base.service';
-import {Jam} from '../model/jam-rest-data';
+import type {Jam} from '../model/jam-rest-data';
 
 @Injectable()
 export class JamPingService {

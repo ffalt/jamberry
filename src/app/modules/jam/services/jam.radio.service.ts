@@ -4,8 +4,8 @@
 import {Injectable, inject} from '@angular/core';
 
 import {JamBaseService} from '../jam.base.service';
-import {Jam} from '../model/jam-rest-data';
-import {JamParameters} from '../model/jam-rest-params';
+import type {Jam} from '../model/jam-rest-data';
+import type {JamParameters} from '../model/jam-rest-params';
 
 @Injectable()
 export class JamRadioService {

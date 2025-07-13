@@ -1,4 +1,4 @@
-import {Component, OnChanges, input} from '@angular/core';
+import {Component, type OnChanges, input} from '@angular/core';
 
 @Component({
 	selector: 'app-score-box',

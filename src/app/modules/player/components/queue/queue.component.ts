@@ -1,7 +1,7 @@
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {Component, OnDestroy, OnInit, inject, input} from '@angular/core';
+import {type CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {Component, type OnDestroy, type OnInit, inject, input} from '@angular/core';
 import {PlayerService, QueueService} from '@core/services';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 import {MenuService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

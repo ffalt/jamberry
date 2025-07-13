@@ -1,6 +1,6 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import type {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Injectable, inject} from '@angular/core';
-import {Observable} from 'rxjs';
+import type {Observable} from 'rxjs';
 import {CacheService} from './cache.service';
 
 @Injectable()

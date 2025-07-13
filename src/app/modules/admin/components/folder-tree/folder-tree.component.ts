@@ -1,7 +1,7 @@
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {Component, OnDestroy, OnInit, inject, output, viewChild, input} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject, output, viewChild, input} from '@angular/core';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
-import {FolderType, Jam, JamService} from '@jam';
+import {FolderType, type Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

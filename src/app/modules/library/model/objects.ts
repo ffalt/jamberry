@@ -1,10 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import {FolderTypesAlbum} from '@app/utils/jam-lists';
-import {AlbumType, FolderType, Jam, JamObjectType} from '@jam';
-import {HeaderInfo} from '@shared/components';
+import {AlbumType, FolderType, type Jam, JamObjectType} from '@jam';
+import type {HeaderInfo} from '@shared/components';
 import {JamObject} from '@shared/model/helpers';
-import {ContextMenuObjComponentOptionsExtra} from '../components/context-menu-obj/context-menu-obj.component';
-import {LibraryService} from '../services/library/library.service';
+import type {ContextMenuObjComponentOptionsExtra} from '../components/context-menu-obj/context-menu-obj.component';
+import type {LibraryService} from '../services/library/library.service';
 
 export abstract class JamLibraryObject extends JamObject {
 	abstract type: JamObjectType;
@@ -48,7 +48,7 @@ export class JamAlbumObject extends JamLibraryObject {
 		this.parent = album.artistName;
 		this.mediaType = album.albumType;
 		this.group = album.albumType;
-		if ((album.albumType === AlbumType.series) && isNaN((album.seriesNr ?? '') as any)) {
+		if ((album.albumType === AlbumType.series) && Number.isNaN((album.seriesNr ?? '') as any)) {
 			this.group = `${album.albumType} Extras`;
 		}
 		this.genre = album.genres?.length ? album.genres.map(g => g.name).join(' / ') : undefined;

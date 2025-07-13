@@ -1,15 +1,15 @@
 import {MUSICBRAINZ_VARIOUS_ARTISTS_ID, MUSICBRAINZ_VARIOUS_ARTISTS_NAME} from '@app/utils/jam-lists';
-import {ID3v2Frames, Jam, JamService} from '@jam';
+import type {ID3v2Frames, Jam, JamService} from '@jam';
 import {Genres} from './genres.consts';
-import {FrameCOMMSubIdsDefs, FrameDef, FrameDefs, FrameTXXXSubIdsDefs, FrameType, FrameUFIDSubIdsDefs} from './id3v2-frames.helper';
+import {FrameCOMMSubIdsDefs, type FrameDef, FrameDefs, FrameTXXXSubIdsDefs, FrameType, FrameUFIDSubIdsDefs} from './id3v2-frames.helper';
 import {
 	DefaultFrameColumns,
 	FilenameColumnID,
-	RawTagEditCell,
-	RawTagEditColumn,
-	RawTagEditColumnAction,
-	RawTagEditFrame,
-	RawTagEditRow
+	type RawTagEditCell,
+	type RawTagEditColumn,
+	type RawTagEditColumnAction,
+	type RawTagEditFrame,
+	type RawTagEditRow
 } from './tag-editor.types';
 import {formatFilenameByTag, getPartOfSetID, getTackNrFromFile, rebuildTag} from './tag-editor.utils';
 
@@ -134,7 +134,7 @@ export class TagEditor {
 			let trackNr: string | undefined;
 			if (cell.frames.length > 0) {
 				trackNr = cell.frames[0].value.text.split('/')[0];
-				if (!isNaN(Number(trackNr))) {
+				if (!Number.isNaN(Number(trackNr))) {
 					trackNr = Number(trackNr).toString();
 				}
 			} else {
@@ -395,7 +395,10 @@ export class TagEditor {
 		return upgradeKey;
 	}
 
-	upgradeDateFramesTov24Date(frames: Array<ID3v2Frames.Frame>): { newFrame: ID3v2Frames.Frame; dateFrames: Array<ID3v2Frames.Frame> } | undefined {
+	upgradeDateFramesTov24Date(frames: Array<ID3v2Frames.Frame>): {
+		newFrame: ID3v2Frames.Frame;
+		dateFrames: Array<ID3v2Frames.Frame>
+	} | undefined {
 		const year = frames.find(f => ['TYER', 'TYE'].indexOf(f.id) >= 0);
 		const date = frames.find(f => ['TDAT', 'TDA'].indexOf(f.id) >= 0);
 		const time = frames.find(f => ['TIME', 'TIM'].indexOf(f.id) >= 0);
@@ -461,9 +464,9 @@ export class TagEditor {
 
 	private static getRawTagFrames(rawTag: Jam.MediaTagRaw): Array<ID3v2Frames.Frame> {
 		let frames: Array<ID3v2Frames.Frame> = [];
-		Object.keys(rawTag.frames).forEach(key => {
+		for (const key of Object.keys(rawTag.frames)) {
 			frames = frames.concat(rawTag.frames[key]);
-		});
+		}
 		return frames;
 	}
 

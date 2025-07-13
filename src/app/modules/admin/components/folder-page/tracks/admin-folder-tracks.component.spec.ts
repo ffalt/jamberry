@@ -1,6 +1,6 @@
 import {TEST_ADMIN_MODULE_IMPORTS, TEST_ADMIN_MODULE_PROVIDERS} from '@admin/admin.module.mock';
 import {TrackListComponent} from '@admin/components/track-list/track-list.component';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {MockComponent} from 'ng-mocks';
 import {AdminFolderTracksComponent} from './admin-folder-tracks.component';
 

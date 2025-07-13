@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnChanges, SimpleChanges, output, input} from '@angular/core';
-import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
+import {ChangeDetectionStrategy, Component, type OnChanges, type SimpleChanges, output, input} from '@angular/core';
+import type {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 
 @Component({
 	selector: 'app-tag-editor-autocomplete',

@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {Pipe, type PipeTransform} from '@angular/core';
 import {formatDuration} from '@app/utils/formatters';
 
 @Pipe({
@@ -12,7 +12,7 @@ export class DurationPipe implements PipeTransform {
 			return '';
 		}
 		const parsedValue = Number(value);
-		if (isNaN(parsedValue) || parsedValue < 0) {
+		if (Number.isNaN(parsedValue) || parsedValue < 0) {
 			return '';
 		}
 		if (parsedValue === 0) {

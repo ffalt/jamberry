@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import Mousetrap from 'mousetrap';
-import {Hotkey} from './hotkeys.model';
+import type {Hotkey} from './hotkeys.model';
 
 type HotkeyLike = Hotkey | Array<Hotkey>;
 

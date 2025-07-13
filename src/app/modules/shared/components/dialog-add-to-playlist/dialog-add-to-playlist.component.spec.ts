@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {BackgroundTextComponent, DialogChoosePlaylistComponent, ExpandCollapseIconComponent, LoadingComponent} from '@shared/components';
 import {DurationPipe} from '@shared/pipes';
 import {PlaylistService} from '@shared/services';

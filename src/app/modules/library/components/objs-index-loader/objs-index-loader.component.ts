@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {getUrlType, JamType, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@app/utils/jam-lists';
+import {getUrlType, type JamType, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@app/utils/jam-lists';
 import {NotifyService} from '@core/services';
-import {AlbumType, JamObjectType, JamParameters} from '@jam';
-import {Index, IndexService} from '@shared/services';
+import {AlbumType, JamObjectType, type JamParameters} from '@jam';
+import {type Index, IndexService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

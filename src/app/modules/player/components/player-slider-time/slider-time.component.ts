@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, inject} from '@angular/core';
+import {Component, ElementRef, type OnInit, inject} from '@angular/core';
 import {extractSVGParts} from '@app/utils/svg-parts';
 import {AppService, PlayerEvents, PlayerService} from '@core/services';
 import {JamService} from '@jam';

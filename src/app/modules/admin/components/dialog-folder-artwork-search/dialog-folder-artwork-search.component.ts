@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
-import {ArtworkSearch} from '../folder-artwork-search/folder-artwork-search-image.component';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import type {ArtworkSearch} from '../folder-artwork-search/folder-artwork-search-image.component';
 
 @Component({
     selector: 'app-dialog-folder-artwork-search',

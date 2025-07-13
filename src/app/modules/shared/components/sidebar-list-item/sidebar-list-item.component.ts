@@ -1,5 +1,5 @@
-import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, ElementRef, output, viewChild, input} from '@angular/core';
+import type {FocusableOption} from '@angular/cdk/a11y';
+import {Component, type ElementRef, output, viewChild, input} from '@angular/core';
 
 export interface SidebarListItem {
 	name: string;

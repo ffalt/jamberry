@@ -1,8 +1,8 @@
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Component, NgZone, OnDestroy, ViewEncapsulation, inject} from '@angular/core';
+import {Component, NgZone, type OnDestroy, ViewEncapsulation, inject} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {DefaultNoComponentGlobalConfig, IndividualConfig, ToastPackage} from './toast-config';
+import {DefaultNoComponentGlobalConfig, type IndividualConfig, ToastPackage} from './toast-config';
 
 @Component({
 	selector: 'app-toast-component',

@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {extractSVGParts} from '@app/utils/svg-parts';
 import {NavigService, NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {type Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

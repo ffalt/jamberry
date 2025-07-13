@@ -1,7 +1,7 @@
 import {Component, inject, output, viewChild} from '@angular/core';
-import {AutocompleteDataControl, AutocompleteDirective, AutocompleteOption} from '@app/modules/autocomplete';
+import {type AutocompleteDataControl, AutocompleteDirective, type AutocompleteOption} from '@app/modules/autocomplete';
 import {NavigService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {type Jam, JamService} from '@jam';
 
 const objTypes = {
 	track: 'Track',

@@ -1,5 +1,5 @@
 import {Component, output, viewChildren, input} from '@angular/core';
-import {SidebarListItem, SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
+import {type SidebarListItem, SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
 
 export interface SidebarList {
 	name: string;

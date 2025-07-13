@@ -1,9 +1,9 @@
 import {HttpResponse} from '@angular/common/http';
-import {Component, OnDestroy, inject} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import {Component, type OnDestroy, inject} from '@angular/core';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {randomString} from '@app/utils/random';
 import {NotifyService} from '@core/services';
-import {ImageFormatType, Jam, JamService} from '@jam';
+import {ImageFormatType, type Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import {Jam, LastFM, LyricsOVHResponse, MusicBrainz} from '@jam';
-import {AcoustIDEntry} from './acoustid.helper';
+import type {Jam, LastFM, LyricsOVHResponse, MusicBrainz} from '@jam';
+import type {AcoustIDEntry} from './acoustid.helper';
 import {findTrackNr, fuzzyMatch, stripExtension} from './utils';
 
 export interface Matching {

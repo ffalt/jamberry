@@ -1,4 +1,4 @@
-import {Component, OnInit, input} from '@angular/core';
+import {Component, type OnInit, input} from '@angular/core';
 
 @Component({
 	selector: 'app-loading',

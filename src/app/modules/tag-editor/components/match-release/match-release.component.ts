@@ -1,9 +1,9 @@
-import {Component, OnChanges, OnDestroy, inject, viewChild, input} from '@angular/core';
+import {Component, type OnChanges, type OnDestroy, inject, viewChild, input} from '@angular/core';
 import {MatchApplyComponent} from '@app/modules/tag-editor/components/match-apply/match-apply.component';
 import {NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
-import {ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
-import {MatchRelease, MatchReleaseGroup} from '../../model/release-matching.helper';
+import {type Jam, JamService} from '@jam';
+import {type ContextMenuComponent, ContextMenuService} from '@app/modules/ngx-contextmenu';
+import type {MatchRelease, MatchReleaseGroup} from '../../model/release-matching.helper';
 import {toID3v24} from '../../model/release-matching.id3.helper';
 import {Matcher, RunType} from './matcher';
 

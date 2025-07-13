@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {SidebarList, SidebarListItem} from '@shared/components';
+import type {SidebarList, SidebarListItem} from '@shared/components';
 import {routes} from '../../user.routing';
 
 @Component({

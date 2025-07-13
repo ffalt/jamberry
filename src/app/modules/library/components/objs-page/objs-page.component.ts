@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {getUrlType, JamType, JamUrlType} from '@app/utils/jam-lists';
+import {getUrlType, type JamType, JamUrlType} from '@app/utils/jam-lists';
 import {LibraryService} from '@library/services';
-import {HeaderTab} from '@shared/components';
+import type {HeaderTab} from '@shared/components';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

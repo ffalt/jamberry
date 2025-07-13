@@ -1,5 +1,5 @@
-import {ModuleWithProviders} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import type {ModuleWithProviders} from '@angular/core';
+import {RouterModule, type Routes} from '@angular/router';
 import {AuthCanActivateGuard} from '@app/guards';
 import {SessionsPageComponent} from './pages/sessions-page/sessions-page.component';
 import {SettingsPageComponent} from './pages/settings-page/settings-page.component';

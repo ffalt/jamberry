@@ -1,5 +1,5 @@
-import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
-import {ComponentRef} from '@angular/core';
+import type {ComponentPortal, ComponentType} from '@angular/cdk/portal';
+import type {ComponentRef} from '@angular/core';
 
 /**
  * Interface for the tab definitions passed to a TabPortalOutlet.

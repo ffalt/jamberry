@@ -24,7 +24,7 @@
  SOFTWARE.
  */
 
-import {Pipe, PipeTransform} from '@angular/core';
+import {Pipe, type PipeTransform} from '@angular/core';
 
 @Pipe({
     name: 'ago',
@@ -36,7 +36,7 @@ export class AgoPipe implements PipeTransform {
 			return '';
 		}
 		const parsedValue = Number(value);
-		if (isNaN(parsedValue) || parsedValue <= 0) {
+		if (Number.isNaN(parsedValue) || parsedValue <= 0) {
 			return '';
 		}
 		const d = new Date(value);

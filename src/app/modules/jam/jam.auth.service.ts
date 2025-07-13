@@ -4,8 +4,8 @@
 import {HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Injectable, inject} from '@angular/core';
 import {JamConfiguration} from './jam.configuration';
-import {HTTPOptions, JamHttpService} from './jam.http.service';
-import {Jam} from './model/jam-rest-data';
+import {type HTTPOptions, JamHttpService} from './jam.http.service';
+import type {Jam} from './model/jam-rest-data';
 
 export interface Auth {
 	server: string;

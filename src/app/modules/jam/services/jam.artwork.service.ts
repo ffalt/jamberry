@@ -1,13 +1,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {HttpEvent} from '@angular/common/http';
+import type {HttpEvent} from '@angular/common/http';
 import {Injectable, inject} from '@angular/core';
-import {Observable} from 'rxjs';
+import type {Observable} from 'rxjs';
 
 import {JamBaseService} from '../jam.base.service';
-import {Jam} from '../model/jam-rest-data';
-import {JamParameters} from '../model/jam-rest-params';
+import type {Jam} from '../model/jam-rest-data';
+import type {JamParameters} from '../model/jam-rest-params';
 
 @Injectable()
 export class JamArtworkService {

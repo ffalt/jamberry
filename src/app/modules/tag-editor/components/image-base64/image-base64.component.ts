@@ -1,4 +1,4 @@
-import {Component, OnChanges, input} from '@angular/core';
+import {Component, type OnChanges, input} from '@angular/core';
 
 export interface Base64Image {
 	base64: string;

@@ -1,5 +1,5 @@
-import {ModuleWithProviders} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import type {ModuleWithProviders} from '@angular/core';
+import {RouterModule, type Routes} from '@angular/router';
 import {AdminComponent} from './admin.component';
 import {AdminFolderComponent} from './components/folder-page/admin-folder.component';
 import {AdminFolderFoldersComponent} from './components/folder-page/folders/admin-folder-folders.component';

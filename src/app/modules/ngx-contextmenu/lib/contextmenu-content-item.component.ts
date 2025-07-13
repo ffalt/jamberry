@@ -1,6 +1,6 @@
-import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, ElementRef, output, viewChild, input} from '@angular/core';
-import {ContextMenuItemDirective} from './contextmenu.item.directive';
+import type {FocusableOption} from '@angular/cdk/a11y';
+import {Component, type ElementRef, output, viewChild, input} from '@angular/core';
+import type {ContextMenuItemDirective} from './contextmenu.item.directive';
 
 interface ContextMenuItemDirectiveEvent {
 	event: Event;

@@ -1,21 +1,21 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {getUrlType, JamType} from '@app/utils/jam-lists';
+import {getUrlType, type JamType} from '@app/utils/jam-lists';
 import {NotifyService} from '@core/services';
-import {Jam, JamObjectType, JamService} from '@jam';
+import {type Jam, JamObjectType, JamService} from '@jam';
 import {
 	JamAlbumObject,
 	JamArtistObject,
 	JamEpisodeObject,
 	JamFolderObject,
-	JamLibraryObject,
+	type JamLibraryObject,
 	JamPlaylistObject,
 	JamPodcastObject,
 	JamSeriesObject,
 	JamTrackObject
 } from '@library/model/objects';
 import {LibraryService} from '@library/services';
-import {HeaderInfo, HeaderTab} from '@shared/components';
+import type {HeaderInfo, HeaderTab} from '@shared/components';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

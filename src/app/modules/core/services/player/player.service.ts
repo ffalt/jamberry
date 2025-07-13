@@ -1,14 +1,14 @@
-import {Injectable, OnDestroy, inject} from '@angular/core';
+import {Injectable, type OnDestroy, inject} from '@angular/core';
 import {MediaSessionEvents} from '@core/services/mediasession/mediasession.events';
 import {MediaSessionService} from '@core/services/mediasession/mediasession.service';
-import {ImageFormatType, Jam, JamObjectType, JamService, PodcastStatus} from '@jam';
+import {ImageFormatType, type Jam, JamObjectType, JamService, PodcastStatus} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {NotifyService} from '../notify/notify.service';
 import {PushNotificationService} from '../push-notification/push-notification.service';
 import {QueueService} from '../queue/queue.service';
 import {UserStorageService} from '../userstorage/userstorage.service';
-import {PlayerEvents, SoundPlayerAudioSupport} from './player.interface';
+import {PlayerEvents, type SoundPlayerAudioSupport} from './player.interface';
 import {PlayerSoundmanager2} from './player.soundmanager2';
 
 class StopWatch {

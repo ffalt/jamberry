@@ -1,5 +1,5 @@
-import {Component, OnChanges, input} from '@angular/core';
-import {MusicBrainz} from '@jam';
+import {Component, type OnChanges, input} from '@angular/core';
+import type {MusicBrainz} from '@jam';
 
 export interface RelationType {
 	type: string;

@@ -1,5 +1,5 @@
-import {OverlayRef} from '@angular/cdk/overlay';
-import {Observable, Subject} from 'rxjs';
+import type {OverlayRef} from '@angular/cdk/overlay';
+import {type Observable, Subject} from 'rxjs';
 
 /**
  * Reference to a toast opened via the Toastr service.

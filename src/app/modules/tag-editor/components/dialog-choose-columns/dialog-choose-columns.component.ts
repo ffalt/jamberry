@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
-import {FrameDef, FrameDefs, getFrameSubIds} from '../../model/id3v2-frames.helper';
-import {RawTagEditColumn} from '../../model/tag-editor.types';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import {type FrameDef, FrameDefs, getFrameSubIds} from '../../model/id3v2-frames.helper';
+import type {RawTagEditColumn} from '../../model/tag-editor.types';
 
 export interface SelectColumns {
 	columns: Array<RawTagEditColumn>;

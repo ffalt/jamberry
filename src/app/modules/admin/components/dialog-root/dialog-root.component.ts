@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
-import {AdminRootServiceEditData} from '@core/services';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import type {AdminRootServiceEditData} from '@core/services';
 import {RootScanStrategy} from '@jam';
 
 @Component({

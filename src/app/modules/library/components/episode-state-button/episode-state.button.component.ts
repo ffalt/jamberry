@@ -1,6 +1,6 @@
 import {Component, inject, input} from '@angular/core';
 import {PlayerService} from '@core/services';
-import {Jam, JamService, PodcastStatus} from '@jam';
+import {type Jam, JamService, PodcastStatus} from '@jam';
 import {PodcastService} from '@shared/services';
 
 @Component({

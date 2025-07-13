@@ -1,6 +1,6 @@
 import {Injectable, inject} from '@angular/core';
 import {Router} from '@angular/router';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 
 @Injectable({
 	providedIn: 'root'

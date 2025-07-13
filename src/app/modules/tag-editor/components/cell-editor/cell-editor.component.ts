@@ -1,11 +1,11 @@
 import {
 	Component,
-	ComponentRef,
 	forwardRef,
-	OnChanges,
-	OnDestroy,
-	SimpleChanges,
-	Type,
+	type ComponentRef,
+	type OnChanges,
+	type OnDestroy,
+	type SimpleChanges,
+	type Type,
 	ViewContainerRef,
 	inject,
 	output,
@@ -15,13 +15,13 @@ import {
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {FrameType} from '@app/modules/tag-editor/model/id3v2-frames.helper';
-import {ID3v2Frames} from '@jam';
+import type {ID3v2Frames} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {Id3v2ValuePicTypes, RawTagEditCell, RawTagEditFrame} from '../../model/tag-editor.types';
+import {Id3v2ValuePicTypes, type RawTagEditCell, type RawTagEditFrame} from '../../model/tag-editor.types';
 import {CellEditorTxtComponent} from '../cell-editor-txt/cell-editor-txt.component';
-import {DialogTagImageComponent, PicEdit} from '../dialog-tag-image/dialog-tag-image.component';
-import {DialogTagLyricsComponent, LyricsEdit} from '../dialog-tag-lyrics/dialog-tag-lyrics.component';
+import {DialogTagImageComponent, type PicEdit} from '../dialog-tag-image/dialog-tag-image.component';
+import {DialogTagLyricsComponent, type LyricsEdit} from '../dialog-tag-lyrics/dialog-tag-lyrics.component';
 
 @Component({
 	selector: 'app-cell-editor',
@@ -262,7 +262,6 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		this.lines = cell ? cell.frames.map(f => this.frameToString(f)) : [];
 	}
 
-	// eslint-disable-next-line complexity
 	private frameToString(frame: RawTagEditFrame): string {
 		const cell = this.cell();
 		switch (cell?.column.def.impl) {
@@ -287,19 +286,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 				return CellEditorComponent.popularimeterFrameToString(frame);
 			case FrameType.PlayCounter:
 				return CellEditorComponent.playCounterFrameToString(frame);
-			case FrameType.MusicCDId:
-			case FrameType.EventTimingCodes:
-			case FrameType.SYLT:
-			case FrameType.ETCO:
-			case FrameType.PCST:
-			case FrameType.LINK:
-			case FrameType.AENC:
-			case FrameType.RVAD:
-			case FrameType.RGAD:
-			case FrameType.RVAD2:
-			case FrameType.CTOC:
-			case FrameType.CHAP:
-			case FrameType.Unknown:
+			// case FrameType.MusicCDId:
 			default:
 				return `Not implemented celleditor for: ${cell?.column.def.name}`;
 		}

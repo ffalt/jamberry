@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {SidebarList} from '@shared/components';
+import type {SidebarList} from '@shared/components';
 import {routes} from '../../admin.routing';
 
 @Component({

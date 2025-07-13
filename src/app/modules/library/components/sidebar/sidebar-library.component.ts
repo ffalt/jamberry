@@ -1,7 +1,7 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, type OnInit, inject} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
-import {SidebarList, SidebarListItem} from '@shared/components';
+import {type Jam, JamService} from '@jam';
+import type {SidebarList, SidebarListItem} from '@shared/components';
 
 @Component({
 	selector: 'app-libary-sidebar',

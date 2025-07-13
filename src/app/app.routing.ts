@@ -1,5 +1,5 @@
-import {ModuleWithProviders} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import type {ModuleWithProviders} from '@angular/core';
+import {RouterModule, type Routes} from '@angular/router';
 import {AuthCanActivateGuard} from '@app/guards';
 import {LoginComponent, LogoutComponent} from '@app/pages';
 

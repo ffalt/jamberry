@@ -1,13 +1,13 @@
 import {Component, inject, output, viewChild, input} from '@angular/core';
-import {MatchCoverartComponent, MatchImageNode, MatchImageSearch} from '@app/modules/tag-editor/components';
+import {MatchCoverartComponent, type MatchImageNode, type MatchImageSearch} from '@app/modules/tag-editor/components';
 import {
-	GenreTag,
+	type GenreTag,
 	getLastFMAlbumGenres, getLastFMArtistGenres,
 	getMusicBrainzGenres,
 	getTrackGenres,
 	mergeGenres
 } from '@app/modules/tag-editor/model/genres.helper';
-import {Matching, MatchRelease, MatchReleaseGroup} from '@app/modules/tag-editor/model/release-matching.helper';
+import type {Matching, MatchRelease, MatchReleaseGroup} from '@app/modules/tag-editor/model/release-matching.helper';
 import {JamService, LastFMLookupType} from '@jam';
 
 @Component({

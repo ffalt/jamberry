@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable, inject} from '@angular/core';
 
-import {Jam, JamService, PodcastStatus} from '@jam';
+import {type Jam, JamService, PodcastStatus} from '@jam';
 
 @Injectable({
 	providedIn: 'root'

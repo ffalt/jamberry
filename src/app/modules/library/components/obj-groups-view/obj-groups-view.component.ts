@@ -1,5 +1,5 @@
-import {Component, OnChanges, input} from '@angular/core';
-import {JamLibraryObject} from '@library/model/objects';
+import {Component, type OnChanges, input} from '@angular/core';
+import type {JamLibraryObject} from '@library/model/objects';
 
 interface ObjGroupsView {
 	type?: string;

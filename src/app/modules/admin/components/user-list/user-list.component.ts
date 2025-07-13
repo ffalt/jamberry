@@ -1,12 +1,12 @@
-import {Component, OnDestroy, inject, input} from '@angular/core';
+import {Component, type OnDestroy, inject, input} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminUserService, AdminUserServiceEditData, NotifyService} from '@core/services';
-import {Jam} from '@jam';
+import {AdminUserService, type AdminUserServiceEditData, NotifyService} from '@core/services';
+import type {Jam} from '@jam';
 import {DialogsService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogAvatarComponent} from '../dialog-avatar/dialog-avatar.component';
-import {DialogUserPassComponent, UserPasswordEdit} from '../dialog-user-pass/dialog-user-pass.component';
+import {DialogUserPassComponent, type UserPasswordEdit} from '../dialog-user-pass/dialog-user-pass.component';
 import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 
 @Component({

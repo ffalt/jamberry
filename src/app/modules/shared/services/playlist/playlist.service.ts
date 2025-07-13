@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable, inject} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {type Jam, JamService} from '@jam';
 
 @Injectable()
 export class PlaylistService {

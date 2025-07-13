@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {DialogOverlayModule} from '@app/modules/dialog-overlay';
 import {CellEditorDisplayComponent} from '@app/modules/tag-editor/components';
 import {CellEditorTxtComponent} from '@app/modules/tag-editor/components/cell-editor-txt/cell-editor-txt.component';

@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {Pipe, type PipeTransform} from '@angular/core';
 import {formatFileSize} from '@app/utils/formatters';
 
 @Pipe({

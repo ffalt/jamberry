@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {TabInterface, TabPortalOutlet} from '@app/modules/tab-portal';
+import type {TabInterface, TabPortalOutlet} from '@app/modules/tab-portal';
 import {TabInfoComponent, TabMainComponent, TabPlayerComponent, TabQueueComponent} from '../components';
 
 @Injectable()

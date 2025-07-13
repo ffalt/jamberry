@@ -1,9 +1,9 @@
-import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
+import {Overlay, OverlayConfig, type OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
-import {ComponentRef, Injectable, Injector, NgZone, inject} from '@angular/core';
-import {Observable} from 'rxjs';
+import {type ComponentRef, Injectable, Injector, NgZone, inject} from '@angular/core';
+import type {Observable} from 'rxjs';
 
-import {GlobalConfig, IndividualConfig, ToastPackage, ToastToken, TOAST_CONFIG} from './toast-config';
+import {type GlobalConfig, type IndividualConfig, ToastPackage, type ToastToken, TOAST_CONFIG} from './toast-config';
 import {ToastInjector} from './toast-injector';
 import {ToastRef} from './toast-ref';
 import {ToastComponent} from './toast.component';

@@ -1,4 +1,4 @@
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 
 export class PlayerEvents {
 	static readonly TRACK = 1;

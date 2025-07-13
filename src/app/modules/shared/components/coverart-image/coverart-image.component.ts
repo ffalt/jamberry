@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnChanges, SimpleChange, inject, input} from '@angular/core';
+import {type AfterContentInit, Component, type OnChanges, type SimpleChange, inject, input} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {ImageFormatType, JamService} from '@jam';
 import {ImageOverlayContentComponent} from '../image-overlay-content/image-overlay-content.component';

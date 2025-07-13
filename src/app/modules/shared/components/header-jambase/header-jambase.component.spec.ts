@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {CoverartImageComponent, HeaderTabsComponent} from '@shared/components';
 import {MockComponent} from 'ng-mocks';
 import {HeaderJamBaseComponent} from './header-jambase.component';

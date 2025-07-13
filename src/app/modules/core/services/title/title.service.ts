@@ -1,7 +1,7 @@
-import {Injectable, OnDestroy, inject} from '@angular/core';
+import {Injectable, type OnDestroy, inject} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 import {Subject} from 'rxjs';
 import {filter, takeUntil} from 'rxjs/operators';
 import {AppService} from '../app/app.service';

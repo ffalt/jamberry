@@ -1,4 +1,4 @@
-import {ID3v2Frames} from '@jam';
+import type {ID3v2Frames} from '@jam';
 
 interface ID3V2Frames {
 	[key: string]: Array<ID3v2Frames.Frame>;

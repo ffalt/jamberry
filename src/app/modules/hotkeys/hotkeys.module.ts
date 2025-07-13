@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
-import {ModuleWithProviders, NgModule} from '@angular/core';
+import {type ModuleWithProviders, NgModule} from '@angular/core';
 import {HotkeysDirective} from './hotkeys.directive';
-import {HotkeyOptions, HotkeysOptions} from './hotkeys.options';
+import {type HotkeyOptions, HotkeysOptions} from './hotkeys.options';
 import {HotkeysService} from './hotkeys.service';
 
 @NgModule({

@@ -1,4 +1,4 @@
-import {UrlSegment} from '@angular/router';
+import type {UrlSegment} from '@angular/router';
 import {AlbumType, FolderType, JamObjectType, ListType} from '@jam';
 
 export const MUSICBRAINZ_VARIOUS_ARTISTS_ID = '89ad4ac3-39f7-470e-963a-56509c546377';

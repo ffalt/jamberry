@@ -1,6 +1,6 @@
-import {Component, ElementRef, output, viewChild, input, model} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
+import {Component, type ElementRef, output, viewChild, input, model} from '@angular/core';
+import {type ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import type {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
 
 @Component({
 	selector: 'app-tag-editor-inline-autocomplete',

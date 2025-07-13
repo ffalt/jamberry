@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable, inject} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
-import {Jam, JamParameters, JamService} from '@jam';
+import {type Jam, type JamParameters, JamService} from '@jam';
 import {NotifyService} from '../notify/notify.service';
 
 export interface AdminUserServiceEditData {

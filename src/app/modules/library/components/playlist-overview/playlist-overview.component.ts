@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NavigService} from '@core/services';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 import {PlaylistService} from '@shared/services';
-import {Subject, Subscription} from 'rxjs';
+import {Subject, type Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Component({

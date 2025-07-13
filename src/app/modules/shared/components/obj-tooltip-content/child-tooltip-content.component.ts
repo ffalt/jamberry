@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, model} from '@angular/core';
+import {type AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, model} from '@angular/core';
 import {positionElements} from './child-tooltip-content.position';
 
 export interface TooltipInfo {

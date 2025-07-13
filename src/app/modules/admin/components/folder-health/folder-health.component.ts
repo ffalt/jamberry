@@ -1,8 +1,8 @@
-import {Component, OnChanges, OnDestroy, inject, input} from '@angular/core';
+import {Component, type OnChanges, type OnDestroy, inject, input} from '@angular/core';
 import {Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService} from '@core/services';
-import {FolderHealthID, Jam, JamService} from '@jam';
+import {FolderHealthID, type Jam, JamService} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DialogFolderArtworkSearchComponent} from '../dialog-folder-artwork-search/dialog-folder-artwork-search.component';

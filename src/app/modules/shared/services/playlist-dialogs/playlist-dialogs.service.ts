@@ -1,8 +1,8 @@
 import {Injectable, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
-import {Jam, JamService, PodcastStatus} from '@jam';
-import {ChoosePlaylistData, DialogChoosePlaylistComponent, DialogPlaylistComponent} from '@shared/components';
+import {type Jam, JamService, PodcastStatus} from '@jam';
+import {type ChoosePlaylistData, DialogChoosePlaylistComponent, DialogPlaylistComponent} from '@shared/components';
 import {DialogsService} from '../dialogs/dialogs.service';
 import {PlaylistService} from '../playlist/playlist.service';
 

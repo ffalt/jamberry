@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {ACTIVE_THEME, Theme, THEMES} from './theme.model';
+import {type ModuleWithProviders, NgModule} from '@angular/core';
+import {ACTIVE_THEME, type Theme, THEMES} from './theme.model';
 import {ThemeService} from './theme.service';
 
 export interface ThemeOptions {

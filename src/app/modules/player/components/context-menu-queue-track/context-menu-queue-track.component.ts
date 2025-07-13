@@ -1,7 +1,7 @@
 import {Component, inject, viewChild} from '@angular/core';
 import {NavigService, QueueService} from '@core/services';
-import {ActionsService, ContextMenuHostComponentInterface} from '@shared/services';
-import {ContextMenuComponent} from '@app/modules/ngx-contextmenu';
+import {ActionsService, type ContextMenuHostComponentInterface} from '@shared/services';
+import type {ContextMenuComponent} from '@app/modules/ngx-contextmenu';
 
 @Component({
 	selector: 'app-context-menu-queue-track',

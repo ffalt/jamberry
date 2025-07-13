@@ -1,4 +1,4 @@
-import {Highlightable} from '@angular/cdk/a11y';
+import type {Highlightable} from '@angular/cdk/a11y';
 import {Directive, TemplateRef, inject, output, input} from '@angular/core';
 
 @Directive({

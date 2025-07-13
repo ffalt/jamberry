@@ -1,9 +1,9 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, OnDestroy, OnInit, inject, viewChildren, input} from '@angular/core';
+import {type AfterViewInit, Component, type OnDestroy, type OnInit, inject, viewChildren, input} from '@angular/core';
 import {Router} from '@angular/router';
-import {AppService, SidebarProvider} from '@core/services';
-import {SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
-import {SidebarList, SidebarListComponent} from '../sidebar-list/sidebar-list.component';
+import {AppService, type SidebarProvider} from '@core/services';
+import type {SidebarListItemComponent} from '../sidebar-list-item/sidebar-list-item.component';
+import {type SidebarList, SidebarListComponent} from '../sidebar-list/sidebar-list.component';
 
 @Component({
 	selector: 'app-sidebar',

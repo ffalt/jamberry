@@ -1,7 +1,7 @@
 import {Component, inject, input} from '@angular/core';
 import {AppService, NavigService} from '@core/services';
-import {JamObjectType} from '@jam';
-import {IndexEntry, IndexGroup} from '@shared/services';
+import type {JamObjectType} from '@jam';
+import type {IndexEntry, IndexGroup} from '@shared/services';
 
 @Component({
 	selector: 'app-index-group',

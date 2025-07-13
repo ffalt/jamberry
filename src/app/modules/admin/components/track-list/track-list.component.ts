@@ -1,6 +1,6 @@
-import {Component, OnChanges, inject, input} from '@angular/core';
+import {Component, type OnChanges, inject, input} from '@angular/core';
 import {Router} from '@angular/router';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 
 export interface TrackItem {
 	track: Jam.Track;

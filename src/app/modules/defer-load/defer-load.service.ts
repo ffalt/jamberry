@@ -1,6 +1,6 @@
 import {isPlatformBrowser} from '@angular/common';
 import {EventEmitter, Injectable, PLATFORM_ID, inject} from '@angular/core';
-import {merge, Observable, Subject} from 'rxjs';
+import {merge, type Observable, Subject} from 'rxjs';
 import {debounceTime, throttleTime} from 'rxjs/operators';
 import {Rect} from './rect';
 
@@ -70,7 +70,7 @@ export class DeferLoadService {
 		const userAgent = window.navigator.userAgent;
 		const matches = userAgent.match(/Edge\/(\d*)\./i);
 		const isEdge = !!matches && matches.length > 1;
-		const isEdgeVersion16OrBetter = isEdge && (!!matches && parseInt(matches[1], 10) > 15);
+		const isEdgeVersion16OrBetter = isEdge && (!!matches && Number.parseInt(matches[1], 10) > 15);
 		return hasIntersectionObserver && (!isEdge || isEdgeVersion16OrBetter);
 	}
 }

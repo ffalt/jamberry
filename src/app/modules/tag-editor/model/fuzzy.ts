@@ -234,7 +234,7 @@ export class FuzzySet {
 		const vectorNormal = Math.sqrt(sumOfSquareGramCounts);
 		const items = this.items[gramSize];
 		const results = Object.entries(matches).map(([matchIndex, matchScore]) => {
-			const index = parseInt(matchIndex, 10);
+			const index = Number.parseInt(matchIndex, 10);
 			return [matchScore / (vectorNormal * items[index][0]), items[index][1]];
 		});
 		return results.sort(sortDescending);

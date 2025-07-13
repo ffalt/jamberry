@@ -1,6 +1,6 @@
 import {TEST_ADMIN_MODULE_IMPORTS, TEST_ADMIN_MODULE_PROVIDERS} from '@admin/admin.module.mock';
 import {AdminQueueRequestsComponent} from '@admin/components/admin-queue-requests/admin-queue-requests.component';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {MockComponent} from 'ng-mocks';
 import {AdminComponent} from './admin.component';
 import {AdminSidebarComponent} from './components/admin-sidebar/admin-sidebar.component';

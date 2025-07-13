@@ -1,7 +1,7 @@
-import {FocusableOption} from '@angular/cdk/a11y';
-import {Component, OnChanges, viewChild, input} from '@angular/core';
+import type {FocusableOption} from '@angular/cdk/a11y';
+import {Component, type OnChanges, viewChild, input} from '@angular/core';
 import {JamObjectType} from '@jam';
-import {JamLibraryObject} from '@library/model/objects';
+import type {JamLibraryObject} from '@library/model/objects';
 import {MediaPlateComponent} from '@shared/components';
 
 @Component({

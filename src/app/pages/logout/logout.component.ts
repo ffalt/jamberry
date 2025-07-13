@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, type OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {AppService} from '@core/services';

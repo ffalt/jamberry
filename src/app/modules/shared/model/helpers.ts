@@ -1,4 +1,4 @@
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 
 export abstract class JamObject {
 	id: string;

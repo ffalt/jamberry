@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, inject} from '@angular/core';
+import {Component, ElementRef, type OnInit, inject} from '@angular/core';
 import {PlayerEvents, PlayerService} from '@core/services';
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 
 export interface StartSectionItem {
 	obj: Jam.Base;

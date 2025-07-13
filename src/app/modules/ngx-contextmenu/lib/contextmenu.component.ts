@@ -1,10 +1,10 @@
-import {Component, OnDestroy, ViewEncapsulation, inject, output, input, model, contentChildren} from '@angular/core';
+import {Component, type OnDestroy, ViewEncapsulation, inject, output, input, model, contentChildren} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {first} from 'rxjs/operators';
 
 import {ContextMenuItemDirective} from './contextmenu.item.directive';
-import {IContextMenuOptions} from './contextmenu.options';
-import {CloseContextMenuEvent, ContextMenuService, IContextMenuClickEvent} from './contextmenu.service';
+import type {IContextMenuOptions} from './contextmenu.options';
+import {type CloseContextMenuEvent, ContextMenuService, type IContextMenuClickEvent} from './contextmenu.service';
 import {CONTEXT_MENU_OPTIONS} from './contextmenu.tokens';
 
 @Component({

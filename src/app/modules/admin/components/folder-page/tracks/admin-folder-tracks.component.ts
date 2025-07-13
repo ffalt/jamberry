@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit, inject, viewChild} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject, viewChild} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService, NotifyService} from '@core/services';
-import {Jam, JamService} from '@jam';
+import {type Jam, JamService} from '@jam';
 import {DialogsService} from '@shared/services';
 import {takeUntil} from 'rxjs/operators';
 import {AdminBaseParentViewIdComponent} from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
-import {DialogChooseFolderComponent, SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
+import {DialogChooseFolderComponent, type SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
 import {TrackListComponent} from '../../track-list/track-list.component';
 
 @Component({

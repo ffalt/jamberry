@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable, inject} from '@angular/core';
 import {Poller} from '@app/utils/poller';
-import {Jam, JamService} from '@jam';
+import {type Jam, JamService} from '@jam';
 import {NotifyService} from '../notify/notify.service';
 
 export enum AdminFolderServiceNotifyMode {

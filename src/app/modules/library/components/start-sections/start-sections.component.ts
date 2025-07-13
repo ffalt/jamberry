@@ -1,7 +1,7 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, type OnInit, inject} from '@angular/core';
 import {NavigService, NotifyService} from '@core/services';
 import {JamService, ListType} from '@jam';
-import {StartSectionItem} from '@library/components';
+import type {StartSectionItem} from '@library/components';
 
 @Component({
 	selector: 'app-start-sections',

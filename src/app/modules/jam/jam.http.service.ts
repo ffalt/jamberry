@@ -1,9 +1,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest, HttpSentEvent} from '@angular/common/http';
+import {HttpClient, type HttpEvent, type HttpHeaders, type HttpParams, HttpRequest, type HttpSentEvent} from '@angular/common/http';
 import {Injectable, inject} from '@angular/core';
-import {firstValueFrom, Observable} from 'rxjs';
+import {firstValueFrom, type Observable} from 'rxjs';
 
 export interface HTTPOptions {
 	headers?: HttpHeaders;

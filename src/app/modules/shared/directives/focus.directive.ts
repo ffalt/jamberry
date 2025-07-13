@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, inject} from '@angular/core';
+import {Directive, ElementRef, type OnInit, inject} from '@angular/core';
 import {isLeftArrowKey, isLeftRightArrowKeys, isRightArrowKey} from '@app/utils/keys';
 
 @Directive({

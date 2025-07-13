@@ -1,6 +1,6 @@
 import {TEST_ADMIN_MODULE_IMPORTS, TEST_ADMIN_MODULE_PROVIDERS} from '@admin/admin.module.mock';
 import {ArtworkListComponent} from '@admin/components/artwork-list/artwork-list.component';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {MockComponent} from 'ng-mocks';
 import {FolderArtworkSearchImageComponent} from './folder-artwork-search-image.component';
 

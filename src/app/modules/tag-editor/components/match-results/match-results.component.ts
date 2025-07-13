@@ -1,6 +1,6 @@
 import {Component, output, input} from '@angular/core';
-import {Matcher} from '@app/modules/tag-editor/components/match-release/matcher';
-import {MatchingTrack, MatchRelease, MatchReleaseGroup} from '../../model/release-matching.helper';
+import type {Matcher} from '@app/modules/tag-editor/components/match-release/matcher';
+import type {MatchingTrack, MatchRelease, MatchReleaseGroup} from '../../model/release-matching.helper';
 
 @Component({
 	selector: 'app-match-results',

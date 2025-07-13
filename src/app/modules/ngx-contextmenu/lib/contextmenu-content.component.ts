@@ -1,23 +1,24 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
-import {OverlayRef} from '@angular/cdk/overlay';
+import type {OverlayRef} from '@angular/cdk/overlay';
 import {
-	AfterViewInit,
+	type AfterViewInit,
+	type ElementRef,
+	type OnDestroy,
+	type OnInit,
+	type QueryList,
 	Component,
-	ElementRef,
-	OnDestroy,
-	OnInit,
 	inject,
 	output,
+	model,
 	viewChild,
 	viewChildren,
-	model,
-	ViewChildren, QueryList
+	ViewChildren
 } from '@angular/core';
 import {ContextMenuContentItemComponent} from '@app/modules/ngx-contextmenu/lib/contextmenu-content-item.component';
 import {Subscription} from 'rxjs';
-import {ContextMenuItemDirective} from './contextmenu.item.directive';
-import {IContextMenuOptions} from './contextmenu.options';
-import {CloseLeafMenuEvent, IContextMenuClickEvent} from './contextmenu.service';
+import type {ContextMenuItemDirective} from './contextmenu.item.directive';
+import type {IContextMenuOptions} from './contextmenu.options';
+import type {CloseLeafMenuEvent, IContextMenuClickEvent} from './contextmenu.service';
 import {CONTEXT_MENU_OPTIONS} from './contextmenu.tokens';
 
 @Component({

@@ -1,6 +1,6 @@
 import {Component, inject, input} from '@angular/core';
 import {NavigService, PlayerService} from '@core/services';
-import {Jam, JamService, PodcastStatus} from '@jam';
+import {type Jam, JamService, PodcastStatus} from '@jam';
 import {JamEpisodeObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import {ActionsService, PodcastService} from '@shared/services';

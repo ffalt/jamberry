@@ -1,7 +1,7 @@
 import {
 	Component,
-	ComponentRef,
-	OnInit,
+	type ComponentRef,
+	type OnInit,
 	ViewContainerRef,
 	ViewEncapsulation,
 	inject,
@@ -10,7 +10,7 @@ import {
 import {isEscapeKey} from '@app/utils/keys';
 import {DialogOverlayRef} from './dialog-overlay-ref.class';
 import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
-import {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.types';
+import type {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.types';
 
 @Component({
 	selector: 'app-dialog-overlay',

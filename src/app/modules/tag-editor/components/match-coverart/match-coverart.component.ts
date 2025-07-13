@@ -1,8 +1,8 @@
-import {Component, OnChanges, inject, input} from '@angular/core';
+import {Component, type OnChanges, inject, input} from '@angular/core';
 import {base64ArrayBuffer} from '@app/utils/base64';
 import {NotifyService} from '@core/services';
-import {CoverArtArchive, CoverArtArchiveLookupType, JamService} from '@jam';
-import {Base64Image} from '../image-base64/image-base64.component';
+import {type CoverArtArchive, CoverArtArchiveLookupType, JamService} from '@jam';
+import type {Base64Image} from '../image-base64/image-base64.component';
 
 export interface MatchImageSearch {
 	mbReleaseID: string;

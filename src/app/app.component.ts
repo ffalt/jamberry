@@ -1,4 +1,4 @@
-import {Component, Injector, OnDestroy, OnInit, inject, viewChild, ViewContainerRef} from '@angular/core';
+import {Component, Injector, type OnDestroy, type OnInit, inject, viewChild, ViewContainerRef} from '@angular/core';
 import {Router} from '@angular/router';
 import {DeferLoadService} from '@app/modules/defer-load';
 import {Hotkey, HotkeysService} from '@app/modules/hotkeys';
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	isStandaloneWebApp(): boolean {
 		const nav = navigator as any;
 		return (nav?.standalone === true) ||
-			(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+			(window.matchMedia?.('(display-mode: standalone)').matches);
 	}
 
 	isElectronApp(): boolean {

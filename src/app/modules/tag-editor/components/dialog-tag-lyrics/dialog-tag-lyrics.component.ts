@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
-import {ID3v2Frames} from '@jam';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import type {ID3v2Frames} from '@jam';
 
 export interface LyricsEdit {
 	frames: Array<ID3v2Frames.LangDescText>;

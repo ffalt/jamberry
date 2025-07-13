@@ -1,7 +1,7 @@
-import {EventEmitter, Injectable, OnDestroy, inject} from '@angular/core';
+import {EventEmitter, Injectable, type OnDestroy, inject} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {Poller} from '@app/utils/poller';
-import {Jam, JamService, RootScanStrategy} from '@jam';
+import {type Jam, JamService, type RootScanStrategy} from '@jam';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {AdminFolderService} from '../admin-folder/admin-folder.service';

@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {RateComponent} from '@shared/components/rate/rate.component';
 import {DialogRateComponent} from './dialog-rate.component';

@@ -1,5 +1,5 @@
 import {Directive, inject, input} from '@angular/core';
-import {ContextMenuComponent} from './contextmenu.component';
+import type {ContextMenuComponent} from './contextmenu.component';
 import {ContextMenuService} from './contextmenu.service';
 
 @Directive({

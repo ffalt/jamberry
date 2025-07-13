@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {StringTogglePipe} from '@shared/pipes';
 import {FavIconComponent} from './fav-icon.component';
 

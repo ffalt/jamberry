@@ -2,7 +2,7 @@ import {EventEmitter, Injectable, inject} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {Poller} from '@app/utils/poller';
 import {NotifyService} from '@core/services';
-import {Jam, JamService, PodcastStatus} from '@jam';
+import {type Jam, JamService, PodcastStatus} from '@jam';
 import {DialogsService} from '../dialogs/dialogs.service';
 
 @Injectable()

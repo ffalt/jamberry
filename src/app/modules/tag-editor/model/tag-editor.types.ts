@@ -1,5 +1,5 @@
-import {Jam} from '@jam';
-import {FrameType} from './id3v2-frames.helper';
+import type {Jam} from '@jam';
+import type {FrameType} from './id3v2-frames.helper';
 
 export interface RawTagEditCell {
 	parent: RawTagEditRow;

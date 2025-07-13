@@ -1,4 +1,4 @@
-import {Matching} from '@app/modules/tag-editor/model/release-matching.helper';
+import type {Matching} from '@app/modules/tag-editor/model/release-matching.helper';
 
 /**
  * Class to handle manual search data for the Matcher

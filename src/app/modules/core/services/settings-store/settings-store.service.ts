@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable, OnDestroy, inject} from '@angular/core';
+import {EventEmitter, Injectable, type OnDestroy, inject} from '@angular/core';
 import {Settings} from '@app/app.settings';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

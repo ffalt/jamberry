@@ -1,5 +1,5 @@
-import {Component, OnChanges, input} from '@angular/core';
-import {Jam} from '@jam';
+import {Component, type OnChanges, input} from '@angular/core';
+import type {Jam} from '@jam';
 
 function splitLines(text: string): Array<string> {
 	if (!text) {

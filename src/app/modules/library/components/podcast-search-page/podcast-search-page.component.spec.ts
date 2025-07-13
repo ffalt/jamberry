@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {DialogOverlayModule} from '@app/modules/dialog-overlay';
 import {ToastModule} from '@app/modules/toast';

@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {ExpandCollapseIconComponent} from '@shared/components/expand-collapse-icon/expand-collapse-icon.component';
 import {DurationPipe} from '@shared/pipes';
 import {TEST_SHARED_MODULE_IMPORTS, TEST_SHARED_MODULE_PROVIDERS} from '@shared/shared.module.mock';

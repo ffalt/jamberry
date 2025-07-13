@@ -1,8 +1,8 @@
-import {Component, OnDestroy} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import {Component, type OnDestroy} from '@angular/core';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ReleaseMatching} from '../match-release/match-release.component';
+import type {ReleaseMatching} from '../match-release/match-release.component';
 
 @Component({
     selector: 'app-dialog-match-release',

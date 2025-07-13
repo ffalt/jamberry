@@ -1,4 +1,4 @@
-import { HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
+import { type HttpEvent, type HttpHandler, type HttpRequest, HttpResponse } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {share, tap} from 'rxjs/operators';

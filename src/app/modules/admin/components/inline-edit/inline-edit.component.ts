@@ -1,5 +1,5 @@
-import {Component, ElementRef, ViewEncapsulation, output, viewChild, input} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Component, type ElementRef, ViewEncapsulation, output, viewChild, input} from '@angular/core';
+import {type ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
 	selector: 'app-inline-edit',

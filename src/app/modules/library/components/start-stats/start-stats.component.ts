@@ -1,8 +1,8 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, type OnInit, inject} from '@angular/core';
 import {getTypeByAlbumType} from '@app/utils/jam-lists';
 import {NotifyService} from '@core/services';
 import {AlbumType, JamService} from '@jam';
-import {filterStats, StatsList} from '@shared/components';
+import {filterStats, type StatsList} from '@shared/components';
 
 @Component({
 	selector: 'app-start-stats',

@@ -1,7 +1,7 @@
 import {Component, inject, input} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
-import {AdminRootService, AdminRootServiceEditData, NotifyService} from '@core/services';
-import {Jam} from '@jam';
+import {AdminRootService, type AdminRootServiceEditData, NotifyService} from '@core/services';
+import type {Jam} from '@jam';
 import {DialogsService} from '@shared/services';
 import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 

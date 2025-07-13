@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {IndexEntry} from '@shared/services';
+import type {IndexEntry} from '@shared/services';
 
 @Component({
 	selector: 'app-index-entry-card',

@@ -1,8 +1,8 @@
 import {Component, inject} from '@angular/core';
-import {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
-import {AlbumType, JamParameters, JamService} from '@jam';
+import type {AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete';
+import {AlbumType, type JamParameters, JamService} from '@jam';
 import {LibraryService} from '@library/services';
-import {HeaderTab} from '@shared/components';
+import type {HeaderTab} from '@shared/components';
 
 export interface SearchTab extends HeaderTab {
 	id: string;

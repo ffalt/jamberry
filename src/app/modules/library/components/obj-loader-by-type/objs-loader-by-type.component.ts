@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {getUrlType, ListTypeUrlNamesKeys} from '@app/utils/jam-lists';
 import {randomString} from '@app/utils/random';
-import {AlbumType, JamObjectType, ListType} from '@jam';
+import {AlbumType, JamObjectType, type ListType} from '@jam';
 import {LibraryService} from '@library/services';
 import {PlaylistService, PodcastService} from '@shared/services';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {JamObjsLoader} from '../../model/loaders';
+import type {JamObjsLoader} from '../../model/loaders';
 
 @Component({
 	selector: 'app-objs-loader-page-by-type',

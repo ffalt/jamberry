@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {HeaderTabsComponent, IconartImageComponent} from '@shared/components';
 import {MockComponent} from 'ng-mocks';
 import {HeaderIconSectionComponent} from './header-icon-section.component';

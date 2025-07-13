@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {MockComponent} from 'ng-mocks';
 import {IndexComponent} from '..';
 import {TEST_LIBRARY_IMPORTS, TEST_LIBRARY_PROVIDERS} from '../../library.module.mock';

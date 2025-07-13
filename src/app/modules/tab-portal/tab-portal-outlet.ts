@@ -1,6 +1,6 @@
 import {ComponentPortal} from '@angular/cdk/portal';
-import {ComponentRef, EmbeddedViewRef, Injector, ViewContainerRef} from '@angular/core';
-import {ActiveTabInterface, TabInterface} from './tab-portal.interfaces';
+import type {ComponentRef, EmbeddedViewRef, Injector, ViewContainerRef} from '@angular/core';
+import type {ActiveTabInterface, TabInterface} from './tab-portal.interfaces';
 
 /**
  * A PortalOutlet that lets multiple components live for the lifetime of the outlet, allowing faster switching and persistent data.

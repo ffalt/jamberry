@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {Pipe, type PipeTransform} from '@angular/core';
 import {Id3v2ValuePicTypes} from '../model/tag-editor.types';
 
 @Pipe({

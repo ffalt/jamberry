@@ -1,6 +1,6 @@
 import {Component, inject, input} from '@angular/core';
 import {PlayerService, QueueService} from '@core/services';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 
 @Component({
 	selector: 'app-chapters',

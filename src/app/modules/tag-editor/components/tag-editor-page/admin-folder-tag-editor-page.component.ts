@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit, inject, viewChild} from '@angular/core';
+import {Component, type OnDestroy, type OnInit, inject, viewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
+import type {ComponentCanDeactivate} from '@app/guards/pending-changes/pending-changes.guard';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {TagEditorComponent} from '../../components/tag-editor/tag-editor.component';

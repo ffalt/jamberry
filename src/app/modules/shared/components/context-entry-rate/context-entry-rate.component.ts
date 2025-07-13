@@ -1,6 +1,6 @@
-import {Component, OnChanges, inject, input} from '@angular/core';
+import {Component, type OnChanges, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {Jam, JamObjectType, JamService} from '@jam';
+import {type Jam, type JamObjectType, JamService} from '@jam';
 
 @Component({
 	selector: 'app-context-entry-rate',

@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {ImageCropperComponent} from 'ngx-image-cropper';
 import {ImageBase64Component} from '../image-base64/image-base64.component';

@@ -1,9 +1,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {HttpEvent, HttpParams, HttpSentEvent} from '@angular/common/http';
+import {type HttpEvent, HttpParams, type HttpSentEvent} from '@angular/common/http';
 import {Injectable, inject} from '@angular/core';
-import {Observable} from 'rxjs';
+import type {Observable} from 'rxjs';
 
 import {JamAuthService} from './jam.auth.service';
 import {JamHttpService} from './jam.http.service';

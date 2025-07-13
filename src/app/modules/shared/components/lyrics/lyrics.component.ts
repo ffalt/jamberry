@@ -1,4 +1,4 @@
-import {Component, OnChanges, inject, input} from '@angular/core';
+import {Component, type OnChanges, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
 

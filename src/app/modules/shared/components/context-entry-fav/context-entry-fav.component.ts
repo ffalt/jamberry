@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {Jam} from '@jam';
+import type {Jam} from '@jam';
 
 @Component({
 	selector: 'app-context-entry-fav',

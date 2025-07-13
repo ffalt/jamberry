@@ -1,9 +1,9 @@
-const path = require("path");
-const fs = require("fs");
+const path = require("node:path");
+const fs = require("node:fs");
 const appVersion = require("./package.json").version;
 
 async function updateVersion() {
-	const versionFilePath = path.join(__dirname + "/src/environments/version.ts");
+	const versionFilePath = path.join(__dirname, "/src/environments/version.ts");
 	const src = `export const version = '${appVersion}';\n`;
 
 	const result = await fs.promises.readFile(versionFilePath);
@@ -12,7 +12,6 @@ async function updateVersion() {
 		console.log(`Writing ${appVersion} version module to ${versionFilePath}\n`);
 	}
 }
-
 
 updateVersion().catch(e => {
 	console.error(e);

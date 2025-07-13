@@ -1,8 +1,8 @@
 import {OverlayModule} from '@angular/cdk/overlay';
 import {CommonModule} from '@angular/common';
-import {ModuleWithProviders, NgModule} from '@angular/core';
+import {type ModuleWithProviders, NgModule} from '@angular/core';
 
-import {DefaultNoComponentGlobalConfig, GlobalConfig, TOAST_CONFIG} from './toast-config';
+import {DefaultNoComponentGlobalConfig, type GlobalConfig, TOAST_CONFIG} from './toast-config';
 import {ToastComponent} from './toast.component';
 import {ToastContainerDirective} from './toast.directive';
 

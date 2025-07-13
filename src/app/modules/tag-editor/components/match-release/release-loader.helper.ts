@@ -1,5 +1,5 @@
-import {MatchReleaseGroup, MatchTree} from '@app/modules/tag-editor/model/release-matching.helper';
-import {MusicBrainz} from '@jam';
+import type {MatchReleaseGroup, MatchTree} from '@app/modules/tag-editor/model/release-matching.helper';
+import type {MusicBrainz} from '@jam';
 
 /**
  * Helper class for loading release groups and releases

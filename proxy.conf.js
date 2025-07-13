@@ -9,7 +9,7 @@ module.exports = [
 		secure: false,
 		logLevel: "debug",
 		target: "http://localhost:4040",
-		bypass: function (request, response, _proxyOptions) {
+		bypass: (request, response, _proxyOptions) => {
 			if (request.url === '/assets/config/config.js') {
 				const config_json = {
 					name: 'Jam Debug',

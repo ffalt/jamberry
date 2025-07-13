@@ -1,6 +1,6 @@
 import {Component, output, input} from '@angular/core';
-import {RawTagEditColumn} from '@app/modules/tag-editor/model/tag-editor.types';
-import {TagEditor} from '../../model/tag-editor.class';
+import type {RawTagEditColumn} from '@app/modules/tag-editor/model/tag-editor.types';
+import type {TagEditor} from '../../model/tag-editor.class';
 
 @Component({
 	selector: 'app-admin-tag-editor-column-tool',

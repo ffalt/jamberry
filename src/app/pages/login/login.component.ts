@@ -1,4 +1,4 @@
-import {Component, OnInit, inject} from '@angular/core';
+import {Component, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {AppService, NotifyService, serverErrorMsg} from '@core/services';

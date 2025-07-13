@@ -1,6 +1,6 @@
-import {Component, OnChanges, inject, input} from '@angular/core';
+import {Component, type OnChanges, inject, input} from '@angular/core';
 import {NotifyService} from '@core/services';
-import {JamService, MusicBrainz, MusicBrainzLookupType} from '@jam';
+import {JamService, type MusicBrainz, MusicBrainzLookupType} from '@jam';
 
 export interface MBAlbumInfo {
 	name: string;

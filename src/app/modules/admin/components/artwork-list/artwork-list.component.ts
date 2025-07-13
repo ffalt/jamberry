@@ -1,7 +1,7 @@
-import {Component, OnChanges, inject, input} from '@angular/core';
+import {Component, type OnChanges, inject, input} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService, NotifyService} from '@core/services';
-import {ImageFormatType, Jam, JamService} from '@jam';
+import {ImageFormatType, type Jam, JamService} from '@jam';
 import {DialogsService} from '@shared/services';
 import {ImageEditOverlayContentComponent} from '../image-edit-overlay-content/image-edit-overlay-content.component';
 

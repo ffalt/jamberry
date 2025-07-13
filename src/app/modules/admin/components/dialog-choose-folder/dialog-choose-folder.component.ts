@@ -1,6 +1,6 @@
 import {Component, viewChild} from '@angular/core';
-import {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
-import {Jam} from '@jam';
+import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
+import type {Jam} from '@jam';
 import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
 
 export interface SelectFolder {

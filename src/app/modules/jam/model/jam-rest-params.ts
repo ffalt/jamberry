@@ -1,7 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import * as JamEnums from './jam-enums';
+import type * as JamEnums from './jam-enums';
 
 export declare namespace JamParameters {
 

@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {type ComponentFixture, TestBed} from '@angular/core/testing';
 import {BackgroundTextComponent} from '../background-text/background-text.component';
 import {BackgroundTextListComponent} from './background-text-list.component';
 

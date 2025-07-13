@@ -2,7 +2,7 @@
  * https://github.com/alexcastillo/ng2-notifications
  */
 
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable, type OnDestroy} from '@angular/core';
 
 // eslint-disable-next-line no-redeclare
 declare const Notification: any;

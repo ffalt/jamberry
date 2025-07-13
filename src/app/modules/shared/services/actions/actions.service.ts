@@ -1,8 +1,8 @@
 import {Injectable, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
-import {Jam, JamObjectType, JamService} from '@jam';
-import {DialogRateComponent, RateEdit} from '@shared/components';
+import {type Jam, JamObjectType, JamService} from '@jam';
+import {DialogRateComponent, type RateEdit} from '@shared/components';
 
 @Injectable()
 export class ActionsService {
