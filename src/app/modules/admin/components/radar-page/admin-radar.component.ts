@@ -61,12 +61,12 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 
 	fixAll(): void {
 		const trackHealthComponents = this.trackHealthComponents();
-  if (this.searching || !this.current || !trackHealthComponents) {
+		if (this.searching || !this.current || !trackHealthComponents) {
 			return;
 		}
-		trackHealthComponents.forEach(trackHealthComponent => {
+		for (const trackHealthComponent of trackHealthComponents) {
 			trackHealthComponent.fixAll();
-		});
+		}
 	}
 
 	refresh(pos: number, continueNext: boolean): void {

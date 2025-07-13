@@ -45,7 +45,7 @@ export class MbArtistComponent implements OnChanges {
 	displayReleaseGroups(mbArtist: MusicBrainz.Artist): void {
 		this.releaseGroups = [];
 		if (mbArtist.releaseGroups) {
-			mbArtist.releaseGroups.forEach(r => {
+			for (const r of mbArtist.releaseGroups) {
 				const type = [r.primaryType, ...(r.secondaryTypes || [])].join(' / ');
 				let typeGroup = this.releaseGroups.find(g => g.type === type);
 				if (!typeGroup) {
@@ -53,12 +53,12 @@ export class MbArtistComponent implements OnChanges {
 					this.releaseGroups.push(typeGroup);
 				}
 				typeGroup.groups.push({group: r});
-			});
+			}
 		}
-		this.releaseGroups.forEach(g => {
+		for (const g of this.releaseGroups) {
 			g.groups.sort((a, b) =>
 				(b.group.firstReleaseDate || '').localeCompare(a.group.firstReleaseDate || ''));
-		});
+		}
 		this.releaseGroups.sort((a, b) => a.type.localeCompare(b.type));
 	}
 

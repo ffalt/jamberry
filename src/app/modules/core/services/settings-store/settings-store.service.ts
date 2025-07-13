@@ -35,10 +35,9 @@ export class SettingsStoreService implements OnDestroy {
 	loadFromStorage(): void {
 		const load = this.userStorage.get<Settings>(SettingsStoreService.localstorageName);
 		if (load) {
-			Object.keys(this.app.settings)
-				.forEach(key => {
-					this.app.settings[key] = load[key];
-				});
+			for (const key of Object.keys(this.app.settings)) {
+				this.app.settings[key] = load[key];
+			}
 			this.setTheme();
 			this.pushNotificationService.enabled = this.app.settings.notificationSong;
 		} else {

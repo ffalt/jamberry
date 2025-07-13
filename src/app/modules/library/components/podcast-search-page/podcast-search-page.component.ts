@@ -66,7 +66,7 @@ export class PodcastSearchPageComponent {
 		const collect: {
 			[name: string]: PodcastSearch;
 		} = {};
-		data.forEach(result => {
+		for (const result of data) {
 			const url = new URL(result.url);
 			const allowedHosts = ['feedburner.com', 'www.feedburner.com'];
 			if (!allowedHosts.includes(url.hostname)) {
@@ -91,7 +91,7 @@ export class PodcastSearchPageComponent {
 			if (!podcast.pods.find(p => p.url.toString() === url.toString())) {
 				podcast.pods.push({result, url, displayURL: url.toString()});
 			}
-		});
+		}
 		this.podcasts = Object.keys(collect).map(key => {
 			const pod = collect[key];
 			pod.selected = pod.pods.find(p => p.url.pathname.includes('mp3'));

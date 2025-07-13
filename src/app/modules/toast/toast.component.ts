@@ -218,13 +218,11 @@ export class ToastComponent implements OnDestroy {
 	outsideTimeout(func: () => void, timeout: number): void {
 		if (this.ngZone) {
 			this.ngZone.runOutsideAngular(
-				() =>
-					(this.timeout = setTimeout(
-						() => {
-							this.runInsideAngular(func);
-						},
-						timeout
-					))
+				() => {
+					this.timeout = setTimeout(() => {
+						this.runInsideAngular(func);
+					}, timeout);
+				}
 			);
 		} else {
 			this.timeout = setTimeout(func, timeout);
@@ -234,12 +232,11 @@ export class ToastComponent implements OnDestroy {
 	outsideInterval(func: () => void, timeout: number): void {
 		if (this.ngZone) {
 			this.ngZone.runOutsideAngular(
-				() =>
-					(this.intervalId = setInterval(
-						() => {
-							this.runInsideAngular(func);
-						}, timeout
-					))
+				() => {
+					this.intervalId = setInterval(() => {
+						this.runInsideAngular(func);
+					}, timeout);
+				}
 			);
 		} else {
 			this.intervalId = setInterval(func, timeout);

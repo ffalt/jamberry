@@ -151,7 +151,9 @@ export class ContextMenuService {
 				this.show.next(subMenuEvent);
 			}));
 		contextMenuContent.onDestroy(() => {
-			menuItems.forEach(menuItem => menuItem.isActive = false);
+			for (const menuItem of menuItems) {
+				menuItem.isActive = false;
+			}
 			subscriptions.unsubscribe();
 		});
 		contextMenuContent.changeDetectorRef.detectChanges();
@@ -160,10 +162,10 @@ export class ContextMenuService {
 	closeAllContextMenus(closeEvent: CloseContextMenuEvent): void {
 		if (this.overlays) {
 			this.close.next(closeEvent);
-			this.overlays.forEach(overlay => {
+			for (const overlay of this.overlays) {
 				overlay.detach();
 				overlay.dispose();
-			});
+			}
 		}
 		this.overlays = [];
 	}
@@ -209,10 +211,11 @@ export class ContextMenuService {
 		const overlay = contextMenu.overlay();
 		if (overlay) {
 			const index = this.overlays.indexOf(overlay);
-			this.overlays.slice(index + 1).forEach(subMenuOverlay => {
+			const list = this.overlays.slice(index + 1);
+			for (const subMenuOverlay of list) {
 				subMenuOverlay.detach();
 				subMenuOverlay.dispose();
-			});
+			}
 		}
 	}
 }

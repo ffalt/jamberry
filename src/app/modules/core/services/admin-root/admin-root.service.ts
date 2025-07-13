@@ -139,11 +139,11 @@ export class AdminRootService implements OnDestroy {
 		this.jam.root.search({})
 			.then(data => {
 				this.roots = data.items;
-				this.roots.forEach(root => {
+				for (const root of this.roots) {
 					if (root.status?.scanning) {
 						this.rootPoll.poll(root);
 					}
-				});
+				}
 				this.rootsChange.emit(this.roots);
 			})
 			.catch(e => {

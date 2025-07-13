@@ -18,43 +18,69 @@ export function getKnownGenre(genre: string): string | undefined {
 	return GenresSlugs[slug];
 }
 
+function extractNumberAndCleanValue(text: string): { value: string; num?: number } {
+	let value = text.trim();
+	let num: number | undefined;
+
+	const numpart = /\((\d+)\)/.exec(value);
+	if (numpart) {
+		num = Number.parseInt(numpart[1], 10);
+		value = value.slice(0, numpart.index) + value.slice(numpart.index + numpart[0].length);
+	}
+
+	return {value: value.trim(), num};
+}
+
+function getGenreFromNumber(currentValue: string, num?: number): string {
+	if (currentValue.length === 0 && num !== undefined) {
+		const genreName = GenresByNumbers[num];
+		return genreName || currentValue;
+	}
+	return currentValue;
+}
+
 export function cleanGenre(genre: string): string {
 	const results: Array<string> = [];
 	const parts = genre.split('/');
-	parts.forEach((part: string) => {
-		// test for (number)
-		let value = part.trim();
-		const numpart = /\((\d+)\)/.exec(value);
-		let num: number | undefined;
-		if (numpart) {
-			num = Number.parseInt(numpart[1], 10);
-			value = value.slice(0, numpart.index) + value.slice(numpart.index + numpart[0].length);
+
+	const addUniqueResult = (value: string): void => {
+		if (value.length > 0 && !results.includes(value)) {
+			results.push(value);
 		}
-		if (value.length === 0 && (num !== undefined)) {
-			const s = GenresByNumbers[num];
-			if (s) {
-				value = s;
+	};
+
+	const processSubGenres = (text: string): void => {
+		const subParts = text.split('&');
+		for (const sub of subParts) {
+			const cleanSub = cleanGenre(sub);
+			addUniqueResult(cleanSub);
+		}
+	};
+
+	for (const part of parts) {
+		// Extract number and clean the value
+		const {value, num} = extractNumberAndCleanValue(part);
+
+		// Try to get genre name from number if value is empty
+		const processedValue = getGenreFromNumber(value, num);
+
+		if (processedValue.length > 0) {
+			// Check if it's a known genre
+			const knownGenre = getKnownGenre(processedValue);
+
+			if (!knownGenre && processedValue.includes(' & ')) {
+				// Process sub-genres separated by &
+				processSubGenres(processedValue);
+			} else if (knownGenre) {
+				// Add known genre to results
+				addUniqueResult(knownGenre);
+			} else {
+				// Add the processed value as is
+				addUniqueResult(processedValue);
 			}
 		}
-		if (value.length > 0) {
-			const result = getKnownGenre(value);
-			if (!result && value.includes(' & ')) {
-				const subParts = value.split('&');
-				subParts.forEach(sub => {
-					const cleanSub = cleanGenre(sub);
-					if (!results.includes(cleanSub)) {
-						results.push(cleanSub);
-					}
-				});
-			} else if (result) {
-				if (!results.includes(result)) {
-					results.push(result);
-				}
-			} else if (!results.includes(value)) {
-				results.push(value);
-			}
-		}
-	});
+	}
+
 	return results.join(' / ');
 }
 

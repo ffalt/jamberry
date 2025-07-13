@@ -90,7 +90,7 @@ export class PushNotificationService implements OnDestroy {
 	}
 
 	closeAll(): void {
-		(Notification as any).close && (Notification as any).close();
+		(Notification as any).close?.call();
 	}
 
 	ngOnDestroy(): void {

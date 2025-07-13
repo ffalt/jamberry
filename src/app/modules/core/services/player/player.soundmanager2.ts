@@ -192,9 +192,9 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 
 	private publish(event: number, data?: any): void {
 		if (this.subscribers[event]) {
-			this.subscribers[event].forEach(handler => {
+			for (const handler of this.subscribers[event]) {
 				handler(data);
-			});
+			}
 		}
 	}
 

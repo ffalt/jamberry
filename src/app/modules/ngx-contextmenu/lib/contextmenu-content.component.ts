@@ -70,14 +70,16 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}
 
 	ngOnInit(): void {
-		this.menuItems().forEach(menuItem => {
-			menuItem.currentItem = this.item();
+		const items = this.menuItems();
+		const item = this.item();
+		for (const menuItem of items) {
+			menuItem.currentItem = item;
 			this.subscription.add(
 				menuItem.execute.subscribe(event =>
 					this.execute.emit({...event, menuItem})
 				)
 			);
-		});
+		}
 	}
 
 	registerKeys() {

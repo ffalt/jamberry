@@ -42,12 +42,12 @@ export class QueueService {
 
 	addMedias(tracks: Array<Jam.MediaBase>, allowDuplicates?: boolean): number {
 		let added = 0;
-		tracks.forEach(track => {
+		for (const track of tracks) {
 			if (allowDuplicates || this.indexOfTrack(track.id) < 0) {
 				this.entries.push(track);
 				added++;
 			}
-		});
+		}
 		if (added > 0) {
 			this.publishChanges();
 		}

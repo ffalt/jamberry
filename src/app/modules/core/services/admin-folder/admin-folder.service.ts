@@ -112,15 +112,15 @@ export class AdminFolderService {
 	}
 
 	private pollEnd(data: AdminChangeQueueInfoPoll, result?: Jam.AdminChangeQueueInfo): void {
-		(data.folderIDs || []).forEach(id => {
+		for (const id of (data.folderIDs || [])) {
 			this.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
-		});
-		(data.refreshChildsFolderIDs || []).forEach(id => {
+		}
+		for (const id of (data.refreshChildsFolderIDs || [])) {
 			this.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefreshChilds);
-		});
-		(data.trackIDs || []).forEach(id => {
+		}
+		for (const id of (data.trackIDs || [])) {
 			this.notifyTrackChange(id);
-		});
+		}
 		if (data.notifyAfter) {
 			data.notifyAfter.emit(result);
 			data.notifyAfter.complete();

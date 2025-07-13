@@ -148,7 +148,10 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 				debounceTime(this.settings.debounceTime),
 				concat,
 				distinctUntilChanged<string>(),
-				tap(async (query: string) => (this.query = query)),
+				tap((query: string) => {
+					this.query = query;
+					return query;
+				}),
 				filter((query: string) => this.settings.allowEmpty || query.length > 0),
 				switchMap(async (query: string) => this.request(query)),
 				takeUntil(this.unsubscribe)

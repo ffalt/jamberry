@@ -39,7 +39,7 @@ export class JamBaseService {
 		return url + (flat ? `?${flat}` : '');
 	}
 
-	async raw(view: string, params: any): Promise<{buffer: ArrayBuffer; contentType: string}> {
+	async raw(view: string, params: any): Promise<{ buffer: ArrayBuffer; contentType: string }> {
 		const {url, parameters} = this.buildRequest(view, params, false);
 		return this.http.raw(url, {...this.authService.getHTTPOptions(), params: parameters});
 	}
@@ -95,10 +95,9 @@ export class JamBaseService {
 
 	upload(path: string, params: any, name: string, file: File): Observable<HttpEvent<HttpSentEvent>> {
 		const formData = new FormData();
-		Object.keys(params)
-			.forEach(key => {
-				formData.append(key, params[key]);
-			});
+		for (const key of Object.keys(params)) {
+			formData.append(key, params[key]);
+		}
 		formData.append(name, file);
 		const url = this.buildUrl(path, {}, false);
 		const options = this.authService.getHTTPOptions();

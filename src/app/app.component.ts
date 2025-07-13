@@ -65,6 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
 				console.error(e);
 			});
 		}
+		// qlty-ignore: biome:lint/complexity/noForEach
 		this.router.events.forEach(() => {
 			this.tabService.switchToMain();
 		}).catch(e => {

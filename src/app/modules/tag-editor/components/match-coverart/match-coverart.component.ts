@@ -76,9 +76,9 @@ export class MatchCoverartComponent implements OnChanges {
 				}
 				if (image.thumbnails) {
 					const thumbs: { [name: string]: string } = image.thumbnails;
-					Object.keys(thumbs).forEach(key => {
+					for (const key of Object.keys(thumbs)) {
 						thumbs[key] = thumbs[key].replace('http:', 'https:');
-					});
+					}
 				}
 				const node: MatchImageNode = {
 					image,
@@ -88,13 +88,12 @@ export class MatchCoverartComponent implements OnChanges {
 			});
 			const fronts = this.coverArtArchive.filter(i => i.image.front || i.image.types.includes('Front')).sort((a, b) => a.image.types.length - b.image.types.length);
 			this.images = this.showFrontImagesOnly ? fronts : this.coverArtArchive;
-			this.images.forEach(node => {
+			for (const node of this.images) {
 				this.getBase64Image(node)
 					.catch(e => {
 						console.error(e);
 					});
-			});
-
+			}
 			let front = fronts.find(i => i.image.types.length === 1);
 			if (!front) {
 				front = fronts[0];

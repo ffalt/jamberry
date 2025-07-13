@@ -314,7 +314,9 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			node = nodes.find(n => n.types.includes(ArtworkImageType.front));
 		}
 		if (node) {
-			this.nodes.forEach(n => n.checked = n === node);
+			for (const n of this.nodes) {
+				n.checked = n === node;
+			}
 		}
 	}
 }

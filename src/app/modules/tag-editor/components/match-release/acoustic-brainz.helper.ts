@@ -47,13 +47,13 @@ export class AcousticBrainzHelper {
 		highlevel: AcousticBrainz.HighLevel,
 		categories: AcousticBrainzCategories
 	): void {
-		Object.entries(highlevel).forEach(([key, data]) => {
+		for (const [key, data] of Object.entries(highlevel)) {
 			if (!data || !AcousticBrainzHelper.isValidValue(data)) {
 				return;
 			}
 			const category = AcousticBrainzHelper.determineCategory(key);
 			AcousticBrainzHelper.addToCategory(data.value, category, categories);
-		});
+		}
 	}
 
 	private static isValidValue(data: AcousticBrainz.HighLevelSection): boolean {

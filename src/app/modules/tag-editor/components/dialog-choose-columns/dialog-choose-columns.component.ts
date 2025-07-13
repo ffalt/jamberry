@@ -62,7 +62,7 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 		this.data = options.data;
 		this.allColumns = [];
 		const columns = this.data?.columns || [];
-		Object.keys(FrameDefs).forEach(key => {
+		for (const key of Object.keys(FrameDefs)) {
 			const subids = getFrameSubIds(key);
 			if (subids.length === 0) {
 				const column: RawTagEditColumn | undefined = columns.find(c => c.def.id === key);
@@ -85,7 +85,7 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 					});
 				}
 			}
-		});
+		}
 		this.allColumns = this.allColumns.toSorted((a, b) => (a.name || a.frameDef.title).localeCompare(b.name || b.frameDef.title));
 		this.refresh();
 	}

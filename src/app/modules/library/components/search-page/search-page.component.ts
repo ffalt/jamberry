@@ -63,7 +63,9 @@ export class SearchPageComponent implements AutocompleteDataControl {
 
 	setCurrentTab(tab: SearchTab): void {
 		this.currentTab = tab;
-		this.tabs.forEach(t => t.active = false);
+		for (const t of this.tabs) {
+			t.active = false;
+		}
 		tab.active = true;
 		this.search();
 	}

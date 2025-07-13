@@ -108,12 +108,15 @@ name = "oxc"
 
 [[triage]]
 match.rules = [
+	"biome:lint/suspicious/noEmptyInterface", #  An empty interface is equivalent to {}.
 	"biome:lint/complexity/noStaticOnlyClass", #  Avoid classes that contain only static members.
 	"biome:lint/style/useEnumInitializers", #  This enum declaration contains members that are implicitly initialized.
 	"yamllint:quoted-strings", # string value is redundantly quoted with any quotes
 	"biome:lint/suspicious/noExplicitAny", #  Unexpected any. Specify a different type.
+	"biome:lint/style/useExponentiationOperator", # Use the '**' operator instead of 'Math.pow'
 	"ripgrep:TODO", # TODOs
 	"biome:fmt", # formatting
+	"biome:lint/a11y/useGenericFontNames", # Generic font family missing.
 	"biome:lint/style/noInferrableTypes", # This type annotation is trivially inferred from its initialization.
 	"markdownlint:MD013", # Line length
 	"markdownlint:MD024", # Multiple headings with the same content

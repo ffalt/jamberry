@@ -27,9 +27,10 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 
 	ngOnInit(): void {
 		this.app.view.currentSidebar = this;
-		this.router.events
-			.forEach(() => this.showMobileNavig = false)
-			.catch(e => console.error(e));
+		// qlty-ignore: biome:lint/complexity/noForEach
+		this.router.events.forEach(() => {
+			this.showMobileNavig = false;
+		}).catch(e => console.error(e));
 	}
 
 	ngOnDestroy(): void {

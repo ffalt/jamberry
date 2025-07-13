@@ -30,7 +30,9 @@ export class TabPortalOutlet {
 		if (this.curTab && this.curTab.tab.name === tab.name) {
 			return;
 		}
-		this.availableTabs.forEach(t => t.active = false);
+		for (const t of this.availableTabs) {
+			t.active = false;
+		}
 		tab.active = true;
 		// Detach any current instance
 		this.detach();

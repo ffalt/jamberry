@@ -2,8 +2,10 @@
 function levenshtein(str1: string, str2: string): number {
 	const current: Array<number> = [];
 	let prev = 0;
-	let value;
+	let value: number;
+	// qlty-ignore: radarlint-js:typescript:S2301
 	for (let i = 0; i <= str2.length; i++) {
+		// qlty-ignore: radarlint-js:typescript:S2301
 		for (let j = 0; j <= str1.length; j++) {
 			if (i && j) {
 				value = (str1.charAt(j - 1) === str2.charAt(i - 1)) ? prev : Math.min(current[j], current[j - 1], prev) + 1;
@@ -49,13 +51,13 @@ function gramCounter(value: string, gramSize: number): { [name: string]: number 
 	// return an object where key=gram, value=number of occurrences
 	const result: { [name: string]: number } = {};
 	const grams = iterateGrams(value, gramSize || 2);
-	grams.forEach(g => {
+	for (const g of grams) {
 		if (g in result) {
 			result[g] += 1;
 		} else {
 			result[g] = 1;
 		}
-	});
+	}
 	return result;
 }
 
@@ -101,9 +103,9 @@ export class FuzzySet {
 			this.items[i] = [];
 		}
 		// add all the items to the set
-		this.arr.forEach(a => {
+		for (const a of this.arr) {
 			this.add(a);
-		});
+		}
 	}
 
 	get(value: string, defaultValue?: Array<Array<number>>): Array<Array<number>> | undefined {

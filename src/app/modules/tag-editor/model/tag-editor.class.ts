@@ -700,39 +700,64 @@ export class TagEditor {
 
 	private buildColumns(tracks: Array<Jam.Track>): void {
 		this.columns = [];
+
 		if (!tracks || tracks.length === 0) {
 			return;
 		}
 
-		DefaultFrameColumns.forEach((c, sort) => {
-			if (c.force) {
-				const col = this.frameDef2Column(c.id, c.subid, FrameDefs[c.id], sort);
-				this.columns.push(col);
-			}
-		});
-		tracks.forEach(track => {
+		const addDefaultColumns = (): void => {
+			DefaultFrameColumns.forEach((c, sort) => {
+				if (c.force) {
+					const col = this.frameDef2Column(c.id, c.subid, FrameDefs[c.id], sort);
+					this.columns.push(col);
+				}
+			});
+		};
+
+		const getTrackFrames = (track: Jam.Track): Array<RawTagEditFrame> => {
 			if (!track.tagRaw?.frames) {
-				return;
+				return [];
 			}
-			const frames: Array<RawTagEditFrame> = TagEditor.getRawTagFrames(track.tagRaw);
+			const frames = TagEditor.getRawTagFrames(track.tagRaw);
 			frames.unshift({id: FilenameColumnID, value: {text: track.name}});
+			return frames;
+		};
+
+		const findExistingColumn = (frame: RawTagEditFrame): any =>
+			this.columns.find(c => TagEditor.matchColumn(frame, c.def));
+
+		const createColumnFromFrame = (frame: RawTagEditFrame): void => {
+			const framedef = FrameDefs[frame.id];
+			const sort = DefaultFrameColumns.findIndex(c => TagEditor.matchColumn(frame, c));
+			if (framedef) {
+				let subid: string | undefined;
+				if (frame.value && frame.value.id !== undefined) {
+					subid = frame.value.id;
+				}
+				this.columns.push(this.frameDef2Column(frame.id, subid, framedef, sort));
+			} else {
+				this.columns.push(this.frame2Column(frame, sort));
+			}
+		};
+
+		const processTrackFrames = (track: Jam.Track): void => {
+			const frames = getTrackFrames(track);
 			for (const frame of frames) {
-				const column = this.columns.find(c => TagEditor.matchColumn(frame, c.def));
-				if (!column) {
-					const framedef = FrameDefs[frame.id];
-					const sort = DefaultFrameColumns.findIndex(c => TagEditor.matchColumn(frame, c));
-					if (framedef) {
-						let subid: string | undefined;
-						if (frame.value && frame.value.id !== undefined) {
-							subid = frame.value.id;
-						}
-						this.columns.push(this.frameDef2Column(frame.id, subid, FrameDefs[frame.id], sort));
-					} else {
-						this.columns.push(this.frame2Column(frame, sort));
-					}
+				const existingColumn = findExistingColumn(frame);
+				if (!existingColumn) {
+					createColumnFromFrame(frame);
 				}
 			}
-		});
+		};
+
+		// Execute the main function logic
+		addDefaultColumns();
+
+		for (const track of tracks) {
+			if (track.tagRaw?.frames) {
+				processTrackFrames(track);
+			}
+		}
 	}
 
 	private buildEdits(tracks: Array<Jam.Track>): void {
@@ -767,9 +792,9 @@ export class TagEditor {
 			let frames: Array<RawTagEditFrame> = [];
 			frames.push({id: FilenameColumnID, value: {text: track.name}});
 			if (track.tagRaw) {
-				Object.keys(track.tagRaw.frames).forEach(key => {
+				for (const key of Object.keys(track.tagRaw.frames)) {
 					frames = frames.concat(track.tagRaw?.frames[key] || []);
-				});
+				}
 			}
 			const oldEdit = oldEdits.find(e => e.track === track);
 			const edit: RawTagEditRow = {

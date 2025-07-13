@@ -27,7 +27,7 @@ export class MenuService {
 			if (!instance.contextMenu) {
 				return;
 			}
-			const contextMenu = instance.contextMenu()
+			const contextMenu = instance.contextMenu();
 			if (!contextMenu) {
 				return;
 			}
@@ -42,10 +42,10 @@ export class MenuService {
 	}
 
 	private cleanUp() {
-		this.templateOverlays.forEach(overlay => {
+		for (const overlay of this.templateOverlays) {
 			overlay.detach();
 			overlay.dispose();
-		});
+		}
 		this.templateOverlays = [];
 	}
 }

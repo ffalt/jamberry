@@ -131,11 +131,11 @@ export class PodcastService {
 			.then(data => {
 				this.podcasts = data.items;
 				this.podcastsChange.emit(this.podcasts);
-				data.items.forEach(podcast => {
+				for (const podcast of data.items) {
 					if (podcast.status === PodcastStatus.downloading) {
 						this.podcastPoll.poll(podcast);
 					}
-				});
+				}
 			})
 			.catch(e => {
 				this.notify.error(e);

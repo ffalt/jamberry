@@ -86,11 +86,11 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	}
 
 	private checkForIntersection(entries: Array<IntersectionObserverEntry>): void {
-		entries.forEach((entry: IntersectionObserverEntry) => {
+		for (const entry of entries) {
 			if (entry.target === this.elementRef.nativeElement) {
 				this.manageIntersection(entry);
 			}
-		});
+		}
 	};
 
 	private checkIfIntersecting(entry: IntersectionObserverEntry): boolean {
