@@ -2,14 +2,14 @@
   <button class="toast-close-button" aria-label="Close" i18n-aria-label (click)="remove()"><span aria-hidden="true">&times;</span></button>
 }
 @if (title) {
-  <div [class]="options.titleClass" [attr.aria-label]="title">{{ title }}
+  <div [class]="options.titleClass">{{ title }}
     @if (duplicatesCount) {
       [{{ duplicatesCount + 1 }}]
     }
   </div>
 }
 @if (message) {
-  <div role="alertdialog" aria-live="polite" i18n-aria-live [class]="options.messageClass" [attr.aria-label]="message">{{ message }}</div>
+  <div role="alertdialog" aria-live="polite" i18n-aria-live [class]="options.messageClass">{{ message }}</div>
 }
 @if (options.progressBar) {
   <div>

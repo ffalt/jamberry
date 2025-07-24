@@ -54,6 +54,7 @@
 /* toast styles */
 .toast-title {
 	font-weight: bold;
+	margin-right: 10px;
 }
 
 .toast-message {
@@ -79,7 +80,6 @@
 	font-weight: bold;
 	color: #FFFFFF;
 	text-shadow: 0 1px 0 #ffffff;
-	/* opacity: 0.8; */
 }
 
 .toast-close-button:hover,
