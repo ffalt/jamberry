@@ -1,3 +1,3 @@
 export function randomString(): string {
-	return Math.floor(Math.random() * (9999999)).toString();
+	return Math.floor(Math.random() * (9_999_999)).toString();
 }

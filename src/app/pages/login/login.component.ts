@@ -54,13 +54,11 @@ export class LoginComponent implements OnInit {
 		this.auth.login(this.credentials.server, this.credentials.username, this.credentials.password)
 			.then(() => {
 				this.router.navigateByUrl(this.returnUrl ?? '/library')
-					.catch(e => {
-						console.error(e);
-					});
+					.catch(console.error);
 			})
-			.catch(err => {
-				this.notify.error(err);
-				this.error = serverErrorMsg(err);
+			.catch(error => {
+				this.notify.error(error);
+				this.error = serverErrorMsg(error);
 			});
 	}
 }

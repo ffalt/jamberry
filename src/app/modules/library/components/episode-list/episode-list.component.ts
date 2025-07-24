@@ -25,12 +25,6 @@ export class EpisodeListComponent {
 		this.library.openJamObjectMenu(new JamEpisodeObject(item, this.library), $event);
 	}
 
-	tapEpisode(event: Event & { tapCount?: number }, episode: Jam.Episode): void {
-		if (event.tapCount === 2) {
-			this.play(episode);
-		}
-	}
-
 	play(episode: Jam.Episode): void {
 		if (episode.status === PodcastStatus.completed) {
 			this.player.startEpisode(episode);

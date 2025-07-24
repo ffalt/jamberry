@@ -2,8 +2,7 @@ import {type FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
 import {type AfterViewInit, Component, type OnDestroy, input, ViewChildren, type QueryList} from '@angular/core';
 import type {JamLibraryObject} from '@library/model/objects';
 import {ObjCardComponent} from '@shared/components';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 interface ObjCardsGroupsView {
 	type?: string;
@@ -16,7 +15,7 @@ interface ObjCardsGroupsView {
 	styleUrls: ['./obj-groups-cards.component.scss'],
 	standalone: false,
 	host: {
-		tabindex: 'tabindex',
+		"[tabindex]": 'tabindex',
 		'(keydown.arrowDown)': 'manage($event)',
 		'(keydown.arrowUp)': 'manage($event)'
 	}

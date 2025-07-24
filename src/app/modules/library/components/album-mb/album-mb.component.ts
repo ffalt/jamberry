@@ -2,8 +2,7 @@ import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-album-mb',
@@ -45,8 +44,6 @@ export class AlbumMbComponent implements OnInit, OnDestroy {
 				this.album = album;
 				this.mbReleaseID = album ? album.mbReleaseID : undefined;
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 }

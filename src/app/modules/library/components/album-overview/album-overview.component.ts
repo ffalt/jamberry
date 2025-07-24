@@ -2,8 +2,7 @@ import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {AlbumType, type Jam, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-album-overview',
@@ -54,12 +53,8 @@ export class AlbumOverviewComponent implements OnInit, OnDestroy {
 				albumIncTracks: true,
 				albumIncInfo: true
 			})
-				.then(album => {
-					this.display(album);
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.then(album => this.display(album))
+				.catch(error => this.notify.error(error));
 		}
 	}
 }

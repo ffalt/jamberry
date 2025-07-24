@@ -13,8 +13,7 @@ import {
 	MusicBrainzLookupType,
 	type WikiData
 } from '@jam';
-import {firstValueFrom, Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {firstValueFrom, Subject, takeUntil} from 'rxjs';
 
 export interface ArtworkSearch {
 	folder: Jam.Folder;
@@ -78,9 +77,9 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 				this.isArtRefreshing = false;
 				this.artworks = art.items;
 			})
-			.catch(e => {
+			.catch(error => {
 				this.isArtRefreshing = false;
-				console.error(e);
+				console.error(error);
 			});
 	}
 
@@ -175,9 +174,9 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 					this.nodes.push(node);
 				}
 			})
-			.catch(e => {
+			.catch(error => {
 				this.nodes = [];
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 	}
 
@@ -200,9 +199,9 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 					});
 					this.use();
 				})
-				.catch(e => {
+				.catch(error => {
 					node.storing = false;
-					this.notify.error(e);
+					this.notify.error(error);
 				});
 		} else {
 			this.isWorking = false;
@@ -224,16 +223,12 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 				let nodes = this.coverArtResponseToNodes(res.data);
 				this.jam.metadata.coverartarchiveLookup({type: CoverArtArchiveLookupType.release, mbID: musicBrainzReleaseID})
 					.then(res2 => {
-						nodes = nodes.concat(this.coverArtResponseToNodes(res2.data));
+						nodes = [...nodes, ...this.coverArtResponseToNodes(res2.data)];
 						this.display(nodes);
 					})
-					.catch(e => {
-						this.notify.error(e);
-					});
+					.catch(error => this.notify.error(error));
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	loadReleaseGroup(musicBrainzReleaseGroupID: string): void {
@@ -242,9 +237,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 				const nodes = this.coverArtResponseToNodes(res.data);
 				this.display(nodes);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	loadRelease(musicBrainzReleaseID: string): void {
@@ -259,9 +252,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 						this.loadReleaseGroup(data.folder.tag.mbReleaseGroupID);
 					}
 				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.catch(error => this.notify.error(error));
 		}
 	}
 

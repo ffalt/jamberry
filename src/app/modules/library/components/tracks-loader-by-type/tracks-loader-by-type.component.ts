@@ -2,8 +2,7 @@ import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ListTypeUrlNamesKeys} from '@app/utils/jam-lists';
 import type {ListType} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-tracks-loader-page-by-type',

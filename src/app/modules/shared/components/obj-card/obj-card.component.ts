@@ -8,7 +8,7 @@ import type {JamObject} from '@shared/model/helpers';
 	styleUrls: ['./obj-card.component.scss'],
 	standalone: false,
 	host: {
-		tabindex: 'tabindex',
+		"[tabindex]": 'tabindex',
 		'(contextmenu)': 'contextmenuEvent($event)',
 		'(keydown.enter)': 'contextmenuEvent($event)'
 	}
@@ -42,11 +42,7 @@ export class ObjCardComponent implements FocusableOption {
 			return;
 		}
 		obj.toggleFav()
-			.then(() => {
-				this.cdr.detectChanges();
-			})
-			.catch(e => {
-				console.error(e);
-			});
+			.then(() => this.cdr.detectChanges())
+			.catch(console.error);
 	}
 }

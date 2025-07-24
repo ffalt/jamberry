@@ -2,8 +2,7 @@ import {TrackHealthComponent} from '@admin/components/track-health/track-health.
 import {Component, type OnDestroy, type OnInit, inject, viewChildren} from '@angular/core';
 import {NotifyService, UiStateService, UserStorageService} from '@core/services';
 import {FolderType, type Jam, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-admin-radar',
@@ -88,17 +87,17 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 				if (health.length > 0) {
 					current.health = health;
 					this.searching = false;
-				} else if (!continueNext) {
+				} else if (continueNext) {
+					this.request();
+				} else {
 					current.health = [];
 					this.searching = false;
-				} else {
-					this.request();
 				}
 			})
-			.catch(e => {
+			.catch(error => {
 				this.current = undefined;
 				this.searching = false;
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 	}
 
@@ -130,7 +129,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 		const o = this.userStorage.get<{ folderID: string }>(AdminRadarComponent.localStorageName);
 		if (o?.folderID && this.folders) {
 			const pos = this.folders.findIndex(f => f.id === o.folderID);
-			if (pos >= 0) {
+			if (pos !== -1) {
 				this.current = {folder: this.folders[pos], pos};
 				this.refresh(pos, false);
 			}
@@ -142,8 +141,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 			.then(data => {
 				this.folders = data.items;
 				this.loadFromStorage();
-			}).catch(e => {
-			this.notify.error(e);
-		});
+			})
+			.catch(error => this.notify.error(error));
 	}
 }

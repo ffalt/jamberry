@@ -32,9 +32,9 @@ export class ContextEntryRateComponent implements OnChanges {
 				await this.jam.state.rate({id: base.id, rating: this.rating});
 				base.state.rated = this.rating;
 				this.notify.success(`Rated ${this.baseType()} with ${this.rating}`);
-			} catch (e: any) {
-				this.notify.error(e);
-				return Promise.reject(e as Error);
+			} catch (error) {
+				this.notify.error(error);
+				return Promise.reject(error);
 			}
 		}
 	}

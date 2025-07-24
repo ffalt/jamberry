@@ -54,7 +54,7 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 				const items: Array<AutocompleteOption> = part.list.map(data =>
 					({data: {type: part.type, ...data}}));
 				items[0].header = part.type;
-				list = list.concat(items);
+				list = [...list, ...items];
 			}
 		}
 		return list;
@@ -63,29 +63,37 @@ export class SearchBoxComponent implements AutocompleteDataControl {
 	autocompleteSelectResult(result: AutocompleteOption): string {
 		const item = result.data;
 		switch (item.type) {
-			case objTypes.track:
+			case objTypes.track: {
 				this.navig.toTrackID(item.id, item.name);
 				break;
-			case objTypes.episode:
+			}
+			case objTypes.episode: {
 				this.navig.toPodcastEpisodeID(item.id, item.name);
 				break;
-			case objTypes.album:
+			}
+			case objTypes.album: {
 				this.navig.toAlbumID(item.id, item.name);
 				break;
-			case objTypes.artist:
+			}
+			case objTypes.artist: {
 				this.navig.toArtistID(item.id, item.name);
 				break;
-			case objTypes.playlist:
+			}
+			case objTypes.playlist: {
 				this.navig.toPlaylistID(item.id, item.name);
 				break;
-			case objTypes.podcast:
+			}
+			case objTypes.podcast: {
 				this.navig.toPodcastID(item.id, item.name);
 				break;
-			case objTypes.folder:
+			}
+			case objTypes.folder: {
 				this.navig.toFolderID(item.id, item.name);
 				break;
-			default:
+			}
+			default: {
 				break;
+			}
 		}
 		return item.name;
 	}

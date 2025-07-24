@@ -32,7 +32,7 @@ import {Pipe, type PipeTransform} from '@angular/core';
 })
 export class AgoPipe implements PipeTransform {
 	transform(value?: number): string {
-		if (typeof value === 'undefined' || value === null || value === undefined) {
+		if (value === undefined || value === null) {
 			return '';
 		}
 		const parsedValue = Number(value);

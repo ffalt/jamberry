@@ -14,8 +14,19 @@ import {
 } from '@angular/core';
 import type {AutocompleteControl, AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
 import {isArrowKeys, isDownArrowKey, isEnterKey, isEscapeKey, isLeftArrowKey, isNonCharKey, isRightArrowKey} from '@app/utils/keys';
-import {concat, fromEvent, type Observable, Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {
+	concat,
+	fromEvent,
+	type Observable,
+	Subject,
+	debounceTime,
+	distinctUntilChanged,
+	filter,
+	map,
+	switchMap,
+	takeUntil,
+	tap
+} from 'rxjs';
 import type {AutocompleteComponent} from './autocomplete.component';
 
 export function toFormControlValue(e: any): any {
@@ -118,7 +129,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 				this.options = results;
 				this.display();
 			})
-			.catch(e => console.error(e));
+			.catch(console.error);
 	}
 
 	private static resolveNextIndex(currentIndex: number, stepUp: boolean, list: Array<AutocompleteOption>): number {

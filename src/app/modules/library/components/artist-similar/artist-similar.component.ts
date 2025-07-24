@@ -4,8 +4,7 @@ import {NotifyService} from '@core/services';
 import {JamService} from '@jam';
 import {JamArtistObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-artist-similar',
@@ -46,8 +45,6 @@ export class ArtistSimilarComponent implements OnInit, OnDestroy {
 			.then(data => {
 				this.similar = (data.items || []).map(o => new JamArtistObject(o, this.library));
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 }

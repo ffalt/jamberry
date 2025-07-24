@@ -3,8 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
 import {PodcastService} from '@shared/services';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-episode-overview',
@@ -45,12 +44,8 @@ export class EpisodeOverviewComponent implements OnInit, OnDestroy {
 	refresh(): void {
 		if (this.id) {
 			this.jam.episode.id({id: this.id, episodeIncTag: true, episodeIncState: true, episodeIncMedia: true})
-				.then(episode => {
-					this.display(episode);
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.then(episode => this.display(episode))
+				.catch(error => this.notify.error(error));
 		}
 	}
 

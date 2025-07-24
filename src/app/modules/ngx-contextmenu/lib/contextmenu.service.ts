@@ -68,7 +68,27 @@ export class ContextMenuService {
 	openContextMenu(context: IContextMenuContext) {
 		const {anchorElement, event, parentContextMenu} = context;
 
-		if (!parentContextMenu) {
+		if (parentContextMenu) {
+			const positionStrategy = this.overlay
+				.position()
+				.flexibleConnectedTo(new ElementRef(event ? event.target : anchorElement))
+				.withPositions([
+					{originX: 'end', originY: 'top', overlayX: 'start', overlayY: 'top'},
+					{originX: 'start', originY: 'top', overlayX: 'end', overlayY: 'top'},
+					{originX: 'end', originY: 'bottom', overlayX: 'start', overlayY: 'bottom'},
+					{originX: 'start', originY: 'bottom', overlayX: 'end', overlayY: 'bottom'}
+				])
+				.withFlexibleDimensions(false)
+			;
+			const newOverlay = this.overlay.create({
+				positionStrategy,
+				panelClass: 'ngx-contextmenu',
+				scrollStrategy: this.scrollStrategy.close()
+			});
+			this.destroySubMenus(parentContextMenu);
+			this.overlays = [...this.overlays, newOverlay];
+			this.attachContextMenu(newOverlay, context);
+		} else {
 			const mouseEvent = event as MouseEvent;
 			this.fakeElement.getBoundingClientRect = (): Rect => ({
 				left: mouseEvent.clientX,
@@ -97,26 +117,6 @@ export class ContextMenuService {
 				scrollStrategy: this.scrollStrategy.close()
 			})];
 			this.attachContextMenu(this.overlays[0], context);
-		} else {
-			const positionStrategy = this.overlay
-				.position()
-				.flexibleConnectedTo(new ElementRef(event ? event.target : anchorElement))
-				.withPositions([
-					{originX: 'end', originY: 'top', overlayX: 'start', overlayY: 'top'},
-					{originX: 'start', originY: 'top', overlayX: 'end', overlayY: 'top'},
-					{originX: 'end', originY: 'bottom', overlayX: 'start', overlayY: 'bottom'},
-					{originX: 'start', originY: 'bottom', overlayX: 'end', overlayY: 'bottom'}
-				])
-				.withFlexibleDimensions(false)
-			;
-			const newOverlay = this.overlay.create({
-				positionStrategy,
-				panelClass: 'ngx-contextmenu',
-				scrollStrategy: this.scrollStrategy.close()
-			});
-			this.destroySubMenus(parentContextMenu);
-			this.overlays = this.overlays.concat(newOverlay);
-			this.attachContextMenu(newOverlay, context);
 		}
 	}
 
@@ -170,13 +170,13 @@ export class ContextMenuService {
 		this.overlays = [];
 	}
 
-	getLastAttachedOverlay(): OverlayRefWithContextMenu {
-		let overlay: OverlayRef = this.overlays[this.overlays.length - 1];
+	getLastAttachedOverlay(): OverlayRefWithContextMenu | undefined {
+		let overlay: OverlayRefWithContextMenu | undefined = this.overlays.at(-1);
 		while (this.overlays.length > 1 && overlay && !overlay.hasAttached()) {
 			overlay.detach();
 			overlay.dispose();
 			this.overlays = this.overlays.slice(0, -1);
-			overlay = this.overlays[this.overlays.length - 1];
+			overlay = this.overlays.at(-1);
 		}
 		return overlay;
 	}

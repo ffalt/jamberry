@@ -67,8 +67,8 @@ export class Matcher {
 				this.isAborted = false;
 				this.currentAction = '';
 			})
-			.catch(e => {
-				this.notify.error(e);
+			.catch(error => {
+				this.notify.error(error);
 				this.isRunning = false;
 				this.isAborted = false;
 				this.currentAction = '';
@@ -94,8 +94,8 @@ export class Matcher {
 				this.isAborted = false;
 				this.currentAction = '';
 			})
-			.catch(e => {
-				this.notify.error(e);
+			.catch(error => {
+				this.notify.error(error);
 				this.isRunning = false;
 				this.isAborted = false;
 				this.currentAction = '';
@@ -121,7 +121,7 @@ export class Matcher {
 			track.matchings.push(matching);
 		}
 		matching.score = 1;
-		if (!matching.scores.find(s => s.name === 'Manual Match')) {
+		if (!matching.scores.some(s => s.name === 'Manual Match')) {
 			matching.scores.push({name: 'Manual Match', score: 1, weight: 1});
 		}
 		for (const media of release.media) {
@@ -204,10 +204,7 @@ export class Matcher {
 	setRelease(group: MatchReleaseGroup, release: MatchRelease): void {
 		group.currentRelease = release;
 		if (!release.loaded) {
-			this.loadRelease(release)
-				.catch(e => {
-					this.notify.error(e);
-				});
+			this.loadRelease(release).catch(error => this.notify.error(error));
 		}
 	}
 
@@ -225,9 +222,9 @@ export class Matcher {
 			.then(() => {
 				this.stopRunning();
 			})
-			.catch(e => {
+			.catch(error => {
 				this.stopRunning();
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 	}
 
@@ -240,9 +237,9 @@ export class Matcher {
 			.then(() => {
 				this.stopRunning();
 			})
-			.catch(e => {
+			.catch(error => {
 				this.stopRunning();
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 	}
 
@@ -251,7 +248,8 @@ export class Matcher {
 			for (const track of media.tracks) {
 				if (!track.abData && track.currentMatch?.match?.mbTrack?.recording?.id) {
 					const recordingId = track.currentMatch.match.mbTrack.recording.id;
-					const res = (await this.jam.metadata.acousticbrainzLookup({mbID: recordingId})).data;
+					const result = await this.jam.metadata.acousticbrainzLookup({mbID: recordingId});
+					const res = result.data;
 					const abData = AcousticBrainzHelper.processAcousticBrainzData(res);
 					if (abData) {
 						track.abData = abData;
@@ -274,15 +272,15 @@ export class Matcher {
 				try {
 					const data = await this.jam.metadata.acoustidLookup({trackID: match.track.id});
 					match.acoustidEntries = acoustidResultToList(data.data, match.track);
-				} catch (e: any) {
-					console.error(e);
+				} catch (error) {
+					console.error(error);
 				}
 				if (this.isAborted) {
 					return list;
 				}
 			}
 			if (match.acoustidEntries) {
-				list = list.concat(match.acoustidEntries);
+				list = [...list, ...match.acoustidEntries];
 			}
 		}
 		return list;
@@ -329,7 +327,8 @@ export class Matcher {
 				if (track.currentMatch && !track.currentMatch.match.lyrics && track.mbTrack.artistCredit && track.mbTrack.artistCredit.length > 0) {
 					const artist = track.mbTrack.artistCredit[0].name;
 					const title = track.mbTrack.title;
-					track.currentMatch.match.lyrics = (await this.jam.metadata.lyricsovhSearch({title, artist})).data;
+					const result = await this.jam.metadata.lyricsovhSearch({title, artist});
+					track.currentMatch.match.lyrics = result.data;
 				}
 			}
 		}
@@ -344,14 +343,14 @@ export class Matcher {
 			this.currentAction = `Loading MusicBrainz Release: ${release.mbRelease.id}`;
 			const res = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.release, mbID: release.mbRelease.id});
 			if (!res.data?.release) {
-				return Promise.reject(Error('Got empty data'));
+				return Promise.reject(new Error('Got empty data'));
 			}
 			release.setLookupRelease(res.data.release, this.matchings);
 			release.loaded = true;
 			release.isLoading = false;
-		} catch (e: any) {
+		} catch (error) {
 			release.isLoading = false;
-			return Promise.reject(e as Error);
+			return Promise.reject(error);
 		}
 	}
 
@@ -359,7 +358,7 @@ export class Matcher {
 		this.currentAction = `Loading MusicBrainz Release: ${releaseID}`;
 		const res = await this.jam.metadata.musicbrainzLookup({type: MusicBrainzLookupType.release, mbID: releaseID});
 		if (!res.data.release) {
-			return Promise.reject(Error('Got empty data'));
+			return Promise.reject(new Error('Got empty data'));
 		}
 		return this.addReleaseGroupByID(res.data.release.releaseGroup.id);
 	}
@@ -424,7 +423,8 @@ export class Matcher {
 			return;
 		}
 		this.currentAction = q.name;
-		const res = (await this.jam.metadata.musicbrainzSearch(q.q)).data;
+		const result = await this.jam.metadata.musicbrainzSearch(q.q);
+		const res = result?.data;
 		if (res.releaseGroups) {
 			await this.loadByReleaseGroups(res.releaseGroups);
 		} else if (res.releases) {
@@ -490,10 +490,10 @@ export class Matcher {
 	private async applyMatchReleaseGroup(match: Matching, matchReleaseGroup: MatchReleaseGroup) {
 		if (match.track.tag?.mbReleaseID) {
 			const rel = matchReleaseGroup.findRelease(match.track.tag.mbReleaseID);
-			if (!rel) {
-				console.error('Could not find the release with id', match.track.tag.mbReleaseID);
-			} else {
+			if (rel) {
 				await this.loadRelease(rel);
+			} else {
+				console.error('Could not find the release with id', match.track.tag.mbReleaseID);
 			}
 			matchReleaseGroup.currentRelease = rel;
 			if (!matchReleaseGroup.enough(this.matchings.length)) {

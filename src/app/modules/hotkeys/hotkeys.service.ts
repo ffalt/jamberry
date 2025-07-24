@@ -51,7 +51,7 @@ export class HotkeysService {
 						!(hotkey.allowIn || []).map(allow => allow.toUpperCase()).includes(nodeName));
 			}
 			if (shouldExecute) {
-				return (hotkey).callback.apply(this, [event, combo]);
+				return Reflect.apply((hotkey).callback, this, [event, combo]);
 			}
 			return;
 		};
@@ -124,7 +124,7 @@ export class HotkeysService {
 			return temp;
 		}
 		const index: number = this.pausedHotkeys.indexOf(hotkey);
-		if (index > -1) {
+		if (index !== -1) {
 			this.add(hotkey);
 			return this.pausedHotkeys.splice(index, 1);
 		}

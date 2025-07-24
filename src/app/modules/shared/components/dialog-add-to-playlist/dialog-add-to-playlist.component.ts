@@ -2,8 +2,7 @@ import {Component, inject} from '@angular/core';
 import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {NotifyService} from '@core/services';
 import type {Jam} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {PlaylistService} from '../../services/playlist/playlist.service';
 
 export interface ChoosePlaylistData {
@@ -37,12 +36,9 @@ export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlayli
 			.then(playlists => {
 				this.playlists = playlists;
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
-		this.start().catch(e => {
-			this.notify.error(e);
-		});
+			.catch(error => this.notify.error(error));
+		this.start()
+			.catch(error => this.notify.error(error));
 	}
 
 	async start(): Promise<void> {

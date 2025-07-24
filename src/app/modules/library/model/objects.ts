@@ -73,10 +73,11 @@ export class JamAlbumObject extends JamLibraryObject {
 	async loadChildren(): Promise<void> {
 		if (!this.tracks) {
 			try {
-				this.tracks = (await this.library.jam.album.tracks({ids: [this.base.id], trackIncTag: true, trackIncState: true})).items;
-			} catch (e: any) {
+				const data = await this.library.jam.album.tracks({ids: [this.base.id], trackIncTag: true, trackIncState: true});
+				this.tracks = data.items;
+			} catch (error) {
 				this.tracks = [];
-				this.library.notify.error(e);
+				this.library.notify.error(error);
 			}
 		}
 	}
@@ -132,15 +133,17 @@ export class JamFolderObject extends JamLibraryObject {
 		this.mediaType = folder.type;
 		this.genre = folder?.tag?.genres?.length ? folder.tag.genres.join(' / ') : undefined;
 		switch (folder.type) {
-			case FolderType.artist:
+			case FolderType.artist: {
 				this.name = folder.tag?.artist ?? '[Unknown Artist]';
 				break;
+			}
 			case FolderType.album:
-			case FolderType.multialbum:
+			case FolderType.multialbum: {
 				this.name = folder.tag?.album ?? '[Unknown Album]';
 				this.parent = folder.tag?.artist;
 				this.year = folder.tag?.year ? `${folder.tag.year}` : undefined;
 				break;
+			}
 			default:
 		}
 	}
@@ -166,10 +169,11 @@ export class JamFolderObject extends JamLibraryObject {
 	async loadChildren(): Promise<void> {
 		if (!this.tracks) {
 			try {
-				this.tracks = (await this.library.jam.folder.tracks({ids: [this.base.id], trackIncTag: true, trackIncState: true})).items;
-			} catch (e: any) {
+				const data = await this.library.jam.folder.tracks({ids: [this.base.id], trackIncTag: true, trackIncState: true});
+				this.tracks = data.items;
+			} catch (error) {
 				this.tracks = [];
-				this.library.notify.error(e);
+				this.library.notify.error(error);
 			}
 		}
 	}
@@ -229,9 +233,10 @@ export class JamArtistObject extends JamLibraryObject {
 	async loadChildren(): Promise<void> {
 		if (!this.albums) {
 			try {
-				this.albums = (await this.library.jam.artist.albums({ids: [this.base.id], albumIncState: true})).items;
-			} catch (e: any) {
-				this.library.notify.error(e);
+				const data = await this.library.jam.artist.albums({ids: [this.base.id], albumIncState: true});
+				this.albums = data.items;
+			} catch (error) {
+				this.library.notify.error(error);
 			}
 		}
 	}
@@ -305,15 +310,16 @@ export class JamPlaylistObject extends JamLibraryObject {
 	async loadChildren(): Promise<void> {
 		if (!this.tracks) {
 			try {
-				this.media = (await this.library.jam.playlist.entries({
+				const data = await this.library.jam.playlist.entries({
 					ids: [this.base.id],
 					trackIncTag: true,
 					trackIncState: true,
 					episodeIncTag: true,
 					episodeIncState: true
-				})).items;
-			} catch (e: any) {
-				this.library.notify.error(e);
+				});
+				this.media = data.items;
+			} catch (error) {
+				this.library.notify.error(error);
 			}
 		}
 	}
@@ -365,15 +371,16 @@ export class JamTrackObject extends JamLibraryObject {
 	async loadChildren(): Promise<void> {
 		if (!this.tracks) {
 			try {
-				this.media = (await this.library.jam.playlist.entries({
+				const data = await this.library.jam.playlist.entries({
 					ids: [this.base.id],
 					trackIncTag: true,
 					trackIncState: true,
 					episodeIncState: true,
 					episodeIncTag: true
-				})).items;
-			} catch (e: any) {
-				this.library.notify.error(e);
+				});
+				this.media = data.items;
+			} catch (error) {
+				this.library.notify.error(error);
 			}
 		}
 	}
@@ -483,9 +490,10 @@ export class JamSeriesObject extends JamLibraryObject {
 	async loadChildren(): Promise<void> {
 		if (!this.albums) {
 			try {
-				this.albums = (await this.library.jam.series.albums({ids: [this.base.id], albumIncState: true})).items;
-			} catch (e: any) {
-				this.library.notify.error(e);
+				const data = await this.library.jam.series.albums({ids: [this.base.id], albumIncState: true});
+				this.albums = data.items;
+			} catch (error) {
+				this.library.notify.error(error);
 			}
 		}
 	}
@@ -562,14 +570,15 @@ export class JamPodcastObject extends JamLibraryObject {
 	async loadChildren(): Promise<void> {
 		if (!this.episodes) {
 			try {
-				this.episodes = (await this.library.jam.episode.search({
+				const data = await this.library.jam.episode.search({
 					podcastIDs: [this.base.id],
 					episodeIncTag: true,
 					episodeIncState: true,
 					take: 10
-				})).items;
-			} catch (e: any) {
-				this.library.notify.error(e);
+				});
+				this.episodes = data.items;
+			} catch (error) {
+				this.library.notify.error(error);
 			}
 		}
 	}

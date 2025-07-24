@@ -3,8 +3,7 @@ import {Router} from '@angular/router';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService} from '@core/services';
 import {FolderHealthID, type Jam, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {DialogFolderArtworkSearchComponent} from '../dialog-folder-artwork-search/dialog-folder-artwork-search.component';
 
 export interface FolderHealthHintSolution {
@@ -112,7 +111,7 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 	}
 
 	private addRenameSolution(folder: Jam.Folder, name: string): void {
-		if (!this.solutions.find(sol => sol.name === 'Rename')) {
+		if (!this.solutions.some(sol => sol.name === 'Rename')) {
 			const sol: FolderHealthHintSolution = {
 				name: 'Rename',
 				click: async () => {
@@ -132,14 +131,11 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 	}
 
 	private addEditTagSolution(folder: Jam.Folder): void {
-		if (!this.solutions.find(sol => sol.name === 'Edit Tags')) {
+		if (!this.solutions.some(sol => sol.name === 'Edit Tags')) {
 			const sol: FolderHealthHintSolution = {
 				name: 'Edit Tags',
 				click: async () => {
-					this.router.navigate([`/admin/folder/${folder.id}/tags`])
-						.catch(e => {
-							console.error(e);
-						});
+					this.router.navigate([`/admin/folder/${folder.id}/tags`]).catch(console.error);
 				}
 			};
 			this.solutions.push(sol);
@@ -181,26 +177,35 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 
 	private describeHint(hint: Jam.FolderHealthHint, folder: Jam.Folder): Array<string> {
 		switch (hint.id) {
-			case FolderHealthID.albumMBIDExists:
+			case FolderHealthID.albumMBIDExists: {
 				return this.describeMBIDMissingHint(hint, folder);
-			case FolderHealthID.albumTagsExists:
+			}
+			case FolderHealthID.albumTagsExists: {
 				return this.describeAlbumTagMissingHint(hint, folder);
+			}
 			case FolderHealthID.albumNameConform:
-			case FolderHealthID.artistNameConform:
+			case FolderHealthID.artistNameConform: {
 				return this.describeNameNonConformHint(hint, folder);
-			case FolderHealthID.albumImageExists:
+			}
+			case FolderHealthID.albumImageExists: {
 				return this.describeAlbumImageMissingHint(hint, folder);
-			case FolderHealthID.albumTracksComplete:
+			}
+			case FolderHealthID.albumTracksComplete: {
 				return FolderHealthComponent.describeAlbumTracksMissingHint(hint);
-			case FolderHealthID.artistImageExists:
+			}
+			case FolderHealthID.artistImageExists: {
 				return this.describeArtistImageMissingHint(hint, folder);
+			}
 			case FolderHealthID.artistImageValid:
-			case FolderHealthID.albumImageValid:
+			case FolderHealthID.albumImageValid: {
 				return FolderHealthComponent.describeImageInvalidHint(hint);
-			case FolderHealthID.albumImageQuality:
+			}
+			case FolderHealthID.albumImageQuality: {
 				return this.describeImageQualityHint(hint, folder);
-			default:
+			}
+			default: {
 				break;
+			}
 		}
 		return [];
 	}

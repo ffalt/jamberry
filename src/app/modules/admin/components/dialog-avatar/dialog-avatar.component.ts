@@ -4,8 +4,7 @@ import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@
 import {randomString} from '@app/utils/random';
 import {NotifyService} from '@core/services';
 import {ImageFormatType, type Jam, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-dialog-avatar',
@@ -68,18 +67,19 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 		const file: File = files[0];
 
 		this.jam.user.uploadUserImage({id: this.user.id}, file)
-			.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
-				if (event instanceof HttpResponse) {
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe({
+				next: event => {
+					if (event instanceof HttpResponse) {
+						this.setImageSource();
+						this.hasChanged = true;
+					}
+				},
+				error: error => {
 					this.setImageSource();
-					this.hasChanged = true;
-				}
-			}, err => {
-				this.setImageSource();
-				this.notify.error(err);
-			},
-			() => {
-				this.notify.success('Upload done');
-			}
-		);
+					this.notify.error(error);
+				},
+				complete: () => this.notify.success('Upload done')
+			});
 	}
 }

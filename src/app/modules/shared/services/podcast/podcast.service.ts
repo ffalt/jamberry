@@ -17,34 +17,34 @@ export class PodcastService {
 	private readonly episodePoll = new Poller<Jam.Episode>((episode, cb) => {
 		this.jam.episode.status({id: episode.id})
 			.then(data => {
-				if (data.status !== 'downloading') {
+				if (data.status === 'downloading') {
+					cb(true);
+				} else {
 					episode.status = data.status;
 					episode.error = data.error;
 					this.episodeChange.emit(episode.id);
 					cb(false);
-				} else {
-					cb(true);
 				}
 			})
-			.catch(err => {
-				console.error('error while polling episode download status', err);
+			.catch(error => {
+				console.error('error while polling episode download status', error);
 			});
 	});
 	private readonly podcastPoll = new Poller<Jam.Podcast>((podcast, cb) => {
 		this.jam.podcast.status({id: podcast.id})
 			.then(data => {
-				if (data.status !== 'downloading') {
+				if (data.status === 'downloading') {
+					cb(true);
+				} else {
 					podcast.status = data.status;
 					podcast.error = data.error;
 					podcast.lastCheck = data.lastCheck;
 					this.refreshPodcast(podcast.id);
 					cb(false);
-				} else {
-					cb(true);
 				}
 			})
-			.catch(err => {
-				console.error('error while polling podcast download status', err);
+			.catch(error => {
+				console.error('error while polling podcast download status', error);
 			});
 	});
 
@@ -54,9 +54,7 @@ export class PodcastService {
 				.then(() => {
 					this.notify.success('Podcast removed');
 				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.catch(error => this.notify.error(error));
 		});
 	}
 
@@ -64,7 +62,7 @@ export class PodcastService {
 		await this.jam.podcast.remove({id: podcast.id});
 		this.podcasts = this.podcasts.filter(pl => pl.id !== podcast.id);
 		this.podcastsChange.emit(this.podcasts);
-		this.podcastChange.emit(podcast.id, undefined);
+		this.podcastChange.emit(podcast.id);
 	}
 
 	checkPodcasts(): void {
@@ -73,9 +71,8 @@ export class PodcastService {
 				this.notify.success('Podcasts are updating');
 				this.refresh();
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	checkPodcast(podcast: Jam.Podcast): void {
@@ -84,9 +81,8 @@ export class PodcastService {
 				this.notify.success('Podcast is updating');
 				this.refreshPodcast(podcast.id);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	refreshPodcast(id: string): void {
@@ -100,7 +96,7 @@ export class PodcastService {
 		})
 			.then(podcast => {
 				const index = this.podcasts.findIndex(p => p.id === id);
-				if (index < 0) {
+				if (index === -1) {
 					this.podcasts.push(podcast);
 				} else {
 					this.podcasts[index] = podcast;
@@ -111,9 +107,8 @@ export class PodcastService {
 					this.podcastPoll.poll(podcast);
 				}
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	getTracks(id: string, cb: (episodes: Array<Jam.Episode>) => void): void {
@@ -121,9 +116,8 @@ export class PodcastService {
 			.then(podcast => {
 				cb(podcast.episodes || []);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	refresh(): void {
@@ -137,9 +131,8 @@ export class PodcastService {
 					}
 				}
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	retrieveEpisode(episode: Jam.Episode): void {
@@ -148,8 +141,7 @@ export class PodcastService {
 				episode.status = PodcastStatus.downloading;
 				this.episodePoll.poll(episode);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 }

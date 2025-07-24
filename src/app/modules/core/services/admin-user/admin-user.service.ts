@@ -40,7 +40,7 @@ export class AdminUserService {
 		this.jam.user.id({id})
 			.then(user => {
 				const index = this.users.findIndex(u => u.id === id);
-				if (index < 0) {
+				if (index === -1) {
 					this.users.push(user);
 				} else {
 					this.users[index] = user;
@@ -48,9 +48,7 @@ export class AdminUserService {
 				this.usersChange.emit(this.users);
 				this.userChange.emit(id, user);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	refreshUsers(): void {
@@ -59,9 +57,7 @@ export class AdminUserService {
 				this.users = data.items;
 				this.usersChange.emit(this.users);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	async setPassword(userID: string, password: string, newPassword: string): Promise<void> {

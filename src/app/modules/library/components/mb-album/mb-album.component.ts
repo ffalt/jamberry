@@ -36,9 +36,7 @@ export class MbAlbumComponent implements OnChanges {
 				.then(data => {
 					this.display(data.data.release);
 				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.catch(error => this.notify.error(error));
 		}
 	}
 

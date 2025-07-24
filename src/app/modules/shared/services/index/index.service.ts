@@ -160,41 +160,46 @@ export class IndexService {
 	private readonly notify = inject(NotifyService);
 	private readonly indexes: Array<IndexCache> = [];
 
-	findIndex(type: JamObjectType, query: any): IndexCache | undefined {
+	findIndexCache(type: JamObjectType, query: any): IndexCache | undefined {
 		return this.indexes.find(index => index.matches(type, query));
 	}
 
 	async getIndex(objType: JamObjectType, query: any): Promise<Index | undefined> {
 		switch (objType) {
-			case JamObjectType.folder:
+			case JamObjectType.folder: {
 				return buildIndexFolderIndex(
 					await this.jam.folder.index(query),
 					!this.app.smallscreen, 'Folders', this.jam);
-			case JamObjectType.artist:
+			}
+			case JamObjectType.artist: {
 				return buildIndexArtistIndex(
 					await this.jam.artist.index(query),
 					!this.app.smallscreen, 'Artists', this.jam);
-			case JamObjectType.series:
+			}
+			case JamObjectType.series: {
 				return buildIndexSeriesIndex(
 					await this.jam.series.index(query),
 					!this.app.smallscreen, 'Series', this.jam);
-			case JamObjectType.genre:
+			}
+			case JamObjectType.genre: {
 				return buildIndexGenreIndex(
 					await this.jam.genre.index(query),
 					!this.app.smallscreen, 'Genres', this.jam);
+			}
 			case JamObjectType.album: {
 				const type = getTypeByAlbumType(query.albumType);
 				return buildIndexAlbumIndex(
 					await this.jam.album.index(query),
 					!this.app.smallscreen, type ? type.text : 'Albums', this.jam);
 			}
-			default:
+			default: {
 				return;
+			}
 		}
 	}
 
 	requestIndex(objType: JamObjectType, query: any): Index | undefined {
-		const item = this.findIndex(objType, query);
+		const item = this.findIndexCache(objType, query);
 		if (item?.index) {
 			return item.index;
 		}
@@ -210,9 +215,7 @@ export class IndexService {
 					this.indexNotify.emit(result);
 				}
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 		return;
 	}
 }

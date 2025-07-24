@@ -1,5 +1,4 @@
-/* eslint-disable */
-import type { Config } from 'jest';
+import type {Config} from 'jest';
 
 const jestConfig: Config = {
 	preset: 'jest-preset-angular',
@@ -14,7 +13,7 @@ const jestConfig: Config = {
 	},
 	testPathIgnorePatterns: ['/local/', '/dist/'],
 	setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-	clearMocks: true,
+	clearMocks: true
 };
 
 export default jestConfig;

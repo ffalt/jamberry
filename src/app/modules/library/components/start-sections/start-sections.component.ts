@@ -29,9 +29,7 @@ export class StartSectionsComponent implements OnInit {
 					}
 				}));
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 		this.jam.artist.search({list: ListType.faved, take: 5})
 			.then(data => {
 				this.data.artistFaved = data.items.map(obj => ({
@@ -40,9 +38,7 @@ export class StartSectionsComponent implements OnInit {
 					}
 				}));
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 		this.jam.album.search({list: ListType.faved, take: 5})
 			.then(data => {
 				this.data.albumFaved = data.items.map(obj => ({
@@ -51,9 +47,7 @@ export class StartSectionsComponent implements OnInit {
 					}
 				}));
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 		this.jam.album.search({list: ListType.recent, take: 5})
 			.then(data => {
 				this.data.albumRecent = data.items.map(obj => ({
@@ -62,8 +56,6 @@ export class StartSectionsComponent implements OnInit {
 					}
 				}));
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 }

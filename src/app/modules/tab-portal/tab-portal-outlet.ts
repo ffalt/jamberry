@@ -40,7 +40,7 @@ export class TabPortalOutlet {
 		const instance = this.activateInstance(tab);
 		// At this point the component has been instantiated, so we move it to the location in the DOM where we want it to be rendered.
 		this.outletElement.element.nativeElement.innerHTML = '';
-		this.outletElement.element.nativeElement.appendChild(TabPortalOutlet.getComponentRootNode(instance.componentRef));
+		this.outletElement.element.nativeElement.append(TabPortalOutlet.getComponentRootNode(instance.componentRef));
 		this.curTab = instance;
 		instance.componentRef.instance.onActivate();
 	}
@@ -48,6 +48,7 @@ export class TabPortalOutlet {
 	detach(): void {
 		const current = this.curTab;
 		if (current !== undefined) {
+			// eslint-disable-next-line unicorn/no-null
 			current.portal.setAttachedHost(null);
 			this.curTab = undefined;
 		}
@@ -63,7 +64,7 @@ export class TabPortalOutlet {
 		}
 		// Remove outlet element
 		if (this.outletElement.element.nativeElement.parentNode) {
-			this.outletElement.element.nativeElement.parentNode.removeChild(this.outletElement);
+			this.outletElement.remove();
 		}
 	}
 

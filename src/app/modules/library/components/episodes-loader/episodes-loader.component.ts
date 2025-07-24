@@ -26,17 +26,17 @@ export class EpisodesLoaderComponent implements OnChanges {
 		const request = requestFunc()
 			.then(data => {
 				if (this.activeRequest === request) {
-					this.episodes = (this.episodes || []).concat(data.items);
+					this.episodes = [...(this.episodes || []), ...data.items];
 					loadMore.hasMore.set((data.total || 0) > this.episodes.length);
 					loadMore.total.set(data.total);
 					loadMore.loading.set(false);
 				}
 			})
-			.catch(e => {
+			.catch(error => {
 				if (this.activeRequest === request) {
 					this.loadMore().loading.set(false);
 				}
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 		this.activeRequest = request;
 	}

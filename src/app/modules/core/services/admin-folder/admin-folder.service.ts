@@ -93,7 +93,7 @@ export class AdminFolderService {
 						data.item = result;
 						if (result.error || result.done !== undefined) {
 							if (result.error) {
-								this.notify.error(Error(result.error));
+								this.notify.error(new Error(result.error));
 							}
 							this.pollEnd(data, result);
 							cb(false);
@@ -101,8 +101,8 @@ export class AdminFolderService {
 						}
 						cb(true);
 					})
-					.catch(err => {
-						console.error('error while polling admin change queue status', err);
+					.catch(error => {
+						console.error('error while polling admin change queue status', error);
 						this.pollEnd(data);
 						cb(false);
 					});

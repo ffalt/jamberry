@@ -1,8 +1,7 @@
 import {Overlay, OverlayConfig, type OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
 import {type ComponentRef, Injectable, Injector, type OnDestroy, inject} from '@angular/core';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {DialogOverlayRef} from './dialog-overlay-ref.class';
 import {DialogOverlayComponent} from './dialog-overlay.component';
 import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
@@ -18,7 +17,7 @@ export class PortalInjector implements Injector {
 	get(token: any, notFoundValue?: any): any {
 		const value = this.customTokens.get(token);
 
-		if (typeof value !== 'undefined') {
+		if (value !== undefined) {
 			return value;
 		}
 
@@ -46,9 +45,8 @@ export class DialogOverlayService implements OnDestroy {
 		const dialogRef = new DialogOverlayRef(overlayRef);
 		dialogRef.componentInstance = this.attachDialogContainer(overlayRef, dialogConfig, dialogRef);
 		overlayRef.backdropClick()
-			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-			dialogRef.close();
-		});
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => dialogRef.close());
 		return dialogRef;
 	}
 

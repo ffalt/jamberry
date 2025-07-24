@@ -5,8 +5,7 @@ import {base64ArrayBuffer} from '@app/utils/base64';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
 import type {ImageCroppedEvent, OutputFormat} from 'ngx-image-cropper';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 export interface ImageEdit {
 	artwork: Jam.Artwork;
@@ -45,9 +44,8 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 			this.jam.image.imageBinary({id: dataValue.artwork.id})
 				.then(data => {
 					this.imageBase64 = `data:${(data.contentType || 'image/jpeg')};base64,${base64ArrayBuffer(data.buffer)}`;
-				}).catch(e => {
-				this.notify.error(e);
-			});
+				})
+				.catch(error => this.notify.error(error));
 		}
 	}
 
@@ -72,18 +70,16 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 		const folderID = data.folderID;
 		const file = new File([this.croppedImageFile], data.artwork.name, {type: this.croppedImageFile.type});
 		this.jam.artwork.update({id: data.artwork.id}, file)
-			.pipe(takeUntil(this.unsubscribe)).subscribe(
-			event => {
-				if (event.type === HttpEventType.Response) {
-					this.folderService.waitForQueueResult('Updating Folder Artwork', event.body, [folderID]);
-					this.imageEdited.emit();
-				}
-			}, err => {
-				this.notify.error(err);
-			},
-			() => {
-				this.notify.success('Upload done');
-			}
-		);
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe({
+				next: event => {
+					if (event.type === HttpEventType.Response) {
+						this.folderService.waitForQueueResult('Updating Folder Artwork', event.body, [folderID]);
+						this.imageEdited.emit();
+					}
+				},
+				error: error => this.notify.error(error),
+				complete: () => this.notify.success('Upload done')
+			});
 	}
 }

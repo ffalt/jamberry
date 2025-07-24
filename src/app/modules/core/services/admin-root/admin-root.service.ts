@@ -2,8 +2,7 @@ import {EventEmitter, Injectable, type OnDestroy, inject} from '@angular/core';
 import {Notifiers} from '@app/utils/notifier';
 import {Poller} from '@app/utils/poller';
 import {type Jam, JamService, type RootScanStrategy} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {AdminFolderService} from '../admin-folder/admin-folder.service';
 import {NotifyService} from '../notify/notify.service';
 
@@ -33,15 +32,15 @@ export class AdminRootService implements OnDestroy {
 					cb(false);
 					return;
 				}
-				if (!data.scanning) {
+				if (data.scanning) {
+					cb(true);
+				} else {
 					root.status = data;
 					cb(false);
-				} else {
-					cb(true);
 				}
 			})
-			.catch(err => {
-				console.error('error while polling root scan status', err);
+			.catch(error => {
+				console.error('error while polling root scan status', error);
 			});
 	});
 
@@ -71,32 +70,20 @@ export class AdminRootService implements OnDestroy {
 
 	rescanRoot(root: Jam.Root): void {
 		this.jam.root.refresh({id: root.id})
-			.then(() => {
-				this.refreshRoot(root.id);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.refreshRoot(root.id))
+			.catch(error => this.notify.error(error));
 	}
 
 	refreshRootMeta(root: Jam.Root): void {
 		this.jam.root.refreshMeta({id: root.id})
-			.then(() => {
-				this.refreshRoot(root.id);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.refreshRoot(root.id))
+			.catch(error => this.notify.error(error));
 	}
 
 	rescanRoots(): void {
 		this.jam.root.refresh({})
-			.then(() => {
-				this.refreshRoots();
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.refreshRoots())
+			.catch(error => this.notify.error(error));
 	}
 
 	removeRoot(root: Jam.Root): void {
@@ -110,16 +97,14 @@ export class AdminRootService implements OnDestroy {
 					this.refreshRoots();
 				});
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	refreshRoot(id: string): void {
 		this.jam.root.id({id})
 			.then(root => {
 				const index = this.roots.findIndex(p => p.id === id);
-				if (index < 0) {
+				if (index === -1) {
 					this.roots.push(root);
 				} else {
 					this.roots[index] = root;
@@ -130,9 +115,7 @@ export class AdminRootService implements OnDestroy {
 					this.rootPoll.poll(root);
 				}
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	refreshRoots(): void {
@@ -146,8 +129,6 @@ export class AdminRootService implements OnDestroy {
 				}
 				this.rootsChange.emit(this.roots);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 }

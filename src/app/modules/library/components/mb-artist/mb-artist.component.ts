@@ -36,9 +36,7 @@ export class MbArtistComponent implements OnChanges {
 				.then(data => {
 					this.display(data.data.artist);
 				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.catch(error => this.notify.error(error));
 		}
 	}
 

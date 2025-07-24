@@ -4,9 +4,7 @@ import ts from "typescript-eslint";
 import pluginJest from "eslint-plugin-jest";
 import globals from "globals";
 import rxjsX from "eslint-plugin-rxjs-x";
-import preferArrow from "eslint-plugin-prefer-arrow";
 import unicorn from "eslint-plugin-unicorn";
-import noNull from "eslint-plugin-no-null";
 
 export default ts.config(
 	{
@@ -40,14 +38,10 @@ export default ts.config(
 			eslint.configs.recommended,
 			...ts.configs.recommended,
 			...ts.configs.stylistic,
-			...angular.configs.tsRecommended
+			...angular.configs.tsRecommended,
+			unicorn.configs.recommended,
+			rxjsX.configs.recommended
 		],
-		plugins: {
-			"rxjs-x": rxjsX,
-			"prefer-arrow": preferArrow,
-			"unicorn": unicorn,
-			"no-null": noNull
-		},
 		processor: angular.processInlineTemplates,
 		rules: {
 			"@angular-eslint/component-max-inline-declarations": "error",
@@ -116,12 +110,20 @@ export default ts.config(
 			"jsdoc/check-alignment": "off",
 			"jsdoc/newline-after-description": "off",
 
-			"no-null/no-null": "off",
+			"unicorn/consistent-function-scoping": "off",
+			"unicorn/explicit-length-check": "off",
+			"unicorn/prevent-abbreviations": "off",
+			"unicorn/empty-brace-spaces": "off",
+			"unicorn/no-useless-promise": "off",
+			"unicorn/no-useless-undefined": "off",
+			"unicorn/no-useless-promise-resolve-reject": "off",
+			"unicorn/prefer-add-event-listener": "off",
+			"unicorn/prefer-query-selector": "off",
+			"unicorn/no-array-reduce": "off",
 
 			"rxjs-x/no-create": "error",
 			"rxjs-x/no-unsafe-takeuntil": "error",
-
-			"prefer-arrow/prefer-arrow-functions": ["error", {allowStandaloneDeclarations: true}],
+			"rxjs-x/no-implicit-any-catch": "off",
 
 			"arrow-body-style": ["error", "as-needed"],
 			"arrow-parens": ["error", "as-needed"],
@@ -178,7 +180,8 @@ export default ts.config(
 			...ts.configs.recommended,
 			...ts.configs.stylistic,
 			...angular.configs.tsRecommended,
-			pluginJest.configs['flat/recommended']
+			pluginJest.configs['flat/recommended'],
+			unicorn.configs.recommended
 		],
 		rules: {
 			'jest/no-disabled-tests': 'warn',
@@ -224,6 +227,8 @@ export default ts.config(
 			"prefer-template": "error",
 			"space-in-parens": ["error", "never"],
 			"yoda": "error",
+
+			"unicorn/prevent-abbreviations": "off",
 
 			"@typescript-eslint/unbound-method": "off",
 			"@typescript-eslint/array-type": ["error", {default: "generic"}],
@@ -293,7 +298,8 @@ export default ts.config(
 	{
 		files: ["**/*.{js,mjs,cjs}"],
 		extends: [
-			eslint.configs.recommended
+			eslint.configs.recommended,
+			unicorn.configs.recommended
 		],
 		languageOptions: {
 			globals: globals.node
@@ -327,7 +333,9 @@ export default ts.config(
 			"prefer-object-spread": "error",
 			"prefer-template": "error",
 			"space-in-parens": ["error", "never"],
-			"yoda": "error"
+			"yoda": "error",
+
+			"unicorn/prevent-abbreviations": "off"
 		}
 	}
 );

@@ -1,4 +1,4 @@
-module.exports = [
+export default [
 	{
 		context: [
 			"/jam",
@@ -24,7 +24,6 @@ module.exports = [
 				response.end();
 				return true;
 			}
-			return null;
 		}
 	}
 ];

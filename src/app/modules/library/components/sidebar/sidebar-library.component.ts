@@ -30,9 +30,7 @@ export class SidebarLibraryComponent implements OnInit {
 				this.stats = stats;
 				this.updateNavigation();
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	updateNavigation(): void {
@@ -60,9 +58,10 @@ export class SidebarLibraryComponent implements OnInit {
 		if (this.stats && this.stats.albumTypes.soundtrack > 0) {
 			this.musicList.push({link: '/library/soundtracks', name: 'Soundtracks', icon: 'icon-soundtrack'});
 		}
-		this.musicList.push({link: '/library/tracks', name: 'Tracks', icon: 'icon-track'});
-		this.musicList.push({link: '/library/folders', name: 'Folders', icon: 'icon-folder'});
-
+		this.musicList.push(
+			{link: '/library/tracks', name: 'Tracks', icon: 'icon-track'},
+			{link: '/library/folders', name: 'Folders', icon: 'icon-folder'}
+		);
 		this.sections = [
 			{name: 'Main', entries: this.mainList},
 			{name: 'Spoken', entries: this.spokenList},

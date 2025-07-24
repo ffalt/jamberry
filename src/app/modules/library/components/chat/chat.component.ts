@@ -21,15 +21,15 @@ export class ChatComponent implements OnInit, OnDestroy {
 			return;
 		}
 		this.isPolling = true;
-		const since = this.messages.length > 0 ? this.messages[this.messages.length - 1].created : undefined;
+		const since = this.messages.length > 0 ? this.messages.at(-1)?.created : undefined;
 		this.jam.chat.list({since})
 			.then(messages => {
 				this.isPolling = false;
-				this.messages = this.messages.concat(messages);
+				this.messages = [...this.messages, ...messages];
 			})
-			.catch(e => {
+			.catch(error => {
 				this.isPolling = false;
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 	}
 
@@ -38,9 +38,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 			.then(messages => {
 				this.messages = messages;
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	post(): void {
@@ -51,9 +49,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 				.then(() => {
 					this.poll();
 				})
-				.catch(e => {
+				.catch(error => {
 					this.msg = message;
-					this.notify.error(e);
+					this.notify.error(error);
 				});
 		}
 	}
@@ -62,7 +60,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 		this.refresh();
 		this.timer = setInterval(() => {
 			this.poll();
-		}, 10000);
+		}, 10_000);
 	}
 
 	ngOnDestroy(): void {

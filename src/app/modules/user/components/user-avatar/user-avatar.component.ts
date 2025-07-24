@@ -3,8 +3,7 @@ import {randomString} from '@app/utils/random';
 
 import {AppService, NotifyService} from '@core/services';
 import {JamAuthService, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-user-avatar',
@@ -54,17 +53,17 @@ export class UserAvatarComponent implements OnDestroy {
 		const file: File = files[0];
 
 		this.jam.user.uploadUserImage({id: this.auth.user.id}, file)
-			.pipe(takeUntil(this.unsubscribe)).subscribe(
-			() => {
-				//nop
-			}, err => {
-				this.notify.error(err);
-			},
-			() => {
-				this.refreshRandom = randomString();
-				this.notify.success('Upload done');
-			}
-		);
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe({
+				next: () => {
+					//nop
+				},
+				error: error => this.notify.error(error),
+				complete: () => {
+					this.refreshRandom = randomString();
+					this.notify.success('Upload done');
+				}
+			});
 	}
 
 	randomAvatar(): void {
@@ -78,9 +77,9 @@ export class UserAvatarComponent implements OnDestroy {
 				this.refreshRandom = randomString();
 				this.notify.success('Image randomized');
 			})
-			.catch(e => {
+			.catch(error => {
 				this.refreshing = false;
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 	}
 }

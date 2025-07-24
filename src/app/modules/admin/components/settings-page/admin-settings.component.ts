@@ -25,12 +25,8 @@ export class AdminSettingsComponent implements OnInit {
 
 	refresh(): void {
 		this.jam.admin.settings()
-			.then(data => {
-				this.display(data);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(data => this.display(data))
+			.catch(error => this.notify.error(error));
 	}
 
 	save(): void {
@@ -45,8 +41,8 @@ export class AdminSettingsComponent implements OnInit {
 				this.notify.success('Settings updated');
 				this.settings = settings;
 			})
-			.catch(e => {
-				this.notify.error(e);
+			.catch(error => {
+				this.notify.error(error);
 				this.settings = settings;
 			});
 	}

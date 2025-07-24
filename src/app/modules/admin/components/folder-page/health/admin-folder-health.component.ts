@@ -2,7 +2,7 @@ import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-paren
 import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
-import {takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-admin-folder-health',
@@ -44,9 +44,7 @@ export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent i
 								}
 								this.reDisplay();
 							})
-							.catch(e => {
-								this.notify.error(e);
-							});
+							.catch(error => this.notify.error(error));
 					}
 				}
 			}
@@ -60,12 +58,8 @@ export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent i
 	refresh(): void {
 		this.hints = undefined;
 		this.jam.folder.health({childOfID: this.id, folderIncTag: true})
-			.then(data => {
-				this.display(data);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(data => this.display(data))
+			.catch(error => this.notify.error(error));
 	}
 
 	private reDisplay(): void {

@@ -9,7 +9,7 @@ import {JamService} from '@jam';
 	styleUrls: ['./slider-time.component.scss'],
 	standalone: false,
 	host: {
-		tabindex: 'tabindex',
+		"[tabindex]": 'tabindex',
 		'(keydown.arrowLeft)': 'rewind()',
 		'(keydown.arrowRight)': 'forward()'
 	}
@@ -53,9 +53,7 @@ export class SliderTimeComponent implements OnInit {
 				.then(data => {
 					this.svg = extractSVGParts(data);
 				})
-				.catch(e => {
-					console.error(e);
-				});
+				.catch(console.error);
 		}
 	}
 

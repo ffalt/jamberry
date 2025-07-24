@@ -3,8 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {extractSVGParts} from '@app/utils/svg-parts';
 import {NavigService, NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-track-overview',
@@ -47,12 +46,8 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 			trackIncTag: true,
 			trackIncMedia: true
 		})
-			.then(track => {
-				this.display(track);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(track => this.display(track))
+			.catch(error => this.notify.error(error));
 	}
 
 	loadWaveForm(): void {
@@ -63,9 +58,7 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 			.then(data => {
 				this.svg = extractSVGParts(data);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	refresh(): void {

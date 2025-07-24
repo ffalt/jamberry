@@ -20,18 +20,24 @@ export class TrackListComponent implements OnChanges {
 
 	getSortValue(column: string, trackItem: TrackItem): string | number | undefined {
 		switch (column) {
-			case 'number':
+			case 'number': {
 				return trackItem.track.tag?.trackNr;
-			case 'name':
+			}
+			case 'name': {
 				return trackItem.track.name;
-			case 'artist':
+			}
+			case 'artist': {
 				return trackItem.track.tag?.artist;
-			case 'album':
+			}
+			case 'album': {
 				return trackItem.track.tag?.album;
-			case 'duration':
+			}
+			case 'duration': {
 				return trackItem.track.duration;
-			default:
+			}
+			default: {
 				return;
+			}
 		}
 	}
 
@@ -41,8 +47,6 @@ export class TrackListComponent implements OnChanges {
 
 	toTrackFolder(track: Jam.Track): void {
 		this.router.navigate([`/admin/folder/${track.parentID}/overview`])
-			.catch(e => {
-				console.error(e);
-			});
+			.catch(console.error);
 	}
 }

@@ -5,8 +5,7 @@ import {randomString} from '@app/utils/random';
 import {AlbumType, JamObjectType, type ListType} from '@jam';
 import {LibraryService} from '@library/services';
 import {PlaylistService, PodcastService} from '@shared/services';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import type {JamObjsLoader} from '../../model/loaders';
 
 @Component({

@@ -16,8 +16,7 @@ import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {CellEditor} from '@app/modules/tag-editor/components/cell-editor/cell-editor.class';
 import {FrameType} from '@app/modules/tag-editor/model/id3v2-frames.helper';
 import type {ID3v2Frames} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {Id3v2ValuePicTypes, type RawTagEditCell, type RawTagEditFrame} from '../../model/tag-editor.types';
 import {CellEditorTxtComponent} from '../cell-editor-txt/cell-editor-txt.component';
 import {DialogTagImageComponent, type PicEdit} from '../dialog-tag-image/dialog-tag-image.component';
@@ -112,16 +111,18 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			case FrameType.Filename:
 			case FrameType.IdText:
 			case FrameType.LangDescText:
-			case FrameType.Text:
+			case FrameType.Text: {
 				if (cell.column.def.id === 'USLT') {
 					this.editLyrics();
 				} else {
 					this.startEdit(CellEditorTxtComponent);
 				}
 				break;
-			case FrameType.Bool:
+			}
+			case FrameType.Bool: {
 				this.editBool();
 				break;
+			}
 			// 	case FrameType.TextList:
 			// 		return CellEditorTxtListComponent;
 			// 	case FrameType.IdBin:
@@ -129,9 +130,10 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			// 		return CellEditorBinComponent;
 			// 	case FrameType.Bool:
 			// 		return CellEditorBoolComponent;
-			case FrameType.Pic:
+			case FrameType.Pic: {
 				this.editPictures();
 				break;
+			}
 			// 		return CellEditorPicComponent;
 			// 	case FrameType.Popularimeter:
 			// 		return CellEditorPopmComponent;
@@ -266,29 +268,40 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		const cell = this.cell();
 		switch (cell?.column.def.impl) {
 			case FrameType.Filename:
-			case FrameType.Text:
+			case FrameType.Text: {
 				return CellEditorComponent.textFrameToString(frame);
-			case FrameType.LangDescText:
+			}
+			case FrameType.LangDescText: {
 				return CellEditorComponent.langDescFrameToString(frame);
-			case FrameType.IdText:
+			}
+			case FrameType.IdText: {
 				return CellEditorComponent.idTextFrameToString(frame);
-			case FrameType.Pic:
+			}
+			case FrameType.Pic: {
 				return CellEditorComponent.picFrameToString(frame);
-			case FrameType.TextList:
+			}
+			case FrameType.TextList: {
 				return CellEditorComponent.textListFrameToString(frame);
-			case FrameType.IdBin:
+			}
+			case FrameType.IdBin: {
 				return CellEditorComponent.idBinFrameToString(frame);
-			case FrameType.GEOB:
+			}
+			case FrameType.GEOB: {
 				return CellEditorComponent.geobFrameToString(frame);
-			case FrameType.Bool:
+			}
+			case FrameType.Bool: {
 				return CellEditorComponent.boolFrameToString(frame);
-			case FrameType.Popularimeter:
+			}
+			case FrameType.Popularimeter: {
 				return CellEditorComponent.popularimeterFrameToString(frame);
-			case FrameType.PlayCounter:
+			}
+			case FrameType.PlayCounter: {
 				return CellEditorComponent.playCounterFrameToString(frame);
+			}
 			// case FrameType.MusicCDId:
-			default:
+			default: {
 				return `Not implemented celleditor for: ${cell?.column.def.name}`;
+			}
 		}
 	}
 }

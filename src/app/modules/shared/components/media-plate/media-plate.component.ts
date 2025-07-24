@@ -9,7 +9,7 @@ import type {JamObject} from '@shared/model/helpers';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	standalone: false,
 	host: {
-		tabindex: 'tabindex',
+		"[tabindex]": 'tabindex',
 		'(keydown.enter)': 'contextmenuEvent($event)',
 		'(contextmenu)': 'contextmenuEvent($event)'
 	}
@@ -43,11 +43,7 @@ export class MediaPlateComponent implements FocusableOption {
 			return;
 		}
 		obj.toggleFav()
-			.then(() => {
-				this.cdr.detectChanges();
-			})
-			.catch(e => {
-				console.error(e);
-			});
+			.then(() => this.cdr.detectChanges())
+			.catch(console.error);
 	}
 }

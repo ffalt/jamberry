@@ -100,12 +100,12 @@ export class TagEditor {
 
 	addIndexToTitleCol(column: RawTagEditColumn): void {
 		const index = this.columns.indexOf(column);
-		this.edits.forEach((edit, i) => {
+		for (const [i, edit] of this.edits.entries()) {
 			const cell = edit.cells[index];
 			let text = (cell.frames.length > 0) ? cell.frames[0].value.text : '';
 			text = (`${text} ${(i + 1).toString()}`).trim();
 			this.updateEditTextCell(edit, column, text);
-		});
+		}
 	}
 
 	setColumnPartOfSet(column: RawTagEditColumn): void {
@@ -129,7 +129,7 @@ export class TagEditor {
 			folderCounts[edit.track.parentID] = (folderCounts[edit.track.parentID] ?? 0) + 1;
 		}
 		const index = this.columns.indexOf(column);
-		this.edits.forEach((edit, i) => {
+		for (const [i, edit] of this.edits.entries()) {
 			const cell = edit.cells[index];
 			let trackNr: string | undefined;
 			if (cell.frames.length > 0) {
@@ -145,12 +145,12 @@ export class TagEditor {
 			}
 			const text = `${(trackNr ?? '')}/${(folderCounts[edit.track.parentID] ?? 0).toString()}`;
 			this.updateEditTextCell(edit, column, text);
-		});
+		}
 	}
 
 	setAlbumArtistFrames(column: RawTagEditColumn): void {
 		const artistColIndex = this.columns.findIndex(c => c.def.id === 'TPE1');
-		if (artistColIndex >= 0) {
+		if (artistColIndex !== -1) {
 			for (const edit of this.edits) {
 				const cell = edit.cells[artistColIndex];
 				const text = cell.frames.length > 0 ? cell.frames[0].value.text : undefined;
@@ -343,12 +343,12 @@ export class TagEditor {
 			}
 			for (const frame of frames) {
 				const id = this.ensureID3v2FrameVersionDef(frame.id, 4);
-				if (!id) {
-					console.error('upgradeTrackTag', 'missing id3v2 update', frame.id, '=>', id);
-				} else {
+				if (id) {
 					frame.id = id;
 					newTag.frames[id] = newTag.frames[id] || [];
 					newTag.frames[id].push(frame);
+				} else {
+					console.error('upgradeTrackTag', 'missing id3v2 update', frame.id, '=>', id);
 				}
 			}
 			track.tagRaw = newTag;
@@ -361,7 +361,7 @@ export class TagEditor {
 			// TODO: matcher
 			return;
 		}
-		if (def.versions.indexOf(dest) >= 0) {
+		if (def.versions.includes(dest)) {
 			return id;
 		}
 		if (def.versions[0] > dest) {
@@ -372,7 +372,7 @@ export class TagEditor {
 				return;
 			}
 			const f2 = FrameDefs[downgradeKey];
-			if (f2.versions.indexOf(dest) < 0) {
+			if (!f2.versions.includes(dest)) {
 				if (f2.versions[0] > dest) {
 					return this.ensureID3v2FrameVersionDef(downgradeKey, dest);
 				}
@@ -386,7 +386,7 @@ export class TagEditor {
 		}
 		const upgradeKey = def.upgrade;
 		const f = FrameDefs[upgradeKey];
-		if (f.versions.indexOf(dest) < 0) {
+		if (!f.versions.includes(dest)) {
 			if (f.versions[0] < dest) {
 				return this.ensureID3v2FrameVersionDef(upgradeKey, dest);
 			}
@@ -399,9 +399,9 @@ export class TagEditor {
 		newFrame: ID3v2Frames.Frame;
 		dateFrames: Array<ID3v2Frames.Frame>
 	} | undefined {
-		const year = frames.find(f => ['TYER', 'TYE'].indexOf(f.id) >= 0);
-		const date = frames.find(f => ['TDAT', 'TDA'].indexOf(f.id) >= 0);
-		const time = frames.find(f => ['TIME', 'TIM'].indexOf(f.id) >= 0);
+		const year = frames.find(f => ['TYER', 'TYE'].includes(f.id));
+		const date = frames.find(f => ['TDAT', 'TDA'].includes(f.id));
+		const time = frames.find(f => ['TIME', 'TIM'].includes(f.id));
 		if (!year && !date && !time) {
 			return;
 		}
@@ -458,14 +458,14 @@ export class TagEditor {
 				addCols.push(newCol);
 			}
 		}
-		this.columns = this.columns.filter(c => !removeCols.includes(c)).concat(addCols);
+		this.columns = [...this.columns.filter(c => !removeCols.includes(c)), ...addCols];
 		this.buildEdits(tracks);
 	}
 
 	private static getRawTagFrames(rawTag: Jam.MediaTagRaw): Array<ID3v2Frames.Frame> {
 		let frames: Array<ID3v2Frames.Frame> = [];
 		for (const key of Object.keys(rawTag.frames)) {
-			frames = frames.concat(rawTag.frames[key]);
+			frames = [...frames, ...rawTag.frames[key]];
 		}
 		return frames;
 	}
@@ -494,10 +494,8 @@ export class TagEditor {
 	}
 
 	private static matchColumn(frame: { id: string; value?: { id?: string } }, column: { id: string; subid?: string }): boolean {
-		if (column.subid) {
-			if (!frame.value?.id || frame.value.id !== column.subid) {
-				return false;
-			}
+		if (column.subid && (!frame.value?.id || frame.value.id !== column.subid)) {
+			return false;
 		}
 		return (frame.id === column.id);
 	}
@@ -567,83 +565,101 @@ export class TagEditor {
 		return list;
 	}
 
-	private setColumnActions(col: RawTagEditColumn, id: string, subid: string | undefined, impl: FrameType): void {
+	private setColumnActions(col: RawTagEditColumn, id: string, _subid: string | undefined, impl: FrameType): void {
 		const result: Array<RawTagEditColumnAction> = [];
 		if ([FrameType.IdText, FrameType.Text, FrameType.LangDescText].includes(impl)) {
 			col.multi = true;
-			if (id === 'TRCK') {
-				result.push({
-					icon: 'icon-down-thin',
-					title: 'Set Track Nr by Index',
-					click: (): void => {
-						this.setColumnTrackNrByIndex(col);
-					}
-				});
-				result.push({
-					icon: 'icon-down-thin',
-					title: 'Set Track Nr by Filename',
-					click: (): void => {
-						this.setColumnTrackNrFromFile(col);
-					}
-				});
-				result.push({
-					icon: 'icon-down-thin',
-					title: 'Set Total Tracks',
-					click: (): void => {
-						this.setColumnTotalTrack(col);
-					}
-				});
-			} else if (id === 'TPOS') {
-				result.push({
-					icon: 'icon-down-thin',
-					title: 'Try find Part of Set',
-					click: (): void => {
-						this.setColumnPartOfSet(col);
-					}
-				});
-			} else if (id === 'TIT2') {
-				result.push({
-					icon: 'icon-down-thin',
-					title: 'Add Index Nr to Title',
-					click: (): void => {
-						this.addIndexToTitleCol(col);
-					}
-				});
-			} else if (id === 'TPE2') {
-				result.push({
-					icon: 'icon-down-thin',
-					title: 'Copy from Artist Column',
-					click: (): void => {
-						this.setAlbumArtistFrames(col);
-					}
-				});
-			} else if (id === 'TALB') {
-				result.push({
-					icon: 'icon-down-thin',
-					title: 'Copy from Title Column',
-					click: (): void => {
-						this.setColumnFromTitleFrames(col);
-					}
-				});
-			} else if (id === 'TDOR') {
-				result.push({
-					icon: 'icon-down-thin',
-					title: 'Copy from Year Column',
-					click: (): void => {
-						this.setReleaseDateFromYearFrames(col);
-					}
-				});
-			} else if (id === 'USLT') {
-				result.push({
-					icon: 'icon-down-thin',
-					title: 'Search for missing Lyrics',
-					click: (): void => {
-						this.findMissingLyrics()
-							.catch(e => {
-								console.error(e);
-							});
-					}
-				});
+			switch (id) {
+				case 'TRCK': {
+					result.push({
+						icon: 'icon-down-thin',
+						title: 'Set Track Nr by Index',
+						click: (): void => {
+							this.setColumnTrackNrByIndex(col);
+						}
+					}, {
+						icon: 'icon-down-thin',
+						title: 'Set Track Nr by Filename',
+						click: (): void => {
+							this.setColumnTrackNrFromFile(col);
+						}
+					}, {
+						icon: 'icon-down-thin',
+						title: 'Set Total Tracks',
+						click: (): void => {
+							this.setColumnTotalTrack(col);
+						}
+					});
+
+					break;
+				}
+				case 'TPOS': {
+					result.push({
+						icon: 'icon-down-thin',
+						title: 'Try find Part of Set',
+						click: (): void => {
+							this.setColumnPartOfSet(col);
+						}
+					});
+
+					break;
+				}
+				case 'TIT2': {
+					result.push({
+						icon: 'icon-down-thin',
+						title: 'Add Index Nr to Title',
+						click: (): void => {
+							this.addIndexToTitleCol(col);
+						}
+					});
+
+					break;
+				}
+				case 'TPE2': {
+					result.push({
+						icon: 'icon-down-thin',
+						title: 'Copy from Artist Column',
+						click: (): void => {
+							this.setAlbumArtistFrames(col);
+						}
+					});
+
+					break;
+				}
+				case 'TALB': {
+					result.push({
+						icon: 'icon-down-thin',
+						title: 'Copy from Title Column',
+						click: (): void => {
+							this.setColumnFromTitleFrames(col);
+						}
+					});
+
+					break;
+				}
+				case 'TDOR': {
+					result.push({
+						icon: 'icon-down-thin',
+						title: 'Copy from Year Column',
+						click: (): void => {
+							this.setReleaseDateFromYearFrames(col);
+						}
+					});
+
+					break;
+				}
+				case 'USLT': {
+					result.push({
+						icon: 'icon-down-thin',
+						title: 'Search for missing Lyrics',
+						click: (): void => {
+							this.findMissingLyrics().catch(console.error);
+						}
+					});
+
+					break;
+				}
+				// No default
 			}
 		}
 		if (impl !== FrameType.Filename) {
@@ -698,21 +714,39 @@ export class TagEditor {
 		return col;
 	}
 
+	private addDefaultColumns(): void {
+		for (const [sort, c] of DefaultFrameColumns.entries()) {
+			if (c.force) {
+				const col = this.frameDef2Column(c.id, c.subid, FrameDefs[c.id], sort);
+				this.columns.push(col);
+			}
+		}
+	};
+
+	private findExistingColumn(frame: RawTagEditFrame): any {
+		return this.columns.find(c => TagEditor.matchColumn(frame, c.def));
+	}
+
+	private createColumnFromFrame(frame: RawTagEditFrame): void {
+		const framedef = FrameDefs[frame.id];
+		const sort = DefaultFrameColumns.findIndex(c => TagEditor.matchColumn(frame, c));
+		if (framedef) {
+			let subid: string | undefined;
+			if (frame.value && frame.value.id !== undefined) {
+				subid = frame.value.id;
+			}
+			this.columns.push(this.frameDef2Column(frame.id, subid, framedef, sort));
+		} else {
+			this.columns.push(this.frame2Column(frame, sort));
+		}
+	};
+
 	private buildColumns(tracks: Array<Jam.Track>): void {
 		this.columns = [];
 
 		if (!tracks || tracks.length === 0) {
 			return;
 		}
-
-		const addDefaultColumns = (): void => {
-			DefaultFrameColumns.forEach((c, sort) => {
-				if (c.force) {
-					const col = this.frameDef2Column(c.id, c.subid, FrameDefs[c.id], sort);
-					this.columns.push(col);
-				}
-			});
-		};
 
 		const getTrackFrames = (track: Jam.Track): Array<RawTagEditFrame> => {
 			if (!track.tagRaw?.frames) {
@@ -723,35 +757,17 @@ export class TagEditor {
 			return frames;
 		};
 
-		const findExistingColumn = (frame: RawTagEditFrame): any =>
-			this.columns.find(c => TagEditor.matchColumn(frame, c.def));
-
-		const createColumnFromFrame = (frame: RawTagEditFrame): void => {
-			const framedef = FrameDefs[frame.id];
-			const sort = DefaultFrameColumns.findIndex(c => TagEditor.matchColumn(frame, c));
-			if (framedef) {
-				let subid: string | undefined;
-				if (frame.value && frame.value.id !== undefined) {
-					subid = frame.value.id;
-				}
-				this.columns.push(this.frameDef2Column(frame.id, subid, framedef, sort));
-			} else {
-				this.columns.push(this.frame2Column(frame, sort));
-			}
-		};
-
 		const processTrackFrames = (track: Jam.Track): void => {
 			const frames = getTrackFrames(track);
 			for (const frame of frames) {
-				const existingColumn = findExistingColumn(frame);
+				const existingColumn = this.findExistingColumn(frame);
 				if (!existingColumn) {
-					createColumnFromFrame(frame);
+					this.createColumnFromFrame(frame);
 				}
 			}
 		};
 
-		// Execute the main function logic
-		addDefaultColumns();
+		this.addDefaultColumns();
 
 		for (const track of tracks) {
 			if (track.tagRaw?.frames) {
@@ -793,7 +809,7 @@ export class TagEditor {
 			frames.push({id: FilenameColumnID, value: {text: track.name}});
 			if (track.tagRaw) {
 				for (const key of Object.keys(track.tagRaw.frames)) {
-					frames = frames.concat(track.tagRaw?.frames[key] || []);
+					frames = [...frames, ...track.tagRaw?.frames[key] || []];
 				}
 			}
 			const oldEdit = oldEdits.find(e => e.track === track);

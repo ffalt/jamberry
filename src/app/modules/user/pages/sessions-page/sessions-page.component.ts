@@ -31,10 +31,10 @@ export class SessionsPageComponent implements OnInit {
 				this.refresh();
 				this.notify.success('Token generated');
 			})
-			.catch(e => {
+			.catch(error => {
 				this.subsonicToken = undefined;
 				this.isUnlocked = false;
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 	}
 
@@ -64,9 +64,8 @@ export class SessionsPageComponent implements OnInit {
 				}
 				this.notify.success('Session Login removed');
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	refresh(): void {
@@ -74,8 +73,7 @@ export class SessionsPageComponent implements OnInit {
 			.then(list => {
 				this.sessions = list.map(session => ({session, isExpired: ((session.expires !== undefined) && (session.expires < Date.now()))}));
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 }

@@ -7,7 +7,7 @@ import {PlayerEvents, PlayerService} from '@core/services';
 	styleUrls: ['./slider-volume.component.scss'],
 	standalone: false,
 	host: {
-		tabindex: 'tabindex',
+		"[tabindex]": 'tabindex',
 		'(keydown.arrowLeft)': 'volumeDown()',
 		'(keydown.arrowRight)': 'volumeUp()'
 	}

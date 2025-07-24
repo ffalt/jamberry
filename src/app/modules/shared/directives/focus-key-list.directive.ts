@@ -1,7 +1,6 @@
 import {FocusKeyManager} from '@angular/cdk/a11y';
 import {type AfterContentInit, Directive, type OnDestroy, input, ContentChildren, type QueryList} from '@angular/core';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {FocusKeyListItemDirective} from './focus-key-list-item.directive';
 
 @Directive({

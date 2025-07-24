@@ -3,33 +3,36 @@ import {RunType} from './matcher';
 /**
  * Helper class for run strategies
  */
-export class RunStrategyHelper {
+export const RunStrategyHelper = {
 	/**
 	 * Execute the appropriate strategy based on the run type
 	 */
-	static async executeStrategy(
+	executeStrategy: async (
 		type: RunType,
 		acoustId: () => Promise<void>,
 		musicBrainzRefresh: () => Promise<void>,
 		musicBrainzByQuickTags: () => Promise<void>,
 		musicBrainzByTags: () => Promise<void>,
 		shouldStop: () => boolean
-	): Promise<void> {
+	): Promise<void> => {
 		switch (type) {
-			case RunType.acoustID:
+			case RunType.acoustID: {
 				await acoustId();
 				break;
-			case RunType.musicbrainzByTags:
+			}
+			case RunType.musicbrainzByTags: {
 				await musicBrainzByQuickTags();
 				if (shouldStop()) {
 					return;
 				}
 				await musicBrainzByTags();
 				break;
-			case RunType.musicbrainzRefresh:
+			}
+			case RunType.musicbrainzRefresh: {
 				await musicBrainzRefresh();
 				break;
-			case RunType.auto:
+			}
+			case RunType.auto: {
 				await musicBrainzRefresh();
 				if (shouldStop()) {
 					return;
@@ -44,8 +47,10 @@ export class RunStrategyHelper {
 				}
 				await musicBrainzByTags();
 				break;
-			default:
+			}
+			default: {
 				break;
+			}
 		}
 	}
-}
+};

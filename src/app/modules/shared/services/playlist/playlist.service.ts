@@ -24,9 +24,7 @@ export class PlaylistService {
 				this.notify.success('Playlist updated');
 				this.refreshPlaylist(playlist.id);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	async getPlaylistEntriesIDs(playlist: Jam.Playlist): Promise<Array<string>> {
@@ -45,9 +43,9 @@ export class PlaylistService {
 	addToPlaylist(playlist: Jam.Playlist, newMediaIDs: Array<string>): void {
 		this.getPlaylistEntriesIDs(playlist)
 			.then(list => {
-				this.savePlaylist(playlist, list.concat(newMediaIDs));
+				this.savePlaylist(playlist, [...list, ...newMediaIDs]);
 			})
-			.catch(e => this.notify.error(e));
+			.catch(error => this.notify.error(error));
 	}
 
 	removeFromPlaylist(playlist: Jam.Playlist, removeTrackIDs: Array<string>): void {
@@ -67,7 +65,7 @@ export class PlaylistService {
 		})
 			.then(playlist => {
 				const index = this.playlists.findIndex(p => p.id === id);
-				if (index < 0) {
+				if (index === -1) {
 					this.playlists.push(playlist);
 				} else {
 					this.playlists[index] = playlist;
@@ -75,9 +73,8 @@ export class PlaylistService {
 				this.playlistsChange.emit(this.playlists);
 				this.playlistChange.emit(id, playlist);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	async getTracks(id: string): Promise<Array<Jam.MediaBase>> {
@@ -93,8 +90,6 @@ export class PlaylistService {
 	}
 
 	refreshLists(): void {
-		this.getLists().catch(e => {
-			this.notify.error(e);
-		});
+		this.getLists().catch(error => this.notify.error(error));
 	}
 }

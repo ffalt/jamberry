@@ -24,7 +24,7 @@ export class ID3V2RawBuilder {
 			const frame: ID3v2Frames.IdText = {id: key, value: {id, text: value}};
 			const list = ((this.frameValues[key] || []) as Array<ID3v2Frames.IdText>)
 				.filter(f => f.value.id !== id);
-			this.frameValues[key] = list.concat([frame]);
+			this.frameValues[key] = [...list, frame];
 		}
 		return this;
 	}
@@ -42,8 +42,7 @@ export class ID3V2RawBuilder {
 		if (value) {
 			const frames = (this.frameValues[key] || []) as Array<ID3v2Frames.TextList>;
 			const frame: ID3v2Frames.TextList = (frames.length > 0) ? frames[0] : {id: key, value: {list: []}};
-			frame.value.list.push(group);
-			frame.value.list.push(value);
+			frame.value.list.push(group, value);
 			this.frameValues[key] = [frame];
 		}
 		return this;
@@ -63,7 +62,7 @@ export class ID3V2RawBuilder {
 			const list = ((this.frameValues[key] ?? []) as Array<ID3v2Frames.LangDescText>)
 				.filter(f => f.value.id !== cid);
 			const frame: ID3v2Frames.LangDescText = {id: key, value: {id: cid, language: lang ?? '', text: value}};
-			this.frameValues[key] = list.concat([frame]);
+			this.frameValues[key] = [...list, frame];
 		}
 		return this;
 	}
@@ -77,7 +76,7 @@ export class ID3V2RawBuilder {
 				mimeType
 			}
 		};
-		this.frameValues[key] = (this.frameValues[key] ?? []).concat([frame]);
+		this.frameValues[key] = [...(this.frameValues[key] ?? []), frame];
 		return this;
 	}
 
@@ -93,7 +92,7 @@ export class ID3V2RawBuilder {
 			},
 			subframes
 		};
-		this.frameValues[key] = (this.frameValues[key] || []).concat([frame]);
+		this.frameValues[key] = [...(this.frameValues[key] || []), frame];
 		return this;
 	}
 }

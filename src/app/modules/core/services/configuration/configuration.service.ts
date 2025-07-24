@@ -5,7 +5,7 @@ import {LocalstorageService} from '../localstorage/localstorage.service';
 import {UserStorageService} from '../userstorage/userstorage.service';
 
 export const WINDOW = new InjectionToken('window',
-	{providedIn: 'root', factory: (): Window => window}
+	{providedIn: 'root', factory: (): typeof globalThis => globalThis}
 );
 
 @Injectable({

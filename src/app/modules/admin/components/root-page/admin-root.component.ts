@@ -2,8 +2,7 @@ import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminRootService, type AdminRootServiceEditData, NotifyService} from '@core/services';
 import {type Jam, RootScanStrategy} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {DialogRootComponent} from '../dialog-root/dialog-root.component';
 
 @Component({
@@ -21,23 +20,26 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 
 	static getSortValue(column: string, root: Jam.Root): string | number | undefined {
 		switch (column) {
-			case 'name':
+			case 'name': {
 				return root.name;
-			case 'path':
+			}
+			case 'path': {
 				return root.path;
-			default:
+			}
+			default: {
 				return;
+			}
 		}
 	}
 
 	ngOnInit(): void {
 		this.rootService.rootsChange
-			.pipe(takeUntil(this.unsubscribe)).subscribe(
-			roots => {
-				this.roots = (roots || []).sort((a, b) => a.name.localeCompare(b.name));
-			},
-			e => {
-				this.notify.error(e);
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe({
+				next: roots => {
+					this.roots = (roots || []).sort((a, b) => a.name.localeCompare(b.name));
+				},
+				error: error => this.notify.error(error)
 			});
 		this.rootService.refreshRoots();
 	}
@@ -64,9 +66,9 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 			onOkBtn: async () => {
 				try {
 					await this.rootService.applyDialogRoot(edit);
-				} catch (e: any) {
-					this.notify.error(e);
-					return Promise.reject(e as Error);
+				} catch (error) {
+					this.notify.error(error);
+					return Promise.reject(error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()

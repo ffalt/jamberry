@@ -18,7 +18,7 @@
 				<div class="length" title="Duration" i18n-title><i class="icon-stopwatch"></i></div>
 			</div>
 			@for (track of tracks; track track) {
-				<div class="track" appFocusKeyListItem role="listitem" (tap)="tapTrack($event, track)" (keydown.enter)="playTrack(track)" (contextmenu)="onContextMenu($event, track)">
+				<div class="track" appFocusKeyListItem role="listitem" (dblclick)="playTrack(track)" (keydown.enter)="playTrack(track)" (contextmenu)="onContextMenu($event, track)">
 					<div class="fav"><a (clickenter)="actions.toggleMediaBaseFav(track)">
 						<app-fav-icon title="Toggle Favorite" i18n-title [faved]="track.state?.faved"/>
 					</a></div>

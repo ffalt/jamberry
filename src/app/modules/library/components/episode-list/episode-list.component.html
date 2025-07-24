@@ -10,7 +10,7 @@
 				<div class="length"><i class="icon-stopwatch"></i></div>
 			</div>
 			@for (episode of episodes; track episode.id) {
-				<div class="episode" (tap)="tapEpisode($event, episode)" (contextmenu)="onContextMenu($event, episode)">
+				<div class="episode" (dblclick)="play(episode)" (contextmenu)="onContextMenu($event, episode)">
 					<div class="fav"><a (click)="actions.toggleMediaBaseFav(episode)">
 						<app-fav-icon title="Toggle Favorite" i18n-title [faved]="episode.state?.faved"/>
 					</a></div>

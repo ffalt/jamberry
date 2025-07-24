@@ -42,8 +42,6 @@ export class StartStatsComponent implements OnInit {
 						{text: 'Tracks', link: '/library/tracks', value: stats.track}
 					]);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 }

@@ -4,8 +4,7 @@ import {NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
 import {JamFolderObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-folder-similar',
@@ -45,12 +44,8 @@ export class FolderSimilarComponent implements OnInit, OnDestroy {
 				folderIncState: true,
 				folderIncTag: true
 			})
-				.then(folders => {
-					this.display(folders);
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.then(folders => this.display(folders))
+				.catch(error => this.notify.error(error));
 		}
 	}
 

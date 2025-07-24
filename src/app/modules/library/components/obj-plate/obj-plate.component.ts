@@ -10,7 +10,7 @@ import {MediaPlateComponent} from '@shared/components';
 	styleUrls: ['./obj-plate.component.scss'],
 	standalone: false,
 	host: {
-		tabindex: 'tabindex'
+		"[tabindex]": 'tabindex'
 	}
 })
 export class ObjPlateComponent implements OnChanges, FocusableOption {
@@ -54,12 +54,8 @@ export class ObjPlateComponent implements OnChanges, FocusableOption {
 			this.expanded = !this.expanded;
 			if (this.expanded) {
 				obj.loadChildren()
-					.then(() => {
-						this.check();
-					})
-					.catch(e => {
-						console.error(e);
-					});
+					.then(() => this.check())
+					.catch(console.error);
 			}
 		}
 	}

@@ -2,8 +2,7 @@ import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-folder-musicbrainz',
@@ -40,12 +39,8 @@ export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 		this.hasArtistID = false;
 		if (this.id) {
 			this.jam.folder.id({id: this.id, folderIncTag: true})
-				.then(folder => {
-					this.display(folder);
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.then(folder => this.display(folder))
+				.catch(error => this.notify.error(error));
 		}
 	}
 

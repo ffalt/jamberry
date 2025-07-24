@@ -1,8 +1,7 @@
 import {type FocusableOption, FocusKeyManager} from '@angular/cdk/a11y';
 import {type AfterViewInit, Component, type OnDestroy, input, ViewChildren, type QueryList} from '@angular/core';
 import type {JamLibraryObject} from '@library/model/objects';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {ObjPlateComponent} from '../obj-plate/obj-plate.component';
 
 interface ObjPlatesGroupsView {
@@ -16,7 +15,7 @@ interface ObjPlatesGroupsView {
 	styleUrls: ['./obj-groups-plates.component.scss'],
 	standalone: false,
 	host: {
-		tabindex: 'tabindex',
+		"[tabindex]": 'tabindex',
 		'(keydown.arrowDown)': 'manage($event)',
 		'(keydown.arrowUp)': 'manage($event)'
 	}

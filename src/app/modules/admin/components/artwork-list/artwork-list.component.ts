@@ -20,7 +20,7 @@ function extractBasename(filename: string): string {
 
 function extractExt(filename: string): string {
 	const sl = filename.split('.');
-	return sl[sl.length - 1];
+	return sl.at(-1) ?? '';
 }
 
 @Component({
@@ -50,9 +50,7 @@ export class ArtworkListComponent implements OnChanges {
 				this.folderService.waitForQueueResult('Renaming Artwork', item,
 					folderID ? [folderID] : [], []);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	editArtwork(artwork: Jam.Artwork): void {
@@ -74,9 +72,7 @@ export class ArtworkListComponent implements OnChanges {
 					const folderID = this.folderID();
 					this.folderService.waitForQueueResult('Removing Artwork', item, folderID ? [folderID] : []);
 				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.catch(error => this.notify.error(error));
 		});
 	}
 

@@ -27,7 +27,7 @@ export class PlaylistDialogsService {
 			name: '',
 			comment: '',
 			isPublic: false,
-			entries: entries ? entries.slice(0) : []
+			entries: entries ? [...entries] : []
 		};
 		this.dialogOverlay.open({
 			title: 'New Playlist',
@@ -37,9 +37,9 @@ export class PlaylistDialogsService {
 				try {
 					await this.applyDialogPlaylist(edit);
 					this.notify.success('Playlist created');
-				} catch (e: any) {
-					this.notify.error(e);
-					return Promise.reject(e as Error);
+				} catch (error) {
+					this.notify.error(error);
+					return Promise.reject(error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()
@@ -52,9 +52,7 @@ export class PlaylistDialogsService {
 				.then(() => {
 					this.notify.success('Playlist removed');
 				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.catch(error => this.notify.error(error));
 		});
 	}
 
@@ -65,7 +63,7 @@ export class PlaylistDialogsService {
 					name: playlist.name,
 					comment: playlist.comment ?? '',
 					isPublic: playlist.isPublic,
-					entries: medias.slice(0),
+					entries: [...medias],
 					playlist
 				};
 				this.dialogOverlay.open({
@@ -76,18 +74,16 @@ export class PlaylistDialogsService {
 							try {
 								await this.applyDialogPlaylist(edit);
 								this.notify.success('Playlist updated');
-							} catch (e: any) {
-								this.notify.error(e);
-								return Promise.reject(e as Error);
+							} catch (error) {
+								this.notify.error(error);
+								return Promise.reject(error);
 							}
 						},
 						onCancelBtn: async () => Promise.resolve()
 					}
 				);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	async getPlaylistMedias(id: string): Promise<Array<Jam.MediaBase>> {
@@ -97,17 +93,7 @@ export class PlaylistDialogsService {
 
 	async applyDialogPlaylist(edit: PlaylistEdit): Promise<void> {
 		const mediaIDs = edit.entries.map(t => t.id);
-		if (!edit.playlist) {
-			if (edit.name.length > 0) {
-				await this.jam.playlist.create({
-					name: edit.name,
-					isPublic: edit.isPublic,
-					comment: edit.comment,
-					mediaIDs
-				});
-				this.playlistService.refreshLists();
-			}
-		} else {
+		if (edit.playlist) {
 			await this.jam.playlist.update({
 				id: edit.playlist.id,
 				name: edit.name,
@@ -116,6 +102,14 @@ export class PlaylistDialogsService {
 				mediaIDs
 			});
 			this.playlistService.refreshPlaylist(edit.playlist.id);
+		} else if (edit.name.length > 0) {
+			await this.jam.playlist.create({
+				name: edit.name,
+				isPublic: edit.isPublic,
+				comment: edit.comment,
+				mediaIDs
+			});
+			this.playlistService.refreshLists();
 		}
 	}
 

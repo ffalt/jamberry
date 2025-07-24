@@ -3,7 +3,7 @@ import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
-import {takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs';
 import {AdminBaseParentViewIdComponent} from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
 import {DialogChooseFolderComponent, type SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
 import {DialogFolderComponent} from '../../dialog-folder/dialog-folder.component';
@@ -44,9 +44,7 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 			.then(data => {
 				this.folder = data;
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	newFolder(): void {
@@ -65,12 +63,10 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 						.then(item => {
 							this.folderService.waitForQueueResult('Creating Folder', item, [], [folder.id]);
 						})
-						.catch(e => {
-							this.notify.error(e);
-						});
-				} catch (e: any) {
-					this.notify.error(e);
-					return Promise.reject(e as Error);
+						.catch(error => this.notify.error(error));
+				} catch (error) {
+					this.notify.error(error);
+					return Promise.reject(error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()
@@ -83,7 +79,7 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 		}
 		const id = this.id;
 		const folderIDs = this.folder.folders.map(f => f.id);
-		const refreshID = [id].concat(folderIDs);
+		const refreshID = [id, ...folderIDs];
 		const data: SelectFolder = {
 			selectID: id,
 			disableIDs: refreshID
@@ -104,12 +100,10 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 						.then(item => {
 							this.folderService.waitForQueueResult('Moving Folders', item, [], refreshID);
 						})
-						.catch(e => {
-							this.notify.error(e);
-						});
-				} catch (e: any) {
-					this.notify.error(e);
-					return Promise.reject(e as Error);
+						.catch(error => this.notify.error(error));
+				} catch (error) {
+					this.notify.error(error);
+					return Promise.reject(error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()

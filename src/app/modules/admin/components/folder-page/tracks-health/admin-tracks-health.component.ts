@@ -2,7 +2,7 @@ import {AdminBaseParentViewIdComponent} from '@admin/components/admin-base-paren
 import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
-import {takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-admin-tracks-health',
@@ -56,12 +56,8 @@ export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent i
 			return;
 		}
 		this.jam.track.health({folderIDs: [this.id], healthMedia: this.mediaCheck})
-			.then(data => {
-				this.display(data);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(data => this.display(data))
+			.catch(error => this.notify.error(error));
 	}
 
 	private reDisplay(): void {

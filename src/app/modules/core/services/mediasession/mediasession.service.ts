@@ -42,13 +42,13 @@ export class MediaSessionService {
 			const d = (duration ?? 0) / 1000;
 			const state = {
 				duration: d,
-				playbackRate: playbackRate ?? 1.0,
+				playbackRate: playbackRate ?? 1,
 				position: Math.min(d, (position ?? 0) / 1000)
 			};
 			try {
 				navigator.mediaSession.setPositionState(state);
-			} catch (e) {
-				console.error(e);
+			} catch (error) {
+				console.error(error);
 			}
 		}
 	};

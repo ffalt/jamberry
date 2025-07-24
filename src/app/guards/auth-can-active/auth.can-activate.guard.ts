@@ -18,8 +18,8 @@ export class AuthCanActivateGuard implements CanActivate {
 		}
 		try {
 			await this.auth.check();
-		} catch (e: any) {
-			this.notify.error(e);
+		} catch (error) {
+			this.notify.error(error);
 			return false;
 		}
 		if (this.auth.auth && this.auth.auth?.version !== JamAuthService.version) {
@@ -27,9 +27,7 @@ export class AuthCanActivateGuard implements CanActivate {
 		}
 		if (!this.auth.isLoggedIn()) {
 			this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}})
-				.catch(e => {
-					console.error(e);
-				});
+				.catch(console.error);
 			return false;
 		}
 		return true;

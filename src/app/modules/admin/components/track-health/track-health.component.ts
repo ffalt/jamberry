@@ -3,8 +3,7 @@ import {Router} from '@angular/router';
 
 import {AdminFolderService, NotifyService} from '@core/services';
 import {type Jam, JamService, TrackHealthID} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 export interface TrackHealthHintSolution {
 	name: string;
@@ -47,30 +46,29 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.folderService.tracksChange
-			.pipe(takeUntil(this.unsubscribe)).subscribe(change => {
-				const health = this.trackHealth();
-				if (health && health.track.id === change.id) {
-					health.health = [];
-					this.jam.track.health({ids: [health.track.id], healthMedia: true})
-						.then(data => {
-							const h = data.find(d => d.track.id === health.track.id);
-							if (h?.health) {
-								health.track = h.track;
-								health.health = h.health;
-							} else {
-								health.health = [];
-							}
-							if (health.health.length === 0) {
-								this.resolvedEvent.emit();
-							}
-							this.display(health);
-						})
-						.catch(e => {
-							this.notify.error(e);
-						});
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(change => {
+					const health = this.trackHealth();
+					if (health && health.track.id === change.id) {
+						health.health = [];
+						this.jam.track.health({ids: [health.track.id], healthMedia: true})
+							.then(data => {
+								const h = data.find(d => d.track.id === health.track.id);
+								if (h?.health) {
+									health.track = h.track;
+									health.health = h.health;
+								} else {
+									health.health = [];
+								}
+								if (health.health.length === 0) {
+									this.resolvedEvent.emit();
+								}
+								this.display(health);
+							})
+							.catch(error => this.notify.error(error));
+					}
 				}
-			}
-		);
+			);
 	}
 
 	fixAll(): void {
@@ -94,26 +92,32 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 
 	private describeTagHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		let description = '';
-		if (hint.id === TrackHealthID.tagValuesExists) {
-			description = (hint.details || []).map(d => d.reason.toUpperCase()).join(', ');
-		} else if (hint.id === TrackHealthID.id3v2Garbage) {
-			description = (hint.details || []).map(d => d.reason).join(', ');
-		} else if (hint.id === TrackHealthID.id3v2Valid) {
-			description = (hint.details || []).map(d => {
-				if (d.expected && d.actual) {
-					return `${d.reason}  (${d.actual} instead of ${d.expected})`;
-				}
-				return d.reason;
-			}).join(', ');
+		switch (hint.id) {
+			case TrackHealthID.tagValuesExists: {
+				description = (hint.details || []).map(d => d.reason.toUpperCase()).join(', ');
+				break;
+			}
+			case TrackHealthID.id3v2Garbage: {
+				description = (hint.details || []).map(d => d.reason).join(', ');
+				break;
+			}
+			case TrackHealthID.id3v2Valid: {
+				description = (hint.details || []).map(d => {
+					if (d.expected && d.actual) {
+						return `${d.reason}  (${d.actual} instead of ${d.expected})`;
+					}
+					return d.reason;
+				}).join(', ');
+				break;
+			}
+			// No default
 		}
-		if (!this.solutions.find(sol => sol.name === 'Edit Tag')) {
+		if (!this.solutions.some(sol => sol.name === 'Edit Tag')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Edit Tag',
 				click: (): void => {
 					this.router.navigate([`/admin/folder/${track.parentID}/tags`])
-						.catch(e => {
-							console.error(e);
-						});
+						.catch(console.error);
 				}
 			};
 			this.solutions.push(sol);
@@ -126,7 +130,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		if (hint.details && hint.details.length > 0) {
 			description = `${hint.details[0].reason} (${hint.details[0].actual} bytes)`;
 		}
-		if (!this.solutions.find(sol => sol.name === 'Fix MP3')) {
+		if (!this.solutions.some(sol => sol.name === 'Fix MP3')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix MP3',
 				fixable: true,
@@ -139,9 +143,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						.then(item => {
 							this.folderService.waitForQueueResult('Fixing Track MP3', item, [], [], [track.id]);
 						})
-						.catch(e => {
-							this.notify.error(e);
-						});
+						.catch(error => this.notify.error(error));
 				}
 			};
 			this.solutions.push(sol);
@@ -152,7 +154,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	private describeMp3ErrorHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		const description = `Stream Errors: ${(hint.details || []).length}`;
 
-		if (!this.solutions.find(sol => sol.name === 'Fix Stream')) {
+		if (!this.solutions.some(sol => sol.name === 'Fix Stream')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix Stream',
 				fixable: true,
@@ -165,9 +167,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						.then(item => {
 							this.folderService.waitForQueueResult('Fixing Track Stream', item, [], [], [track.id]);
 						})
-						.catch(e => {
-							this.notify.error(e);
-						});
+						.catch(error => this.notify.error(error));
 				}
 			};
 			this.solutions.push(sol);
@@ -176,7 +176,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	}
 
 	private describeID3v1Hint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
-		if (!this.solutions.find(sol => sol.name === 'Remove ID3v1')) {
+		if (!this.solutions.some(sol => sol.name === 'Remove ID3v1')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Remove ID3v1',
 				fixable: true,
@@ -189,9 +189,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						.then(item => {
 							this.folderService.waitForQueueResult('Remove ID3v1', item, [], [], [track.id]);
 						})
-						.catch(e => {
-							this.notify.error(e);
-						});
+						.catch(error => this.notify.error(error));
 				}
 			};
 			this.solutions.push(sol);
@@ -209,7 +207,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 				return d.reason;
 			}).join(', ');
 		}
-		if (!this.solutions.find(sol => sol.name === 'Fix Header')) {
+		if (!this.solutions.some(sol => sol.name === 'Fix Header')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix Header',
 				fixable: true,
@@ -222,9 +220,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						.then(item => {
 							this.folderService.waitForQueueResult('Fixing Track Header', item, [], [], [track.id]);
 						})
-						.catch(e => {
-							this.notify.error(e);
-						});
+						.catch(error => this.notify.error(error));
 				}
 			};
 			this.solutions.push(sol);
@@ -237,19 +233,25 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 			case TrackHealthID.tagValuesExists:
 			case TrackHealthID.id3v2Garbage:
 			case TrackHealthID.id3v2Exists:
-			case TrackHealthID.id3v2Valid:
+			case TrackHealthID.id3v2Valid: {
 				return this.describeTagHint(hint, track);
-			case TrackHealthID.mp3Garbage:
+			}
+			case TrackHealthID.mp3Garbage: {
 				return this.describeMp3GarbageHint(hint, track);
-			case TrackHealthID.mp3MediaValid:
+			}
+			case TrackHealthID.mp3MediaValid: {
 				return this.describeMp3ErrorHint(hint, track);
-			case TrackHealthID.id3v2NoId3v1:
+			}
+			case TrackHealthID.id3v2NoId3v1: {
 				return this.describeID3v1Hint(hint, track);
+			}
 			case TrackHealthID.mp3HeaderExists:
-			case TrackHealthID.mp3HeaderValid:
+			case TrackHealthID.mp3HeaderValid: {
 				return this.describeMP3HeaderHint(hint, track);
-			default:
+			}
+			default: {
 				break;
+			}
 		}
 		return '';
 	}

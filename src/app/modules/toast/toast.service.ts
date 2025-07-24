@@ -82,13 +82,11 @@ export class ToastService {
 	clear(toastId?: number): void {
 		// Call every toastRef manualClose function
 		for (const toast of this.toasts) {
-			if (toastId !== undefined) {
-				if (toast.toastId === toastId) {
-					toast.toastRef.manualClose();
-					return;
-				}
-			} else {
+			if (toastId === undefined) {
 				toast.toastRef.manualClose();
+			} else if (toast.toastId === toastId) {
+				toast.toastRef.manualClose();
+				return;
 			}
 		}
 	}
@@ -104,7 +102,7 @@ export class ToastService {
 		found.activeToast.toastRef.close();
 		this.toasts.splice(found.index, 1);
 		this.currentlyActive = this.currentlyActive - 1;
-		if (!this.toastrConfig.maxOpened || !this.toasts.length) {
+		if (!this.toastrConfig.maxOpened || this.toasts.length === 0) {
 			return false;
 		}
 		if (

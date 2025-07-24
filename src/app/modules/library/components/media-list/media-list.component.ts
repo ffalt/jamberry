@@ -27,9 +27,7 @@ export class MediaListComponent {
 		this.library.openJamObjectMenu(obj, $event);
 	}
 
-	tapTrack(event: Event & { tapCount?: number }, track: Jam.MediaBase): void {
-		if (event.tapCount === 2) {
-			this.player.startTrack(track);
-		}
+	playTrack(track: Jam.MediaBase): void {
+		this.player.startTrack(track);
 	}
 }

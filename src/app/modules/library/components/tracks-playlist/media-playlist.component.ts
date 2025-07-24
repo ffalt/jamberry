@@ -24,9 +24,7 @@ export class MediaPlaylistComponent {
 		}
 	}
 
-	tapTrack(event: Event & { tapCount?: number }, media: Jam.MediaBase): void {
-		if (event.tapCount === 2) {
-			this.player.startTrack(media);
-		}
+	playTrack(media: Jam.MediaBase): void {
+		this.player.startTrack(media);
 	}
 }

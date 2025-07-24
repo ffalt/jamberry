@@ -2,8 +2,7 @@ import {Injectable, type OnDestroy, inject} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import type {Jam} from '@jam';
-import {Subject} from 'rxjs';
-import {filter, takeUntil} from 'rxjs/operators';
+import {Subject, filter, takeUntil} from 'rxjs';
 import {AppService} from '../app/app.service';
 import {PlayerEvents} from '../player/player.interface';
 import {PlayerService} from '../player/player.service';
@@ -32,16 +31,16 @@ export class TitleService implements OnDestroy {
 				if (data.name) {
 					this.titles.push(data.name);
 				} else if (data.names) {
-					const titleinfo = data.names.filter((info: { id: string }) => (info.id === currentroute.snapshot.params.id))[0];
+					const titleinfo = data.names.find((info: { id: string }) => (info.id === currentroute.snapshot.params.id));
 					if (titleinfo) {
 						this.titles.push(titleinfo.name);
 					}
 				} else if (currentroute.snapshot.params.name) {
 					this.titles.push(currentroute.snapshot.params.name);
 				}
-				currentroute.children.forEach(collectRouteData);
+				for (const element of currentroute.children) { collectRouteData(element); }
 			};
-			this.route.children.forEach(collectRouteData);
+			for (const element of this.route.children) { collectRouteData(element); }
 
 			this.titles.push(this.app.name);
 			if (!this.app.settings.playingTrackInTitle) {

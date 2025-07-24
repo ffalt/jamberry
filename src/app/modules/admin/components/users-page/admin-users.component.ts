@@ -2,8 +2,7 @@ import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminUserService, type AdminUserServiceEditData, NotifyService} from '@core/services';
 import type {Jam} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {DialogUserComponent} from '../dialog-user/dialog-user.component';
 
 @Component({
@@ -21,32 +20,39 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 
 	getSortValue(column: string, user: Jam.User): string | number | undefined {
 		switch (column) {
-			case 'name':
+			case 'name': {
 				return user.name;
-			case 'email':
+			}
+			case 'email': {
 				return user.email;
-			case 'roleAdmin':
+			}
+			case 'roleAdmin': {
 				return user.roles.admin ? 1 : 0;
-			case 'rolePodcast':
+			}
+			case 'rolePodcast': {
 				return user.roles.podcast ? 1 : 0;
-			case 'roleUpload':
+			}
+			case 'roleUpload': {
 				return user.roles.upload ? 1 : 0;
-			case 'roleStream':
+			}
+			case 'roleStream': {
 				return user.roles.stream ? 1 : 0;
-			default:
+			}
+			default: {
 				return;
+			}
 		}
 	}
 
 	ngOnInit(): void {
 		this.userService.usersChange
-			.pipe(takeUntil(this.unsubscribe)).subscribe(users => {
-				this.users = (users || []).sort((a, b) => a.name.localeCompare(b.name));
-			},
-			e => {
-				this.notify.error(e);
-			}
-		);
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe({
+				next: users => {
+					this.users = (users || []).sort((a, b) => a.name.localeCompare(b.name));
+				},
+				error: error => this.notify.error(error)
+			});
 		this.userService.refreshUsers();
 	}
 
@@ -79,9 +85,9 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 				try {
 					await this.userService.applyDialogUser(edit);
 					this.notify.success('User created');
-				} catch (e: any) {
-					this.notify.error(e);
-					return Promise.reject(e as Error);
+				} catch (error) {
+					this.notify.error(error);
+					return Promise.reject(error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()

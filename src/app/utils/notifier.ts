@@ -11,7 +11,7 @@ export class Notifiers<T> {
 	}
 
 	observed(id: string): boolean {
-		return !this.notifiers[id] ? false : this.notifiers[id].observed;
+		return this.notifiers[id] ? this.notifiers[id].observed : false;
 	}
 
 	emit(id: string, data?: T): void {

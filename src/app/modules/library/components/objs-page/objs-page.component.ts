@@ -3,8 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {getUrlType, type JamType, JamUrlType} from '@app/utils/jam-lists';
 import {LibraryService} from '@library/services';
 import type {HeaderTab} from '@shared/components';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-page-objs',
@@ -33,12 +32,14 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 			this.icon = type?.icon;
 			this.section = type?.text;
 			switch (type?.id) {
-				case JamUrlType.podcasts:
+				case JamUrlType.podcasts: {
 					this.hasContextMenu = !!this.library.jam.auth.user?.roles?.podcast;
 					break;
-				case JamUrlType.playlists:
+				}
+				case JamUrlType.playlists: {
 					this.hasContextMenu = true;
 					break;
+				}
 				default:
 			}
 			this.tabs = type?.id ? this.library.buildTabs(type.id) : undefined;
@@ -50,7 +51,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 			return;
 		}
 		switch (this.type?.id) {
-			case JamUrlType.podcasts:
+			case JamUrlType.podcasts: {
 				this.library.openSimpleMenu(
 					[
 						{
@@ -71,7 +72,8 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 					$event
 				);
 				break;
-			case JamUrlType.playlists:
+			}
+			case JamUrlType.playlists: {
 				this.library.openSimpleMenu(
 					[
 						{
@@ -83,6 +85,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 						}
 					], $event);
 				break;
+			}
 			default:
 		}
 	}

@@ -3,8 +3,8 @@ function offset(nativeEl: HTMLElement): { width: number; height: number; top: nu
 	return {
 		width: boundingClientRect.width || nativeEl.offsetWidth,
 		height: boundingClientRect.height || nativeEl.offsetHeight,
-		top: boundingClientRect.top + (window.scrollY ?? window.document.documentElement.scrollTop),
-		left: boundingClientRect.left + (window.scrollX ?? window.document.documentElement.scrollLeft)
+		top: boundingClientRect.top + (window.scrollY ?? globalThis.document.documentElement.scrollTop),
+		left: boundingClientRect.left + (window.scrollX ?? globalThis.document.documentElement.scrollLeft)
 	};
 }
 
@@ -12,8 +12,8 @@ function getStyle(nativeEl: HTMLElement, cssProp: string): string {
 	if ((nativeEl as any).currentStyle) {// IE
 		return (nativeEl as any).currentStyle[cssProp];
 	}
-	if (window.getComputedStyle) {
-		return (window.getComputedStyle(nativeEl) as any)[cssProp];
+	if (globalThis.getComputedStyle) {
+		return (globalThis.getComputedStyle(nativeEl) as any)[cssProp];
 	}
 	// finally try and get inline style
 	return (nativeEl.style as any)[cssProp];
@@ -24,18 +24,18 @@ function isStaticPositioned(nativeEl: HTMLElement): boolean {
 }
 
 function parentOffsetEl(nativeEl: HTMLElement): any {
-	let offsetParent: any = nativeEl.offsetParent || window.document;
-	while (offsetParent && offsetParent !== window.document && isStaticPositioned(offsetParent)) {
+	let offsetParent: any = nativeEl.offsetParent || globalThis.document;
+	while (offsetParent && offsetParent !== globalThis.document && isStaticPositioned(offsetParent)) {
 		offsetParent = offsetParent.offsetParent;
 	}
-	return offsetParent || window.document;
+	return offsetParent || globalThis.document;
 }
 
 function position(nativeEl: HTMLElement): { width: number; height: number; top: number; left: number } {
 	let offsetParentBCR = {top: 0, left: 0};
 	const elBCR = offset(nativeEl);
 	const offsetParentEl = parentOffsetEl(nativeEl);
-	if (offsetParentEl !== window.document) {
+	if (offsetParentEl !== globalThis.document) {
 		offsetParentBCR = offset(offsetParentEl);
 		offsetParentBCR.top += offsetParentEl.clientTop - offsetParentEl.scrollTop;
 		offsetParentBCR.left += offsetParentEl.clientLeft - offsetParentEl.scrollLeft;
@@ -75,30 +75,34 @@ export function positionElements(hostEl: HTMLElement, targetEl: HTMLElement, pos
 	};
 	let targetElPos: { top: number; left: number };
 	switch (pos0) {
-		case 'right':
+		case 'right': {
 			targetElPos = {
 				top: shiftHeight[pos1](),
 				left: shiftWidth[pos0]()
 			};
 			break;
-		case 'left':
+		}
+		case 'left': {
 			targetElPos = {
 				top: shiftHeight[pos1](),
 				left: hostElPos.left - targetElWidth
 			};
 			break;
-		case 'bottom':
+		}
+		case 'bottom': {
 			targetElPos = {
 				top: shiftHeight[pos0](),
 				left: shiftWidth[pos1]()
 			};
 			break;
-		default:
+		}
+		default: {
 			targetElPos = {
 				top: hostElPos.top - targetElHeight,
 				left: shiftWidth[pos1]()
 			};
 			break;
+		}
 	}
 	return targetElPos;
 }

@@ -28,9 +28,10 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 	ngOnInit(): void {
 		this.app.view.currentSidebar = this;
 		// qlty-ignore: biome:lint/complexity/noForEach
+		// eslint-disable-next-line unicorn/no-array-for-each
 		this.router.events.forEach(() => {
 			this.showMobileNavig = false;
-		}).catch(e => console.error(e));
+		}).catch(console.error);
 	}
 
 	ngOnDestroy(): void {
@@ -51,6 +52,7 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 
 	ngAfterViewInit(): void {
 		const matrix = this.items().map(e => e.items());
+		// eslint-disable-next-line unicorn/prefer-spread
 		const merged = ([] as Array<SidebarListItemComponent>).concat(...matrix);
 		this.keyManager = new FocusKeyManager(merged).withWrap();
 	}

@@ -3,8 +3,7 @@ import {Component, type OnDestroy, inject} from '@angular/core';
 import type {DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef} from '@app/modules/dialog-overlay';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-dialog-upload-image',
@@ -76,21 +75,24 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 		this.isIdle = false;
 		this.isUploading = true;
 		this.jam.artwork.createByUpload({folderID: this.folder.id, types: []}, file)
-			.pipe(takeUntil(this.unsubscribe)).subscribe(event => {
-				if (event instanceof HttpResponse) {
-					const result = event.body;
-					if (result) {
-						this.waitForCreationEnd(result as Jam.AdminChangeQueueInfo);
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe({
+				next: event => {
+					if (event instanceof HttpResponse) {
+						const result = event.body;
+						if (result) {
+							this.waitForCreationEnd(result as Jam.AdminChangeQueueInfo);
+						}
 					}
+				},
+				error: error => {
+					this.isUploading = false;
+					this.isIdle = true;
+					this.notify.error(error);
+				},
+				complete: () => {
+					this.isUploading = false;
 				}
-			}, err => {
-				this.isUploading = false;
-				this.isIdle = true;
-				this.notify.error(err);
-			},
-			() => {
-				this.isUploading = false;
-			}
-		);
+			});
 	}
 }

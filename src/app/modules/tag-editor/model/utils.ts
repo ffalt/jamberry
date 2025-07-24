@@ -11,7 +11,7 @@ export function stripExtension(s: string): string {
 }
 
 export function extractFileExtension(filename: string): string {
-	return filename.substring(filename.lastIndexOf('.') + 1, filename.length) || filename;
+	return filename.slice(filename.lastIndexOf('.') + 1) || filename;
 }
 
 export function hasFileExtension(filename: string, exts: Array<string>): boolean {
@@ -20,14 +20,14 @@ export function hasFileExtension(filename: string, exts: Array<string>): boolean
 
 export function replaceFileSystemChars(s: string, replace: string): string {
 	return s.toString()
-		.replace(/:/g, ' - ')
-		.replace(/[?/!\\]/g, replace);
+		.replaceAll(':', ' - ')
+		.replaceAll(/[?/!\\]/g, replace);
 }
 
 export function replaceFolderSystemChars(s: string, replace: string): string {
 	return s.toString()
-		.replace(/:/g, ' -')
-		.replace(/[.*?/!\\]/g, replace);
+		.replaceAll(':', ' -')
+		.replaceAll(/[.*?/!\\]/g, replace);
 }
 
 export function findTrackNr(filename: string): number {

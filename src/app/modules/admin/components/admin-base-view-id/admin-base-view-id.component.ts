@@ -1,7 +1,6 @@
 import {Component, type OnDestroy, type OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-admin-base-view-id',
@@ -17,10 +16,11 @@ export class AdminBaseViewIdComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		if (this.route) {
 			this.route.params
-				.pipe(takeUntil(this.unsubscribe)).subscribe(params => {
-				this.resolve(params);
-				this.refresh();
-			});
+				.pipe(takeUntil(this.unsubscribe))
+				.subscribe(params => {
+					this.resolve(params);
+					this.refresh();
+				});
 		}
 	}
 

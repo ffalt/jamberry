@@ -34,7 +34,7 @@ export class ChildTooltipContentComponent implements AfterViewInit {
 		if (!hostElement) {
 			return;
 		}
-		document.body.appendChild(this.element.nativeElement);
+		document.body.append(this.element.nativeElement);
 		const p = positionElements(hostElement, this.element.nativeElement.children[0], this.placement(), true);
 		this.top = p.top;
 		this.left = p.left;

@@ -34,9 +34,8 @@ export class UserStatsComponent implements OnInit {
 					{text: 'Playlists', link: '/library/playlists', value: stats.playlist}
 				], true);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	private static buildStats(detail: Jam.UserDetailStats, suffix: string = ''): StatsList {

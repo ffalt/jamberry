@@ -36,9 +36,8 @@ function distance(str1: string, str2: string): number {
 	return 1 - result / s2.length;
 }
 
-function iterateGrams(value: string, gramSize: number): Array<string> {
+function iterateGrams(value: string, gs = 2): Array<string> {
 	const nonWordRe = /[^\w, ]+/;
-	const gs = gramSize || 2;
 	const simplified = `-${value.toLowerCase().replace(nonWordRe, '')}-`;
 	const results = [];
 	for (let i = 0; i < simplified.length - gs + 1; i += 1) {
@@ -72,7 +71,7 @@ function isEmptyObject(obj: any): boolean {
 
 function normalizeStr(str: string): string {
 	if (typeof str !== 'string') {
-		throw new Error('Must use a string as argument to FuzzySet functions');
+		throw new TypeError('Must use a string as argument to FuzzySet functions');
 	}
 	return str.toLowerCase();
 }

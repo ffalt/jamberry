@@ -3,8 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NavigService} from '@core/services';
 import type {Jam} from '@jam';
 import {PlaylistService} from '@shared/services';
-import {Subject, type Subscription} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, type Subscription, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-playlist-overview',

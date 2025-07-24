@@ -3,8 +3,7 @@ import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminUserService, type AdminUserServiceEditData, NotifyService} from '@core/services';
 import type {Jam} from '@jam';
 import {DialogsService} from '@shared/services';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {DialogAvatarComponent} from '../dialog-avatar/dialog-avatar.component';
 import {DialogUserPassComponent, type UserPasswordEdit} from '../dialog-user-pass/dialog-user-pass.component';
 import {DialogUserComponent} from '../dialog-user/dialog-user.component';
@@ -49,9 +48,9 @@ export class UserListComponent implements OnDestroy {
 				try {
 					await this.userService.applyDialogUser(edit);
 					this.notify.success('User edited');
-				} catch (e: any) {
-					this.notify.error(e);
-					return Promise.reject(e as Error);
+				} catch (error) {
+					this.notify.error(error);
+					return Promise.reject(error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()
@@ -80,9 +79,9 @@ export class UserListComponent implements OnDestroy {
 				try {
 					await this.userService.setPassword(user.id, edit.password, edit.newPassword);
 					this.notify.success('Password changed');
-				} catch (e: any) {
-					this.notify.error(e);
-					return Promise.reject(e as Error);
+				} catch (error) {
+					this.notify.error(error);
+					return Promise.reject(error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()
@@ -92,12 +91,8 @@ export class UserListComponent implements OnDestroy {
 	deleteUser(user: Jam.User): void {
 		this.dialogs.confirm('Delete User', 'Do you want to the delete the user?', () => {
 			this.userService.removeUser(user)
-				.then(() => {
-					this.notify.success('User deleted');
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.then(() => this.notify.success('User deleted'))
+				.catch(error => this.notify.error(error));
 		});
 	}
 }

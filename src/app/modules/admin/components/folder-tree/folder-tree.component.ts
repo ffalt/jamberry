@@ -2,8 +2,7 @@ import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {Component, type OnDestroy, type OnInit, inject, output, viewChild, input} from '@angular/core';
 import {AdminFolderService, AdminFolderServiceNotifyMode, NotifyService} from '@core/services';
 import {FolderType, type Jam, JamService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 export interface TreeNode {
 	level: number;
@@ -45,15 +44,14 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.folderService.foldersChange
-			.pipe(takeUntil(this.unsubscribe)).subscribe(
-			change => {
-				const node = this.nodes.find(n => n.folder.id === change.id);
-				if (node) {
-					this.jam.folder.id({id: change.id, folderIncTrackCount: true, folderIncChildFolderCount: true})
-						.then(folder => {
-							node.folder = folder;
-							if (change.mode === AdminFolderServiceNotifyMode.fsnRefreshChilds) {
-								if (node.expanded) {
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(change => {
+					const node = this.nodes.find(n => n.folder.id === change.id);
+					if (node) {
+						this.jam.folder.id({id: change.id, folderIncTrackCount: true, folderIncChildFolderCount: true})
+							.then(folder => {
+								node.folder = folder;
+								if (change.mode === AdminFolderServiceNotifyMode.fsnRefreshChilds && node.expanded) {
 									this.collapseNode(node);
 									node.hasChildren = (folder.folderCount || 0) > 0;
 									node.children = undefined;
@@ -63,14 +61,11 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 										this.checkLoadExpanded(node);
 									}
 								}
-							}
-						})
-						.catch(e => {
-							console.error(e);
-						});
+							})
+							.catch(console.error);
+					}
 				}
-			}
-		);
+			);
 	}
 
 	ngOnDestroy(): void {
@@ -113,28 +108,33 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 					this.checkLoadExpanded(node);
 				}
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	typeToColor(folder: Jam.Folder): string {
 		switch (folder.type) {
-			case FolderType.unknown:
+			case FolderType.unknown: {
 				return '#ff9fAA';
-			case FolderType.artist:
+			}
+			case FolderType.artist: {
 				return '#6f806e';
-			case FolderType.collection:
+			}
+			case FolderType.collection: {
 				return '#adbced';
-			case FolderType.album:
+			}
+			case FolderType.album: {
 				// single #edbfd0
 				return '#bdbd9c';
-			case FolderType.multialbum:
+			}
+			case FolderType.multialbum: {
 				return '#bdaaae';
-			case FolderType.extras:
+			}
+			case FolderType.extras: {
 				return '#bdbdbd';
-			default:
+			}
+			default: {
 				return '';
+			}
 		}
 	}
 
@@ -147,7 +147,9 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 
 	selectFolderByID(id: string): void {
 		const node = this.nodes.find(n => n.folder.id === id);
-		if (!node) {
+		if (node) {
+			this.selected = node;
+		} else {
 			this.jam.folder.id({id, folderIncParents: true})
 				.then(folder => {
 					if (folder.parents) {
@@ -162,11 +164,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 						}
 					}
 				})
-				.catch(e => {
-					this.notify.error(e);
-				});
-		} else {
-			this.selected = node;
+				.catch(error => this.notify.error(error));
 		}
 	}
 
@@ -206,8 +204,8 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 							isLoading: false
 						}));
 				const index = this.nodes.indexOf(node);
-				if (index >= 0) {
-					this.nodes = this.nodes.slice(0, index + 1).concat(result).concat(this.nodes.slice(index + 1));
+				if (index !== -1) {
+					this.nodes = [...this.nodes.slice(0, index + 1), ...result, ...this.nodes.slice(index + 1)];
 				}
 				node.children = result;
 				node.isLoading = false;
@@ -215,9 +213,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 					cb(result);
 				}
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	private collapseNode(node: TreeNode): void {
@@ -235,7 +231,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 		if (!node.expanded) {
 			if (node.children) {
 				const index = this.nodes.indexOf(node);
-				this.nodes = this.nodes.slice(0, index + 1).concat(node.children).concat(this.nodes.slice(index + 1));
+				this.nodes = [...this.nodes.slice(0, index + 1), ...node.children, ...this.nodes.slice(index + 1)];
 			} else {
 				this.loadChildren(node);
 			}

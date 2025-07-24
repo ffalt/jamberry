@@ -2,8 +2,7 @@ import {Component, type OnDestroy, type OnInit, inject, input} from '@angular/co
 import {NotifyService} from '@core/services';
 import {AlbumType, JamObjectType} from '@jam';
 import {type Index, type IndexGroup, IndexService} from '@shared/services';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-sidebar-index',
@@ -25,20 +24,19 @@ export class SidebarIndexComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.indexService.indexNotify
-			.pipe(takeUntil(this.unsubscribe)).subscribe(
-			indexCache => {
-				if (this.useMeta()) {
-					if (indexCache.matches(JamObjectType.artist, {albumType: AlbumType.album})) {
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe({
+				next: indexCache => {
+					if (this.useMeta()) {
+						if (indexCache.matches(JamObjectType.artist, {albumType: AlbumType.album})) {
+							this.index = indexCache.index;
+						}
+					} else if (indexCache.matches(JamObjectType.folder, {level: 1})) {
 						this.index = indexCache.index;
 					}
-				} else if (indexCache.matches(JamObjectType.folder, {level: 1})) {
-					this.index = indexCache.index;
-				}
-			},
-			e => {
-				this.notify.error(e);
-			}
-		);
+				},
+				error: error => this.notify.error(error)
+			});
 		this.refreshIndex();
 	}
 

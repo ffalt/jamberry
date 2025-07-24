@@ -3,7 +3,7 @@ import {DialogOverlayService} from '@app/modules/dialog-overlay';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
 import {DialogsService} from '@shared/services';
-import {takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs';
 import {AdminBaseParentViewIdComponent} from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
 import {DialogChooseFolderComponent, type SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
 import {TrackListComponent} from '../../track-list/track-list.component';
@@ -48,9 +48,7 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 					.then(item => {
 						this.folderService.waitForQueueResult('Removing Track', item, [], [], [id]);
 					})
-					.catch(e => {
-						this.notify.error(e);
-					});
+					.catch(error => this.notify.error(error));
 			}
 		});
 	}
@@ -85,11 +83,9 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 				this.jam.track.move({ids, folderID: destination.id})
 					.then(item => {
 						this.folderService.waitForQueueResult('Moving Tracks', item, [],
-							[destination.id].concat(this.folder?.parentID ? [this.folder.parentID] : []), ids);
+							[destination.id, ...(this.folder?.parentID ? [this.folder.parentID] : [])], ids);
 					})
-					.catch(e => {
-						this.notify.error(e);
-					});
+					.catch(error => this.notify.error(error));
 				return Promise.resolve();
 			},
 			onCancelBtn: async () => Promise.resolve()
@@ -105,8 +101,6 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 			.then(data => {
 				this.folder = data;
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 }

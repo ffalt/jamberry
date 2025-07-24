@@ -1,7 +1,6 @@
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Component, NgZone, type OnDestroy, ViewEncapsulation, inject} from '@angular/core';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {DefaultNoComponentGlobalConfig, type IndividualConfig, ToastPackage} from './toast-config';
 
 @Component({
@@ -80,9 +79,8 @@ export class ToastComponent implements OnDestroy {
 				this.remove();
 			});
 		this.toastPackage.toastRef.timeoutReset()
-			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-			this.resetTimeout();
-		});
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => this.resetTimeout());
 		this.toastPackage.toastRef.countDuplicate()
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(count => {
@@ -106,7 +104,7 @@ export class ToastComponent implements OnDestroy {
 			this.outsideTimeout(() => {
 				this.remove();
 			}, this.options.timeOut);
-			this.hideTime = new Date().getTime() + this.options.timeOut;
+			this.hideTime = Date.now() + this.options.timeOut;
 			if (this.options.progressBar) {
 				this.outsideInterval(() => {
 					this.updateProgress();
@@ -122,7 +120,7 @@ export class ToastComponent implements OnDestroy {
 		if (this.width === 0 || this.width === 100 || !this.options.timeOut) {
 			return;
 		}
-		const now = new Date().getTime();
+		const now = Date.now();
 		const remaining = (this.hideTime ?? 0) - now;
 		this.width = (remaining / this.options.timeOut) * 100;
 		if (this.options.progressAnimation === 'increasing') {
@@ -145,7 +143,7 @@ export class ToastComponent implements OnDestroy {
 			this.remove();
 		}, this.originalTimeout ?? 0);
 		this.options.timeOut = this.originalTimeout ?? 0;
-		this.hideTime = new Date().getTime() + (this.options.timeOut ?? 0);
+		this.hideTime = Date.now() + (this.options.timeOut ?? 0);
 		this.width = -1;
 		if (this.options.progressBar) {
 			this.outsideInterval(() => {
@@ -206,7 +204,7 @@ export class ToastComponent implements OnDestroy {
 			this.remove();
 		}, this.options.extendedTimeOut);
 		this.options.timeOut = this.options.extendedTimeOut;
-		this.hideTime = new Date().getTime() + (this.options.timeOut || 0);
+		this.hideTime = Date.now() + (this.options.timeOut || 0);
 		this.width = -1;
 		if (this.options.progressBar) {
 			this.outsideInterval(() => {

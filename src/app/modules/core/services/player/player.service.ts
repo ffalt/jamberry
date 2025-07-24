@@ -2,8 +2,7 @@ import {Injectable, type OnDestroy, inject} from '@angular/core';
 import {MediaSessionEvents} from '@core/services/mediasession/mediasession.events';
 import {MediaSessionService} from '@core/services/mediasession/mediasession.service';
 import {ImageFormatType, type Jam, JamObjectType, JamService, PodcastStatus} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {NotifyService} from '../notify/notify.service';
 import {PushNotificationService} from '../push-notification/push-notification.service';
 import {QueueService} from '../queue/queue.service';
@@ -16,7 +15,7 @@ class StopWatch {
 	private lapTime = 0;	// Time on the clock when last stopped in milliseconds
 
 	start(): void {
-		this.startAt = this.startAt ? this.startAt : Date.now();
+		this.startAt = this.startAt ?? Date.now();
 	}
 
 	pause(): void {
@@ -70,11 +69,12 @@ export class PlayerService implements OnDestroy {
 		this.subscribeSoundPlayerEvents();
 		this.subscribeMediaSessionEvents();
 		userStorage.userChange
-			.pipe(takeUntil(this.unsubscribe)).subscribe((/*user*/) => {
-			setTimeout(() => {
-				this.loadFromStorage();
-			}, 0);
-		});
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((/*user*/) => {
+				setTimeout(() => {
+					this.loadFromStorage();
+				}, 0);
+			});
 		this.loadFromStorage();
 		this.queue.queueChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
@@ -116,13 +116,13 @@ export class PlayerService implements OnDestroy {
 		} else {
 			this.currentTrack = media as Jam.Track;
 		}
-		this.soundPlayer.initialize(media, startSeek, !!paused, e => {
-			if (!e) {
+		this.soundPlayer.initialize(media, startSeek, !!paused, error => {
+			if (error) {
+				this.notify.error(error);
+			} else {
 				this.setCurrentMedia(media);
 				this.setPlaying(!paused);
 				this.syncPlayerWithLocalStorage();
-			} else {
-				this.notify.error(e);
 			}
 		});
 	}
@@ -164,17 +164,15 @@ export class PlayerService implements OnDestroy {
 	}
 
 	togglePlayPause(): void {
-		if (this.currentMedia !== undefined) {
-			if (!this.isPlaying) {
-				this.soundPlayer.play();
-			} else {
-				this.soundPlayer.pause();
-			}
-		} else {
+		if (this.currentMedia === undefined) {
 			const song = this.queue.next();
 			if (song) {
 				this.play(song);
 			}
+		} else if (this.isPlaying) {
+			this.soundPlayer.pause();
+		} else {
+			this.soundPlayer.play();
 		}
 	}
 
@@ -264,56 +262,36 @@ export class PlayerService implements OnDestroy {
 	startSeries(series: Jam.Series): void {
 		this.queue.clear();
 		this.queue.addSeries(series)
-			.then(() => {
-				this.next();
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.next())
+			.catch(error => this.notify.error(error));
 	}
 
 	startFolder(folder: Jam.Folder): void {
 		this.queue.clear();
 		this.queue.addFolder(folder)
-			.then(() => {
-				this.next();
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.next())
+			.catch(error => this.notify.error(error));
 	}
 
 	startPlaylist(playlist: Jam.Playlist): void {
 		this.queue.clear();
 		this.queue.addPlaylist(playlist)
-			.then(() => {
-				this.next();
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.next())
+			.catch(error => this.notify.error(error));
 	}
 
 	startAlbum(album: Jam.Album): void {
 		this.queue.clear();
 		this.queue.addAlbum(album)
-			.then(() => {
-				this.next();
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.next())
+			.catch(error => this.notify.error(error));
 	}
 
 	startAlbums(albums: Array<Jam.Album>): void {
 		this.queue.clear();
 		this.queue.addAlbums(albums)
-			.then(() => {
-				this.next();
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.next())
+			.catch(error => this.notify.error(error));
 	}
 
 	startTracks(tracks: Array<Jam.Track>): void {
@@ -325,35 +303,23 @@ export class PlayerService implements OnDestroy {
 	startArtists(artists: Array<Jam.Artist>): void {
 		this.queue.clear();
 		this.queue.addArtists(artists)
-			.then(() => {
-				this.next();
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.next())
+			.catch(error => this.notify.error(error));
 
 	}
 
 	startArtist(artist: Jam.Artist): void {
 		this.queue.clear();
 		this.queue.addArtist(artist)
-			.then(() => {
-				this.next();
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.next())
+			.catch(error => this.notify.error(error));
 	}
 
 	startPodcast(podcast: Jam.Podcast): void {
 		this.queue.clear();
 		this.queue.addPodcast(podcast)
-			.then(() => {
-				this.next();
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(() => this.next())
+			.catch(error => this.notify.error(error));
 	}
 
 	startEpisode(episode: Jam.Episode): void {
@@ -418,12 +384,8 @@ export class PlayerService implements OnDestroy {
 
 	protected resolveAddTracks(promise: Promise<number>): void {
 		promise
-			.then(trackCount => {
-				this.notify.success(`Tracks added to queue: ${trackCount}`);
-			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.then(trackCount => this.notify.success(`Tracks added to queue: ${trackCount}`))
+			.catch(error => this.notify.error(error));
 	}
 
 	private startPositionStore(): void {
@@ -542,10 +504,7 @@ export class PlayerService implements OnDestroy {
 				const scrobbleTime = Math.min(this.totalTime / 2, 4 * 60 * 60 * 1000);
 				if (scrobbleTime > 0 && playTime >= scrobbleTime) {
 					this.scrobbled = true;
-					this.jam.nowplaying.scrobble({id: this.currentMedia.id})
-						.catch(e => {
-							console.error(e);
-						});
+					this.jam.nowplaying.scrobble({id: this.currentMedia.id}).catch(console.error);
 				}
 			}
 			this.mediasession.updatePositionState(this.totalTime, this.getSpeed(), this.currentTime);
@@ -611,9 +570,7 @@ export class PlayerService implements OnDestroy {
 				autoclose: 30,
 				icon: this.jam.image.imageUrl({id: media.id, size: 128, format: ImageFormatType.webp})
 			})
-				.catch(e => {
-					console.error(e);
-				});
+				.catch(console.error);
 		}
 	}
 }

@@ -8,7 +8,7 @@ import {formatDuration} from '@app/utils/formatters';
 export class DurationPipe implements PipeTransform {
 
 	transform(value: string | number): string {
-		if (typeof value === 'undefined' || value === null) {
+		if (value === undefined || value === null) {
 			return '';
 		}
 		const parsedValue = Number(value);

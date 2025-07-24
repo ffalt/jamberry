@@ -60,9 +60,9 @@ function fillCommon(
 	}
 
 	if (track.artistCredit && track.artistCredit.length > 0) {
-		const artists = track.artistCredit.map(ac => `${ac.artist.name} ${ac.joinphrase}`).join(' ').replace(/ {2}/g, ' ').trim();
+		const artists = track.artistCredit.map(ac => `${ac.artist.name} ${ac.joinphrase}`).join(' ').replaceAll(/ {2}/g, ' ').trim();
 		const sortArtists = track.artistCredit.map(ac =>
-			(ac.artist.sortName ? ac.artist.sortName : '').trim()).filter(s => s.length > 0).join(' & ').replace(/ {2}/g, ' ').trim();
+			(ac.artist.sortName ?? '').trim()).filter(s => s.length > 0).join(' & ').replaceAll(/ {2}/g, ' ').trim();
 		builder
 			.artist(artists)
 			.artistSort(sortArtists)
@@ -89,7 +89,7 @@ function fillTypes(builder: ID3V24TagBuilder, match: Matching, track: MusicBrain
 		types.push(release.releaseGroup.primaryType);
 	}
 	if (release?.releaseGroup.secondaryTypes) {
-		types = types.concat(release.releaseGroup.secondaryTypes);
+		types = [...types, ...release.releaseGroup.secondaryTypes];
 	}
 	if (types.length > 0) {
 		builder.mbAlbumType(types.map(ty => ty.toLowerCase()).join('/'));

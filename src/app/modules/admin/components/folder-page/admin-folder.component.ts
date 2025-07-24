@@ -2,8 +2,7 @@ import {Component, type OnDestroy, type OnInit, inject, viewChild} from '@angula
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {UiStateService} from '@core/services';
 import type {Jam} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {folderSubSections} from '../../admin.types';
 import {FolderTreeComponent} from '../folder-tree/folder-tree.component';
 
@@ -34,10 +33,7 @@ export class AdminFolderComponent implements OnInit, OnDestroy {
 	}
 
 	selectionChange(data: Jam.Folder): void {
-		this.router.navigate([`/admin/folder/${data.id}/${this.mode}`])
-			.catch(e => {
-				console.error(e);
-			});
+		this.router.navigate([`/admin/folder/${data.id}/${this.mode}`]).catch(console.error);
 	}
 
 	onFolderUpdate(data: Jam.Folder): void {

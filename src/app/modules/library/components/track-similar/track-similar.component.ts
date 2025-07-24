@@ -3,8 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NotifyService} from '@core/services';
 import {type Jam, JamService} from '@jam';
 import {LoadMoreButtonComponent} from '@shared/components';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-track-similar',
@@ -50,7 +49,7 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 		})
 			.then(data => {
 				if (this.id === id) {
-					this.similar = (this.similar || []).concat(data.items);
+					this.similar = [...(this.similar || []), ...data.items];
 					const loadMore = this.loadMore();
 					if (loadMore) {
 						loadMore.hasMore.set(this.similar.length < (data.total || 0));
@@ -58,9 +57,7 @@ export class TrackSimilarComponent implements OnInit, OnDestroy {
 					}
 				}
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	refresh(): void {

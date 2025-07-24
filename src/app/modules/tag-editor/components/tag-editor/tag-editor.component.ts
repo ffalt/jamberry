@@ -73,12 +73,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 				trackIncRawTag: true,
 				folderChildIncTag: true
 			})
-				.then(data => {
-					this.display(data);
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.then(data => this.display(data))
+				.catch(error => this.notify.error(error));
 		}
 	}
 
@@ -93,9 +89,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 				this.tracks = tracks.items;
 				this.editor.build(this.tracks);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	save(): void {
@@ -119,12 +114,12 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		this.runSave(action, saveActions)
 			.then(() => {
 				this.isSaving = false;
-			}).catch(e => {
+			}).catch(error => {
 			this.isSaving = false;
 			for (const edit of edits) {
 				edit.saving = false;
 			}
-			this.notify.error(e);
+			this.notify.error(error);
 		});
 	}
 
@@ -157,15 +152,15 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		this.runSave(action, [])
 			.then(() => {
 				this.isSaving = false;
-			}).catch(e => {
+			}).catch(error => {
 			this.isSaving = false;
-			this.notify.error(e);
+			this.notify.error(error);
 		});
 	}
 
 	chooseColumns(): void {
 		if (this.isSaving) {
-			this.notify.error(Error('Saving is in progress'));
+			this.notify.error(new Error('Saving is in progress'));
 		}
 		const data = {columns: this.editor.columns, resultColumns: []};
 		this.dialogOverlay.open({
@@ -178,9 +173,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 					if (this.tracks) {
 						this.editor.updateColumns(this.tracks, data.resultColumns);
 					}
-				} catch (e: any) {
-					this.notify.error(e);
-					return Promise.reject(e as Error);
+				} catch (error) {
+					this.notify.error(error);
+					return Promise.reject(error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()
@@ -192,7 +187,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			return;
 		}
 		if (!this.canDeactivate()) {
-			this.notify.error(Error('Saving is in progress'));
+			this.notify.error(new Error('Saving is in progress'));
 		}
 		const matching: ReleaseMatching = {
 			folder: this.folder,
@@ -272,7 +267,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	private onCellEditorNavigationKeyDownUpDown(data: { cell: RawTagEditCell; event: KeyboardEvent }) {
-		const rowIndex = this.editor.edits.findIndex(e => e === data.cell.parent);
+		const rowIndex = this.editor.edits.indexOf(data.cell.parent);
 		const nextrow = this.editor.edits[rowIndex + (isDownArrowKey(data.event) ? 1 : -1)];
 		if (nextrow) {
 			const nextcell = nextrow.cells[data.cell.parent.cells.indexOf(data.cell)];
@@ -302,8 +297,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 				action.edit.tag = action.rawTag;
 			}
 			action.edit.changed = false;
-		} catch (e: any) {
-			return Promise.reject(e as Error);
+		} catch (error) {
+			return Promise.reject(error);
 		}
 		const next = actions.shift();
 		if (next) {

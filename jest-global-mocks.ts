@@ -1,10 +1,10 @@
 import {TextEncoder, TextDecoder} from 'node:util';
 
-Object.assign(global, {TextDecoder, TextEncoder});
+Object.assign(globalThis, {TextDecoder, TextEncoder});
 
-Object.defineProperty(window, 'CSS', {value: null});
+Object.defineProperty(globalThis, 'CSS', {value: undefined});
 Object.defineProperty(document, 'doctype', {value: '<!DOCTYPE html>'});
-Object.defineProperty(window, 'getComputedStyle', {
+Object.defineProperty(globalThis, 'getComputedStyle', {
 	value: () => ({
 		display: 'none',
 		appearance: ['-webkit-appearance']
@@ -38,6 +38,6 @@ const mockBrowser = () => {
 	};
 };
 
-Object.defineProperty(window, 'localStorage', {value: mockBrowser()});
-Object.defineProperty(window, 'sessionStorage', {value: mockBrowser()});
-Object.defineProperty(window, 'getComputedStyle', {value: () => ['-webkit-appearance']});
+Object.defineProperty(globalThis, 'localStorage', {value: mockBrowser()});
+Object.defineProperty(globalThis, 'sessionStorage', {value: mockBrowser()});
+Object.defineProperty(globalThis, 'getComputedStyle', {value: () => ['-webkit-appearance']});

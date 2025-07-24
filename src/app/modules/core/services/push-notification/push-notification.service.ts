@@ -25,7 +25,7 @@ export class PushNotificationService implements OnDestroy {
 	closeDelay: number = 0;
 
 	checkCompatibility(): boolean {
-		return ('Notification' in window);
+		return ('Notification' in globalThis);
 	}
 
 	isPermissionGranted(permission?: string): boolean {

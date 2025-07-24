@@ -4,8 +4,7 @@ import {getUrlType, type JamType, MUSICBRAINZ_VARIOUS_ARTISTS_ID} from '@app/uti
 import {NotifyService} from '@core/services';
 import {AlbumType, JamObjectType, type JamParameters} from '@jam';
 import {type Index, IndexService} from '@shared/services';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-obj-index-loader',
@@ -70,16 +69,15 @@ export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {
 			});
 		}
 		this.indexService.indexNotify
-			.pipe(takeUntil(this.unsubscribe)).subscribe(
-			indexCache => {
-				if (indexCache && this.objType && indexCache.matches(this.objType, this.query)) {
-					this.index = indexCache.index;
-				}
-			},
-			e => {
-				this.notify.error(e);
-			}
-		);
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe({
+				next: indexCache => {
+					if (indexCache && this.objType && indexCache.matches(this.objType, this.query)) {
+						this.index = indexCache.index;
+					}
+				},
+				error: error => this.notify.error(error)
+			});
 		this.refresh();
 	}
 

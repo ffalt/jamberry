@@ -8,7 +8,7 @@ import {formatFileSize} from '@app/utils/formatters';
 export class FilesizePipe implements PipeTransform {
 
 	transform(value?: number): string {
-		if (typeof value === 'undefined' || value === null || value === undefined) {
+		if (value === undefined || value === null) {
 			return '';
 		}
 		return formatFileSize(value);

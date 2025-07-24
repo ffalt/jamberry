@@ -29,9 +29,7 @@ export class LyricsComponent implements OnChanges {
 					this.lyrics = ['No Lyrics found'];
 				}
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	ngOnChanges(): void {

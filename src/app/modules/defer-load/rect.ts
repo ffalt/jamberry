@@ -43,8 +43,8 @@ export class Rect {
 		return new Rect(left, top, right, bottom);
 	}
 
-	static fromWindow(_window: Window): Rect {
-		return new Rect(0, 0, _window.innerWidth, _window.innerHeight);
+	static fromWindow(window: typeof globalThis): Rect {
+		return new Rect(0, 0, window.innerWidth, window.innerHeight);
 	}
 
 	inflate(inflateBy: number): void {

@@ -3,8 +3,7 @@ import {Component, type OnDestroy, type OnInit, inject, input} from '@angular/co
 import {PlayerService, QueueService} from '@core/services';
 import type {Jam} from '@jam';
 import {MenuService} from '@shared/services';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {ContextMenuQueueTrackComponent} from '../context-menu-queue-track/context-menu-queue-track.component';
 
 @Component({
@@ -25,10 +24,10 @@ export class QueueComponent implements OnInit, OnDestroy {
 	private currentTouchX = 0;
 
 	ngOnInit(): void {
-		this.entries = this.queue.entries.slice(0);
+		this.entries = [...this.queue.entries];
 		this.queue.queueChange
 			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-			this.entries = this.queue.entries.slice(0);
+			this.entries = [...this.queue.entries];
 		});
 	}
 
@@ -50,10 +49,8 @@ export class QueueComponent implements OnInit, OnDestroy {
 		this.player.playQueuePos(index);
 	}
 
-	tapPlayQueuePos(event: Event & { tapCount?: number }, index: number): void {
-		if (event.tapCount === 2) {
-			this.player.playQueuePos(index);
-		}
+	doubleClickPlayQueuePos(index: number): void {
+		this.player.playQueuePos(index);
 	}
 
 	onTouchStart(event: TouchEvent): void {

@@ -117,9 +117,7 @@ export class NavigService {
 	}
 
 	navigate(commands: Array<any>): void {
-		this.router.navigate(commands).catch(e => {
-			console.error(e);
-		});
+		this.router.navigate(commands).catch(console.error);
 	}
 
 	toMediaArtist(media: Jam.MediaBase): void {

@@ -10,8 +10,8 @@ export function splitTime(value: number): { days: number; hours: number; minutes
 		seconds: 0
 	};
 	let delta = value;
-	duration.days = Math.floor(delta / 86400);
-	delta -= duration.days * 86400;
+	duration.days = Math.floor(delta / 86_400);
+	delta -= duration.days * 86_400;
 	// calculate (and subtract) whole hours
 	duration.hours = Math.floor(delta / 3600) % 24;
 	delta -= duration.hours * 3600;
@@ -36,8 +36,7 @@ export function formatDuration(val: number): string {
 			duration.push(`${time.hours.toString()  }:`);
 		}
 	}
-	duration.push(padTime(time.minutes));
-	duration.push(`:${  padTime(time.seconds)}`);
+	duration.push(padTime(time.minutes), `:${  padTime(time.seconds)}`);
 	return duration.join('');
 }
 

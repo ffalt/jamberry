@@ -34,9 +34,7 @@ export class MatchCoverartComponent implements OnChanges {
 	ngOnChanges(): void {
 		const data = this.data();
 		if (data) {
-			this.loadCoverartImages(data).catch(e => {
-				this.notify.error(e);
-			});
+			this.loadCoverartImages(data).catch(error => this.notify.error(error));
 		} else {
 			this.images = undefined;
 			this.coverArtArchive = undefined;
@@ -44,15 +42,10 @@ export class MatchCoverartComponent implements OnChanges {
 	}
 
 	onToggleShowFrontImagesOnly(): void {
-		if (!this.showFrontImagesOnly) {
-			if (this.coverArtArchive) {
-				for (const node of this.coverArtArchive) {
-					if (!node.base64 && !node.requested) {
-						this.getBase64Image(node)
-							.catch(e => {
-								console.error(e);
-							});
-					}
+		if (!this.showFrontImagesOnly && this.coverArtArchive) {
+			for (const node of this.coverArtArchive) {
+				if (!node.base64 && !node.requested) {
+					this.getBase64Image(node).catch(console.error);
 				}
 			}
 		}
@@ -89,10 +82,7 @@ export class MatchCoverartComponent implements OnChanges {
 			const fronts = this.coverArtArchive.filter(i => i.image.front || i.image.types.includes('Front')).sort((a, b) => a.image.types.length - b.image.types.length);
 			this.images = this.showFrontImagesOnly ? fronts : this.coverArtArchive;
 			for (const node of this.images) {
-				this.getBase64Image(node)
-					.catch(e => {
-						console.error(e);
-					});
+				this.getBase64Image(node).catch(console.error);
 			}
 			let front = fronts.find(i => i.image.types.length === 1);
 			if (!front) {
@@ -133,14 +123,14 @@ export class MatchCoverartComponent implements OnChanges {
 		let bin: { buffer: ArrayBuffer; contentType: string } | undefined;
 		try {
 			bin = await this.jam.metadata.coverartarchiveImageBinary({url: imageUrl});
-		} catch (e: any) {
-			console.error(e);
+		} catch (error) {
+			console.error(error);
 		}
 		image.requested = false;
-		if (!bin) {
-			this.notify.error({error: 'Invalid result from https://coverartarchive.org'});
-		} else {
+		if (bin) {
 			image.base64 = {title: imageUrl, mimeType: bin.contentType, base64: base64ArrayBuffer(bin.buffer)};
+		} else {
+			this.notify.error({error: 'Invalid result from https://coverartarchive.org'});
 		}
 	}
 }

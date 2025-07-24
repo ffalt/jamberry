@@ -8,7 +8,7 @@
 					<app-media-playlist-item
 						class="track-wrapper" cdkDrag
 						[media]="media" [showArtist]="showArtist()" [showPlayCount]="showPlayCount()" [showPlayDate]="showPlayDate()"
-						(tap)="tapTrack($event, media)"
+						(dblclick)="playTrack(media)"
 					/>
 				}
 			</div>

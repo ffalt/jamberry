@@ -3,8 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {getUrlType, type JamType} from '@app/utils/jam-lists';
 import {LibraryService} from '@library/services';
 import type {HeaderTab} from '@shared/components';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-albums-page-by-type',

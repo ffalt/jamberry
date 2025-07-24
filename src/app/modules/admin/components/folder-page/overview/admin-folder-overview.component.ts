@@ -5,7 +5,7 @@ import {FolderTypesAlbum} from '@app/utils/jam-lists';
 import {AdminFolderService, NotifyService} from '@core/services';
 import {FolderType, type Jam, JamService} from '@jam';
 import {DialogsService} from '@shared/services';
-import {takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs';
 import {AdminBaseParentViewIdComponent} from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
 import {DialogChooseFolderComponent, type SelectFolder} from '../../dialog-choose-folder/dialog-choose-folder.component';
 import {DialogFolderArtworkSearchComponent} from '../../dialog-folder-artwork-search/dialog-folder-artwork-search.component';
@@ -57,9 +57,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			.then(item => {
 				this.folderService.waitForQueueResult('Renaming Folder', item, [id]);
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	refresh(): void {
@@ -75,14 +73,11 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 				.then(data => {
 					this.display(data);
 				})
-				.catch(e => {
-					if (e.code === 404) {
-						this.router.navigate(['/admin/folder/'])
-							.catch(err => {
-								console.error(err);
-							});
+				.catch(error => {
+					if (error.code === 404) {
+						this.router.navigate(['/admin/folder/']).catch(console.error);
 					} else {
-						this.notify.error(e);
+						this.notify.error(error);
 					}
 				});
 		}
@@ -115,16 +110,11 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			this.jam.folder.remove({id: folder.id})
 				.then(item => {
 					if (folder.parentID) {
-						this.router.navigate([`/admin/folder/${folder.parentID}/overview`])
-							.catch(err => {
-								console.error(err);
-							});
+						this.router.navigate([`/admin/folder/${folder.parentID}/overview`]).catch(console.error);
 					}
 					this.folderService.waitForQueueResult('Removing Folder', item, [folder.id], folder.parentID ? [folder.parentID] : []);
 				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.catch(error => this.notify.error(error));
 		});
 	}
 
@@ -147,14 +137,12 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 				try {
 					this.jam.folder.move({ids: [folder.id], newParentID: destination.id})
 						.then(item => {
-							this.folderService.waitForQueueResult('Moving Folder', item, [folder.id], (folder.parentID ? [folder.parentID] : []).concat([destination.id]));
+							this.folderService.waitForQueueResult('Moving Folder', item, [folder.id], [...(folder.parentID ? [folder.parentID] : []), destination.id]);
 						})
-						.catch(e => {
-							this.notify.error(e);
-						});
-				} catch (e: any) {
-					this.notify.error(e);
-					return Promise.reject(e as Error);
+						.catch(error => this.notify.error(error));
+				} catch (error) {
+					this.notify.error(error);
+					return Promise.reject(error);
 				}
 			},
 			onCancelBtn: async () => Promise.resolve()

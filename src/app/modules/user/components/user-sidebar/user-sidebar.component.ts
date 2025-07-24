@@ -29,6 +29,6 @@ export class UserSidebarComponent {
 			link: '/user',
 			options: {exact: true}
 		};
-		this.sections = [{name: 'User', entries: [main].concat(entries)}];
+		this.sections = [{name: 'User', entries: [main, ...entries]}];
 	}
 }

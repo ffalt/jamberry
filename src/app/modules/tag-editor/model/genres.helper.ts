@@ -4,7 +4,7 @@ import {Genres, GenresByNumbers} from './genres.consts';
 let GenresSlugs: { [slug: string]: string }; // will be build on first use
 
 function slugify(genre: string): string {
-	return genre.replace(/[& \-.]/g, '').toLowerCase();
+	return genre.replaceAll(/[& \-.]/g, '').toLowerCase();
 }
 
 export function getKnownGenre(genre: string): string | undefined {
@@ -90,7 +90,7 @@ export interface GenreTag {
 }
 
 export function mergeGenres(tags: Array<GenreTag>, other: Array<GenreTag>): Array<GenreTag> {
-	const result = tags.slice(0);
+	const result = [...tags];
 	for (const tag of other) {
 		const t2 = result.find(r => r.name === tag.name);
 		if (t2) {

@@ -4,8 +4,7 @@ import {NotifyService} from '@core/services';
 import {type Jam, type JamParameters, JamService} from '@jam';
 import {JamAlbumObject} from '@library/model/objects';
 import {LibraryService} from '@library/services';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-artist-overview',
@@ -61,8 +60,6 @@ export class ArtistOverviewComponent implements OnInit, OnDestroy {
 					this.tracksQuery = {artistIDs: [this.artist.id]};
 				}
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 }

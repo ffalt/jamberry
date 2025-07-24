@@ -166,10 +166,10 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	}
 
 	onMenuItemSelect(context: { menuItem: ContextMenuItemDirective; event: Event }): void {
-		if (!context.menuItem.subMenu()) {
-			context.menuItem.triggerExecute(this.item(), context.event);
-		} else {
+		if (context.menuItem.subMenu()) {
 			this.onOpenSubMenu(context);
+		} else {
+			context.menuItem.triggerExecute(this.item(), context.event);
 		}
 	}
 
@@ -179,10 +179,9 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		}
 
 		const target = event.target as HTMLElement;
-		if (target && (
-			['INPUT', 'TEXTAREA', 'SELECT'].indexOf(target.tagName) > -1 ||
-			target.isContentEditable
-		)) {
+		if (target &&
+			(['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName) || target.isContentEditable)
+		) {
 			return;
 		}
 

@@ -1,7 +1,6 @@
 import {EventEmitter, Injectable, type OnDestroy, inject} from '@angular/core';
 import {Settings} from '@app/app.settings';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 import {AppService} from '../app/app.service';
 import {PushNotificationService} from '../push-notification/push-notification.service';
 import {UserStorageService} from '../userstorage/userstorage.service';

@@ -51,13 +51,13 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 	ngOnChanges(): void {
 		const data = this.data();
-		if (!data) {
-			this.matcher.abort();
-		} else {
+		if (data) {
 			this.matcher.prepare(
 				data.matchings.map(m => ({track: m.track})),
 				data.folder
 			);
+		} else {
+			this.matcher.abort();
 		}
 	}
 
@@ -96,9 +96,8 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 			return;
 		}
 		this.matchApply().loadGenres(data.matchings, group, release)
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
+
 	}
 
 	stopApply(): void {

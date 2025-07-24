@@ -40,9 +40,7 @@ export class PodcastSearchPageComponent {
 			.then(() => {
 				this.notify.success('Podcast subscribed');
 			})
-			.catch(e => {
-				this.notify.error(e);
-			});
+			.catch(error => this.notify.error(error));
 	}
 
 	search(query: string): void {
@@ -55,9 +53,9 @@ export class PodcastSearchPageComponent {
 						this.buildSearchResults(data);
 						this.isSearching = false;
 					}
-				}).catch(e => {
+				}).catch(error => {
 				this.isSearching = false;
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 		}
 	}
@@ -88,7 +86,7 @@ export class PodcastSearchPageComponent {
 			if (!podcast.logoUrl || podcast.logoUrl.length === 0) {
 				podcast.logoUrl = result.scaled_logo_url;
 			}
-			if (!podcast.pods.find(p => p.url.toString() === url.toString())) {
+			if (!podcast.pods.some(p => p.url.toString() === url.toString())) {
 				podcast.pods.push({result, url, displayURL: url.toString()});
 			}
 		}

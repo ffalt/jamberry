@@ -28,17 +28,17 @@ export class TracksLoaderComponent implements OnChanges {
 		const request = requestFunc()
 			.then(data => {
 				if (this.activeRequest === request) {
-					this.tracks = (this.tracks || []).concat(data.items);
+					this.tracks = [...(this.tracks || []), ...data.items];
 					loadMore.hasMore.set((data.total || 0) > this.tracks.length);
 					loadMore.total.set(data.total);
 					loadMore.loading.set(false);
 				}
 			})
-			.catch(e => {
+			.catch(error => {
 				if (this.activeRequest === request) {
 					this.loadMore().loading.set(false);
 				}
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 		this.activeRequest = request;
 	}

@@ -5,8 +5,7 @@ import {JamService} from '@jam';
 import type {SearchTab} from '@library/components';
 import {LibraryService} from '@library/services';
 import type {HeaderTab} from '@shared/components';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 export interface GenreTab extends HeaderTab {
 	id: string;

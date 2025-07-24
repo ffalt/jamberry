@@ -8,8 +8,7 @@ import {ThemeService} from '@app/modules/theme';
 import {HOTKEYS} from '@app/utils/keys';
 import {AppService, PlayerService, SettingsStoreService} from '@core/services';
 import {JamAuthService} from '@jam';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
@@ -57,20 +56,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	init() {
 		this.settingsStore.settingsChange
-			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-			this.setTheme();
-		});
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => this.setTheme());
 		if (!this.auth.loaded) {
-			this.auth.load().catch(e => {
-				console.error(e);
-			});
+			this.auth.load().catch(console.error);
 		}
 		// qlty-ignore: biome:lint/complexity/noForEach
+		// eslint-disable-next-line unicorn/no-array-for-each
 		this.router.events.forEach(() => {
 			this.tabService.switchToMain();
-		}).catch(e => {
-			console.error(e);
-		});
+		}).catch(console.error);
 		this.app.standalone = this.isStandaloneWebApp() || this.isElectronApp() || this.isMacGapApp();
 		this.setTheme();
 		this.setKeyboardShortcuts();
@@ -80,7 +75,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	isStandaloneWebApp(): boolean {
 		const nav = navigator as any;
 		return (nav?.standalone === true) ||
-			(window.matchMedia?.('(display-mode: standalone)').matches);
+			(globalThis.matchMedia?.('(display-mode: standalone)').matches);
 	}
 
 	isElectronApp(): boolean {

@@ -38,17 +38,17 @@ export class ObjsLoaderComponent implements OnChanges {
 		const request = requestFunc()
 			.then(data => {
 				if (this.activeRequest === request) {
-					this.objs = (this.objs || []).concat(data.items || []);
+					this.objs = [...(this.objs || []), ...(data.items || [])];
 					loadMore.hasMore.set((data.list.total || 0) > this.objs.length);
 					loadMore.total.set(data.list.total);
 					loadMore.loading.set(false);
 				}
 			})
-			.catch(e => {
+			.catch(error => {
 				if (this.activeRequest === request) {
 					loadMore.loading.set(false);
 				}
-				this.notify.error(e);
+				this.notify.error(error);
 			});
 		this.activeRequest = request;
 	}

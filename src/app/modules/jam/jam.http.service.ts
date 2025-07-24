@@ -13,12 +13,12 @@ export interface HTTPOptions {
 	responseType?: 'arraybuffer' | 'text' | 'json';
 }
 
-async function handleError(e: any): Promise<any> {
-	console.error(e);
-	if (e.status === 0) {
-		return Promise.reject(Error('Could not reach server'));
+async function handleError(error: any): Promise<any> {
+	console.error(error);
+	if (error.status === 0) {
+		return Promise.reject(new Error('Could not reach server'));
 	}
-	return Promise.reject(e as Error);
+	return Promise.reject(error);
 }
 
 @Injectable()
@@ -38,13 +38,13 @@ export class JamHttpService {
 				})
 					.subscribe(res => {
 						if (!res?.body) {
-							return reject(Error('Invalid Binary Server Response'));
+							return reject(new Error('Invalid Binary Server Response'));
 						}
 						resolve({buffer: res.body, contentType: res.headers.get('content-type') || 'invalid'});
 					});
 			});
-		} catch (e) {
-			return handleError(e);
+		} catch (error) {
+			return handleError(error);
 		}
 	}
 
@@ -56,8 +56,8 @@ export class JamHttpService {
 					withCredentials: options.withCredentials, responseType: options.responseType as 'json'
 				}
 			)) as Promise<T>;
-		} catch (e) {
-			return handleError(e);
+		} catch (error) {
+			return handleError(error);
 		}
 	}
 
@@ -66,8 +66,8 @@ export class JamHttpService {
 			return await firstValueFrom(this.client.post<T>(url, body,
 				{params: options.params, headers: options.headers, reportProgress: options.reportProgress, withCredentials: options.withCredentials}
 			)) as Promise<T>;
-		} catch (e) {
-			return handleError(e);
+		} catch (error) {
+			return handleError(error);
 		}
 	}
 

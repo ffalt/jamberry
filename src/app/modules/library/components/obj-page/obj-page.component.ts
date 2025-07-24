@@ -16,8 +16,7 @@ import {
 } from '@library/model/objects';
 import {LibraryService} from '@library/services';
 import type {HeaderInfo, HeaderTab} from '@shared/components';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
 	selector: 'app-page-obj',
@@ -70,12 +69,8 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 		this.obj = undefined;
 		if (this.id && this.type) {
 			this.get(this.id)
-				.then(obj => {
-					this.display(obj);
-				})
-				.catch(e => {
-					this.notify.error(e);
-				});
+				.then(obj => this.display(obj))
+				.catch(error => this.notify.error(error));
 		}
 	}
 
@@ -113,8 +108,9 @@ export class ObjPageComponent implements OnInit, OnDestroy {
 				const folder = await this.jam.folder.id({id, folderIncState: true, folderIncTag: true});
 				return new JamFolderObject(folder, this.library);
 			}
-			default:
+			default: {
 				return;
+			}
 		}
 	}
 

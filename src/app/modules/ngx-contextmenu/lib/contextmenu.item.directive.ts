@@ -35,7 +35,7 @@ export class ContextMenuItemDirective implements Highlightable {
 	}
 
 	evaluateIfFunction(value: any, item: any): any {
-		if (value instanceof Function) {
+		if (typeof value === 'function') {
 			return value(item);
 		}
 		return value;

@@ -51,8 +51,8 @@ export class JamAuthService {
 			} else {
 				this.user = undefined;
 			}
-		} catch (e) {
-			return Promise.reject((e as Error) || Error('Server error'));
+		} catch (error) {
+			return Promise.reject(error || new Error('Server error'));
 		}
 	}
 
@@ -81,21 +81,21 @@ export class JamAuthService {
 				server,
 				username: data.user.name,
 				session: canUseSession,
-				token: !canUseSession ? data.jwt : undefined,
+				token: canUseSession ? undefined : data.jwt,
 				version: data.version,
 				password: storePassword ? password : undefined
 			};
 			await this.configuration.toStorage({auth: this.auth, user: this.user});
 			await this.configuration.userChangeNotify(this.user);
-		} catch (e: any) {
+		} catch (error: any) {
 			await this.clear();
-			if (e.error?.error) {
-				return Promise.reject(Error(e.error.error));
+			if (error?.error?.error) {
+				return Promise.reject(new Error(error.error.error));
 			}
-			if (e instanceof HttpErrorResponse) {
-				return Promise.reject(Error(e.statusText));
+			if (error instanceof HttpErrorResponse) {
+				return Promise.reject(new Error(error.statusText));
 			}
-			return Promise.reject(Error('Server Error'));
+			return Promise.reject(new Error('Server Error'));
 		}
 	}
 

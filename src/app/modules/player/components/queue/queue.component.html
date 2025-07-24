@@ -11,7 +11,7 @@
 						 class="track-wrapper"
 						 cdkDrag
 						 appFocusKeyListItem role="listitem"
-						 (tap)="tapPlayQueuePos($event, index)"
+						 (dblclick)="doubleClickPlayQueuePos(index)"
 						 (keydown.enter)="playQueuePos(index)"
 						 (touchstart)="onTouchStart($event)"
 						 (touchmove)="onTouchMove($event)"

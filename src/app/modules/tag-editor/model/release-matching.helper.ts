@@ -43,7 +43,7 @@ function weightedMean(scores: Array<Score>): number {
 }
 
 function slugify(title: string): string {
-	return title.replace(/[ .\-()[\]]/g, '').toLowerCase();
+	return title.replaceAll(/[ .\-()[\]]/g, '').toLowerCase();
 }
 
 export class MatchingTrack {
@@ -58,7 +58,7 @@ export class MatchingTrack {
 
 	private createMatchingScores(allMatchings: Array<Matching>): Array<MBTrackMatching> {
 		let result: Array<MBTrackMatching> = [];
-		allMatchings.forEach((match, i) => {
+		for (const [i, match] of allMatchings.entries()) {
 			const matching: MBTrackMatching = {
 				match,
 				score: 0,
@@ -66,7 +66,7 @@ export class MatchingTrack {
 			};
 			matching.score = weightedMean(matching.scores);
 			result.push(matching);
-		});
+		}
 		result = result
 			.filter(a => a.score > 0)
 			.sort((a, b) => b.score - a.score);
@@ -101,7 +101,7 @@ export class MatchingTrack {
 				durationScore = 1;
 			} else if (lengthDiff < 1000) {
 				durationScore = 0.8;
-			} else if (lengthDiff < 10000) {
+			} else if (lengthDiff < 10_000) {
 				durationScore = 0.2;
 			}
 			scores.push({name: 'duration', score: durationScore, weight: 0.2});
@@ -265,7 +265,7 @@ export class MatchTree {
 	groups: Array<MatchReleaseGroup> = [];
 
 	enough(matchTrackCount: number): boolean {
-		return !!this.groups.find(group => group.enough(matchTrackCount));
+		return this.groups.some(group => group.enough(matchTrackCount));
 	}
 
 	addReleaseGroup(releasegroup: MusicBrainz.ReleaseGroup): MatchReleaseGroup {
