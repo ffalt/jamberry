@@ -1,0 +1,56 @@
+@use "_scss/variables";
+
+:host {
+	width: 100%;
+	background-color: var(--background-box);
+	border-radius: 4px;
+
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+	grid-gap: 5px;
+
+	.stat {
+		padding: variables.$padding;
+		margin-top: variables.$margin;
+		text-align: center;
+		cursor: pointer;
+
+		.stat-title {
+			color: var(--on-background);
+			font-size: 0.6em;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+		}
+
+		.stat-value {
+			color: var(--on-background);
+			font-size: 2em;
+			font-weight: bold;
+
+			&:hover {
+				color: var(--on-background-hover);
+			}
+		}
+	}
+
+	@media (max-width: variables.$break-pad) {
+		.stat {
+			.stat-value {
+				font-size: 1.75em;
+			}
+		}
+	}
+	@media (max-width: variables.$break-phone) {
+		grid-template-columns: repeat(3, 1fr);
+		.stat {
+			padding: variables.$padding-sm;
+
+			.stat-value {
+				font-size: 1.5em;
+			}
+		}
+	}
+	@media (max-width: variables.$break-watch) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

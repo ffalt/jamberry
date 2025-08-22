@@ -1,0 +1,54 @@
+<div class="health">
+	<div class="actions">
+		<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh List"><i class="icon-reload"></i></button>
+		@if (modes.length > 0) {
+			<select placeholder="Type of Hints" i18n-placeholder [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
+				@for (m of modes; track m) {
+					<option [value]="m">{{ m }}</option>
+				}
+			</select>
+		}
+	</div>
+	<div class="health-content">
+		@if (!hints) {
+			<app-loading />
+		}
+		<app-background-text-list [list]="hints" name="Folder Health Issues" />
+		@for (folderHealth of hints; track folderHealth.folder.id) {
+			<div class="folder">
+				<div class="meta">
+					<a [routerLink]="['/admin/folder',folderHealth.folder.id,'overview']">
+						@switch (folderHealth.folder.type) {
+							@case ('multialbum') {
+								<div i18n class="type">Album</div>
+								<div class="name">{{ folderHealth.folder.tag?.album }}</div>
+								<div class="artist">{{ folderHealth.folder.tag?.artist }}</div>
+								<div class="year">{{ folderHealth.folder.tag?.year }}</div>
+							}
+							@case ('album') {
+								<div i18n class="type">Album</div>
+								<div class="name">{{ folderHealth.folder.tag?.album }}</div>
+								<div class="artist">{{ folderHealth.folder.tag?.artist }}</div>
+								<div class="year">{{ folderHealth.folder.tag?.year }}</div>
+							}
+							@case ('artist') {
+								<div i18n class="type">Artist</div>
+								<div class="name">{{ folderHealth.folder.tag?.artist }}</div>
+							}
+							@case ('collection') {
+								<div i18n class="type">Collection</div>
+								<div class="name">{{ folderHealth.folder.name }}</div>
+							}
+							@default {
+								<div class="name">{{ folderHealth.folder.name }}</div>
+							}
+						}
+					</a>
+				</div>
+				<div class="folder-health">
+					<app-folder-health [folderHealth]="folderHealth" />
+				</div>
+			</div>
+		}
+	</div>
+</div>

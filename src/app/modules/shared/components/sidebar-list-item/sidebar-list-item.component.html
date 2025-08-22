@@ -1,6 +1,0 @@
-<a
-	#item class="item"
-	routerLinkActive="active" tabindex="-1" [routerLink]="entry()?.link"
-	[routerLinkActiveOptions]="entry()?.options || {exact: false}" (click)="clickEntry()" (keydown.enter)="clickEntry()">
-	<i aria-hidden="true" [class]="entry()?.icon"></i> {{ entry()?.name }}
-</a>

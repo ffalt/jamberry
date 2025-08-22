@@ -1,0 +1,4 @@
+@if (data) {
+	<app-rate [rating]="data.rating" (hasRated)="onRated($event)" />
+	<ng-container i18n>Rating:</ng-container> {{ data.rating }}
+}

@@ -1,0 +1,13 @@
+<div class="navigation">
+	<ul appFocusKeyList class="tabs" role="tablist">
+		<li (clickenter)="currentTab='queue'" [class.active]="currentTab==='queue'" appFocusKeyListItem role="tab"><a i18n>Queue</a></li>
+		<li (clickenter)="currentTab='chat'" [class.active]="currentTab==='chat'" appFocusKeyListItem role="tab"><a i18n>Chat</a></li>
+	</ul>
+</div>
+<div class="content">
+	@if (currentTab === 'queue') {
+		<app-queue />
+	} @else if (currentTab === 'chat') {
+		<app-chat />
+	}
+</div>

@@ -1,12 +1,12 @@
-import {Overlay, OverlayConfig, type OverlayRef} from '@angular/cdk/overlay';
-import {ComponentPortal} from '@angular/cdk/portal';
-import {type ComponentRef, Injectable, Injector, NgZone, inject} from '@angular/core';
-import type {Observable} from 'rxjs';
+import { Overlay, OverlayConfig, type OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { type ComponentRef, inject, Injectable, Injector, NgZone } from '@angular/core';
+import type { Observable } from 'rxjs';
 
-import {type GlobalConfig, type IndividualConfig, ToastPackage, type ToastToken, TOAST_CONFIG} from './toast-config';
-import {ToastInjector} from './toast-injector';
-import {ToastRef} from './toast-ref';
-import {ToastComponent} from './toast.component';
+import { type GlobalConfig, type IndividualConfig, TOAST_CONFIG, ToastPackage, type ToastToken } from './toast-config';
+import { ToastInjector } from './toast-injector';
+import { ToastRef } from './toast-ref';
+import { ToastComponent } from './toast.component';
 
 export interface ActiveToast<C> {
 	/** Your Toast ID. Use this to close it individually */
@@ -27,7 +27,7 @@ export interface ActiveToast<C> {
 	onAction: Observable<any>;
 }
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ToastService {
 	toastrConfig: GlobalConfig;
 	currentlyActive = 0;
@@ -41,9 +41,9 @@ export class ToastService {
 	constructor() {
 		const token = inject<ToastToken>(TOAST_CONFIG);
 
-		this.toastrConfig = {...token.default, ...token.config};
+		this.toastrConfig = { ...token.default, ...token.config };
 		if (token.config.iconClasses) {
-			this.toastrConfig.iconClasses = {...token.default.iconClasses, ...token.config.iconClasses};
+			this.toastrConfig.iconClasses = { ...token.default.iconClasses, ...token.config.iconClasses };
 		}
 	}
 
@@ -133,7 +133,7 @@ export class ToastService {
 
 	/** create a clone of global config and apply individual settings */
 	private applyConfig(override: Partial<IndividualConfig> = {}): GlobalConfig {
-		return {...this.toastrConfig, ...override};
+		return { ...this.toastrConfig, ...override };
 	}
 
 	/**
@@ -142,7 +142,7 @@ export class ToastService {
 	private findToast(toastId: number): { index: number; activeToast: ActiveToast<any> } | undefined {
 		for (let i = 0; i < this.toasts.length; i++) {
 			if (this.toasts[i].toastId === toastId) {
-				return {index: i, activeToast: this.toasts[i]};
+				return { index: i, activeToast: this.toasts[i] };
 			}
 		}
 		return undefined;
@@ -152,7 +152,7 @@ export class ToastService {
 	 * Determines the need to run inside angular's zone then builds the toast
 	 */
 	private preBuildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | undefined {
-		if (config.onActivateTick && this.ngZone) {
+		if (config.onActivateTick) {
 			this.ngZone.run(() =>
 				this.buildNotification(toastType, message, title, config)
 			);

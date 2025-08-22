@@ -1,0 +1,22 @@
+<div class="image-crop">
+	<label>
+		<input [(ngModel)]="maintainAspectRatio" [checked]="maintainAspectRatio" type="checkbox">
+		<ng-container i18n>Maintain Aspect Ratio</ng-container>
+	</label>
+	@if (imageBase64) {
+		<image-cropper
+			[imageBase64]="imageBase64"
+			[format]="format"
+			[maintainAspectRatio]="maintainAspectRatio"
+			(imageCropped)="imageCropped($event)"
+		/>
+	}
+</div>
+@if (croppedImage) {
+	<div class="image-preview">
+		<img alt="Cropped Image" i18n-alt [src]="croppedImage">
+	</div>
+}
+<div class="buttons">
+	<button (click)="upload()" class="button-on-control" i18n>Use Cropped Artwork</button>
+</div>

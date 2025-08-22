@@ -6,5 +6,5 @@ export function extractSVGParts(data: any): { path: string; viewbox: string } {
 	i = svg.indexOf('d="');
 	let path = svg.slice(i + 3);
 	path = path.slice(0, path.indexOf('"'));
-	return {path, viewbox};
+	return { path, viewbox };
 }

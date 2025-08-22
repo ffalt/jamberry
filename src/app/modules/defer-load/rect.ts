@@ -39,7 +39,7 @@ export class Rect {
 	}
 
 	static fromElement(element: HTMLElement): Rect {
-		const {left, top, right, bottom} = element.getBoundingClientRect();
+		const { left, top, right, bottom } = element.getBoundingClientRect();
 		return new Rect(left, top, right, bottom);
 	}
 
@@ -55,15 +55,11 @@ export class Rect {
 	}
 
 	intersectsWith(rect: Rect): boolean {
-		return (rect.left < this.right) &&
-			(this.left < rect.right) &&
-			(rect.top < this.bottom) &&
-			(this.top < rect.bottom);
+		return (rect.left < this.right) && (this.left < rect.right) && (rect.top < this.bottom) && (this.top < rect.bottom);
 	}
 
 	intersectsWithY(rect: Rect): boolean {
-		return (rect.top < this.bottom) &&
-			(this.top < rect.bottom);
+		return (rect.top < this.bottom) && (this.top < rect.bottom);
 	}
 
 	getIntersectionWith(rect: Rect): Rect {

@@ -1,11 +1,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable, inject} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
-import {JamBaseService} from '../jam.base.service';
-import type {Jam} from '../model/jam-rest-data';
-import type {JamParameters} from '../model/jam-rest-params';
+import { JamBaseService } from '../jam.base.service';
+import type { Jam } from '../model/jam-rest-data';
+import type { JamParameters } from '../model/jam-rest-params';
 
 @Injectable()
 export class JamAdminService {
@@ -21,14 +21,14 @@ export class JamAdminService {
 	/**
 	 * Get Queue Information for Admin Change Tasks // Rights needed: admin
 	 */
-	async queueId(params: JamParameters.ID): Promise<Jam.AdminChangeQueueInfo> {
-		return this.base.requestData<Jam.AdminChangeQueueInfo>('/admin/queue/id', params);
+	async queueId(parameters: JamParameters.ID): Promise<Jam.AdminChangeQueueInfo> {
+		return this.base.requestData<Jam.AdminChangeQueueInfo>('/admin/queue/id', parameters);
 	}
 
 	/**
 	 * Update the Server Admin Settings // Rights needed: admin
 	 */
-	async settingsUpdate(params: JamParameters.AdminSettingsArgs): Promise<void> {
-		return this.base.requestPostDataOK('/admin/settings/update', params);
+	async settingsUpdate(parameters: JamParameters.AdminSettingsParameters): Promise<void> {
+		return this.base.requestPostDataOK('/admin/settings/update', parameters);
 	}
 }

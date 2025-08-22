@@ -1,0 +1,6 @@
+<div (mousedown)="changePlaybackTime($event)" class="slider">
+	@if (player.isPlaying) {
+		<div class="back"></div>
+		<div class="scrubber line" [style.width.%]="timePC"></div>
+	}
+</div>

@@ -1,0 +1,22 @@
+<div class="messages">
+	@if (messages) {
+		@for (message of messages; track $index + message.userID) {
+			<div class="message" [class.grouped]="!$first && messages[$index-1].userID===message.userID">
+				<div>
+					<app-coverart-image class="avatar" [coverArtObj]="{id:message.userID,name:message.userName}" [size]="22" [round]="true" [alt]="message.userName" />
+					<div class="time">{{ message.created|date:'shortTime' }}</div>
+				</div>
+				<div>
+					<div class="username">{{ message.userName }}</div>
+					<div class="text">{{ message.message }}</div>
+				</div>
+			</div>
+		}
+	}
+</div>
+<div class="chat-input">
+	<div class="input-box">
+		<input (keydown.enter)="post()" [(ngModel)]="msg" autocomplete="none" i18n-placeholder name="message" placeholder="Enter Chat Message" type="text">
+	</div>
+	<button (click)="post()" class="button-on-control" i18n>Send</button>
+</div>

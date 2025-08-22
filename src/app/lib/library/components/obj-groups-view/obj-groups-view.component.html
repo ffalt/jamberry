@@ -1,0 +1,7 @@
+<app-view-type-toggle #viewType [headline]="headline()" [viewTypeList]="viewTypeList()" />
+<app-background-text-list [list]="groups" [name]="typeName()" />
+@if (viewType.viewTypeList()) {
+	<app-obj-groups-plates [groups]="groups" [showParent]="showParent()" />
+} @else {
+	<app-obj-groups-cards [groups]="groups" [showParent]="showParent()" />
+}

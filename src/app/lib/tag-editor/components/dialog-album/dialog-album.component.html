@@ -1,0 +1,11 @@
+<div>
+	<form>
+		@for (ed of edits; track ed.title) {
+			<div class="user-form-control">
+				<label><input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="ed.enabled" />
+					{{ ed.title }}</label>
+				<app-tag-editor-autocomplete [getList]="ed.getList" [standalone]="true" [(value)]="ed.value" />
+			</div>
+		}
+	</form>
+</div>

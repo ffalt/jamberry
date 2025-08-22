@@ -1,0 +1,46 @@
+<section class="player" role="status">
+	<div class="actions">
+		<button (click)="player.previous()" [disabled]="!queue.hasPrevious" [title]="`Previous Track (${HOTKEYS.previousTrack.shortcut})`"><i aria-hidden="true" class="icon-fast-backward"></i></button>
+		<button (click)="togglePlayPause()" [disabled]="queue.isEmpty" [title]="player.isPlaying | stringToggle : 'Pause' : 'Play' : HOTKEYS.playPause.shortcut"
+						class="play"><i [class]="player.isPlaying | stringToggle : 'icon-pause' : 'icon-play'" aria-hidden="true"></i></button>
+		<button (click)="player.next()" [disabled]="!queue.hasNext" [title]="`Next Track (${HOTKEYS.nextTrack.shortcut})`"><i aria-hidden="true" class="icon-fast-forward"></i></button>
+	</div>
+	<div class="progress">
+		<div class="start">{{ player.currentTime | mediaduration }}</div>
+		<div class="bar">
+			<app-time-slider />
+		</div>
+		<div class="finish">{{ player.totalTime | mediaduration }}</div>
+	</div>
+	<div class="options">
+		<div class="player-slider-controls">
+			<div class="player-controls">
+				<button (click)="player.unmute()" [title]="player.isMuted | stringToggle : 'Unmute' : 'Mute'" class="player-control">
+					<i [class]="player.isMuted | stringToggle : 'icon-volume-off' : 'icon-volume-up'" aria-hidden="true"></i></button>
+				<app-volume-slider i18n-title title="Volume" />
+			</div>
+		</div>
+		@if (showSpeed) {
+			<div class="player-controls">
+				<div class="player-controls">
+					<button class="player-control" title="Reset Speed" i18n-title (click)="player.speed(1)"><i class="icon-speed" aria-hidden="true"></i></button>
+					<app-speed-slider />
+				</div>
+			</div>
+		}
+		<div class="player-controls">
+			<button (click)="toggleRepeat()" [class.active]="player.repeatTrack" [title]="player.repeatTrack | stringToggle:'Stop repeating current track':'Repeat current track'" class="player-control">
+				<i aria-hidden="true" class="icon-loop"></i>
+			</button>
+			<button (click)="showSpeed=!showSpeed" [class.active]="showSpeed" [title]="showSpeed | stringToggle:'Hide Playback Speed Control' :'Show Playback Speed Control'" class="player-control">
+				<i aria-hidden="true" class="icon-speed"></i>
+			</button>
+			<button (click)="tabService.clickInfo()" [class.active]="tabService.infoTab.active" [title]="tabService.infoTab.active | stringToggle:'Hide Play Info' :'Show Play Info'" class="player-control button-info">
+				<i aria-hidden="true" class="icon-info"></i>
+			</button>
+			<button (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active" [title]="tabService.queueTab.active | stringToggle: 'Hide Play Queue':'Show Play Queue'" class="player-control button-queue">
+				<i aria-hidden="true" class="icon-queue"></i>
+			</button>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,12 @@
+@if (list(); as list) {
+	<a role="button" class="header" (click)="toggle()" (keydown.enter)="toggle()">{{ list.name }}</a>
+	@if (!collapsed) {
+		<ul class="index-list-content">
+			@for (entry of list.entries; track entry.link) {
+				<li>
+					<app-sidebar-list-item [entry]="entry" (navigate)="onNavigate()" />
+				</li>
+			}
+		</ul>
+	}
+}

@@ -1,51 +1,49 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
-    "importHelpers": true,
-    "esModuleInterop": true,
-    "outDir": "./dist/out-tsc",
-    "strict": true,
-    "sourceMap": true,
+		"baseUrl": "./",
     "declaration": false,
-    "module": "es2022",
-    "moduleResolution": "bundler",
-    "noImplicitReturns": true,
-    "noImplicitAny": true,
-    "noFallthroughCasesInSwitch": true,
+		"emitDecoratorMetadata": true,
+		"esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "strictPropertyInitialization": true,
+    "importHelpers": true,
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "./dist/out-tsc",
+		"resolveJsonModule": true,
+		"sourceMap": true,
+    "strict": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
+    "strictPropertyInitialization": true,
     "target": "ES2023",
-    "typeRoots": [
+		"useDefineForClassFields": false,
+		"types": ["jest", "@angular/localize"],
+		"typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
       "es2023",
-      "dom",
-      "esnext.asynciterable"
+      "dom"
     ],
     "paths": {
-      "@admin/*": [
-        "app/modules/admin/*"
-      ],
-      "@app/*": [
-        "app/*"
-      ],
       "@core/*": [
-        "app/modules/core/*"
+        "src/app/lib/core/*"
+      ],
+      "@modules/*": [
+        "src/app/modules/*"
+      ],
+      "@utils/*": [
+        "src/app/utils/*"
       ],
       "@jam": [
-        "app/modules/jam/index.ts"
-      ],
-      "@library/*": [
-        "app/modules/library/*"
-      ],
-      "@shared/*": [
-        "app/modules/shared/*"
+        "src/app/modules/jam/index.ts"
       ]
     }
   },
@@ -54,5 +52,9 @@
     "fullTemplateTypeCheck": true,
     "strictTemplates": true,
     "strictInjectionParameters": true
-  }
+  },
+	"exclude": [
+		"local",
+		"electron"
+	]
 }

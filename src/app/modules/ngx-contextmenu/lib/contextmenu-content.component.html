@@ -1,19 +1,19 @@
-<div class="dropdown open show ngx-contextmenu" [ngClass]="menuClass() || ''">
-  <ul #menu class="dropdown-menu show" style="position: static; float: none;" role="menu" tabindex="0" cdkTrapFocus>
-    @for (menuItem of menuItems(); track menuItem; ) {
-      <li
-        #li
-        [class.disabled]="!menuItem.isEnabled"
-        [class.divider]="menuItem.divider()"
-        [class.dropdown-divider]="menuItem.divider()"
-        [class.active]="menuItem.isActive && menuItem.isEnabled"
-        [attr.role]="menuItem.divider() ? 'separator' : undefined"
-        >
-        <context-menu-content-item [item]="item()" [menuItem]="menuItem"
-          (itemSelect)="onMenuItemSelect($event)"
-          (openSubmenu)="onOpenSubMenu($event)"
-          />
-      </li>
-    }
-  </ul>
+<div [ngClass]="menuClass() || ''" class="dropdown open show ngx-contextmenu">
+	<ul #menu cdkTrapFocus class="dropdown-menu show" role="menu" style="position: static; float: none;" tabindex="0">
+		@for (menuItem of menuItems(); track menuItem; ) {
+			<li
+				#li
+				[class.disabled]="!menuItem.isEnabled"
+				[class.divider]="menuItem.divider()"
+				[class.dropdown-divider]="menuItem.divider()"
+				[class.active]="menuItem.isActive && menuItem.isEnabled"
+				[attr.role]="menuItem.divider() ? 'separator' : undefined"
+			>
+				<context-menu-content-item [item]="item()" [menuItem]="menuItem"
+																	 (itemSelect)="onMenuItemSelect($event)"
+																	 (openSubmenu)="onOpenSubMenu($event)"
+				/>
+			</li>
+		}
+	</ul>
 </div>

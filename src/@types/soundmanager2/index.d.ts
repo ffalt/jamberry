@@ -125,13 +125,13 @@ declare module 'soundmanager2' {
 		/**
 		 * Creates a sound object, supporting an arbitrary number of optional arguments. Returns a SMSound object instance. At minimum, a url parameter is required.
 		 */
-		createSound(properties: SoundProperties): SMSound;
+		createSound(properties: SoundProperties): SMSound | undefined;
 
 		destroySound(id: string): void;
 
 		getMemoryUse(): number;
 
-		getSoundById(id: string): SMSound;
+		getSoundById(id: string): SMSound | undefined;
 
 		load(id: string, options?: Record<string, unknown>): SMSound;
 
@@ -185,6 +185,8 @@ declare module 'soundmanager2' {
 	}
 
 	export interface SMSound {
+		_iO: { playbackRate: number };
+
 		// Parameters, instance options.
 		id: string;
 		pan: number;
@@ -268,10 +270,6 @@ declare module 'soundmanager2' {
 		url: string;
 		id?: string;
 	}
-
-	// export interface GetInstance {
-	// 	(): SoundManager;
-	// }
 
 	export const soundManager: SoundManager;
 }

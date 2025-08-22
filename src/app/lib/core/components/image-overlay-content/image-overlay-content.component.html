@@ -1,0 +1,6 @@
+@if (data) {
+	@if (loading) {
+		<i class="icon-spinner icon-spin"></i>
+	}
+	<img [src]="data.url" [alt]="data.name" (load)="onLoad()">
+}

@@ -1,5 +1,0 @@
-@if (!similar) {
-  <app-loading />
-}
-<app-track-list [showArtist]="true" [tracks]="similar" />
-<app-load-more-button [loading]="!similar" (requestLoad)="loadSimilar()" />

@@ -1,0 +1,55 @@
+@if (mbAlbum) {
+	<div class="mbalbum">
+		<div class="section-title">
+			<ng-container i18n>Album Information by</ng-container>
+			<a href="https://musicbrainz.org/release/{{mbAlbum.id}}" target="_blank" rel="noopener">
+				<app-mb-icon [size]="18" />
+				<ng-container i18n>MusicBrainz</ng-container>
+			</a></div>
+		<div class="info-groups">
+			@for (infoGroup of infoGroups; track infoGroup) {
+				<div class="info-group">
+					<div class="section-title">{{ infoGroup.name }}</div>
+					@for (info of infoGroup.infos; track info) {
+						<div class="key-value-row">
+							<div>{{ info.name }}</div>
+							<div>{{ info.value }}</div>
+						</div>
+					}
+				</div>
+			}
+		</div>
+		<div i18n class="section-title">Release Events</div>
+		@for (releaseEvent of mbAlbum.releaseEvents; track releaseEvent) {
+			<div class="releaseEvent">
+				<div>{{ releaseEvent.date }} <span class="value">{{ releaseEvent.area.name }}</span></div>
+			</div>
+		}
+		<div i18n class="section-title">Labels</div>
+		@for (labelInfo of mbAlbum.labelInfo; track labelInfo) {
+			<div class="labelInfo">
+				<div class="value">{{ labelInfo.label?.name }}</div>
+				@if (labelInfo.label?.disambiguation) {
+					<div>{{ labelInfo.label?.disambiguation }}</div>
+				}
+				<div>
+					<ng-container i18n>Catalog Number</ng-container>
+					<span class="value">{{ labelInfo.catalogNumber }}</span></div>
+			</div>
+		}
+		@for (media of mbAlbum.media; track media) {
+			<div class="media">
+				<div i18n class="section-title">Media: {{ media.format }} {{ media.position }} ({{ media.trackCount }} Tracks)</div>
+				@for (track of media.tracks; track track) {
+					<div class="track">
+						<div i18n>Track {{ track.number }} - {{ track.length | mediaduration }}</div>
+						<div><span class="value">{{ track.title || track.position }}</span>
+							<ng-container i18n>by</ng-container>
+							<span class="value">{{ track.artistCredit | mbArtistCredits }}</span></div>
+					</div>
+				}
+			</div>
+		}
+		<app-mb-relations [relations]="mbAlbum.relations" />
+	</div>
+}

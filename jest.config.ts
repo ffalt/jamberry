@@ -1,14 +1,12 @@
-import type {Config} from 'jest';
+import type { Config } from 'jest';
 
 const jestConfig: Config = {
 	preset: 'jest-preset-angular',
 	moduleDirectories: ['node_modules', '<rootDir>'],
 	moduleNameMapper: {
-		'@app/(.*)': '<rootDir>/src/app/$1',
-		'@core/(.*)': '<rootDir>/src/app/modules/core/$1',
-		'@admin/(.*)': '<rootDir>/src/app/modules/admin/$1',
-		'@shared/(.*)': '<rootDir>/src/app/modules/shared/$1',
-		'@library/(.*)': '<rootDir>/src/app/modules/library/$1',
+		'@core/(.*)': '<rootDir>/src/app/lib/core/$1',
+		'@modules/(.*)': '<rootDir>/src/app/modules/$1',
+		'@utils/(.*)': '<rootDir>/src/app/utils/$1',
 		'@jam': '<rootDir>/src/app/modules/jam/index'
 	},
 	testPathIgnorePatterns: ['/local/', '/dist/'],

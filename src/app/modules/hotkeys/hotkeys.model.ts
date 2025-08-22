@@ -1,21 +1,4 @@
-export interface ExtendedKeyboardEvent extends KeyboardEvent {
-	returnValue: boolean; // IE returnValue
-}
-
 export class Hotkey {
-
-	get formatted(): Array<string> {
-		if (!this.formattedVal) {
-			const combo: string = this.combo[0];
-			const sequence: Array<string> = combo.split(/\s/);
-			for (let i = 0; i < sequence.length; i++) {
-				sequence[i] = Hotkey.symbolize(sequence[i]);
-			}
-			this.formattedVal = sequence;
-		}
-		return this.formattedVal;
-	}
-
 	formattedVal?: Array<string>;
 
 	/**
@@ -29,25 +12,37 @@ export class Hotkey {
 	 * @param    persistent  if true, the binding is preserved upon route changes
 	 */
 	constructor(
-		public combo: string | Array<string>, public callback: (event: KeyboardEvent, combo: string) => ExtendedKeyboardEvent | boolean,
+		public combo: string | Array<string>, public callback: (event: KeyboardEvent, combo: string) => KeyboardEvent | boolean,
 		public allowIn?: Array<string>, public description?: string, public action?: string,
 		public persistent?: boolean
 	) {
 		this.combo = (Array.isArray(combo) ? combo : [combo]);
-		this.allowIn = allowIn || [];
+		this.allowIn = allowIn ?? [];
 		this.description = description ?? '';
 	}
 
+	get formatted(): Array<string> {
+		if (!this.formattedVal) {
+			const combo: string = this.combo[0];
+			const sequence: Array<string> = combo.split(/\s/);
+			for (let i = 0; i < sequence.length; i++) {
+				sequence[i] = Hotkey.symbolize(sequence[i]);
+			}
+			this.formattedVal = sequence;
+		}
+		return this.formattedVal;
+	}
+
 	static symbolize(combo: string): string {
-		const map: any = {
-			command: '\u2318',       // ⌘
-			shift: '\u21E7',         // ⇧
-			left: '\u2190',          // ←
-			right: '\u2192',         // →
-			up: '\u2191',            // ↑
-			down: '\u2193',          // ↓
-			return: '\u23CE',      // ⏎
-			backspace: '\u232B'      // ⌫
+		const map: Record<string, string> = {
+			command: '\u2318', // ⌘
+			shift: '\u21E7', // ⇧
+			left: '\u2190', // ←
+			right: '\u2192', // →
+			up: '\u2191', // ↑
+			down: '\u2193', // ↓
+			return: '\u23CE', // ⏎
+			backspace: '\u232B' // ⌫
 		};
 		const comboSplit: Array<string> = combo.split('+');
 

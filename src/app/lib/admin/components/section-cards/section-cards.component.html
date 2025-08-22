@@ -1,0 +1,10 @@
+@for (section of sections; track section.id) {
+	<div class="section-card no-hover" [routerLink]="['/admin', section.id]">
+		<div class="image">
+			<app-iconart-image [icon]="section.icon" />
+		</div>
+		<div class="footer">
+			<div class="footer-content">{{ section.text }}</div>
+		</div>
+	</div>
+}

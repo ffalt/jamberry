@@ -1,0 +1,53 @@
+<div class="radar">
+	<app-view-header-slim i18n-section section="Health Radar">
+		@if (folders) {
+			@if (searching) {
+				<div class="buttons">
+					<button class="button-on-control" (click)="stop()"><i class="icon-stop"></i> <span i18n>Stop</span></button>
+				</div>
+			} @else {
+				<div class="buttons">
+					<button class="button-primary" (click)="start()"><i class="icon-play"></i>
+						<ng-container i18n>Next</ng-container>
+					</button>
+					@if (current) {
+						<button class="button-on-control" (click)="refresh(current.pos, false)"><i class="icon-reload"></i>
+							<ng-container i18n>Refresh</ng-container>
+						</button>
+						@if (current.health && current.health.length > 0) {
+							<button i18n class="button-on-control" (click)="fixAll()">Fix all fixable</button>
+						}
+					}
+				</div>
+			}
+		}
+	</app-view-header-slim>
+	<div class="content">
+		@if (!folders) {
+			<app-loading />
+		}
+		@if (folders && current) {
+			<div>
+				<div class="current">
+          <span>@if (searching) {
+						<i class="icon-spin icon-spinner"></i>
+					}</span>
+					<span>{{ current.pos + 1 }} / {{ folders.length }}</span>
+					<a [routerLink]="['/admin/folder', current.folder.id, 'tags']"><i class="icon-folder"></i> {{ current.folder.name }}</a>
+				</div>
+				@if (current.health) {
+					@for (trackHealth of current.health; track trackHealth.track.id) {
+						<div class="track">
+							<div class="meta">
+								{{ trackHealth.track.name }}
+							</div>
+							<div class="track-health">
+								<app-track-health [trackHealth]="trackHealth" (resolvedEvent)="trackHealthResolved(trackHealth)" />
+							</div>
+						</div>
+					}
+				}
+			</div>
+		}
+	</div>
+</div>

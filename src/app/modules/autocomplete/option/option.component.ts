@@ -1,20 +1,19 @@
-import {ChangeDetectionStrategy, Component, input} from '@angular/core';
-import type {AutocompleteControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import type { AutocompleteControl, AutocompleteOption } from '@modules/autocomplete/autocomplete.types';
 
 @Component({
 	selector: 'app-autocomplete-option',
 	template: '<ng-content />',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: ['./option.component.scss'],
-	standalone: false,
 	host: {
 		'[class.active]': 'getActive',
 		'(mousedown)': 'mouseDownEvent($event)'
 	}
 })
 export class OptionComponent {
-	readonly option = input<AutocompleteOption>();
-	readonly control = input<AutocompleteControl>();
+	readonly option = input<AutocompleteOption<any>>();
+	readonly control = input<AutocompleteControl<any>>();
 
 	get getActive(): boolean {
 		const control = this.control();

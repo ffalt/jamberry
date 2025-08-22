@@ -1,27 +1,27 @@
-import {Overlay, OverlayConfig, type OverlayRef} from '@angular/cdk/overlay';
-import {ComponentPortal} from '@angular/cdk/portal';
-import {type ComponentRef, Injectable, Injector, type OnDestroy, inject} from '@angular/core';
-import {Subject, takeUntil} from 'rxjs';
-import {DialogOverlayRef} from './dialog-overlay-ref.class';
-import {DialogOverlayComponent} from './dialog-overlay.component';
-import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
-import {DEFAULT_CONFIG, type DialogOverlayDialogConfig} from './dialog-overlay.types';
+import { Overlay, OverlayConfig, type OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { type ComponentRef, inject, Injectable, Injector, type OnDestroy, type ProviderToken } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+import { DialogOverlayRef } from './dialog-overlay-ref.class';
+import { DialogOverlayComponent } from './dialog-overlay.component';
+import { DIALOG_OVERLAY_DIALOG_CONFIG } from './dialog-overlay.tokens';
+import { DEFAULT_CONFIG, type DialogOverlayDialogConfig } from './dialog-overlay.types';
 
-export class PortalInjector implements Injector {
+export class PortalInjector<T> implements Injector {
 	constructor(
 		private readonly parentInjector: Injector,
-		private readonly customTokens: WeakMap<any, any>
+		private readonly customTokens: WeakMap<ProviderToken<T>, T>
 	) {
 	}
 
-	get(token: any, notFoundValue?: any): any {
+	get(token: ProviderToken<T>, notFoundValue: undefined): T {
 		const value = this.customTokens.get(token);
 
-		if (value !== undefined) {
+		if (value !== undefined && value !== null) {
 			return value;
 		}
 
-		return this.parentInjector.get<any>(token, notFoundValue);
+		return this.parentInjector.get<T>(token, notFoundValue);
 	}
 }
 
@@ -36,21 +36,23 @@ export class DialogOverlayService implements OnDestroy {
 		this.unsubscribe.complete();
 	}
 
-	open(config: DialogOverlayDialogConfig<any> = {}): DialogOverlayRef {
+	open<T>(config: Partial<DialogOverlayDialogConfig<T>> = {}): DialogOverlayRef {
 		// Override default configuration
-		const dialogConfig = {...DEFAULT_CONFIG, ...config};
+		const dialogConfig: DialogOverlayDialogConfig<T> = { ...DEFAULT_CONFIG, ...config };
 		// Returns an OverlayRef which is a PortalHost
-		const overlayRef = this.createOverlay(dialogConfig);
+		const overlayRef = this.createOverlay<T>(dialogConfig);
 		// Instantiate remote control
 		const dialogRef = new DialogOverlayRef(overlayRef);
 		dialogRef.componentInstance = this.attachDialogContainer(overlayRef, dialogConfig, dialogRef);
 		overlayRef.backdropClick()
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(() => dialogRef.close());
+			.subscribe(() => {
+				dialogRef.close();
+			});
 		return dialogRef;
 	}
 
-	private createOverlay(config: DialogOverlayDialogConfig<any>): OverlayRef {
+	private createOverlay<T>(config: DialogOverlayDialogConfig<T>): OverlayRef {
 		return this.overlay.create(this.getOverlayConfig(config));
 	}
 
@@ -61,11 +63,11 @@ export class DialogOverlayService implements OnDestroy {
 		return containerRef.instance;
 	}
 
-	private createInjector(config: DialogOverlayDialogConfig<any>, dialogRef: DialogOverlayRef): PortalInjector {
-		const injectionTokens = new WeakMap();
+	private createInjector<D>(config: DialogOverlayDialogConfig<D>, dialogRef: DialogOverlayRef): PortalInjector<any> {
+		const injectionTokens = new WeakMap<ProviderToken<any>>();
 		injectionTokens.set(DialogOverlayRef, dialogRef);
 		injectionTokens.set(DIALOG_OVERLAY_DIALOG_CONFIG, config);
-		return new PortalInjector(this.injector, injectionTokens);
+		return new PortalInjector<any>(this.injector, injectionTokens);
 	}
 
 	private getOverlayConfig(config: DialogOverlayDialogConfig<any>): OverlayConfig {

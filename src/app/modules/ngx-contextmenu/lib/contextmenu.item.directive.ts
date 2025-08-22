@@ -1,23 +1,24 @@
-import type {Highlightable} from '@angular/cdk/a11y';
-import {Directive, TemplateRef, inject, output, input} from '@angular/core';
+import type { Highlightable } from '@angular/cdk/a11y';
+import { Directive, inject, input, output, TemplateRef } from '@angular/core';
+import type { ContextMenuComponent } from './contextmenu.component';
 
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
-	selector: '[contextMenuItem]',
-	standalone: false
+	selector: '[contextMenuItem]'
 })
 export class ContextMenuItemDirective implements Highlightable {
-	readonly subMenu = input<any>();
+	readonly subMenu = input<ContextMenuComponent>();
 	readonly divider = input(false);
-	readonly enabled = input<boolean | ((item: any) => boolean)>(true);
+	readonly enabled = input<boolean | ((item: unknown) => boolean)>(true);
 	readonly passive = input(false);
-	readonly visible = input<boolean | ((item: any) => boolean)>(true);
+	readonly visible = input<boolean | ((item: unknown) => boolean)>(true);
 	readonly execute = output<{
 		event?: Event;
-		item: any;
+		item: unknown;
 	}>();
-	readonly template = inject<TemplateRef<{ item: any; }>>(TemplateRef);
-	currentItem: any;
+
+	readonly template = inject<TemplateRef<{ item: unknown }>>(TemplateRef);
+	currentItem: unknown;
 	isActive = false;
 
 	get isVisible(): boolean {
@@ -29,14 +30,12 @@ export class ContextMenuItemDirective implements Highlightable {
 	}
 
 	get disabled() {
-		return this.passive() ||
-			this.divider() ||
-			!this.evaluateIfFunction(this.enabled(), this.currentItem);
+		return this.passive() || this.divider() || !this.evaluateIfFunction(this.enabled(), this.currentItem);
 	}
 
-	evaluateIfFunction(value: any, item: any): any {
+	evaluateIfFunction<T, Y>(value: T | ((item: Y) => T), item: Y): T {
 		if (typeof value === 'function') {
-			return value(item);
+			return (value as (item: Y) => T)(item);
 		}
 		return value;
 	}
@@ -49,9 +48,9 @@ export class ContextMenuItemDirective implements Highlightable {
 		this.isActive = false;
 	}
 
-	triggerExecute(item: any, $event?: Event): void {
+	triggerExecute(item: unknown, $event?: Event): void {
 		if (this.isEnabled) {
-			this.execute.emit({event: $event, item});
+			this.execute.emit({ event: $event, item });
 		}
 	}
 }

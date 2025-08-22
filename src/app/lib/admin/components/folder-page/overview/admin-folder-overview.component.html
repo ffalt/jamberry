@@ -1,0 +1,109 @@
+@if (folder) {
+	<div class="folder">
+		<div class="actions">
+			<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
+			<button class="button-on-control" title="Move Folder…" i18n-title (click)="moveFolder()"><i class="icon-right-bold"></i></button>
+			<button class="button-on-control" title="Remove Folder…" i18n-title (click)="removeFolder()"><i class="icon-trash"></i></button>
+		</div>
+		<div class="content">
+			@if (folder.info?.description) {
+				<app-info-note [info]="folder.info" />
+			}
+			<div class="properties">
+				<div>
+					<div>
+						<div i18n class="label">Name</div>
+						<div>
+							<app-inline-edit type="text" [(ngModel)]="name" (endEditRequest)="editFolderName()" />
+						</div>
+					</div>
+					<div>
+						<div i18n class="label">Type</div>
+						<div>{{ folder.type }}
+							@if (isAlbum) {
+								/ {{ folder.tag?.albumType }}
+							}
+						</div>
+					</div>
+					<div>
+						<div i18n class="label">Track Count</div>
+						<div>{{ folder.trackCount }}</div>
+					</div>
+					<div>
+						<div i18n class="label">Folder Count</div>
+						<div>{{ folder.folderCount }}</div>
+					</div>
+					@if (folder.tag?.artist) {
+						<div>
+							<div i18n class="label">Artist</div>
+							<div>{{ folder.tag?.artist }}</div>
+						</div>
+					}
+					@if (folder.tag?.album) {
+						<div>
+							<div i18n class="label">Album</div>
+							<div>{{ folder.tag?.album }}</div>
+						</div>
+					}
+				</div>
+				<div>
+					@if (folder.tag?.year) {
+						<div>
+							<div i18n class="label">Year</div>
+							<div> {{ folder.tag?.year }}</div>
+						</div>
+					}
+					@if (folder.tag?.genres?.length) {
+						<div>
+							<div i18n class="label">Genres</div>
+							<div> {{ folder.tag?.genres }}</div>
+						</div>
+					}
+					@if (folder.tag?.mbReleaseID) {
+						<div>
+							<div i18n class="label">MB Release Id</div>
+							<div><a href="https://musicbrainz.org/release/{{folder.tag?.mbReleaseID}}" target="_blank" rel="noopener">{{ folder.tag?.mbReleaseID }}</a></div>
+						</div>
+					}
+					@if (folder.tag?.mbArtistID) {
+						<div>
+							<div i18n class="label">MB Artist Id</div>
+							<div><a href="https://musicbrainz.org/artist/{{folder.tag?.mbArtistID}}" target="_blank" rel="noopener">{{ folder.tag?.mbArtistID }}</a></div>
+						</div>
+					}
+					@if (folder.parentID) {
+						<div>
+							<div i18n class="label">Parent Folder Id</div>
+							<div><a [routerLink]="['/admin/folder',folder.parentID]">{{ folder.parentID }}</a></div>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="artworks">
+				<div class="actions">
+					<button class="button-on-control" (click)="uploadImage()"><i class="icon-upload-cloud"></i>
+						<ng-container i18n>Upload Artwork</ng-container>
+					</button>
+					@if (isAlbum && folder.tag && (folder.tag.mbReleaseID || folder.tag.mbReleaseGroupID)) {
+						<button class="button-on-control"
+										title="Album Images" i18n-title (click)="searchImages()"><i class="icon-picture"></i>
+							<ng-container i18n>Search Artwork</ng-container>
+						</button>
+					}
+					@if (isArtist && folder.tag && folder.tag.mbArtistID) {
+						<button class="button-on-control" title="Artist Images" i18n-title (click)="searchImages()"><i class="icon-picture"></i>
+							<ng-container i18n>Search Art</ng-container>
+						</button>
+					}
+				</div>
+				@if (folder.artworks && folder.artworks.length > 0) {
+					<div class="artworks-content">
+						<app-admin-artwork-list [folderID]="folder.id" [artworks]="folder.artworks" />
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+} @else {
+	<app-loading />
+}

@@ -1,22 +1,21 @@
-import {type AfterViewInit, Directive, ElementRef, type OnDestroy, inject, output, input} from '@angular/core';
-import type {Subscription} from 'rxjs';
-import {DeferLoadService, type ScrollNotifyEvent} from './defer-load.service';
-import {Rect} from './rect';
+import { type AfterViewInit, Directive, ElementRef, inject, input, type OnDestroy, output } from '@angular/core';
+import type { Subscription } from 'rxjs';
+import { DeferLoadService, type ScrollNotifyEvent } from './defer-load.service';
+import { Rect } from './rect';
 
 @Directive({
-	selector: '[appDeferLoad]',
-	standalone: false
+	selector: '[appDeferLoad]'
 })
 export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	readonly preRender = input<boolean>(false);
 	readonly appDeferLoad = output();
-	private readonly elementRef = inject(ElementRef);
+	private readonly elementRef = inject<ElementRef<HTMLElement | undefined>>(ElementRef);
 	private readonly deferLoadService = inject(DeferLoadService);
+	private readonly timeoutLoadMS: number = 50;
 	private intersectionObserver?: IntersectionObserver;
 	private scrollSubscription?: Subscription;
 	private observeSubscription?: Subscription;
-	private timeoutId?: number;
-	private readonly timeoutLoadMS: number = 50;
+	private timeoutId?: ReturnType<typeof setTimeout>;
 
 	ngAfterViewInit(): void {
 		if (this.deferLoadService.isBrowser) {
@@ -41,7 +40,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	private loadAndUnobserve(): void {
 		this.load();
 		if (this.intersectionObserver && this.elementRef.nativeElement) {
-			this.intersectionObserver.unobserve(this.elementRef.nativeElement as Element);
+			this.intersectionObserver.unobserve(this.elementRef.nativeElement);
 		}
 	}
 
@@ -60,7 +59,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 		this.timeoutId = setTimeout(() => {
 			this.loadAndUnobserve();
 			this.cancelDelayLoad();
-		}, this.timeoutLoadMS) as any;
+		}, this.timeoutLoadMS);
 	}
 
 	private manageIntersection(entry: IntersectionObserverEntry): void {
@@ -76,7 +75,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 			return;
 		}
 		this.intersectionObserver = this.deferLoadService.getObserver();
-		if (this.intersectionObserver && this.elementRef.nativeElement) {
+		if (this.elementRef.nativeElement) {
 			this.intersectionObserver.observe(this.elementRef.nativeElement as Element);
 			this.observeSubscription = this.deferLoadService.observeNotify
 				.subscribe((entries: Array<IntersectionObserverEntry>) => {
@@ -96,7 +95,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	private checkIfIntersecting(entry: IntersectionObserverEntry): boolean {
 		// For Samsung native browser, IO has been partially implemented where by the
 		// callback fires, but entry object is empty. We will check manually.
-		if (entry?.time) {
+		if (entry.time) {
 			return entry.isIntersecting;
 		}
 		return this.isVisible();
@@ -137,11 +136,17 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	}
 
 	private checkInView(rect: Rect): boolean {
+		if (!this.elementRef.nativeElement) {
+			return false;
+		}
 		const elemRect = Rect.fromElement(this.elementRef.nativeElement);
 		return elemRect.intersectsWithY(rect);
 	}
 
 	private isVisible(): boolean {
+		if (!this.elementRef.nativeElement) {
+			return false;
+		}
 		const scrollPosition = DeferLoadDirective.getScrollPosition();
 		const elementOffset = this.elementRef.nativeElement.offsetTop;
 		return elementOffset <= scrollPosition;

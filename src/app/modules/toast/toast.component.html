@@ -1,18 +1,20 @@
 @if (options.closeButton) {
-  <button class="toast-close-button" aria-label="Close" i18n-aria-label (click)="remove()"><span aria-hidden="true">&times;</span></button>
+	<button class="toast-close-button" aria-label="Close" i18n-aria-label (click)="remove()"><span aria-hidden="true">&times;</span></button>
 }
+<div class="toast-content">
 @if (title) {
-  <div [class]="options.titleClass">{{ title }}
-    @if (duplicatesCount) {
-      [{{ duplicatesCount + 1 }}]
-    }
-  </div>
+	<div [class]="options.titleClass">{{ title }}
+		@if (duplicatesCount) {
+			[{{ duplicatesCount + 1 }}]
+		}
+	</div>
 }
 @if (message) {
-  <div role="alertdialog" aria-live="polite" i18n-aria-live [class]="options.messageClass">{{ message }}</div>
+	<div role="alertdialog" aria-live="polite" i18n-aria-live [class]="options.messageClass">{{ message }}</div>
 }
+</div>
 @if (options.progressBar) {
-  <div>
-    <div class="toast-progress" [style.width.%]="width"></div>
-  </div>
+	<div>
+		<div class="toast-progress" [style.width.%]="width"></div>
+	</div>
 }

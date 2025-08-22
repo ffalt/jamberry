@@ -1,0 +1,13 @@
+<div class="roots">
+	<app-view-header-slim i18n-section section="Roots">
+		<div class="actions">
+			<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh"><i class="icon-reload"></i></button>
+			<button (click)="newRoot()" class="button-on-control" i18n-title title="New Root…"><i class="icon-plus"></i></button>
+			<button (click)="refreshRoots()" class="button-on-control" i18n-title title="Rescan all Roots"><i class="icon-rescan"></i></button>
+		</div>
+	</app-view-header-slim>
+	<div class="content">
+		<app-admin-root-list [roots]="roots" />
+	</div>
+</div>
+

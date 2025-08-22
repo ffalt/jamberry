@@ -1,0 +1,7 @@
+<div appDeferLoadScrollHost class="objects">
+	<app-view-header-icon-section (contextMenuRequest)="onContextMenu($event)" [hasContextMenu]="hasContextMenu" [icon]="icon" [sectionType]="sectionType"
+																[section]="section" [tabs]="tabs" />
+	<div class="content">
+		<router-outlet />
+	</div>
+</div>

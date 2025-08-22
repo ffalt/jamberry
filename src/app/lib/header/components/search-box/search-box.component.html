@@ -1,0 +1,22 @@
+<app-autocomplete #autocomplete="appAutocomplete">
+	<ng-template appAutocompleteContent let-control="control">
+		@for (option of control.options; track $index) {
+			@if (option.header) {
+				<app-autocomplete-option-header>{{ option.header }}</app-autocomplete-option-header>
+			}
+			<app-autocomplete-option [option]="option" [control]="control">
+				<span [innerHTML]="option.data.name | highlight: control.query"></span>
+			</app-autocomplete-option>
+		}
+	</ng-template>
+</app-autocomplete>
+<form role="search">
+	<label class="visually-hidden" for="header-search-box" i18n>Search</label>
+	<input (blur)="this.setSearchActive(false)" (focusin)="this.setSearchActive(true)" [appAutocompleteControl]="this" [appAutocomplete]="autocomplete"
+				 aria-label="Search" autocomplete="off" i18n-aria-label
+				 id="header-search-box"
+				 name="query"
+				 type="search"
+	>
+	<button (click)="search()"><i aria-hidden="true" class="icon-search"></i></button>
+</form>

@@ -1,0 +1,11 @@
+<div class="users">
+	<app-view-header-slim i18n-section section="Users">
+		<div class="actions">
+			<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh"><i class="icon-reload"></i></button>
+			<button (click)="newUser()" class="button-on-control" i18n-title title="New User…"><i class="icon-plus"></i></button>
+		</div>
+	</app-view-header-slim>
+	<div class="content">
+		<app-admin-user-list [users]="users" />
+	</div>
+</div>

@@ -1,0 +1,31 @@
+<div class="match-file-list">
+	<div class="match-file-list-header" i18n>{{ matchings().length }} Tracks</div>
+	@for (match of matchings(); track match) {
+		<div class="match-file" draggable="true" (dragstart)="drag($event,match)">
+			<div class="handle">
+				<span class="grippy"></span>
+			</div>
+			<div class="title">
+				{{ match.track.name }}
+				@if (match.mbTrack) {
+					<div>
+						<span i18n class="label">TrackNr:</span>&nbsp;<span class="currentRelease">{{ match.mbTrack.position }}</span>&nbsp;
+						<span i18n class="label">Title:</span>&nbsp;<span class="value">{{ match.mbTrack.title || '?' }}</span>&nbsp;
+						<span i18n class="label">Artist:</span>&nbsp;<span class="value">{{ match.mbTrack.artistCredit | mbArtistCredits }}</span>&nbsp;
+						<span i18n class="label">Album:</span>&nbsp;<span class="value">{{ match.mbRelease?.title || '?' }}</span>&nbsp;
+						@if (match.abdata) {
+							<div>
+								<span i18n class="label">Moods:</span>&nbsp;<span class="value">{{ match.abdata.moods }}</span>
+							</div>
+						}
+						@if (match.lyrics) {
+							<div>
+								<span i18n class="label">Lyrics:</span>&nbsp;<span i18n class="value">yes</span>
+							</div>
+						}
+					</div>
+				}
+			</div>
+		</div>
+	}
+</div>

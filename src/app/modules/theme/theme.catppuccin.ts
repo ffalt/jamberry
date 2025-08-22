@@ -1,4 +1,4 @@
-import type {Theme} from './theme.model';
+import type { Theme } from './theme.model';
 
 /*
 Catppuccin Macchiato Theme

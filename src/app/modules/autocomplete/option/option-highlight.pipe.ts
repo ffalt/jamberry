@@ -1,8 +1,8 @@
-import {Pipe, type PipeTransform} from '@angular/core';
+import { Pipe, type PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'highlight',
-    standalone: false
+	name: 'highlight',
+	standalone: true
 })
 export class HighlightPipe implements PipeTransform {
 	transform(text: string, search: string): string {

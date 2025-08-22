@@ -1,0 +1,22 @@
+<app-player-current-info />
+<div class="player-info">
+	<div class="volume">
+		@if (player.isMuted) {
+			<a title="Unmute" i18n-title (click)="player.unmute()"><i class="icon-volume-off"></i></a>
+		} @else {
+			<a title="Mute" i18n-title (click)="player.mute()"><i class="icon-volume-up"></i></a>
+		}
+		<app-volume-slider i18n-title title="Volume" />
+	</div>
+	<div class="player-speed">
+		<a (click)="player.speed(1)" i18n-title title="Reset Speed"><i class="icon-speed"></i></a>
+		<app-speed-slider />
+	</div>
+	<div class="progress">
+		<div class="start">{{ player.currentTime | mediaduration }}</div>
+		<div class="bar">
+			<app-time-slider />
+		</div>
+		<div class="finish">{{ player.totalTime | mediaduration }}</div>
+	</div>
+</div>

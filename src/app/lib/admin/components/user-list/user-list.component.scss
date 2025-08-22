@@ -1,0 +1,64 @@
+@use "_scss/variables";
+
+:host {
+	width: 100%;
+	overflow: auto;
+	display: block;
+
+	.users {
+		padding: variables.$padding;
+		font-size: 0.9em;
+		width: 100%;
+	}
+
+	.user {
+		height: 60px;
+
+		td {
+			padding: variables.$padding-xs variables.$padding-sm;
+		}
+
+		border-bottom: 1px solid var(--control-border);
+
+		&:hover {
+			background-color: var(--background-hover);
+		}
+
+		&.selected {
+			background-color: var(--background-active);
+		}
+	}
+
+	.heading {
+		font-size: 0.9em;
+		height: 40px;
+	}
+
+	.icon-checkmark {
+		color: var(--primary);
+	}
+
+
+	.actions {
+		width: 100px;
+	}
+
+	.action-buttons {
+		display: flex;
+		flex-wrap: wrap;
+
+		button {
+			padding: variables.$padding-xs;
+			flex: 50%;
+			margin: 0;
+			display: inline-block;
+			color: var(--on-control);
+			border: 1px solid transparent;
+
+			&:hover {
+				color: var(--on-control-active);
+				border: 1px solid var(--control-active);
+			}
+		}
+	}
+}

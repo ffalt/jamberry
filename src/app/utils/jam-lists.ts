@@ -1,5 +1,5 @@
-import type {UrlSegment} from '@angular/router';
-import {AlbumType, FolderType, JamObjectType, ListType} from '@jam';
+import type { UrlSegment } from '@angular/router';
+import { AlbumType, FolderType, JamObjectType, ListType } from '@jam';
 
 export const MUSICBRAINZ_VARIOUS_ARTISTS_ID = '89ad4ac3-39f7-470e-963a-56509c546377';
 export const MUSICBRAINZ_VARIOUS_ARTISTS_NAME = 'Various Artists';
@@ -33,7 +33,7 @@ export interface JamType {
 }
 
 export const JamUrlTypes: Array<JamType> = [
-	{id: JamUrlType.albums, text: 'Albums', icon: 'icon-album', type: JamObjectType.album, albumType: AlbumType.album},
+	{ id: JamUrlType.albums, text: 'Albums', icon: 'icon-album', type: JamObjectType.album, albumType: AlbumType.album },
 	{
 		id: JamUrlType.compilations,
 		text: 'Compilations',
@@ -41,20 +41,20 @@ export const JamUrlTypes: Array<JamType> = [
 		type: JamObjectType.album,
 		albumType: AlbumType.compilation
 	},
-	{id: JamUrlType.soundtracks, text: 'Soundtracks', icon: 'icon-soundtrack', type: JamObjectType.album, albumType: AlbumType.soundtrack},
-	{id: JamUrlType.audiobooks, text: 'Audiobooks', icon: 'icon-audiobook', type: JamObjectType.album, albumType: AlbumType.audiobook},
-	{id: JamUrlType.live, text: 'Live Albums', icon: 'icon-live', type: JamObjectType.album, albumType: AlbumType.live},
-	{id: JamUrlType.bootlegs, text: 'Bootlegs', icon: 'icon-bootleg', type: JamObjectType.album, albumType: AlbumType.bootleg},
-	{id: JamUrlType.eps, text: 'EPs', icon: 'icon-ep', type: JamObjectType.album, albumType: AlbumType.ep},
-	{id: JamUrlType.singles, text: 'Singles', icon: 'icon-single', type: JamObjectType.album, albumType: AlbumType.single},
-	{id: JamUrlType.series, text: 'Series', category: 'Audiobook', icon: 'icon-series', type: JamObjectType.series},
-	{id: JamUrlType.artists, text: 'Artists', icon: 'icon-artist', type: JamObjectType.artist},
-	{id: JamUrlType.podcasts, text: 'Podcasts', icon: 'icon-podcasts', type: JamObjectType.podcast},
-	{id: JamUrlType.playlists, text: 'Playlists', icon: 'icon-playlist', type: JamObjectType.playlist},
-	{id: JamUrlType.genres, text: 'Genres', icon: 'icon-genre', type: JamObjectType.genre},
-	{id: JamUrlType.folders, text: 'Folders', icon: 'icon-folder', type: JamObjectType.folder},
-	{id: JamUrlType.tracks, text: 'Tracks', icon: 'icon-track', type: JamObjectType.track},
-	{id: JamUrlType.episodes, text: 'Episodes', icon: 'icon-episodes', type: JamObjectType.episode}
+	{ id: JamUrlType.soundtracks, text: 'Soundtracks', icon: 'icon-soundtrack', type: JamObjectType.album, albumType: AlbumType.soundtrack },
+	{ id: JamUrlType.audiobooks, text: 'Audiobooks', icon: 'icon-audiobook', type: JamObjectType.album, albumType: AlbumType.audiobook },
+	{ id: JamUrlType.live, text: 'Live Albums', icon: 'icon-live', type: JamObjectType.album, albumType: AlbumType.live },
+	{ id: JamUrlType.bootlegs, text: 'Bootlegs', icon: 'icon-bootleg', type: JamObjectType.album, albumType: AlbumType.bootleg },
+	{ id: JamUrlType.eps, text: 'EPs', icon: 'icon-ep', type: JamObjectType.album, albumType: AlbumType.ep },
+	{ id: JamUrlType.singles, text: 'Singles', icon: 'icon-single', type: JamObjectType.album, albumType: AlbumType.single },
+	{ id: JamUrlType.series, text: 'Series', category: 'Audiobook', icon: 'icon-series', type: JamObjectType.series },
+	{ id: JamUrlType.artists, text: 'Artists', icon: 'icon-artist', type: JamObjectType.artist },
+	{ id: JamUrlType.podcasts, text: 'Podcasts', icon: 'icon-podcasts', type: JamObjectType.podcast },
+	{ id: JamUrlType.playlists, text: 'Playlists', icon: 'icon-playlist', type: JamObjectType.playlist },
+	{ id: JamUrlType.genres, text: 'Genres', icon: 'icon-genre', type: JamObjectType.genre },
+	{ id: JamUrlType.folders, text: 'Folders', icon: 'icon-folder', type: JamObjectType.folder },
+	{ id: JamUrlType.tracks, text: 'Tracks', icon: 'icon-track', type: JamObjectType.track },
+	{ id: JamUrlType.episodes, text: 'Episodes', icon: 'icon-episodes', type: JamObjectType.episode }
 ];
 
 export function getTypeByAlbumType(albumType: string): JamType | undefined {
@@ -72,8 +72,8 @@ export function getUrlAlbumType(val: Array<UrlSegment>): AlbumType | undefined {
 }
 
 export const ListTypeUrlNamesKeys: { [key: string]: ListType } = {
-	random: ListType.random,
-	favorites: ListType.faved,
+	'random': ListType.random,
+	'favorites': ListType.faved,
 	'top-rated': ListType.highest,
 	'most-played': ListType.frequent,
 	'recently-played': ListType.recent

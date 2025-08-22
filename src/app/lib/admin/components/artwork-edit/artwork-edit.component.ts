@@ -1,0 +1,92 @@
+import { HttpEventType } from '@angular/common/http';
+import { Component, inject, input, type OnChanges, type OnDestroy, output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DomSanitizer, type SafeUrl } from '@angular/platform-browser';
+import { type Jam, JamService } from '@jam';
+import { type ImageCroppedEvent, ImageCropperComponent, type OutputFormat } from 'ngx-image-cropper';
+import { Subject, takeUntil } from 'rxjs';
+import { base64ArrayBuffer } from '@utils/base64';
+import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
+import { NotifyService } from '@core/services/notify/notify.service';
+
+export interface ImageEdit {
+	artwork: Jam.Artwork;
+	folderID: string;
+}
+
+@Component({
+	selector: 'app-admin-artwork-edit',
+	templateUrl: './artwork-edit.component.html',
+	styleUrls: ['./artwork-edit.component.scss'],
+	imports: [FormsModule, ImageCropperComponent]
+})
+export class ArtworkEditComponent implements OnChanges, OnDestroy {
+	readonly data = input<ImageEdit>();
+	readonly imageEdited = output();
+	imageBase64: string = '';
+	croppedImage?: SafeUrl;
+	croppedImageFile?: Blob;
+	maintainAspectRatio: boolean = true;
+	format: OutputFormat = 'jpeg';
+	private readonly unsubscribe = new Subject<void>();
+	private readonly jam = inject(JamService);
+	private readonly folderService = inject(AdminFolderService);
+	private readonly notify = inject(NotifyService);
+	private readonly sanitizer = inject(DomSanitizer);
+
+	ngOnDestroy(): void {
+		this.unsubscribe.next();
+		this.unsubscribe.complete();
+	}
+
+	load(): void {
+		const dataValue = this.data();
+		if (dataValue) {
+			this.jam.image.imageBinary({ id: dataValue.artwork.id })
+				.then(data => {
+					this.imageBase64 = `data:${(data.contentType || 'image/jpeg')};base64,${base64ArrayBuffer(data.buffer)}`;
+				})
+				.catch((error: unknown) => {
+					this.notify.error(error);
+				});
+		}
+	}
+
+	imageCropped(event: ImageCroppedEvent): void {
+		if (event.objectUrl) {
+			this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+		}
+		if (event.blob) {
+			this.croppedImageFile = event.blob;
+		}
+	}
+
+	ngOnChanges(): void {
+		this.load();
+	}
+
+	upload(): void {
+		const data = this.data();
+		if (!this.croppedImageFile || !data) {
+			return;
+		}
+		const folderID = data.folderID;
+		const file = new File([this.croppedImageFile], data.artwork.name, { type: this.croppedImageFile.type });
+		this.jam.artwork.update({ id: data.artwork.id }, file)
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe({
+				next: event => {
+					if (event.type === HttpEventType.Response && event.body !== null) {
+						this.folderService.waitForQueueResult('Updating Folder Artwork', event.body, [folderID]);
+						this.imageEdited.emit();
+					}
+				},
+				error: error => {
+					this.notify.error(error);
+				},
+				complete: () => {
+					this.notify.success('Upload done');
+				}
+			});
+	}
+}

@@ -8,7 +8,7 @@
 			(click)="stopEvent($event)"
 			(contextmenu)="stopEvent($event)"
 		>
-    <ng-template [ngTemplateOutlet]="menuItem().template" [ngTemplateOutletContext]="{ item: item() }"/>
+    <ng-template [ngTemplateOutlet]="menuItem().template" [ngTemplateOutletContext]="{ item: item() }" />
   </span>
 	} @else {
 		<a
@@ -22,7 +22,7 @@
 			(click)="onMenuItemSelect($event)"
 			(mouseenter)="onOpenSubMenu($event)"
 		>
-			<ng-template [ngTemplateOutlet]="menuItem().template" [ngTemplateOutletContext]="{ item: item() }"/>
+			<ng-template [ngTemplateOutlet]="menuItem().template" [ngTemplateOutletContext]="{ item: item() }" />
 		</a>
 	}
 }

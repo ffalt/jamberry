@@ -1,0 +1,58 @@
+@if (episode) {
+	@if (episode.summary) {
+		<div class="info">
+			<div i18n class="section-title">Description</div>
+			<app-info-text [info]="episode.summary" />
+		</div>
+	}
+	@if (episode.chapters) {
+		<div class="info">
+			<div i18n class="section-title">Chapters</div>
+			<app-chapters [episode]="episode" />
+		</div>
+	}
+	<div class="info">
+		<div i18n class="section-title">Info</div>
+		<div class="key-value-row">
+			<div i18n>Date</div>
+			<div>{{ episode.date|date }}</div>
+		</div>
+		<div class="key-value-row">
+			<div i18n>Duration</div>
+			<div>{{ episode.duration|duration }}</div>
+		</div>
+		<div class="key-value-row">
+			<div i18n>URL</div>
+			<div><a target="_blank" rel="noopener" [href]="episode.link">{{ episode.link }}</a></div>
+		</div>
+		<div class="key-value-row">
+			<div i18n>Author</div>
+			<div>{{ episode.author }}</div>
+		</div>
+		@if (episode.media) {
+			<div i18n class="section-title">Media</div>
+			<div class="key-value-row">
+				<div i18n>Size</div>
+				<div>{{ episode.media.size | filesize }}</div>
+			</div>
+			@if (episode.media.bitRate) {
+				<div class="key-value-row">
+					<div i18n>BitRate</div>
+					<div>{{ episode.media.bitRate }}</div>
+				</div>
+			}
+			<div class="key-value-row">
+				<div i18n>SampleRate</div>
+				<div>{{ episode.media.sampleRate }}</div>
+			</div>
+			<div class="key-value-row">
+				<div i18n>Format</div>
+				<div>{{ episode.media.format }}</div>
+			</div>
+			<div class="key-value-row">
+				<div i18n>Channels</div>
+				<div>{{ episode.media.channels }}</div>
+			</div>
+		}
+	</div>
+}

@@ -1,0 +1,7 @@
+<div class="view-type">
+	<span class="section-title">{{ headline() }}</span>
+	<div class="buttons">
+		<a (click)="viewTypeList.set(true);" [class.active]="viewTypeList()" i18n-title title="View as List"><i class="icon-view-details"></i></a>
+		<a (click)="viewTypeList.set(false);" [class.active]="!viewTypeList()" i18n-title title="View as Tiles"><i class="icon-view-tiles"></i></a>
+	</div>
+</div>

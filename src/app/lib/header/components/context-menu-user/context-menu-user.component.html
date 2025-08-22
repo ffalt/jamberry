@@ -1,0 +1,20 @@
+<context-menu #userMenu>
+	<ng-template (execute)="navig.toUser()" contextMenuItem><i class="icon-user"></i>
+		<ng-container i18n>Profile</ng-container>
+	</ng-template>
+	<ng-template (execute)="navig.toUserSettings()" contextMenuItem><i class="icon-settings"></i>
+		<ng-container i18n>Settings</ng-container>
+	</ng-template>
+	<ng-template (execute)="navig.toLibraryStart()" contextMenuItem><i class="icon-browse"></i>
+		<ng-container i18n>Library</ng-container>
+	</ng-template>
+	<ng-template (execute)="navig.toAdmin()" [visible]="!!auth.user?.roles?.admin" contextMenuItem><i class="icon-admin"></i>
+		<ng-container i18n>Administration</ng-container>
+	</ng-template>
+	<ng-template (execute)="navig.toAbout()" contextMenuItem><i class="icon-help"></i>
+		<ng-container i18n>About</ng-container>
+	</ng-template>
+	<ng-template (execute)="navig.toLogout()" contextMenuItem><i class="icon-logout"></i>
+		<ng-container i18n>Logout</ng-container>
+	</ng-template>
+</context-menu>

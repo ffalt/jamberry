@@ -1,5 +1,0 @@
-<context-menu #entriesMenu>
-  @for (entry of entries; track entry.text) {
-    <ng-template contextMenuItem (execute)="entry.click()"><i [class]="entry.icon"></i> {{entry.text}}</ng-template>
-  }
-</context-menu>

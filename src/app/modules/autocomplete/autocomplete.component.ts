@@ -1,12 +1,15 @@
-import {Component, type TemplateRef, viewChild, contentChild} from '@angular/core';
-import {AutocompleteContentDirective} from './autocomplete-content.directive';
+import { Component, contentChild, type TemplateRef, viewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AutocompleteContentDirective } from './autocomplete-content.directive';
 
 @Component({
-    selector: 'app-autocomplete',
-    exportAs: 'appAutocomplete',
-    templateUrl: './autocomplete.component.html',
-    styleUrls: ['./autocomplete.component.scss'],
-    standalone: false
+	selector: 'app-autocomplete',
+	exportAs: 'appAutocomplete',
+	templateUrl: './autocomplete.component.html',
+	styleUrls: ['./autocomplete.component.scss'],
+	imports: [
+		CommonModule
+	]
 })
 export class AutocompleteComponent {
 	readonly rootTemplate = viewChild.required<TemplateRef<any>>('root');

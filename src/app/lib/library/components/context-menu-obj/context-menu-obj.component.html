@@ -1,0 +1,28 @@
+<context-menu #objMenu>
+	@if (showGoto) {
+		<ng-template contextMenuItem (execute)="toLibraryObject($event.item).navigTo()"><i class="icon-view-details"></i>
+			<ng-container i18n>Navigate to</ng-container>
+		</ng-template>
+	}
+	<ng-template (execute)="toLibraryObject($event.item).play()" contextMenuItem><i class="icon-play"></i>
+		<ng-container i18n>Play</ng-container>
+	</ng-template>
+	<ng-template (execute)="toLibraryObject($event.item).toggleFav()" contextMenuItem let-item="item">
+		<app-context-entry-fav [base]="item.base" />
+	</ng-template>
+	<ng-template contextMenuItem let-item="item">
+		<app-context-entry-rate [baseType]="item.type" [base]="item.base" />
+	</ng-template>
+	<ng-template (execute)="toLibraryObject($event.item).addToPlaylist()" contextMenuItem><i class="icon-playlist"></i>
+		<ng-container i18n>Add To Playlist</ng-container>
+	</ng-template>
+	<ng-template (execute)="toLibraryObject($event.item).addToQueue()" contextMenuItem><i class="icon-list-add"></i>
+		<ng-container i18n>Add To Queue</ng-container>
+	</ng-template>
+	<ng-template (execute)="toLibraryObject($event.item).download()" contextMenuItem><i class="icon-download-cloud"></i>
+		<ng-container i18n>Download</ng-container>
+	</ng-template>
+	@for (extra of extras; track extra) {
+		<ng-template contextMenuItem (execute)="extra.click()"><i [class]="extra.icon"></i> {{ extra.text }}</ng-template>
+	}
+</context-menu>

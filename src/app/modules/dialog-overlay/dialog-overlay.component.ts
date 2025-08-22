@@ -1,16 +1,8 @@
-import {
-	Component,
-	type ComponentRef,
-	type OnInit,
-	ViewContainerRef,
-	ViewEncapsulation,
-	inject,
-	viewChild
-} from '@angular/core';
-import {isEscapeKey} from '@app/utils/keys';
-import {DialogOverlayRef} from './dialog-overlay-ref.class';
-import {DIALOG_OVERLAY_DIALOG_CONFIG} from './dialog-overlay.tokens';
-import type {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.types';
+import { Component, type ComponentRef, inject, type OnInit, viewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { isEscapeKey } from '@utils/keys';
+import { DialogOverlayRef } from './dialog-overlay-ref.class';
+import { DIALOG_OVERLAY_DIALOG_CONFIG } from './dialog-overlay.tokens';
+import type { DialogOverlay, DialogOverlayDialogConfig } from './dialog-overlay.types';
 
 @Component({
 	selector: 'app-dialog-overlay',
@@ -18,17 +10,16 @@ import type {DialogOverlay, DialogOverlayDialogConfig} from './dialog-overlay.ty
 	styleUrls: ['./dialog-overlay.component.scss'],
 	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None,
-	standalone: false,
 	host: {
 		'(document:keydown)': 'handleKeydown($event)'
 	}
 })
 export class DialogOverlayComponent implements OnInit {
-	isBusy: boolean = false;
-	childComponentRef?: ComponentRef<DialogOverlay<any>>;
 	readonly dialogRef = inject(DialogOverlayRef);
 	readonly config = inject<DialogOverlayDialogConfig<any>>(DIALOG_OVERLAY_DIALOG_CONFIG);
-	private readonly dynamicComponentTarget = viewChild('overlayDialogBody', {read: ViewContainerRef});
+	isBusy: boolean = false;
+	childComponentRef?: ComponentRef<DialogOverlay<any>>;
+	private readonly dynamicComponentTarget = viewChild('overlayDialogBody', { read: ViewContainerRef });
 
 	handleKeydown(event: KeyboardEvent): void {
 		if (isEscapeKey(event)) {
@@ -44,10 +35,11 @@ export class DialogOverlayComponent implements OnInit {
 		}
 	}
 
-	getResult(): any {
+	getResult(): boolean | undefined {
 		if (this.childComponentRef?.instance.dialogResult) {
 			return this.childComponentRef.instance.dialogResult();
 		}
+		return;
 	}
 
 	ok(): void {

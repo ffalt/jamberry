@@ -1,3 +1,3 @@
 export interface IContextMenuOptions {
-  autoFocus?: boolean;
+	autoFocus?: boolean;
 }

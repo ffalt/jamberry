@@ -1,0 +1,11 @@
+<div (appDeferLoad)="gotInView()" class="image">
+	@if (visible) {
+		<app-coverart-image [coverArtObj]="entry()" [size]="300" [alt]="entry()?.name||''" [fill]="true" />
+	}
+</div>
+<div class="date" i18n>
+	Tracks: {{ entry()?.trackCount }}
+</div>
+<div class="footer">
+	<span class="footer-content">{{ entry()?.name | limit:90 }}</span>
+</div>

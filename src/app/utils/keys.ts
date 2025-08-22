@@ -1,11 +1,11 @@
 export const HOTKEYS = {
-	playPause: {shortcut: 'space', name: 'Play / Pause'},
-	nextTrack: {shortcut: 'alt+right', name: 'Next Track'},
-	previousTrack: {shortcut: 'alt+left', name: 'Previous Track'},
-	volumeUp: {shortcut: '+', name: 'Volume Up'},
-	volumeDown: {shortcut: '-', name: 'Volume Down'},
-	rewind: {shortcut: 'shift+left', name: 'Rewind 10 seconds'},
-	forward: {shortcut: 'shift+right', name: 'Forward 10 seconds'}
+	playPause: { shortcut: 'space', name: 'Play / Pause' },
+	nextTrack: { shortcut: 'alt+right', name: 'Next Track' },
+	previousTrack: { shortcut: 'alt+left', name: 'Previous Track' },
+	volumeUp: { shortcut: '+', name: 'Volume Up' },
+	volumeDown: { shortcut: '-', name: 'Volume Down' },
+	rewind: { shortcut: 'shift+left', name: 'Rewind 10 seconds' },
+	forward: { shortcut: 'shift+right', name: 'Forward 10 seconds' }
 };
 
 export function isNonCharKey(event: KeyboardEvent): boolean {

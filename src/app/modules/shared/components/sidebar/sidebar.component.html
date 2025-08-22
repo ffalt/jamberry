@@ -1,6 +1,0 @@
-<nav class="navigation" tabindex="0" (keydown.arrowUp)="manageKey($event)" (keydown.arrowDown)="manageKey($event)">
-	@for (section of sections(); track section.name) {
-		<app-sidebar-list [list]="section" (navigate)="onNavigate()"/>
-	}
-</nav>
-<ng-content/>

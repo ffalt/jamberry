@@ -1,10 +1,10 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable, inject} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
-import {JamBaseService} from '../jam.base.service';
-import type {Jam} from '../model/jam-rest-data';
+import { JamBaseService } from '../jam.base.service';
+import type { Jam } from '../model/jam-rest-data';
 
 @Injectable()
 export class JamPingService {

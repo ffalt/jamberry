@@ -1,11 +1,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable, inject} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
-import {JamBaseService} from '../jam.base.service';
-import type {Jam} from '../model/jam-rest-data';
-import type {JamParameters} from '../model/jam-rest-params';
+import { JamBaseService } from '../jam.base.service';
+import type { Jam } from '../model/jam-rest-data';
+import type { JamParameters } from '../model/jam-rest-params';
 
 @Injectable()
 export class JamArtistService {
@@ -14,63 +14,63 @@ export class JamArtistService {
 	/**
 	 * Get an Artist by Id // Rights needed: stream
 	 */
-	async id(params: JamParameters.ArtistIdArgs): Promise<Jam.Artist> {
-		return this.base.requestData<Jam.Artist>('/artist/id', params);
+	async id(parameters: JamParameters.ArtistIdParameters): Promise<Jam.Artist> {
+		return this.base.requestData<Jam.Artist>('/artist/id', parameters);
 	}
 
 	/**
 	 * Get the Navigation Index for Albums // Rights needed: stream
 	 */
-	async index(params: JamParameters.ArtistFilterArgs): Promise<Jam.ArtistIndex> {
-		return this.base.requestData<Jam.ArtistIndex>('/artist/index', params);
+	async index(parameters: JamParameters.ArtistFilterParameters): Promise<Jam.ArtistIndex> {
+		return this.base.requestData<Jam.ArtistIndex>('/artist/index', parameters);
 	}
 
 	/**
 	 * Search Artists // Rights needed: stream
 	 */
-	async search(params: JamParameters.ArtistSearchArgs): Promise<Jam.ArtistPage> {
-		return this.base.requestData<Jam.ArtistPage>('/artist/search', params);
+	async search(parameters: JamParameters.ArtistSearchParameters): Promise<Jam.ArtistPage> {
+		return this.base.requestData<Jam.ArtistPage>('/artist/search', parameters);
 	}
 
 	/**
 	 * Get Meta Data Info of an Artist by Id (External Service) // Rights needed: stream
 	 */
-	async info(params: JamParameters.ID): Promise<Jam.ExtendedInfoResult> {
-		return this.base.requestData<Jam.ExtendedInfoResult>('/artist/info', params);
+	async info(parameters: JamParameters.ID): Promise<Jam.ExtendedInfoResult> {
+		return this.base.requestData<Jam.ExtendedInfoResult>('/artist/info', parameters);
 	}
 
 	/**
 	 * Get similar Artists of an Artist by Id (External Service) // Rights needed: stream
 	 */
-	async similar(params: JamParameters.ArtistSimilarArgs): Promise<Jam.ArtistPage> {
-		return this.base.requestData<Jam.ArtistPage>('/artist/similar', params);
+	async similar(parameters: JamParameters.ArtistSimilarParameters): Promise<Jam.ArtistPage> {
+		return this.base.requestData<Jam.ArtistPage>('/artist/similar', parameters);
 	}
 
 	/**
 	 * Get similar Tracks of an Artist by Id (External Service) // Rights needed: stream
 	 */
-	async similarTracks(params: JamParameters.ArtistSimilarTracksArgs): Promise<Jam.TrackPage> {
-		return this.base.requestData<Jam.TrackPage>('/artist/similar/tracks', params);
+	async similarTracks(parameters: JamParameters.ArtistSimilarTracksParameters): Promise<Jam.TrackPage> {
+		return this.base.requestData<Jam.TrackPage>('/artist/similar/tracks', parameters);
 	}
 
 	/**
 	 * Get Tracks of Artists // Rights needed: stream
 	 */
-	async tracks(params: JamParameters.ArtistTracksArgs): Promise<Jam.TrackPage> {
-		return this.base.requestData<Jam.TrackPage>('/artist/tracks', params);
+	async tracks(parameters: JamParameters.ArtistTracksParameters): Promise<Jam.TrackPage> {
+		return this.base.requestData<Jam.TrackPage>('/artist/tracks', parameters);
 	}
 
 	/**
 	 * Get Albums of Artists // Rights needed: stream
 	 */
-	async albums(params: JamParameters.ArtistAlbumsArgs): Promise<Jam.AlbumPage> {
-		return this.base.requestData<Jam.AlbumPage>('/artist/albums', params);
+	async albums(parameters: JamParameters.ArtistAlbumsParameters): Promise<Jam.AlbumPage> {
+		return this.base.requestData<Jam.AlbumPage>('/artist/albums', parameters);
 	}
 
 	/**
 	 * Get Series of Artists // Rights needed: stream
 	 */
-	async series(params: JamParameters.ArtistSeriesArgs): Promise<Jam.SeriesPage> {
-		return this.base.requestData<Jam.SeriesPage>('/artist/series', params);
+	async series(parameters: JamParameters.ArtistSeriesParameters): Promise<Jam.SeriesPage> {
+		return this.base.requestData<Jam.SeriesPage>('/artist/series', parameters);
 	}
 }

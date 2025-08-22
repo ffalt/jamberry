@@ -1,29 +1,34 @@
-import {Component, Injector, type OnDestroy, type OnInit, inject, viewChild, ViewContainerRef} from '@angular/core';
-import {Router} from '@angular/router';
-import {DeferLoadService} from '@app/modules/defer-load';
-import {Hotkey, HotkeysService} from '@app/modules/hotkeys';
-import {MainTabsService} from '@app/modules/main-tabs/services';
-import {TabPortalOutlet} from '@app/modules/tab-portal';
-import {ThemeService} from '@app/modules/theme';
-import {HOTKEYS} from '@app/utils/keys';
-import {AppService, PlayerService, SettingsStoreService} from '@core/services';
-import {JamAuthService} from '@jam';
-import {Subject, takeUntil} from 'rxjs';
+import { Component, inject, Injector, type OnDestroy, type OnInit, viewChild, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { Hotkey, HotkeysService } from '@modules/hotkeys';
+import { TabPortalOutlet } from '@modules/tab-portal';
+import { ThemeService } from '@modules/theme';
+import { HOTKEYS } from '@utils/keys';
+import { JamAuthService } from '@jam';
+import { Subject, takeUntil } from 'rxjs';
+import { DeferLoadService } from '@modules/defer-load/defer-load.service';
+import { PlayerService } from '@core/services/player/player.service';
+import { AppService } from '@core/services/app/app.service';
+import { SettingsStoreService } from '@core/services/settings-store/settings-store.service';
+import { HeaderComponent } from './lib/header/components/header/header.component';
+import { PlayerComponent } from './lib/player/components/player/player.component';
+import { MiniPlayerComponent } from './lib/player/components/mini-player/mini-player.component';
+import { MainTabsService } from './lib/main-tabs/services/main-tabs.service';
 
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'body',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
-	standalone: false,
 	host: {
 		'[class.expand]': 'expandBody',
 		'(window:scroll)': 'scrollTrack()',
 		'(window:resize)': 'resize()'
-	}
+	},
+	imports: [HeaderComponent, PlayerComponent, MiniPlayerComponent]
 })
 export class AppComponent implements OnInit, OnDestroy {
-	readonly tabContentOutlet = viewChild.required('tabContentOutlet', {read: ViewContainerRef});
+	readonly tabContentOutlet = viewChild.required('tabContentOutlet', { read: ViewContainerRef });
 	readonly player = inject(PlayerService);
 	readonly app = inject(AppService);
 	readonly auth = inject(JamAuthService);
@@ -36,12 +41,12 @@ export class AppComponent implements OnInit, OnDestroy {
 	private readonly themeService = inject(ThemeService);
 	private readonly injector = inject(Injector);
 
-	get expandBody(): boolean {
-		return !!this.tabService?.mainTab?.active;
-	}
-
 	constructor() {
 		this.init();
+	}
+
+	get expandBody(): boolean {
+		return !!this.tabService.mainTab.active;
 	}
 
 	ngOnInit(): void {
@@ -57,15 +62,21 @@ export class AppComponent implements OnInit, OnDestroy {
 	init() {
 		this.settingsStore.settingsChange
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(() => this.setTheme());
+			.subscribe(() => {
+				this.setTheme();
+			});
 		if (!this.auth.loaded) {
-			this.auth.load().catch(console.error);
+			this.auth.load().catch((error: unknown) => {
+				console.error(error);
+			});
 		}
 		// qlty-ignore: biome:lint/complexity/noForEach
 		// eslint-disable-next-line unicorn/no-array-for-each
 		this.router.events.forEach(() => {
 			this.tabService.switchToMain();
-		}).catch(console.error);
+		}).catch((error: unknown) => {
+			console.error(error);
+		});
 		this.app.standalone = this.isStandaloneWebApp() || this.isElectronApp() || this.isMacGapApp();
 		this.setTheme();
 		this.setKeyboardShortcuts();
@@ -73,9 +84,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	isStandaloneWebApp(): boolean {
-		const nav = navigator as any;
-		return (nav?.standalone === true) ||
-			(globalThis.matchMedia?.('(display-mode: standalone)').matches);
+		return (navigator.standalone === true) || (globalThis.matchMedia('(display-mode: standalone)').matches);
 	}
 
 	isElectronApp(): boolean {
@@ -91,7 +100,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	scrollTrack(): void {
-		this.deferLoadService.notifyScroll({name: 'app'});
+		this.deferLoadService.notifyScroll({ name: 'app' });
 	}
 
 	resize(): void {

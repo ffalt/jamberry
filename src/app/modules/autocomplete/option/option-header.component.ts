@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-autocomplete-option-header',
-    template: '<ng-content />',
-    styleUrls: ['./option-header.component.scss'],
-    standalone: false
+	selector: 'app-autocomplete-option-header',
+	template: '<ng-content />',
+	styleUrls: ['./option-header.component.scss'],
+	standalone: true
 })
 export class OptionHeaderComponent {
 }

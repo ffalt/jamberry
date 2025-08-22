@@ -1,0 +1,11 @@
+@if (playlist) {
+	@if (playlist.comment) {
+		<div class="overview">
+			<div class="info">
+				<div i18n class="section-title">Description</div>
+				<app-info-text [info]="playlist.comment" />
+			</div>
+		</div>
+	}
+	<app-media-playlist [entries]="playlist.entries" [showArtist]="true" />
+}

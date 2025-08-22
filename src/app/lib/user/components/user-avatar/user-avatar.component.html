@@ -1,0 +1,17 @@
+<div (dragover)="onDragOverFile($event)" (drop)="onDropFile($event)" class="drop-zone">
+	<div class="placeholder" i18n>
+		Drag an Image File here
+	</div>
+	<app-coverart-image [coverArtObj]="auth.user" [refreshRandom]="refreshRandom" [round]="true" [size]="100" />
+	<button (click)="randomAvatar()" class="button-primary">
+		@if (refreshing) {
+			<i class="icon-spin icon-spinner"></i>
+		} @else {
+			<span i18n>Random Image</span>
+		}
+	</button>
+	<form>
+		<input (change)="selectFile($event)" accept=".png,.jpeg,.jpg" class="inputfile" i18n-placeholder id="file" placeholder="Upload image" type="file">
+		<label class="button-primary" for="file" i18n>Choose a file</label>
+	</form>
+</div>

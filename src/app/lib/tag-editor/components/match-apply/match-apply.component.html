@@ -1,0 +1,26 @@
+<div class="match-apply">
+	<div>
+		<div class="section" i18n>Genres</div>
+		@if (isGenreSearchRunning) {
+			<i class="icon-spin icon-spinner"></i>
+		}
+		@if (genres && !isGenreSearchRunning) {
+			@for (genre of genres; track genre) {
+				<label title="Usage Count: {{genre.tag.count}}" class="select">
+					<input type="checkbox" [(ngModel)]="genre.checked"> {{ genre.tag.name }} [{{ genre.tag.count }}]
+				</label>
+			}
+			<label class="select">
+				<input type="checkbox" [(ngModel)]="customGenre.checked"> <input type="text" [(ngModel)]="customGenre.text">
+			</label>
+		}
+	</div>
+	@if (coverArtSearch) {
+		<app-match-coverart [data]="coverArtSearch" />
+	}
+	<div class="match-track-moods">
+		<div class="section" i18n>More</div>
+		<button (click)="loadLyricsRequest.emit()" [class.disabled]="!isRunning()" class="button-on-background" i18n>Load Lyrics</button>
+		<button (click)="loadMoodsRequest.emit()" [class.disabled]="!isRunning()" class="button-on-background" i18n>Load AcousticBrainz Moods</button>
+	</div>
+</div>

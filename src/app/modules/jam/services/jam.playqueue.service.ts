@@ -1,11 +1,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable, inject} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
-import {JamBaseService} from '../jam.base.service';
-import type {Jam} from '../model/jam-rest-data';
-import type {JamParameters} from '../model/jam-rest-params';
+import { JamBaseService } from '../jam.base.service';
+import type { Jam } from '../model/jam-rest-data';
+import type { JamParameters } from '../model/jam-rest-params';
 
 @Injectable()
 export class JamPlayQueueService {
@@ -14,15 +14,15 @@ export class JamPlayQueueService {
 	/**
 	 * Get a PlayQueue for the calling user // Rights needed: stream
 	 */
-	async get(params: JamParameters.PlayQueueGetArgs): Promise<Jam.PlayQueue> {
-		return this.base.requestData<Jam.PlayQueue>('/playqueue/get', params);
+	async get(parameters: JamParameters.PlayQueueGetParameters): Promise<Jam.PlayQueue> {
+		return this.base.requestData<Jam.PlayQueue>('/playqueue/get', parameters);
 	}
 
 	/**
 	 * Create/update the PlayQueue for the calling user // Rights needed: stream
 	 */
-	async set(params: JamParameters.PlayQueueSetArgs): Promise<void> {
-		return this.base.requestPostDataOK('/playqueue/set', params);
+	async set(parameters: JamParameters.PlayQueueSetParameters): Promise<void> {
+		return this.base.requestPostDataOK('/playqueue/set', parameters);
 	}
 
 	/**

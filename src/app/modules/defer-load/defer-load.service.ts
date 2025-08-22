@@ -1,26 +1,24 @@
-import {isPlatformBrowser} from '@angular/common';
-import {EventEmitter, Injectable, PLATFORM_ID, inject} from '@angular/core';
-import {merge, type Observable, Subject, debounceTime, throttleTime} from 'rxjs';
-import {Rect} from './rect';
+import { isPlatformBrowser } from '@angular/common';
+import { EventEmitter, inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { debounceTime, merge, type Observable, Subject, throttleTime } from 'rxjs';
+import { Rect } from './rect';
 
 export interface ScrollEvent {
 	name: string;
-	element?: any;
+	element?: HTMLElement;
 }
 
 export interface ScrollNotifyEvent {
 	rect: Rect;
 }
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class DeferLoadService {
+	readonly isBrowser: boolean;
+	readonly hasIntersectionObserver: boolean;
 	scrollNotify = new EventEmitter<ScrollNotifyEvent>();
 	observeNotify = new EventEmitter<Array<IntersectionObserverEntry>>();
 	currentViewport: Rect = new Rect(0, 0, 0, 0);
-	readonly isBrowser: boolean;
-	readonly hasIntersectionObserver: boolean;
 	private readonly platformId = inject(PLATFORM_ID);
 	private readonly scrollSubject = new Subject<ScrollNotifyEvent>();
 	private readonly scrollObservable: Observable<ScrollNotifyEvent>;
@@ -48,7 +46,7 @@ export class DeferLoadService {
 		}
 		this.intersectionObserver = new IntersectionObserver(entries => {
 			this.observeNotify.next(entries);
-		}, {threshold: 0});
+		}, { threshold: 0 });
 		return this.intersectionObserver;
 	}
 
@@ -61,15 +59,10 @@ export class DeferLoadService {
 		rect.bottom += height;
 		rect.top -= height;
 		this.currentViewport = rect;
-		this.scrollSubject.next({rect});
+		this.scrollSubject.next({ rect });
 	}
 
 	private static checkIntersectionObserver(): boolean {
-		const hasIntersectionObserver = 'IntersectionObserver' in globalThis;
-		const userAgent = globalThis.navigator.userAgent;
-		const matches = userAgent.match(/Edge\/(\d*)\./i);
-		const isEdge = !!matches && matches.length > 1;
-		const isEdgeVersion16OrBetter = isEdge && (!!matches && Number.parseInt(matches[1], 10) > 15);
-		return hasIntersectionObserver && (!isEdge || isEdgeVersion16OrBetter);
+		return 'IntersectionObserver' in globalThis;
 	}
 }

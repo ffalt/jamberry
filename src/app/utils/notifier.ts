@@ -1,12 +1,10 @@
-import {EventEmitter} from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 export class Notifiers<T> {
-	private readonly notifiers: { [id: string]: EventEmitter<T> } = {};
+	private readonly notifiers: { [id: string]: EventEmitter<T> | undefined } = {};
 
 	notifier(id: string): EventEmitter<T> {
-		if (!this.notifiers[id]) {
-			this.notifiers[id] = new EventEmitter<T>();
-		}
+		this.notifiers[id] ??= new EventEmitter<T>();
 		return this.notifiers[id];
 	}
 

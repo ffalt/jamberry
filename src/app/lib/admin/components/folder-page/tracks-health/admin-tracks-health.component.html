@@ -1,0 +1,25 @@
+<div class="health">
+	<div class="actions">
+		<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh List"><i class="icon-reload"></i></button>
+		<label>
+			<input (change)="checkChange()" [(ngModel)]="mediaCheck" [checked]="mediaCheck" type="checkbox">
+			<ng-container i18n>Check Media</ng-container>
+		</label>
+	</div>
+	<div class="content">
+		@if (!hints) {
+			<app-loading />
+		}
+		<app-background-text-list [list]="hints" name="Track Health Issues" />
+		@for (trackHealth of hints; track trackHealth.track.id) {
+			<div class="track">
+				<div class="meta">
+					{{ trackHealth.track.name }}
+				</div>
+				<div class="track-health">
+					<app-track-health [trackHealth]="trackHealth" (resolvedEvent)="trackHealthResolved(trackHealth)" />
+				</div>
+			</div>
+		}
+	</div>
+</div>

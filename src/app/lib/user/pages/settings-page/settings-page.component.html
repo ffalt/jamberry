@@ -1,0 +1,27 @@
+<div class="settings">
+	<app-view-header-slim i18n-section section="Settings" />
+	<div class="content">
+		<div class="section-title" i18n>Design</div>
+		<div>
+			<fieldset>
+				@for (theme of themes; track theme.name) {
+					<label class="select"><input type="radio" name="theme" [value]="theme.name" [(ngModel)]="app.settings.theme" (ngModelChange)="onChange()">{{ theme.name | titlecase }}</label>
+				}
+			</fieldset>
+		</div>
+		<div class="section-title" i18n>Player</div>
+		<label>
+			<input (ngModelChange)="onChange()" [(ngModel)]="app.settings.showWaveform" type="checkbox" />
+			<ng-container i18n>Show Waveform of Current Track</ng-container>
+		</label>
+		<div class="section-title" i18n>Playing</div>
+		<label>
+			<input (ngModelChange)="onChange()" [(ngModel)]="app.settings.playingTrackInTitle" type="checkbox" value="1" />
+			<ng-container i18n>Show Playing Track Name in Window Title</ng-container>
+		</label>
+		<label>
+			<input (ngModelChange)="onChange()" [(ngModel)]="app.settings.notificationSong" type="checkbox" value="1" />
+			<ng-container i18n>Show Notification Popup On Track Change</ng-container>
+		</label>
+	</div>
+</div>

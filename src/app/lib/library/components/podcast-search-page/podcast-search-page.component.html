@@ -1,0 +1,49 @@
+<div class="search-podcasts">
+	<app-view-header-icon-section i18n-icon i18n-section icon="icon-podcast" section="New Podcasts">
+		<div class="input-box">
+			<input (keydown.enter)="search(searchValue)" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}" i18n-placeholder name="podcast-search" placeholder="Search Podcast or paste feed url" type="text" />
+			<i (click)="search(searchValue)" class="icon-search"></i>
+		</div>
+		<div class="reference">
+			<ng-container i18n>Powered by</ng-container>
+			<a href="https://gpodder.net" i18n rel="noopener" target="_blank">gpodder.net</a></div>
+	</app-view-header-icon-section>
+	<div class="content">
+		@if (isSearching) {
+			<app-loading [time]="0" />
+		}
+		@if (podcasts) {
+			<div class="podcasts">
+				@if (podcasts.length === 0) {
+					<div i18n>No Results</div>
+				}
+				<div>
+					@for (podcast of podcasts; track podcast) {
+						<div class="search-podcast-plate">
+							<div class="art">
+								@if (podcast.logoUrl) {
+									<img alt="Podcast Image" i18n-alt [src]="podcast.logoUrl">
+								}
+							</div>
+							<div class="meta">
+								<div i18n class="type">Podcast</div>
+								<div class="name">{{ podcast.name }}</div>
+								<div class="description">{{ podcast.description }}</div>
+								<div class="actions">
+									<select title="Feed URL" i18n-title [(ngModel)]="podcast.selected">
+										@for (pod of podcast.pods; track pod) {
+											<option [ngValue]="pod">{{ pod.displayURL }}</option>
+										}
+									</select>
+									<button class="button-on-background" (click)="subscribe(podcast.selected)"><i class="icon-list-add"></i>
+										<ng-container i18n>Subscribe</ng-container>
+									</button>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		}
+	</div>
+</div>

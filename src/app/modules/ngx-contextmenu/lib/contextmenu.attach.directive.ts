@@ -1,17 +1,16 @@
-import {Directive, inject, input} from '@angular/core';
-import type {ContextMenuComponent} from './contextmenu.component';
-import {ContextMenuService} from './contextmenu.service';
+import { Directive, inject, input } from '@angular/core';
+import type { ContextMenuComponent } from './contextmenu.component';
+import { ContextMenuService } from './contextmenu.service';
 
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: '[contextMenu]',
-	standalone: false,
 	host: {
 		'(contextmenu)': 'onContextMenu($event)'
 	}
 })
 export class ContextMenuAttachDirective {
-	readonly contextMenuSubject = input<any>();
+	readonly contextMenuSubject = input<unknown>();
 	readonly contextMenu = input.required<ContextMenuComponent>();
 	private readonly contextMenuService = inject(ContextMenuService);
 

@@ -1,11 +1,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable, inject} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
-import {JamBaseService} from '../jam.base.service';
-import type {Jam} from '../model/jam-rest-data';
-import type {JamParameters} from '../model/jam-rest-params';
+import { JamBaseService } from '../jam.base.service';
+import type { Jam } from '../model/jam-rest-data';
+import type { JamParameters } from '../model/jam-rest-params';
 
 @Injectable()
 export class JamNowPlayingService {
@@ -14,14 +14,14 @@ export class JamNowPlayingService {
 	/**
 	 * Get a List of media [Track, Episode] played currently by Users // Rights needed: stream
 	 */
-	async list(params: JamParameters.NowPlayingListArgs): Promise<Array<Jam.NowPlaying>> {
-		return this.base.requestData<Array<Jam.NowPlaying>>('/nowPlaying/list', params);
+	async list(parameters: JamParameters.NowPlayingListParameters): Promise<Array<Jam.NowPlaying>> {
+		return this.base.requestData<Array<Jam.NowPlaying>>('/nowPlaying/list', parameters);
 	}
 
 	/**
 	 * Report playing (scrobble) a media file [Track, Episode] // Rights needed: stream
 	 */
-	async scrobble(params: JamParameters.ID): Promise<void> {
-		return this.base.requestPostDataOK('/nowPlaying/scrobble', params);
+	async scrobble(parameters: JamParameters.ID): Promise<void> {
+		return this.base.requestPostDataOK('/nowPlaying/scrobble', parameters);
 	}
 }

@@ -1,0 +1,34 @@
+<div class="view-login">
+	<div (submit)="login($event)" class="container-login">
+		<div class="login-card">
+			<h1>
+				<app-logo-icon />&nbsp;{{ app.name }}
+				<ng-container i18n>Login</ng-container>
+			</h1>
+			<br>
+			<form>
+				@if (showServer) {
+					<label>
+						<ng-container i18n>Server</ng-container>
+						<input type="text" name="server" placeholder="Server" i18n-placeholder [(ngModel)]="credentials.server">
+					</label>
+				}
+				<label>
+					<ng-container i18n>User</ng-container>
+					<input [(ngModel)]="credentials.username" autocomplete="username" i18n-placeholder name="user" placeholder="Username" type="text">
+				</label>
+				<label>
+					<ng-container i18n>Password</ng-container>
+					<input [(ngModel)]="credentials.password" autocomplete="password" i18n-placeholder name="pass" placeholder="Password" type="password">
+				</label>
+				<input class="login-submit" name="login" type="submit" value="login">
+			</form>
+			<!--			<div class="login-help">-->
+			<!--				<a (click)="passwdReset()">Forgot Password</a>-->
+			<!--			</div>-->
+		</div>
+		@if (error) {
+			<div class="error">{{ error }}</div>
+		}
+	</div>
+</div>

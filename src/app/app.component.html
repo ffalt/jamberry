@@ -1,10 +1,10 @@
 @if (auth.user) {
-  <app-header class="header" />
+	<app-header class="header" />
 }
-<div #tabContentOutlet class="app-content" [class.player-active]="this.player.currentMedia"></div>
+<div #tabContentOutlet [class.player-active]="this.player.currentMedia" class="app-content"></div>
 @if (auth.user) {
-  <app-player class="footer" />
+	<app-player class="footer" />
 }
 @if (this.player.currentMedia) {
-  <app-mini-player class="mini-player" />
+	<app-mini-player class="mini-player" />
 }

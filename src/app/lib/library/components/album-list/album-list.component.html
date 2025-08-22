@@ -1,0 +1,31 @@
+<app-background-text-list [list]="albums()" name="Albums" />
+@if (albums(); as albums) {
+	@if (albums.length > 0) {
+		<div class="albums" appFocusKeyList role="list">
+			<div class="heading">
+				<div class="fav" title="Favorite" i18n-title><i class="icon-heart-empty"></i></div>
+				<div class="date" title="Year/Number" i18n-title><i class="icon-hash"></i></div>
+				<div i18n class="title">Title</div>
+				<div i18n class="info">Type</div>
+				<div class="length" title="Duration" i18n-title><i class="icon-stopwatch"></i></div>
+			</div>
+			@for (album of albums; track album.id) {
+				<div class="album" appFocusKeyListItem role="listitem" (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)">
+					<div class="fav">
+						<button (click)="actions.toggleAlbumFav(album)">
+							<app-fav-icon title="Toggle Favorite" i18n-title [faved]="album.state?.faved" />
+						</button>
+					</div>
+					<div class="date">{{ album.seriesNr ? album.seriesNr : album.year }}</div>
+					<div class="title"><a class="title-link" (clickenter)="navig.toAlbum(album)">{{ album.name }}</a>
+						@if (showArtist()) {
+							<a title="Artist" i18n-title (clickenter)="navig.toArtistID(album.artistID,album.artistName)">{{ album.artist }}</a>
+						}
+					</div>
+					<div class="info">{{ album.albumType }}</div>
+					<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{ album.duration|duration }}</div>
+				</div>
+			}
+		</div>
+	}
+}

@@ -1,0 +1,12 @@
+<aside class="left">
+	<app-libary-sidebar />
+</aside>
+<app-splitter class="split-pane-divider-left" />
+<main class="middle" role="main">
+	<router-outlet />
+</main>
+<app-splitter [leftSnap]="false" class="split-pane-divider-right" />
+<aside class="right">
+	<app-sidebar-right />
+</aside>
+

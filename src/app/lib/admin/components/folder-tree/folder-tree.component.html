@@ -1,0 +1,29 @@
+<div class="actions">
+	<span class="name" i18n>Folders</span>
+	<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh Folder Tree"><i aria-hidden="true" class="icon-reload"></i></button>
+</div>
+<div appFocusKeyList class="tree" role="list">
+	<cdk-virtual-scroll-viewport [itemSize]="22" class="list-container list-group" style="height: 100%">
+		<ng-container *cdkVirtualFor="let node of nodes">
+			<div (click)="selectNode(node)" (keydown.arrowLeft)="toggleNode(node)" (keydown.arrowRight)="toggleNode(node)" (keydown.enter)="selectNode(node)" [class.active]="node===selected"
+					 [style.padding-left.px]="node.level*12"
+					 appFocusKeyListItem
+					 class="node"
+					 role="listitem">
+        <span (clickenter)="toggleNode(node)" class="node-toggle" title="Subfolders: {{node.folder.folderCount}}">
+          @if (node.isLoading) {
+						<i class="icon-spin icon-spinner"></i>
+					}
+					@if (!node.isLoading && node.hasChildren) {
+						<i [class]="node.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
+					}
+        </span>
+				<span (clickenter)="toggleNode(node)" [style.color]="node.color" [title]="node.folder.type" class="node-icon">
+          <i [class]="node.expanded | stringToggle:'icon-folder-open':'icon-folder'"></i>
+        </span>
+				<span [title]="node.folder.name">{{ node.folder.name }}</span>
+				<span class="node-type">| {{ node.folder.type }}</span>
+			</div>
+		</ng-container>
+	</cdk-virtual-scroll-viewport>
+</div>

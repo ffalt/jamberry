@@ -1,19 +1,18 @@
-import {Directive, ElementRef, type OnChanges, type SimpleChange, inject, input} from '@angular/core';
-import {DeferLoadService} from './defer-load.service';
+import { Directive, ElementRef, inject, input, type OnChanges } from '@angular/core';
+import { DeferLoadService } from './defer-load.service';
 
 @Directive({
 	selector: '[appDeferLoadScrollHost]',
-	standalone: false,
 	host: {
 		'(scroll)': 'scrollTrack()'
 	}
 })
 export class DeferLoadScrollHostDirective implements OnChanges {
-	readonly scrollTo = input<any>();
-	private readonly element = inject(ElementRef);
+	readonly scrollTo = input<{ id?: string }>();
+	private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly scrollNotify = inject(DeferLoadService);
 
-	ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
+	ngOnChanges(changes: { scrollTo?: { currentValue?: { id?: string } } }): void {
 		if (changes.scrollTo?.currentValue) {
 			const o = changes.scrollTo.currentValue;
 			if (o.id && o.id.length > 0) {
@@ -26,6 +25,6 @@ export class DeferLoadScrollHostDirective implements OnChanges {
 	}
 
 	scrollTrack(): void {
-		this.scrollNotify.notifyScroll({name: 'scroll-host', element: this.element.nativeElement});
+		this.scrollNotify.notifyScroll({ name: 'scroll-host', element: this.element.nativeElement });
 	}
 }

@@ -1,0 +1,20 @@
+@if (obj) {
+	<div class="obj">
+		<app-view-header-jam-base
+			[appBackgroundImage]="obj.id" [section]="obj.name" [sectionType]="obj.mediaType"
+			[base]="obj.base" [infos]="infos" [tabs]="tabs" (contextMenuRequest)="obj.onContextMenu($event, true)">
+			@if (isPodcastEpisode) {
+				<app-episode-state-button [episode]="asPodcastEpisode" [showTitle]="true" />
+			} @else {
+				<button class="button-primary" (click)="obj.play()"><i class="icon-play"></i>
+					<ng-container i18n>Play</ng-container>
+				</button>
+			}
+		</app-view-header-jam-base>
+		<div class="content">
+			<router-outlet />
+		</div>
+	</div>
+} @else {
+	<app-loading />
+}

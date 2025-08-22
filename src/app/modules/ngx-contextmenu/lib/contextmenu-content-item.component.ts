@@ -1,6 +1,7 @@
-import type {FocusableOption} from '@angular/cdk/a11y';
-import {Component, type ElementRef, output, viewChild, input} from '@angular/core';
-import type {ContextMenuItemDirective} from './contextmenu.item.directive';
+import type { FocusableOption } from '@angular/cdk/a11y';
+import { Component, type ElementRef, input, output, viewChild } from '@angular/core';
+import type { ContextMenuItemDirective } from './contextmenu.item.directive';
+import { NgTemplateOutlet } from '@angular/common';
 
 interface ContextMenuItemDirectiveEvent {
 	event: Event;
@@ -12,12 +13,12 @@ interface ContextMenuItemDirectiveEvent {
 	selector: 'context-menu-content-item',
 	styleUrls: ['./contextmenu-content-item.component.css'],
 	templateUrl: './contextmenu-content-item.component.html',
-	standalone: false
+	imports: [NgTemplateOutlet]
 })
 export class ContextMenuContentItemComponent implements FocusableOption {
 	readonly menuItem = input.required<ContextMenuItemDirective>();
 	readonly item = input.required<any>();
-	readonly itemRef = viewChild<ElementRef>('content');
+	readonly itemRef = viewChild<ElementRef<HTMLElement>>('content');
 	readonly itemSelect = output<ContextMenuItemDirectiveEvent>();
 	readonly openSubmenu = output<ContextMenuItemDirectiveEvent>();
 
@@ -32,10 +33,10 @@ export class ContextMenuContentItemComponent implements FocusableOption {
 	onMenuItemSelect(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
-		this.itemSelect.emit({event, menuItem: this.menuItem()});
+		this.itemSelect.emit({ event, menuItem: this.menuItem() });
 	}
 
 	onOpenSubMenu(event: Event): void {
-		this.openSubmenu.emit({event, menuItem: this.menuItem()});
+		this.openSubmenu.emit({ event, menuItem: this.menuItem() });
 	}
 }

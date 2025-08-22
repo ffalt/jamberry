@@ -1,0 +1,143 @@
+@use "_scss/variables";
+
+:host {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+
+	.toggle {
+		display: none;
+	}
+
+	.content {
+		display: flex;
+		flex-direction: row;
+		flex: 1 1 auto;
+		overflow-y: auto;
+
+		.match-files {
+			overflow-y: auto;
+			overflow-x: auto;
+			display: block;
+			height: 100%;
+			width: 50%;
+			font-size: 0.8em;
+			padding-right: variables.$padding;
+		}
+
+		.match-releases {
+			border-left: 1px solid var(--background-border);
+			display: flex;
+			flex-direction: column;
+			flex: 1 1 auto;
+			width: 50%;
+			font-size: 0.9em;
+
+			&[hidden] {
+				display: none;
+			}
+
+		}
+	}
+
+	.buttons {
+		flex: 0 0 auto;
+		padding: variables.$padding-xs;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-top: 1px solid var(--background-border);
+
+		.match-actions {
+			text-align: center;
+			vertical-align: middle;
+			margin-top: variables.$margin-sm;
+			margin-bottom: variables.$margin-lg;
+
+			app-tag-editor-autocomplete {
+				height: 28px;
+				display: block;
+			}
+
+			.match-search {
+				display: flex;
+				flex-direction: row;
+				text-align: left;
+				@media (max-width: variables.$break-pad) {
+					flex-direction: column;
+				}
+
+				> div {
+					flex: 1;
+					padding-left: variables.$padding-sm;
+					padding-right: variables.$padding-sm;
+				}
+
+				& {
+					margin-bottom: variables.$margin-sm;
+				}
+			}
+
+			button {
+				margin-left: variables.$margin-sm;
+				margin-right: variables.$margin-sm;
+			}
+
+			.match-progress {
+				display: block;
+				font-size: 0.9em;
+			}
+		}
+	}
+
+	.current-log {
+		font-size: 0.8em;
+		padding: variables.$padding-xs;
+	}
+
+	@media (max-width: variables.$break-pad) {
+
+		.toggle {
+			display: block;
+			position: relative;
+			width: 100%;
+			height: auto;
+			text-align: center;
+			padding-top: variables.$padding-xs;
+			padding-bottom: variables.$padding-xs;
+		}
+
+		.content {
+			overflow-y: auto;
+
+			.match-files {
+				height: auto;
+				width: 100%;
+				overflow-y: inherit;
+				display: block;
+				padding-right: 0;
+			}
+
+			.match-releases {
+				height: auto;
+				width: 100%;
+				display: none;
+				border-left: none;
+			}
+		}
+
+		&.right-active {
+			.content {
+				.match-releases {
+					display: block;
+				}
+
+				.match-files {
+					display: none;
+				}
+			}
+		}
+	}
+}

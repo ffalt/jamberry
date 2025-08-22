@@ -55,6 +55,7 @@
 .toast-title {
 	font-weight: bold;
 	margin-right: 10px;
+	display: block;
 }
 
 .toast-message {
@@ -128,6 +129,11 @@ button.toast-close-button {
 	box-shadow: 0 0 12px #000000;
 	opacity: 1;
 	cursor: pointer;
+}
+
+.toast-content {
+	display: flex;
+	flex-direction: column;
 }
 
 /* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/info-circle.svg */

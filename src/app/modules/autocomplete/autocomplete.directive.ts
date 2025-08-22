@@ -1,36 +1,14 @@
-import {ConnectionPositionPair, Overlay, OverlayConfig, type OverlayRef, type PositionStrategy} from '@angular/cdk/overlay';
-import {TemplatePortal} from '@angular/cdk/portal';
-import {
-	Directive,
-	ElementRef,
-	type OnChanges,
-	type OnDestroy,
-	type OnInit,
-	type SimpleChanges,
-	ViewContainerRef,
-	inject,
-	output,
-	input
-} from '@angular/core';
-import type {AutocompleteControl, AutocompleteDataControl, AutocompleteOption} from '@app/modules/autocomplete/autocomplete.types';
-import {isArrowKeys, isDownArrowKey, isEnterKey, isEscapeKey, isLeftArrowKey, isNonCharKey, isRightArrowKey} from '@app/utils/keys';
-import {
-	concat,
-	fromEvent,
-	type Observable,
-	Subject,
-	debounceTime,
-	distinctUntilChanged,
-	filter,
-	map,
-	switchMap,
-	takeUntil,
-	tap
-} from 'rxjs';
-import type {AutocompleteComponent} from './autocomplete.component';
+import { ConnectionPositionPair, Overlay, OverlayConfig, type OverlayRef, type PositionStrategy } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { Directive, ElementRef, inject, input, type OnChanges, type OnDestroy, type OnInit, output, type SimpleChange, ViewContainerRef } from '@angular/core';
+import type { AutocompleteControl, AutocompleteDataControl, AutocompleteOption } from '@modules/autocomplete/autocomplete.types';
+import { isArrowKeys, isDownArrowKey, isEnterKey, isEscapeKey, isLeftArrowKey, isNonCharKey, isRightArrowKey } from '@utils/keys';
+import { concat, debounceTime, distinctUntilChanged, filter, fromEvent, map, type Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import type { AutocompleteComponent } from './autocomplete.component';
 
-export function toFormControlValue(e: any): any {
-	return e.target.value;
+export function toFormControlValue(e: KeyboardEvent): any {
+	const target = e.target as HTMLInputElement;
+	return target.value;
 }
 
 export const NO_INDEX = -1;
@@ -46,7 +24,7 @@ export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement)
 			filter(event => {
 				const clickTarget = event.target as HTMLElement;
 				const notOrigin = clickTarget !== origin; // the input
-				const notOverlay = !!overlayRef && (!overlayRef.overlayElement.contains(clickTarget)); // the autocomplete
+				const notOverlay = !overlayRef.overlayElement.contains(clickTarget); // the autocomplete
 				return notOrigin && notOverlay;
 			}),
 			takeUntil(overlayRef.detachments())
@@ -55,21 +33,20 @@ export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement)
 
 @Directive({
 	selector: '[appAutocomplete]',
-	standalone: false,
 	host: {
 		'(keydown)': 'handleEsc($event)',
 		'(keyup)': 'onkeyup($event)'
 	}
 })
-export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, AutocompleteControl {
+export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, AutocompleteControl<any> {
 	readonly appAutocomplete = input<AutocompleteComponent>();
-	readonly appAutocompleteControl = input<AutocompleteDataControl>();
+	readonly appAutocompleteControl = input<AutocompleteDataControl<any>>();
 	readonly appAutocompleteSettings = input<Partial<AutocompleteSettings>>();
 	readonly appAutocompleteNavigKeyDown = output<KeyboardEvent>();
 	isVisible: boolean = false;
 	activeIndex: number = NO_INDEX;
 	query: string = '';
-	options: Array<AutocompleteOption> = [];
+	options: Array<AutocompleteOption<any>> = [];
 	private readonly unsubscribe = new Subject<void>();
 	private readonly host = inject<ElementRef<HTMLInputElement>>(ElementRef);
 	private readonly vcr = inject(ViewContainerRef);
@@ -77,7 +54,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	private readonly keydown$ = new Subject<KeyboardEvent>();
 	private readonly keyup$ = new Subject<KeyboardEvent>();
 	private overlayRef?: OverlayRef;
-	private settings: AutocompleteSettings = {allowEmpty: false, debounceTime: 300};
+	private settings: AutocompleteSettings = { allowEmpty: false, debounceTime: 300 };
 	private isCreated: boolean = false;
 
 	ngOnInit(): void {
@@ -91,13 +68,13 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		this.unsubscribe.complete();
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(changes: { appAutocompleteSettings?: SimpleChange }): void {
 		if (changes.appAutocompleteSettings) {
-			this.settings = {...this.settings, ...this.appAutocompleteSettings()};
+			this.settings = { ...this.settings, ...this.appAutocompleteSettings() };
 		}
 	}
 
-	selectOption(option: AutocompleteOption): void {
+	selectOption(option: AutocompleteOption<any>): void {
 		this.hide();
 		const appAutocompleteControl = this.appAutocompleteControl();
 		if (appAutocompleteControl) {
@@ -124,15 +101,17 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 			return;
 		}
 		this.request(this.query)
-			.then((results: Array<AutocompleteOption>) => {
+			.then((results: Array<AutocompleteOption<any>>) => {
 				this.activeIndex = NO_INDEX;
 				this.options = results;
 				this.display();
 			})
-			.catch(console.error);
+			.catch((error: unknown) => {
+				console.error(error);
+			});
 	}
 
-	private static resolveNextIndex(currentIndex: number, stepUp: boolean, list: Array<AutocompleteOption>): number {
+	private static resolveNextIndex(currentIndex: number, stepUp: boolean, list: Array<AutocompleteOption<any>>): number {
 		const step = stepUp ? 1 : -1;
 		const topLimit = list.length - 1;
 		const bottomLimit = NO_INDEX;
@@ -167,7 +146,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 				switchMap(async (query: string) => this.request(query)),
 				takeUntil(this.unsubscribe)
 			)
-			.subscribe((results: Array<AutocompleteOption>) => {
+			.subscribe((results: Array<AutocompleteOption<any>>) => {
 				this.activeIndex = NO_INDEX;
 				this.options = results;
 				this.display();
@@ -175,17 +154,17 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	}
 
 	private display(): void {
-		if (!this.options || this.options.length === 0) {
+		if (this.options.length === 0) {
 			this.isVisible = false;
 			return;
 		}
 		if (!this.isCreated) {
 			this.openDropdown();
 		}
-		this.isVisible = this.options && this.options.length > 0;
+		this.isVisible = this.options.length > 0;
 	}
 
-	private async request(query: string): Promise<Array<AutocompleteOption>> {
+	private async request(query: string): Promise<Array<AutocompleteOption<any>>> {
 		const appAutocompleteControl = this.appAutocompleteControl();
 		if (appAutocompleteControl) {
 			return appAutocompleteControl.autocompleteGetData(query);
@@ -208,7 +187,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 					}
 					return;
 				}
-				const result = this.options[this.activeIndex];
+				const result = this.options.at(this.activeIndex);
 				this.hide();
 				const appAutocompleteControl = this.appAutocompleteControl();
 				if (result) {
@@ -251,12 +230,13 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 			return;
 		}
 		this.overlayRef = this.createOverlay();
-		const template = new TemplatePortal(rootTemplate, this.vcr, {control: this});
+		const template = new TemplatePortal(rootTemplate, this.vcr, { control: this });
 		this.overlayRef.attach(template);
 		overlayClickOutside(this.overlayRef, this.host.nativeElement)
-			.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-			this.close();
-		});
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => {
+				this.close();
+			});
 		this.isCreated = true;
 		this.isVisible = true;
 	}
@@ -291,12 +271,12 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	private getOverlayPosition(): PositionStrategy {
 		const positions = [
 			new ConnectionPositionPair(
-				{originX: 'start', originY: 'bottom'},
-				{overlayX: 'start', overlayY: 'top'}
+				{ originX: 'start', originY: 'bottom' },
+				{ overlayX: 'start', overlayY: 'top' }
 			),
 			new ConnectionPositionPair(
-				{originX: 'start', originY: 'top'},
-				{overlayX: 'start', overlayY: 'bottom'}
+				{ originX: 'start', originY: 'top' },
+				{ overlayX: 'start', overlayY: 'bottom' }
 			)
 		];
 		return this.overlay.position()

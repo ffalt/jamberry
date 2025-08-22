@@ -1,17 +1,9 @@
-import {type ComponentFixture, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {themeConfig} from '@app/app.module';
-import {AuthCanActivateGuard} from '@app/guards';
-import {HeaderModule} from '@app/modules/header';
-import {HotkeyModule} from '@app/modules/hotkeys';
-import {MainTabsModule} from '@app/modules/main-tabs';
-import {MainTabsService} from '@app/modules/main-tabs/services';
-import {PlayerModule} from '@app/modules/player';
-import {ToastModule} from '@app/modules/toast';
-import {TEST_JAM_MODULE} from '@core/jam.module.mock';
-import {SharedModule} from '@shared/shared.module';
-import {AppComponent} from './app.component';
-import {ThemeModule} from './modules/theme';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { themeConfig } from './app.providers';
+import { AppComponent } from './app.component';
+import { provideTheme } from '@modules/theme';
+import { AuthCanActivateGuard } from '@core/guards/auth-can-active/auth.can-activate.guard';
+import { TEST_IMPORTS, TEST_PROVIDERS } from './app.mock';
 
 describe('AppComponent', () => {
 	let component: AppComponent;
@@ -19,17 +11,14 @@ describe('AppComponent', () => {
 
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
-    imports: [
-        NoopAnimationsModule,
-        ThemeModule.forRoot(themeConfig),
-        HeaderModule, PlayerModule, SharedModule, MainTabsModule,
-        HotkeyModule.forRoot(),
-        ToastModule.forRoot(), TEST_JAM_MODULE
-    ],
-    providers: [MainTabsService, AuthCanActivateGuard],
-    declarations: [AppComponent],
-    teardown: { destroyAfterEach: false }
-}).compileComponents()
+			imports: [...TEST_IMPORTS, AppComponent],
+			providers: [...TEST_PROVIDERS,
+				AuthCanActivateGuard,
+				...provideTheme(themeConfig)
+			],
+			declarations: [],
+			teardown: { destroyAfterEach: false }
+		}).compileComponents()
 	);
 
 	beforeEach(() => {

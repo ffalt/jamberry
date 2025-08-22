@@ -1,5 +1,0 @@
-@if (!tracks) {
-  <app-loading />
-}
-<app-track-list [tracks]="tracks" [showArtist]="true" [showRating]="showRating" [showPlayCount]="showPlayCount" [showPlayDate]="showPlayDate" />
-<app-load-more-button (requestLoad)="load()" />

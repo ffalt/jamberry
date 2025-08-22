@@ -14,4 +14,6 @@ async function updateVersion() {
 	}
 }
 
-await updateVersion().catch(console.error);
+await updateVersion().catch(error => {
+	console.error(error);
+});

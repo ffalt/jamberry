@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import Mousetrap from 'mousetrap';
-import type {Hotkey} from './hotkeys.model';
+import type { Hotkey } from './hotkeys.model';
 
-type HotkeyLike = Hotkey | Array<Hotkey>;
+export type HotkeyLike = Hotkey | Array<Hotkey>;
 
 @Injectable()
 export class HotkeysService {
@@ -13,14 +13,7 @@ export class HotkeysService {
 	private readonly preventIn = ['INPUT', 'SELECT', 'TEXTAREA'];
 
 	constructor() {
-		Mousetrap.prototype.stopCallback = (_event: KeyboardEvent, element: HTMLElement): boolean => {
-			// if the element has the class "mousetrap" then no need to stop
-			if ((` ${element.className} `).includes(' mousetrap ')) {
-				return false;
-			}
-			return (element.contentEditable === 'true');
-		};
-		this.mousetrap = new (Mousetrap as any)();
+		this.mousetrap = new Mousetrap();
 	}
 
 	add(hotkey: HotkeyLike, specificEvent?: string): HotkeyLike {
@@ -38,18 +31,19 @@ export class HotkeysService {
 
 			// if the callback is executed directly `hotkey.get('w').callback()`
 			// there will be no event, so just execute the callback.
-			if (event) {
-				const target = event.target as HTMLElement;
-				if (!target) {
-					return;
-				}
-				const nodeName: string = target.nodeName.toUpperCase();
-				// check if the input has a mousetrap class, and skip checking preventIn if so
-				// don't execute callback if the event was fired from inside an element listed in preventIn but not in allowIn
-				shouldExecute = (` ${target.className} `).includes(' mousetrap ') ||
-					!(this.preventIn.includes(nodeName) &&
-						!(hotkey.allowIn || []).map(allow => allow.toUpperCase()).includes(nodeName));
+			const target = event.target as Element | null | undefined;
+			if (!target) {
+				return;
 			}
+			const nodeName: string = target.nodeName.toUpperCase();
+			// check if the input has a mousetrap class, and skip checking preventIn if so
+			// don't execute callback if the event was fired from inside an element listed in preventIn but not in allowIn
+			shouldExecute =
+				(` ${target.className} `).includes(' mousetrap ') ||
+				!(
+					this.preventIn.includes(nodeName) &&
+					!(hotkey.allowIn ?? []).map(allow => allow.toUpperCase()).includes(nodeName)
+				);
 			if (shouldExecute) {
 				return Reflect.apply((hotkey).callback, this, [event, combo]);
 			}

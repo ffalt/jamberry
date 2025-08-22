@@ -1,18 +1,17 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"outDir": "./dist/out",
-		"types": [
-      "@angular/localize"
-    ]
+		"outDir": "./out-tsc/app",
+		"types": ["@angular/localize"]
 	},
+	"files": [
+		"src/main.ts"
+	],
+	"include": [
+		"src/**/*.ts"
+	],
 	"exclude": [
-		"local",
-		"electron",
-		"test-config.helper.ts",
-		"jest-global-mocks.ts",
 		"src/environments/environment.prod.ts",
-		"setup-jest.ts",
 		"**/*.mock.ts",
 		"**/*.spec.ts"
 	]

@@ -1,21 +1,21 @@
-export interface AutocompleteOption {
+export interface AutocompleteOption<T> {
 	header?: string;
-	data: any;
+	data: T;
 }
 
-export interface AutocompleteDataControl {
-	autocompleteGetData(query: string): Promise<Array<AutocompleteOption>>;
+export interface AutocompleteDataControl<T> {
+	autocompleteGetData(query: string): Promise<Array<AutocompleteOption<T>>>;
 
-	autocompleteSelectResult(result: AutocompleteOption): string;
+	autocompleteSelectResult(result: AutocompleteOption<T>): string;
 
 	autocompleteEnter(query: string): void;
 }
 
-export interface AutocompleteControl {
+export interface AutocompleteControl<T> {
 	isVisible: boolean;
 	activeIndex: number;
 	query: string;
-	options: Array<AutocompleteOption>;
+	options: Array<AutocompleteOption<T>>;
 
-	selectOption(option: AutocompleteOption): void;
+	selectOption(option: AutocompleteOption<T>): void;
 }

@@ -1,11 +1,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable, inject} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
-import {JamBaseService} from '../jam.base.service';
-import type {Jam} from '../model/jam-rest-data';
-import type {JamParameters} from '../model/jam-rest-params';
+import { JamBaseService } from '../jam.base.service';
+import type { Jam } from '../model/jam-rest-data';
+import type { JamParameters } from '../model/jam-rest-params';
 
 @Injectable()
 export class JamStatsService {
@@ -14,8 +14,8 @@ export class JamStatsService {
 	/**
 	 * Get count stats for Folders/Tracks/Albums/... // Rights needed: stream
 	 */
-	async get(params: JamParameters.StatsFilter): Promise<Jam.Stats> {
-		return this.base.requestData<Jam.Stats>('/stats', params);
+	async get(parameters: JamParameters.StatsFilter): Promise<Jam.Stats> {
+		return this.base.requestData<Jam.Stats>('/stats', parameters);
 	}
 
 	/**

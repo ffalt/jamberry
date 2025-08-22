@@ -1,13 +1,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import type {HttpEvent} from '@angular/common/http';
-import {Injectable, inject} from '@angular/core';
-import type {Observable} from 'rxjs';
+import type { HttpEvent } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import type { Observable } from 'rxjs';
 
-import {JamBaseService} from '../jam.base.service';
-import type {Jam} from '../model/jam-rest-data';
-import type {JamParameters} from '../model/jam-rest-params';
+import { JamBaseService } from '../jam.base.service';
+import type { Jam } from '../model/jam-rest-data';
+import type { JamParameters } from '../model/jam-rest-params';
 
 @Injectable()
 export class JamArtworkService {
@@ -16,49 +16,49 @@ export class JamArtworkService {
 	/**
 	 * Get an Artwork by Id // Rights needed: stream
 	 */
-	async id(params: JamParameters.ArtworkIdArgs): Promise<Jam.Artwork> {
-		return this.base.requestData<Jam.Artwork>('/artwork/id', params);
+	async id(parameters: JamParameters.ArtworkIdParameters): Promise<Jam.Artwork> {
+		return this.base.requestData<Jam.Artwork>('/artwork/id', parameters);
 	}
 
 	/**
 	 * Search Artworks // Rights needed: stream
 	 */
-	async search(params: JamParameters.ArtworkSearchArgs): Promise<Jam.ArtworkPage> {
-		return this.base.requestData<Jam.ArtworkPage>('/artwork/search', params);
+	async search(parameters: JamParameters.ArtworkSearchParameters): Promise<Jam.ArtworkPage> {
+		return this.base.requestData<Jam.ArtworkPage>('/artwork/search', parameters);
 	}
 
 	/**
 	 * Create an Artwork // Rights needed: stream
 	 */
-	async createByUrl(params: JamParameters.ArtworkNewArgs): Promise<Jam.AdminChangeQueueInfo> {
-		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/artwork/create', params);
+	async createByUrl(parameters: JamParameters.ArtworkNewParameters): Promise<Jam.AdminChangeQueueInfo> {
+		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/artwork/create', parameters);
 	}
 
 	/**
 	 * Upload an Artwork // Rights needed: stream
 	 */
-	createByUpload(params: JamParameters.ArtworkCreateByUploadArgs, file: File): Observable<HttpEvent<any>> {
+	createByUpload(params: JamParameters.ArtworkCreateByUploadParameters, file: File): Observable<HttpEvent<Jam.AdminChangeQueueInfo>> {
 		return this.base.upload('/artwork/upload', params, 'image', file);
 	}
 
 	/**
 	 * Update an Artwork // Rights needed: stream
 	 */
-	update(params: JamParameters.ArtworkUpdateArgs, file: File): Observable<HttpEvent<any>> {
+	update(params: JamParameters.ArtworkUpdateParameters, file: File): Observable<HttpEvent<Jam.AdminChangeQueueInfo>> {
 		return this.base.upload('/artwork/update', params, 'image', file);
 	}
 
 	/**
 	 * Rename an Artwork // Rights needed: stream
 	 */
-	async rename(params: JamParameters.ArtworkRenameArgs): Promise<Jam.AdminChangeQueueInfo> {
-		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/artwork/rename', params);
+	async rename(parameters: JamParameters.ArtworkRenameParameters): Promise<Jam.AdminChangeQueueInfo> {
+		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/artwork/rename', parameters);
 	}
 
 	/**
 	 * Remove an Artwork // Rights needed: stream
 	 */
-	async remove(params: JamParameters.ID): Promise<Jam.AdminChangeQueueInfo> {
-		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/artwork/remove', params);
+	async remove(parameters: JamParameters.ID): Promise<Jam.AdminChangeQueueInfo> {
+		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/artwork/remove', parameters);
 	}
 }

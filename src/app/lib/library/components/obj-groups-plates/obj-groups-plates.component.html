@@ -1,0 +1,8 @@
+@for (group of groups(); track group) {
+	<div class="group">{{ group.type }}</div>
+	<div class="plates">
+		@for (obj of group.objs; track obj) {
+			<app-obj-plate [obj]="obj" [showParent]="showParent()" />
+		}
+	</div>
+}

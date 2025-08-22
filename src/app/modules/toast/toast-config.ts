@@ -1,7 +1,7 @@
-import {InjectionToken} from '@angular/core';
-import {type Observable, Subject} from 'rxjs';
+import { InjectionToken } from '@angular/core';
+import { type Observable, Subject } from 'rxjs';
 
-import type {ToastRef} from './toast-ref';
+import type { ToastRef } from './toast-ref';
 
 export type ProgressAnimationType = 'increasing' | 'decreasing';
 
@@ -13,17 +13,17 @@ export interface IndividualConfig {
 	 * disable both timeOut and extendedTimeOut
 	 * default: false
 	 */
-	disableTimeOut: boolean;
+	disableTimeOut?: boolean;
 	/**
 	 * toast time to live in milliseconds
 	 * default: 5000
 	 */
-	timeOut: number;
+	timeOut?: number;
 	/**
 	 * toast show close button
 	 * default: false
 	 */
-	closeButton: boolean;
+	closeButton?: boolean;
 	/**
 	 * time to close after a user hovers over toast
 	 * default: 1000
@@ -33,18 +33,18 @@ export interface IndividualConfig {
 	 * show toast progress bar
 	 * default: false
 	 */
-	progressBar: boolean;
+	progressBar?: boolean;
 
 	/**
 	 * changes toast progress bar animation
 	 * default: decreasing
 	 */
-	progressAnimation: ProgressAnimationType;
+	progressAnimation?: ProgressAnimationType;
 	/**
 	 * css class on toast component
 	 * default: ngx-toastr
 	 */
-	toastClass: string;
+	toastClass?: string;
 	/**
 	 * css class on toast container
 	 * default: toast-top-right
@@ -54,17 +54,17 @@ export interface IndividualConfig {
 	 * css class on toast title
 	 * default: toast-title
 	 */
-	titleClass: string;
+	titleClass?: string;
 	/**
 	 * css class on toast message
 	 * default: toast-message
 	 */
-	messageClass: string;
+	messageClass?: string;
 	/**
 	 * animation easing on toast
 	 * default: ease-in
 	 */
-	easing: string;
+	easing?: string;
 	/**
 	 * animation ease time on toast
 	 * default: 300
@@ -74,12 +74,12 @@ export interface IndividualConfig {
 	 * clicking on toast dismisses it
 	 * default: true
 	 */
-	tapToDismiss: boolean;
+	tapToDismiss?: boolean;
 	/**
 	 * Helps show toast from a websocket or from event outside Angular
 	 * default: false
 	 */
-	onActivateTick: boolean;
+	onActivateTick?: boolean;
 }
 
 export interface ToastrIconClasses {
@@ -147,9 +147,9 @@ export class ToastPackage {
 		// TODO: no unsubscription, memleak ?
 		this.toastRef.afterClosed()
 			.subscribe(() => {
-			this.onActionSubj.complete();
-			this.onTapSubj.complete();
-		});
+				this.onActionSubj.complete();
+				this.onTapSubj.complete();
+			});
 	}
 
 	/** Fired on click */
@@ -191,15 +191,15 @@ export const DefaultNoComponentGlobalConfig: GlobalConfig = {
 	// Individual
 	closeButton: false,
 	disableTimeOut: false,
-	timeOut: 5000,
+	timeOut: 10_000,
 	extendedTimeOut: 1000,
-	progressBar: false,
+	progressBar: true,
 	toastClass: 'ngx-toastr',
 	positionClass: 'toast-top-right',
 	titleClass: 'toast-title',
 	messageClass: 'toast-message',
 	easing: 'ease-in',
-	easeTime: 300,
+	easeTime: 600,
 	tapToDismiss: true,
 	onActivateTick: false,
 	progressAnimation: 'decreasing'

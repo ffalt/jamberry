@@ -1,7 +1,7 @@
-import type {OverlayRef} from '@angular/cdk/overlay';
-import {type Observable, Subject} from 'rxjs';
+import type { OverlayRef } from '@angular/cdk/overlay';
+import { type Observable, Subject } from 'rxjs';
 
-import type {DialogOverlayComponent} from './dialog-overlay.component';
+import type { DialogOverlayComponent } from './dialog-overlay.component';
 
 export class DialogOverlayRef {
 	componentInstance?: DialogOverlayComponent;

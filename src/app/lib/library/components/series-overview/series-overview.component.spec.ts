@@ -1,0 +1,26 @@
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
+import { SeriesOverviewComponent } from './series-overview.component';
+
+describe('SeriesOverviewComponent', () => {
+	let component: SeriesOverviewComponent;
+	let fixture: ComponentFixture<SeriesOverviewComponent>;
+
+	beforeEach(async () =>
+		TestBed.configureTestingModule({
+			imports: [...TEST_IMPORTS, SeriesOverviewComponent],
+			providers: [...TEST_PROVIDERS],
+			teardown: { destroyAfterEach: false }
+		}).compileComponents()
+	);
+
+	beforeEach(() => {
+		fixture = TestBed.createComponent(SeriesOverviewComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
+
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
+});

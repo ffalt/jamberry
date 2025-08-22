@@ -1,0 +1,47 @@
+<div class="sessions">
+	<app-view-header-slim i18n-section section="Session Logins" />
+	@if (sessions) {
+		<div class="content">
+			<div class="subsonic">
+				<div class="section-title" i18n>Subsonic Token</div>
+				@if (isUnlocked) {
+					<div i18n>Click to generate or update a Subsonic Token. Warning: Existing token will no longer be valid.</div>
+					<button class="button-primary" i18n (click)="generateSubsonicToken()">Generate New Subsonic Token</button>
+					@if (subsonicToken?.token) {
+						<div i18n class="token">This is your Subsonic Token. Please copy and store, you can not see it here again.</div>
+						<div><code>{{ subsonicToken?.token }}</code></div>
+					}
+				} @else {
+					<div i18n>Enter your Jam password to generate or update a Subsonic Token.</div>
+					<button class="button-primary" i18n (click)="unlockSubsonicToken()">Enter Password</button>
+				}
+			</div>
+			<div class="session-list">
+				<div i18n class="section-title">Sessions</div>
+				@for (s of sessions; track s.session.id) {
+					<div class="session" [class.invalid]="s.isExpired">
+						<div class="title">
+							{{ s.session.client }}<br />
+							<span>{{ s.session.mode }}</span>
+						</div>
+						<div class="agent">
+							{{ s.session.agent }}<br />
+							{{ s.session.os }}
+						</div>
+						<div class="expires">
+							@if (s.session.expires === undefined) {
+								<span i18n>Does not expire</span>
+							} @else {
+								<span i18n class="label">valid until:</span><br />
+								{{ s.session.expires | date:'long' }}
+							}
+						</div>
+						<div class="remove">
+							<button title="Remove this login" i18n-title (click)="remove(s.session)"><i class="icon-remove" aria-hidden="true"></i></button>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	}
+</div>

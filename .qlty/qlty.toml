@@ -118,8 +118,10 @@ match.rules = [
 	"biome:lint/style/useExponentiationOperator", # Use the '**' operator instead of 'Math.pow'
 	"biome:lint/a11y/useGenericFontNames", # Generic font family missing.
 	"biome:lint/style/noInferrableTypes", # This type annotation is trivially inferred from its initialization.
+	"biome:lint/style/noNonNullAssertion", # Forbidden non-null assertion.
 	"markdownlint:MD013", # Line length
 	"markdownlint:MD024", # Multiple headings with the same content
+	"radarlint-js:typescript:S4325", # This assertion is unnecessary since it does not change the type of the expression.
 	"radarlint-js:typescript:S6671", # Expected the Promise rejection reason to be an Error.
 	"radarlint-js:typescript:S4335", # Remove this type without members or change this type intersection.
 	"radarlint-js:typescript:S6564", # Remove this redundant type alias

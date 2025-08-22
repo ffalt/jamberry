@@ -1,11 +1,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {Injectable, inject} from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
-import {JamBaseService} from '../jam.base.service';
-import type {Jam} from '../model/jam-rest-data';
-import type {JamParameters} from '../model/jam-rest-params';
+import { JamBaseService } from '../jam.base.service';
+import type { Jam } from '../model/jam-rest-data';
+import type { JamParameters } from '../model/jam-rest-params';
 
 @Injectable()
 export class JamBookmarkService {
@@ -14,35 +14,35 @@ export class JamBookmarkService {
 	/**
 	 * Get a Bookmark by Id // Rights needed: stream
 	 */
-	async id(params: JamParameters.BookmarkIdArgs): Promise<Jam.Bookmark> {
-		return this.base.requestData<Jam.Bookmark>('/bookmark/id', params);
+	async id(parameters: JamParameters.BookmarkIdParameters): Promise<Jam.Bookmark> {
+		return this.base.requestData<Jam.Bookmark>('/bookmark/id', parameters);
 	}
 
 	/**
 	 * Search Bookmarks // Rights needed: stream
 	 */
-	async search(params: JamParameters.BookmarkSearchArgs): Promise<Jam.BookmarkPage> {
-		return this.base.requestData<Jam.BookmarkPage>('/bookmark/search', params);
+	async search(parameters: JamParameters.BookmarkSearchParameters): Promise<Jam.BookmarkPage> {
+		return this.base.requestData<Jam.BookmarkPage>('/bookmark/search', parameters);
 	}
 
 	/**
 	 * Create a Bookmark // Rights needed: stream
 	 */
-	async create(params: JamParameters.BookmarkCreateArgs): Promise<Jam.Bookmark> {
-		return this.base.requestPostData<Jam.Bookmark>('/bookmark/create', params);
+	async create(parameters: JamParameters.BookmarkCreateParameters): Promise<Jam.Bookmark> {
+		return this.base.requestPostData<Jam.Bookmark>('/bookmark/create', parameters);
 	}
 
 	/**
 	 * Remove a Bookmark by Id // Rights needed: stream
 	 */
-	async remove(params: JamParameters.ID): Promise<void> {
-		return this.base.requestPostDataOK('/bookmark/remove', params);
+	async remove(parameters: JamParameters.ID): Promise<void> {
+		return this.base.requestPostDataOK('/bookmark/remove', parameters);
 	}
 
 	/**
 	 * Remove Bookmarks by Media Id [Track/Episode] // Rights needed: stream
 	 */
-	async removeByMedia(params: JamParameters.ID): Promise<void> {
-		return this.base.requestPostDataOK('/bookmark/removeByMedia', params);
+	async removeByMedia(parameters: JamParameters.ID): Promise<void> {
+		return this.base.requestPostDataOK('/bookmark/removeByMedia', parameters);
 	}
 }

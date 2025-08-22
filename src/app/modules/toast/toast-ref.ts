@@ -1,5 +1,5 @@
-import type {OverlayRef} from '@angular/cdk/overlay';
-import {type Observable, Subject} from 'rxjs';
+import type { OverlayRef } from '@angular/cdk/overlay';
+import { type Observable, Subject } from 'rxjs';
 
 /**
  * Reference to a toast opened via the Toastr service.
@@ -7,10 +7,6 @@ import {type Observable, Subject} from 'rxjs';
 export class ToastRef<T> {
 	/** The instance of component opened into the toast. */
 	componentInstance!: T;
-
-	/** Count of duplicates of this toast */
-	private duplicatesCount = 0;
-
 	/** Subject for notifying the user that the toast has finished closing. */
 	private readonly afterClosedSubj = new Subject<void>();
 	/** triggered when toast is activated */
@@ -21,6 +17,8 @@ export class ToastRef<T> {
 	private readonly resetTimeoutSubj = new Subject<void>();
 	/** notifies the toast that it should count a duplicate toast */
 	private readonly countDuplicateSubj = new Subject<number>();
+	/** Count of duplicates of this toast */
+	private duplicatesCount = 0;
 	private isActivateCompleted = false;
 
 	constructor(private readonly overlayRef: OverlayRef) {

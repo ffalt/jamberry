@@ -1,0 +1,34 @@
+@use "_scss/variables";
+
+:host {
+	.settings {
+		overflow-y: auto;
+		overflow-x: hidden;
+		height: 100%;
+
+		.content {
+			padding: variables.$padding variables.$padding 0;
+
+			.chat-max-age {
+				display: inline-block;
+			}
+
+			.section-entry {
+				padding-bottom: variables.$padding;
+			}
+
+			label {
+				display: block;
+				font-size: 12px;
+				padding-bottom: 3px;
+
+				input[type="checkbox"] {
+					margin-top: -1px;
+					display: inline-block;
+					vertical-align: middle;
+					margin-right: variables.$margin-sm;
+				}
+			}
+		}
+	}
+}

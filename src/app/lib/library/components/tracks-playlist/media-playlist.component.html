@@ -1,0 +1,17 @@
+<app-background-text-list [list]="entries()" name="Tracks" />
+@if (entries(); as entries) {
+	@if (entries.length > 0) {
+		<div class="tracks">
+			<app-media-playlist-header [showArtist]="showArtist()" [showPlayCount]="showPlayCount()" [showPlayDate]="showPlayDate()" />
+			<div cdkDropList (cdkDropListDropped)="onDrop($event)">
+				@for (media of entries; track $index) {
+					<app-media-playlist-item
+						class="track-wrapper" cdkDrag
+						[media]="media" [showArtist]="showArtist()" [showPlayCount]="showPlayCount()" [showPlayDate]="showPlayDate()"
+						(dblclick)="playTrack(media)"
+					/>
+				}
+			</div>
+		</div>
+	}
+}

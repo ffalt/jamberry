@@ -1,0 +1,18 @@
+<div class="start">
+	<div class="header-start">
+		<div class="info">
+			<a class="img" routerLink="/user">
+				<app-logo-icon />
+			</a>
+			<div class="meta">
+				<h1 class="name" i18n>Welcome!</h1>
+				<div class="type" i18n>User: {{ jam.auth.user?.name }}</div>
+				<div class="actions"></div>
+			</div>
+		</div>
+	</div>
+	<div class="content">
+		<app-start-stats />
+		<app-start-sections />
+	</div>
+</div>

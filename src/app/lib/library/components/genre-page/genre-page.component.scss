@@ -1,0 +1,11 @@
+@use "_scss/mixins/view";
+
+:host {
+	.genre {
+		@include view.view-host();
+
+		.content {
+			@include view.view-content();
+		}
+	}
+}
