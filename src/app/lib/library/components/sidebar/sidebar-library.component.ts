@@ -40,7 +40,7 @@ export class SidebarLibraryComponent implements OnInit {
 
 	updateNavigation(): void {
 		this.mainList = [
-			{ link: '/library/', name: 'Browse', icon: 'icon-browse', options: { exact: true } },
+			{ link: '/library/', name: 'Home', icon: 'icon-browse', options: { exact: true } },
 			{ link: '/library/search', name: 'Search', icon: 'icon-search' },
 			{ link: '/library/playlists', name: 'Playlists', icon: 'icon-playlist' },
 			{ link: '/library/genres', name: 'Genres', icon: 'icon-genre' }
@@ -68,9 +68,9 @@ export class SidebarLibraryComponent implements OnInit {
 			{ link: '/library/folders', name: 'Folders', icon: 'icon-folder' }
 		);
 		this.sections = [
-			{ name: 'Main', entries: this.mainList },
-			{ name: 'Spoken', entries: this.spokenList },
-			{ name: 'Music', entries: this.musicList }
+			{ name: 'Browse', entries: this.mainList },
+			{ name: 'Music', entries: this.musicList },
+			{ name: 'Spoken', entries: this.spokenList }
 		];
 	}
 }
