@@ -1,0 +1,1 @@
+import{da as e}from"./chunk-H2EXZDP6.js";var n=(()=>{let t=class t{constructor(){this.data={}}put(a,r){this.data[a]=r}get(a,r){return this.data[a]??r}};t.\u0275fac=function(r){return new(r||t)},t.\u0275prov=e({token:t,factory:t.\u0275fac,providedIn:"root"});let o=t;return o})();export{n as a};

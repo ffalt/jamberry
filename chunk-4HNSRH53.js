@@ -1,0 +1,2 @@
+import{Vc as s,nb as o,tc as i,vc as r}from"./chunk-H2EXZDP6.js";var l=(()=>{let t=class t{constructor(){this.text=s()}};t.\u0275fac=function(e){return new(e||t)},t.\u0275cmp=o({type:t,selectors:[["app-background-text"]],inputs:{text:[1,"text"]},decls:1,vars:1,template:function(e,c){e&1&&i(0),e&2&&r("[",c.text(),`]
+`)},styles:["[_nghost-%COMP%]{margin-top:30px;margin-bottom:30px;text-align:center;font-size:1.6em;-webkit-user-select:none;user-select:none;cursor:default;color:var(--on-background);opacity:.7;display:block}"]});let n=t;return n})();export{l as a};

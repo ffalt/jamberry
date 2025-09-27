@@ -1,0 +1,1 @@
+import{b as n}from"./chunk-FQC6PRY2.js";import{qb as i}from"./chunk-H2EXZDP6.js";var p=(()=>{let r=class r{transform(e){return e===void 0?"":n(e)}};r.\u0275fac=function(f){return new(f||r)},r.\u0275pipe=i({name:"filesize",type:r,pure:!0});let t=r;return t})();export{p as a};

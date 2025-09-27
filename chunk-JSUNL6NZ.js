@@ -1,0 +1,1 @@
+import{qb as n}from"./chunk-H2EXZDP6.js";var o=(()=>{let t=class t{transform(r){return r===void 0||r.length===0?"":r.map(e=>e.name+(e.joinphrase||" ")).join("").trim()}};t.\u0275fac=function(e){return new(e||t)},t.\u0275pipe=n({name:"mbArtistCredits",type:t,pure:!0});let i=t;return i})();export{o as a};

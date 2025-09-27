@@ -1,0 +1,1 @@
+import{qb as s}from"./chunk-H2EXZDP6.js";var a=(()=>{let t=class t{transform(i,e,o,n){return(i?e:o)+(n?` (${n})`:"")}};t.\u0275fac=function(e){return new(e||t)},t.\u0275pipe=s({name:"stringToggle",type:t,pure:!0});let r=t;return r})();export{a};

@@ -1,0 +1,1 @@
+import{a as o}from"./chunk-FQC6PRY2.js";import{qb as n}from"./chunk-H2EXZDP6.js";var f=(()=>{let r=class r{transform(i){if(i===void 0)return"";let t=Number(i);return Number.isNaN(t)||t<0?"":t===0?"00:00":o(t)}};r.\u0275fac=function(t){return new(t||r)},r.\u0275pipe=n({name:"duration",type:r,pure:!0});let e=r;return e})();export{f as a};

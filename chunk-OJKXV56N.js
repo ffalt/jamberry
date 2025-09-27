@@ -1,0 +1,1 @@
+import{a as n}from"./chunk-FQC6PRY2.js";import{qb as i}from"./chunk-H2EXZDP6.js";var a=(()=>{let r=class r{transform(e){return e===void 0?"":n(Number(e))}};r.\u0275fac=function(o){return new(o||r)},r.\u0275pipe=i({name:"mediaduration",type:r,pure:!0});let t=r;return t})();export{a};
