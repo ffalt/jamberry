@@ -34,7 +34,7 @@
     "node": ">=20"
   },
   "private": true,
-  "standard-version": {
+  "commit-and-tag-version": {
     "scripts": {
       "postbump": "node ./build-pre.mjs && git add ./src/environments/version.ts"
     }
