@@ -69,7 +69,7 @@ export class MatchingTrack {
 		}
 		result = result
 			.filter(a => a.score > 0)
-			.sort((a, b) => b.score - a.score);
+			.toSorted((a, b) => b.score - a.score);
 		return result;
 	}
 
@@ -126,7 +126,7 @@ export class MatchingTrack {
 				titles.push(aliasTitle);
 			}
 			const scoredTitles = titles.map(t =>
-				({ title: t, score: fuzzyMatch(title, t) })).sort((a, b) => b.score - a.score);
+				({ title: t, score: fuzzyMatch(title, t) })).toSorted((a, b) => b.score - a.score);
 			if (scoredTitles.length > 0) {
 				scores.push({ name: 'title', score: scoredTitles[0].score, weight: 1 });
 			}
@@ -221,7 +221,7 @@ export class MatchRelease {
 		for (const key of Object.keys(matchings)) {
 			let tracks = matchings[key];
 			if (tracks.length > 1) {
-				tracks = tracks.sort((a, b) => (b.currentMatch?.score ?? 0) - (a.currentMatch?.score ?? 0));
+				tracks = tracks.toSorted((a, b) => (b.currentMatch?.score ?? 0) - (a.currentMatch?.score ?? 0));
 				tracks.shift();
 				for (const track of tracks) {
 					track.currentMatch = undefined;
@@ -257,7 +257,7 @@ export class MatchReleaseGroup {
 	}
 
 	enough(matchTrackCount: number): boolean {
-		return !!(this.currentRelease && (this.currentRelease.totalTrack === matchTrackCount) && this.currentRelease.complete);
+		return !!(this.currentRelease?.totalTrack === matchTrackCount && this.currentRelease.complete);
 	}
 }
 

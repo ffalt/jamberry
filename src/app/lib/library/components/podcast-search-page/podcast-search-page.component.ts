@@ -16,8 +16,8 @@ export interface PodcastSearchResult {
 
 export interface PodcastSearch {
 	name: string;
-	logoUrl: string;
-	description: string;
+	logoUrl?: string;
+	description?: string;
 	selected?: PodcastSearchResult;
 	pods: Array<PodcastSearchResult>;
 }
@@ -87,10 +87,10 @@ export class PodcastSearchPageComponent {
 				};
 				collect[result.title] = podcast;
 			}
-			if (!podcast.description || podcast.description.length === 0) {
+			if (podcast.description?.length === 0) {
 				podcast.description = result.description;
 			}
-			if (!podcast.logoUrl || podcast.logoUrl.length === 0) {
+			if (podcast.logoUrl?.length === 0) {
 				podcast.logoUrl = result.scaled_logo_url;
 			}
 			if (!podcast.pods.some(p => p.url.toString() === url.toString())) {

@@ -203,7 +203,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 		this.jam.folder.search({ parentIDs: [node.folder.id], folderIncChildFolderCount: true, folderIncTrackCount: true })
 			.then(data => {
 				const result: Array<TreeNode> = data.items
-					.sort((a, b) => a.name.localeCompare(b.name))
+					.toSorted((a, b) => a.name.localeCompare(b.name))
 					.map(folder =>
 						({
 							folder,

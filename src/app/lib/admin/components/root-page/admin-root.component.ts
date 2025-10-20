@@ -42,7 +42,7 @@ export class AdminRootComponent implements OnInit, OnDestroy {
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe({
 				next: roots => {
-					this.roots = roots.sort((a, b) => a.name.localeCompare(b.name));
+					this.roots = roots.toSorted((a, b) => a.name.localeCompare(b.name));
 				},
 				error: error => {
 					this.notify.error(error);

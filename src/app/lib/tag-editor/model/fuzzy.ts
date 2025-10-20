@@ -237,7 +237,7 @@ export class FuzzySet {
 				const index = Number.parseInt(matchIndex, 10);
 				return [matchScore / (vectorNormal * items[index][0]), items[index][1]];
 			});
-		return results.sort((a, b) => sortDescending(a, b));
+		return results.toSorted((a, b) => sortDescending(a, b));
 	}
 
 	private applyLevenshteinDistance(results: Array<[number, string]>, normalizedValue: string): Array<[number, string]> {
@@ -245,7 +245,7 @@ export class FuzzySet {
 		const newResults: Array<[number, string]> = results
 			.slice(0, endIndex)
 			.map(result => [distance(result[1], normalizedValue), result[1]]);
-		return newResults.sort(sortDescending);
+		return newResults.toSorted(sortDescending);
 	}
 
 	private filterFinalResults(results: Array<[number, string]>): Array<[number, string]> {

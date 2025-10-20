@@ -116,7 +116,7 @@ export function getTrackGenres(tags?: Array<{ count: number; name: string }>): A
 			}
 		}
 	}
-	return result.sort((a, b) => b.count - a.count);
+	return result.toSorted((a, b) => b.count - a.count);
 }
 
 export function getMusicBrainzGenres(tags?: Array<{ count: number; name: string }>): Array<GenreTag> {
@@ -138,7 +138,7 @@ export function getMusicBrainzGenres(tags?: Array<{ count: number; name: string 
 			}
 		}
 	}
-	return result.sort((a, b) => b.count - a.count);
+	return result.toSorted((a, b) => b.count - a.count);
 }
 
 function getLastFMGenres(tags?: Array<LastFM.Tag>): Array<GenreTag> {

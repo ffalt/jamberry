@@ -97,7 +97,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	}
 
 	run(): void {
-		if (!this.query || this.query.length === 0) {
+		if (this.query.length === 0) {
 			return;
 		}
 		this.request(this.query)

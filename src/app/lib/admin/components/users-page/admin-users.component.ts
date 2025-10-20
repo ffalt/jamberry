@@ -55,7 +55,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe({
 				next: users => {
-					this.users = users.sort((a, b) => a.name.localeCompare(b.name));
+					this.users = users.toSorted((a, b) => a.name.localeCompare(b.name));
 				},
 				error: error => {
 					this.notify.error(error);

@@ -88,7 +88,7 @@ export class MatchCoverartComponent implements OnChanges {
 			});
 			const fronts = this.coverArtArchive
 				.filter(i => i.image.front || i.image.types?.includes('Front'))
-				.sort((a, b) => (a.image.types?.length ?? 0) - (b.image.types?.length ?? 0));
+				.toSorted((a, b) => (a.image.types?.length ?? 0) - (b.image.types?.length ?? 0));
 			this.images = this.showFrontImagesOnly ? fronts : this.coverArtArchive;
 			for (const node of this.images) {
 				this.getBase64Image(node).catch((error: unknown) => {
@@ -112,7 +112,7 @@ export class MatchCoverartComponent implements OnChanges {
 			let res = await this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.release, mbID: query.mbReleaseID });
 			let data = res.data as CoverArtArchive.Response;
 			await this.loadImages(data);
-			if (this.coverArtArchive && this.coverArtArchive.length === 0 && query.mbReleaseGroupID) {
+			if (this.coverArtArchive?.length === 0 && query.mbReleaseGroupID) {
 				this.images = undefined;
 				this.coverArtArchive = undefined;
 				res = await this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.releaseGroup, mbID: query.mbReleaseGroupID });
