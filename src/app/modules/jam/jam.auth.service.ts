@@ -104,13 +104,27 @@ export class JamAuthService {
 				return Promise.reject(new Error(error.error.error));
 			}
 			if (error instanceof HttpErrorResponse) {
-				return Promise.reject(new Error(error.statusText));
+				return Promise.reject(new Error(this.getHttpErrorMessage(error)));
 			}
 			if (error instanceof Error && error.message) {
 				return Promise.reject(new Error(error.message));
 			}
 			return Promise.reject(new Error('Server Error'));
 		}
+	}
+
+	getHttpErrorMessage(error: HttpErrorResponse): string {
+		if (
+			error.error !== null &&
+			typeof error.error === 'object' &&
+			'error' in error.error
+		) {
+			const errorObj = error.error as Record<string, unknown>;
+			if (typeof errorObj.error === 'string') {
+				return errorObj.error;
+			}
+		}
+		return `HTTP Error ${error.status}`;
 	}
 
 	getHTTPHeaders(): HttpHeaders | undefined {

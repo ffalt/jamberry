@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import type { Jam } from '@jam';
@@ -15,7 +14,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-admin-users',
 	templateUrl: './admin-users.component.html',
 	styleUrls: ['./admin-users.component.scss'],
-	imports: [CommonModule, RouterModule, UserListComponent, HeaderSlimComponent]
+	imports: [RouterModule, UserListComponent, HeaderSlimComponent]
 })
 export class AdminUsersComponent implements OnInit, OnDestroy {
 	users?: Array<Jam.User>;

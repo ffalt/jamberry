@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { type Jam, JamService } from '@jam';
@@ -18,7 +17,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-admin-folder-folders',
 	templateUrl: './admin-folder-folders.component.html',
 	styleUrls: ['./admin-folder-folders.component.scss'],
-	imports: [CommonModule, RouterModule, FolderListComponent, BackgroundTextListComponent, LoadingComponent]
+	imports: [RouterModule, FolderListComponent, BackgroundTextListComponent, LoadingComponent]
 })
 export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder | undefined;

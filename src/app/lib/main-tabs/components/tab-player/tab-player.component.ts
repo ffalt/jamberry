@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import type { TabComponent } from '@modules/tab-portal';
 import { PlayerCurrentInfoComponent } from '../../../player/components/player-current-info/player-current-info.component';
@@ -14,8 +13,11 @@ import { PlayerService } from '@core/services/player/player.service';
 	templateUrl: './tab-player.component.html',
 	styleUrls: ['./tab-player.component.scss'],
 	imports: [
-		CommonModule, PlayerCurrentInfoComponent,
-		SliderVolumeComponent, SliderSpeedComponent, SliderTimeComponent, MediadurationPipe
+		PlayerCurrentInfoComponent,
+		SliderVolumeComponent,
+		SliderSpeedComponent,
+		SliderTimeComponent,
+		MediadurationPipe
 	]
 })
 export class TabPlayerComponent implements TabComponent {

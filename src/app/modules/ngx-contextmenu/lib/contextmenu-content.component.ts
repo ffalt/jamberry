@@ -104,11 +104,11 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		return this.menuItems()[this.keyManager.activeItemIndex ?? -1];
 	}
 
-	onKeyEvent(event: KeyboardEvent): void {
-		this.keyManager.onKeydown(event);
+	onKeyEvent(event: Event): void {
+		this.keyManager.onKeydown(event as KeyboardEvent);
 	}
 
-	keyboardOpenSubMenu(event: KeyboardEvent): void {
+	keyboardOpenSubMenu(event: Event): void {
 		if (!this.isLeaf()) {
 			return;
 		}
@@ -119,7 +119,7 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		}
 	}
 
-	keyboardMenuItemSelect(event: KeyboardEvent): void {
+	keyboardMenuItemSelect(event: Event): void {
 		if (!this.isLeaf()) {
 			return;
 		}
@@ -130,12 +130,12 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		}
 	}
 
-	onCloseLeafMenu(event: KeyboardEvent): void {
+	onCloseLeafMenu(event: Event): void {
 		if (!this.isLeaf()) {
 			return;
 		}
 		this.cancelEvent(event);
-		this.closeLeafMenu.emit({ exceptRootMenu: event.code === 'ArrowLeft', event });
+		this.closeLeafMenu.emit({ exceptRootMenu: (event as KeyboardEvent).code === 'ArrowLeft', event });
 	}
 
 	closeMenu(event: MouseEvent): void {

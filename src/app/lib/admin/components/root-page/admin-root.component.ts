@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { type Jam, RootScanStrategy } from '@jam';
@@ -14,7 +13,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-admin-root',
 	templateUrl: './admin-root.component.html',
 	styleUrls: ['./admin-root.component.scss'],
-	imports: [CommonModule, RouterModule, RootListComponent, HeaderSlimComponent]
+	imports: [RouterModule, RootListComponent, HeaderSlimComponent]
 })
 export class AdminRootComponent implements OnInit, OnDestroy {
 	roots?: Array<Jam.Root>;

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import type { TabComponent } from '@modules/tab-portal';
 import { PlayerCurrentInfoComponent } from '../../../player/components/player-current-info/player-current-info.component';
@@ -9,7 +8,7 @@ import { PlayerService } from '@core/services/player/player.service';
 	selector: 'app-tab-info',
 	templateUrl: './tab-info.component.html',
 	styleUrls: ['./tab-info.component.scss'],
-	imports: [CommonModule, PlayerCurrentInfoComponent]
+	imports: [PlayerCurrentInfoComponent]
 })
 export class TabInfoComponent implements TabComponent {
 	readonly player = inject(PlayerService);

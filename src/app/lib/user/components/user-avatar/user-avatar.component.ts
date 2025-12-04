@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnDestroy } from '@angular/core';
 import { JamAuthService, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,7 +10,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-user-avatar',
 	templateUrl: './user-avatar.component.html',
 	styleUrls: ['./user-avatar.component.scss'],
-	imports: [CommonModule, CoverartImageComponent]
+	imports: [CoverartImageComponent]
 })
 export class UserAvatarComponent implements OnDestroy {
 	readonly auth = inject(JamAuthService);

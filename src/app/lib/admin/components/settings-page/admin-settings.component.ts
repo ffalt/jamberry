@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -11,7 +10,7 @@ import { HeaderSlimComponent } from '@core/components/header-slim/header-slim.co
 	selector: 'app-admin-settings',
 	templateUrl: './admin-settings.component.html',
 	styleUrls: ['./admin-settings.component.scss'],
-	imports: [CommonModule, RouterModule, FormsModule, LoadingComponent, HeaderSlimComponent]
+	imports: [RouterModule, FormsModule, LoadingComponent, HeaderSlimComponent]
 })
 
 export class AdminSettingsComponent implements OnInit {

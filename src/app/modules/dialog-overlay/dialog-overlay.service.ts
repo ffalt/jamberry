@@ -64,9 +64,7 @@ export class DialogOverlayService implements OnDestroy {
 	}
 
 	private createInjector<D>(config: DialogOverlayDialogConfig<D>, dialogRef: DialogOverlayRef): PortalInjector<any> {
-		const injectionTokens = new WeakMap<ProviderToken<any>>();
-		injectionTokens.set(DialogOverlayRef, dialogRef);
-		injectionTokens.set(DIALOG_OVERLAY_DIALOG_CONFIG, config);
+		const injectionTokens = new WeakMap<ProviderToken<any>>([[DialogOverlayRef, dialogRef], [DIALOG_OVERLAY_DIALOG_CONFIG, config]]);
 		return new PortalInjector<any>(this.injector, injectionTokens);
 	}
 

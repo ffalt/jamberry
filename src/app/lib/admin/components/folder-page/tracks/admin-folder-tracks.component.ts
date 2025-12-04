@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnDestroy, type OnInit, viewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { type Jam, JamService } from '@jam';
@@ -17,7 +16,7 @@ import { AdminFolderService } from '@core/services/admin-folder/admin-folder.ser
 	selector: 'app-admin-folder-tracks',
 	templateUrl: './admin-folder-tracks.component.html',
 	styleUrls: ['./admin-folder-tracks.component.scss'],
-	imports: [CommonModule, RouterModule, TrackListComponent, BackgroundTextListComponent, LoadingComponent]
+	imports: [RouterModule, TrackListComponent, BackgroundTextListComponent, LoadingComponent]
 })
 export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder | undefined;

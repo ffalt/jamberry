@@ -102,8 +102,10 @@ export class SearchPageComponent implements AutocompleteDataControl<{ name: stri
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption<{ name: string }>>> {
-		const q: JamParameters.AutoCompleteFilterParameters & { [name: string]: number | string } = { query };
-		q[this.currentTab.id] = 10;
+		const q: JamParameters.AutoCompleteFilterParameters & { [name: string]: number | string } = {
+			query,
+			[this.currentTab.id]: 10
+		};
 		const result = await this.jam.autocomplete.autocomplete(q) as AutoCompleteAccess;
 		const list = result[`${this.currentTab.id}s`];
 		return (list ?? []).map(data => ({ data }));

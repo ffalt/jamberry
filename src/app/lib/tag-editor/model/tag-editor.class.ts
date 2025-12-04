@@ -791,8 +791,7 @@ export class TagEditor {
 			});
 		const oldEdits = this.edits;
 		this.edits = tracks.map(track => {
-			let frames: Array<RawTagEditFrame<any>> = [];
-			frames.push({ id: FilenameColumnID, value: { text: track.name } });
+			let frames: Array<RawTagEditFrame<any>> = [{ id: FilenameColumnID, value: { text: track.name } }];
 			if (track.tagRaw) {
 				for (const key of Object.keys(track.tagRaw.frames)) {
 					const tagFrames = (track.tagRaw.frames as MediaTagRawFramesAccess)[key] as Array<RawTagEditFrame<any>>;

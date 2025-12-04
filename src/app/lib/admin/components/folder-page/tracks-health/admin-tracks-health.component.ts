@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -15,7 +14,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-admin-tracks-health',
 	templateUrl: './admin-tracks-health.component.html',
 	styleUrls: ['./admin-tracks-health.component.scss'],
-	imports: [CommonModule, RouterModule, FormsModule, TrackHealthComponent, BackgroundTextListComponent, LoadingComponent]
+	imports: [RouterModule, FormsModule, TrackHealthComponent, BackgroundTextListComponent, LoadingComponent]
 })
 
 export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {

@@ -9,9 +9,9 @@ import { Directive, output } from '@angular/core';
 	}
 })
 export class ClickKeyEnterDirective {
-	readonly clickenter = output<KeyboardEvent | MouseEvent>();
+	readonly clickenter = output<Event>();
 
-	stopClick(event: KeyboardEvent | MouseEvent): void {
+	stopClick(event: Event): void {
 		this.clickenter.emit(event);
 	}
 }

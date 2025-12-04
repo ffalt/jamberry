@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnDestroy, type OnInit, viewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import type { Jam } from '@jam';
@@ -12,7 +11,7 @@ import { UiStateService } from '@core/services/ui-state/ui-state.service';
 	selector: 'app-admin-folder',
 	templateUrl: './admin-folder.component.html',
 	styleUrls: ['./admin-folder.component.scss'],
-	imports: [CommonModule, RouterModule, FolderTreeComponent, SplitterComponent],
+	imports: [RouterModule, FolderTreeComponent, SplitterComponent],
 	host: {
 		'[class.right-active]': 'rightActive'
 	}

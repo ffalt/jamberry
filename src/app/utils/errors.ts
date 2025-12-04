@@ -17,7 +17,7 @@ export function serverErrorMsg(error: unknown): string {
 	) {
 		msg = error.error.error;
 	} else if (error instanceof HttpErrorResponse) {
-		msg = error.statusText;
+		msg = getHttpErrorMessage(error);
 	} else if (error instanceof Error && error.message) {
 		msg = error.message;
 	}
@@ -25,4 +25,18 @@ export function serverErrorMsg(error: unknown): string {
 		msg = msg.slice(6).trim();
 	}
 	return msg;
+}
+
+export function getHttpErrorMessage(error: HttpErrorResponse): string {
+	if (
+		error.error !== null &&
+		typeof error.error === 'object' &&
+		'error' in error.error
+	) {
+		const errorObj = error.error as Record<string, unknown>;
+		if (typeof errorObj.error === 'string') {
+			return errorObj.error;
+		}
+	}
+	return `HTTP Error ${error.status}`;
 }

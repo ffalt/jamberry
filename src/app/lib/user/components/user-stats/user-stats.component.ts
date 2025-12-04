@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnInit } from '@angular/core';
 import { AlbumType, type Jam, JamAuthService, JamModule, JamService } from '@jam';
 import { getTypeByAlbumType } from '@utils/jam-lists';
@@ -9,7 +8,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-user-stats',
 	templateUrl: './user-stats.component.html',
 	styleUrls: ['./user-stats.component.scss'],
-	imports: [CommonModule, JamModule, StatsComponent]
+	imports: [JamModule, StatsComponent]
 })
 export class UserStatsComponent implements OnInit {
 	base: StatsList = [];

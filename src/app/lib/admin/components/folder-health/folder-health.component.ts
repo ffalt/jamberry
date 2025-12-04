@@ -81,9 +81,10 @@ export class FolderHealthComponent implements OnChanges, OnDestroy {
 		if (!hint.details || hint.details.length === 0) {
 			return [];
 		}
-		const details = [hint.details[0].reason];
-		details.push(`Expected: ${hint.details[0].expected} Actual: ${hint.details[0].actual}`);
-		return details;
+		return [
+			hint.details[0].reason,
+			`Expected: ${hint.details[0].expected} Actual: ${hint.details[0].actual}`
+		];
 	}
 
 	private addArtistImageSearchSolution(folder: Jam.Folder): void {

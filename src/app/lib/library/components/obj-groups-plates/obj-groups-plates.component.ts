@@ -28,8 +28,8 @@ export class ObjGroupsPlatesComponent implements AfterViewInit, OnDestroy {
 	private readonly unsubscribe = new Subject<void>();
 	private keyManager: FocusKeyManager<FocusableOption> | undefined;
 
-	manage(event: KeyboardEvent) {
-		this.keyManager?.onKeydown(event);
+	manage(event: Event) {
+		this.keyManager?.onKeydown(event as KeyboardEvent);
 	}
 
 	ngAfterViewInit() {

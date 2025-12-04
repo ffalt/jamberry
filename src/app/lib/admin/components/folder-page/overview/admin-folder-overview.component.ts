@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -24,7 +23,7 @@ import { AdminFolderService } from '@core/services/admin-folder/admin-folder.ser
 	selector: 'app-admin-folder',
 	templateUrl: './admin-folder-overview.component.html',
 	styleUrls: ['./admin-folder-overview.component.scss'],
-	imports: [CommonModule, RouterModule, FormsModule, ArtworkListComponent, InlineEditComponent, LoadingComponent, InfoNoteComponent]
+	imports: [RouterModule, FormsModule, ArtworkListComponent, InlineEditComponent, LoadingComponent, InfoNoteComponent]
 })
 export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	name: string = '';

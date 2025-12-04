@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, type OnDestroy, type OnInit, viewChildren } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FolderType, type Jam, JamService } from '@jam';
@@ -14,7 +13,7 @@ import { UserStorageService } from '@core/services/userstorage/userstorage.servi
 	selector: 'app-admin-radar',
 	templateUrl: './admin-radar.component.html',
 	styleUrls: ['./admin-radar.component.scss'],
-	imports: [CommonModule, RouterModule, TrackHealthComponent, LoadingComponent, HeaderSlimComponent]
+	imports: [RouterModule, TrackHealthComponent, LoadingComponent, HeaderSlimComponent]
 })
 
 export class AdminRadarComponent implements OnInit, OnDestroy {
