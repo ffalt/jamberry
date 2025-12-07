@@ -1,1 +1,0 @@
-import{qb as n}from"./chunk-H2EXZDP6.js";var o=(()=>{let t=class t{transform(e,r){return!e||Number.isNaN(r)||r<=0?"":e.length<r?e:`${e.slice(0,r-1).trim()}\u2026`}};t.\u0275fac=function(r){return new(r||t)},t.\u0275pipe=n({name:"limit",type:t,pure:!0});let i=t;return i})();export{o as a};
