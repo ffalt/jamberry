@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.2](https://github.com/ffalt/jamberry/compare/v0.6.1...v0.6.2) (2026-01-15)
+
+
+### Features
+
+* **obj-card:** show jam object details in cards ([b772665](https://github.com/ffalt/jamberry/commit/b772665eb6ed3edceb7c94492b74cd3b843c798a))
+
+
+### Bug Fixes
+
+* **tag-editor:** iterate fields object instead of build object ([6e1dc9a](https://github.com/ffalt/jamberry/commit/6e1dc9afcb8e836f396bf6216092db9e9cd2ab13))
+* **tag-editor:** valid mass cell applying ([08c6089](https://github.com/ffalt/jamberry/commit/08c6089ba324a6ce7f7812109c783ea0c4ec2795))
+
 ## [0.6.1](https://github.com/ffalt/jamberry/compare/v0.6.0...v0.6.1) (2025-12-07)
 
 ## [0.6.0](https://github.com/ffalt/jamberry/compare/v0.4.27...v0.6.0) (2025-09-27)
