@@ -19,6 +19,7 @@ export interface IndexEntry {
 	id: string;
 	link: string;
 	name: string;
+	details?: string;
 	extra?: string;
 	extraLink?: string;
 	trackCount: number;
@@ -141,6 +142,13 @@ function buildIndexGenreIndex(genreIndex: Jam.GenreIndex | undefined, expanded: 
 				id: entry.id,
 				link: `/library/genres/id/${entry.id}`,
 				name: entry.name,
+				details: [
+					{ name: 'Albums', count: entry.albumCount },
+					{ name: 'Artists', count: entry.artistCount },
+					{ name: 'Tracks', count: entry.trackCount }
+				]
+					.filter(d => d.count > 0)
+					.map(d => `${d.name}: ${d.count}`).join(', '),
 				visible: false,
 				trackCount: entry.trackCount,
 				image: jam.image.imageUrl({ id: entry.id, size: 200, format: ImageFormatType.webp })

@@ -191,13 +191,14 @@ export class JamFolderObject extends JamLibraryObject {
 	}
 
 	getInfos(): Array<HeaderInfo> {
-		return (FolderTypesAlbum.includes(this.folder.type) ?
-			[
-				{ label: 'Artist', value: this.folder.tag?.artist },
-				{ label: 'Year', value: this.folder.tag?.year },
-				{ label: 'Genre', value: this.genre }
-			] :
-			[]
+		return (
+			FolderTypesAlbum.includes(this.folder.type) ?
+				[
+					{ label: 'Artist', value: this.folder.tag?.artist },
+					{ label: 'Year', value: this.folder.tag?.year },
+					{ label: 'Genre', value: this.genre }
+				] :
+				[]
 		)
 			// {label: 'Played', value: this.folder.state.played || 0}
 			.filter(info => info.value !== undefined) as Array<HeaderInfo>;
@@ -422,6 +423,13 @@ export class JamGenreObject extends JamLibraryObject {
 
 	constructor(public genreObj: Jam.Genre, library: LibraryService) {
 		super(genreObj, library);
+		this.details = [
+			{ name: 'Albums', count: genreObj.albumCount },
+			{ name: 'Artists', count: genreObj.artistCount },
+			{ name: 'Tracks', count: genreObj.trackCount }
+		]
+			.filter(d => d.count > 0)
+			.map(d => `${d.name}: ${d.count}`).join(', ');
 	}
 
 	navigTo(): void {

@@ -4,6 +4,7 @@ export abstract class JamObject {
 	id: string;
 	name: string;
 	parent?: string;
+	details?: string;
 	year?: string;
 	mediaType?: string;
 	genre?: string;

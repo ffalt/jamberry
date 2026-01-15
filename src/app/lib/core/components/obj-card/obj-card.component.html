@@ -21,6 +21,9 @@
 	<div class="footer">
 		<a class="footer-content" tabindex="0" (click)="obj.navigTo()" (keydown.enter)="obj.navigTo()">
 			{{ obj.name | limit:showParent() && obj.parent ? 90 : 50 }}
+			@if (obj.details) {
+				<div class="footer-subline">{{ obj.details }}</div>
+			}
 			@if (showParent() && obj.parent) {
 				<div class="footer-subline">{{ obj.parent | limit:50 }}</div>
 			}

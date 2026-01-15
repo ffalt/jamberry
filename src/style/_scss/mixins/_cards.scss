@@ -23,7 +23,7 @@
 		position: absolute;
 		top: 1px;
 		padding: variables.$padding-xs;
-		transform: translateY(-31px);
+		transform: translateY(-60px);
 		transition: transform 0.3s;
 		user-select: none;
 		border-bottom-left-radius: 3px;
@@ -42,7 +42,7 @@
 
 	.date {
 		left: 50%;
-		transform: translate(-50%, -31px);
+		transform: translate(-50%, -60px);
 		font-size: 0.8em;
 	}
 

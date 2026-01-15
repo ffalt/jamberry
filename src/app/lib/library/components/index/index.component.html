@@ -11,6 +11,9 @@
 							@for (entry of group.entries; track entry.id) {
 								<div class="index-entry" appFocusKeyListItem role="listitem" (clickenter)="navigTo(entry)">
 									<div class="title"><p><a class="title-link">{{ entry.name }}</a></p>
+										@if (entry.details) {
+											<span>{{entry.details}}</span>
+										}
 										@if (entry.extra) {
 											<a (clickenter)="navigToExtra(entry)">{{ entry.extra }}</a>
 										}
