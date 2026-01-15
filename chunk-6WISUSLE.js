@@ -1,0 +1,1 @@
+import{qb as n}from"./chunk-XLNNDSL4.js";var s=(()=>{class t{transform(r,e,o,i){return(r?e:o)+(i?` (${i})`:"")}static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275pipe=n({name:"stringToggle",type:t,pure:!0})}}return t})();export{s as a};

@@ -1,1 +1,0 @@
-import{ra as i}from"./chunk-MRX5UB2X.js";var e=class{constructor(){this.notifiers={}}notifier(t){return this.notifiers[t]??=new i,this.notifiers[t]}observed(t){return this.notifiers[t]?this.notifiers[t].observed:!1}emit(t,r){this.notifiers[t]&&this.notifiers[t].emit(r)}};export{e as a};

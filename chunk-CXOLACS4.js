@@ -1,0 +1,1 @@
+import{qb as e}from"./chunk-XLNNDSL4.js";var p=(()=>{class r{transform(i,t){return!i||Number.isNaN(t)||t<=0?"":i.length<t?i:`${i.slice(0,t-1).trim()}\u2026`}static{this.\u0275fac=function(t){return new(t||r)}}static{this.\u0275pipe=e({name:"limit",type:r,pure:!0})}}return r})();export{p as a};

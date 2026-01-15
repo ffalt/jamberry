@@ -1,1 +1,0 @@
-import{aa as e}from"./chunk-MRX5UB2X.js";var i=(()=>{class t{constructor(){this.data={}}put(a,r){this.data[a]=r}get(a,r){return this.data[a]??r}static{this.\u0275fac=function(r){return new(r||t)}}static{this.\u0275prov=e({token:t,factory:t.\u0275fac,providedIn:"root"})}}return t})();export{i as a};
