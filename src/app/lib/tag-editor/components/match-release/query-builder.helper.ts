@@ -130,7 +130,7 @@ export class QueryBuilderHelper {
 		trackslength?: boolean
 	): void {
 		const q: JamParameters.MusicBrainzSearchParameters = { type: fields.type };
-		const keys = Object.keys(q) as Array<keyof JamParameters.MusicBrainzSearchParameters>;
+		const keys = Object.keys(fields) as Array<keyof JamParameters.MusicBrainzSearchParameters>;
 
 		// Validate and clean field values
 		for (const key of keys) {
