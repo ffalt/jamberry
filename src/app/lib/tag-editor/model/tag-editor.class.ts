@@ -32,7 +32,7 @@ export class TagEditor {
 			frames =
 				FrameType.LangDescText === column.def.impl ?
 					[{ id: cell.column.def.id, value: { id: '', language: '', text } }] :
-					[{ id: cell.column.def.subid!, value: { text } }];
+					[{ id: cell.column.def.subid ?? cell.column.def.id, value: { text } }];
 		}
 		if (cell.frames.length === 0 || cell.frames[0].value.text !== text) {
 			edit.cells[index] = {
