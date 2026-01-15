@@ -120,7 +120,7 @@ export class Matcher {
 		}
 		for (const media of release.media) {
 			for (const t of media.tracks) {
-				if (t.currentMatch && t.currentMatch.match.track.id === match.track.id) {
+				if (t.currentMatch?.match.track.id === match.track.id) {
 					t.currentMatch = undefined;
 				}
 			}

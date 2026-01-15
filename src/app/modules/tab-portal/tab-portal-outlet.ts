@@ -27,7 +27,7 @@ export class TabPortalOutlet {
 	}
 
 	switchToTab(tab: TabInterface): void {
-		if (this.curTab && this.curTab.tab.name === tab.name) {
+		if (this.curTab?.tab.name === tab.name) {
 			return;
 		}
 		for (const t of this.availableTabs) {

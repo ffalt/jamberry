@@ -47,7 +47,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(change => {
 				const health = this.trackHealth();
-				if (health && health.track.id === change.id) {
+				if (health?.track.id === change.id) {
 					health.health = [];
 					this.jam.track.health({ ids: [health.track.id], healthMedia: true })
 						.then(data => {

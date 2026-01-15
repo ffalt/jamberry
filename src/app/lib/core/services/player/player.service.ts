@@ -77,7 +77,7 @@ export class PlayerService implements OnDestroy {
 	}
 
 	play(media: Jam.MediaBase, addToQueue = false, startSeek?: number, paused?: boolean): void {
-		if (startSeek === undefined && this.isPlaying && this.currentMedia && this.currentMedia.id === media.id) {
+		if (startSeek === undefined && this.isPlaying && this.currentMedia?.id === media.id) {
 			return;
 		}
 		if (addToQueue) {
@@ -345,7 +345,7 @@ export class PlayerService implements OnDestroy {
 
 	startEpisodeSeek(episode: Jam.Episode, seek: number): void {
 		if (episode.status === PodcastStatus.completed) {
-			if (this.currentMedia && this.currentMedia.id === episode.id) {
+			if (this.currentMedia?.id === episode.id) {
 				this.seek(seek);
 			} else {
 				this.queue.clear();

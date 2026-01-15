@@ -40,7 +40,7 @@ export class AdminFolderService {
 
 	waitForQueueResult(title: string, item: Jam.AdminChangeQueueInfo, folderIDs?: Array<string>, refreshChildsFolderIDs?: Array<string>, trackIDs?: Array<string>): EventEmitter<Jam.AdminChangeQueueInfo> {
 		let old = this.queue.find(q => q.id === item.id);
-		if (!old && this.current && this.current.id === item.id) {
+		if (!old && this.current?.id === item.id) {
 			old = this.current;
 		}
 		if (old?.notifyAfter) {
