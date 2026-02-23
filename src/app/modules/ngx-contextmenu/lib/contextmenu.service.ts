@@ -197,11 +197,12 @@ export class ContextMenuService {
 			if (this.overlays.length > 1 && overlay) {
 				overlay.detach();
 				overlay.dispose();
-			}
-			if (!exceptRootMenu && this.overlays.length > 0 && overlay) {
+				this.overlays = this.overlays.slice(0, -1);
+			} else if (!exceptRootMenu && this.overlays.length > 0 && overlay) {
 				this.close.next({ eventType: 'cancel', event });
 				overlay.detach();
 				overlay.dispose();
+				this.overlays = this.overlays.slice(0, -1);
 			}
 
 			const newLeaf = this.getLastAttachedOverlay();
@@ -221,6 +222,7 @@ export class ContextMenuService {
 				subMenuOverlay.detach();
 				subMenuOverlay.dispose();
 			}
+			this.overlays = this.overlays.slice(0, index + 1);
 		}
 	}
 }
