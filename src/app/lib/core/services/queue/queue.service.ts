@@ -125,7 +125,10 @@ export class QueueService {
 	}
 
 	shuffle(): void {
-		this.entries.sort(() => 0.5 - Math.random());
+		for (let i = this.entries.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[this.entries[i], this.entries[j]] = [this.entries[j], this.entries[i]];
+		}
 		this.publishChanges();
 	}
 
