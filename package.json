@@ -14,7 +14,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "ng lint && eslint .",
-    "lint:fix": "ng lint --fix",
+    "lint:fix": "ng lint --fix && eslint . --fix",
     "clean": "rimraf dist",
     "i18n:export": "ng extract-i18n --output-path src/locale",
     "release": "npx commit-and-tag-version -a",
