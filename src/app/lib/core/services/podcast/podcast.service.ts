@@ -29,6 +29,7 @@ export class PodcastService {
 			})
 			.catch((error: unknown) => {
 				console.error('error while polling episode download status', error);
+				cb(false);
 			});
 	});
 
@@ -47,6 +48,7 @@ export class PodcastService {
 			})
 			.catch((error: unknown) => {
 				console.error('error while polling podcast download status', error);
+				cb(false);
 			});
 	});
 

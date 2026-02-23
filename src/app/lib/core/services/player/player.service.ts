@@ -339,7 +339,6 @@ export class PlayerService implements OnDestroy {
 		if (episode.status === PodcastStatus.completed) {
 			this.queue.clear();
 			this.play(episode, true);
-			this.next();
 		}
 	}
 

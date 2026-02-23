@@ -1,6 +1,7 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { type AfterViewInit, Component, inject, input, type OnDestroy, type OnInit, viewChildren } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import type { SidebarListItemComponent } from '../sidebar-list-item/sidebar-list-item.component';
 import { type SidebarList, SidebarListComponent } from '../sidebar-list/sidebar-list.component';
 import { AppService, type SidebarProvider } from '../../services/app/app.service';
@@ -24,20 +25,21 @@ export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, Sideb
 	private readonly router = inject(Router);
 	private readonly items = viewChildren(SidebarListComponent);
 	private keyManager: FocusKeyManager<SidebarListItemComponent> | undefined;
+	private readonly unsubscribe = new Subject<void>();
 
 	ngOnInit(): void {
 		this.app.view.currentSidebar = this;
-		// qlty-ignore: biome:lint/complexity/noForEach
-		// eslint-disable-next-line unicorn/no-array-for-each
-		this.router.events.forEach(() => {
-			this.showMobileNavig = false;
-		}).catch((error: unknown) => {
-			console.error(error);
-		});
+		this.router.events
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => {
+				this.showMobileNavig = false;
+			});
 	}
 
 	ngOnDestroy(): void {
 		this.app.view.currentSidebar = undefined;
+		this.unsubscribe.next();
+		this.unsubscribe.complete();
 	}
 
 	toggleMobileNavig(): void {

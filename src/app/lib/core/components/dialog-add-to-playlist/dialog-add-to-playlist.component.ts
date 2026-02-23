@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, type OnDestroy } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -19,7 +19,7 @@ export interface ChoosePlaylistData {
 	styleUrls: ['./dialog-add-to-playlist.component.scss'],
 	imports: [BackgroundTextComponent, ExpandCollapseIconComponent, LoadingComponent, DurationPipe]
 })
-export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData> {
+export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData>, OnDestroy {
 	data?: ChoosePlaylistData;
 	playlists?: Array<Jam.Playlist>;
 	mediaList?: Array<Jam.MediaBase>;
@@ -28,6 +28,11 @@ export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlayli
 	private readonly unsubscribe = new Subject<void>();
 	private readonly notify = inject(NotifyService);
 	private readonly playlistService = inject(PlaylistService);
+
+	ngOnDestroy(): void {
+		this.unsubscribe.next();
+		this.unsubscribe.complete();
+	}
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ChoosePlaylistData>>): void {
 		this.data = options.data;

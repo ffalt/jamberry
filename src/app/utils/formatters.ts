@@ -46,7 +46,7 @@ export function formatFileSize(value?: number | string): string {
 	}
 	let val = Number(value);
 	let i = -1;
-	const byteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
+	const byteUnits = [' kB', ' MB', ' GB', ' TB', ' PB', ' EB', ' ZB', ' YB'];
 	do {
 		val = val / 1024;
 		i++;

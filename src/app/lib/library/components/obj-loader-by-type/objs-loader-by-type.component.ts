@@ -30,7 +30,7 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	protected readonly playlistService = inject(PlaylistService);
 	protected readonly podcastService = inject(PodcastService);
 	private readonly unsubscribe = new Subject<void>();
-	private readonly unsubscribeRefresh = new Subject<void>();
+	private unsubscribeRefresh = new Subject<void>();
 
 	ngOnInit(): void {
 		this.subscribe_to_url();
@@ -169,6 +169,7 @@ export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {
 	private setupChangeListener(changeObservable: Subject<any>): void {
 		this.unsubscribeRefresh.next();
 		this.unsubscribeRefresh.complete();
+		this.unsubscribeRefresh = new Subject<void>();
 		changeObservable
 			.pipe(takeUntil(this.unsubscribeRefresh))
 			.subscribe(() => {

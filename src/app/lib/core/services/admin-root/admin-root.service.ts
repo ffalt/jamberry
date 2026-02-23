@@ -40,6 +40,7 @@ export class AdminRootService implements OnDestroy {
 			})
 			.catch((error: unknown) => {
 				console.error('error while polling root scan status', error);
+				cb(false);
 			});
 	});
 
