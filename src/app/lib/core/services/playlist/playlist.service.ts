@@ -55,7 +55,7 @@ export class PlaylistService {
 	}
 
 	removeFromPlaylist(playlist: Jam.Playlist, removeTrackIDs: Array<string>): void {
-		const trackIDs = (playlist.entries ?? []).map(entry => entry.id).filter(t => removeTrackIDs.includes(t));
+		const trackIDs = (playlist.entries ?? []).map(entry => entry.id).filter(t => !removeTrackIDs.includes(t));
 		this.savePlaylist(playlist, trackIDs);
 	}
 
