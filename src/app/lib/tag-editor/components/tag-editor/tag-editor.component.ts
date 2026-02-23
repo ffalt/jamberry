@@ -175,6 +175,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	chooseColumns(): void {
 		if (this.isSaving) {
 			this.notify.error(new Error('Saving is in progress'));
+			return;
 		}
 		const data = { columns: this.editor.columns, resultColumns: [] };
 		this.dialogOverlay.open<SelectColumns>({
@@ -202,6 +203,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		}
 		if (!this.canDeactivate()) {
 			this.notify.error(new Error('Saving is in progress'));
+			return;
 		}
 		const matching: ReleaseMatching = {
 			folder: this.folder,
@@ -269,7 +271,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	private onCellEditorNavigationKeyDownLeftRight(data: { cell: RawTagEditCell<any>; event: KeyboardEvent }) {
-		const nextcell = data.cell.parent.cells.at(data.cell.parent.cells.indexOf(data.cell) + (isRightArrowKey(data.event) ? 1 : -1));
+		const nextIndex = data.cell.parent.cells.indexOf(data.cell) + (isRightArrowKey(data.event) ? 1 : -1);
+		const nextcell = nextIndex >= 0 ? data.cell.parent.cells.at(nextIndex) : undefined;
 		if (nextcell) {
 			const nexteditor = this.cellEditors().find(editor => editor.cell() === nextcell);
 			if (nexteditor) {
@@ -282,7 +285,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 
 	private onCellEditorNavigationKeyDownUpDown(data: { cell: RawTagEditCell<any>; event: KeyboardEvent }) {
 		const rowIndex = this.editor.edits.indexOf(data.cell.parent);
-		const nextrow = this.editor.edits.at(rowIndex + (isDownArrowKey(data.event) ? 1 : -1));
+		const nextRowIndex = rowIndex + (isDownArrowKey(data.event) ? 1 : -1);
+		const nextrow = nextRowIndex >= 0 ? this.editor.edits.at(nextRowIndex) : undefined;
 		if (nextrow) {
 			const nextcell = nextrow.cells.at(data.cell.parent.cells.indexOf(data.cell));
 			if (nextcell) {
