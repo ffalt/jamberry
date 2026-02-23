@@ -120,7 +120,8 @@ export class HotkeysService {
 		const index: number = this.pausedHotkeys.indexOf(hotkey);
 		if (index !== -1) {
 			this.add(hotkey);
-			return this.pausedHotkeys.splice(index, 1);
+			this.pausedHotkeys.splice(index, 1);
+			return hotkey;
 		}
 		return;
 	}
