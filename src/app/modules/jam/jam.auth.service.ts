@@ -13,7 +13,6 @@ export interface Auth {
 	session: boolean;
 	token?: string;
 	version?: string;
-	password?: string;
 }
 
 @Injectable()
@@ -64,7 +63,7 @@ export class JamAuthService {
 		return (data.allowedCookieDomains ?? []).includes(this.configuration.domain());
 	}
 
-	async login(server: string, username: string, password: string, storePassword?: boolean): Promise<void> {
+	async login(server: string, username: string, password: string): Promise<void> {
 		const canUseSession = await this.canUseSession(server);
 		try {
 			const data = await this.http.post<Jam.Session>(`${server}${JamAuthService.apiPrefix}/auth/login`, {
@@ -82,8 +81,7 @@ export class JamAuthService {
 				username: data.user.name,
 				session: canUseSession,
 				token: canUseSession ? undefined : data.jwt,
-				version: data.version,
-				password: storePassword ? password : undefined
+				version: data.version
 			};
 			await this.configuration.toStorage({ auth: this.auth, user: this.user });
 			await this.configuration.userChangeNotify(this.user);
@@ -104,27 +102,13 @@ export class JamAuthService {
 				return Promise.reject(new Error(error.error.error));
 			}
 			if (error instanceof HttpErrorResponse) {
-				return Promise.reject(new Error(this.getHttpErrorMessage(error)));
+				return Promise.reject(new Error(error.message || `HTTP error ${error.status}`));
 			}
 			if (error instanceof Error && error.message) {
 				return Promise.reject(new Error(error.message));
 			}
 			return Promise.reject(new Error('Server Error'));
 		}
-	}
-
-	getHttpErrorMessage(error: HttpErrorResponse): string {
-		if (
-			error.error !== null &&
-			typeof error.error === 'object' &&
-			'error' in error.error
-		) {
-			const errorObj = error.error as Record<string, unknown>;
-			if (typeof errorObj.error === 'string') {
-				return errorObj.error;
-			}
-		}
-		return `HTTP Error ${error.status}`;
 	}
 
 	getHTTPHeaders(): HttpHeaders | undefined {
