@@ -526,7 +526,7 @@ export class PlayerService implements OnDestroy {
 		this.soundPlayer.on(PlayerEvents.TIME, (time: number) => {
 			this.currentTime = time;
 			this.totalTime = this.soundPlayer.duration();
-			if (!this.scrobbled && this.currentMedia?.id) {
+			if (!this.scrobbled && this.currentMedia?.id && this.totalTime > 0) {
 				const playTime = this.scrobbleWatch.time();
 				const scrobbleTime = Math.min(this.totalTime / 2, 4 * 60 * 60 * 1000);
 				if (scrobbleTime > 0 && playTime >= scrobbleTime) {
