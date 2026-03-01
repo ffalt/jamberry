@@ -75,7 +75,17 @@ export class PlayerService implements OnDestroy {
 	}
 
 	play(media: Jam.MediaBase, addToQueue = false, startSeek?: number, paused?: boolean): void {
-		if (startSeek === undefined && this.isPlaying && this.currentMedia?.id === media.id) {
+		if (this.currentMedia?.id === media.id) {
+			if (startSeek !== undefined) {
+				this.seek(startSeek);
+			}
+			if (paused !== undefined) {
+				if (paused) {
+					this.soundPlayer.pause();
+				} else {
+					this.soundPlayer.play();
+				}
+			}
 			return;
 		}
 		if (addToQueue) {
