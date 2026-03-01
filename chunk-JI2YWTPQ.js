@@ -1,2 +1,0 @@
-import{Pc as r,nb as n,pc as o,rc as i}from"./chunk-XLNNDSL4.js";var d=(()=>{class t{constructor(){this.text=r()}static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275cmp=n({type:t,selectors:[["app-background-text"]],inputs:{text:[1,"text"]},decls:1,vars:1,template:function(e,a){e&1&&o(0),e&2&&i("[",a.text(),`]
-`)},styles:["[_nghost-%COMP%]{margin-top:30px;margin-bottom:30px;text-align:center;font-size:1.6em;-webkit-user-select:none;user-select:none;cursor:default;color:var(--on-background);opacity:.7;display:block}"]})}}return t})();export{d as a};

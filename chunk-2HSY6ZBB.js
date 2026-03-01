@@ -1,0 +1,1 @@
+import{pb as e}from"./chunk-S3YUDFSI.js";var s=(()=>{class t{transform(r){return r===void 0||r.length===0?"":r.map(i=>i.name+(i.joinphrase||" ")).join("").trim()}static{this.\u0275fac=function(i){return new(i||t)}}static{this.\u0275pipe=e({name:"mbArtistCredits",type:t,pure:!0})}}return t})();export{s as a};
