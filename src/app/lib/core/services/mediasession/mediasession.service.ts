@@ -31,7 +31,11 @@ export class MediaSessionService {
 				album: media.tag ? media.tag.album : undefined,
 				artwork
 			};
-			this.mediaSession.metadata = new MediaMetadata(state);
+			try {
+				this.mediaSession.metadata = new MediaMetadata(state);
+			} catch (error) {
+				console.error('MediaSession metadata error', error);
+			}
 		}
 	}
 
