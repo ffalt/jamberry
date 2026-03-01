@@ -125,9 +125,15 @@ export class QueueService {
 	}
 
 	shuffle(): void {
+		const currentMedia = this.getCurrent();
 		for (let i = this.entries.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
 			[this.entries[i], this.entries[j]] = [this.entries[j], this.entries[i]];
+		}
+		if (currentMedia) {
+			this.setIndexByTrack(currentMedia);
+		} else {
+			this.currentIndex = -1;
 		}
 		this.publishChanges();
 	}
