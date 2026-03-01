@@ -65,6 +65,7 @@ export class PlayerService implements OnDestroy {
 	}
 
 	ngOnDestroy(): void {
+		this.stopPositionStore();
 		this.unsubscribe.next();
 		this.unsubscribe.complete();
 	}
