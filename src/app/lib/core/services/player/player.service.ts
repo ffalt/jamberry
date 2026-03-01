@@ -97,6 +97,9 @@ export class PlayerService implements OnDestroy {
 			this.currentTrack = media as Jam.Track;
 		}
 		this.soundPlayer.initialize(media, startSeek, !!paused, error => {
+			if (this.currentMedia?.id !== media.id) {
+				return;
+			}
 			if (error) {
 				this.notify.error(error);
 			} else {
