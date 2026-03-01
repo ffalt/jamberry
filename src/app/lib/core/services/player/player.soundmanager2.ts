@@ -13,6 +13,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	private lastMedia?: Jam.MediaBase;
 	private volume: number = 50;
 	private isMute: boolean = false;
+	private lastTimeUpdate = 0;
 
 	constructor(private readonly jam: JamService) {
 	}
@@ -72,8 +73,12 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 				this.publish(PlayerEvents.FINISH);
 			},
 			whileplaying: () => {
-				const time = this.position();
-				this.publish(PlayerEvents.TIME, time);
+				const now = Date.now();
+				if (now - this.lastTimeUpdate > 500) {
+					this.lastTimeUpdate = now;
+					const time = this.position();
+					this.publish(PlayerEvents.TIME, time);
+				}
 			}
 		});
 	}
