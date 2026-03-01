@@ -76,8 +76,8 @@ export class TabPortalOutlet {
 	}
 
 	/** Gets the root HTMLElement for an instantiated component. */
-	private static getComponentRootNode(componentRef: ComponentRef<any>): HTMLElement {
-		return (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+	private static getComponentRootNode(componentRef: ComponentRef<unknown>): HTMLElement {
+		return (componentRef.hostView as EmbeddedViewRef<unknown>).rootNodes[0] as HTMLElement;
 	}
 
 	private activateInstance(tab: TabInterface): ActiveTabInterface | undefined {

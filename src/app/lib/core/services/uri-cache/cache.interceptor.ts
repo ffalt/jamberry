@@ -7,7 +7,7 @@ import { CacheService } from './cache.service';
 export class CacheInterceptor implements HttpInterceptor {
 	private readonly cacheService = inject(CacheService);
 
-	intercept(httpRequest: HttpRequest<any>, handler: HttpHandler): Observable<HttpEvent<any>> {
+	intercept(httpRequest: HttpRequest<unknown>, handler: HttpHandler): Observable<HttpEvent<unknown>> {
 		return this.cacheService.intercept(httpRequest, handler);
 	}
 }
