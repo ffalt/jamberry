@@ -50,9 +50,7 @@ export class PlayerService implements OnDestroy {
 		userStorage.userChange
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe((/* user */) => {
-				setTimeout(() => {
-					this.loadFromStorage();
-				}, 0);
+				this.loadFromStorage();
 			});
 		this.loadFromStorage();
 		this.queue.queueChange
