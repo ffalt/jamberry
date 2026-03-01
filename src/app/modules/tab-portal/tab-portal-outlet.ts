@@ -40,7 +40,10 @@ export class TabPortalOutlet {
 		const instance = this.activateInstance(tab);
 		// At this point the component has been instantiated, so we move it to the location in the DOM where we want it to be rendered.
 		const element = this.outletElement.element.nativeElement as HTMLElement;
-		element.innerHTML = '';
+		// Clear element content safely without using innerHTML
+		while (element.firstChild) {
+			element.firstChild.remove();
+		}
 		if (instance) {
 			element.append(TabPortalOutlet.getComponentRootNode(instance.componentRef));
 			this.curTab = instance;
