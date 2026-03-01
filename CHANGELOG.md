@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.3](https://github.com/ffalt/jamberry/compare/v0.6.2...v0.6.3) (2026-03-01)
+
+
+### Features
+
+* **csp:** add Content Security Policy meta tag to enhance security ([33ed404](https://github.com/ffalt/jamberry/commit/33ed40440d7488f9bbbefe15ac17b1452c5c7c7e))
+* **queue:** better shuffle ([6e6d4ce](https://github.com/ffalt/jamberry/commit/6e6d4cea933ac00f030382bf0e5ac8e38c19532c))
+
+
+### Bug Fixes
+
+* **artwork-edit:** validate blob URLs before trusting image cropper output ([874f983](https://github.com/ffalt/jamberry/commit/874f98356ce067611a1ee595fe1053e43b76b78c))
+* **auth,base:** remove password storage, simplify error handling and request building ([7b10daf](https://github.com/ffalt/jamberry/commit/7b10dafdecd43b1036dac531231ecf27c63b6d33))
+* **components:** implement proper cleanup in ngOnDestroy for multiple components ([476c40b](https://github.com/ffalt/jamberry/commit/476c40b1e2c2af513dabbe40b571e7a785b01b2f))
+* **contextmenu:** ensure proper overlay management and cleanup ([d67913f](https://github.com/ffalt/jamberry/commit/d67913fcee9fc43a487e4ca3db8d4144ece5a08f))
+* **dependencies:** update @angular/cdk to 21.1.6 and other Angular packages to 21.1.5 ([3b711d4](https://github.com/ffalt/jamberry/commit/3b711d460118f1d4aa0fce65a5bd64bcf5e03c43))
+* **dependencies:** update Angular packages and related dependencies to version 21.2.0 ([2296a89](https://github.com/ffalt/jamberry/commit/2296a89c091c1fc69aecc172af2b0f046108f137))
+* **hotkeys:** return hotkey after removing from pausedHotkeys ([3c8a8a7](https://github.com/ffalt/jamberry/commit/3c8a8a797a44f75c14a35b944c59c0ff4b30b4b1))
+* **login:** add credential validation for server URL, username, and password ([9800491](https://github.com/ffalt/jamberry/commit/98004912eb61f5ca7ef10922ddcfca53ef9ed94a))
+* **mediasession:** add error handling for MediaMetadata assignment ([4de1822](https://github.com/ffalt/jamberry/commit/4de1822ff2f5b8a1fc69f7e83149558f4b303b80))
+* **mediasession:** use mediaSession instance for setPositionState method ([21c66c0](https://github.com/ffalt/jamberry/commit/21c66c0b04a7bf407876c98854ce7d5079cb9fd5))
+* **player:** clear current media to prevent potential playback loops ([cdb3d45](https://github.com/ffalt/jamberry/commit/cdb3d45dac534e30703200cacff773ea18895c83))
+* **player:** improve song retrieval logic in togglePlayPause ([b63b34a](https://github.com/ffalt/jamberry/commit/b63b34a280cad2ba0af50d8bc1886128eacd4840))
+* **player:** prevent scrobbling when totalTime is zero ([cb62fe6](https://github.com/ffalt/jamberry/commit/cb62fe678656f2060d94238182218d434c8ba233))
+* **player:** prevent sound player initialization if media ID has changed ([a790d9d](https://github.com/ffalt/jamberry/commit/a790d9da4c61a0a70068058c39e151464ee8c4a6))
+* **player:** remove unnecessary setTimeout when loading from storage ([11b7dbb](https://github.com/ffalt/jamberry/commit/11b7dbb737392106e3bdcb0c3e2a72bf4473282b))
+* **player:** simplify play method logic for media playback control ([52ac875](https://github.com/ffalt/jamberry/commit/52ac875a672fd77974897dea98bcc95f24f17250))
+* **player:** stop position store on component destruction ([43ae578](https://github.com/ffalt/jamberry/commit/43ae578a5578c57fe35aba9a8762deaaf159e210))
+* **player:** throttle time updates during playback ([2be768a](https://github.com/ffalt/jamberry/commit/2be768ab61379caaea49ed8e0861873c702c780e))
+* **player:** unload last media only if the new track is different ([6ac9ff3](https://github.com/ffalt/jamberry/commit/6ac9ff331c63f597e1525207f6153fb97c3c002b))
+* **playlist:** correct track removal logic in removeFromPlaylist ([2320aef](https://github.com/ffalt/jamberry/commit/2320aef1238841a7518bca3cf49487223f1157f0))
+* **queue:** adjust currentIndex when removing a track from entries ([3f90d16](https://github.com/ffalt/jamberry/commit/3f90d1638398290229d60f0283172f9fa3e7f46a))
+* **queue:** optimize track addition with duplicate handling ([18febde](https://github.com/ffalt/jamberry/commit/18febde88abdb6a82476dda89f7a1d3076dafa39))
+* **queue:** reset current index after shuffling entries ([4646996](https://github.com/ffalt/jamberry/commit/4646996b45152a369a21007b6920a3f52970b0fb))
+* **tab-portal-outlet:** safely clear element content without using innerHTML ([f9acf24](https://github.com/ffalt/jamberry/commit/f9acf242e847f55f7b225c111a75815eb34b3735))
+* **tag-editor:** prevent actions during saving and improve navigation logic ([ea77d2f](https://github.com/ffalt/jamberry/commit/ea77d2f7a5add2ba9ab9a6c4303eefc75cc3acab))
+* **typing:** update parameter types from 'any' to 'unknown' in various services and interceptors ([322b430](https://github.com/ffalt/jamberry/commit/322b4304ae40fa4702c494607342177ab6172e2e))
+
 ## [0.6.2](https://github.com/ffalt/jamberry/compare/v0.6.1...v0.6.2) (2026-01-15)
 
 
