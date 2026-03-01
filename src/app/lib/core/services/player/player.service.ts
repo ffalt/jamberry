@@ -157,7 +157,7 @@ export class PlayerService implements OnDestroy {
 
 	togglePlayPause(): void {
 		if (this.currentMedia === undefined) {
-			const song = this.queue.next();
+			const song = this.queue.getCurrent() ?? this.queue.next();
 			if (song) {
 				this.play(song);
 			}
