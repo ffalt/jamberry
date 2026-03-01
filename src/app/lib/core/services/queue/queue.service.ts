@@ -111,7 +111,9 @@ export class QueueService {
 		const index = this.indexOfTrack(track.id);
 		if (index >= 0) {
 			this.entries.splice(index, 1);
-			if (this.currentIndex >= this.entries.length) {
+			if (index < this.currentIndex) {
+				this.currentIndex--;
+			} else if (this.currentIndex >= this.entries.length) {
 				this.currentIndex = this.entries.length - 1;
 			}
 			this.publishChanges();
