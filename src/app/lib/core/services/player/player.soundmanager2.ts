@@ -79,7 +79,9 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	initialize(track: Jam.MediaBase, startSeek: number | undefined, paused: boolean, callback: (e?: Error) => void): void {
-		this.unloadLast();
+		if (this.lastMedia?.id !== track.id) {
+			this.unloadLast();
+		}
 		let soundObject = soundManager.getSoundById(track.id);
 		if (!soundObject) {
 			soundObject = this.buildSoundObject(track, startSeek);
@@ -88,6 +90,8 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 				return;
 			}
 			this.lastMedia = track;
+		} else if (startSeek !== undefined) {
+			soundObject.setPosition(startSeek);
 		}
 		if (!paused) {
 			soundObject.play();
