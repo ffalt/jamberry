@@ -124,9 +124,9 @@ export class PlayerService implements OnDestroy {
 		if (!this.currentMedia) {
 			return;
 		}
+		const media = this.currentMedia;
+		this.currentMedia = undefined; // Clear current media to break potential loops if play fails
 		if (this.repeatTrack) {
-			const media = this.currentMedia;
-			this.currentMedia = undefined;
 			this.play(media);
 			return;
 		}
