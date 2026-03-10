@@ -40,13 +40,12 @@
     }
   },
   "overrides": {
-    "@conventional-changelog/git-client": "2.5.1",
     "minimatch": "10.2.2",
-    "tar": "7.5.9",
+		"tar": "7.5.11",
     "glob": "13.0.0"
   },
   "dependencies": {
-    "@angular/animations": "21.2.0",
+		"@angular/animations": "21.2.0",
     "@angular/cdk": "21.2.0",
     "@angular/common": "21.2.0",
     "@angular/compiler": "21.2.0",
@@ -76,7 +75,8 @@
     "@types/node": "25.3.3",
     "angular-eslint": "21.2.0",
     "baseline-browser-mapping": "2.10.0",
-    "conventional-changelog-cli": "5.0.0",
+    "conventional-changelog": "7.2.0",
+    "conventional-changelog-angular": "^8.3.0",
     "eslint": "9.39.2",
     "eslint-plugin-jest": "29.15.0",
     "eslint-plugin-rxjs-x": "0.9.1",
