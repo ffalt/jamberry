@@ -11,7 +11,22 @@ const jestConfig: Config = {
 	},
 	testPathIgnorePatterns: ['/local/', '/dist/'],
 	setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-	clearMocks: true
+	clearMocks: true,
+	collectCoverageFrom: [
+		'src/**/*.ts',
+		'!src/**/*.spec.ts',
+		'!src/app/app.mock.ts',
+		'!src/environments/**',
+		'!src/main.ts',
+		'!src/polyfills.ts'
+	],
+	coveragePathIgnorePatterns: [
+		'/node_modules/',
+		'<rootDir>/setup-jest.ts',
+		'<rootDir>/jest-global-mocks.ts',
+		'<rootDir>/src/app/app.mock.ts'
+	],
+	coverageProvider: 'v8'
 };
 
 export default jestConfig;

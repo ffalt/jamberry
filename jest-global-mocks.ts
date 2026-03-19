@@ -2,17 +2,20 @@ import { TextEncoder, TextDecoder } from 'node:util';
 
 Object.assign(globalThis, { TextDecoder, TextEncoder });
 
-Object.defineProperty(globalThis, 'CSS', { value: undefined });
-Object.defineProperty(document, 'doctype', { value: '<!DOCTYPE html>' });
+Object.defineProperty(globalThis, 'CSS', { value: undefined, writable: true, configurable: true });
+Object.defineProperty(document, 'doctype', { value: '<!DOCTYPE html>', writable: true, configurable: true });
 Object.defineProperty(globalThis, 'getComputedStyle', {
 	value: () => ({
 		display: 'none',
 		appearance: ['-webkit-appearance']
-	})
+	}),
+	writable: true,
+	configurable: true
 });
 
 Object.defineProperty(URL, 'createObjectURL', {
 	writable: true,
+	configurable: true,
 	value: jest.fn()
 });
 
@@ -26,11 +29,11 @@ const mockBrowser = () => {
 	};
 };
 
-Object.defineProperty(globalThis, 'localStorage', { value: mockBrowser() });
-Object.defineProperty(globalThis, 'sessionStorage', { value: mockBrowser() });
-Object.defineProperty(globalThis, 'getComputedStyle', { value: () => ['-webkit-appearance'] });
+Object.defineProperty(globalThis, 'localStorage', { value: mockBrowser(), writable: true, configurable: true });
+Object.defineProperty(globalThis, 'sessionStorage', { value: mockBrowser(), writable: true, configurable: true });
 Object.defineProperty(globalThis, 'matchMedia', {
 	writable: true,
+	configurable: true,
 	value: (query: string) => ({
 		matches: false,
 		media: query,
