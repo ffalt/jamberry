@@ -1621,7 +1621,7 @@ export declare namespace JamParameters {
 		 * maximal bitrate if transcoding (in Kbps)
 		 * @TJS-type integer
 		 * @minimum 10
-		 * @maximum 480
+		 * @maximum 320
 		 */
 		maxBitRate?: number;
 		/** format of the audio */
