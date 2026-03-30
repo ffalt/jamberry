@@ -27,8 +27,6 @@ export class HotkeysService {
 		this.remove(hotkey);
 		this.hotkeys.push(hotkey);
 		const mousetrapFN = (event: KeyboardEvent, combo: string): any => {
-			let shouldExecute = true;
-
 			// if the callback is executed directly `hotkey.get('w').callback()`
 			// there will be no event, so just execute the callback.
 			const target = event.target as Element | null | undefined;
@@ -38,7 +36,7 @@ export class HotkeysService {
 			const nodeName: string = target.nodeName.toUpperCase();
 			// check if the input has a mousetrap class, and skip checking preventIn if so
 			// don't execute callback if the event was fired from inside an element listed in preventIn but not in allowIn
-			shouldExecute =
+			const shouldExecute =
 				(` ${target.className} `).includes(' mousetrap ') ||
 				!(
 					this.preventIn.includes(nodeName) &&
