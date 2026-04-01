@@ -20,5 +20,5 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-ci-${{ hashFiles('**/package-lock.json') }}
-      - run: npm install
+      - run: npm ci
       - run: npm run test

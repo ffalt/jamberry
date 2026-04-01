@@ -63,7 +63,7 @@ const commonTSRules = {
 	"@typescript-eslint/no-require-imports": "error",
 	"@typescript-eslint/no-this-alias": "error",
 	"@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
-	"@typescript-eslint/no-unnecessary-type-arguments": "error",
+	"@typescript-eslint/no-unnecessary-type-arguments": "off",
 	"@typescript-eslint/no-unnecessary-type-assertion": "off",
 	"@typescript-eslint/no-unused-expressions": ["error", {allowShortCircuit: true}],
 	"@typescript-eslint/no-useless-constructor": "error",
