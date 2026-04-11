@@ -17,6 +17,16 @@
 
 	.image {
 		width: 100%;
+		position: relative;
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background-color: rgba(0, 0, 0, 0);
+			transition: background-color 0.3s;
+			pointer-events: none;
+		}
 	}
 
 	.fav, .date, .more {
@@ -33,11 +43,15 @@
 		position: absolute;
 		left: 50%;
 		top: 50%;
-		transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%) scale(0.85);
 		visibility: hidden;
 		opacity: 0;
-		transition-property: opacity, visibility;
-		transition-duration: 0.3s;
+		transition-property: opacity, visibility, transform;
+		transition-duration: 0.25s;
+		z-index: 1;
+		border-radius: 24px;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.4);
+		white-space: nowrap;
 	}
 
 	.date {
@@ -84,6 +98,11 @@
 		.play {
 			visibility: unset;
 			opacity: 1;
+			transform: translate(-50%, -50%) scale(1);
+		}
+
+		.image::after {
+			background-color: rgba(0, 0, 0, 0.3);
 		}
 	}
 
@@ -93,10 +112,6 @@
 
 		a {
 			color: var(--on-background-highlight);
-
-			&:hover {
-				color: var(--on-background);
-			}
 		}
 	}
 
