@@ -80,6 +80,7 @@ export const catppuccinTheme: Theme = {
 		'--on-accent': '#fff',
 
 		'--scrollbar': '#575757',
-		'--dialog-backdrop': ' rgba(255, 255, 255, 0.6)'
+		'--dialog-backdrop': ' rgba(255, 255, 255, 0.6)',
+		'--dropdown-shadow': '0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 10px 24px -2px rgba(0, 0, 0, 0.35)'
 	}
 };

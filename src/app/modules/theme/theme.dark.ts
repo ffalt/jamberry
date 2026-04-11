@@ -47,6 +47,7 @@ export const darkTheme: Theme = {
 		'--on-accent': '#fff',
 
 		'--scrollbar': '#858585',
-		'--dialog-backdrop': 'rgba(0, 0, 0, 0.6)'
+		'--dialog-backdrop': 'rgba(0, 0, 0, 0.6)',
+		'--dropdown-shadow': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 10px 24px -2px rgba(0, 0, 0, 0.4)'
 	}
 };

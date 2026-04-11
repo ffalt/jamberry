@@ -47,6 +47,7 @@ export const lightTheme: Theme = {
 		'--on-accent': '#fff',
 
 		'--scrollbar': '#575757',
-		'--dialog-backdrop': ' rgba(255, 255, 255, 0.6)'
+		'--dialog-backdrop': ' rgba(255, 255, 255, 0.6)',
+		'--dropdown-shadow': '0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.12)'
 	}
 };
