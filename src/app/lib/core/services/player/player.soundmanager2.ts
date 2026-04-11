@@ -87,25 +87,27 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 		if (this.lastMedia?.id !== track.id) {
 			this.unloadLast();
 		}
-		let soundObject = soundManager.getSoundById(track.id);
-		if (!soundObject) {
-			soundObject = this.buildSoundObject(track, startSeek);
+		soundManager.onready(() => {
+			let soundObject = soundManager.getSoundById(track.id);
 			if (!soundObject) {
-				callback(new Error('Soundplayer could not be initialized.'));
-				return;
+				soundObject = this.buildSoundObject(track, startSeek);
+				if (!soundObject) {
+					callback(new Error('Soundplayer could not be initialized.'));
+					return;
+				}
+				this.lastMedia = track;
+			} else if (startSeek !== undefined) {
+				soundObject.setPosition(startSeek);
 			}
-			this.lastMedia = track;
-		} else if (startSeek !== undefined) {
-			soundObject.setPosition(startSeek);
-		}
-		if (!paused) {
-			soundObject.play();
-		}
-		this.soundObject = soundObject;
-		this.publish(PlayerEvents.TRACK, track);
-		this.publish(PlayerEvents.SPEED, this.speed());
-		this.publish(PlayerEvents.VOLUME, this.getVolume());
-		callback();
+			if (!paused) {
+				soundObject.play();
+			}
+			this.soundObject = soundObject;
+			this.publish(PlayerEvents.TRACK, track);
+			this.publish(PlayerEvents.SPEED, this.speed());
+			this.publish(PlayerEvents.VOLUME, this.getVolume());
+			callback();
+		});
 	}
 
 	isMuted(): boolean {

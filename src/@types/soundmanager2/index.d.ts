@@ -106,13 +106,15 @@ declare module 'soundmanager2' {
 		flash9Options?: Flash9Options;
 		movieStarOptions?: MovieStarOptions;
 
-		onready?(): void;
+		onready?: (() => void) | ((callback: () => void, scope?: object) => boolean);
 
 		ontimeout?(): void;
 	}
 
-	export interface SoundManager extends SoundManagerProps {
+	export interface SoundManager extends Omit<SoundManagerProps, 'onready'> {
 		audioFormats?: { [audioFormat: string]: SoundManagerAudioFormat };
+
+		onready(callback?: () => void, scope?: object): boolean | void;
 
 		canPlayLink(domElement: HTMLElement): boolean;
 
