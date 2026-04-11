@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.4](https://github.com/ffalt/jamberry/compare/v0.6.3...v0.6.4) (2026-04-11)
+
+
+### Features
+
+* **base:** enhance menu UI with improved layout and styling ([c2a84f7](https://github.com/ffalt/jamberry/commit/c2a84f70b49a9690176e5565dee6a6d1f9a86f0e))
+* **cards:** enhance card image styles with improved hover effects and transitions ([16fdf70](https://github.com/ffalt/jamberry/commit/16fdf709dc4dda535c4c6a8b77b43219986214d9))
+* **login:** enhance login UI with improved layout and styling ([437e897](https://github.com/ffalt/jamberry/commit/437e8977a37a35e80eba86cb492625cdb9aee81a))
+* **login:** improve login component styles and add logged-in class for better layout ([3c9463d](https://github.com/ffalt/jamberry/commit/3c9463d02fe3574ea9c2359bd1a76e1e675980ed))
+* **styles:** update border radius and input styles for improved UI consistency ([b4d44fc](https://github.com/ffalt/jamberry/commit/b4d44fc44d0bd606e12f3bf1978ce483cd0908eb))
+
 ## [0.6.3](https://github.com/ffalt/jamberry/compare/v0.6.2...v0.6.3) (2026-03-01)
 
 
