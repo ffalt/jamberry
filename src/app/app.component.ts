@@ -22,6 +22,7 @@ import { MainTabsService } from './lib/main-tabs/services/main-tabs.service';
 	styleUrls: ['./app.component.scss'],
 	host: {
 		'[class.expand]': 'expandBody',
+		'[class.logged-in]': '!!auth.user',
 		'(window:scroll)': 'scrollTrack()',
 		'(window:resize)': 'resize()'
 	},

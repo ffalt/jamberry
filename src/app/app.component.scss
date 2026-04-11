@@ -144,9 +144,12 @@
 			z-index: 10;
 		}
 		.app-content {
-			margin-top: variables.$header-height;
 			height: auto;
 			min-height: calc(100% - #{variables.$content-margins});
+		}
+
+		&.logged-in .app-content {
+			margin-top: variables.$header-height;
 		}
 
 		.app-content.player-active {
