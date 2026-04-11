@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-		"baseUrl": "./",
     "declaration": false,
 		"emitDecoratorMetadata": false,
 		"esModuleInterop": true,
@@ -34,16 +33,16 @@
     ],
     "paths": {
       "@core/*": [
-        "src/app/lib/core/*"
+        "./src/app/lib/core/*"
       ],
       "@modules/*": [
-        "src/app/modules/*"
+        "./src/app/modules/*"
       ],
       "@utils/*": [
-        "src/app/utils/*"
+        "./src/app/utils/*"
       ],
       "@jam": [
-        "src/app/modules/jam/index.ts"
+        "./src/app/modules/jam/index.ts"
       ]
     }
   },
