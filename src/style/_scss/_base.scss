@@ -206,10 +206,10 @@ a {
 
 select {
 	border-radius: variables.$border-radius;
+	border-color: var(--control-box-border);
 	background-color: var(--control);
 	color: var(--on-control);
 	min-width: 64px;
-	border-color: var(--control-box-border);
 	border-width: 1px;
 }
 
@@ -338,4 +338,10 @@ button {
 	&:focus {
 		outline: 1px dotted var(--control-box-border);
 	}
+}
+
+fieldset {
+	border-radius: variables.$border-radius;
+	border-color: var(--control-box-border);
+	padding: 0.35em 0.75em;
 }

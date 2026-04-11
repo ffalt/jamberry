@@ -31,10 +31,10 @@ export const blackTheme: Theme = {
 		'--on-control-ambient-hover': '#fff',
 		'--on-control-ambient-disabled': '#575757',
 
-		'--input': '#fff',
-		'--input-border': '#fff',
-		'--on-input': '#000',
-		'--on-input-hover': '#C8C8C8',
+		'--input': '#1a1a1a',
+		'--input-border': '#3d3d3d',
+		'--on-input': '#e8e8e8',
+		'--on-input-hover': '#fff',
 
 		'--primary': '#008300',
 		'--on-primary': '#fff',
