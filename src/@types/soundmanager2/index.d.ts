@@ -114,7 +114,7 @@ declare module 'soundmanager2' {
 	export interface SoundManager extends Omit<SoundManagerProps, 'onready'> {
 		audioFormats?: { [audioFormat: string]: SoundManagerAudioFormat };
 
-		onready(callback?: () => void, scope?: object): boolean | void;
+		onready(callback?: () => void, scope?: object): boolean | undefined;
 
 		canPlayLink(domElement: HTMLElement): boolean;
 
