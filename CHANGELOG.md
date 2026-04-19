@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.5](https://github.com/ffalt/jamberry/compare/v0.6.4...v0.6.5) (2026-04-19)
+
+
+### Features
+
+* **soundmanager:** use onready method to support callback and scope ([3732975](https://github.com/ffalt/jamberry/commit/3732975aa5da59af82962645544f96f3f155b670))
+
 ## [0.6.4](https://github.com/ffalt/jamberry/compare/v0.6.3...v0.6.4) (2026-04-11)
 
 
