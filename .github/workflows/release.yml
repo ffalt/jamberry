@@ -61,4 +61,4 @@ jobs:
           gh release create "${GITHUB_REF_NAME}" \
             --title "${GITHUB_REF_NAME}" \
             --notes-file ./RELEASELOG.md \
-            ./jamberry-release.zip
+            ./dist/jamberry-release.zip
