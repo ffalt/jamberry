@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.6](https://github.com/ffalt/jamberry/compare/v0.6.5...v0.6.6) (2026-05-07)
+
 ## [0.6.5](https://github.com/ffalt/jamberry/compare/v0.6.4...v0.6.5) (2026-04-19)
 
 
