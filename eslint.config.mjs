@@ -277,7 +277,8 @@ export default ts.config(
 		},
 		rules: {
 			...commonRules,
-			...commonUnicornRules
+			...commonUnicornRules,
+			"unicorn/prefer-top-level-await": "off"
 		}
 	},
 	{
