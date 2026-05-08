@@ -29,6 +29,8 @@ export enum FrameType {
 	CTOC,
 	CHAP,
 	Bool,
+	LangText,
+	PRIV,
 	Unknown
 }
 
@@ -421,7 +423,7 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 	'PRI': {
 		title: 'Private frame',
 		versions: [2],
-		impl: FrameType.IdBin,
+		impl: FrameType.PRIV,
 		upgrade: 'PRIV'
 	},
 	'TCP': {
@@ -917,7 +919,7 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 	'USER': {
 		title: 'Terms of use',
 		versions: [3, 4],
-		impl: FrameType.Unknown
+		impl: FrameType.LangText
 	},
 	'OWNE': {
 		title: 'Ownership',
@@ -942,7 +944,7 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 	'PRIV': {
 		title: 'Private frame',
 		versions: [3, 4],
-		impl: FrameType.IdBin
+		impl: FrameType.PRIV
 	},
 	'IPLS': {
 		title: 'Involved people list',
@@ -997,7 +999,7 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 	'TKWD': {
 		title: 'iTunes podcast keywords',
 		versions: [3, 4],
-		impl: FrameType.Unknown
+		impl: FrameType.Text
 	},
 	'TGID': {
 		title: 'Podcast URL',
@@ -1016,6 +1018,16 @@ export const FrameDefs: { [id: string]: FrameDef } = {
 	},
 	'GRP1': {
 		title: 'Group Number',
+		versions: [3, 4],
+		impl: FrameType.Text
+	},
+	'MVNM': {
+		title: 'Movement',
+		versions: [3, 4],
+		impl: FrameType.Text
+	},
+	'MVIN': {
+		title: 'Movement Number/Total',
 		versions: [3, 4],
 		impl: FrameType.Text
 	},

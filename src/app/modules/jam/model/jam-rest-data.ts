@@ -1117,6 +1117,13 @@ export declare namespace Jam {
 	}
 
 	/*
+	 * Media Raw Tag LangText Frame
+	 */
+	export interface MediaTagRawFrameLangText extends MediaTagRawFrame {
+		value: MediaTagRawLangText;
+	}
+
+	/*
 	 * Media Raw Tag Link Frame
 	 */
 	export interface MediaTagRawFrameLink extends MediaTagRawFrame {
@@ -1142,6 +1149,13 @@ export declare namespace Jam {
 	 */
 	export interface MediaTagRawFramePopularimeter extends MediaTagRawFrame {
 		value: MediaTagRawPopularimeter;
+	}
+
+	/*
+	 * Media Raw Tag Priv Frame
+	 */
+	export interface MediaTagRawFramePriv extends MediaTagRawFrame {
+		value: MediaTagRawPriv;
 	}
 
 	/*
@@ -1263,7 +1277,7 @@ export declare namespace Jam {
 		/** Frames */
 		PRI?: Array<MediaTagRawFrameIdBin>;
 		/** Frames */
-		PRIV?: Array<MediaTagRawFrameIdBin>;
+		PRIV?: Array<MediaTagRawFramePriv>;
 		/** Frames */
 		RBUF?: Array<MediaTagRawFrameBin>;
 		/** Frames */
@@ -1283,7 +1297,7 @@ export declare namespace Jam {
 		/** Frames */
 		SIGN?: Array<MediaTagRawFrameBin>;
 		/** Frames */
-		SLT?: Array<MediaTagRawFrameSynchronisedLyricsEvent>;
+		SLT?: Array<MediaTagRawFrameSynchronisedLyrics>;
 		/** Frames */
 		STC?: Array<MediaTagRawFrameBin>;
 		/** Frames */
@@ -1367,7 +1381,7 @@ export declare namespace Jam {
 		/** Frames */
 		TKEY?: Array<MediaTagRawFrameText>;
 		/** Frames */
-		TKWD?: Array<MediaTagRawFrameBin>;
+		TKWD?: Array<MediaTagRawFrameText>;
 		/** Frames */
 		TLA?: Array<MediaTagRawFrameText>;
 		/** Frames */
@@ -1501,7 +1515,7 @@ export declare namespace Jam {
 		/** Frames */
 		ULT?: Array<MediaTagRawFrameLangDescText>;
 		/** Frames */
-		USER?: Array<MediaTagRawFrameBin>;
+		USER?: Array<MediaTagRawFrameLangText>;
 		/** Frames */
 		USLT?: Array<MediaTagRawFrameLangDescText>;
 		/** Frames */
@@ -1539,7 +1553,7 @@ export declare namespace Jam {
 		/** Frames */
 		WXX?: Array<MediaTagRawFrameIdText>;
 		/** Frames */
-		WXXX?: Array<MediaTagRawFrameText>;
+		WXXX?: Array<MediaTagRawFrameIdText>;
 		/** Frames */
 		XDOR?: Array<MediaTagRawFrameText>;
 		/** Frames */
@@ -1604,6 +1618,11 @@ export declare namespace Jam {
 		text: string;
 	}
 
+	export interface MediaTagRawLangText {
+		language: string;
+		text: string;
+	}
+
 	export interface MediaTagRawLink {
 		url: string;
 		id: string;
@@ -1630,6 +1649,15 @@ export declare namespace Jam {
 		rating: number;
 		/** @TJS-type integer */
 		count: number;
+	}
+
+	export interface MediaTagRawPriv {
+		id: string;
+		bin?: string;
+		/** @TJS-type integer */
+		num?: number;
+		guid?: string;
+		text?: string;
 	}
 
 	export interface MediaTagRawReplayGainAdjustment {

@@ -88,7 +88,25 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		return `Binary ${(frame.value.bin.length)} bytes`;
 	}
 
+	private static privFrameToString(frame: Jam.MediaTagRawFramePriv): string {
+		const v = frame.value;
+		if (v.guid !== undefined) {
+			return v.guid;
+		}
+		if (v.num !== undefined) {
+			return `${v.num}`;
+		}
+		if (v.text !== undefined) {
+			return v.text;
+		}
+		return `Binary ${v.bin?.length ?? 0} bytes`;
+	}
+
 	private static langDescFrameToString(frame: Jam.MediaTagRawFrameLangDescText): string {
+		return frame.value.text;
+	}
+
+	private static langTextFrameToString(frame: Jam.MediaTagRawFrameLangText): string {
 		return frame.value.text;
 	}
 
@@ -257,6 +275,9 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			case FrameType.LangDescText: {
 				return CellEditorComponent.langDescFrameToString(frame);
 			}
+			case FrameType.LangText: {
+				return CellEditorComponent.langTextFrameToString(frame);
+			}
 			case FrameType.IdText: {
 				return CellEditorComponent.idTextFrameToString(frame);
 			}
@@ -268,6 +289,9 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			}
 			case FrameType.IdBin: {
 				return CellEditorComponent.idBinFrameToString(frame);
+			}
+			case FrameType.PRIV: {
+				return CellEditorComponent.privFrameToString(frame);
 			}
 			case FrameType.GEOB: {
 				return CellEditorComponent.geobFrameToString(frame);
