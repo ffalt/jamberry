@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.7](https://github.com/ffalt/jamberry/compare/v0.6.6...v0.6.7) (2026-05-08)
+
+
+### Features
+
+* **tag-editor:** add support for new ID3v2 frame types ([bcc5455](https://github.com/ffalt/jamberry/commit/bcc545512be97a5f0856432bf52b985b26c4630f))
+
+
+### Bug Fixes
+
+* **column-tool:** add spacing after "Current Column:" label ([11d1697](https://github.com/ffalt/jamberry/commit/11d16973b7a139bf3eb2dba194bd9428544d6c6a))
+* **tag-editor:** handle search errors in match-coverart component ([c70ddd2](https://github.com/ffalt/jamberry/commit/c70ddd21a1dafa494eea1e60fb5597dc014e8e80))
+
 ## [0.6.6](https://github.com/ffalt/jamberry/compare/v0.6.5...v0.6.6) (2026-05-07)
 
 ## [0.6.5](https://github.com/ffalt/jamberry/compare/v0.6.4...v0.6.5) (2026-04-19)
