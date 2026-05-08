@@ -9,7 +9,13 @@
 	@if (isImageSearchRunning) {
 		<i class="icon-spin icon-spinner"></i>
 	}
-	@if (images && !isImageSearchRunning) {
+	@if (error) {
+		<div class="search-error">
+			<span>{{ error }}</span>
+			<button class="button-on-control" (click)="retry()" i18n>Retry</button>
+		</div>
+	}
+	@if (images && !isImageSearchRunning && !error) {
 		<div class="match-images">
 			<app-background-text-list name="Images" [list]="images" />
 			<div class="media-cards">

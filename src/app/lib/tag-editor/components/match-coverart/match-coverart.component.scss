@@ -24,6 +24,15 @@
 		font-size: 0.8em;
 	}
 
+	.search-error {
+		display: flex;
+		align-items: center;
+		gap: variables.$padding-sm;
+		color: var(--accent);
+		font-size: 0.8em;
+		padding: variables.$padding-sm 0;
+	}
+
 	.match-images {
 		min-height: 200px;
 		@include cards.media-cards();

@@ -5,6 +5,7 @@ import { type CoverArtArchive, CoverArtArchiveLookupType, JamService } from '@ja
 import { type Base64Image, ImageBase64Component } from '../image-base64/image-base64.component';
 import { FormsModule } from '@angular/forms';
 import { BackgroundTextListComponent } from '@core/components/background-text-list/background-text-list.component';
+import { serverErrorMsg } from '@utils/errors';
 
 export interface MatchImageSearch {
 	mbReleaseID: string;
@@ -30,18 +31,25 @@ export class MatchCoverartComponent implements OnChanges {
 	showFrontImagesOnly: boolean = true;
 	images?: Array<MatchImageNode>;
 	coverArtArchive?: Array<MatchImageNode>;
+	error?: string;
+	private lastQuery?: MatchImageSearch;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
 	ngOnChanges(): void {
 		const data = this.data();
 		if (data) {
-			this.loadCoverartImages(data).catch((error: unknown) => {
-				this.notify.error(error);
-			});
+			this.runSearch(data);
 		} else {
 			this.images = undefined;
 			this.coverArtArchive = undefined;
+			this.error = undefined;
+		}
+	}
+
+	retry(): void {
+		if (this.lastQuery) {
+			this.runSearch(this.lastQuery);
 		}
 	}
 
@@ -62,6 +70,15 @@ export class MatchCoverartComponent implements OnChanges {
 
 	getChecked(): Array<MatchImageNode> {
 		return this.coverArtArchive ? this.coverArtArchive.filter(i => i.checked && i.base64) : [];
+	}
+
+	private runSearch(query: MatchImageSearch): void {
+		this.lastQuery = query;
+		this.error = undefined;
+		this.loadCoverartImages(query).catch((error: unknown) => {
+			this.isImageSearchRunning = false;
+			this.error = serverErrorMsg(error);
+		});
 	}
 
 	private async loadImages(result: CoverArtArchive.Response): Promise<void> {
