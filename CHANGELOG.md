@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.8](https://github.com/ffalt/jamberry/compare/v0.6.7...v0.6.8) (2026-05-10)
+
+
+### Features
+
+* **tag-editor:** add support for editing Music CD Identifier frames ([d1c6734](https://github.com/ffalt/jamberry/commit/d1c67342d006beac9881a629a86256dd9e8aa867))
+* **tag-editor:** more prominent save button ([a55733f](https://github.com/ffalt/jamberry/commit/a55733fdc8130ba5a906d8b1a86f2d6e7f4ef148))
+
+
+### Bug Fixes
+
+* **tag-editor:** improve frame handling and UI enhancements ([3be4b37](https://github.com/ffalt/jamberry/commit/3be4b37627b1ad9f4373637d348c765cfa21b880))
+
 ## [0.6.7](https://github.com/ffalt/jamberry/compare/v0.6.6...v0.6.7) (2026-05-08)
 
 
