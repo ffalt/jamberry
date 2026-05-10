@@ -10,6 +10,11 @@
 
 	.actions {
 		@include button.action-buttons();
+		display: flex;
+
+		.spanner {
+			flex: 1 1 auto;
+		}
 	}
 
 	.load-recursive {

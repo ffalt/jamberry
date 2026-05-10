@@ -52,6 +52,10 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	private readonly notify = inject(NotifyService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
 
+	get hasOneChanged(): boolean {
+		return this.editor.edits.some(e => e.changed);
+	}
+
 	constructor() {
 		this.editor = new TagEditor(this.jam);
 	}
