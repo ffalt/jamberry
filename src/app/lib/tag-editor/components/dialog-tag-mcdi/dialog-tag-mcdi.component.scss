@@ -1,0 +1,33 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+
+	table {
+		border-collapse: collapse;
+
+		th, td {
+			padding: 4px 8px;
+			text-align: left;
+		}
+
+		&.tracks th {
+			font-weight: bold;
+			border-bottom: 1px solid var(--control-border);
+		}
+	}
+
+	.hex {
+		font-size: 0.8em;
+		word-break: break-all;
+		white-space: pre-wrap;
+		background-color: var(--control);
+		color: var(--on-control);
+		padding: 8px;
+		margin: 4px 0 0;
+	}
+
+	.error {
+		color: var(--accent);
+	}
+}

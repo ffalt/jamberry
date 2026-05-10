@@ -1,0 +1,36 @@
+@if (error) {
+	<p class="error">{{ error }}</p>
+} @else if (info) {
+	<table>
+		<tbody>
+			<tr>
+				<td i18n>Tracks</td>
+				<td>{{ info.firstTrack }} - {{ info.lastTrack }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="tracks">
+		<thead>
+			<tr>
+				<th i18n>Track</th>
+				<th i18n>Sector</th>
+				<th i18n>Time (MM:SS:FF)</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (track of info.tracks; track $index) {
+				<tr>
+					<td>{{ track.label }}</td>
+					<td>{{ track.offset }}</td>
+					<td>{{ track.time }}</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<details>
+		<summary i18n>Raw hex data</summary>
+		<pre class="hex">{{ info.hex }}</pre>
+	</details>
+} @else {
+	<p i18n>No Music CD Identifier data.</p>
+}

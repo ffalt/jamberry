@@ -8,6 +8,7 @@ import { Id3v2ValuePicTypes, type RawTagEditCell, type RawTagEditFrame } from '.
 import { CellEditorTxtComponent } from '../cell-editor-txt/cell-editor-txt.component';
 import { DialogTagImageComponent, type PicEdit } from '../dialog-tag-image/dialog-tag-image.component';
 import { DialogTagLyricsComponent, type LyricsEdit } from '../dialog-tag-lyrics/dialog-tag-lyrics.component';
+import { DialogTagMcdiComponent, type McdiEdit } from '../dialog-tag-mcdi/dialog-tag-mcdi.component';
 import { CellEditorDisplayComponent } from '../cell-editor-display/cell-editor-display.component';
 
 @Component({
@@ -88,6 +89,25 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		return `Binary ${(frame.value.bin.length)} bytes`;
 	}
 
+	private static musicCDIdFrameToString(frame: Jam.MediaTagRawFrameBin): string {
+		try {
+			const binary = atob(frame.value.bin);
+			const bytes = new Uint8Array(binary.length);
+			for (let i = 0; i < binary.length; i++) {
+				bytes[i] = binary.codePointAt(i)!;
+			}
+			if (bytes.length >= 4) {
+				const firstTrack = bytes[2];
+				const lastTrack = bytes[3];
+				const trackCount = lastTrack - firstTrack + 1;
+				return `${trackCount} track${trackCount === 1 ? '' : 's'} (${firstTrack}-${lastTrack})`;
+			}
+		} catch {
+			// fall through
+		}
+		return `Binary ${frame.value.bin.length} bytes`;
+	}
+
 	private static privFrameToString(frame: Jam.MediaTagRawFramePriv): string {
 		const v = frame.value;
 		if (v.guid !== undefined) {
@@ -132,6 +152,10 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 				this.editPictures();
 				break;
 			}
+			case FrameType.MusicCDId: {
+				this.editMusicCDId();
+				break;
+			}
 			// case FrameType.TextList:
 			//   return CellEditorTxtListComponent;
 			// case FrameType.IdBin:
@@ -142,7 +166,6 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			// case FrameType.Popularimeter:
 			//   return CellEditorPopmComponent;
 			// case FrameType.PlayCounter:
-			// case FrameType.MusicCDId:
 			// case FrameType.EventTimingCodes:
 			// case FrameType.SYLT:
 			// case FrameType.ETCO:
@@ -239,6 +262,20 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 		}
 	}
 
+	private editMusicCDId(): void {
+		const cell = this.cell();
+		if (cell) {
+			const data: McdiEdit = { frames: cell.frames };
+			this.dialogOverlay.open<McdiEdit>({
+				childComponent: DialogTagMcdiComponent,
+				title: 'Music CD Identifier',
+				data,
+				onOkBtn: async () => Promise.resolve(),
+				onCancelBtn: async () => Promise.resolve()
+			});
+		}
+	}
+
 	private editLyrics(): void {
 		const cell = this.cell();
 		if (cell) {
@@ -305,7 +342,9 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			case FrameType.PlayCounter: {
 				return CellEditorComponent.playCounterFrameToString(frame);
 			}
-			// case FrameType.MusicCDId:
+			case FrameType.MusicCDId: {
+				return CellEditorComponent.musicCDIdFrameToString(frame);
+			}
 			default: {
 				return `Not implemented celleditor for: ${cell?.column.def.name}`;
 			}
