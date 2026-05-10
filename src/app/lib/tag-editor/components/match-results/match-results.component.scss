@@ -1,7 +1,6 @@
 @use "_scss/variables";
 
 :host {
-
 	.match-results {
 		flex: 1 1 auto;
 		overflow-y: auto;
@@ -39,6 +38,15 @@
 					vertical-align: top;
 				}
 
+				label {
+					display: flex;
+				}
+
+				app-score-box {
+					display: block;
+					width: 20px;
+					height: 20px;
+				}
 			}
 
 			app-image-base64 {

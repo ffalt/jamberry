@@ -44,7 +44,7 @@ interface Medium {
 interface AcoustidResult {
 	id: string;
 	score: number;
-	recordings: Array<Recording>;
+	recordings?: Array<Recording>;
 }
 
 function createAcoustIDEntry(
@@ -104,7 +104,7 @@ export function acoustidResultToList(data: Array<Acoustid.Result> | undefined, t
 		return [];
 	}
 
-	return data.flatMap(acoustid => acoustid.recordings.flatMap(recording => processRecording(acoustid, recording, track)));
+	return data.flatMap(acoustid => (acoustid.recordings ?? []).flatMap(recording => processRecording(acoustid, recording, track)));
 }
 
 export interface AcoustidTreeMatch {

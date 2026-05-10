@@ -29,10 +29,13 @@ export class TagEditor {
 		const text = value ?? '';
 		let frames: Array<RawTagEditFrame<{ text: string } | { id: string; language: string; text: string }>> = [];
 		if (text.length > 0) {
-			frames =
-				FrameType.LangDescText === column.def.impl ?
-					[{ id: cell.column.def.id, value: { id: '', language: '', text } }] :
-					[{ id: cell.column.def.subid ?? cell.column.def.id, value: { text } }];
+			if (column.def.impl === FrameType.LangDescText) {
+				frames = [{ id: cell.column.def.id, value: { id: '', language: '', text } }];
+			} else if (column.def.impl === FrameType.IdText) {
+				frames = [{ id: cell.column.def.id, value: { id: cell.column.def.subid ?? '', text } }];
+			} else {
+				frames = [{ id: cell.column.def.id, value: { text } }];
+			}
 		}
 		if (cell.frames.length === 0 || cell.frames[0].value.text !== text) {
 			edit.cells[index] = {
