@@ -85,7 +85,7 @@
     "eslint-plugin-unicorn": "64.0.0",
     "globals": "17.6.0",
     "jest": "30.3.0",
-    "jest-environment-jsdom": "30.3.0",
+    "jest-environment-jsdom": "30.4.1",
     "jest-preset-angular": "16.1.5",
     "postcss": "8.5.14",
     "rimraf": "6.1.3",
