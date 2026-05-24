@@ -1,6 +1,6 @@
-import { TextEncoder, TextDecoder } from 'node:util';
-
-Object.assign(globalThis, { TextDecoder, TextEncoder });
+import { vi } from 'vitest';
+import '@angular/localize/init';
+import 'soundmanager2/script/soundmanager2-nodebug-jsmin';
 
 Object.defineProperty(globalThis, 'CSS', { value: undefined, writable: true, configurable: true });
 Object.defineProperty(document, 'doctype', { value: '<!DOCTYPE html>', writable: true, configurable: true });
@@ -16,7 +16,7 @@ Object.defineProperty(globalThis, 'getComputedStyle', {
 Object.defineProperty(URL, 'createObjectURL', {
 	writable: true,
 	configurable: true,
-	value: jest.fn()
+	value: vi.fn()
 });
 
 const mockBrowser = () => {
@@ -25,7 +25,9 @@ const mockBrowser = () => {
 		getItem: (key: string): unknown => storage.get(key),
 		setItem: (key: string, value: string): Map<string, unknown> => storage.set(key, value || ''),
 		removeItem: (key: string): boolean => storage.delete(key),
-		clear: (): void => storage.clear()
+		clear: (): void => {
+			storage.clear();
+		}
 	};
 };
 
@@ -38,12 +40,14 @@ Object.defineProperty(globalThis, 'matchMedia', {
 		matches: false,
 		media: query,
 		onchange: undefined,
-		// Deprecated but still used by some libs
-		addListener: jest.fn(),
-		removeListener: jest.fn(),
-		// Modern event API
-		addEventListener: jest.fn(),
-		removeEventListener: jest.fn(),
-		dispatchEvent: jest.fn()
+		addListener: vi.fn(),
+		removeListener: vi.fn(),
+		addEventListener: vi.fn(),
+		removeEventListener: vi.fn(),
+		dispatchEvent: vi.fn()
 	})
 });
+
+console.error = () => {
+	// nope
+};

@@ -23,4 +23,4 @@ Run `npm run clean` to clean out the `dist/` directory.
 
 ## Running unit tests
 
-Run `npm run test` to execute the unit tests via [Jest](https://jestjs.io/).
+Run `npm run test` to execute the unit tests via vitest.

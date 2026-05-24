@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { of } from 'rxjs';
 import { ToastModule } from '@modules/toast';
 import { CommonModule } from '@angular/common';
@@ -60,7 +60,7 @@ export const TEST_PROVIDERS = [
 				pipe: () => of([])
 			},
 			params: of({}),
-			paramMap: of({}),
+			paramMap: of(convertToParamMap({})),
 			queryParams: of({}),
 			pipe: () => of({})
 		}

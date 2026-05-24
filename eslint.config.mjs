@@ -1,7 +1,7 @@
 import eslint from '@eslint/js';
 import angular from "angular-eslint";
 import ts from "typescript-eslint";
-import pluginJest from "eslint-plugin-jest";
+import vitest from "@vitest/eslint-plugin";
 import globals from "globals";
 import rxjsX from "eslint-plugin-rxjs-x";
 import unicorn from "eslint-plugin-unicorn";
@@ -140,7 +140,7 @@ export default ts.config(
 		files: ["**/*.ts"],
 		ignores: [
 			"**/*.spec.ts",
-			"jest-global-mocks.ts"
+			"vitest-global-mocks.ts"
 		],
 		languageOptions: {
 			ecmaVersion: 2020,
@@ -193,25 +193,24 @@ export default ts.config(
 	{
 		files: [
 			"**/*.spec.ts",
-			"jest-global-mocks.ts"
+			"vitest-global-mocks.ts"
 		],
 		languageOptions: {
 			ecmaVersion: 2020,
 			sourceType: "script",
-			globals: pluginJest.environments.globals.globals,
+			globals: vitest.environments.env.globals,
 			parserOptions: {
 				project: ["tsconfig.json"],
 				createDefaultProgram: true
 			}
 		},
-		plugins: {jest: pluginJest},
+		plugins: {vitest},
 		extends: [
 			eslint.configs.recommended,
 			...ts.configs.recommended,
 			...ts.configs.stylistic,
 			...angular.configs.tsRecommended,
 			stylistic.configs.recommended,
-			pluginJest.configs['flat/recommended'],
 			unicorn.configs.recommended
 		],
 		rules: {
@@ -220,12 +219,12 @@ export default ts.config(
 			...commonUnicornRules,
 			...commonStylisticRules,
 
-			'jest/no-disabled-tests': 'warn',
-			'jest/no-focused-tests': 'error',
-			'jest/no-identical-title': 'error',
-			'jest/prefer-to-have-length': 'warn',
-			'jest/valid-expect': 'error',
-			"jest/expect-expect": [
+			'vitest/no-disabled-tests': 'warn',
+			'vitest/no-focused-tests': 'error',
+			'vitest/no-identical-title': 'error',
+			'vitest/prefer-to-have-length': 'warn',
+			'vitest/valid-expect': 'error',
+			"vitest/expect-expect": [
 				"error",
 				{
 					"assertFunctionNames": [

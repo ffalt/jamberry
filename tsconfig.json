@@ -1,57 +1,57 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "declaration": false,
+	"compileOnSave": false,
+	"compilerOptions": {
+		"declaration": false,
 		"emitDecoratorMetadata": false,
 		"esModuleInterop": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "module": "es2022",
-    "moduleResolution": "bundler",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "outDir": "./dist/out-tsc",
+		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"importHelpers": true,
+		"module": "es2022",
+		"moduleResolution": "bundler",
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"outDir": "./dist/out-tsc",
 		"resolveJsonModule": true,
 		"sourceMap": true,
-    "strict": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
-    "target": "ES2023",
+		"strict": true,
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"target": "ES2023",
 		"useDefineForClassFields": false,
-		"types": ["jest", "@angular/localize"],
-		"typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2023",
-      "dom"
-    ],
-    "paths": {
-      "@core/*": [
-        "./src/app/lib/core/*"
-      ],
-      "@modules/*": [
-        "./src/app/modules/*"
-      ],
-      "@utils/*": [
-        "./src/app/utils/*"
-      ],
-      "@jam": [
-        "./src/app/modules/jam/index.ts"
-      ]
-    }
-  },
-  "angularCompilerOptions": {
-    "enableIvy": true,
-    "fullTemplateTypeCheck": true,
-    "strictTemplates": true,
-    "strictInjectionParameters": true
-  },
+		"types": [
+			"@angular/localize"
+		],
+		"lib": [
+			"es2023",
+			"dom"
+		],
+		"paths": {
+			"@core/*": [
+				"./src/app/lib/core/*"
+			],
+			"@modules/*": [
+				"./src/app/modules/*"
+			],
+			"@utils/*": [
+				"./src/app/utils/*"
+			],
+			"@jam": [
+				"./src/app/modules/jam/index.ts"
+			]
+		}
+	},
+	"angularCompilerOptions": {
+		"enableIvy": true,
+		"fullTemplateTypeCheck": true,
+		"strictTemplates": true,
+		"strictInputAccessModifiers": true,
+		"strictInjectionParameters": true
+	},
 	"exclude": [
 		"local",
 		"electron"

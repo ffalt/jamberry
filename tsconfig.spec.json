@@ -4,8 +4,7 @@
 		"outDir": "./dist/spec",
 		"isolatedModules": true,
 		"types": [
-      "jest",
-      "node"
+      "vitest/globals"
 		]
 	},
 	"include": [
