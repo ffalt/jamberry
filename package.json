@@ -11,8 +11,9 @@
     "build": "ng build",
     "build:AOT": "ng build --aot",
     "check": "qlty check --all",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
+    "test": "ng test --watch false",
+		"test:watch": "ng test --watch true",
+    "test:coverage": "ng test --watch false --coverage",
     "lint": "ng lint && eslint .",
     "lint:fix": "ng lint --fix && eslint . --fix",
     "lint:scss": "stylelint \"**/*.scss\"",
@@ -29,7 +30,6 @@
     "build:prod": "ng build --verbose --aot --configuration production --base-href \"/\"",
     "build:develop": "npm run build:prebuild && ng build --progress --base-href \"/\"",
     "build:deploy": "npm run build:prebuild && npm run build:prod",
-    "test:watch": "vitest",
     "analyze": "npm run build:stats && npx -y @angular-experts/hawkeye dist/stats.json"
   },
   "engines": {

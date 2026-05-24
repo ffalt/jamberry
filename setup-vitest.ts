@@ -1,5 +1,4 @@
 import { vi } from 'vitest';
-import '@angular/localize/init';
 import 'soundmanager2/script/soundmanager2-nodebug-jsmin';
 
 Object.defineProperty(globalThis, 'CSS', { value: undefined, writable: true, configurable: true });
@@ -48,6 +47,10 @@ Object.defineProperty(globalThis, 'matchMedia', {
 	})
 });
 
-console.error = () => {
-	// nope
-};
+vi.spyOn(console, 'error').mockImplementation(() => {
+	// suppress console.error during tests
+});
+
+vi.spyOn(console, 'warn').mockImplementation(() => {
+	// suppress console.warn during tests
+});

@@ -8,6 +8,7 @@
 		]
 	},
 	"include": [
+		"setup-vitest.ts",
 		"**/*.spec.ts",
 		"**/*.d.ts"
 	]

@@ -140,7 +140,7 @@ export default ts.config(
 		files: ["**/*.ts"],
 		ignores: [
 			"**/*.spec.ts",
-			"vitest-global-mocks.ts"
+			"setup-vitest.ts"
 		],
 		languageOptions: {
 			ecmaVersion: 2020,
@@ -193,7 +193,7 @@ export default ts.config(
 	{
 		files: [
 			"**/*.spec.ts",
-			"vitest-global-mocks.ts"
+			"setup-vitest.ts"
 		],
 		languageOptions: {
 			ecmaVersion: 2020,
