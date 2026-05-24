@@ -58,7 +58,6 @@
 		z-index: 1;
 		width: 100%;
 		margin-top: variables.$margin-lg;
-
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
@@ -183,6 +182,7 @@
 		.info .header-infos .more {
 			visibility: inherit;
 		}
+
 		.navigation {
 			margin: -1px;
 		}
@@ -192,6 +192,7 @@
 		height: auto;
 		flex-flow: column wrap;
 		min-height: 100px;
+
 		.info {
 			padding: variables.$padding-sm;
 			margin-top: 0;
@@ -265,14 +266,14 @@
 	}
 
 	&.slim {
-		@include view-header-slim();
+		@include view-header-slim;
 	}
 }
 
 @mixin view-header-transparent {
 	background-color: var(--background);
 
-	&:before {
+	&::before {
 		content: ' ';
 		display: block;
 		position: absolute;
@@ -287,6 +288,5 @@
 
 @mixin view-host {
 	height: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
+	overflow: hidden auto;
 }

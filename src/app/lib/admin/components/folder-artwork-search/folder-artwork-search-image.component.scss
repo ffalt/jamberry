@@ -1,7 +1,6 @@
 @use "_scss/variables";
 
 :host {
-
 	.image-selector {
 		display: flex;
 		flex-flow: column wrap;
@@ -54,10 +53,6 @@
 	.section {
 		border-bottom: 1px solid var(--background-border);
 		padding-bottom: variables.$padding-xs;
-
-		//app-mb-icon::ng-deep svg {
-		//	vertical-align: middle;
-		//}
 
 		a {
 			color: var(--on-background-highlight);

@@ -5,19 +5,16 @@
 		padding-top: variables.$padding-lg;
 		padding-bottom: variables.$padding;
 	}
+
 	.key-value-row {
-		border-top-width: 1px;
-		border-top-style: solid;
-		border-top-color: var(--background-border);
+		border-top: 1px solid var(--background-border);
 		display: flex;
 		flex-flow: row nowrap;
 		flex-wrap: nowrap;
 		align-items: center;
 
 		&:last-of-type {
-			border-bottom-color: var(--background-border);
-			border-bottom-width: 1px;
-			border-bottom-style: solid;
+			border-bottom: 1px solid var(--background-border);
 		}
 
 		> div:first-of-type {

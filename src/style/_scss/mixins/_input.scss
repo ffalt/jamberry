@@ -28,6 +28,7 @@
 			color: var(--on-input-hover);
 		}
 	}
+
 	&:focus-within {
 		background-color: var(--input);
 		border-color: var(--input-border);
@@ -49,7 +50,8 @@
 		border-radius: variables.$border-radius;
 		padding-left: variables.$border-radius-padding;
 		padding-right: variables.$border-radius-padding;
-		//display: flex;
+
+		// display: flex;
 		align-items: center;
 		background-color: var(--control-ambient);
 		border: 1px solid var(--control-box-border);
@@ -59,7 +61,8 @@
 			flex: 1;
 			border: none;
 			min-height: 28px;
-			//background-color: var(--input);
+
+			// background-color: var(--input);
 		}
 
 		&:focus-within {
@@ -81,7 +84,7 @@
 }
 
 @mixin input-box-large {
-	@include input-box();
+	@include input-box;
 
 	.input-box {
 		width: 100%;

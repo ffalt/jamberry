@@ -5,10 +5,10 @@
 	width: 100%;
 
 	.episodes {
-		@include table.track-table();
+		@include table.track-table;
 
 		.heading, .episode {
-			@include table.track-table-row();
+			@include table.track-table-row;
 
 			.date {
 				width: 100px;
@@ -24,11 +24,11 @@
 		}
 
 		.heading {
-			@include table.track-table-header-row();
+			@include table.track-table-header-row;
 		}
 
 		.episode {
-			@include table.track-table-data-row();
+			@include table.track-table-data-row;
 		}
 
 	}
@@ -91,7 +91,6 @@
 	@media (max-width: variables.$break-watch) {
 		.episodes {
 			.episode {
-
 				.date, .length {
 					text-align: right;
 					width: 100%;

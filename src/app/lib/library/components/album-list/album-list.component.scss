@@ -5,18 +5,18 @@
 	width: 100%;
 
 	.albums {
-		@include table.album-table();
+		@include table.album-table;
 
 		.heading, .album {
-			@include table.album-table-row();
+			@include table.album-table-row;
 		}
 
 		.heading {
-			@include table.album-table-header-row();
+			@include table.album-table-header-row;
 		}
 
 		.album {
-			@include table.album-table-data-row();
+			@include table.album-table-data-row;
 		}
 	}
 }

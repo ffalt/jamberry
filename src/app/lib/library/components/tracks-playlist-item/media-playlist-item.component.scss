@@ -2,7 +2,7 @@
 
 :host {
 	.track {
-		@include table.track-table-data-row();
-		@include table.track-table-row();
+		@include table.track-table-data-row;
+		@include table.track-table-row;
 	}
 }

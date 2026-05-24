@@ -6,7 +6,7 @@
 	white-space: nowrap;
 }
 
-.hasSubMenu:before {
+.has-submenu::before {
 	content: '\u25B6';
 	float: right;
 }

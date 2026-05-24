@@ -23,6 +23,7 @@
 	@media (max-width: variables.$break-notebook) {
 		height: auto;
 	}
+
 	@media (max-width: variables.$break-phone) {
 		font-size: 0.9em;
 	}
@@ -37,6 +38,7 @@
 	.handle {
 		width: 8px;
 	}
+
 	@media (max-width: variables.$break-notebook) {
 		display: none;
 	}
@@ -44,15 +46,13 @@
 
 @mixin flex-table-data-row {
 	margin-bottom: 1px;
-	border-top-width: 1px;
-	border-top-style: solid;
-	border-bottom-width: 0;
-	border-bottom-style: solid;
-	border-bottom-color: var(--background-border);
-	border-top-color: var(--background-border);
+	border-top: 1px solid var(--background-border);
+	border-bottom: 0 solid var(--background-border);
+
 	&:hover {
 		background-color: var(--background-hover);
 	}
+
 	&:last-child {
 		border-bottom-width: 1px;
 	}
@@ -96,7 +96,6 @@
 	}
 
 	.handle {
-
 		width: 0;
 		margin-left: 0;
 
@@ -194,12 +193,13 @@
 
 
 @mixin track-table {
-	@include flex-table();
+	@include flex-table;
+
 	margin-bottom: variables.$margin;
 }
 
 @mixin track-table-row {
-	@include flex-table-row();
+	@include flex-table-row;
 
 	.number {
 		min-width: 32px;
@@ -237,13 +237,16 @@
 	> div {
 		margin-left: variables.$margin;
 	}
+
 	> div:last-of-type {
 		margin-right: variables.$margin;
 	}
+
 	@media (max-width: variables.$break-mobile) {
 		> div {
 			margin-left: 0;
 		}
+
 		> div:last-of-type {
 			margin-right: 0;
 		}
@@ -252,11 +255,12 @@
 }
 
 @mixin track-table-header-row {
-	@include flex-table-header-row();
+	@include flex-table-header-row;
 
 	.number {
 		font-style: italic;
 	}
+
 	@media (max-width: variables.$break-desktop) {
 		.fav {
 			display: none;
@@ -265,15 +269,15 @@
 }
 
 @mixin track-table-data-row {
-	@include flex-table-data-row();
+	@include flex-table-data-row;
 
 	@media (max-width: variables.$break-desktop) {
 		.fav {
 			display: none;
 		}
 	}
-	@media (max-width: variables.$break-mobile) {
 
+	@media (max-width: variables.$break-mobile) {
 		.number, .play-count, .rating, .play-date, .length {
 			margin-left: 0;
 			margin-right: 0;
@@ -290,20 +294,25 @@
 			width: 25%;
 			text-align: left;
 		}
+
 		.play-count {
 			order: 2;
 		}
+
 		.rating {
 			order: 3;
 		}
+
 		.play-date {
 			order: 4;
 		}
+
 		.length {
 			order: 5;
 			width: 25%;
 			text-align: right;
 		}
+
 		.title {
 			order: 6;
 		}
@@ -312,12 +321,13 @@
 
 
 @mixin album-table {
-	@include flex-table();
+	@include flex-table;
+
 	margin-bottom: variables.$margin;
 }
 
 @mixin album-table-row {
-	@include flex-table-row();
+	@include flex-table-row;
 
 	.fav {
 		min-width: 30px;
@@ -353,7 +363,8 @@
 }
 
 @mixin album-table-header-row {
-	@include flex-table-header-row();
+	@include flex-table-header-row;
+
 	@media (max-width: variables.$break-desktop) {
 		.fav {
 			display: none;
@@ -362,15 +373,15 @@
 }
 
 @mixin album-table-data-row {
-	@include flex-table-data-row();
+	@include flex-table-data-row;
 
 	@media (max-width: variables.$break-desktop) {
 		.fav {
 			display: none;
 		}
 	}
-	@media (max-width: variables.$break-mobile) {
 
+	@media (max-width: variables.$break-mobile) {
 		.date, .info, .length {
 			margin-left: 0;
 			margin-right: 0;
@@ -385,14 +396,17 @@
 			order: 1;
 			text-align: left;
 		}
+
 		.date {
 			text-align: center;
 			order: 2;
 		}
+
 		.info {
 			order: 3;
 			text-align: right;
 		}
+
 		.title {
 			padding-top: variables.$padding-sm;
 			order: 4;

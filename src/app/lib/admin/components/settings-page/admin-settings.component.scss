@@ -2,8 +2,7 @@
 
 :host {
 	.settings {
-		overflow-y: auto;
-		overflow-x: hidden;
+		overflow: hidden auto;
 		height: 100%;
 
 		.content {

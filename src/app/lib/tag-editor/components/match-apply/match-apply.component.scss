@@ -3,8 +3,7 @@
 :host {
 	.match-apply {
 		flex: 1 1 auto;
-		overflow-y: auto;
-		overflow-x: auto;
+		overflow: auto;
 		padding: variables.$padding;
 
 		> div {

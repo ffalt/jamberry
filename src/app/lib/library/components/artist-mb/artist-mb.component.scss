@@ -1,6 +1,6 @@
 @use "_scss/mixins/view";
 
 :host {
-	@include view.view-content();
+	@include view.view-content;
 }
 

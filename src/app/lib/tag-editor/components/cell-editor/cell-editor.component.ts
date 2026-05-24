@@ -14,7 +14,6 @@ import { CellEditorDisplayComponent } from '../cell-editor-display/cell-editor-d
 @Component({
 	selector: 'app-cell-editor',
 	templateUrl: './cell-editor.component.html',
-	styleUrls: ['./cell-editor.component.scss'],
 	providers: [{ provide: CellEditor, useExisting: forwardRef(() => CellEditorComponent) }],
 	host: {
 		'(click)': 'clickEvent()'

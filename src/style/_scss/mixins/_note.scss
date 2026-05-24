@@ -1,7 +1,6 @@
 @use "../variables";
 
 @mixin note {
-
 	.note {
 		display: block;
 		padding: variables.$padding;

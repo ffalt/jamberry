@@ -14,8 +14,4 @@
 		background-color: var(--control-active);
 		color: var(--on-control-active);
 	}
-
-	::ng-deep b {
-		color: var(--on-control-active);
-	}
 }

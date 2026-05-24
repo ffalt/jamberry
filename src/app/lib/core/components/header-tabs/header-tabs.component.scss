@@ -2,6 +2,6 @@
 
 :host {
 	.tabs {
-		@include tabs.tabs();
+		@include tabs.tabs;
 	}
 }

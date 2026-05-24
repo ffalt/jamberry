@@ -35,7 +35,8 @@
 
 	.match-images {
 		min-height: 200px;
-		@include cards.media-cards();
+
+		@include cards.media-cards;
 
 		.image {
 			max-width: 200px;

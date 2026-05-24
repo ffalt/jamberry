@@ -1,15 +1,12 @@
 @use "_scss/variables";
 
 :host {
-
 	.playing {
 		margin-top: 1px;
-		//height: 80px;
-		border-top-width: 1px;
-		border-top-style: solid;
-		border-bottom-width: 0;
-		border-bottom-style: solid;
 
+		// height: 80px;
+		border-top: 1px solid var(--control-border);
+		border-bottom: 0 solid var(--control-border);
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
@@ -17,8 +14,6 @@
 		padding-bottom: variables.$padding-xs;
 		background-color: var(--control);
 		color: var(--on-control-ambient);
-		border-bottom-color: var(--control-border);
-		border-top-color: var(--control-border);
 
 		.art {
 			padding-left: variables.$padding;
@@ -31,11 +26,9 @@
 
 		.song {
 			padding-left: variables.$padding;
-
 			font-weight: 200;
 			font-size: variables.$small;
 			line-height: 1.1em;
-
 			display: flex;
 			flex-flow: column wrap;
 

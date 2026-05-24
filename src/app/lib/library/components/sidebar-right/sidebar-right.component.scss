@@ -12,17 +12,14 @@
 
 	.navigation {
 		width: 100%;
-		border-bottom-width: 1px;
-		border-bottom-style: solid;
-
+		border-bottom: 1px solid var(--control-border);
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
 		align-items: center;
-		border-bottom-color: var(--control-border);
 
 		.tabs {
-			@include tabs.tabs();
+			@include tabs.tabs;
 		}
 	}
 

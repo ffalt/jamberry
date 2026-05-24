@@ -49,16 +49,14 @@
 	}
 
 	.chat-input {
-		border-bottom-width: 1px;
-		border-bottom-style: solid;
+		border-bottom: 1px solid transparent;
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
 		padding: variables.$padding;
-		background-color: var(--control);
-		border-bottom-color: transparent; //var(--control-border);
+		background-color: var(--control); // var(--control-border);
 
-		@include input.input-box();
+		@include input.input-box;
 
 		.input-box, input {
 			width: 100%;

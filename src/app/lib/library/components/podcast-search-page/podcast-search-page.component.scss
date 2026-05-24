@@ -4,9 +4,8 @@
 
 :host {
 	.search-podcasts {
-		@include view.view-host();
-
-		@include input.input-box-large();
+		@include view.view-host;
+		@include input.input-box-large;
 
 		.reference {
 			padding-top: variables.$padding-xs;
@@ -14,7 +13,7 @@
 		}
 
 		.content {
-			@include view.view-content();
+			@include view.view-content;
 
 			.podcasts {
 				width: 100%;
@@ -29,9 +28,7 @@
 				}
 
 				.search-podcast-plate {
-					border-bottom-width: 1px;
-					border-bottom-style: solid;
-					border-bottom-color: var(--background-border);
+					border-bottom: 1px solid var(--background-border);
 					padding: variables.$padding;
 					display: flex;
 					flex-flow: row wrap;
@@ -97,7 +94,6 @@
 								margin-bottom: variables.$margin-xs;
 								margin-right: variables.$margin-xs;
 								height: 27px;
-
 								font-weight: 500;
 								padding: 1px variables.$padding 0;
 
@@ -134,6 +130,7 @@
 					@media (max-width: variables.$break-mobile) {
 						padding-left: 0;
 						padding-right: 0;
+
 						.meta {
 							font-size: 0.8em;
 

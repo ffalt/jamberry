@@ -5,8 +5,7 @@ import { PlayerService } from '@core/services/player/player.service';
 
 @Component({
 	selector: 'app-episode-state-button',
-	templateUrl: './episode-state.button.component.html',
-	styleUrls: ['./episode-state.button.component.scss']
+	templateUrl: './episode-state.button.component.html'
 })
 export class EpisodeStateButtonComponent {
 	readonly episode = input<Jam.Episode>();

@@ -2,16 +2,13 @@
 @use "_scss/mixins/table";
 
 :host {
-
 	.track {
-		@include table.track-table-row();
+		@include table.track-table-row;
 
-		& {
-			max-width: 100%;
-			transition: margin-left .2s;
-		}
+		max-width: 100%;
+		transition: margin-left .2s;
 
-		@include table.track-table-data-row();
+		@include table.track-table-data-row;
 
 		.title {
 			a {

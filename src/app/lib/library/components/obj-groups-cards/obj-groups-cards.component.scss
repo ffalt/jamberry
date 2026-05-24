@@ -20,6 +20,6 @@
 	}
 
 	.cards {
-		@include cards.media-cards();
+		@include cards.media-cards;
 	}
 }

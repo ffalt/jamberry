@@ -4,12 +4,13 @@
 	width: 100%;
 
 	.tracks {
-		@include table.track-table();
+		@include table.track-table;
 	}
 }
 
 .cdk-drag-preview {
 	color: #fff;
-	@include table.track-table-row();
-	@include table.track-table-data-row();
+
+	@include table.track-table-row;
+	@include table.track-table-data-row;
 }

@@ -4,15 +4,14 @@
 :host {
 	height: 100%;
 	width: 100%;
-	overflow-y: auto;
-	overflow-x: auto;
+	overflow: auto;
 	display: block;
 
 	.roots {
-		@include view.view-host();
+		@include view.view-host;
 
 		.actions {
-			@include button.header-actions-buttons();
+			@include button.header-actions-buttons;
 		}
 	}
 }

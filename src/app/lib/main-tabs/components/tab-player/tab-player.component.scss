@@ -10,9 +10,7 @@
 	.player-info {
 		padding: variables.$padding;
 		background-color: var(--control);
-		border-top-width: 1px;
-		border-top-style: solid;
-		border-top-color: var(--control-border);
+		border-top: 1px solid var(--control-border);
 
 		.volume, .player-speed {
 			flex: 1 1 auto;
@@ -42,7 +40,6 @@
 
 		.progress {
 			font-size: variables.$x-small;
-
 			display: flex;
 			flex-flow: row;
 			justify-content: space-between;
@@ -63,8 +60,7 @@
 
 	app-player-current-info {
 		flex-grow: 1;
-		overflow-y: hidden;
-		overflow-x: hidden;
+		overflow: hidden;
 	}
 }
 

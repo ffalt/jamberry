@@ -2,10 +2,10 @@
 
 :host {
 	.objects {
-		@include view.view-host();
+		@include view.view-host;
 
 		.content {
-			@include view.view-content();
+			@include view.view-content;
 		}
 	}
 }

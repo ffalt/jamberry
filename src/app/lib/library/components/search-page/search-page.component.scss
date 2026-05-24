@@ -3,11 +3,11 @@
 
 :host {
 	.search {
-		@include view.view-host();
-		@include input.input-box-large();
+		@include view.view-host;
+		@include input.input-box-large;
 
 		.content {
-			@include view.view-content();
+			@include view.view-content;
 		}
 	}
 }

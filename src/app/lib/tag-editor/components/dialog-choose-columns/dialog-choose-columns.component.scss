@@ -1,7 +1,6 @@
 @use "_scss/variables";
 
 :host {
-
 	.choose-version {
 		input {
 			margin-left: variables.$margin;
@@ -56,6 +55,7 @@
 		@media (max-width: variables.$break-desktop-large) {
 			width: 50%;
 		}
+
 		@media (max-width: variables.$break-pad) {
 			width: 100%;
 		}

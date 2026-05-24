@@ -9,7 +9,8 @@
 	flex-direction: column;
 
 	.actions {
-		@include button.action-buttons();
+		@include button.action-buttons;
+
 		display: flex;
 
 		.spanner {
@@ -38,7 +39,8 @@
 		table {
 			table-layout: fixed;
 			border-width: 0;
-			//height: 100%;
+
+			// height: 100%;
 			width: auto;
 
 			.cell-editor {
@@ -80,15 +82,11 @@
 			}
 
 			th {
-				border-right-width: 1px;
-				border-right-style: solid;
-				border-right-color: var(--background-border);
+				border-right: 1px solid var(--background-border);
 			}
 
 			tr.header-row {
-				border-top-width: 1px;
-				border-top-style: solid;
-				border-top-color: var(--background-border);
+				border-top: 1px solid var(--background-border);
 
 				th {
 					overflow: hidden;
@@ -121,9 +119,9 @@
 			}
 
 			tr {
-				//height: 34px;
-				//min-height: 34px;
-				//max-height: 34px;
+				// height: 34px;
+				// min-height: 34px;
+				// max-height: 34px;
 
 				td {
 					border: none;
@@ -142,9 +140,7 @@
 
 				&:last-of-type {
 					.cell-editor {
-						border-bottom-width: 1px;
-						border-bottom-style: solid;
-						border-bottom-color: var(--background-border);
+						border-bottom: 1px solid var(--background-border);
 					}
 				}
 			}

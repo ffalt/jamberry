@@ -12,7 +12,6 @@ import { ContextMenuModule } from '@modules/ngx-contextmenu/lib/ngx-contextmenu.
 @Component({
 	selector: 'app-context-menu-queue-track',
 	templateUrl: './context-menu-queue-track.component.html',
-	styleUrls: ['./context-menu-queue-track.component.scss'],
 	imports: [ContextMenuModule, ContextEntryRateComponent, ContextEntryFavComponent]
 })
 export class ContextMenuQueueTrackComponent implements ContextMenuHostComponentInterface<any> {

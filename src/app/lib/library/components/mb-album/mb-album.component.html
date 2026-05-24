@@ -27,7 +27,7 @@
 		}
 		<div i18n class="section-title">Labels</div>
 		@for (labelInfo of mbAlbum.labelInfo; track labelInfo) {
-			<div class="labelInfo">
+			<div class="label-info">
 				<div class="value">{{ labelInfo.label?.name }}</div>
 				@if (labelInfo.label?.disambiguation) {
 					<div>{{ labelInfo.label?.disambiguation }}</div>

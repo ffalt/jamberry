@@ -4,8 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-admin-base-parent-view-id',
-	templateUrl: './admin-base-parent-view-id.component.html',
-	styleUrls: ['./admin-base-parent-view-id.component.scss']
+	templateUrl: './admin-base-parent-view-id.component.html'
 })
 export class AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	id?: string;

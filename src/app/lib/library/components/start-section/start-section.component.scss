@@ -1,10 +1,6 @@
 @use "_scss/variables";
 
 :host {
-
-	.start-items {
-	}
-
 	.none {
 		color: var(--on-background);
 		opacity: 0.7;
@@ -20,8 +16,7 @@
 	}
 
 	.start-item {
-		border-top-width: 1px;
-		border-top-style: solid;
+		border-top: 1px solid var(--control-border);
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
@@ -29,7 +24,6 @@
 		padding-bottom: variables.$padding-xs;
 		color: var(--on-control-ambient);
 		border-bottom-color: var(--control-border);
-		border-top-color: var(--control-border);
 		cursor: pointer;
 
 		&:last-of-type {
@@ -42,7 +36,7 @@
 		}
 
 		.title {
-			//width: 100%;
+			// width: 100%;
 			color: var(--on-background-highlight);
 			padding-left: variables.$padding;
 			text-overflow: ellipsis;

@@ -3,7 +3,6 @@
 @use "_scss/mixins/table";
 
 :host {
-
 	.section {
 		margin-bottom: variables.$margin-lg;
 	}
@@ -16,11 +15,12 @@
 		color: var(--on-control-ambient);
 	}
 
-	@include list.key-value-list();
+	@include list.key-value-list;
 
 	.info-groups {
 		display: flex;
 		flex-direction: row;
+
 		@media (max-width: variables.$break-phone) {
 			flex-direction: column;
 		}
@@ -31,9 +31,8 @@
 	}
 
 	.infos {
-
 		.info {
-			//display: flex;
+			// display: flex;
 
 			.info-title {
 				color: var(--on-control-ambient);
@@ -58,18 +57,18 @@
 	}
 
 	.releasegroups {
-		@include table.album-table();
+		@include table.album-table;
 
 		.heading, .releasegroup {
-			@include table.album-table-row();
+			@include table.album-table-row;
 		}
 
 		.heading {
-			@include table.album-table-header-row();
+			@include table.album-table-header-row;
 		}
 
 		.releasegroup {
-			@include table.album-table-data-row();
+			@include table.album-table-data-row;
 		}
 
 	}

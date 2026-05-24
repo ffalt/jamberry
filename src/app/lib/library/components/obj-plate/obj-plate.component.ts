@@ -12,7 +12,6 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-obj-plate',
 	templateUrl: './obj-plate.component.html',
-	styleUrls: ['./obj-plate.component.scss'],
 	host: {
 		'[tabindex]': 'tabindex'
 	},

@@ -3,7 +3,6 @@
 @use "_scss/mixins/input";
 
 :host {
-
 	.column-tools {
 		border: 1px solid var(--control-border);
 		padding-bottom: variables.$padding;
@@ -17,7 +16,8 @@
 			max-width: 2.5rem;
 			max-height: 2.5rem;
 			margin-top: -(variables.$padding);
-			@include close.close();
+
+			@include close.close;
 		}
 
 		.column-tools-title {
@@ -30,7 +30,7 @@
 			}
 		}
 
-		@include input.input-box();
+		@include input.input-box;
 
 		.input-box {
 			display: flex;

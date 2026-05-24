@@ -16,9 +16,9 @@
 }
 
 @mixin button {
-	@include base-button();
+	@include base-button;
 
-	&:before {
+	&::before {
 		position: absolute;
 		content: '';
 		top: 0;
@@ -27,11 +27,11 @@
 		height: 100%;
 		transition: width 20ms ease;
 		z-index: 0;
-		background-color: rgba(white, 0.2);
+		background-color: rgb(white, 0.2);
 	}
 
 	&:hover {
-		&:before {
+		&::before {
 			width: 100%;
 		}
 	}
@@ -46,9 +46,8 @@
 
 @mixin action-buttons {
 	padding: variables.$padding-sm variables.$padding 0;
-	border-bottom-color: var(--background-border);
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
+	border-bottom: 1px solid var(--background-border);
+
 	> button {
 		margin-right: variables.$margin-xs;
 		margin-bottom: variables.$margin-sm;

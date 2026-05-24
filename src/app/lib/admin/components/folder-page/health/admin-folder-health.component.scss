@@ -12,19 +12,16 @@
 		flex-direction: column;
 
 		.actions {
-			@include button.action-buttons();
+			@include button.action-buttons;
 		}
 
 		.health-content {
 			padding: variables.$padding;
-			overflow-y: auto;
-			overflow-x: auto;
+			overflow: auto;
 		}
 
 		.folder {
-			border-bottom-width: 1px;
-			border-bottom-style: solid;
-			border-bottom-color: var(--background-border);
+			border-bottom: 1px solid var(--background-border);
 			padding: variables.$padding;
 			display: flex;
 			flex-flow: row wrap;
@@ -79,7 +76,6 @@
 						margin-bottom: variables.$margin-xs;
 						margin-right: variables.$margin-xs;
 						height: 27px;
-
 						font-weight: 500;
 						padding: 1px variables.$padding 0;
 
@@ -121,6 +117,7 @@
 			@media (max-width: variables.$break-mobile) {
 				padding-left: 0;
 				padding-right: 0;
+
 				.meta {
 					font-size: 0.8em;
 

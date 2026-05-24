@@ -2,7 +2,7 @@
 @use "_scss/mixins/view";
 
 :host {
-	@include view.view-content();
+	@include view.view-content;
 
 	.breadcrumb {
 		list-style: none;
@@ -13,7 +13,7 @@
 			font-size: variables.$small;
 		}
 
-		li + li:before {
+		li + li::before {
 			padding: 8px;
 			color: var(--on-background);
 			content: "/\00a0";

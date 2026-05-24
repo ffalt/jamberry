@@ -2,10 +2,10 @@
 @use "_scss/mixins/cards";
 
 :host {
-	@include cards.media-cards();
+	@include cards.media-cards;
 
 	.section-card {
-		@include cards.media-card();
+		@include cards.media-card;
 
 		.image {
 			min-height: 135px;

@@ -34,42 +34,36 @@ body {
 	--background-sidebar: #151b21;
 	--background-border: #262b2f;
 	--background-box: #151b21;
-	--background-transparent: rgba(17, 22, 26, 0.8);
+	--background-transparent: rgb(17 22 26 / 80%);
 	--on-background: #C8C8C8;
 	--on-background-active: #fff;
 	--on-background-highlight: #fff;
 	--on-background-hover: #fff;
-
 	--control: #151b21;
 	--control-box: #1e1e1e;
 	--control-hover: #575757;
 	--control-active: #58594f;
-	--control-box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+	--control-box-shadow: 0 -1px 0 rgb(0 0 0 / 15%) inset;
 	--control-box-border: #696969;
 	--control-border: #1a1a1a;
 	--on-control: #C8C8C8;
 	--on-control-hover: #fff;
 	--on-control-active: #fff;
-	--on-control-ambient: #AAAAAA;
+	--on-control-ambient: #AAA;
 	--on-control-ambient-hover: #fff;
 	--on-control-ambient-disabled: #575757;
-
 	--input: #fff;
 	--input-border: #fff;
 	--on-input: #000;
 	--on-input-hover: #C8C8C8;
-
 	--primary: #008300;
 	--on-primary: #fff;
-
 	--secondary: #4688d7;
-
 	--accent: #FF6347;
 	--on-accent: #fff;
-
 	--scrollbar: #858585;
-	--dialog-backdrop: rgba(0, 0, 0, 0.6);
-	--dropdown-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 10px 24px -2px rgba(0, 0, 0, 0.4);
+	--dialog-backdrop: rgb(0 0 0 / 60%);
+	--dropdown-shadow: 0 4px 6px -1px rgb(0 0 0 / 30%), 0 10px 24px -2px rgb(0 0 0 / 40%);
 }
 
 a {
@@ -91,6 +85,7 @@ a {
 	0% {
 		transform: rotate(0);
 	}
+
 	100% {
 		transform: rotate(360deg);
 	}
@@ -117,7 +112,8 @@ a {
 }
 
 .button-primary {
-	@include button.base-button();
+	@include button.base-button;
+
 	background-color: var(--primary);
 	color: var(--on-primary);
 	border-color: var(--primary);
@@ -130,7 +126,8 @@ a {
 }
 
 .button-accent {
-	@include button.button();
+	@include button.button;
+
 	background-color: var(--accent);
 	color: var(--on-accent);
 	border-color: var(--accent);
@@ -143,7 +140,8 @@ a {
 }
 
 .button-on-background {
-	@include button.button();
+	@include button.button;
+
 	background-color: var(--control);
 	color: var(--on-control);
 	border-color: var(--on-control);
@@ -155,7 +153,8 @@ a {
 }
 
 .button-on-control {
-	@include button.button();
+	@include button.button;
+
 	background-color: var(--control);
 	color: var(--on-control);
 	border-color: var(--on-control);
@@ -322,7 +321,7 @@ $cdk-z-index-overlay: 1000;
 
 .visually-hidden {
 	border: 0;
-	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
 	height: 1px;
 	margin: -1px;
 	overflow: hidden;
@@ -338,6 +337,16 @@ button {
 	&:focus {
 		outline: 1px dotted var(--control-box-border);
 	}
+}
+
+cdk-virtual-scroll-viewport {
+	.cdk-virtual-scroll-content-wrapper {
+		width: 100%;
+	}
+}
+
+app-autocomplete-option b {
+	color: var(--on-control-active);
 }
 
 fieldset {

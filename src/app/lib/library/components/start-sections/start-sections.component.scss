@@ -9,6 +9,7 @@
 			margin-top: variables.$margin;
 			width: 50%;
 			padding-right: variables.$padding-sm;
+
 			@media (max-width: variables.$break-phone) {
 				width: 100%;
 			}

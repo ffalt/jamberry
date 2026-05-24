@@ -16,20 +16,14 @@
 		margin-bottom: -1px;
 		flex: 1;
 		align-self: stretch;
-		border-top-width: 4px;
-		border-top-style: solid;
-		border-top-color: transparent;
-		border-bottom-width: 4px;
-		border-bottom-style: solid;
-		border-bottom-color: transparent;
+		border-top: 4px solid transparent;
+		border-bottom: 4px solid transparent;
 		padding: 0;
 
 		&:hover {
 			background-color: var(--control-hover);
 			transition: all 0.4s ease;
-			border-bottom-width: 4px;
-			border-bottom-style: solid;
-			border-bottom-color: transparent;
+			border-bottom: 4px solid transparent;
 		}
 
 		> div {
@@ -40,10 +34,9 @@
 			padding: variables.$padding-sm 0;
 			text-align: center;
 			align-items: center;
-			align-content: center;
-			justify-content: center;
+			place-content: center center;
 			margin-right: 2px;
-			line-height: 1.42857143;
+			line-height: 1.4286;
 			border-radius: 4px 4px 0 0;
 			position: relative;
 			display: flex;
@@ -53,7 +46,6 @@
 			text-transform: uppercase;
 			letter-spacing: 0.5px;
 			height: 100%;
-
 			color: var(--on-control);
 			user-select: none;
 
@@ -93,8 +85,8 @@
 
 	@media (max-width: variables.$break-pad) {
 		align-items: center;
-		align-content: center;
-		justify-content: center;
+		place-content: center center;
+
 		> li {
 			padding: variables.$padding-xs;
 			min-width: 33%;
@@ -118,6 +110,7 @@
 	&.mini {
 		> li {
 			flex: 0;
+
 			@media (max-width: variables.$break-pad) {
 				min-width: 20px;
 			}

@@ -20,7 +20,7 @@
 		cursor: pointer;
 		user-select: none;
 
-		&:after {
+		&::after {
 			font-family: variables.$icon-font-family;
 			content: variables.$icon-font-chevron-down-char;
 			padding-left: 4px;
@@ -29,19 +29,17 @@
 		&:hover {
 			color: var(--on-control-ambient-hover);
 
-			&:after {
+			&::after {
 				color: var(--primary);
 			}
 		}
 
-		border-right-width: 3px;
-		border-right-style: solid;
-		border-right-color: transparent;
+		border-right: 3px solid transparent;
 	}
 
 	&.active {
 		.header {
-			&:after {
+			&::after {
 				content: variables.$icon-font-chevron-up-char;
 			}
 		}
@@ -49,10 +47,11 @@
 
 	@media (max-width: variables.$break-pad) {
 		flex: 1;
+
 		.header {
 			border-right-width: 0;
 
-			&:after {
+			&::after {
 				content: '';
 			}
 		}

@@ -4,14 +4,12 @@
 
 :host {
 	.sessions {
-		@include view.view-host();
+		@include view.view-host;
 
 		.content {
-			@include view.view-content();
+			@include view.view-content;
 
-			& {
-				padding: variables.$padding variables.$padding variables.$padding-xl;
-			}
+			padding: variables.$padding variables.$padding variables.$padding-xl;
 
 			.subsonic {
 				padding-bottom: variables.$padding-lg;
@@ -33,11 +31,11 @@
 			}
 
 			.session-list {
-				@include table.flex-table();
+				@include table.flex-table;
 
 				.session {
-					@include table.flex-table-row();
-					@include table.flex-table-data-row();
+					@include table.flex-table-row;
+					@include table.flex-table-data-row;
 
 					.agent {
 						font-size: 0.8em;

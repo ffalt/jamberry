@@ -32,41 +32,44 @@
 		right: 0;
 		bottom: 0;
 		z-index: 10;
-		border-top-width: 1px;
-		border-top-style: solid;
-		border-top-color: var(--control-border);
+		border-top: 1px solid var(--control-border);
 		background-color: var(--control);
 
 		@keyframes dash {
 			0% {
 				stroke-dashoffset: 0;
 			}
+
 			25% {
 				stroke-dashoffset: 100;
 			}
+
 			50% {
 				stroke-dashoffset: 0;
 			}
+
 			75% {
 				stroke-dashoffset: 100;
 			}
+
 			100% {
 				stroke-dashoffset: 0;
 			}
 		}
+
 		@keyframes grow {
 			0% {
 				transform: scaleY(1);
 			}
+
 			15% {
 				transform: scaleY(1.5);
 			}
-			15% {
-				transform: scaleY(1.5);
-			}
+
 			30% {
 				transform: scaleY(1);
 			}
+
 			100% {
 				transform: scaleY(1);
 			}
@@ -118,7 +121,8 @@
 		}
 
 		button {
-			@include button.button();
+			@include button.button;
+
 			background-color: var(--control);
 			border-color: var(--control);
 			color: var(--on-control);
@@ -136,6 +140,7 @@
 			height: auto;
 			overflow-y: auto;
 		}
+
 		.header {
 			position: fixed;
 			left: 0;
@@ -143,6 +148,7 @@
 			top: 0;
 			z-index: 10;
 		}
+
 		.app-content {
 			height: auto;
 			min-height: calc(100% - #{variables.$content-margins});

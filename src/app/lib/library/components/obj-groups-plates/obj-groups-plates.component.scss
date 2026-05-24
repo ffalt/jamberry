@@ -19,8 +19,6 @@
 	}
 
 	.plates {
-		border-top-width: 1px;
-		border-top-style: solid;
-		border-top-color: var(--background-border);
+		border-top: 1px solid var(--background-border);
 	}
 }

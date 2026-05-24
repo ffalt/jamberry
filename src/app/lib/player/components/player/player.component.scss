@@ -6,15 +6,11 @@
 
 	.player {
 		width: 100%;
-		border-top-width: 1px;
-		border-top-style: solid;
-		border-top-color: var(--control-border);
-
+		border-top: 1px solid var(--control-border);
 		padding: variables.$padding variables.$padding variables.$padding-sm;
 		display: flex;
 		flex-flow: row wrap;
 		align-items: center;
-
 		background-color: var(--control);
 		color: var(--on-control-ambient);
 
@@ -58,7 +54,6 @@
 			flex: 1;
 			padding: 0 variables.$padding;
 			font-size: variables.$x-small;
-
 			display: flex;
 			flex-flow: row;
 			justify-content: space-between;
@@ -87,8 +82,7 @@
 				flex-wrap: nowrap;
 				white-space: nowrap;
 				display: flex;
-				justify-items: center;
-				align-items: center;
+				place-items: center center;
 			}
 
 			.player-control {
@@ -140,7 +134,6 @@
 		}
 
 		@media (max-width: variables.$break-desktop-large) {
-
 			.options {
 				.player-control.button-queue {
 					display: inline;
@@ -149,7 +142,6 @@
 		}
 
 		@media (max-width: variables.$break-notebook) {
-
 			.options {
 				padding-left: variables.$padding;
 			}
@@ -157,7 +149,6 @@
 		}
 
 		@media (max-width: variables.$break-pad) {
-
 			.actions {
 				width: 25%;
 			}
@@ -187,7 +178,6 @@
 		}
 
 		@media (max-width: variables.$break-phone) {
-
 			.actions {
 				width: 100%;
 				justify-content: space-around;

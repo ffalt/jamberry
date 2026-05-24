@@ -21,7 +21,6 @@ export interface ContextMenuObjComponentOptions {
 @Component({
 	selector: 'app-context-menu-obj',
 	templateUrl: './context-menu-obj.component.html',
-	styleUrls: ['./context-menu-obj.component.scss'],
 	imports: [ContextMenuModule, ContextEntryRateComponent, ContextEntryFavComponent]
 })
 export class ContextMenuObjComponent implements ContextMenuHostComponentInterface<ContextMenuObjComponentOptions> {

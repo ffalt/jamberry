@@ -3,14 +3,12 @@
 
 :host {
 	.settings {
-		@include view.view-host();
+		@include view.view-host;
 
 		.content {
-			@include view.view-content();
+			@include view.view-content;
 
-			& {
-				padding: variables.$padding variables.$padding variables.$padding-xl;
-			}
+			padding: variables.$padding variables.$padding variables.$padding-xl;
 
 			label {
 				display: block;

@@ -2,7 +2,7 @@
 @use "_scss/mixins/cards";
 
 :host {
-	@include cards.media-card();
+	@include cards.media-card;
 
 	img {
 		width: 100%

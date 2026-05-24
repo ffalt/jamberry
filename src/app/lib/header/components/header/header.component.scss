@@ -1,14 +1,11 @@
 @use "_scss/variables";
 
 :host {
-
 	header {
 		background-color: var(--control);
 		color: var(--on-control-ambient);
 		padding: variables.$padding-sm;
-		border-bottom-width: 1px;
-		border-bottom-style: solid;
-		border-bottom-color: var(--control-border);
+		border-bottom: 1px solid var(--control-border);
 		width: 100%;
 		display: flex;
 		flex-flow: row nowrap;
@@ -95,7 +92,6 @@
 		cursor: pointer;
 		user-select: none;
 		padding-top: 2px;
-
 		background-color: var(--control);
 		color: var(--on-control);
 		border-radius: 50%;
@@ -114,6 +110,7 @@
 		.sandwich {
 			display: inline-block;
 		}
+
 		.search {
 			margin-right: variables.$margin;
 		}

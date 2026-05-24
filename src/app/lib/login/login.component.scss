@@ -2,7 +2,6 @@
 @use "_scss/mixins/button";
 
 :host {
-
 	.view-login {
 		position: fixed;
 		height: 100%;
@@ -25,7 +24,7 @@
 		border: 1px solid var(--background-border);
 		border-radius: 12px;
 		padding: variables.$padding-xl variables.$padding-lg;
-		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+		box-shadow: 0 8px 32px rgb(0 0 0 / 24%);
 	}
 
 	.login-header {
@@ -72,7 +71,7 @@
 		display: flex;
 		align-items: center;
 
-		input[type=text], input[type=password] {
+		input[type="text"], input[type="password"] {
 			width: 100%;
 			height: 44px;
 			padding: 0 variables.$padding-sm 0 variables.$padding-sm;
@@ -112,7 +111,8 @@
 	}
 
 	.login-submit {
-		@include button.base-button();
+		@include button.base-button;
+
 		width: 100%;
 		height: 44px;
 		font-size: variables.$small;
@@ -134,7 +134,6 @@
 	}
 
 	@media (max-width: variables.$break-phone) {
-
 		.container-login {
 			padding: variables.$padding-sm;
 		}

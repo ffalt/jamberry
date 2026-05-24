@@ -10,7 +10,6 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-obj-loader',
 	templateUrl: './objs-loader.component.html',
-	styleUrls: ['./objs-loader.component.scss'],
 	imports: [ObjGroupsViewComponent, LoadMoreButtonComponent, LoadingComponent]
 })
 export class ObjsLoaderComponent implements OnChanges {

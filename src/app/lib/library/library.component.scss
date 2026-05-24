@@ -28,7 +28,6 @@
 	}
 
 	@media (max-width: variables.$break-desktop-huge) {
-
 		.left {
 			width: 20%;
 		}
@@ -48,7 +47,6 @@
 	}
 
 	@media (max-width: variables.$break-desktop-large) {
-
 		.left {
 			width: 25%;
 		}
@@ -75,6 +73,7 @@
 		.middle {
 			height: auto;
 		}
+
 		.right {
 			width: 100% !important;
 			height: auto;

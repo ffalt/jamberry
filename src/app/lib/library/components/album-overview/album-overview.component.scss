@@ -2,7 +2,7 @@
 @use "_scss/mixins/view";
 
 :host {
-	@include view.view-content();
+	@include view.view-content;
 
 	.overview {
 		display: flex;
@@ -19,7 +19,6 @@
 		}
 
 		.album-tracks {
-
 			margin-top: variables.$margin;
 			width: 100%;
 

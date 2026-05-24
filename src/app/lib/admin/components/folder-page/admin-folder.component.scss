@@ -3,7 +3,8 @@
 @use "_scss/mixins/tabs";
 
 :host {
-	@include view.view-host();
+	@include view.view-host;
+
 	height: 100%;
 	width: 100%;
 	min-height: 100%;
@@ -28,7 +29,7 @@
 		color: var(--on-control);
 
 		.tabs {
-			@include tabs.tabs();
+			@include tabs.tabs;
 		}
 	}
 
@@ -114,6 +115,7 @@
 			}
 
 		}
+
 		&.right-active {
 			.content {
 				.left-content {

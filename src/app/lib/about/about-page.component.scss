@@ -4,7 +4,7 @@
 
 :host {
 	.about {
-		@include view.view-host();
+		@include view.view-host;
 
 		app-view-header-slim {
 			padding-left: variables.$padding-xl;
@@ -12,18 +12,16 @@
 		}
 
 		.content {
-			@include view.view-content();
+			@include view.view-content;
 
-			& {
-				padding: 0 variables.$padding-xl variables.$padding-xl;
-			}
+			padding: 0 variables.$padding-xl variables.$padding-xl;
 
 			@media (max-width: variables.$break-phone) {
 				padding-left: variables.$padding;
 				padding-right: variables.$padding;
 			}
 
-			@include list.key-value-list();
+			@include list.key-value-list;
 		}
 	}
 }

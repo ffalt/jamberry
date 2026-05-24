@@ -3,14 +3,12 @@
 
 :host {
 	.user {
-		@include view.view-host();
+		@include view.view-host;
 
 		.content {
-			@include view.view-content();
+			@include view.view-content;
 
-			& {
-				padding: variables.$padding variables.$padding variables.$padding-xl;
-			}
+			padding: variables.$padding variables.$padding variables.$padding-xl;
 
 			.section {
 				padding-bottom: variables.$padding-lg;
@@ -20,9 +18,6 @@
 				display: flex;
 				flex-direction: row;
 				gap: variables.$padding-xs;
-
-				.column.first {
-				}
 
 				@media (max-width: variables.$break-mobile) {
 					flex-direction: column;

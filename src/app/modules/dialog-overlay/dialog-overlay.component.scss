@@ -52,7 +52,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 			text-align: center;
 			color: var(--on-control-hover);
 
-			&:before {
+			&::before {
 				position: absolute;
 				content: '';
 				top: 0;
@@ -61,11 +61,11 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 				height: 100%;
 				transition: width 250ms ease;
 				z-index: 0;
-				background-color: rgba(white, 0.2);
+				background-color: rgb(white, 0.2);
 			}
 
 			&:hover {
-				&:before {
+				&::before {
 					width: 100%;
 				}
 			}
@@ -99,7 +99,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 		max-width: 2.5rem;
 		max-height: 2.5rem;
 
-		@include close.close();
+		@include close.close;
 	}
 }
 
@@ -112,10 +112,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 
 .cdk-overlay-backdrop {
 	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	inset: 0;
 	z-index: $cdk-z-index-overlay-backdrop;
 	pointer-events: auto;
 	-webkit-tap-highlight-color: transparent;

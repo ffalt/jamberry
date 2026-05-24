@@ -8,7 +8,6 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-episodes-loader',
 	templateUrl: './episodes-loader.component.html',
-	styleUrls: ['./episodes-loader.component.scss'],
 	imports: [EpisodeListComponent, LoadMoreButtonComponent, LoadingComponent]
 })
 export class EpisodesLoaderComponent implements OnChanges {

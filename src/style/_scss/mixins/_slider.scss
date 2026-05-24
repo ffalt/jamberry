@@ -3,6 +3,7 @@
 @mixin slider($slider-height, $slider-progress-height) {
 	$slider-progress-top: math.div($slider-height - $slider-progress-height, 2) - 1px;
 	$slider-handle-height: ($slider-height - $slider-progress-height);
+
 	.slider {
 		height: $slider-height;
 		float: none;
@@ -14,10 +15,7 @@
 		.back {
 			height: $slider-progress-height;
 			position: absolute;
-			top: $slider-progress-top;
-			left: 0;
-			bottom: 0;
-			right: 0;
+			inset: $slider-progress-top 0 0 0;
 			width: 100%;
 			pointer-events: none;
 			z-index: 1;
@@ -52,12 +50,10 @@
 			}
 
 			&.line {
-				border-right-style: solid;
-				border-right-width: 3px;
+				border-right: 3px solid var(--on-background);
 				top: 0;
 				height: $slider-height;
 				background-color: transparent;
-				border-right-color: var(--on-background);
 			}
 		}
 	}

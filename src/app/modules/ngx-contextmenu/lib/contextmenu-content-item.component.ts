@@ -11,7 +11,6 @@ interface ContextMenuItemDirectiveEvent {
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'context-menu-content-item',
-	styleUrls: ['./contextmenu-content-item.component.css'],
 	templateUrl: './contextmenu-content-item.component.html',
 	imports: [NgTemplateOutlet]
 })

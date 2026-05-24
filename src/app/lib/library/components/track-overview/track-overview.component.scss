@@ -2,8 +2,8 @@
 @use "_scss/mixins/list";
 
 :host {
-	@include view.view-content();
-	@include list.key-value-list();
+	@include view.view-content;
+	@include list.key-value-list;
 
 	.svg {
 		height: 100px;

@@ -14,7 +14,7 @@
 		width: 100%;
 
 		.actions {
-			@include button.action-buttons();
+			@include button.action-buttons;
 		}
 
 		app-admin-track-list {

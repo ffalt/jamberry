@@ -1,6 +1,6 @@
 @use "_scss/mixins/view";
 
 :host {
-	@include view.view-header();
-	@include view.view-header-transparent();
+	@include view.view-header;
+	@include view.view-header-transparent;
 }

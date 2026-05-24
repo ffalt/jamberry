@@ -5,7 +5,6 @@ import { type ArtworkSearch, FolderArtworkSearchImageComponent } from '../folder
 @Component({
 	selector: 'app-dialog-folder-artwork-search',
 	templateUrl: './dialog-folder-artwork-search.component.html',
-	styleUrls: ['./dialog-folder-artwork-search.component.scss'],
 	imports: [FolderArtworkSearchImageComponent]
 })
 export class DialogFolderArtworkSearchComponent implements DialogOverlay<ArtworkSearch> {

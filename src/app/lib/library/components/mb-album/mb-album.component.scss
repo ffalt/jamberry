@@ -2,7 +2,6 @@
 @use "_scss/mixins/list";
 
 :host {
-
 	.section {
 		margin-bottom: variables.$margin-lg;
 	}
@@ -15,13 +14,13 @@
 		color: var(--on-control-ambient);
 	}
 
-	@include list.key-value-list();
+	@include list.key-value-list;
 
 	.value {
 		color: var(--on-background-highlight);
 	}
 
-	.track, .labelInfo {
+	.track, .label-info {
 		margin-bottom: variables.$margin-sm;
 	}
 }

@@ -3,8 +3,7 @@
 :host {
 	.match-results {
 		flex: 1 1 auto;
-		overflow-y: auto;
-		overflow-x: auto;
+		overflow: auto;
 
 		.icon-checkmark {
 			color: var(--primary);
@@ -31,7 +30,6 @@
 			}
 
 			.match-select-releases {
-
 				button {
 					font-size: 0.7em;
 					line-height: 0.7em;

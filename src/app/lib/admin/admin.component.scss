@@ -23,17 +23,17 @@
 	}
 
 	@media (max-width: variables.$break-desktop-large) {
-
 		.left {
 			width: 20%;
 		}
+
 		.middle {
 			width: 80%;
 		}
 	}
 
 	@media (max-width: variables.$break-pad) {
-		//overflow: auto;
+		// overflow: auto;
 		min-height: 100%;
 		position: absolute;
 		display: block;

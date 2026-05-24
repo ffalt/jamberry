@@ -4,7 +4,6 @@ import { BackgroundTextComponent } from '../background-text/background-text.comp
 @Component({
 	selector: 'app-background-text-list',
 	templateUrl: './background-text-list.component.html',
-	styleUrls: ['./background-text-list.component.scss'],
 	imports: [BackgroundTextComponent]
 })
 export class BackgroundTextListComponent {

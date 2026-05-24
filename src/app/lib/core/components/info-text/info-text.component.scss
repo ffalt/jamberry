@@ -1,5 +1,5 @@
 @use "_scss/mixins/note";
 
 :host {
-	@include note.note();
+	@include note.note;
 }

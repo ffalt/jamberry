@@ -4,10 +4,10 @@
 	height: 100%;
 
 	.queue {
-		@include view.view-host();
+		@include view.view-host;
 
 		.content {
-			@include view.view-content();
+			@include view.view-content;
 		}
 	}
 }

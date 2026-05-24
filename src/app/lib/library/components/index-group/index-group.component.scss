@@ -3,10 +3,10 @@
 
 :host {
 	.index-cards {
-		@include cards.media-cards();
+		@include cards.media-cards;
 
 		.index-card-placeholder {
-			@include cards.media-card();
+			@include cards.media-card;
 		}
 	}
 
@@ -19,7 +19,7 @@
 		align-content: space-evenly;
 		display: flex;
 
-		&:after {
+		&::after {
 			font-family: variables.$icon-font-family;
 			content: variables.$icon-font-chevron-down-char;
 			padding-left: 4px;

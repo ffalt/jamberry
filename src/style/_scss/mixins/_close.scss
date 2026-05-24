@@ -12,7 +12,7 @@ $base-duration: 0.25s;
 		font-size: 1.5rem;
 		transition: $base-duration linear;
 
-		&:before, &:after {
+		&::before, &::after {
 			position: absolute;
 			content: '';
 			width: 0.75rem;
@@ -21,18 +21,18 @@ $base-duration: 0.25s;
 			overflow: hidden;
 		}
 
-		&:before {
+		&::before {
 			transform: rotate(-45deg);
 		}
 
-		&:after {
+		&::after {
 			transform: rotate(45deg);
 		}
 
 		&:hover {
 			transform: rotate(360deg);
 
-			&:before, &:after {
+			&::before, &::after {
 				background-color: var(--accent);
 			}
 		}

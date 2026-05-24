@@ -8,7 +8,6 @@ import type { ContextMenuComponent } from '@modules/ngx-contextmenu/lib/contextm
 @Component({
 	selector: 'app-context-menu-user',
 	templateUrl: './context-menu-user.component.html',
-	styleUrls: ['./context-menu-user.component.scss'],
 	imports: [ContextMenuModule]
 })
 export class ContextMenuUserComponent implements ContextMenuHostComponentInterface<any> {

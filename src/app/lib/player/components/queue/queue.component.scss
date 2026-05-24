@@ -28,8 +28,7 @@
 
 	.tracks-wrapper {
 		flex-grow: 1;
-		overflow-y: auto;
-		overflow-x: hidden;
+		overflow: hidden auto;
 		background-color: var(--background);
 		margin: 1px;
 	}
@@ -39,24 +38,17 @@
 		height: 100%;
 		min-height: 100%;
 		overflow-x: hidden;
-
-		::ng-deep {
-			.cdk-virtual-scroll-content-wrapper {
-				width: 100%;
-			}
-		}
 	}
 
 	.tracks {
-		@include table.track-table();
+		@include table.track-table;
+
 		overflow-x: hidden;
 		max-width: 100%;
 	}
 
 	.queue-actions {
-		border-top-width: 1px;
-		border-top-style: solid;
-		border-top-color: var(--control-border);
+		border-top: 1px solid var(--control-border);
 		display: flex;
 		flex-flow: row nowrap;
 		background-color: var(--control);
@@ -67,7 +59,9 @@
 			min-height: 40px;
 			height: 40px;
 			max-height: 40px;
-			@include button.button();
+
+			@include button.button;
+
 			background-color: var(--control);
 			border-color: var(--control);
 			color: var(--on-control);
@@ -79,6 +73,7 @@
 
 .cdk-drag-preview {
 	color: #fff;
-	@include table.track-table-row();
-	@include table.track-table-data-row();
+
+	@include table.track-table-row;
+	@include table.track-table-data-row;
 }

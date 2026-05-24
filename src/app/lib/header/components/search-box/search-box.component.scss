@@ -3,7 +3,8 @@
 
 :host {
 	form {
-		@include input.input-box-content();
+		@include input.input-box-content;
+
 		display: flex;
 		flex-wrap: nowrap;
 	}

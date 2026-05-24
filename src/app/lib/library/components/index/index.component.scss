@@ -3,22 +3,20 @@
 
 :host {
 	.index-entries {
-		@include table.flex-table();
+		@include table.flex-table;
 
 		.index-entry {
-			@include table.flex-table-row();
-			@include table.flex-table-data-row();
+			@include table.flex-table-row;
+			@include table.flex-table-data-row;
 		}
 	}
 
 	.index-group-name {
-		@include table.flex-table-row();
+		@include table.flex-table-row;
 
-		& {
-			user-select: none;
-		}
+		user-select: none;
 
-		&:after {
+		&::after {
 			font-family: variables.$icon-font-family;
 			content: variables.$icon-font-chevron-down-char;
 			padding-left: 4px;

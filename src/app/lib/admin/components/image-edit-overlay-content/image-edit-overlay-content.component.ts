@@ -5,7 +5,6 @@ import { ArtworkEditComponent, type ImageEdit } from '../artwork-edit/artwork-ed
 @Component({
 	selector: 'app-image-edit-overlay-content',
 	templateUrl: './image-edit-overlay-content.component.html',
-	styleUrls: ['./image-edit-overlay-content.scss'],
 	imports: [ArtworkEditComponent]
 })
 export class ImageEditOverlayContentComponent implements DialogOverlay<ImageEdit> {

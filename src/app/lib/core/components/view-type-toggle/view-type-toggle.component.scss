@@ -1,9 +1,7 @@
 @use "_scss/variables";
 
 :host {
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: var(--background-border);
+	border-bottom: 1px solid var(--background-border);
 
 	.view-type {
 		min-height: 30px;

@@ -6,7 +6,6 @@ import { MatchReleaseComponent, type ReleaseMatching } from '../match-release/ma
 @Component({
 	selector: 'app-dialog-match-release',
 	templateUrl: './dialog-match-release.component.html',
-	styleUrls: ['./dialog-match-release.component.scss'],
 	imports: [MatchReleaseComponent]
 })
 export class DialogMatchReleaseComponent implements DialogOverlay<ReleaseMatching>, OnDestroy {
