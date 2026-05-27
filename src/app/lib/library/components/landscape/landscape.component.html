@@ -1,0 +1,61 @@
+<div class="landscape-wrap" #wrap>
+	<div class="landscape-toolbar">
+		<input
+			class="landscape-search"
+			placeholder="Search artist or genre..." i18n-placeholder
+			[value]="searchTerm()"
+			(input)="onSearch($any($event.target).value)"/>
+		<button i18n class="landscape-btn" (click)="resetView()">Reset view</button>
+		<button class="landscape-btn" [class.active]="showFilters()" (click)="showFilters.set(!showFilters())" i18n>Filters</button>
+	</div>
+	@if (showFilters()) {
+		<div class="landscape-filters">
+			<div class="filter-group">
+				<span class="filter-group-label" i18n>Genres</span>
+				<label class="filter-check">
+					<input type="checkbox" [checked]="filterIgnoreUnknownGenres()" (change)="filterIgnoreUnknownGenres.set(!filterIgnoreUnknownGenres()); onFiltersChange()"/>
+					<span i18n>Mapped only</span>
+				</label>
+				<label class="filter-num">
+					<span i18n>Min tracks</span>
+					<input type="number" min="0" [value]="filterMinGenreTrackCount()" (input)="filterMinGenreTrackCount.set(+$any($event.target).value); onFiltersChange()"/>
+				</label>
+				<label class="filter-num">
+					<span i18n>Min artists</span>
+					<input type="number" min="0" [value]="filterMinGenreArtistCount()" (input)="filterMinGenreArtistCount.set(+$any($event.target).value); onFiltersChange()"/>
+				</label>
+			</div>
+			<div class="filter-separator"></div>
+			<div class="filter-group">
+				<span class="filter-group-label" i18n>Artists</span>
+				<label class="filter-check">
+					<input type="checkbox" [checked]="filterIgnoreUnpositionedArtists()" (change)="filterIgnoreUnpositionedArtists.set(!filterIgnoreUnpositionedArtists()); onFiltersChange()"/>
+					<span i18n>Positioned only</span>
+				</label>
+				<label class="filter-check">
+					<input type="checkbox" [checked]="filterArtistsWithAlbumsOnly()" (change)="filterArtistsWithAlbumsOnly.set(!filterArtistsWithAlbumsOnly()); onFiltersChange()"/>
+					<span i18n>With albums only</span>
+				</label>
+				<label class="filter-num">
+					<span i18n>Min tracks</span>
+					<input type="number" min="0" [value]="filterMinArtistTrackCount()" (input)="filterMinArtistTrackCount.set(+$any($event.target).value); onFiltersChange()"/>
+				</label>
+			</div>
+		</div>
+	}
+	@if (loading()) {
+		<div i18n class="landscape-loading">Loading landscape data...</div>
+	}
+	@if (errorMessage()) {
+		<div class="landscape-error">{{ errorMessage() }}</div>
+	}
+	<svg #svg class="landscape-svg">
+		<g #zoomLayer></g>
+	</svg>
+	<app-landscape-tooltip [node]="hoveredNode()" [x]="tooltipX()" [y]="tooltipY()"/>
+	<app-landscape-panel
+		[node]="selectedNode()"
+		[genreMap]="genreMap()"
+		(dismiss)="clearSelection()"
+		(genreClick)="onGenreFocus($event)"/>
+</div>

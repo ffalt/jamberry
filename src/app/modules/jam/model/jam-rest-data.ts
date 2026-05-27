@@ -847,6 +847,93 @@ export declare namespace Jam {
 	}
 
 	/*
+	 * Landscape Artist Node
+	 */
+	export interface LandscapeArtistNode {
+		/** ID */
+		id: string;
+		/** Name */
+		name: string;
+		/**
+		 * Album Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		albumCount: number;
+		/**
+		 * Track Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		trackCount: number;
+		/** Genre IDs this artist belongs to */
+		genreIDs: Array<string>;
+		/**
+		 * Computed X position (centroid of genre noise coords + jitter)
+		 * @TJS-type integer
+		 */
+		noiseX?: number;
+		/**
+		 * Computed Y position (centroid of genre noise coords + jitter)
+		 * @TJS-type integer
+		 */
+		noiseY?: number;
+	}
+
+	/*
+	 * Music Collection Landscape Data
+	 */
+	export interface LandscapeData {
+		/** All genres as scatter plot nodes */
+		genres: Array<LandscapeGenreNode>;
+		/** All artists as scatter plot dots */
+		artists: Array<LandscapeArtistNode>;
+		/**
+		 * Fraction of genres matched to ENAO coordinate data (0-1)
+		 * @TJS-type integer
+		 */
+		noiseMatchRate: number;
+	}
+
+	/*
+	 * Landscape Genre Node
+	 */
+	export interface LandscapeGenreNode {
+		/** ID */
+		id: string;
+		/** Name */
+		name: string;
+		/**
+		 * Track Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		trackCount: number;
+		/**
+		 * Artist Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		artistCount: number;
+		/**
+		 * Album Count
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		albumCount: number;
+		/**
+		 * ENAO X coordinate (0=left/organic, 1=right/mechanical)
+		 * @TJS-type integer
+		 */
+		noiseX?: number;
+		/**
+		 * ENAO Y coordinate (0=top/atmospheric, 1=bottom/energetic)
+		 * @TJS-type integer
+		 */
+		noiseY?: number;
+	}
+
+	/*
 	 * Media Base
 	 */
 	export interface MediaBase extends Base {

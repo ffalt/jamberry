@@ -18,6 +18,7 @@ import { JamEpisodeService } from './services/jam.episode.service';
 import { JamFolderService } from './services/jam.folder.service';
 import { JamGenreService } from './services/jam.genre.service';
 import { JamImageService } from './services/jam.image.service';
+import { JamLandscapeService } from './services/jam.landscape.service';
 import { JamMetaDataService } from './services/jam.metadata.service';
 import { JamNowPlayingService } from './services/jam.nowplaying.service';
 import { JamPingService } from './services/jam.ping.service';
@@ -51,6 +52,7 @@ export class JamService {
 	readonly folder = inject(JamFolderService);
 	readonly genre = inject(JamGenreService);
 	readonly image = inject(JamImageService);
+	readonly landscape = inject(JamLandscapeService);
 	readonly metadata = inject(JamMetaDataService);
 	readonly nowplaying = inject(JamNowPlayingService);
 	readonly ping = inject(JamPingService);

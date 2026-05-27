@@ -1177,6 +1177,42 @@ export declare namespace JamParameters {
 	export interface IncludesUserParameters {
 	}
 
+	export interface LandscapeParameters {
+		/**
+		 * Ignore genre entries with no ENAO coordinate match
+		 * @TJS-type boolean
+		 */
+		ignoreUnknownGenres?: boolean;
+		/**
+		 * Include only artists that have at least one album
+		 * @TJS-type boolean
+		 */
+		artistsWithAlbumsOnly?: boolean;
+		/**
+		 * Exclude artists that have no computed noise position (all genres unpositioned)
+		 * @TJS-type boolean
+		 */
+		ignoreUnpositionedArtists?: boolean;
+		/**
+		 * Minimum track count for a genre to be included
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		minGenreTrackCount?: number;
+		/**
+		 * Minimum artist count for a genre to be included
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		minGenreArtistCount?: number;
+		/**
+		 * Minimum track count for an artist to be included
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		minArtistTrackCount?: number;
+	}
+
 	export interface LastFMLookupParameters {
 		/** MusicBrainz ID */
 		mbID: string;

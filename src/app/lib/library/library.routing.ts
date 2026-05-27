@@ -400,5 +400,11 @@ export const libaryRoutes: Routes = [
 		canActivate: [AuthCanActivateGuard],
 		data: { name: 'Genres' },
 		children: objsListRoutes
+	},
+	{
+		path: 'landscape',
+		loadComponent: async () => import('./components/landscape/landscape.component').then(m => m.LandscapeComponent),
+		canActivate: [AuthCanActivateGuard],
+		data: { name: 'Landscape' }
 	}
 ];

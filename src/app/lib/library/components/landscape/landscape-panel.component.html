@@ -1,0 +1,37 @@
+@if (node(); as currentNode) {
+	<div class="landscape-panel">
+		<button class="panel-close" aria-label="Close" i18n-aria-label (click)="dismiss.emit()">×</button>
+		@if (isArtist(currentNode)) {
+			@if (!imageError()) {
+				<img class="panel-thumb"
+					[src]="getImageUrl(currentNode.id)"
+					alt=""
+					(error)="onImgError()"/>
+			}
+			<h3 class="panel-name">{{ currentNode.name }}</h3>
+			<div class="panel-stats">
+				<span i18n>Albums: {{ currentNode.albumCount }}</span>
+				<span i18n>Tracks: {{ currentNode.trackCount }}</span>
+			</div>
+			<div class="panel-genres">
+				@for (genre of artistGenres(); track genre.id) {
+					<button class="genre-badge"
+						[style.background]="genre.color"
+						[attr.aria-label]="'Filter by genre: ' + genre.name"
+						(click)="genreClick.emit(genre.id)">
+						{{ genre.name }}
+					</button>
+				}
+			</div>
+			<button i18n class="panel-action" (click)="goToArtist(currentNode)">Go to Artist</button>
+		} @else {
+			<h3 class="panel-name" [style.color]="currentNode.color">{{ currentNode.name }}</h3>
+			<div class="panel-stats">
+				<span i18n>Artists: {{ currentNode.artistCount }}</span>
+				<span i18n>Albums: {{ currentNode.albumCount }}</span>
+				<span i18n>Tracks: {{ currentNode.trackCount }}</span>
+			</div>
+			<button i18n class="panel-action" (click)="goToGenre(currentNode)">Go to Genre</button>
+		}
+	</div>
+}

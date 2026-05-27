@@ -1,0 +1,13 @@
+@if (node(); as currentNode) {
+	<div class="landscape-tooltip" [style.left.px]="clampedX()" [style.top.px]="clampedY()">
+		<div class="tooltip-name">{{ currentNode.name }}</div>
+		@if (isGenre(currentNode)) {
+			<div i18n class="tooltip-detail">Artists: {{ currentNode.artistCount }}</div>
+			<div i18n class="tooltip-detail">Albums: {{ currentNode.albumCount }}</div>
+			<div i18n class="tooltip-detail">Tracks: {{ currentNode.trackCount }}</div>
+		} @else {
+			<div i18n class="tooltip-detail">Albums: {{ currentNode.albumCount }}</div>
+			<div i18n class="tooltip-detail">Tracks: {{ currentNode.trackCount }}</div>
+		}
+	</div>
+}

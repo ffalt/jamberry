@@ -1,0 +1,29 @@
+:host {
+	pointer-events: none;
+	position: absolute;
+	inset: 0;
+	z-index: 10;
+}
+
+.landscape-tooltip {
+	position: absolute;
+	background: var(--background-box);
+	border: 1px solid var(--background-border);
+	border-radius: 4px;
+	padding: 8px 12px;
+	font-size: 12px;
+	color: var(--on-background);
+	white-space: nowrap;
+	transform: translate(12px, -50%);
+}
+
+.tooltip-name {
+	font-weight: bold;
+	margin-bottom: 4px;
+	font-size: 13px;
+}
+
+.tooltip-detail {
+	opacity: 0.7;
+	line-height: 1.4;
+}

@@ -43,7 +43,8 @@ export class SidebarLibraryComponent implements OnInit {
 			{ link: '/library/', name: 'Home', icon: 'icon-browse', options: { exact: true } },
 			{ link: '/library/search', name: 'Search', icon: 'icon-search' },
 			{ link: '/library/playlists', name: 'Playlists', icon: 'icon-playlist' },
-			{ link: '/library/genres', name: 'Genres', icon: 'icon-genre' }
+			{ link: '/library/genres', name: 'Genres', icon: 'icon-genre' },
+			{ link: '/library/landscape', name: 'Landscape', icon: 'icon-genre' }
 		];
 		this.spokenList = [
 			{ link: '/library/podcasts', name: 'Podcasts', icon: 'icon-podcasts' }];

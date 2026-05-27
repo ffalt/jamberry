@@ -140,7 +140,8 @@ export default ts.config(
 		files: ["**/*.ts"],
 		ignores: [
 			"**/*.spec.ts",
-			"setup-vitest.ts"
+			"setup-vitest.ts",
+			"src/app/modules/jam/model/jam-rest-params.ts" // generated
 		],
 		languageOptions: {
 			ecmaVersion: 2020,
