@@ -1,0 +1,1 @@
+import{Mc as c,U as s,fa as i,h as r,qa as u}from"./chunk-7PVAROER.js";function S(t){t||(t=i(u));let n=new r(e=>{if(t.destroyed){e.next();return}return t.onDestroy(e.next.bind(e))});return e=>e.pipe(s(n))}function q(t){let n=c(t);return new r(e=>{let o=n?.onDestroy(()=>e.complete()),a=t.subscribe(d=>e.next(d));return()=>{a.unsubscribe(),o?.()}})}export{S as a,q as b};
