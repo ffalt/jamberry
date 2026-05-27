@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.9](https://github.com/ffalt/jamberry/compare/v0.6.8...v0.6.9) (2026-05-27)
+
+
+### Features
+
+* **landscape:** add landscape viz ([2038aa6](https://github.com/ffalt/jamberry/commit/2038aa6f223ec5de9c86a7b8f9ecf26af1faf919))
+
 ## [0.6.8](https://github.com/ffalt/jamberry/compare/v0.6.7...v0.6.8) (2026-05-10)
 
 
