@@ -11,6 +11,8 @@ import { GenreDatum, LandscapeArtistRenderNode, LandscapeGenreRenderNode, Landsc
 import { ThemeService } from '@modules/theme';
 
 const PADDING = 40;
+const GRID_SCALE = 1.5;
+const ARTIST_NODE_SIZE = 2;
 const UNMAPPED_REGION_X = 0.92;
 const UNMAPPED_REGION_Y = 0.92;
 const UNMAPPED_CELL_W = 60;
@@ -69,7 +71,6 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 	private readonly destroyRef = inject(DestroyRef);
 	private readonly resizeSubject = new Subject<void>();
 	private readonly searchSubject = new Subject<string>();
-	private currentZoom = 1;
 	private data?: LandscapeRenderData;
 	private width = 0;
 	private height = 0;
@@ -173,7 +174,10 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 		if (!this.zoomBehavior) {
 			return;
 		}
-		this.svgTransition(300).call(this.zoomBehavior.transform.bind(this.zoomBehavior), d3.zoomIdentity);
+		const fitScale = Math.min(this.width / (this.x(1) + PADDING), this.height / (this.y(1) + PADDING));
+		const tx = (this.width - (this.x(1) + PADDING) * fitScale) / 2;
+		const ty = (this.height - (this.y(1) + PADDING) * fitScale) / 2;
+		this.svgTransition(300).call(this.zoomBehavior.transform.bind(this.zoomBehavior), d3.zoomIdentity.translate(tx, ty).scale(fitScale));
 	}
 
 	clearAll(): void {
@@ -323,19 +327,20 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 
 	private buildAxes(g: d3.Selection<SVGGElement, unknown, null, undefined>): void {
 		const axisLabels = g.append('g').attr('class', 'axis-labels');
-		this.appendAxisLabel(axisLabels, PADDING, PADDING - 10, 'atmospheric');
-		this.appendAxisLabel(axisLabels, this.width - PADDING, PADDING - 10, 'electronic', 'end');
-		this.appendAxisLabel(axisLabels, PADDING, this.height - PADDING + 20, 'acoustic');
-		this.appendAxisLabel(axisLabels, this.width - PADDING, this.height - PADDING + 20, 'energetic', 'end');
+		const x0 = this.x(0), x1 = this.x(1), y0 = this.y(0), y1 = this.y(1);
+		this.appendAxisLabel(axisLabels, x0, y0 - 10, 'atmospheric');
+		this.appendAxisLabel(axisLabels, x1, y0 - 10, 'electronic', 'end');
+		this.appendAxisLabel(axisLabels, x0, y1 + 20, 'acoustic');
+		this.appendAxisLabel(axisLabels, x1, y1 + 20, 'energetic', 'end');
 		const cx = this.x(0.5);
 		const cy = this.y(0.5);
 		g.append('line')
-			.attr('x1', PADDING).attr('y1', cy)
-			.attr('x2', this.width - PADDING).attr('y2', cy)
+			.attr('x1', x0).attr('y1', cy)
+			.attr('x2', x1).attr('y2', cy)
 			.style('stroke', 'var(--background-border)').attr('stroke-width', 0.5);
 		g.append('line')
-			.attr('x1', cx).attr('y1', PADDING)
-			.attr('x2', cx).attr('y2', this.height - PADDING)
+			.attr('x1', cx).attr('y1', y0)
+			.attr('x2', cx).attr('y2', y1)
 			.style('stroke', 'var(--background-border)').attr('stroke-width', 0.5);
 	}
 
@@ -401,7 +406,7 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 			.join('circle')
 			.attr('cx', d => this.x(d.noiseX!))
 			.attr('cy', d => this.y(d.noiseY!))
-			.attr('r', 4)
+			.attr('r', ARTIST_NODE_SIZE)
 			.attr('fill', d => d.color)
 			.attr('opacity', 0.7)
 			.attr('cursor', 'pointer')
@@ -418,31 +423,23 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 			.on('click', (_event: MouseEvent, d: LandscapeArtistRenderNode) => {
 				this.selectedNode.set(d);
 			});
-		artistGroup.selectAll<SVGTextElement, LandscapeArtistRenderNode>('text')
-			.data(artistsWithCoords)
-			.join('text')
-			.attr('x', d => this.x(d.noiseX!) + 6)
-			.attr('y', d => this.y(d.noiseY!) + 3)
-			.text(d => d.name)
-			.attr('fill', d => d.color)
-			.attr('font-size', '9px')
-			.attr('opacity', 0)
-			.attr('class', 'artist-label')
-			.attr('data-album-count', d => d.albumCount);
 	}
 
 	private buildZoomBehavior(
 		svg: d3.Selection<SVGSVGElement, unknown, null, undefined>,
 		g: d3.Selection<SVGGElement, unknown, null, undefined>
 	): void {
+		const fitScale = Math.min(this.width / (this.x(1) + PADDING), this.height / (this.y(1) + PADDING));
 		this.zoomBehavior = d3.zoom<SVGSVGElement, unknown>()
-			.scaleExtent([0.3, 12])
+			.scaleExtent([fitScale * 0.8, 12])
 			.on('zoom', (event: d3.D3ZoomEvent<SVGSVGElement, unknown>) => {
 				g.attr('transform', event.transform.toString());
-				this.currentZoom = event.transform.k;
-				this.updateLOD();
+				// this.currentZoom = event.transform.k;
 			});
 		svg.call(this.zoomBehavior);
+		const initTx = (this.width - (this.x(1) + PADDING) * fitScale) / 2;
+		const initTy = (this.height - (this.y(1) + PADDING) * fitScale) / 2;
+		svg.call(this.zoomBehavior.transform.bind(this.zoomBehavior), d3.zoomIdentity.translate(initTx, initTy).scale(fitScale));
 		svg.on('click', (event: MouseEvent) => {
 			if ((event.target as Element).tagName === 'svg') {
 				this.focusedGenreIds.set(new Set<string>());
@@ -462,8 +459,10 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 		}
 		const svg = d3.select(this.svgRef.nativeElement);
 		svg.attr('width', this.width).attr('height', this.height);
-		this.x = d3.scaleLinear().domain([0, 1]).range([PADDING, this.width - PADDING]);
-		this.y = d3.scaleLinear().domain([0, 1]).range([PADDING, this.height - PADDING]);
+		const gridW = (this.width - 2 * PADDING) * GRID_SCALE;
+		const gridH = (this.height - 2 * PADDING) * GRID_SCALE;
+		this.x = d3.scaleLinear().domain([0, 1]).range([PADDING, PADDING + gridW]);
+		this.y = d3.scaleLinear().domain([0, 1]).range([PADDING, PADDING + gridH]);
 		const g = d3.select(this.zoomLayerRef.nativeElement);
 		g.selectAll('*').remove();
 		this.buildAxes(g);
@@ -471,13 +470,6 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 		this.buildArtistLayer(g);
 		this.buildZoomBehavior(svg, g);
 		this.updateVisuals();
-	}
-
-	private updateLOD(): void {
-		const zoom = this.currentZoom;
-		d3.select(this.zoomLayerRef.nativeElement)
-			.selectAll<SVGTextElement, LandscapeArtistRenderNode>('.artist-label')
-			.attr('opacity', d => (zoom > 3 || (zoom > 1.5 && d.albumCount > 5)) ? 0.8 : 0);
 	}
 
 	private updateVisuals(): void {
@@ -510,7 +502,7 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 				}
 				return 0.7;
 			})
-			.attr('r', d => hasSearch && d.normalizedName.includes(term) ? 8 : 4)
+			.attr('r', d => hasSearch && d.normalizedName.includes(term) ? 8 : ARTIST_NODE_SIZE)
 			.attr('stroke', d => hasSearch && d.normalizedName.includes(term) ? 'var(--on-background-highlight)' : 'none')
 			.attr('stroke-width', d => hasSearch && d.normalizedName.includes(term) ? 1.5 : 0);
 	}
