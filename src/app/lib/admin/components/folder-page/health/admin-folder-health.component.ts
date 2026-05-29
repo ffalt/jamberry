@@ -68,8 +68,11 @@ export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent i
 	}
 
 	refresh(): void {
+		if (!this.id) {
+			return;
+		}
 		this.hints = undefined;
-		this.jam.folder.health({ childOfID: this.id, folderIncTag: true })
+		this.jam.folder.health({ inSubtreeOfID: this.id, folderIncTag: true })
 			.then(data => {
 				this.display(data);
 			})

@@ -491,6 +491,8 @@ export declare namespace JamParameters {
 		parentIDs?: Array<string>;
 		/** filter if folder is in folder id (or its child folders) */
 		childOfID?: string;
+		/** filter by folder id and all its sub folders */
+		inSubtreeOfID?: string;
 		/**
 		 * filter by Folder Tree Level
 		 * @TJS-type integer
