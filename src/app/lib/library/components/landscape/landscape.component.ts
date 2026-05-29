@@ -349,7 +349,7 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 		const lineH = GENRE_FONT_SIZE + 3;
 		const charW = GENRE_FONT_SIZE * 0.55;
 		const placed: Array<{ gx: number; gy: number; hw: number }> = [];
-		const sorted = [...labels].sort((a, b) => b.genre.artistCount - a.genre.artistCount);
+		const sorted = [...labels].toSorted((a, b) => b.genre.artistCount - a.genre.artistCount);
 		for (const d of sorted) {
 			const hw = (d.genre.name.length * charW) / 2;
 			let nudgedY = d.gy;
