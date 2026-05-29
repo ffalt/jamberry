@@ -150,6 +150,8 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 		const node = this.nodes.find(n => n.folder.id === data.id);
 		if (node) {
 			node.folder = data;
+			node.hasChildren = (data.folderCount ?? 0) > 0;
+			node.color = this.typeToColor(data);
 		}
 	}
 
