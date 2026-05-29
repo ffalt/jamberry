@@ -13,6 +13,7 @@ import { ThemeService } from '@modules/theme';
 const PADDING = 40;
 const GRID_SCALE = 1.5;
 const ARTIST_NODE_SIZE = 2;
+const GENRE_FONT_SIZE = 11;
 const UNMAPPED_REGION_X = 0.92;
 const UNMAPPED_REGION_Y = 0.92;
 const UNMAPPED_CELL_W = 60;
@@ -344,6 +345,30 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 			.style('stroke', 'var(--background-border)').attr('stroke-width', 0.5);
 	}
 
+	private nudgeGenreLabels(labels: Array<GenreDatum>): void {
+		const lineH = GENRE_FONT_SIZE + 3;
+		const charW = GENRE_FONT_SIZE * 0.55;
+		const placed: Array<{ gx: number; gy: number; hw: number }> = [];
+		const sorted = [...labels].sort((a, b) => b.genre.artistCount - a.genre.artistCount);
+		for (const d of sorted) {
+			const hw = (d.genre.name.length * charW) / 2;
+			let nudgedY = d.gy;
+			outer: for (let step = 0; step <= 12; step++) {
+				const offsets = step === 0 ? [0] : [step * lineH, -step * lineH];
+				for (const offset of offsets) {
+					const testY = d.gy + offset;
+					const overlaps = placed.some(p => Math.abs(p.gx - d.gx) < p.hw + hw && Math.abs(p.gy - testY) < lineH);
+					if (!overlaps) {
+						nudgedY = testY;
+						break outer;
+					}
+				}
+			}
+			d.gy = nudgedY;
+			placed.push({ gx: d.gx, gy: nudgedY, hw });
+		}
+	}
+
 	private buildGenreLayer(g: d3.Selection<SVGGElement, unknown, null, undefined>): void {
 		const genres = this.data!.genres;
 		const mappedGenres = genres.filter(genre => genre.noiseX !== undefined);
@@ -366,6 +391,7 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 				};
 			})
 		];
+		this.nudgeGenreLabels(allGenreData);
 		const wrap = this.wrapRef.nativeElement;
 		g.append('g').attr('class', 'genre-labels')
 			.selectAll<SVGTextElement, GenreDatum>('text')
@@ -375,7 +401,7 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 			.attr('y', d => d.gy)
 			.text(d => d.genre.name)
 			.attr('fill', d => d.genre.color)
-			.attr('font-size', d => `${Math.min(22, Math.max(8, 6 + Math.sqrt(d.genre.trackCount) * 0.8))}px`)
+			.attr('font-size', `${GENRE_FONT_SIZE}px`)
 			.attr('opacity', d => Math.min(1, Math.max(0.4, 0.3 + d.genre.artistCount / maxArtistCount)))
 			.attr('text-anchor', 'middle')
 			.style('text-transform', 'uppercase')
