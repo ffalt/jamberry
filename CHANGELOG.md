@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.10](https://github.com/ffalt/jamberry/compare/v0.6.9...v0.6.10) (2026-05-29)
+
+
+### Bug Fixes
+
+* **folder-health:** scan the subtree, not only the children ([8dbcea3](https://github.com/ffalt/jamberry/commit/8dbcea32ec7314961b06733544e7144a6cc34da4))
+* **landscape:** remove artist labels, stretch grid ([8a72ca9](https://github.com/ffalt/jamberry/commit/8a72ca98b39695b12fbe6bede45e3f3e5f1be806))
+* **landscape:** static font size & nudge labels ([62086c3](https://github.com/ffalt/jamberry/commit/62086c33b79218b5a751f343f15662ddfa566292))
+
 ## [0.6.9](https://github.com/ffalt/jamberry/compare/v0.6.8...v0.6.9) (2026-05-27)
 
 
