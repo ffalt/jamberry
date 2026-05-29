@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.11](https://github.com/ffalt/jamberry/compare/v0.6.10...v0.6.11) (2026-05-29)
+
+
+### Features
+
+* **folder-overview:** add track count in subtree and improve UI formatting ([bc7305f](https://github.com/ffalt/jamberry/commit/bc7305fe0b841317eb555e9bd2b8dee2d1ed2220))
+* **folder-overview:** register refresh callback for dialog overlays ([767886f](https://github.com/ffalt/jamberry/commit/767886fea31008de23ca124267ccc0dea697618c))
+
+
+### Bug Fixes
+
+* **folder-tree:** update node properties to reflect folder count and color ([e3205af](https://github.com/ffalt/jamberry/commit/e3205af14403a7f2be0ff874b815a796e5eee009))
+
 ## [0.6.10](https://github.com/ffalt/jamberry/compare/v0.6.9...v0.6.10) (2026-05-29)
 
 
