@@ -39,8 +39,8 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		text-decoration: none;
-		vertical-align: middle;
 		height: 22px;
+		line-height: 22px;
 		cursor: pointer;
 		user-select: none;
 		font-size: 0.9em;
@@ -57,7 +57,8 @@
 		}
 
 		&.active {
-			color: var(--on-control-hover);
+			background-color: var(--background-active);
+			color: var(--on-background-highlight);
 		}
 	}
 }
