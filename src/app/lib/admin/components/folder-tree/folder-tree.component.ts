@@ -230,12 +230,31 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 
 	private collapseNode(node: TreeNode): void {
 		if (node.expanded) {
-			const ids: Array<string> = [];
-			walkChildren(node, child => ids.push(child.folder.id));
-			this.nodes = this.nodes.filter(n => !ids.includes(n.folder.id));
+			const viewport = this.viewport();
+			const scrollOffset = viewport?.measureScrollOffset() ?? 0;
+			const itemSize = 22;
+
+			const ids = new Set<string>();
+			walkChildren(node, child => ids.add(child.folder.id));
+
+			// Count removed items that are above the current scroll position
+			let removedAbove = 0;
+			for (const [i, n] of this.nodes.entries()) {
+				if (ids.has(n.folder.id) && i * itemSize < scrollOffset) {
+					removedAbove++;
+				}
+			}
+
+			this.nodes = this.nodes.filter(n => !ids.has(n.folder.id));
 			node.expanded = false;
 			node.children = undefined;
 			this.expandIDs = this.expandIDs.filter(n => n !== node.folder.id);
+
+			if (viewport && removedAbove > 0) {
+				requestAnimationFrame(() => {
+					viewport.scrollToOffset(scrollOffset - removedAbove * itemSize);
+				});
+			}
 		}
 	}
 
