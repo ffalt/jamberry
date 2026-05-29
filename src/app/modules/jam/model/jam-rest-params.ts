@@ -920,6 +920,12 @@ export declare namespace JamParameters {
 		 */
 		folderIncChildFolderCount?: boolean;
 		/**
+		 * include child track count on folder subtree(s)
+		 * @TJS-type boolean
+		 * @default false
+		 */
+		folderIncTrackInSubtreeCount?: boolean;
+		/**
 		 * include track count on folder(s)
 		 * @TJS-type boolean
 		 * @default false

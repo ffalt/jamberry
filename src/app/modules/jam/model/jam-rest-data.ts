@@ -414,9 +414,9 @@ export declare namespace Jam {
 		/** ID */
 		id: string;
 		/** Track Id */
-		trackID: string;
+		trackID?: string;
 		/** Episode Id */
-		episodeID: string;
+		episodeID?: string;
 		/**
 		 * Position in Audio
 		 * @TJS-type integer
@@ -595,6 +595,12 @@ export declare namespace Jam {
 		 * @minimum 0
 		 */
 		trackCount?: number;
+		/**
+		 * Number of Tracks in Subtree
+		 * @TJS-type integer
+		 * @minimum 0
+		 */
+		trackInSubtreeCount?: number;
 		/**
 		 * Number of Folders
 		 * @TJS-type integer
@@ -979,7 +985,7 @@ export declare namespace Jam {
 		 * Bit Rate
 		 * @TJS-type integer
 		 */
-		bitRate: number;
+		bitRate?: number;
 		/** Media Format */
 		format?: string;
 		/**
@@ -1942,7 +1948,7 @@ export declare namespace Jam {
 		 */
 		entriesCount: number;
 		/** List of Media Base IDs */
-		entriesIDs: Array<string>;
+		entriesIDs?: Array<string>;
 	}
 
 	/*

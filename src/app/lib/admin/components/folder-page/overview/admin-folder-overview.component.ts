@@ -78,6 +78,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 				folderIncTag: true,
 				folderIncParents: true,
 				folderIncArtworks: true,
+				folderIncTrackInSubtreeCount: true,
 				folderIncChildFolderCount: true,
 				folderIncTrackCount: true
 			})

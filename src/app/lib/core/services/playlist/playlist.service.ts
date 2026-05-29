@@ -39,7 +39,7 @@ export class PlaylistService {
 			list = playlist.entries.map(entry => entry.id);
 		} else if (playlist) {
 			const pl = await this.jam.playlist.id({ id: playlist.id, playlistIncEntriesIDs: true });
-			list = pl.entriesIDs;
+			list = pl.entriesIDs ?? [];
 		}
 		return list;
 	}

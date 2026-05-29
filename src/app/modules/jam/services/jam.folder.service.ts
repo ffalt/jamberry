@@ -42,8 +42,8 @@ export class JamFolderService {
 	/**
 	 * Get Child Folders of Folders // Rights needed: stream
 	 */
-	async subfolders(parameters: JamParameters.FolderSubfoldersParameters): Promise<Jam.TrackPage> {
-		return this.base.requestData<Jam.TrackPage>('/folder/subfolders', parameters);
+	async subfolders(parameters: JamParameters.FolderSubfoldersParameters): Promise<Jam.FolderPage> {
+		return this.base.requestData<Jam.FolderPage>('/folder/subfolders', parameters);
 	}
 
 	/**

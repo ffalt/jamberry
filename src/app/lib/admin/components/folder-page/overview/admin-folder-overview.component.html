@@ -7,14 +7,14 @@
 		</div>
 		<div class="content">
 			@if (folder.info?.description) {
-				<app-info-note [info]="folder.info" />
+				<app-info-note [info]="folder.info"/>
 			}
 			<div class="properties">
 				<div>
 					<div>
 						<div i18n class="label">Name</div>
 						<div>
-							<app-inline-edit type="text" [(ngModel)]="name" (endEditRequest)="editFolderName()" />
+							<app-inline-edit type="text" [(ngModel)]="name" (endEditRequest)="editFolderName()"/>
 						</div>
 					</div>
 					<div>
@@ -26,9 +26,15 @@
 						</div>
 					</div>
 					<div>
-						<div i18n class="label">Track Count</div>
+						<div i18n class="label">Track Count in Folder</div>
 						<div>{{ folder.trackCount }}</div>
 					</div>
+					@if (folder.trackInSubtreeCount && folder.trackInSubtreeCount !== folder.trackCount) {
+						<div>
+							<div i18n class="label">Track Count in Subtree</div>
+							<div>{{ folder.trackInSubtreeCount }}</div>
+						</div>
+					}
 					<div>
 						<div i18n class="label">Folder Count</div>
 						<div>{{ folder.folderCount }}</div>
@@ -85,8 +91,10 @@
 						<ng-container i18n>Upload Artwork</ng-container>
 					</button>
 					@if (isAlbum && folder.tag && (folder.tag.mbReleaseID || folder.tag.mbReleaseGroupID)) {
-						<button class="button-on-control"
-										title="Album Images" i18n-title (click)="searchImages()"><i class="icon-picture"></i>
+						<button
+							class="button-on-control"
+							title="Album Images" i18n-title (click)="searchImages()"
+						><i class="icon-picture"></i>
 							<ng-container i18n>Search Artwork</ng-container>
 						</button>
 					}
@@ -98,12 +106,12 @@
 				</div>
 				@if (folder.artworks && folder.artworks.length > 0) {
 					<div class="artworks-content">
-						<app-admin-artwork-list [folderID]="folder.id" [artworks]="folder.artworks" />
+						<app-admin-artwork-list [folderID]="folder.id" [artworks]="folder.artworks"/>
 					</div>
 				}
 			</div>
 		</div>
 	</div>
 } @else {
-	<app-loading />
+	<app-loading/>
 }
