@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { FolderType, type Jam, JamService } from '@jam';
 import { takeUntil } from 'rxjs';
-import { DialogOverlayService } from '@modules/dialog-overlay';
+import { DialogOverlayRef, DialogOverlayService } from '@modules/dialog-overlay';
 import { isErrorWithCode } from '@utils/errors';
 import { FolderTypesAlbum } from '@utils/jam-lists';
 import { AdminBaseParentViewIdComponent } from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
@@ -97,22 +97,35 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 		}
 	}
 
+	registerRefresh(ref: DialogOverlayRef): void {
+		ref
+			.afterClosed()
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(() => {
+				this.refresh();
+			});
+	}
+
 	uploadImage(): void {
-		this.dialogOverlay.open<{ folder: Jam.Folder }>({
-			childComponent: DialogUploadImageComponent,
-			title: 'Upload Folder Images',
-			data: { folder: this.folder! },
-			panelClass: 'overlay-panel-large-buttons'
-		});
+		this.registerRefresh(
+			this.dialogOverlay.open<{ folder: Jam.Folder }>({
+				childComponent: DialogUploadImageComponent,
+				title: 'Upload Folder Images',
+				data: { folder: this.folder! },
+				panelClass: 'overlay-panel-large-buttons'
+			})
+		);
 	}
 
 	searchImages(): void {
-		this.dialogOverlay.open<ArtworkSearch>({
-			childComponent: DialogFolderArtworkSearchComponent,
-			title: 'Search Artwork Images',
-			data: { folder: this.folder!, artworks: [] },
-			panelClass: 'overlay-panel-large-buttons'
-		});
+		this.registerRefresh(
+			this.dialogOverlay.open<ArtworkSearch>({
+				childComponent: DialogFolderArtworkSearchComponent,
+				title: 'Search Artwork Images',
+				data: { folder: this.folder!, artworks: [] },
+				panelClass: 'overlay-panel-large-buttons'
+			})
+		);
 	}
 
 	removeFolder(): void {
