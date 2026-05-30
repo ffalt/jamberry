@@ -1,5 +1,5 @@
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, inject, input, type OnDestroy, type OnInit, output, viewChild } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, output, viewChild } from '@angular/core';
 import { FolderType, type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
 import { StringTogglePipe } from '@core/pipes/string-toggle/string-toggle.pipe';
@@ -36,7 +36,6 @@ function walkChildren(node: TreeNode, onItem: (node: TreeNode) => void): void {
 	imports: [ScrollingModule, StringTogglePipe, ClickKeyEnterDirective, FocusKeyListItemDirective, FocusKeyListDirective]
 })
 export class FolderTreeComponent implements OnInit, OnDestroy {
-	readonly autoSelect = input<boolean>(false);
 	readonly selectionChange = output<Jam.Folder>();
 	selected?: TreeNode;
 	nodes: Array<TreeNode> = [];
@@ -81,9 +80,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 
 	selectNode(node: TreeNode): void {
 		this.selectionChange.emit(node.folder);
-		if (this.autoSelect()) {
-			this.selected = node;
-		}
+		this.selected = node;
 	}
 
 	toggleNode(node: TreeNode): void {
