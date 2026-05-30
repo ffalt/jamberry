@@ -87,19 +87,19 @@
 			</div>
 			<div class="artworks">
 				<div class="actions">
-					<button class="button-on-control" (click)="uploadImage()"><i class="icon-upload-cloud"></i>
+					<button class="button-on-control button-with-icon" (click)="uploadImage()"><i class="icon-upload-cloud"></i>
 						<ng-container i18n>Upload Artwork</ng-container>
 					</button>
 					@if (isAlbum && folder.tag && (folder.tag.mbReleaseID || folder.tag.mbReleaseGroupID)) {
 						<button
-							class="button-on-control"
+							class="button-on-control button-with-icon"
 							title="Album Images" i18n-title (click)="searchImages()"
 						><i class="icon-picture"></i>
 							<ng-container i18n>Search Artwork</ng-container>
 						</button>
 					}
 					@if (isArtist && folder.tag && folder.tag.mbArtistID) {
-						<button class="button-on-control" title="Artist Images" i18n-title (click)="searchImages()"><i class="icon-picture"></i>
+						<button class="button-on-control button-with-icon" title="Artist Images" i18n-title (click)="searchImages()"><i class="icon-picture"></i>
 							<ng-container i18n>Search Art</ng-container>
 						</button>
 					}

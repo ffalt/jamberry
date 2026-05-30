@@ -165,6 +165,12 @@ a {
 	}
 }
 
+.button-with-icon {
+	i {
+		margin-right: variables.$margin-xs;
+	}
+}
+
 .button-with-add-on {
 	margin-right: 0 !important;
 	border-top-right-radius: 0;
