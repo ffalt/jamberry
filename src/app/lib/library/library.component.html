@@ -5,8 +5,13 @@
 <main class="middle" role="main">
 	<router-outlet />
 </main>
-<app-splitter [leftSnap]="false" class="split-pane-divider-right" />
-<aside class="right">
-	<app-sidebar-right />
-</aside>
-
+@if (showSidebarRight) {
+	<app-splitter [leftSnap]="false" class="split-pane-divider-right" />
+	<aside class="right">
+		<app-sidebar-right (close)="toggleSidebarRight()" />
+	</aside>
+} @else {
+	<button class="sidebar-right-show" (click)="toggleSidebarRight()" i18n-title title="Show sidebar">
+		<i class="icon-left-open-mini" aria-hidden="true"></i>
+	</button>
+}

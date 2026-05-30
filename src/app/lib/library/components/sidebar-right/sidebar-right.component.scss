@@ -14,12 +14,31 @@
 		width: 100%;
 		border-bottom: 1px solid var(--control-border);
 		display: flex;
-		flex-flow: row wrap;
+		flex-flow: row nowrap;
 		justify-content: space-between;
 		align-items: center;
 
 		.tabs {
 			@include tabs.tabs;
+		}
+
+		.close-btn {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 16px;
+			height: 100%;
+			border: none;
+			background: transparent;
+			color: var(--on-control);
+			cursor: pointer;
+			font-size: 0.9rem;
+			flex-shrink: 0;
+			margin-right: 0.25rem;
+
+			&:hover {
+				color: var(--accent);
+			}
 		}
 	}
 

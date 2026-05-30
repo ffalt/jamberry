@@ -5,4 +5,5 @@ export class Settings {
 	showWaveform = true;
 	notificationSong = false;
 	theme = 'dark';
+	showSidebarRight = true;
 }

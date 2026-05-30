@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { QueueComponent } from '../../../player/components/queue/queue.component';
 import { ChatComponent } from '../chat/chat.component';
 import { ClickKeyEnterDirective } from '@core/directives/click-enterkey.directive';
@@ -12,5 +12,6 @@ import { FocusKeyListDirective } from '@core/directives/focus-key-list.directive
 	imports: [ChatComponent, QueueComponent, ClickKeyEnterDirective, FocusKeyListItemDirective, FocusKeyListDirective]
 })
 export class SidebarRightComponent {
+	readonly close = output<void>();
 	currentTab: string = 'queue';
 }

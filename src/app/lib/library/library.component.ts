@@ -6,6 +6,8 @@ import { DeferLoadService } from '@modules/defer-load/defer-load.service';
 import { SplitterComponent } from '@core/components/splitter/splitter.component';
 import { LibraryService } from './services/library/library.service';
 import { IndexService } from '@core/services/index/index.service';
+import { AppService } from '@core/services/app/app.service';
+import { SettingsStoreService } from '@core/services/settings-store/settings-store.service';
 
 @Component({
 	selector: 'app-library',
@@ -21,6 +23,17 @@ import { IndexService } from '@core/services/index/index.service';
 export class LibraryComponent {
 	private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
 	private readonly deferLoadService = inject(DeferLoadService);
+	private readonly app = inject(AppService);
+	private readonly settingsStore = inject(SettingsStoreService);
+
+	get showSidebarRight(): boolean {
+		return this.app.settings.showSidebarRight !== false;
+	}
+
+	toggleSidebarRight(): void {
+		this.app.settings.showSidebarRight = !this.showSidebarRight;
+		this.settingsStore.saveSettings();
+	}
 
 	scrollTrack(): void {
 		this.deferLoadService.notifyScroll({ name: 'library', element: this.element.nativeElement });

@@ -27,6 +27,25 @@
 		height: 100%;
 	}
 
+	.sidebar-right-show {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5rem;
+		height: 100%;
+		border: none;
+		border-left: 1px solid var(--background-border);
+		background-color: var(--control);
+		color: var(--on-control);
+		cursor: pointer;
+		font-size: 0.9rem;
+		flex-shrink: 0;
+
+		&:hover {
+			color: var(--accent);
+		}
+	}
+
 	@media (max-width: variables.$break-desktop-huge) {
 		.left {
 			width: 20%;
@@ -51,7 +70,7 @@
 			width: 25%;
 		}
 
-		.right, .split-pane-divider-right {
+		.right, .split-pane-divider-right, .sidebar-right-show {
 			display: none;
 		}
 
