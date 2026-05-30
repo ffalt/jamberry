@@ -80,6 +80,14 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 	private zoomBehavior?: d3.ZoomBehavior<SVGSVGElement, unknown>;
 	private loadSeq = 0;
 
+	constructor() {
+		effect(() => {
+			this.focusedGenreIds();
+			this.searchTerm();
+			this.updateVisuals();
+		});
+	}
+
 	ngOnInit(): void {
 		this.resizeSubject
 			.pipe(debounceTime(100), takeUntilDestroyed(this.destroyRef))
@@ -100,12 +108,6 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 				this.recolorData();
 				this.buildChart();
 			});
-
-		effect(() => {
-			this.focusedGenreIds();
-			this.searchTerm();
-			this.updateVisuals();
-		});
 	}
 
 	ngAfterViewInit(): void {
