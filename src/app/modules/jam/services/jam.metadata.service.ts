@@ -101,4 +101,25 @@ export class JamMetaDataService {
 	async wikidataLookup(parameters: JamParameters.WikidataLookupParameters): Promise<Jam.MetaDataResult> {
 		return this.base.requestData<Jam.MetaDataResult>('/metadata/wikidata/lookup', parameters);
 	}
+
+	/**
+	 * Search Discogs cover art data // Rights needed: stream
+	 */
+	async discogsSearch(parameters: JamParameters.DiscogsSearchParameters): Promise<Jam.MetaDataResult> {
+		return this.base.requestData<Jam.MetaDataResult>('/metadata/discogs/search', parameters);
+	}
+
+	/**
+	 * Get Discogs image // Rights needed: stream
+	 */
+	discogsImageUrl(params: JamParameters.DiscogsImageParameters): string {
+		return this.base.buildRequestUrl('/metadata/discogs/image', params);
+	}
+
+	/**
+	 * Get Discogs image // Rights needed: stream
+	 */
+	async discogsImageBinary(params: JamParameters.DiscogsImageParameters): Promise<{ buffer: ArrayBuffer; contentType: string }> {
+		return this.base.binary('/metadata/discogs/image', params);
+	}
 }
