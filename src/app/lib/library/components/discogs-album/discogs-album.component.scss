@@ -1,0 +1,18 @@
+@use "_scss/variables";
+@use "_scss/mixins/list";
+
+:host {
+	.discogs-release {
+		margin-bottom: variables.$margin-lg;
+	}
+
+	.section-title {
+		text-transform: uppercase;
+		letter-spacing: 1.25px;
+		font-size: variables.$x-small * 1.2;
+		margin-bottom: variables.$margin-sm;
+		color: var(--on-control-ambient);
+	}
+
+	@include list.key-value-list;
+}

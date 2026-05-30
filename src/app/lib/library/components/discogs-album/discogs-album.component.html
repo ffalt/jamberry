@@ -1,0 +1,27 @@
+@if (!releases) {
+	<app-loading />
+} @else {
+	@if (releases.length === 0) {
+		<app-background-text text="No data available" i18n-text />
+	} @else {
+		<div class="discogs-results">
+			<div class="section-title">
+				<ng-container i18n>Album Information by</ng-container>
+				<a href="https://www.discogs.com" target="_blank" rel="noopener" i18n>Discogs</a>
+			</div>
+			@for (release of releases; track release.id) {
+				<div class="discogs-release">
+					<div class="section-title">
+						<a [href]="'https://www.discogs.com' + release.uri" target="_blank" rel="noopener">{{ release.title }}</a>
+					</div>
+					@for (info of release.infos; track info.name) {
+						<div class="key-value-row">
+							<div>{{ info.name }}</div>
+							<div>{{ info.value }}</div>
+						</div>
+					}
+				</div>
+			}
+		</div>
+	}
+}

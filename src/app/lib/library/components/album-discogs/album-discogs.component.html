@@ -1,0 +1,6 @@
+@if (!album) {
+	<app-loading />
+}
+@if (album) {
+	<app-discogs-album [artist]="album.artistName" [title]="album.name" />
+}

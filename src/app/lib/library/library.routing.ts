@@ -72,6 +72,12 @@ export const libaryRoutes: Routes = [
 				canActivate: [AuthCanActivateGuard],
 				data: { name: 'MusicBrainz' }
 			},
+			{
+				path: 'discogs',
+				loadComponent: async () => import('./components/album-discogs/album-discogs.component').then(m => m.AlbumDiscogsComponent),
+				canActivate: [AuthCanActivateGuard],
+				data: { name: 'Discogs' }
+			},
 			{ path: '**', redirectTo: '' }
 		]
 	},
