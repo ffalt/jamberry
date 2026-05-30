@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.12](https://github.com/ffalt/jamberry/compare/v0.6.11...v0.6.12) (2026-05-30)
+
+
+### Features
+
+* **admin/upload:** enhance image upload interface ([8291736](https://github.com/ffalt/jamberry/commit/8291736a0423cd007683fd2ececdecabef597876))
+* **discogs-api:** add Discogs API interfaces and search methods ([0655a9c](https://github.com/ffalt/jamberry/commit/0655a9cfcd8ce2a7120f827bbe375e15ec564bac))
+* **errors:** handle rate limit exceeded errors with retry duration message ([212bdd6](https://github.com/ffalt/jamberry/commit/212bdd6107eb27a62f1fadb9235b42129caa28f4))
+* **folder-artwork-search:** implement multi-source artwork search with Discogs ([b12055a](https://github.com/ffalt/jamberry/commit/b12055adf4208146ea7c7e468c7961a6e4893a1d))
+
+
+### Bug Fixes
+
+* **artwork-list:** add keyboard accessibility for artwork edit action ([8af872d](https://github.com/ffalt/jamberry/commit/8af872df28957c48afe6643abdea8ba02045e3ed))
+* **security:** update media-src directive and set response content type ([d2152c2](https://github.com/ffalt/jamberry/commit/d2152c20f8d5ad9aeed2d6b5ae5189f1aa2bf4c1))
+
 ## [0.6.11](https://github.com/ffalt/jamberry/compare/v0.6.10...v0.6.11) (2026-05-29)
 
 
