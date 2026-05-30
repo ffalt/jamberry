@@ -38,5 +38,25 @@ export function getHttpErrorMessage(error: HttpErrorResponse): string {
 			return errorObj.error;
 		}
 	}
+	if (error.status === 429) {
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+		const retryAfter = error.headers?.get('retry-after');
+		if (retryAfter) {
+			const seconds = Number.parseInt(retryAfter, 10);
+			if (!Number.isNaN(seconds) && seconds > 0) {
+				return `Rate limit exceeded. Try again in ${formatRetryDuration(seconds)}.`;
+			}
+		}
+		return 'Rate limit exceeded. Please try again later.';
+	}
 	return `HTTP Error ${error.status}`;
+}
+
+function formatRetryDuration(seconds: number): string {
+	if (seconds < 60) {
+		return `${seconds}s`;
+	}
+	const mins = Math.floor(seconds / 60);
+	const secs = seconds % 60;
+	return secs > 0 ? `${mins}m ${secs}s` : `${mins}m`;
 }
