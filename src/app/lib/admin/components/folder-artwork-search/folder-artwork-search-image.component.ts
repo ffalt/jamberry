@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, input, type OnChanges, type OnDestroy, type OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ArtworkImageType, type CoverArtArchive, CoverArtArchiveLookupType, FolderType, type Jam, JamService, type MusicBrainz, MusicBrainzLookupType, type WikiData } from '@jam';
+import type { Discogs } from '@modules/jam/model/discogs-rest-data';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { hasFileExtension } from '../../../tag-editor/model/utils';
 import { ArtworkListComponent } from '../artwork-list/artwork-list.component';
@@ -44,7 +45,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	nodes?: Array<ArtworkNode>;
 	isWorking = false;
 	isArtRefreshing = false;
-	searchSource: { name: string; url: string } = { name: '', url: '' };
+	searchSources: Array<{ name: string; url: string }> = [];
 	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
@@ -68,6 +69,45 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		}
 	}
 
+	ngOnInit(): void {
+		this.folderService.foldersChange
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(change => {
+				if (change.id === this.data()?.folder.id) {
+					this.refreshArtworks();
+				}
+			});
+	}
+
+	use(): void {
+		const node = (this.nodes ?? []).find(i => i.checked && !i.storing);
+		const folder = this.data()?.folder;
+		if (node && folder) {
+			this.isWorking = true;
+			node.storing = true;
+			this.jam.artwork.createByUrl({
+				folderID: folder.id,
+				url: node.image,
+				types: node.types
+			})
+				.then(info => {
+					this.folderService.waitForQueueResult('Creating Artwork', info, [folder.id])
+						.pipe(takeUntil(this.unsubscribe))
+						.subscribe(() => {
+							node.storing = false;
+							node.checked = false;
+						});
+					this.use();
+				})
+				.catch((error: unknown) => {
+					node.storing = false;
+					this.notify.error(error);
+				});
+		} else {
+			this.isWorking = false;
+		}
+	}
+
 	refreshArtworks(): void {
 		const data = this.data();
 		if (!data) {
@@ -85,7 +125,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			});
 	}
 
-	async loadWikiDataID(mbArtistID: string): Promise<string | undefined> {
+	private async loadWikiDataID(mbArtistID: string): Promise<string | undefined> {
 		const res = await this.jam.metadata.musicbrainzLookup({
 			type: MusicBrainzLookupType.artist,
 			mbID: mbArtistID
@@ -100,7 +140,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		return;
 	}
 
-	async loadWikiCommonImage(artistID: string): Promise<ArtworkNode | undefined> {
+	private async loadWikiCommonImage(artistID: string): Promise<ArtworkNode | undefined> {
 		const wikiDataID = await this.loadWikiDataID(artistID);
 		if (!wikiDataID) {
 			return;
@@ -169,109 +209,63 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		return;
 	}
 
-	loadWikiCommon(artistID: string): void {
-		this.loadWikiCommonImage(artistID)
-			.then(node => {
-				this.nodes = [];
-				if (node) {
-					node.checked = true;
-					this.nodes.push(node);
-				}
-			})
-			.catch((error: unknown) => {
-				this.nodes = [];
-				this.notify.error(error);
-			});
-	}
-
-	use(): void {
-		const node = (this.nodes ?? []).find(i => i.checked && !i.storing);
-		const folder = this.data()?.folder;
-		if (node && folder) {
-			this.isWorking = true;
-			node.storing = true;
-			this.jam.artwork.createByUrl({
-				folderID: folder.id,
-				url: node.image,
-				types: node.types
-			})
-				.then(info => {
-					this.folderService.waitForQueueResult('Creating Artwork', info, [folder.id])
-						.pipe(takeUntil(this.unsubscribe))
-						.subscribe(() => {
-							node.storing = false;
-							node.checked = false;
-						});
-					this.use();
-				})
-				.catch((error: unknown) => {
-					node.storing = false;
-					this.notify.error(error);
-				});
-		} else {
-			this.isWorking = false;
+	private async fetchCoverArtNodes(tag: Jam.FolderTag): Promise<Array<ArtworkNode>> {
+		const promises: Array<Promise<Array<ArtworkNode>>> = [];
+		if (tag.mbReleaseGroupID) {
+			promises.push(
+				this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.releaseGroup, mbID: tag.mbReleaseGroupID })
+					.then(res => this.coverArtResponseToNodes(res.data as CoverArtArchive.Response))
+			);
 		}
-	}
-
-	ngOnInit(): void {
-		this.folderService.foldersChange
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(change => {
-				if (change.id === this.data()?.folder.id) {
-					this.refreshArtworks();
-				}
-			});
-	}
-
-	loadReleaseGroupAndRelease(musicBrainzReleaseID: string, musicBrainzReleaseGroupID: string): void {
-		this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.releaseGroup, mbID: musicBrainzReleaseGroupID })
-			.then(res => {
-				const response = res.data as CoverArtArchive.Response;
-				let nodes = this.coverArtResponseToNodes(response);
-				this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.release, mbID: musicBrainzReleaseID })
-					.then(res2 => {
-						const response2 = res2.data as CoverArtArchive.Response;
-						nodes = [...nodes, ...this.coverArtResponseToNodes(response2)];
-						this.display(nodes);
-					})
-					.catch((error: unknown) => {
-						this.notify.error(error);
-					});
-			})
-			.catch((error: unknown) => {
-				this.notify.error(error);
-			});
-	}
-
-	loadReleaseGroup(musicBrainzReleaseGroupID: string): void {
-		this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.releaseGroup, mbID: musicBrainzReleaseGroupID })
-			.then(res => {
-				const response = res.data as CoverArtArchive.Response;
-				const nodes = this.coverArtResponseToNodes(response);
-				this.display(nodes);
-			})
-			.catch((error: unknown) => {
-				this.notify.error(error);
-			});
-	}
-
-	loadRelease(musicBrainzReleaseID: string): void {
-		if (musicBrainzReleaseID) {
-			this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.release, mbID: musicBrainzReleaseID })
-				.then(res => {
-					const response = res.data as CoverArtArchive.Response;
-					const nodes = this.coverArtResponseToNodes(response);
-					this.display(nodes);
-					const data = this.data();
-					if (nodes.length === 0 && data?.folder.tag?.mbReleaseGroupID) {
-						this.nodes = undefined;
-						this.loadReleaseGroup(data.folder.tag.mbReleaseGroupID);
-					}
-				})
-				.catch((error: unknown) => {
-					this.notify.error(error);
-				});
+		if (tag.mbReleaseID) {
+			promises.push(
+				this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.release, mbID: tag.mbReleaseID })
+					.then(res => this.coverArtResponseToNodes(res.data as CoverArtArchive.Response))
+			);
 		}
+		const results = await Promise.all(promises);
+		return results.flat();
+	}
+
+	private async fetchDiscogsNodes(artist: string, album: string): Promise<Array<ArtworkNode>> {
+		const res = await this.jam.metadata.discogsReleaseSearch({ artist, title: album });
+		return this.discogsResponseToNodes(res.data as Discogs.SearchResponse | undefined);
+	}
+
+	private async fetchDiscogsArtistNodes(artist: string): Promise<Array<ArtworkNode>> {
+		const res = await this.jam.metadata.discogsArtistSearch({ query: artist });
+		const data = res.data as Discogs.SearchResponse | undefined;
+		if (!data?.results) {
+			return [];
+		}
+		return data.results
+			.filter(r => r.cover_image && !r.cover_image.includes('spacer'))
+			.map(r => ({
+				name: r.title,
+				thumbnail: this.jam.metadata.discogsImageUrl({ url: r.thumb }),
+				image: this.jam.metadata.discogsImageUrl({ url: r.cover_image }),
+				licence: '',
+				checked: false,
+				storing: false,
+				types: [ArtworkImageType.artist]
+			}));
+	}
+
+	private discogsResponseToNodes(result?: Discogs.SearchResponse): Array<ArtworkNode> {
+		if (!result?.results) {
+			return [];
+		}
+		return result.results
+			.filter(r => r.cover_image && !r.cover_image.includes('spacer'))
+			.map(r => ({
+				name: r.title,
+				thumbnail: this.jam.metadata.discogsImageUrl({ url: r.thumb }),
+				image: this.jam.metadata.discogsImageUrl({ url: r.cover_image }),
+				licence: '',
+				checked: false,
+				storing: false,
+				types: [ArtworkImageType.front]
+			}));
 	}
 
 	private coverArtResponseToNodes(result?: CoverArtArchive.Response): Array<ArtworkNode> {
@@ -296,27 +290,6 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		return [];
 	}
 
-	private search(): void {
-		const data = this.data();
-		if (data?.folder.tag) {
-			if (data.folder.type === FolderType.artist) {
-				if (data.folder.tag.mbArtistID) {
-					this.searchSource = { name: 'Wiki Commons', url: 'https://commons.wikimedia.org' };
-					this.loadWikiCommon(data.folder.tag.mbArtistID);
-				}
-			} else {
-				this.searchSource = { name: 'Coverart Archive', url: 'https://coverartarchive.org' };
-				if (data.folder.tag.mbReleaseID && data.folder.tag.mbReleaseGroupID) {
-					this.loadReleaseGroupAndRelease(data.folder.tag.mbReleaseID, data.folder.tag.mbReleaseGroupID);
-				} else if (data.folder.tag.mbReleaseID) {
-					this.loadRelease(data.folder.tag.mbReleaseID);
-				} else if (data.folder.tag.mbReleaseGroupID) {
-					this.loadReleaseGroup(data.folder.tag.mbReleaseGroupID);
-				}
-			}
-		}
-	}
-
 	private display(nodes: Array<ArtworkNode>): void {
 		this.nodes = nodes;
 		let node = nodes.find(n => n.types.length === 1 && n.types[0] === ArtworkImageType.front);
@@ -325,6 +298,76 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			for (const n of this.nodes) {
 				n.checked = n === node;
 			}
+		}
+	}
+
+	private searchArtist(tag: Jam.FolderTag): void {
+		const sources: Array<{ name: string; url: string }> = [];
+		const promises: Array<Promise<Array<ArtworkNode>>> = [];
+
+		if (tag.mbArtistID) {
+			sources.push({ name: 'Wiki Commons', url: 'https://commons.wikimedia.org' });
+			promises.push(
+				this.loadWikiCommonImage(tag.mbArtistID).then(node => (node ? [node] : []))
+			);
+		}
+		if (tag.artist) {
+			sources.push({ name: 'Discogs', url: 'https://www.discogs.com' });
+			promises.push(this.fetchDiscogsArtistNodes(tag.artist));
+		}
+
+		if (promises.length === 0) {
+			return;
+		}
+
+		this.searchSources = sources;
+		Promise.all(promises)
+			.then(results => {
+				this.display(results.flat());
+			})
+			.catch((error: unknown) => {
+				this.nodes = [];
+				this.notify.error(error);
+			});
+	}
+
+	private searchAlbum(tag: Jam.FolderTag): void {
+		const sources: Array<{ name: string; url: string }> = [];
+		const promises: Array<Promise<Array<ArtworkNode>>> = [];
+
+		if (tag.mbReleaseID || tag.mbReleaseGroupID) {
+			sources.push({ name: 'Coverart Archive', url: 'https://coverartarchive.org' });
+			promises.push(this.fetchCoverArtNodes(tag));
+		}
+		if (tag.artist && tag.album) {
+			sources.push({ name: 'Discogs', url: 'https://www.discogs.com' });
+			promises.push(this.fetchDiscogsNodes(tag.artist, tag.album));
+		}
+
+		if (promises.length === 0) {
+			return;
+		}
+
+		this.searchSources = sources;
+		Promise.all(promises)
+			.then(results => {
+				this.display(results.flat());
+			})
+			.catch((error: unknown) => {
+				this.nodes = [];
+				this.notify.error(error);
+			});
+	}
+
+	private search(): void {
+		const data = this.data();
+		if (!data?.folder.tag) {
+			return;
+		}
+		if (data.folder.type === FolderType.artist) {
+			this.searchArtist(data.folder.tag);
+		} else {
+			this.searchAlbum(data.folder.tag);
 		}
 	}
 }

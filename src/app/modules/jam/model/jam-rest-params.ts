@@ -420,6 +420,11 @@ export declare namespace JamParameters {
 		orderBy?: JamEnums.DefaultOrderFields;
 	}
 
+	export interface DiscogsArtistSearchParameters {
+		/** Artist Name */
+		query: string;
+	}
+
 	export interface DiscogsImageParameters {
 		/** Discogs Image URL */
 		url: string;

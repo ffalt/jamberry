@@ -1,7 +1,9 @@
 <div class="image-selector">
 	<div class="art-source">
 		<div class="section">
-			<a [href]="searchSource.url" rel="noopener" target="_blank">{{ searchSource.name }}</a>
+			@for (src of searchSources; track src.url) {
+				<a [href]="src.url" rel="noopener" target="_blank">{{ src.name }}</a>
+			}
 		</div>
 		@if (!nodes) {
 			<app-loading />

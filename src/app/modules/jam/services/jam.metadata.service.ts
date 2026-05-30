@@ -103,10 +103,17 @@ export class JamMetaDataService {
 	}
 
 	/**
-	 * Search Discogs cover art data // Rights needed: stream
+	 * Search Discogs release data // Rights needed: stream
 	 */
-	async discogsSearch(parameters: JamParameters.DiscogsSearchParameters): Promise<Jam.MetaDataResult> {
-		return this.base.requestData<Jam.MetaDataResult>('/metadata/discogs/search', parameters);
+	async discogsReleaseSearch(parameters: JamParameters.DiscogsSearchParameters): Promise<Jam.MetaDataResult> {
+		return this.base.requestData<Jam.MetaDataResult>('/metadata/discogs/search/release', parameters);
+	}
+
+	/**
+	 * Search Discogs artist data // Rights needed: stream
+	 */
+	async discogsArtistSearch(parameters: JamParameters.DiscogsArtistSearchParameters): Promise<Jam.MetaDataResult> {
+		return this.base.requestData<Jam.MetaDataResult>('/metadata/discogs/search/artist', parameters);
 	}
 
 	/**
