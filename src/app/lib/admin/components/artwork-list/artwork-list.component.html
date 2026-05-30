@@ -1,8 +1,8 @@
 <div appFocusKeyList role="list">
 	@for (art of nodes; track art.artwork.id) {
-		<div class="artwork" appFocusKeyListItem role="listitem" (keydown.enter)="editArtwork(art.artwork)">
+		<div class="artwork" appFocusKeyListItem role="listitem">
 			<div class="artwork-img">
-				<img alt="Artwork" i18n-alt [src]="art.thumbnail" (clickenter)="editArtwork(art.artwork)">
+				<img alt="Artwork" i18n-alt [src]="art.thumbnail" (clickenter)="editArtwork(art.artwork)" (keydown.enter)="editArtwork(art.artwork)">
 				<div class="mode">{{ art.artwork.types }}</div>
 				<div class="format">{{ art.artwork.format }}</div>
 				<div i18n class="dims">{{ art.artwork.width }}x{{ art.artwork.height }}</div>
