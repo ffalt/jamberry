@@ -7,22 +7,12 @@
 				</div>
 				@if (group.currentRelease) {
 					<div class="match-release-info">
-						<span i18n class="label">Score:</span>
-						<span class="value"><app-score-box [score]="group.currentRelease.score" /></span>
-						<span i18n class="label">Artist: </span> @if (group.mbGroup.artistCredit) {
-						<span class="value">{{ group.mbGroup.artistCredit[0].name }}</span>
-					}
-						<span i18n class="label">Type: </span> <span class="value">{{ group.mbGroup.primaryType }}
-						@if (group.mbGroup.secondaryTypes) {
-							@for (t of group.mbGroup.secondaryTypes; track t) {
-								/{{ t }}
-							}
-						}</span><br />
-						<span i18n class="label">Date:</span> <span class="value">{{ group.currentRelease.mbRelease.date || '?' }}</span>
-						<span i18n class="label">Country:</span> <span class="value">{{ group.currentRelease.mbRelease.country || '?' }}</span><br />
-						<span i18n class="label">Tracks:</span>
-						@for (media of group.currentRelease.media; track media) {
-							<span class="value">{{ media.tracks.length }}
+						<span i18n class="label">Score:</span><span class="value"><app-score-box [score]="group.currentRelease.score" /></span>
+						<span i18n class="label">Artist:</span>@if (group.mbGroup.artistCredit) {<span class="value">{{ group.mbGroup.artistCredit[0].name }}</span>}
+						<span i18n class="label">Type:</span><span class="value">{{ group.mbGroup.primaryType }}@if (group.mbGroup.secondaryTypes) {@for (t of group.mbGroup.secondaryTypes; track t) {/{{ t }}}}</span><br />
+						<span i18n class="label">Date:</span><span class="value">{{ group.currentRelease.mbRelease.date || '?' }}</span>
+						<span i18n class="label">Country:</span><span class="value">{{ group.currentRelease.mbRelease.country || '?' }}</span><br />
+						<span i18n class="label">Tracks:</span>@for (media of group.currentRelease.media; track media) {<span class="value">{{ media.tracks.length }}
 								@if (media.complete) {
 									<i class="icon-checkmark" title="All tracks matched" i18n-title></i>
 								} @else {

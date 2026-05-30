@@ -21,6 +21,12 @@
 		.match-releasegroup {
 			padding: variables.$padding-xs variables.$padding-xs variables.$padding-xs variables.$padding;
 
+			.match-release-info {
+				.label {
+					margin-right: variables.$padding-xs;
+				}
+			}
+
 			.match-release-info, .match-tracks-info {
 				font-size: 0.8em;
 			}
