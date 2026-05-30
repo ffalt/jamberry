@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.13](https://github.com/ffalt/jamberry/compare/v0.6.12...v0.6.13) (2026-05-30)
+
+
+### Bug Fixes
+
+* **folder-artwork-search-image:** update image source to use direct cover image URL ([e848f5a](https://github.com/ffalt/jamberry/commit/e848f5ac8783ecefec8f2fa6e3ad0fed783e9ee1))
+
 ## [0.6.12](https://github.com/ffalt/jamberry/compare/v0.6.11...v0.6.12) (2026-05-30)
 
 
