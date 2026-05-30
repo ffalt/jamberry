@@ -243,7 +243,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			.map(r => ({
 				name: r.title,
 				thumbnail: this.jam.metadata.discogsImageUrl({ url: r.thumb }),
-				image: this.jam.metadata.discogsImageUrl({ url: r.cover_image }),
+				image: r.cover_image,
 				licence: '',
 				checked: false,
 				storing: false,
@@ -260,7 +260,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			.map(r => ({
 				name: r.title,
 				thumbnail: this.jam.metadata.discogsImageUrl({ url: r.thumb }),
-				image: this.jam.metadata.discogsImageUrl({ url: r.cover_image }),
+				image: r.cover_image,
 				licence: '',
 				checked: false,
 				storing: false,
