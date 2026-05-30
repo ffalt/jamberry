@@ -111,8 +111,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			this.dialogOverlay.open<{ folder: Jam.Folder }>({
 				childComponent: DialogUploadImageComponent,
 				title: 'Upload Folder Images',
-				data: { folder: this.folder! },
-				panelClass: 'overlay-panel-large-buttons'
+				data: { folder: this.folder! }
 			})
 		);
 	}
