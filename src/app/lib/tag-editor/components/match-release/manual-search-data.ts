@@ -12,10 +12,7 @@ export class ManualSearchData {
 	constructor(private readonly getMatchings: () => Array<Matching>) {
 	}
 
-	/**
-	 * Get a list of albums for autocomplete
-	 */
-	getAutoCompleteAlbumList(): Array<string> {
+	getAutoCompleteAlbumList = (): Array<string> => {
 		if (this.albums.length === 0) {
 			for (const match of this.getMatchings()) {
 				const txt = (match.track.tag?.album ?? '').trim();
@@ -25,12 +22,9 @@ export class ManualSearchData {
 			}
 		}
 		return this.albums;
-	}
+	};
 
-	/**
-	 * Get a list of artists for autocomplete
-	 */
-	getAutoCompleteArtistList(): Array<string> {
+	getAutoCompleteArtistList = (): Array<string> => {
 		if (this.artists.length === 0) {
 			for (const match of this.getMatchings()) {
 				const txt = (match.track.tag?.artist ?? '').trim();
@@ -40,5 +34,5 @@ export class ManualSearchData {
 			}
 		}
 		return this.artists;
-	}
+	};
 }
