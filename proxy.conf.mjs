@@ -19,7 +19,7 @@ export default [
 						pass: 'admin'
 					}
 				};
-				response.type = 'text/javascript';
+				response.setHeader('Content-Type', 'text/javascript');
 				response.write(`document.jamberry_config = ${JSON.stringify(config_json)};`);
 				response.end();
 				return true;
