@@ -2,13 +2,15 @@
 	@if (tabs.length > 1) {
 		<ul class="tabs" appFocusKeyList role="tablist" [class.mini]="smallTabs()">
 			@for (tab of tabs; track tab) {
-				<li>
-					@if (tab.link) {
-						<a routerLinkActive="active" appFocusKeyListItem role="tab" [routerLink]="[tab.link.route]" [routerLinkActiveOptions]="{exact:!!tab.link.exact}">{{ tab.label }}</a>
-					} @else {
-						<a appFocusKeyListItem role="tab" [class.active]="tab.active" (click)="tab.click()" (keydown.enter)="tab.click()">{{ tab.label }}</a>
-					}
-				</li>
+				@if (tab.link) {
+					<li routerLinkActive="active" [routerLinkActiveOptions]="{exact:!!tab.link.exact}">
+						<a appFocusKeyListItem role="tab" [routerLink]="[tab.link.route]">{{ tab.label }}</a>
+					</li>
+				} @else {
+					<li [class.active]="tab.active">
+						<a appFocusKeyListItem role="tab" (click)="tab.click()" (keydown.enter)="tab.click()">{{ tab.label }}</a>
+					</li>
+				}
 			}
 		</ul>
 	}
