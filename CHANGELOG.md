@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.14](https://github.com/ffalt/jamberry/compare/v0.6.13...v0.6.14) (2026-05-31)
+
+
+### Features
+
+* **discogs:** add album discogs component ([dc33459](https://github.com/ffalt/jamberry/commit/dc33459180a1e1abe64d7c0455e6ddd350d2a0bf))
+* **discogs:** add artist metadata component ([d4f974e](https://github.com/ffalt/jamberry/commit/d4f974e12b2be344832d1f11b509d274be1018e1))
+* **discogs:** add Discogs icon component ([a1330bc](https://github.com/ffalt/jamberry/commit/a1330bcf10183492c2bab9dacb6170cba4a567c4))
+* **discogs:** add folder metadata component ([d918e90](https://github.com/ffalt/jamberry/commit/d918e90540a73d150fe551847edab49d8ff8484a))
+* **discogs:** add folder metadata component ([761f8e6](https://github.com/ffalt/jamberry/commit/761f8e61a40fa8958c45e6f5286f9d1166bae37d))
+* **discogs:** show metadata for album ([b2f3ff2](https://github.com/ffalt/jamberry/commit/b2f3ff221eede08c1edd1503480eb211143d12ab))
+* **discogs:** update Discogs icon component and enhance album/artist links ([c7c27f7](https://github.com/ffalt/jamberry/commit/c7c27f726ca5e0c37669389d44e36b5fd9c14f54))
+* **header-tabs:** simplify tab rendering and improve router link handling ([1fac586](https://github.com/ffalt/jamberry/commit/1fac586636ca059ddc7d705e173cdbd03d4a5941))
+* **landscape:** refactor constructor to include reactive effects for state updates ([062ebef](https://github.com/ffalt/jamberry/commit/062ebef36f85ecab52c4c740e08c4a0252191e78))
+* **sidebar:** add toggle functionality for sidebar visibility ([a16b45d](https://github.com/ffalt/jamberry/commit/a16b45db3ac350b1a061d4901ef76e3018abea56))
+
 ## [0.6.13](https://github.com/ffalt/jamberry/compare/v0.6.12...v0.6.13) (2026-05-30)
 
 
