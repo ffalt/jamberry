@@ -117,6 +117,34 @@ export class JamMetaDataService {
 	}
 
 	/**
+	 * Lookup Discogs release by ID // Rights needed: stream
+	 */
+	async discogsReleaseLookup(parameters: JamParameters.DiscogsReleaseLookupParameters): Promise<Jam.MetaDataResult> {
+		return this.base.requestData<Jam.MetaDataResult>('/metadata/discogs/release', parameters);
+	}
+
+	/**
+	 * Lookup Discogs artist by ID // Rights needed: stream
+	 */
+	async discogsArtistLookup(parameters: JamParameters.DiscogsArtistLookupParameters): Promise<Jam.MetaDataResult> {
+		return this.base.requestData<Jam.MetaDataResult>('/metadata/discogs/artist', parameters);
+	}
+
+	/**
+	 * Lookup Discogs master release by ID // Rights needed: stream
+	 */
+	async discogsMasterLookup(parameters: JamParameters.DiscogsMasterLookupParameters): Promise<Jam.MetaDataResult> {
+		return this.base.requestData<Jam.MetaDataResult>('/metadata/discogs/master', parameters);
+	}
+
+	/**
+	 * Lookup Discogs master release versions by ID // Rights needed: stream
+	 */
+	async discogsMasterVersionsLookup(parameters: JamParameters.DiscogsMasterLookupParameters): Promise<Jam.MetaDataResult> {
+		return this.base.requestData<Jam.MetaDataResult>('/metadata/discogs/master/versions', parameters);
+	}
+
+	/**
 	 * Get Discogs image // Rights needed: stream
 	 */
 	discogsImageUrl(params: JamParameters.DiscogsImageParameters): string {

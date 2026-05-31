@@ -33,7 +33,7 @@
 					<div>{{ labelInfo.label?.disambiguation }}</div>
 				}
 				<div>
-					<ng-container i18n>Catalog Number</ng-container>
+					<ng-container i18n>Catalog Number</ng-container>&nbsp;
 					<span class="value">{{ labelInfo.catalogNumber }}</span></div>
 			</div>
 		}
@@ -44,7 +44,7 @@
 					<div class="track">
 						<div i18n>Track {{ track.number }} - {{ track.length | mediaduration }}</div>
 						<div><span class="value">{{ track.title || track.position }}</span>
-							<ng-container i18n>by</ng-container>
+							&nbsp;<ng-container i18n>by</ng-container>&nbsp;
 							<span class="value">{{ track.artistCredit | mbArtistCredits }}</span></div>
 					</div>
 				}

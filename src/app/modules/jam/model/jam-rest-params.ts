@@ -420,6 +420,14 @@ export declare namespace JamParameters {
 		orderBy?: JamEnums.DefaultOrderFields;
 	}
 
+	export interface DiscogsArtistLookupParameters {
+		/**
+		 * Discogs Artist ID
+		 * @TJS-type integer
+		 */
+		id: number;
+	}
+
 	export interface DiscogsArtistSearchParameters {
 		/** Artist Name */
 		query: string;
@@ -430,11 +438,47 @@ export declare namespace JamParameters {
 		url: string;
 	}
 
+	export interface DiscogsMasterLookupParameters {
+		/**
+		 * Discogs Master Release ID
+		 * @TJS-type integer
+		 */
+		id: number;
+	}
+
+	export interface DiscogsReleaseLookupParameters {
+		/**
+		 * Discogs Release ID
+		 * @TJS-type integer
+		 */
+		id: number;
+	}
+
 	export interface DiscogsSearchParameters {
+		/** General search query */
+		q?: string;
 		/** Artist Name */
-		artist: string;
+		artist?: string;
 		/** Release Title */
-		title: string;
+		title?: string;
+		/** Release Year */
+		year?: string;
+		/** Release Format (e.g. Vinyl, CD) */
+		format?: string;
+		/** Record Label */
+		label?: string;
+		/** Country of Release */
+		country?: string;
+		/** Catalog Number */
+		catno?: string;
+		/** Barcode */
+		barcode?: string;
+		/** Genre */
+		genre?: string;
+		/** Style */
+		style?: string;
+		/** Track Title */
+		track?: string;
 	}
 
 	export interface DownloadParameters {
