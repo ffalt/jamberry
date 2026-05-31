@@ -3,7 +3,7 @@
 		<li (clickenter)="currentTab='queue'" [class.active]="currentTab==='queue'" appFocusKeyListItem role="tab"><a i18n>Queue</a></li>
 		<li (clickenter)="currentTab='chat'" [class.active]="currentTab==='chat'" appFocusKeyListItem role="tab"><a i18n>Chat</a></li>
 	</ul>
-	<button class="close-btn" (click)="close.emit()" i18n-title title="Hide sidebar">
+	<button class="close-btn" (click)="closeEvent.emit()" i18n-title title="Hide sidebar">
 		<i class="icon-right-open-mini" aria-hidden="true"></i>
 	</button>
 </div>

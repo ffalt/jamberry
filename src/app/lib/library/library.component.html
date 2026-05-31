@@ -8,7 +8,7 @@
 @if (showSidebarRight) {
 	<app-splitter [leftSnap]="false" class="split-pane-divider-right" />
 	<aside class="right">
-		<app-sidebar-right (close)="toggleSidebarRight()" />
+		<app-sidebar-right (closeEvent)="toggleSidebarRight()" />
 	</aside>
 } @else {
 	<button class="sidebar-right-show" (click)="toggleSidebarRight()" i18n-title title="Show sidebar">

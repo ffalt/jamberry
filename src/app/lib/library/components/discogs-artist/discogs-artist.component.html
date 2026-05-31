@@ -8,8 +8,9 @@
 	<div class="discogs-results">
 		<div class="section-title">
 			<ng-container i18n>Artist Information by</ng-container>&nbsp;
-			<a [href]="artistDisplay.discogsUrl" target="_blank" rel="noopener" title="Discogs">
-				<app-discogs-icon [size]="18"/>
+			<a [href]="artistDisplay.discogsUrl" target="_blank" rel="noopener">
+				<!-- eslint-disable-next-line @angular-eslint/template/i18n -->
+				<app-discogs-icon [size]="18"/> Discogs
 			</a>
 		</div>
 		<div class="section">

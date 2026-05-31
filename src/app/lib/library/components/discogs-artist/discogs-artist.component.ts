@@ -53,11 +53,13 @@ export class DiscogsArtistComponent implements OnChanges {
 		this.jam.metadata.discogsArtistSearch({ query })
 			.then(res => {
 				const data = res.data as Discogs.SearchResponse | undefined;
-				const id = data?.results?.[0]?.id;
+				const id = data?.results.find(r => r.id)?.id;
 				this.hasResults = !!id;
 				this.searchDone = true;
 				if (id) {
-					this.loadArtistDetail(id).catch((error: unknown) => { this.notify.error(error); });
+					this.loadArtistDetail(id).catch((error: unknown) => {
+						this.notify.error(error);
+					});
 				}
 			})
 			.catch((error: unknown) => {

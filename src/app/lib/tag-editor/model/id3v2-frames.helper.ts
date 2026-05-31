@@ -1087,9 +1087,13 @@ export const FrameTXXXSubIdsDefs: { [id: string]: string } = {
 	'Discogs Artist ID': 'Discogs Artist Id',
 	'Discogs Label ID': 'Discogs Label Id',
 	'Discogs Master Release ID': 'Discogs Master Release Id',
-	'Discogs Release ID': 'Discogs Master Release Id',
+	'Discogs Release ID': 'Discogs Release Id',
 	'Discogs Votes': 'Discogs Votes',
-	'Discogs Rating': 'Discogs Rating'
+	'Discogs Rating': 'Discogs Rating',
+	'DISCOGS_ARTIST_ID': 'Discogs Artist Id',
+	'DISCOGS_RELEASE_ID': 'Discogs Release Id',
+	'DISCOGS_MASTER_ID': 'Discogs Master Release Id',
+	'DISCOGS_LABEL_ID': 'Discogs Label Id'
 };
 
 export const FrameUFIDSubIdsDefs: { [id: string]: string } = {

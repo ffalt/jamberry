@@ -12,6 +12,6 @@ import { FocusKeyListDirective } from '@core/directives/focus-key-list.directive
 	imports: [ChatComponent, QueueComponent, ClickKeyEnterDirective, FocusKeyListItemDirective, FocusKeyListDirective]
 })
 export class SidebarRightComponent {
-	readonly close = output<void>();
+	readonly closeEvent = output();
 	currentTab: string = 'queue';
 }

@@ -27,7 +27,7 @@ export class LibraryComponent {
 	private readonly settingsStore = inject(SettingsStoreService);
 
 	get showSidebarRight(): boolean {
-		return this.app.settings.showSidebarRight !== false;
+		return this.app.settings.showSidebarRight;
 	}
 
 	toggleSidebarRight(): void {

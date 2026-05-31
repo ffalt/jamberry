@@ -9,11 +9,13 @@ import { FilenameColumnID, type RawTagEditCell, type RawTagEditColumn, type RawT
 import { rebuildTag } from '../../model/tag-editor.utils';
 import { DialogChooseColumnsComponent, type SelectColumns } from '../dialog-choose-columns/dialog-choose-columns.component';
 import { DialogMatchReleaseComponent } from '../dialog-match-release/dialog-match-release.component';
+import { DialogMatchDiscogsComponent } from '../dialog-match-discogs/dialog-match-discogs.component';
 import type { ReleaseDataMatching, ReleaseMatching } from '../match-release/match-release.component';
 import { CellEditorComponent } from '../cell-editor/cell-editor.component';
 import { ColumnToolComponent } from '../column-tool/column-tool.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 import { MusicbrainzIconComponent } from '@core/components/musicbrainz-icon/musicbrainz-icon.component';
+import { DiscogsIconComponent } from '@core/components/discogs-icon/discogs-icon.component';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { ContextMenuModule } from '@modules/ngx-contextmenu/lib/ngx-contextmenu.module';
@@ -34,7 +36,7 @@ export interface SaveAction {
 	host: {
 		'(window:beforeunload)': 'canDeactivate()'
 	},
-	imports: [ContextMenuModule, CellEditorComponent, ColumnToolComponent, LoadingComponent, MusicbrainzIconComponent]
+	imports: [ContextMenuModule, CellEditorComponent, ColumnToolComponent, LoadingComponent, MusicbrainzIconComponent, DiscogsIconComponent]
 })
 export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	readonly id = input<string>();
@@ -219,6 +221,29 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		this.dialogOverlay.open<ReleaseMatching>({
 			childComponent: DialogMatchReleaseComponent,
 			title: 'Release Matching',
+			data: matching,
+			panelClass: 'overlay-panel-large'
+		});
+	}
+
+	discogs(): void {
+		if (!this.folder || !this.tracks) {
+			return;
+		}
+		if (!this.canDeactivate()) {
+			this.notify.error(new Error('Saving is in progress'));
+			return;
+		}
+		const matching: ReleaseMatching = {
+			folder: this.folder,
+			matchings: this.tracks.map(t => ({ track: t })),
+			apply: () => {
+				this.applyMatching(matching);
+			}
+		};
+		this.dialogOverlay.open<ReleaseMatching>({
+			childComponent: DialogMatchDiscogsComponent,
+			title: 'Discogs Match',
 			data: matching,
 			panelClass: 'overlay-panel-large'
 		});

@@ -1,0 +1,37 @@
+<div class="search">
+	<div class="search-fields">
+		<input class="input-on-control" [(ngModel)]="searchArtist" placeholder="Artist" i18n-placeholder />
+		<input class="input-on-control" [(ngModel)]="searchTitle" placeholder="Album" i18n-placeholder />
+		<button class="button-on-control" (click)="search()" [disabled]="isSearching" i18n>Search</button>
+	</div>
+</div>
+<div class="results">
+	@if (isSearching) {
+		<app-loading />
+	} @else {
+		@for (result of results; track result.id) {
+			<div class="result" [class.selected]="selected?.id === result.id" (click)="selected = result">
+				@if (result.thumb) {
+					<img class="thumb" [src]="imageUrl(result.thumb)" alt="" />
+				} @else {
+					<div class="thumb thumb-placeholder">
+						<app-discogs-icon [size]="20" />
+					</div>
+				}
+				<div class="info">
+					<div class="title">{{ result.title }}</div>
+					<div class="meta">{{ resultMeta(result) }}</div>
+				</div>
+			</div>
+		} @empty {
+			<div class="no-results" i18n>No results</div>
+		}
+	}
+</div>
+<div class="buttons">
+	@if (isApplying || isSearching) {
+		<button class="button-primary"><i class="icon-spin icon-spinner"></i></button>
+	} @else {
+		<button class="button-primary" [disabled]="!selected" (click)="apply()" i18n>Apply</button>
+	}
+</div>
