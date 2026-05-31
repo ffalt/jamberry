@@ -40,7 +40,8 @@
 
 	.discogs-notes {
 		color: var(--on-control-ambient);
-		margin: variables.$margin-sm 0;
+		line-height: 1.5;
+		margin: variables.$margin-xl 0;
 		white-space: pre-wrap;
 	}
 

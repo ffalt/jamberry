@@ -3,18 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { FolderType, type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
-import { MbArtistComponent } from '../mb-artist/mb-artist.component';
+import { DiscogsAlbumComponent } from '../discogs-album/discogs-album.component';
+import { DiscogsArtistComponent } from '../discogs-artist/discogs-artist.component';
 import { BackgroundTextComponent } from '@core/components/background-text/background-text.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
-import { MbAlbumComponent } from '../mb-album/mb-album.component';
 
 @Component({
-	selector: 'app-folder-musicbrainz',
-	templateUrl: './folder-musicbrainz.component.html',
-	styleUrls: ['./folder-musicbrainz.component.scss'],
-	imports: [MbArtistComponent, BackgroundTextComponent, LoadingComponent, MbAlbumComponent]
+	selector: 'app-folder-discogs',
+	templateUrl: './folder-discogs.component.html',
+	imports: [DiscogsAlbumComponent, DiscogsArtistComponent, BackgroundTextComponent, LoadingComponent]
 })
-export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
+export class FolderDiscogsComponent implements OnInit, OnDestroy {
 	folder?: Jam.Folder;
 	id?: string;
 	protected readonly FolderType = FolderType;
@@ -41,18 +40,15 @@ export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 
 	refresh(): void {
 		this.folder = undefined;
-		if (this.id) {
-			this.jam.folder.id({ id: this.id, folderIncTag: true })
-				.then(folder => {
-					this.display(folder);
-				})
-				.catch((error: unknown) => {
-					this.notify.error(error);
-				});
+		if (!this.id) {
+			return;
 		}
-	}
-
-	display(folder?: Jam.Folder): void {
-		this.folder = folder;
+		this.jam.folder.id({ id: this.id, folderIncTag: true })
+			.then(folder => {
+				this.folder = folder;
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 }

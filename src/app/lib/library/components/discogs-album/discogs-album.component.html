@@ -13,6 +13,12 @@
 			</a>
 		</div>
 		<div class="section">
+			@if (releaseDisplay.title) {
+				<div class="key-value-row">
+					<div i18n>Title</div>
+					<div>{{ releaseDisplay.title }}</div>
+				</div>
+			}
 			@if (releaseDisplay.artist) {
 				<div class="key-value-row">
 					<div i18n>Artist</div>

@@ -21,6 +21,7 @@ export interface DiscogsVideoDisplay {
 export interface DiscogsReleaseDisplay {
 	images: Array<string>;
 	discogsUrl: string;
+	title?: string;
 	artist?: string;
 	year?: string;
 	genres?: string;
@@ -62,7 +63,7 @@ export class DiscogsAlbumComponent implements OnChanges {
 		this.jam.metadata.discogsReleaseSearch({ artist, title })
 			.then(res => {
 				const data = res.data as Discogs.SearchResponse | undefined;
-				const masterId = data?.results?.[0]?.master_id;
+				const masterId = data?.results.find(r => r.master_id)?.master_id;
 				this.hasResults = !!masterId;
 				this.searchDone = true;
 				if (masterId) {
@@ -128,6 +129,7 @@ export class DiscogsAlbumComponent implements OnChanges {
 		return {
 			images: (detail.images ?? []).map(i => this.jam.metadata.discogsImageUrl({ url: i.uri150 })),
 			discogsUrl,
+			title: detail.title,
 			artist: uniqueNames(detail.artists),
 			year: detail.year ? String(detail.year) : undefined,
 			genres: unique(detail.genres),

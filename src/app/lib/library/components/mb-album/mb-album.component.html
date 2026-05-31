@@ -9,7 +9,6 @@
 		<div class="info-groups">
 			@for (infoGroup of infoGroups; track infoGroup) {
 				<div class="info-group">
-					<div class="section-title">{{ infoGroup.name }}</div>
 					@for (info of infoGroup.infos; track info) {
 						<div class="key-value-row">
 							<div>{{ info.name }}</div>
