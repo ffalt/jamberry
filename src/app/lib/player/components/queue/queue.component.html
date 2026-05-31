@@ -27,10 +27,10 @@
 </div>
 @if (showControls()) {
 	<div class="queue-actions" [class.disabled]="!entries || entries.length===0">
-		<button class="queue-action" title="Clear Queue" i18n-title (click)="queue.clear()"><i class="icon-remove" aria-hidden="true"></i>
+		<button class="queue-action" title="Clear Queue" i18n-title (click)="queue.clear()"><app-icon-remove aria-hidden="true" />
 			<ng-container i18n>Clear</ng-container>
 		</button>
-		<button class="queue-action" title="Randomize Order of Tracks" i18n-title (click)="queue.shuffle()"><i class="icon-shuffle" aria-hidden="true"></i>
+		<button class="queue-action" title="Randomize Order of Tracks" i18n-title (click)="queue.shuffle()"><app-icon-shuffle aria-hidden="true" />
 			<ng-container i18n>Shuffle</ng-container>
 		</button>
 	</div>

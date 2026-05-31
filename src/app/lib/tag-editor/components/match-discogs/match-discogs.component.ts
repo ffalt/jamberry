@@ -4,9 +4,10 @@ import type { Discogs } from '@modules/jam/model/discogs-rest-data';
 import { type Jam, type JamParameters, JamService } from '@jam';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { LoadingComponent } from '@core/components/loading/loading.component';
-import { DiscogsIconComponent } from '@core/components/discogs-icon/discogs-icon.component';
+import { IconDiscogsComponent } from '@core/components/icons/icon-discogs.component';
 import type { ReleaseMatching } from '../match-release/match-release.component';
 import type { MediaTagRawFramesAccess } from '../../model/tag-editor.utils';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 
 function buildDiscogsTag(
 	existing: Jam.MediaTagRaw | undefined,
@@ -37,7 +38,7 @@ function buildDiscogsTag(
 	selector: 'app-match-discogs',
 	templateUrl: './match-discogs.component.html',
 	styleUrls: ['./match-discogs.component.scss'],
-	imports: [FormsModule, LoadingComponent, DiscogsIconComponent]
+	imports: [IconDiscogsComponent, FormsModule, IconSpinComponent, LoadingComponent]
 })
 export class MatchDiscogsComponent implements OnChanges {
 	readonly data = input<ReleaseMatching>();

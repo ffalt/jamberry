@@ -1,4 +1,5 @@
 @use "_scss/variables";
+@use "_scss/mixins/input";
 
 :host {
 	display: block;
@@ -37,22 +38,7 @@
 }
 
 .landscape-search {
-	flex: 0 0 240px;
-	padding: 6px 10px;
-	background: var(--input);
-	border: 1px solid var(--input-border);
-	border-radius: 4px;
-	color: var(--on-input);
-	font-size: 13px;
-	outline: none;
-
-	&::placeholder {
-		color: var(--on-control-ambient-disabled);
-	}
-
-	&:focus {
-		border-color: var(--control-border-hover);
-	}
+	@include input.input-box-content;
 }
 
 .landscape-btn {

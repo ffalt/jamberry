@@ -12,6 +12,7 @@ import { FocusKeyListDirective } from '@core/directives/focus-key-list.directive
 import { DialogsService } from '@core/services/dialogs/dialogs.service';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
 import { NotifyService } from '@core/services/notify/notify.service';
+import { IconTrashComponent } from '@core/components/icons/icon-trash.component';
 
 export interface ArtworkImageNode {
 	artwork: Jam.Artwork;
@@ -35,10 +36,7 @@ function extractExt(filename: string): string {
 	selector: 'app-admin-artwork-list',
 	templateUrl: './artwork-list.component.html',
 	styleUrls: ['./artwork-list.component.scss'],
-	imports: [
-		FormsModule, InlineEditComponent, FilesizePipe,
-		ClickKeyEnterDirective, FocusKeyListItemDirective, FocusKeyListDirective
-	]
+	imports: [ClickKeyEnterDirective, FilesizePipe, FocusKeyListDirective, FocusKeyListItemDirective, FormsModule, IconTrashComponent, InlineEditComponent]
 })
 export class ArtworkListComponent implements OnChanges {
 	readonly artworks = input<Array<Jam.Artwork>>();

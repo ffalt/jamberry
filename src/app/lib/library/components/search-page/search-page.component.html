@@ -8,10 +8,10 @@
 	</ng-template>
 </app-autocomplete>
 <div class="search">
-	<app-view-header-icon-section [tabs]="tabs" i18n-icon i18n-section icon="icon-search" section="Search">
+	<app-view-header-icon-section [tabs]="tabs" i18n-section [icon]="headerIcon" section="Search">
 		<div class="input-box">
 			<input [(ngModel)]="value" [appAutocompleteControl]="this" [appAutocomplete]="autocomplete" autocomplete="off" i18n-placeholder name="query" placeholder="Search here" type="text">
-			<i (click)="search()" class="icon-search" i18n-title title="Search"></i>
+			<app-icon-search (click)="search()" i18n-title title="Search" />
 		</div>
 	</app-view-header-icon-section>
 	@if (query) {

@@ -1,10 +1,10 @@
 <button (click)="rightActive=!rightActive" class="toggle">
 	@if (rightActive) {
-		<a><i class="icon-left"></i>
+		<a><app-icon-left />
 			<ng-container i18n>Show Folder Tree</ng-container>
 		</a>
 	} @else {
-		<a><i class="icon-right"></i>
+		<a><app-icon-right />
 			<ng-container i18n>Show Folder Tools</ng-container>
 		</a>
 	}

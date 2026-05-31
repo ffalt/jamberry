@@ -11,12 +11,14 @@ import { MenuService } from '@core/services/contextmenu/menu.service';
 import { BackgroundTextComponent } from '@core/components/background-text/background-text.component';
 import { QueueService } from '@core/services/queue/queue.service';
 import { PlayerService } from '@core/services/player/player.service';
+import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
+import { IconShuffleComponent } from '@core/components/icons/icon-shuffle.component';
 
 @Component({
 	selector: 'app-queue',
 	templateUrl: './queue.component.html',
 	styleUrls: ['./queue.component.scss'],
-	imports: [ScrollingModule, DragDropModule, QueueItemComponent, FocusKeyListItemDirective, FocusKeyListDirective, BackgroundTextComponent]
+	imports: [BackgroundTextComponent, DragDropModule, FocusKeyListDirective, FocusKeyListItemDirective, IconRemoveComponent, IconShuffleComponent, QueueItemComponent, ScrollingModule]
 })
 export class QueueComponent implements OnInit, OnDestroy {
 	readonly showControls = input<boolean>(true);

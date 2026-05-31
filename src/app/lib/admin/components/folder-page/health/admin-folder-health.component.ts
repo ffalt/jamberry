@@ -9,12 +9,13 @@ import { BackgroundTextListComponent } from '@core/components/background-text-li
 import { LoadingComponent } from '@core/components/loading/loading.component';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
+import { IconReloadComponent } from '@core/components/icons/icon-reload.component';
 
 @Component({
 	selector: 'app-admin-folder-health',
 	templateUrl: './admin-folder-health.component.html',
 	styleUrls: ['./admin-folder-health.component.scss'],
-	imports: [RouterModule, FormsModule, FolderHealthComponent, BackgroundTextListComponent, LoadingComponent]
+	imports: [BackgroundTextListComponent, FolderHealthComponent, FormsModule, IconReloadComponent, LoadingComponent, RouterModule]
 })
 export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	all?: Array<Jam.FolderHealth>;

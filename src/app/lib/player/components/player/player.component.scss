@@ -118,7 +118,7 @@
 					width: 100%;
 				}
 
-				i {
+				.icon {
 					color: var(--on-control-ambient);
 					font-size: 1.5em;
 					display: block;
@@ -127,10 +127,7 @@
 						color: var(--on-control-ambient-hover);
 					}
 				}
-
-
 			}
-
 		}
 
 		@media (max-width: variables.$break-desktop-large) {

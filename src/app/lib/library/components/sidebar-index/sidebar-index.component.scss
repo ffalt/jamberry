@@ -1,4 +1,5 @@
 @use "_scss/variables";
+@use "_scss/mixins/icons";
 
 :host {
 	height: 100%;
@@ -36,7 +37,6 @@
 					color: var(--on-control-active);
 					transform: scale(1.1);
 				}
-
 			}
 		}
 
@@ -64,9 +64,8 @@
 		}
 
 		&::after {
-			font-family: variables.$icon-font-family;
-			content: variables.$icon-font-chevron-down-char;
-			padding-left: 4px;
+			@include icons.icon-chevron-down;
+			margin-left: 4px;
 		}
 
 		border-right: 3px solid transparent;
@@ -86,7 +85,7 @@
 			margin-right: 6px;
 		}
 
-		i {
+		.icon {
 			width: 25px;
 			display: block;
 		}

@@ -8,12 +8,15 @@ import { RootListComponent } from '../root-list/root-list.component';
 import { HeaderSlimComponent } from '@core/components/header-slim/header-slim.component';
 import { AdminRootService, type AdminRootServiceEditData } from '@core/services/admin-root/admin-root.service';
 import { NotifyService } from '@core/services/notify/notify.service';
+import { IconPlusComponent } from '@core/components/icons/icon-plus.component';
+import { IconReloadComponent } from '@core/components/icons/icon-reload.component';
+import { IconRescanComponent } from '@core/components/icons/icon-rescan.component';
 
 @Component({
 	selector: 'app-admin-root',
 	templateUrl: './admin-root.component.html',
 	styleUrls: ['./admin-root.component.scss'],
-	imports: [RouterModule, RootListComponent, HeaderSlimComponent]
+	imports: [HeaderSlimComponent, IconPlusComponent, IconReloadComponent, IconRescanComponent, RootListComponent, RouterModule]
 })
 export class AdminRootComponent implements OnInit, OnDestroy {
 	roots?: Array<Jam.Root>;

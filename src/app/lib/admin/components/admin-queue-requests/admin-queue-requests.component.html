@@ -1,7 +1,7 @@
 @if (folderService.current) {
 	<div class="queue-overlay">
 		<div class="current">
-			<span i18n class="label">Current:</span> <i class="icon-spin icon-spinner"></i> {{ folderService.current.title }}
+			<span i18n class="label">Current:</span> <app-icon-spin class="icon-spin" /> {{ folderService.current.title }}
 			@if (folderService.current.count > 1) {
 				({{ folderService.current.count }})
 			}

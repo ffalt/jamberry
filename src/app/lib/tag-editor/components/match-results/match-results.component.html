@@ -14,9 +14,9 @@
 						<span i18n class="label">Country:</span><span class="value">{{ group.currentRelease.mbRelease.country || '?' }}</span><br />
 						<span i18n class="label">Tracks:</span>@for (media of group.currentRelease.media; track media) {<span class="value">{{ media.tracks.length }}
 								@if (media.complete) {
-									<i class="icon-checkmark" title="All tracks matched" i18n-title></i>
+									<app-icon-checkmark title="All tracks matched" i18n-title />
 								} @else {
-									<i title="Unmatched tracks!" i18n-title class="icon-warning"></i>
+									<app-icon-warning title="Unmatched tracks!" i18n-title />
 								}</span>
 						}
 						@if (group.currentRelease.media.length > 1) {
@@ -76,13 +76,13 @@
 								<div>
 									@if ($count > 1) {
 										<div (click)="media.expanded=!media.expanded">
-											<i [class]="media.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
+											@if (media.expanded) {<app-icon-minus />} @else {<app-icon-plus />}
 											<ng-container i18n>Media</ng-container>
 											{{ media.mbMedia.position }}
 											@if (media.complete) {
-												<i class="icon-checkmark" title="All tracks matched" i18n-title></i>
+												<app-icon-checkmark title="All tracks matched" i18n-title />
 											} @else {
-												<i title="Unmatched tracks!" i18n-title class="icon-warning"></i>
+												<app-icon-warning title="Unmatched tracks!" i18n-title />
 											}
 										</div>
 									}
@@ -94,7 +94,7 @@
 													@if (track.currentMatch) {
 														<div title="Score: {{track.currentMatch.score | number}} {{track.currentMatch.scores|json}}">
 															<app-score-box [score]="track.currentMatch.score" />
-															<a title="Remove Matching" i18n-title (click)="matcher.removeMatching(group,track)"><i class="icon-trash"></i></a>
+															<a title="Remove Matching" i18n-title (click)="matcher.removeMatching(group,track)"><app-icon-trash /></a>
 															{{ track.currentMatch.match.track.name }}
 														</div>
 													}

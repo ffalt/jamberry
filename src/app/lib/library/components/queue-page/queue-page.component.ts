@@ -4,6 +4,10 @@ import { PlaylistDialogsService } from '@core/services/playlist-dialogs/playlist
 import { LibraryService } from '../../services/library/library.service';
 import { HeaderIconSectionComponent } from '@core/components/header-icon-section/header-icon-section.component';
 import { QueueService } from '@core/services/queue/queue.service';
+import { IconPlaylistComponent } from '@core/components/icons/icon-playlist.component';
+import { IconQueueComponent } from '@core/components/icons/icon-queue.component';
+import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
+import { IconShuffleComponent } from '@core/components/icons/icon-shuffle.component';
 
 @Component({
 	selector: 'app-page-queue',
@@ -12,6 +16,7 @@ import { QueueService } from '@core/services/queue/queue.service';
 	imports: [QueueComponent, HeaderIconSectionComponent]
 })
 export class QueuePageComponent {
+	readonly headerIcon = IconQueueComponent;
 	readonly queue = inject(QueueService);
 	playlistDialogsService = inject(PlaylistDialogsService);
 	private readonly library = inject(LibraryService);
@@ -20,21 +25,21 @@ export class QueuePageComponent {
 		this.library.openSimpleMenu([
 			{
 				text: 'Clear Queue',
-				icon: 'icon-remove',
+				icon: IconRemoveComponent,
 				click: (): void => {
 					this.queue.clear();
 				}
 			},
 			{
 				text: 'Shuffle Queue',
-				icon: 'icon-shuffle',
+				icon: IconShuffleComponent,
 				click: (): void => {
 					this.queue.shuffle();
 				}
 			},
 			{
 				text: 'Save Queue as Playlist',
-				icon: 'icon-playlist',
+				icon: IconPlaylistComponent,
 				click: (): void => {
 					this.playlistDialogsService.newPlaylist(this.queue.entries);
 				}

@@ -3,6 +3,7 @@ import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from 
 import { type FrameDef, FrameDefs, getFrameSubIds } from '../../model/id3v2-frames.helper';
 import type { RawTagEditColumn } from '../../model/tag-editor.types';
 import { FormsModule } from '@angular/forms';
+import { IconInfoComponent } from '@core/components/icons/icon-info.component';
 
 export interface SelectColumns {
 	columns: Array<RawTagEditColumn>;
@@ -22,7 +23,7 @@ export interface SelectColumn {
 	selector: 'app-dialog-choose-columns',
 	templateUrl: './dialog-choose-columns.component.html',
 	styleUrls: ['./dialog-choose-columns.component.scss'],
-	imports: [FormsModule]
+	imports: [FormsModule, IconInfoComponent]
 })
 export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns> {
 	data?: SelectColumns;

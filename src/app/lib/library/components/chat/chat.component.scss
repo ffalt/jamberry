@@ -54,7 +54,7 @@
 		flex-flow: row nowrap;
 		align-items: center;
 		padding: variables.$padding;
-		background-color: var(--control); // var(--control-border);
+		background-color: var(--control);
 
 		@include input.input-box;
 

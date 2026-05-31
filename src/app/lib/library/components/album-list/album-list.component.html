@@ -3,11 +3,11 @@
 	@if (albums.length > 0) {
 		<div class="albums" appFocusKeyList role="list">
 			<div class="heading">
-				<div class="fav" title="Favorite" i18n-title><i class="icon-heart-empty"></i></div>
-				<div class="date" title="Year/Number" i18n-title><i class="icon-hash"></i></div>
+				<div class="fav" title="Favorite" i18n-title><app-icon-heart-empty /></div>
+				<div class="date" title="Year/Number" i18n-title><app-icon-hash /></div>
 				<div i18n class="title">Title</div>
 				<div i18n class="info">Type</div>
-				<div class="length" title="Duration" i18n-title><i class="icon-stopwatch"></i></div>
+				<div class="length" title="Duration" i18n-title><app-icon-stopwatch /></div>
 			</div>
 			@for (album of albums; track album.id) {
 				<div class="album" appFocusKeyListItem role="listitem" (click)="navig.toAlbum(album)" (contextmenu)="onContextMenu($event, album)">
@@ -23,7 +23,7 @@
 						}
 					</div>
 					<div class="info">{{ album.albumType }}</div>
-					<div class="length"><i class="icon-stopwatch small-screen-icon"></i> {{ album.duration|duration }}</div>
+					<div class="length"><app-icon-stopwatch class="small-screen-icon" /> {{ album.duration|duration }}</div>
 				</div>
 			}
 		</div>

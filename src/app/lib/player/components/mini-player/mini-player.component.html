@@ -7,20 +7,20 @@
 					<app-coverart-image alt="Album Art" i18n-alt [coverArtObj]="player.currentMedia" [size]="50" [fill]="true" />
 				</div>
 			} @else {
-				<i class="icon-info" aria-hidden="true"></i>
+				<app-icon-info aria-hidden="true" />
 			}
 		</button>
 	</div>
 	<div class="actions">
-		<button (click)="player.previous()" [disabled]="!queue.hasPrevious" i18n-title title="Previous Track"><i aria-hidden="true" class="icon-fast-backward"></i></button>
+		<button (click)="player.previous()" [disabled]="!queue.hasPrevious" i18n-title title="Previous Track"><app-icon-fast-backward aria-hidden="true" /></button>
 		@if (player.isPlaying) {
-			<button class="play" i18n-title title="Pause" (click)="togglePlayPause()"><i aria-hidden="true" class="icon-pause"></i></button>
+			<button class="play" i18n-title title="Pause" (click)="togglePlayPause()"><app-icon-pause aria-hidden="true" /></button>
 		} @else {
-			<button class="play" i18n-title title="Play" (click)="togglePlayPause()"><i aria-hidden="true" class="icon-play"></i></button>
+			<button class="play" i18n-title title="Play" (click)="togglePlayPause()"><app-icon-play aria-hidden="true" /></button>
 		}
-		<button (click)="player.next()" [disabled]="!queue.hasNext" i18n-title title="Next Track"><i aria-hidden="true" class="icon-fast-forward"></i></button>
+		<button (click)="player.next()" [disabled]="!queue.hasNext" i18n-title title="Next Track"><app-icon-fast-forward aria-hidden="true" /></button>
 	</div>
 	<div>
-		<button (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active"><i aria-hidden="true" class="icon-queue"></i></button>
+		<button (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active"><app-icon-queue aria-hidden="true" /></button>
 	</div>
 </div>

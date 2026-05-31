@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
 import { FormsModule } from '@angular/forms';
-import { ExpandCollapseIconComponent } from '../expand-collapse-icon/expand-collapse-icon.component';
 import { DurationPipe } from '../../pipes/duration.pipe';
 import type { PlaylistEdit } from '../../services/playlist-dialogs/playlist-dialogs.service';
+import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
+import { IconExpandCollapseComponent } from '@core/components/icons/icon-expand-collapse.component';
 
 @Component({
 	selector: 'app-dialog-new-playlist',
 	templateUrl: './dialog-playlist.component.html',
 	styleUrls: ['./dialog-playlist.component.scss'],
-	imports: [FormsModule, ExpandCollapseIconComponent, DurationPipe]
+	imports: [DurationPipe, IconExpandCollapseComponent, FormsModule, IconRemoveComponent]
 })
 export class DialogPlaylistComponent implements DialogOverlay<PlaylistEdit> {
 	showTrackPreview = false;

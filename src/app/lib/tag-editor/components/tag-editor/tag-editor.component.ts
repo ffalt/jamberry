@@ -14,13 +14,18 @@ import type { ReleaseDataMatching, ReleaseMatching } from '../match-release/matc
 import { CellEditorComponent } from '../cell-editor/cell-editor.component';
 import { ColumnToolComponent } from '../column-tool/column-tool.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
-import { MusicbrainzIconComponent } from '@core/components/musicbrainz-icon/musicbrainz-icon.component';
-import { DiscogsIconComponent } from '@core/components/discogs-icon/discogs-icon.component';
+import { IconDiscogsComponent } from '@core/components/icons/icon-discogs.component';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { ContextMenuModule } from '@modules/ngx-contextmenu/lib/ngx-contextmenu.module';
 import { ContextMenuService } from '@modules/ngx-contextmenu/lib/contextmenu.service';
 import type { ContextMenuComponent } from '@modules/ngx-contextmenu/lib/contextmenu.component';
+import { IconEditComponent } from '@core/components/icons/icon-edit.component';
+import { IconFloppyComponent } from '@core/components/icons/icon-floppy.component';
+import { IconListAddComponent } from '@core/components/icons/icon-list-add.component';
+import { IconReloadComponent } from '@core/components/icons/icon-reload.component';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
+import { IconMusicbrainzComponent } from '@core/components/icons/icon-musicbrainz.component';
 
 export interface SaveAction {
 	edit: RawTagEditRow;
@@ -36,7 +41,10 @@ export interface SaveAction {
 	host: {
 		'(window:beforeunload)': 'canDeactivate()'
 	},
-	imports: [ContextMenuModule, CellEditorComponent, ColumnToolComponent, LoadingComponent, MusicbrainzIconComponent, DiscogsIconComponent]
+	imports: [
+		CellEditorComponent, ColumnToolComponent, ContextMenuModule, LoadingComponent,
+		IconDiscogsComponent, IconEditComponent, IconFloppyComponent, IconListAddComponent, IconReloadComponent, IconSpinComponent, IconMusicbrainzComponent
+	]
 })
 export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	readonly id = input<string>();

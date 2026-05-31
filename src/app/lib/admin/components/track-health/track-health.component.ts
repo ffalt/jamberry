@@ -4,6 +4,8 @@ import { type Jam, JamService, TrackHealthID } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
+import { IconWarningComponent } from '@core/components/icons/icon-warning.component';
 
 export interface TrackHealthHintSolution {
 	name: string;
@@ -18,6 +20,7 @@ export interface TrackHealthHint {
 }
 
 @Component({
+	imports: [IconSpinComponent, IconWarningComponent],
 	selector: 'app-track-health',
 	templateUrl: './track-health.component.html',
 	styleUrls: ['./track-health.component.scss']

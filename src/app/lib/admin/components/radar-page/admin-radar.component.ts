@@ -8,12 +8,17 @@ import { HeaderSlimComponent } from '@core/components/header-slim/header-slim.co
 import { NotifyService } from '@core/services/notify/notify.service';
 import { UiStateService } from '@core/services/ui-state/ui-state.service';
 import { UserStorageService } from '@core/services/userstorage/userstorage.service';
+import { IconFolderComponent } from '@core/components/icons/icon-folder.component';
+import { IconPlayComponent } from '@core/components/icons/icon-play.component';
+import { IconReloadComponent } from '@core/components/icons/icon-reload.component';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
+import { IconStopComponent } from '@core/components/icons/icon-stop.component';
 
 @Component({
 	selector: 'app-admin-radar',
 	templateUrl: './admin-radar.component.html',
 	styleUrls: ['./admin-radar.component.scss'],
-	imports: [RouterModule, TrackHealthComponent, LoadingComponent, HeaderSlimComponent]
+	imports: [HeaderSlimComponent, IconFolderComponent, IconPlayComponent, IconReloadComponent, IconSpinComponent, IconStopComponent, LoadingComponent, RouterModule, TrackHealthComponent]
 })
 
 export class AdminRadarComponent implements OnInit, OnDestroy {

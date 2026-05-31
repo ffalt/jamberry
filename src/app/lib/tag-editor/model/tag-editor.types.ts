@@ -1,3 +1,4 @@
+import type { Type } from '@angular/core';
 import type { Jam } from '@jam';
 import type { FrameType } from './id3v2-frames.helper';
 
@@ -10,7 +11,7 @@ export interface RawTagEditCell<T> {
 }
 
 export interface RawTagEditColumnAction {
-	icon: string;
+	icon: Type<unknown>;
 	title: string;
 
 	click(): void;

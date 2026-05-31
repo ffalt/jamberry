@@ -4,6 +4,8 @@ import { Genres } from './genres.consts';
 import { FrameCOMMSubIdsDefs, type FrameDef, FrameDefs, FrameTXXXSubIdsDefs, FrameType, FrameUFIDSubIdsDefs, getFrameDef } from './id3v2-frames.helper';
 import { DefaultFrameColumns, FilenameColumnID, type RawTagEditCell, type RawTagEditColumn, type RawTagEditColumnAction, type RawTagEditFrame, type RawTagEditRow } from './tag-editor.types';
 import { formatFilenameByTag, getPartOfSetID, getTackNrFromFile, type MediaTagRawFramesAccess, rebuildTag } from './tag-editor.utils';
+import { IconDownThinComponent } from '@core/components/icons/icon-down-thin.component';
+import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
 
 export class TagEditor {
 	columns: Array<RawTagEditColumn> = [];
@@ -562,19 +564,19 @@ export class TagEditor {
 			switch (id) {
 				case 'TRCK': {
 					result.push({
-						icon: 'icon-down-thin',
+						icon: IconDownThinComponent,
 						title: 'Set Track Nr by Index',
 						click: (): void => {
 							this.setColumnTrackNrByIndex(col);
 						}
 					}, {
-						icon: 'icon-down-thin',
+						icon: IconDownThinComponent,
 						title: 'Set Track Nr by Filename',
 						click: (): void => {
 							this.setColumnTrackNrFromFile(col);
 						}
 					}, {
-						icon: 'icon-down-thin',
+						icon: IconDownThinComponent,
 						title: 'Set Total Tracks',
 						click: (): void => {
 							this.setColumnTotalTrack(col);
@@ -585,7 +587,7 @@ export class TagEditor {
 				}
 				case 'TPOS': {
 					result.push({
-						icon: 'icon-down-thin',
+						icon: IconDownThinComponent,
 						title: 'Try find Part of Set',
 						click: (): void => {
 							this.setColumnPartOfSet(col);
@@ -596,7 +598,7 @@ export class TagEditor {
 				}
 				case 'TIT2': {
 					result.push({
-						icon: 'icon-down-thin',
+						icon: IconDownThinComponent,
 						title: 'Add Index Nr to Title',
 						click: (): void => {
 							this.addIndexToTitleCol(col);
@@ -607,7 +609,7 @@ export class TagEditor {
 				}
 				case 'TPE2': {
 					result.push({
-						icon: 'icon-down-thin',
+						icon: IconDownThinComponent,
 						title: 'Copy from Artist Column',
 						click: (): void => {
 							this.setAlbumArtistFrames(col);
@@ -618,7 +620,7 @@ export class TagEditor {
 				}
 				case 'TALB': {
 					result.push({
-						icon: 'icon-down-thin',
+						icon: IconDownThinComponent,
 						title: 'Copy from Title Column',
 						click: (): void => {
 							this.setColumnFromTitleFrames(col);
@@ -629,7 +631,7 @@ export class TagEditor {
 				}
 				case 'TDOR': {
 					result.push({
-						icon: 'icon-down-thin',
+						icon: IconDownThinComponent,
 						title: 'Copy from Year Column',
 						click: (): void => {
 							this.setReleaseDateFromYearFrames(col);
@@ -640,7 +642,7 @@ export class TagEditor {
 				}
 				case 'USLT': {
 					result.push({
-						icon: 'icon-down-thin',
+						icon: IconDownThinComponent,
 						title: 'Search for missing Lyrics',
 						click: (): void => {
 							this.findMissingLyrics().catch((error: unknown) => {
@@ -656,7 +658,7 @@ export class TagEditor {
 		}
 		if (impl === FrameType.Filename) {
 			result.push({
-				icon: 'icon-down-thin',
+				icon: IconDownThinComponent,
 				title: 'Set Filenames by Meta Data',
 				click: (): void => {
 					this.setColumnFilenames(col);
@@ -664,7 +666,7 @@ export class TagEditor {
 			});
 		} else {
 			result.push({
-				icon: 'icon-remove',
+				icon: IconRemoveComponent,
 				title: 'Clear all Cells in this Column',
 				click: (): void => {
 					this.clearColumn(col);

@@ -1,5 +1,6 @@
 @use "_scss/variables";
 @use "_scss/mixins/table";
+@use "_scss/mixins/icons";
 
 :host {
 	.index-entries {
@@ -17,9 +18,12 @@
 		user-select: none;
 
 		&::after {
-			font-family: variables.$icon-font-family;
-			content: variables.$icon-font-chevron-down-char;
-			padding-left: 4px;
+			@include icons.icon-chevron-down;
+			margin-left: 4px;
+		}
+
+		&.expanded::after {
+			@include icons.icon-chevron-up;
 		}
 
 		&:hover {

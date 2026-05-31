@@ -20,7 +20,7 @@
 								<div class="footer-content">
 									<form><span class="label">
                     @if (node.storing) {
-											<i class="icon-spin icon-spinner"></i>
+											<app-icon-spin class="icon-spin" />
 										} @else {
 											<input type="checkbox" [checked]="node.checked" [(ngModel)]="node.checked">
 										} {{ node.name }}
@@ -50,7 +50,7 @@
 	@if (nodes && nodes.length > 0) {
 		<div>
 			@if (isWorking) {
-				<button class="button-on-control"><i class="icon-spin icon-spinner"></i></button>
+				<button class="button-on-control"><app-icon-spin class="icon-spin" /></button>
 			} @else {
 				<button i18n class="button-on-control" (click)="use()">Use Checked Artwork</button>
 			}

@@ -8,6 +8,15 @@
 		.content {
 			padding: variables.$padding variables.$padding 0;
 
+			.section-title {
+				text-transform: uppercase;
+				letter-spacing: 1.25px;
+				font-size: variables.$x-small * 1.2;
+				margin-top: variables.$margin-sm;
+				margin-bottom: variables.$margin-sm;
+				color: var(--on-control-ambient);
+			}
+
 			.chat-max-age {
 				display: inline-block;
 			}
@@ -18,7 +27,7 @@
 
 			label {
 				display: block;
-				font-size: 12px;
+				font-size: variables.$small;
 				padding-bottom: 3px;
 
 				input[type="checkbox"] {

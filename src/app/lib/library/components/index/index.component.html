@@ -5,7 +5,7 @@
 		<div appFocusKeyList role="list">
 			@for (group of index.groups; track group.name; let j = $index) {
 				<div class="index-group">
-					<div id="index-{{j}}" class="index-group-name" (clickenter)="group.expanded=!group.expanded">{{ group.name }}</div>
+					<div id="index-{{j}}" class="index-group-name" [class.expanded]="group.expanded" (clickenter)="group.expanded=!group.expanded">{{ group.name }}</div>
 					@if (group.expanded) {
 						<div class="index-entries">
 							@for (entry of group.entries; track entry.id) {

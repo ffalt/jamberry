@@ -257,6 +257,8 @@ export default ts.config(
 					"clip-path",
 					"accept",
 					"output",
+					"transform",
+					"d",
 					"attributeName",
 					"attributeType"
 				]

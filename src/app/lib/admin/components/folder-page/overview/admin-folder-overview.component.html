@@ -1,9 +1,9 @@
 @if (folder) {
 	<div class="folder">
 		<div class="actions">
-			<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
-			<button class="button-on-control" title="Move Folder…" i18n-title (click)="moveFolder()"><i class="icon-right-bold"></i></button>
-			<button class="button-on-control" title="Remove Folder…" i18n-title (click)="removeFolder()"><i class="icon-trash"></i></button>
+			<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><app-icon-reload /></button>
+			<button class="button-on-control" title="Move Folder…" i18n-title (click)="moveFolder()"><app-icon-right-bold /></button>
+			<button class="button-on-control" title="Remove Folder…" i18n-title (click)="removeFolder()"><app-icon-trash /></button>
 		</div>
 		<div class="content">
 			@if (folder.info?.description) {
@@ -87,16 +87,16 @@
 			</div>
 			<div class="artworks">
 				<div class="actions">
-					<button class="button-on-control button-with-icon" (click)="uploadImage()"><i class="icon-upload-cloud"></i>
+					<button class="button-on-control button-with-icon" (click)="uploadImage()"><app-icon-upload-cloud />
 						<ng-container i18n>Upload Artwork</ng-container>
 					</button>
 					@if (isAlbum && folder.tag) {
-						<button class="button-on-control button-with-icon" title="Album Images" i18n-title (click)="searchImages()"><i class="icon-picture"></i>
+						<button class="button-on-control button-with-icon" title="Album Images" i18n-title (click)="searchImages()"><app-icon-picture />
 							<ng-container i18n>Search Artwork</ng-container>
 						</button>
 					}
 					@if (isArtist && folder.tag) {
-						<button class="button-on-control button-with-icon" title="Artist Images" i18n-title (click)="searchImages()"><i class="icon-picture"></i>
+						<button class="button-on-control button-with-icon" title="Artist Images" i18n-title (click)="searchImages()"><app-icon-picture />
 							<ng-container i18n>Search Art</ng-container>
 						</button>
 					}

@@ -3,8 +3,9 @@ import { NotifyService } from '@core/services/notify/notify.service';
 import { JamService } from '@jam';
 import type { Discogs } from '@modules/jam/model/discogs-rest-data';
 import { BackgroundTextComponent } from '@core/components/background-text/background-text.component';
-import { DiscogsIconComponent } from '@core/components/discogs-icon/discogs-icon.component';
+import { IconDiscogsComponent } from '@core/components/icons/icon-discogs.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
+import { IconInfoComponent } from '@core/components/icons/icon-info.component';
 
 export interface DiscogsArtistMemberDisplay {
 	name: string;
@@ -27,7 +28,7 @@ export interface DiscogsArtistDisplay {
 	selector: 'app-discogs-artist',
 	templateUrl: './discogs-artist.component.html',
 	styleUrls: ['./discogs-artist.component.scss'],
-	imports: [BackgroundTextComponent, DiscogsIconComponent, LoadingComponent]
+	imports: [BackgroundTextComponent, IconDiscogsComponent, IconInfoComponent, LoadingComponent]
 })
 export class DiscogsArtistComponent implements OnChanges {
 	readonly artist = input<string>();

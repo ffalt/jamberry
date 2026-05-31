@@ -4,10 +4,11 @@ import type { Jam } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { BackgroundTextComponent } from '../background-text/background-text.component';
-import { ExpandCollapseIconComponent } from '../expand-collapse-icon/expand-collapse-icon.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { DurationPipe } from '../../pipes/duration.pipe';
 import { NotifyService } from '../../services/notify/notify.service';
+import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
+import { IconExpandCollapseComponent } from '@core/components/icons/icon-expand-collapse.component';
 
 export interface ChoosePlaylistData {
 	getMedias(): Promise<Array<Jam.MediaBase>>;
@@ -17,7 +18,7 @@ export interface ChoosePlaylistData {
 	selector: 'app-dialog-add-to-playlist',
 	templateUrl: './dialog-add-to-playlist.component.html',
 	styleUrls: ['./dialog-add-to-playlist.component.scss'],
-	imports: [BackgroundTextComponent, ExpandCollapseIconComponent, LoadingComponent, DurationPipe]
+	imports: [BackgroundTextComponent, DurationPipe, IconExpandCollapseComponent, IconRemoveComponent, LoadingComponent]
 })
 export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData>, OnDestroy {
 	data?: ChoosePlaylistData;

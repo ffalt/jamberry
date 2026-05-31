@@ -9,7 +9,7 @@
 			<a title="Artist" i18n-title (clickenter)="navig.toMediaArtist(player.currentTrack)">{{ player.currentTrack.tag?.artist|limit:40 }}</a>
 		</div>
 		<div class="fav">
-			<a title="Toggle Track as Favorite" i18n-title (clickenter)="actions.toggleMediaBaseFav(player.currentTrack)"><i [class]="player.currentTrack.state?.faved | stringToggle:'icon-heart-full':'icon-heart-empty'"></i></a>
+			<a title="Toggle Track as Favorite" i18n-title (clickenter)="actions.toggleMediaBaseFav(player.currentTrack)">@if (player.currentTrack.state?.faved) {<app-icon-heart-full />} @else {<app-icon-heart-empty />}</a>
 		</div>
 	</section>
 }
@@ -23,7 +23,7 @@
 			<a title="Podcast" i18n-title (clickenter)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)">{{ player.currentEpisode.podcastName|limit:40 }}</a>
 		</div>
 		<div class="fav">
-			<a title="Toggle Episode as Favorite" i18n-title (clickenter)="actions.toggleMediaBaseFav(player.currentEpisode)"><i [class]="player.currentEpisode.state?.faved | stringToggle:'icon-heart-full':'icon-heart-empty'"></i></a>
+			<a title="Toggle Episode as Favorite" i18n-title (clickenter)="actions.toggleMediaBaseFav(player.currentEpisode)"><app-fav-icon [faved]="player.currentEpisode.state?.faved"/></a>
 		</div>
 	</section>
 }

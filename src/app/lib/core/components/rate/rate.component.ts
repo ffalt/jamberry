@@ -1,15 +1,20 @@
-import { Component, model, type OnChanges, type OnInit, output } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import { Component, model, type OnChanges, type OnInit, output, type Type } from '@angular/core';
+import { IconStarEmptyComponent } from '@core/components/icons/icon-star-empty.component';
+import { IconStarFullComponent } from '@core/components/icons/icon-star-full.component';
+import { IconStarHalfComponent } from '@core/components/icons/icon-star-half.component';
 
 @Component({
 	selector: 'app-rate',
 	templateUrl: './rate.component.html',
-	styleUrls: ['./rate.component.scss']
+	styleUrls: ['./rate.component.scss'],
+	imports: [NgComponentOutlet]
 })
 export class RateComponent implements OnInit, OnChanges {
 	readonly rating = model<number | undefined>(0);
 	readonly hasRated = output<number>();
 	maxScore = 5;
-	range: Array<string> = [];
+	range: Array<Type<unknown>> = [];
 	marked = -1;
 	allowHalf: boolean = false;
 
@@ -37,14 +42,14 @@ export class RateComponent implements OnInit, OnChanges {
 		this.hasRated.emit(this.rating() ?? 0);
 	}
 
-	markerClass(index: number): string {
+	markerClass(index: number): Type<unknown> {
 		if (index <= this.marked) {
-			return 'icon-star-full';
+			return IconStarFullComponent;
 		}
 		if (index < this.marked + 1) {
-			return 'icon-star-half';
+			return IconStarHalfComponent;
 		}
-		return 'icon-star-empty';
+		return IconStarEmptyComponent;
 	}
 
 	ngOnChanges(): void {

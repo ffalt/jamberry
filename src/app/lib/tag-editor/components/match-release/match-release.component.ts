@@ -11,6 +11,9 @@ import { MatchResultsComponent } from '../match-results/match-results.component'
 import { ContextMenuModule } from '@modules/ngx-contextmenu/lib/ngx-contextmenu.module';
 import type { ContextMenuComponent } from '@modules/ngx-contextmenu/lib/contextmenu.component';
 import { ContextMenuService } from '@modules/ngx-contextmenu/lib/contextmenu.service';
+import { IconLeftComponent } from '@core/components/icons/icon-left.component';
+import { IconRightComponent } from '@core/components/icons/icon-right.component';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 
 export interface ReleaseDataMatching {
 	track: Jam.Track;
@@ -33,7 +36,7 @@ export interface ReleaseMatching {
 	host: {
 		'[class.right-active]': 'rightActive'
 	},
-	imports: [ContextMenuModule, TagEditorAutocompleteComponent, MatchFileListComponent, MatchApplyComponent, MatchResultsComponent]
+	imports: [ContextMenuModule, IconLeftComponent, IconRightComponent, IconSpinComponent, MatchApplyComponent, MatchFileListComponent, MatchResultsComponent, TagEditorAutocompleteComponent]
 })
 export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	readonly data = input<ReleaseMatching>();

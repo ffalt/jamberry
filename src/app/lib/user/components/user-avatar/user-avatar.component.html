@@ -5,7 +5,7 @@
 	<app-coverart-image [coverArtObj]="auth.user" [refreshRandom]="refreshRandom" [round]="true" [size]="100" />
 	<button (click)="randomAvatar()" class="button-primary">
 		@if (refreshing) {
-			<i class="icon-spin icon-spinner"></i>
+			<app-icon-spin class="icon-spin" />
 		} @else {
 			<span i18n>Random Image</span>
 		}

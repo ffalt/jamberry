@@ -1,8 +1,8 @@
 <div class="search-podcasts">
-	<app-view-header-icon-section i18n-icon i18n-section icon="icon-podcast" section="New Podcasts">
+	<app-view-header-icon-section i18n-section [icon]="headerIcon" section="New Podcasts">
 		<div class="input-box">
 			<input (keydown.enter)="search(searchValue)" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}" i18n-placeholder name="podcast-search" placeholder="Search Podcast or paste feed url" type="text" />
-			<i (click)="search(searchValue)" class="icon-search"></i>
+			<app-icon-search (click)="search(searchValue)" />
 		</div>
 		<div class="reference">
 			<ng-container i18n>Powered by</ng-container>
@@ -35,7 +35,7 @@
 											<option [ngValue]="pod">{{ pod.displayURL }}</option>
 										}
 									</select>
-									<button class="button-on-background" (click)="subscribe(podcast.selected)"><i class="icon-list-add"></i>
+									<button class="button-on-background" (click)="subscribe(podcast.selected)"><app-icon-list-add />
 										<ng-container i18n>Subscribe</ng-container>
 									</button>
 								</div>

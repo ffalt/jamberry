@@ -1,5 +1,6 @@
 import { Component, inject, input, type OnChanges } from '@angular/core';
 import { base64ArrayBuffer } from '@utils/base64';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type CoverArtArchive, CoverArtArchiveLookupType, JamService } from '@jam';
 import { type Base64Image, ImageBase64Component } from '../image-base64/image-base64.component';
@@ -23,7 +24,7 @@ export interface MatchImageNode {
 	selector: 'app-match-coverart',
 	templateUrl: './match-coverart.component.html',
 	styleUrls: ['./match-coverart.component.scss'],
-	imports: [FormsModule, ImageBase64Component, BackgroundTextListComponent]
+	imports: [BackgroundTextListComponent, FormsModule, IconSpinComponent, ImageBase64Component]
 })
 export class MatchCoverartComponent implements OnChanges {
 	readonly data = input<MatchImageSearch>();

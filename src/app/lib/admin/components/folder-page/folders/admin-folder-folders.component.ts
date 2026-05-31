@@ -12,12 +12,15 @@ import { BackgroundTextListComponent } from '@core/components/background-text-li
 import { LoadingComponent } from '@core/components/loading/loading.component';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
 import { NotifyService } from '@core/services/notify/notify.service';
+import { IconPlusComponent } from '@core/components/icons/icon-plus.component';
+import { IconReloadComponent } from '@core/components/icons/icon-reload.component';
+import { IconRightBoldComponent } from '@core/components/icons/icon-right-bold.component';
 
 @Component({
 	selector: 'app-admin-folder-folders',
 	templateUrl: './admin-folder-folders.component.html',
 	styleUrls: ['./admin-folder-folders.component.scss'],
-	imports: [RouterModule, FolderListComponent, BackgroundTextListComponent, LoadingComponent]
+	imports: [BackgroundTextListComponent, FolderListComponent, IconPlusComponent, IconReloadComponent, IconRightBoldComponent, LoadingComponent, RouterModule]
 })
 export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	folder: Jam.Folder | undefined;

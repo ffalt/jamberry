@@ -4,7 +4,7 @@ import { JamService, type MusicBrainz, MusicBrainzLookupType } from '@jam';
 import { MbRelationsComponent } from '../mb-relations/mb-relations.component';
 import { MbArtistCreditsPipe } from '@core/pipes/mb-artist-credits.pipe';
 import { MediadurationPipe } from '@core/pipes/mediaduration.pipe';
-import { MusicbrainzIconComponent } from '@core/components/musicbrainz-icon/musicbrainz-icon.component';
+import { IconMusicbrainzComponent } from '@core/components/icons/icon-musicbrainz.component';
 
 export interface MBAlbumInfo {
 	name: string;
@@ -20,7 +20,7 @@ export interface MBAlbumInfoGroup {
 	selector: 'app-mb-album',
 	templateUrl: './mb-album.component.html',
 	styleUrls: ['./mb-album.component.scss'],
-	imports: [MbRelationsComponent, MbArtistCreditsPipe, MediadurationPipe, MusicbrainzIconComponent]
+	imports: [MbRelationsComponent, MbArtistCreditsPipe, MediadurationPipe, IconMusicbrainzComponent]
 })
 export class MbAlbumComponent implements OnChanges {
 	readonly mbAlbumID = input<string>();

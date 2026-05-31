@@ -7,6 +7,9 @@ import { AppService } from '@core/services/app/app.service';
 import { NavigService } from '@core/services/navig/navig.service';
 import { NotifyService } from '@core/services/notify/notify.service';
 import PodcastDiscover = Jam.PodcastDiscover;
+import { IconListAddComponent } from '@core/components/icons/icon-list-add.component';
+import { IconPodcastComponent } from '@core/components/icons/icon-podcast.component';
+import { IconSearchComponent } from '@core/components/icons/icon-search.component';
 
 export interface PodcastSearchResult {
 	url: URL;
@@ -26,9 +29,10 @@ export interface PodcastSearch {
 	selector: 'app-page-podcast-search',
 	templateUrl: './podcast-search-page.component.html',
 	styleUrls: ['./podcast-search-page.component.scss'],
-	imports: [FormsModule, LoadingComponent, HeaderIconSectionComponent]
+	imports: [FormsModule, HeaderIconSectionComponent, IconListAddComponent, IconSearchComponent, LoadingComponent]
 })
 export class PodcastSearchPageComponent {
+	readonly headerIcon = IconPodcastComponent;
 	readonly app = inject(AppService);
 	readonly jam = inject(JamService);
 	readonly navig = inject(NavigService);

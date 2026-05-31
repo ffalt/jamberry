@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 
 export interface Image {
 	name: string;
@@ -7,6 +8,7 @@ export interface Image {
 }
 
 @Component({
+	imports: [IconSpinComponent],
 	selector: 'app-image-overlay-content',
 	templateUrl: './image-overlay-content.component.html',
 	styleUrls: ['./image-overlay-content.scss']

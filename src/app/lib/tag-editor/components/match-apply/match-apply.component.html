@@ -2,7 +2,7 @@
 	<div>
 		<div class="section" i18n>Genres</div>
 		@if (isGenreSearchRunning) {
-			<i class="icon-spin icon-spinner"></i>
+			<app-icon-spin class="icon-spin" />
 		}
 		@if (genres && !isGenreSearchRunning) {
 			@for (genre of genres; track genre) {

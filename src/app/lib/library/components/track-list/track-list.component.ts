@@ -10,15 +10,24 @@ import { FocusKeyListDirective } from '@core/directives/focus-key-list.directive
 import { ActionsService } from '@core/services/actions/actions.service';
 import { LibraryService } from '../../services/library/library.service';
 import { BackgroundTextListComponent } from '@core/components/background-text-list/background-text-list.component';
-import { FavIconComponent } from '@core/components/fav-icon/fav-icon.component';
+import { IconFavComponent } from '@core/components/icons/icon-fav.component';
 import { NavigService } from '@core/services/navig/navig.service';
 import { PlayerService } from '@core/services/player/player.service';
+import { IconCheckmarkComponent } from '@core/components/icons/icon-checkmark.component';
+import { IconClockComponent } from '@core/components/icons/icon-clock.component';
+import { IconHashComponent } from '@core/components/icons/icon-hash.component';
+import { IconHeadphonesComponent } from '@core/components/icons/icon-headphones.component';
+import { IconHeartEmptyComponent } from '@core/components/icons/icon-heart-empty.component';
+import { IconStopwatchComponent } from '@core/components/icons/icon-stopwatch.component';
 
 @Component({
 	selector: 'app-track-list',
 	templateUrl: './track-list.component.html',
 	styleUrls: ['./track-list.component.scss'],
-	imports: [CommonModule, AgoPipe, DurationPipe, ClickKeyEnterDirective, FocusKeyListItemDirective, FocusKeyListDirective, BackgroundTextListComponent, FavIconComponent]
+	imports: [
+		AgoPipe, BackgroundTextListComponent, ClickKeyEnterDirective, CommonModule, DurationPipe, IconFavComponent, FocusKeyListDirective, FocusKeyListItemDirective,
+		IconCheckmarkComponent, IconClockComponent, IconHashComponent, IconHeadphonesComponent, IconHeartEmptyComponent, IconStopwatchComponent
+	]
 })
 export class TrackListComponent {
 	readonly tracks = input<Array<Jam.Track>>();

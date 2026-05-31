@@ -17,22 +17,22 @@
 							<div i18n class="section-title">Permissions</div>
 							<div class="roles">
 								@if (auth.user.roles.stream) {
-									<div><i class="icon-checkmark"></i>
+									<div><app-icon-checkmark />
 										<ng-container i18n>Stream Audio</ng-container>
 									</div>
 								}
 								@if (auth.user.roles.podcast) {
-									<div><i class="icon-checkmark"></i>
+									<div><app-icon-checkmark />
 										<ng-container i18n>Manage Podcasts</ng-container>
 									</div>
 								}
 								@if (auth.user.roles.upload) {
-									<div><i class="icon-checkmark"></i>
+									<div><app-icon-checkmark />
 										<ng-container i18n>Upload Audio</ng-container>
 									</div>
 								}
 								@if (auth.user.roles.admin) {
-									<div><i class="icon-checkmark"></i>
+									<div><app-icon-checkmark />
 										<ng-container i18n>Server Administration</ng-container>
 									</div>
 								}

@@ -4,7 +4,7 @@
 			@if (jam.auth.user?.roles?.podcast) {
 				<button class="button-on-background"
 								title="Get Episode" i18n-title (click)="podcastService.retrieveEpisode(episode)">
-					<i class="icon-download"></i>
+					<app-icon-download />
 					@if (showTitle()) {
 						<ng-container i18n> Get Episode</ng-container>
 					}
@@ -12,23 +12,23 @@
 			}
 		}
 		@case (PodcastStatus.downloading) {
-			<button class="button-on-background"><i class="icon-spin icon-spinner"></i>
+			<button class="button-on-background"><app-icon-spin class="icon-spin" />
 				@if (showTitle()) {
 					<ng-container i18n> Downloading</ng-container>
 				}
 			</button>
 		}
 		@case (PodcastStatus.error) {
-			<span [title]="episode.error"><i class="icon-warning"></i></span>
+			<span [title]="episode.error"><app-icon-warning /></span>
 			@if (jam.auth.user?.roles?.podcast) {
 				<button class="button-on-background"
 								title="Get Episode" i18n-title (click)="podcastService.retrieveEpisode(episode)">
-					<i class="icon-download"></i>
+					<app-icon-download />
 				</button>
 			}
 		}
 		@case (PodcastStatus.completed) {
-			<button class="button-primary" (click)="player.startEpisode(episode)"><i class="icon-play"></i>
+			<button class="button-primary" (click)="player.startEpisode(episode)"><app-icon-play />
 				@if (showTitle()) {
 					<ng-container i18n> Play</ng-container>
 				}

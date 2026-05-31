@@ -3,8 +3,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inje
 import type { JamObject } from '../../model/helpers';
 import { CoverartImageComponent } from '../coverart-image/coverart-image.component';
 import { ClickStopDirective } from '../../directives/click-stop.directive';
-import { FavIconComponent } from '../fav-icon/fav-icon.component';
+import { IconFavComponent } from '../icons/icon-fav.component';
 import { DeferLoadDirective } from '@modules/defer-load/defer-load.directive';
+import { IconPlayComponent } from '@core/components/icons/icon-play.component';
 
 @Component({
 	selector: 'app-media-plate',
@@ -16,7 +17,7 @@ import { DeferLoadDirective } from '@modules/defer-load/defer-load.directive';
 		'(keydown.enter)': 'contextmenuEvent($event)',
 		'(contextmenu)': 'contextmenuEvent($event)'
 	},
-	imports: [CoverartImageComponent, ClickStopDirective, FavIconComponent, ClickStopDirective, DeferLoadDirective]
+	imports: [ClickStopDirective, CoverartImageComponent, DeferLoadDirective, IconFavComponent, IconPlayComponent]
 })
 export class MediaPlateComponent implements FocusableOption {
 	readonly obj = input<JamObject>();

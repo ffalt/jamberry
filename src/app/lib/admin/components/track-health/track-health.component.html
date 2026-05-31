@@ -4,7 +4,7 @@
 			@if (trackHealth.health) {
 				@for (hint of hints; track hint.hint.id) {
 					<div class="hint">
-						<i class="icon-warning"></i> {{ hint.hint.name }}
+						<app-icon-warning /> {{ hint.hint.name }}
 						<div class="details">{{ hint.description }}</div>
 					</div>
 				} @empty {
@@ -14,7 +14,7 @@
 					@for (sol of solutions; track sol.name) {
 						<button class="button-on-background" (click)="sol.click()">
 							@if (sol.running) {
-								<i class="icon-spin icon-spinner"></i>
+								<app-icon-spin class="icon-spin" />
 							} @else {
 								{{ sol.name }}
 							}
@@ -23,7 +23,7 @@
 				</div>
 			} @else {
 				<div class="hint">
-					<i class="icon-spin icon-spinner"></i>
+					<app-icon-spin class="icon-spin" />
 				</div>
 			}
 		</div>

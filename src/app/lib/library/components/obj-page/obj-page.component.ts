@@ -11,12 +11,13 @@ import { LibraryService } from '../../services/library/library.service';
 import { type HeaderInfo, HeaderJamBaseComponent } from '@core/components/header-jambase/header-jambase.component';
 import type { HeaderTab } from '@core/components/header-tabs/header-tabs.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
+import { IconPlayComponent } from '@core/components/icons/icon-play.component';
 
 @Component({
 	selector: 'app-page-obj',
 	templateUrl: './obj-page.component.html',
 	styleUrls: ['./obj-page.component.scss'],
-	imports: [RouterModule, EpisodeStateButtonComponent, BackgroundImageDirective, HeaderJamBaseComponent, LoadingComponent]
+	imports: [BackgroundImageDirective, EpisodeStateButtonComponent, HeaderJamBaseComponent, IconPlayComponent, LoadingComponent, RouterModule]
 })
 export class ObjPageComponent implements OnInit, OnDestroy {
 	id?: string;

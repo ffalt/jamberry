@@ -37,7 +37,6 @@
 							"src/assets"
 						],
 						"styles": [
-							"src/fonts/fontello/css/jam.css",
 							"src/styles.scss",
 							"src/fonts/lato/latofonts.css"
 						],

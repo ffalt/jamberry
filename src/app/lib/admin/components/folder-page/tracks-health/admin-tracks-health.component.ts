@@ -9,12 +9,13 @@ import { BackgroundTextListComponent } from '@core/components/background-text-li
 import { LoadingComponent } from '@core/components/loading/loading.component';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
 import { NotifyService } from '@core/services/notify/notify.service';
+import { IconReloadComponent } from '@core/components/icons/icon-reload.component';
 
 @Component({
 	selector: 'app-admin-tracks-health',
 	templateUrl: './admin-tracks-health.component.html',
 	styleUrls: ['./admin-tracks-health.component.scss'],
-	imports: [RouterModule, FormsModule, TrackHealthComponent, BackgroundTextListComponent, LoadingComponent]
+	imports: [BackgroundTextListComponent, FormsModule, IconReloadComponent, LoadingComponent, RouterModule, TrackHealthComponent]
 })
 
 export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {

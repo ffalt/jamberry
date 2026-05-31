@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, type Type } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { routes } from '../../../../app.routing';
 import { IconartImageComponent } from '@core/components/iconart-image/iconart-image.component';
+import { IconAdminComponent } from '@core/components/icons/icon-admin.component';
 
 export interface SectionCardsSection {
 	id: string;
 	text: string;
-	icon?: string;
+	icon?: Type<unknown>;
 }
 
 @Component({
@@ -26,7 +27,7 @@ export class SectionCardsComponent {
 				({
 					id: route.data?.link ?? route.path ?? '',
 					text: route.data?.name ?? '',
-					icon: route.data?.icon ?? 'icon-admin'
+					icon: route.data?.icon ?? IconAdminComponent
 				}));
 	}
 }

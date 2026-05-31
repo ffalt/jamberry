@@ -8,15 +8,17 @@ import { ActionsService } from '@core/services/actions/actions.service';
 import { PodcastService } from '@core/services/podcast/podcast.service';
 import { LibraryService } from '../../services/library/library.service';
 import { BackgroundTextListComponent } from '@core/components/background-text-list/background-text-list.component';
-import { FavIconComponent } from '@core/components/fav-icon/fav-icon.component';
+import { IconFavComponent } from '@core/components/icons/icon-fav.component';
 import { NavigService } from '@core/services/navig/navig.service';
 import { PlayerService } from '@core/services/player/player.service';
+import { IconHeartEmptyComponent } from '@core/components/icons/icon-heart-empty.component';
+import { IconStopwatchComponent } from '@core/components/icons/icon-stopwatch.component';
 
 @Component({
 	selector: 'app-episode-list',
 	templateUrl: './episode-list.component.html',
 	styleUrls: ['./episode-list.component.scss'],
-	imports: [CommonModule, EpisodeStateButtonComponent, DurationPipe, BackgroundTextListComponent, FavIconComponent]
+	imports: [BackgroundTextListComponent, CommonModule, DurationPipe, EpisodeStateButtonComponent, IconFavComponent, IconHeartEmptyComponent, IconStopwatchComponent]
 })
 export class EpisodeListComponent {
 	readonly episodes = input<Array<Jam.Episode>>();

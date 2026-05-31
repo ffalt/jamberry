@@ -4,7 +4,7 @@
 		<label class="select"><input (click)="setVersion(4)" [checked]="version===4" name="release" type="radio"> 2.4</label>
 		<label class="select"><input (click)="setVersion(3)" [checked]="version===3" name="release" type="radio"> 2.3</label>
 		<label class="select"><input (click)="setVersion(2)" [checked]="version===2" name="release" type="radio"> 2.2</label><br />
-		<a [href]="urls[version]" rel="noopener" target="_blank"><i class="icon-info"></i> {{ urls[version] }}</a>
+		<a [href]="urls[version]" rel="noopener" target="_blank"><app-icon-info /> {{ urls[version] }}</a>
 	</fieldset>
 </form>
 <div class="columns">

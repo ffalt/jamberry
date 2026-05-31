@@ -10,12 +10,14 @@ import { LogoIconComponent } from '@core/components/logo-icon/logo-icon.componen
 import { CoverartImageComponent } from '@core/components/coverart-image/coverart-image.component';
 import { AppService } from '@core/services/app/app.service';
 import { NavigService } from '@core/services/navig/navig.service';
+import { IconLeftBoldComponent } from '@core/components/icons/icon-left-bold.component';
+import { IconMenuComponent } from '@core/components/icons/icon-menu.component';
 
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.scss'],
-	imports: [RouterModule, SearchBoxComponent, LogoIconComponent, CoverartImageComponent]
+	imports: [CoverartImageComponent, IconLeftBoldComponent, IconMenuComponent, LogoIconComponent, RouterModule, SearchBoxComponent]
 })
 export class HeaderComponent {
 	readonly app = inject(AppService);

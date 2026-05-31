@@ -8,6 +8,7 @@ import { AutocompleteDirective } from '@modules/autocomplete/autocomplete.direct
 import { OptionHeaderComponent } from '@modules/autocomplete/option/option-header.component';
 import type { AutocompleteDataControl, AutocompleteOption } from '@modules/autocomplete/autocomplete.types';
 import { NavigService } from '@core/services/navig/navig.service';
+import { IconSearchComponent } from '@core/components/icons/icon-search.component';
 
 const objTypes = {
 	track: 'Track',
@@ -23,10 +24,7 @@ const objTypes = {
 	selector: 'app-search-box',
 	templateUrl: './search-box.component.html',
 	styleUrls: ['./search-box.component.scss'],
-	imports: [
-		AutocompleteComponent, OptionComponent, AutocompleteDirective,
-		HighlightPipe, AutocompleteContentDirective, AutocompleteDirective, OptionHeaderComponent
-	]
+	imports: [AutocompleteComponent, AutocompleteContentDirective, AutocompleteDirective, HighlightPipe, IconSearchComponent, OptionComponent, OptionHeaderComponent]
 })
 export class SearchBoxComponent implements AutocompleteDataControl<{ type: string }> {
 	readonly autocomplete = viewChild(AutocompleteDirective);

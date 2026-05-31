@@ -1,20 +1,20 @@
 <context-menu #actionMenu>
-	<ng-template (execute)="editor.setAudiobookFrames(this.tracks)" contextMenuItem><i class="icon-edit"></i>
+	<ng-template (execute)="editor.setAudiobookFrames(this.tracks)" contextMenuItem><app-icon-edit />
 		<ng-container i18n>Set Audiobook Frames</ng-container>
 	</ng-template>
-	<ng-template (execute)="editor.setAudioSeriesFrames(this.tracks)" contextMenuItem><i class="icon-edit"></i>
+	<ng-template (execute)="editor.setAudioSeriesFrames(this.tracks)" contextMenuItem><app-icon-edit />
 		<ng-container i18n>Set Audio Series Frames</ng-container>
 	</ng-template>
-	<ng-template (execute)="editor.setSoundtrackFrames(this.tracks)" contextMenuItem><i class="icon-edit"></i>
+	<ng-template (execute)="editor.setSoundtrackFrames(this.tracks)" contextMenuItem><app-icon-edit />
 		<ng-container i18n>Set Soundtrack Frames</ng-container>
 	</ng-template>
-	<ng-template (execute)="editor.setBootlegFrames(this.tracks)" contextMenuItem><i class="icon-edit"></i>
+	<ng-template (execute)="editor.setBootlegFrames(this.tracks)" contextMenuItem><app-icon-edit />
 		<ng-container i18n>Set Bootleg Frames</ng-container>
 	</ng-template>
-	<ng-template (execute)="editor.setVariousArtistFrames(this.tracks)" contextMenuItem><i class="icon-edit"></i>
+	<ng-template (execute)="editor.setVariousArtistFrames(this.tracks)" contextMenuItem><app-icon-edit />
 		<ng-container i18n>Set Various Artists Compilation Frames</ng-container>
 	</ng-template>
-	<ng-template (execute)="editor.findMissingLyrics(this.tracks)" contextMenuItem><i class="icon-edit"></i>
+	<ng-template (execute)="editor.findMissingLyrics(this.tracks)" contextMenuItem><app-icon-edit />
 		<ng-container i18n>Search & Fill Missing Lyrics Frames</ng-container>
 	</ng-template>
 </context-menu>
@@ -25,29 +25,29 @@
 			<br />
 			<ng-container i18n>Do you want to load all tracks from subfolders?</ng-container>
 			<br />
-			<button class="button-on-control" title="Load all Tracks" i18n-title (click)="loadRecursive()"><i class="icon-reload"></i>
+			<button class="button-on-control" title="Load all Tracks" i18n-title (click)="loadRecursive()"><app-icon-reload />
 				<ng-container i18n>Load recursive</ng-container>
 			</button>
 		</div>
 	}
 	@if (tracks && tracks.length > 0 && editor.edits) {
 		<div class="actions">
-			<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><i class="icon-reload"></i></button>
+			<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><app-icon-reload /></button>
 			<button class="button-on-control" title="Match with MusicBrainz" i18n-title (click)="brainz()">
-				<app-mb-icon [size]="12" />
+				<app-mb-icon />
 			</button>
 			<button class="button-on-control" title="Match with Discogs" i18n-title (click)="discogs()">
-				<app-discogs-icon [size]="12" />
+				<app-discogs-icon />
 			</button>
-			<button class="button-on-control" title="Choose Columns" i18n-title (click)="chooseColumns()"><i class="icon-list-add"></i></button>
+			<button class="button-on-control" title="Choose Columns" i18n-title (click)="chooseColumns()"><app-icon-list-add /></button>
 			<button class="button-on-control" title="More" i18n-title (click)="onContextMenu($event)">…</button>
 			<div class="spanner"></div>
 			@if (isSaving) {
-				<button class="button-on-control" title="Save" i18n-title><i class="icon-spin icon-spnner"></i></button>
+				<button class="button-on-control" title="Save" i18n-title><app-icon-spin class="icon-spin" /></button>
 			} @else if (hasOneChanged) {
-				<button class="button-primary" title="Save" i18n-title (click)="save()"><i class="icon-floppy"></i></button>
+				<button class="button-primary" title="Save" i18n-title (click)="save()"><app-icon-floppy /></button>
 			} @else {
-				<button class="button-on-control" title="Save" i18n-title (click)="save()"><i class="icon-floppy"></i></button>
+				<button class="button-on-control" title="Save" i18n-title (click)="save()"><app-icon-floppy /></button>
 			}
 		</div>
 	}
@@ -83,9 +83,9 @@
 								<div class="cell-editor">
 									@if (edit.changed) {
 										@if (edit.saving) {
-											<i class="icon-spin icon-spinner"></i>
+											<app-icon-spin class="icon-spin" />
 										} @else {
-											<i class="icon-floppy" (click)="saveEdit(edit)"></i>
+											<app-icon-floppy (click)="saveEdit(edit)" />
 										}
 									}
 								</div>

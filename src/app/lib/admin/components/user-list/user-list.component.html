@@ -19,33 +19,33 @@
 					<td class="title">{{ user.name }}</td>
 					<td class="email">{{ user.email }}</td>
 					<td class="role">@if (user.roles.admin) {
-						<i class="icon-checkmark" aria-hidden="true"></i>
+						<app-icon-checkmark aria-hidden="true" />
 						<span i18n class="visually-hidden">Is Admin</span>
 					}</td>
 					<td class="role">@if (user.roles.podcast) {
-						<i class="icon-checkmark" aria-hidden="true"></i>
+						<app-icon-checkmark aria-hidden="true" />
 					}
 						@if (user.roles.admin) {
 							<span i18n class="visually-hidden">Can manage podcast</span>
 						}</td>
 					<td class="role">@if (user.roles.upload) {
-						<i class="icon-checkmark" aria-hidden="true"></i>
+						<app-icon-checkmark aria-hidden="true" />
 					}
 						@if (user.roles.admin) {
 							<span i18n class="visually-hidden">Can upload</span>
 						}</td>
 					<td class="role">@if (user.roles.stream) {
-						<i class="icon-checkmark" aria-hidden="true"></i>
+						<app-icon-checkmark aria-hidden="true" />
 					}
 						@if (user.roles.stream) {
 							<span i18n class="visually-hidden">Can stream</span>
 						}</td>
 					<td class="actions">
 						<div class="action-buttons">
-							<button title="Change Avatar" i18n-title (click)="editUserAvatar(user)"><i class="icon-picture" aria-hidden="true"></i></button>
-							<button title="Set Password" i18n-title (click)="setUserPassword(user)"><i class="icon-key" aria-hidden="true"></i></button>
-							<button title="Edit User" i18n-title (click)="editUser(user)"><i class="icon-edit" aria-hidden="true"></i></button>
-							<button title="Delete User" i18n-title (click)="deleteUser(user)"><i class="icon-remove" aria-hidden="true"></i></button>
+							<button title="Change Avatar" i18n-title (click)="editUserAvatar(user)"><app-icon-picture aria-hidden="true" /></button>
+							<button title="Set Password" i18n-title (click)="setUserPassword(user)"><app-icon-key aria-hidden="true" /></button>
+							<button title="Edit User" i18n-title (click)="editUser(user)"><app-icon-edit aria-hidden="true" /></button>
+							<button title="Delete User" i18n-title (click)="deleteUser(user)"><app-icon-remove aria-hidden="true" /></button>
 						</div>
 					</td>
 				</tr>

@@ -5,13 +5,17 @@ import { ScoreBoxComponent } from '../score-box/score-box.component';
 import { CommonModule } from '@angular/common';
 import { JsonPipe } from '@core/pipes/json.pipe';
 import { MbArtistCreditsPipe } from '@core/pipes/mb-artist-credits.pipe';
-import { StringTogglePipe } from '@core/pipes/string-toggle/string-toggle.pipe';
+import { IconCheckmarkComponent } from '@core/components/icons/icon-checkmark.component';
+import { IconMinusComponent } from '@core/components/icons/icon-minus.component';
+import { IconPlusComponent } from '@core/components/icons/icon-plus.component';
+import { IconTrashComponent } from '@core/components/icons/icon-trash.component';
+import { IconWarningComponent } from '@core/components/icons/icon-warning.component';
 
 @Component({
 	selector: 'app-match-results',
 	templateUrl: './match-results.component.html',
 	styleUrls: ['./match-results.component.scss'],
-	imports: [CommonModule, ScoreBoxComponent, JsonPipe, MbArtistCreditsPipe, StringTogglePipe]
+	imports: [CommonModule, IconCheckmarkComponent, IconMinusComponent, IconPlusComponent, IconTrashComponent, IconWarningComponent, JsonPipe, MbArtistCreditsPipe, ScoreBoxComponent]
 })
 export class MatchResultsComponent {
 	readonly matcher = input<Matcher>();

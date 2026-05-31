@@ -1,0 +1,16 @@
+import { Component } from '@angular/core';
+
+/*
+ * jam icon: stopwatch
+ * Source set: MFG Labs (config.json src: "mfglabs")
+ * License: SIL Open Font License (http://scripts.sil.org/OFL)
+ *   Copyright (C) 2012 by MFG Labs - http://www.mfglabs.com/
+ */
+@Component({
+	selector: 'app-icon-stopwatch',
+	templateUrl: './icon-stopwatch.component.html',
+	host: { class: 'icon' }
+})
+export class IconStopwatchComponent {
+
+}

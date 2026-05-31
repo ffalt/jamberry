@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { routes } from '../../../../app.routing';
 import type { SidebarList } from '@core/components/sidebar-list/sidebar-list.component';
 import { SidebarComponent } from '@core/components/sidebar/sidebar.component';
+import { IconAdminComponent } from '@core/components/icons/icon-admin.component';
 
 @Component({
 	selector: 'app-admin-sidebar',
@@ -20,7 +21,7 @@ export class AdminSidebarComponent {
 				({
 					link: `/admin/${route.data?.link ?? route.path}`,
 					name: route.data?.name ?? '',
-					icon: route.data?.icon ?? 'icon-admin'
+					icon: route.data?.icon ?? IconAdminComponent
 				}));
 		this.sections = [{ name: 'Administration', entries }];
 	}

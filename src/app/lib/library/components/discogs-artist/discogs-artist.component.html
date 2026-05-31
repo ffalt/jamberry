@@ -10,11 +10,11 @@
 			<ng-container i18n>Artist Information by</ng-container>&nbsp;
 			<a [href]="artistDisplay.discogsUrl" target="_blank" rel="noopener">
 				<!-- eslint-disable-next-line @angular-eslint/template/i18n -->
-				<app-discogs-icon [size]="18"/> Discogs
+				<app-discogs-icon /> Discogs
 			</a>
 		</div>
 		<div class="section">
-			<h2><a [href]="artistDisplay.discogsUrl" target="_blank" rel="noopener">{{ artistDisplay.name }} <i class="icon-info"></i></a></h2>
+			<h2><a [href]="artistDisplay.discogsUrl" target="_blank" rel="noopener">{{ artistDisplay.name }} <app-icon-info /></a></h2>
 			@if (artistDisplay.nameVariations) {
 				<div class="disambiguation">{{ artistDisplay.nameVariations }}</div>
 			}

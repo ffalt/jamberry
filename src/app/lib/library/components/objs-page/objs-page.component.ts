@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, type Type } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { getUrlType, type JamType, JamUrlType } from '@utils/jam-lists';
@@ -6,6 +6,8 @@ import { DeferLoadScrollHostDirective } from '@modules/defer-load/defer-load-scr
 import { LibraryService } from '../../services/library/library.service';
 import type { HeaderTab } from '@core/components/header-tabs/header-tabs.component';
 import { HeaderIconSectionComponent } from '@core/components/header-icon-section/header-icon-section.component';
+import { IconListAddComponent } from '@core/components/icons/icon-list-add.component';
+import { IconRescanComponent } from '@core/components/icons/icon-rescan.component';
 
 @Component({
 	selector: 'app-page-objs',
@@ -16,7 +18,7 @@ import { HeaderIconSectionComponent } from '@core/components/header-icon-section
 export class ObjsPageComponent implements OnInit, OnDestroy {
 	tabs?: Array<HeaderTab>;
 	type?: JamType;
-	icon?: string;
+	icon?: Type<unknown>;
 	section?: string;
 	sectionType?: string;
 	hasContextMenu: boolean = false;
@@ -59,14 +61,14 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 					[
 						{
 							text: 'New Podcast',
-							icon: 'icon-list-add',
+							icon: IconListAddComponent,
 							click: (): void => {
 								this.library.navig.toPodcastSearch();
 							}
 						},
 						{
 							text: 'Refresh Podcast Feeds',
-							icon: 'icon-rescan',
+							icon: IconRescanComponent,
 							click: (): void => {
 								this.library.podcastService.checkPodcasts();
 							}
@@ -81,7 +83,7 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 					[
 						{
 							text: 'New Playlist',
-							icon: 'icon-list-add',
+							icon: IconListAddComponent,
 							click: (): void => {
 								this.library.playlistDialogsService.newPlaylist();
 							}

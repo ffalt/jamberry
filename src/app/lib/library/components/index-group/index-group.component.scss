@@ -1,5 +1,6 @@
 @use "_scss/variables";
 @use "_scss/mixins/cards";
+@use "_scss/mixins/icons";
 
 :host {
 	.index-cards {
@@ -20,9 +21,12 @@
 		display: flex;
 
 		&::after {
-			font-family: variables.$icon-font-family;
-			content: variables.$icon-font-chevron-down-char;
-			padding-left: 4px;
+			@include icons.icon-chevron-down;
+			margin-left: 4px;
+		}
+
+		&.expanded::after {
+			@include icons.icon-chevron-up;
 		}
 
 		&:hover {

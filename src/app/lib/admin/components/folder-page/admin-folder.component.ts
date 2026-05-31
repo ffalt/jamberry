@@ -6,12 +6,14 @@ import { folderSubSections } from '../../admin.types';
 import { FolderTreeComponent } from '../folder-tree/folder-tree.component';
 import { SplitterComponent } from '@core/components/splitter/splitter.component';
 import { UiStateService } from '@core/services/ui-state/ui-state.service';
+import { IconLeftComponent } from '@core/components/icons/icon-left.component';
+import { IconRightComponent } from '@core/components/icons/icon-right.component';
 
 @Component({
 	selector: 'app-admin-folder',
 	templateUrl: './admin-folder.component.html',
 	styleUrls: ['./admin-folder.component.scss'],
-	imports: [RouterModule, FolderTreeComponent, SplitterComponent],
+	imports: [FolderTreeComponent, IconLeftComponent, IconRightComponent, RouterModule, SplitterComponent],
 	host: {
 		'[class.right-active]': 'rightActive'
 	}

@@ -1,0 +1,21 @@
+$icon-chevron-down: "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%20-850%20466%201000'%3E%3Cpath%20transform='scale(1,-1)'%20d='M405%20470q22%2026%2048%200%2026-22%200-48l-196-192q-22-22-48%200l-196%20192q-26%2026%200%2048%2024%2024%2050%200l170-156z'/%3E%3C/svg%3E";
+$icon-chevron-up: "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%20-850%20464%201000'%3E%3Cpath%20transform='scale(1,-1)'%20d='M62%20230q-26-22-50%200-24%2024%200%2050l196%20190q26%2026%2048%200l196-190q24-26%200-50-24-22-50%200l-170%20158z'/%3E%3C/svg%3E";
+
+@mixin svg-icon($svg) {
+	content: '';
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	vertical-align: middle;
+	background-color: currentColor;
+	mask: url("#{$svg}") no-repeat center / contain;
+	-webkit-mask: url("#{$svg}") no-repeat center / contain;
+}
+
+@mixin icon-chevron-down {
+	@include svg-icon($icon-chevron-down);
+}
+
+@mixin icon-chevron-up {
+	@include svg-icon($icon-chevron-up);
+}

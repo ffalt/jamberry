@@ -11,12 +11,17 @@ import { DialogsService } from '@core/services/dialogs/dialogs.service';
 import { CoverartImageComponent } from '@core/components/coverart-image/coverart-image.component';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AdminUserService, type AdminUserServiceEditData } from '@core/services/admin-user/admin-user.service';
+import { IconCheckmarkComponent } from '@core/components/icons/icon-checkmark.component';
+import { IconEditComponent } from '@core/components/icons/icon-edit.component';
+import { IconKeyComponent } from '@core/components/icons/icon-key.component';
+import { IconPictureComponent } from '@core/components/icons/icon-picture.component';
+import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
 
 @Component({
 	selector: 'app-admin-user-list',
 	templateUrl: './user-list.component.html',
 	styleUrls: ['./user-list.component.scss'],
-	imports: [FocusKeyListItemDirective, FocusKeyListDirective, CoverartImageComponent]
+	imports: [CoverartImageComponent, FocusKeyListDirective, FocusKeyListItemDirective, IconCheckmarkComponent, IconEditComponent, IconKeyComponent, IconPictureComponent, IconRemoveComponent]
 })
 export class UserListComponent implements OnDestroy {
 	readonly users = input<Array<Jam.User> | undefined>([]);

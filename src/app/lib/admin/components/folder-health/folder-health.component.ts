@@ -6,6 +6,8 @@ import { DialogOverlayService } from '@modules/dialog-overlay';
 import { DialogFolderArtworkSearchComponent } from '../dialog-folder-artwork-search/dialog-folder-artwork-search.component';
 import type { ArtworkSearch } from '../folder-artwork-search/folder-artwork-search-image.component';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
+import { IconWarningComponent } from '@core/components/icons/icon-warning.component';
 
 export interface FolderHealthHintSolution {
 	name: string;
@@ -22,6 +24,7 @@ export interface FolderHealthHint {
 }
 
 @Component({
+	imports: [IconSpinComponent, IconWarningComponent],
 	selector: 'app-folder-health',
 	templateUrl: './folder-health.component.html',
 	styleUrls: ['./folder-health.component.scss']

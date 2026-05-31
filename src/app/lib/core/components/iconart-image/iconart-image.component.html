@@ -1,1 +1,3 @@
-<i [class]="icon()"></i>
+@if (icon(); as ic) {
+	<ng-container [ngComponentOutlet]="ic" />
+}

@@ -1,6 +1,6 @@
 @if (data) {
 	@if (loading) {
-		<i class="icon-spinner icon-spin"></i>
+		<app-icon-spin class="icon-spin" />
 	}
 	<img [src]="data.url" [alt]="data.name" (load)="onLoad()">
 }

@@ -1,6 +1,6 @@
 <div class="health">
 	<div class="actions">
-		<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh List"><i class="icon-reload"></i></button>
+		<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh List"><app-icon-reload /></button>
 		<label>
 			<input (change)="checkChange()" [(ngModel)]="mediaCheck" [checked]="mediaCheck" type="checkbox">
 			<ng-container i18n>Check Media</ng-container>

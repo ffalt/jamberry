@@ -1,6 +1,6 @@
 <div class="health">
 	<div class="actions">
-		<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh List"><i class="icon-reload"></i></button>
+		<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh List"><app-icon-reload /></button>
 		@if (modes.length > 0) {
 			<select placeholder="Type of Hints" i18n-placeholder [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
 				@for (m of modes; track m) {

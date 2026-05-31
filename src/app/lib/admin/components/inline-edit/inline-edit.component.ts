@@ -1,5 +1,6 @@
 import { Component, type ElementRef, input, output, viewChild, ViewEncapsulation } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { IconEditComponent } from '@core/components/icons/icon-edit.component';
 
 @Component({
 	selector: 'app-inline-edit',
@@ -12,7 +13,7 @@ import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angu
 	styleUrls: ['./inline-edit.component.scss'],
 	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None,
-	imports: [FormsModule]
+	imports: [FormsModule, IconEditComponent]
 })
 export class InlineEditComponent implements ControlValueAccessor {
 	readonly placeholder = input<string>(''); // The type of input element

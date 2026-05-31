@@ -1,6 +1,6 @@
 @if (group(); as group) {
 	<div appFocusKeyList role="list" (appDeferLoad)="gotInView()">
-		<div class="title" (click)="group.expanded=!group.expanded">{{ group.name }}</div>
+		<div class="title" [class.expanded]="group.expanded" (click)="group.expanded=!group.expanded">{{ group.name }}</div>
 		@if (group.expanded) {
 			<div class="index-cards">
 				@if (!visible) {

@@ -5,12 +5,13 @@ import { randomString } from '@utils/random';
 import { CoverartImageComponent } from '@core/components/coverart-image/coverart-image.component';
 import { AppService } from '@core/services/app/app.service';
 import { NotifyService } from '@core/services/notify/notify.service';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 
 @Component({
 	selector: 'app-user-avatar',
 	templateUrl: './user-avatar.component.html',
 	styleUrls: ['./user-avatar.component.scss'],
-	imports: [CoverartImageComponent]
+	imports: [CoverartImageComponent, IconSpinComponent]
 })
 export class UserAvatarComponent implements OnDestroy {
 	readonly auth = inject(JamAuthService);

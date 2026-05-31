@@ -12,7 +12,7 @@ export function collectSidebarListItems(section: string, path: string): SidebarL
 	const root = routes.find(r => r.path === path)! as LinkRoute;
 	const main: SidebarListItem = {
 		name: root.data?.name ?? '',
-		icon: root.data?.icon ?? '',
+		icon: root.data?.icon,
 		link: `/${path}`,
 		options: { exact: true }
 	};
@@ -22,7 +22,7 @@ export function collectSidebarListItems(section: string, path: string): SidebarL
 			const id = route.data?.link ?? route.path;
 			return ({
 				name: route.data?.name ?? '',
-				icon: route.data?.icon ?? '',
+				icon: route.data?.icon,
 				link: `/${root.path}/${id}`
 			});
 		});

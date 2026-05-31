@@ -19,7 +19,7 @@
 		border-radius: variables.$border-radius;
 	}
 
-	i {
+	.icon {
 		color: var(--on-control);
 		font-size: variables.$small;
 		cursor: pointer;
@@ -39,7 +39,7 @@
 			color: var(--on-input);
 		}
 
-		i {
+		.icon {
 			color: var(--on-input);
 		}
 	}
@@ -71,7 +71,7 @@
 			color: var(--on-input);
 		}
 
-		i {
+		i.icon {
 			color: var(--on-input);
 			font-size: variables.$small;
 			cursor: pointer;

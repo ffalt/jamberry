@@ -7,6 +7,7 @@ import { TracksLoaderComponent } from '../tracks-loader/tracks-loader.component'
 import type { HeaderTab } from '@core/components/header-tabs/header-tabs.component';
 import { LibraryService } from '../../services/library/library.service';
 import { HeaderIconSectionComponent } from '@core/components/header-icon-section/header-icon-section.component';
+import { IconGenreComponent } from '@core/components/icons/icon-genre.component';
 
 export interface GenreTab extends HeaderTab {
 	id: string;
@@ -50,6 +51,8 @@ export class GenrePageComponent implements OnDestroy {
 		};
 		return tab;
 	});
+
+	readonly headerIcon = IconGenreComponent;
 
 	private readonly route = inject(ActivatedRoute);
 	private readonly unsubscribe = new Subject<void>();

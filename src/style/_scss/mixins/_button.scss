@@ -4,7 +4,7 @@
 	border-radius: 6px;
 	border-width: 1px;
 	border-style: solid;
-	padding: (variables.$padding-xs * 2) variables.$padding (variables.$padding-xs * 1.4);
+	padding: (variables.$padding-xs * 2) variables.$padding (variables.$padding-xs * 1.6);
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-size: variables.$x-small;
@@ -13,6 +13,9 @@
 	overflow: hidden;
 	position: relative;
 	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 }
 
 @mixin button {

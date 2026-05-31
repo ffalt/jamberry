@@ -5,6 +5,9 @@ import { FolderTypesAlbum } from '@utils/jam-lists';
 import type { ContextMenuObjComponentOptionsExtra } from '../components/context-menu-obj/context-menu-obj.component';
 import type { LibraryService } from '../services/library/library.service';
 import type { HeaderInfo } from '../../core/components/header-jambase/header-jambase.component';
+import { IconEditComponent } from '@core/components/icons/icon-edit.component';
+import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
+import { IconRescanComponent } from '@core/components/icons/icon-rescan.component';
 
 export abstract class JamLibraryObject extends JamObject {
 	abstract type: JamObjectType;
@@ -295,12 +298,12 @@ export class JamPlaylistObject extends JamLibraryObject {
 		if (this.playlist.userID === this.library.jam.auth.user?.id) {
 			extras = [
 				{
-					text: 'Edit Playlist', icon: 'icon-edit', click: (): void => {
+					text: 'Edit Playlist', icon: IconEditComponent, click: (): void => {
 						this.library.playlistDialogsService.editPlaylist(this.playlist);
 					}
 				},
 				{
-					text: 'Remove Playlist', icon: 'icon-remove', click: (): void => {
+					text: 'Remove Playlist', icon: IconRemoveComponent, click: (): void => {
 						this.library.playlistDialogsService.removePlaylist(this.playlist);
 					}
 				}
@@ -564,12 +567,12 @@ export class JamPodcastObject extends JamLibraryObject {
 		const extras = (this.library.jam.auth.user?.roles.podcast) ?
 			[
 				{
-					text: 'Refresh Podcast Feed', icon: 'icon-rescan', click: (): void => {
+					text: 'Refresh Podcast Feed', icon: IconRescanComponent, click: (): void => {
 						this.library.podcastService.checkPodcast(this.podcast);
 					}
 				},
 				{
-					text: 'Remove Podcast', icon: 'icon-remove', click: (): void => {
+					text: 'Remove Podcast', icon: IconRemoveComponent, click: (): void => {
 						this.library.podcastService.removePodcast(this.podcast);
 					}
 				}

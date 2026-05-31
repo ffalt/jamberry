@@ -3,6 +3,12 @@ import { RouterModule } from '@angular/router';
 import type { LinkRoute } from '../@types/link-route';
 import { libaryRoutes } from './lib/library/library.routing';
 import { AuthCanActivateGuard } from '@core/guards/auth-can-active/auth.can-activate.guard';
+import { IconAdminComponent } from '@core/components/icons/icon-admin.component';
+import { IconFolderComponent } from '@core/components/icons/icon-folder.component';
+import { IconHealthComponent } from '@core/components/icons/icon-health.component';
+import { IconLaptopComponent } from '@core/components/icons/icon-laptop.component';
+import { IconRootComponent } from '@core/components/icons/icon-root.component';
+import { IconUserComponent } from '@core/components/icons/icon-user.component';
 
 export const routes: Array<LinkRoute> = [
 	{
@@ -40,18 +46,18 @@ export const routes: Array<LinkRoute> = [
 			{
 				path: 'root',
 				loadComponent: async () => import('./lib/admin/components/root-page/admin-root.component').then(m => m.AdminRootComponent),
-				data: { name: 'Roots', icon: 'icon-root' }
+				data: { name: 'Roots', icon: IconRootComponent }
 			},
 			{
 				path: 'user',
 				loadComponent: async () => import('./lib/admin/components/users-page/admin-users.component').then(m => m.AdminUsersComponent),
-				data: { name: 'Users', icon: 'icon-user' }
+				data: { name: 'Users', icon: IconUserComponent }
 			},
 			{ path: 'folder', redirectTo: 'folder/' },
 			{
 				path: 'folder/:id',
 				loadComponent: async () => import('./lib/admin/components/folder-page/admin-folder.component').then(m => m.AdminFolderComponent),
-				data: { name: 'Folders', icon: 'icon-folder', link: 'folder' },
+				data: { name: 'Folders', icon: IconFolderComponent, link: 'folder' },
 				children: [
 					{
 						path: 'overview',
@@ -82,7 +88,7 @@ export const routes: Array<LinkRoute> = [
 			{
 				path: 'radar',
 				loadComponent: async () => import('./lib/admin/components/radar-page/admin-radar.component').then(m => m.AdminRadarComponent),
-				data: { name: 'Health Radar', icon: 'icon-health' }
+				data: { name: 'Health Radar', icon: IconHealthComponent }
 			}
 		]
 	},
@@ -92,7 +98,7 @@ export const routes: Array<LinkRoute> = [
 		loadComponent: async () => import('./lib/user/user.component').then(m => m.UserComponent),
 		data: {
 			name: 'Profile',
-			icon: 'icon-user'
+			icon: IconUserComponent
 		},
 		children: [
 			{
@@ -106,13 +112,13 @@ export const routes: Array<LinkRoute> = [
 				path: 'settings',
 				canActivate: [AuthCanActivateGuard],
 				loadComponent: async () => import('./lib/user/pages/settings-page/settings-page.component').then(m => m.SettingsPageComponent),
-				data: { name: 'Settings', icon: 'icon-admin' }
+				data: { name: 'Settings', icon: IconAdminComponent }
 			},
 			{
 				path: 'sessions',
 				canActivate: [AuthCanActivateGuard],
 				loadComponent: async () => import('./lib/user/pages/sessions-page/sessions-page.component').then(m => m.SessionsPageComponent),
-				data: { name: 'Sessions', icon: 'icon-laptop' }
+				data: { name: 'Sessions', icon: IconLaptopComponent }
 			}
 		]
 	},

@@ -13,6 +13,7 @@ import { AutocompleteDirective } from '@modules/autocomplete/autocomplete.direct
 import type { HeaderTab } from '@core/components/header-tabs/header-tabs.component';
 import { LibraryService } from '../../services/library/library.service';
 import { HeaderIconSectionComponent } from '@core/components/header-icon-section/header-icon-section.component';
+import { IconSearchComponent } from '@core/components/icons/icon-search.component';
 
 interface AutoCompleteAccess extends Jam.AutoComplete {
 	[key: string]: Array<Jam.AutoCompleteEntry> | undefined;
@@ -43,14 +44,10 @@ const noClick = (): void => {
 	selector: 'app-page-search',
 	templateUrl: './search-page.component.html',
 	styleUrls: ['./search-page.component.scss'],
-	imports: [
-		FormsModule,
-		TracksLoaderComponent, EpisodesLoaderComponent, ObjsLoaderComponent,
-		AutocompleteComponent, OptionComponent, AutocompleteDirective,
-		HighlightPipe, AutocompleteContentDirective, HeaderIconSectionComponent
-	]
+	imports: [AutocompleteComponent, AutocompleteContentDirective, AutocompleteDirective, EpisodesLoaderComponent, FormsModule, HeaderIconSectionComponent, HighlightPipe, IconSearchComponent, ObjsLoaderComponent, OptionComponent, TracksLoaderComponent]
 })
 export class SearchPageComponent implements AutocompleteDataControl<{ name: string }> {
+	readonly headerIcon = IconSearchComponent;
 	readonly library = inject(LibraryService);
 	AlbumType = AlbumType;
 	value: string = '';

@@ -10,12 +10,16 @@ import { DialogsService } from '@core/services/dialogs/dialogs.service';
 import { BackgroundTextListComponent } from '@core/components/background-text-list/background-text-list.component';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AdminRootService, type AdminRootServiceEditData } from '@core/services/admin-root/admin-root.service';
+import { IconBroomComponent } from '@core/components/icons/icon-broom.component';
+import { IconEditComponent } from '@core/components/icons/icon-edit.component';
+import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
+import { IconRescanComponent } from '@core/components/icons/icon-rescan.component';
 
 @Component({
 	selector: 'app-admin-root-list',
 	templateUrl: './root-list.component.html',
 	styleUrls: ['./root-list.component.scss'],
-	imports: [CommonModule, ClickStopDirective, FocusKeyListItemDirective, FocusKeyListDirective, BackgroundTextListComponent]
+	imports: [BackgroundTextListComponent, ClickStopDirective, CommonModule, FocusKeyListDirective, FocusKeyListItemDirective, IconBroomComponent, IconEditComponent, IconRemoveComponent, IconRescanComponent]
 })
 export class RootListComponent {
 	readonly roots = input<Array<Jam.Root> | undefined>([]);

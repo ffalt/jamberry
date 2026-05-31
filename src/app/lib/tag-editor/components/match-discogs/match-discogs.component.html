@@ -15,7 +15,7 @@
 					<img class="thumb" [src]="imageUrl(result.thumb)" alt="" />
 				} @else {
 					<div class="thumb thumb-placeholder">
-						<app-discogs-icon [size]="20" />
+						<app-discogs-icon />
 					</div>
 				}
 				<div class="info">
@@ -30,7 +30,7 @@
 </div>
 <div class="buttons">
 	@if (isApplying || isSearching) {
-		<button class="button-primary"><i class="icon-spin icon-spinner"></i></button>
+		<button class="button-primary"><app-icon-spin class="icon-spin" /></button>
 	} @else {
 		<button class="button-primary" [disabled]="!selected" (click)="apply()" i18n>Apply</button>
 	}

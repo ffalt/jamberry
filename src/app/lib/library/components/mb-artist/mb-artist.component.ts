@@ -3,7 +3,8 @@ import { Component, inject, input, type OnChanges } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService, type MusicBrainz, MusicBrainzLookupType } from '@jam';
 import { MbRelationsComponent } from '../mb-relations/mb-relations.component';
-import { MusicbrainzIconComponent } from '@core/components/musicbrainz-icon/musicbrainz-icon.component';
+import { IconInfoComponent } from '@core/components/icons/icon-info.component';
+import { IconMusicbrainzComponent } from '@core/components/icons/icon-musicbrainz.component';
 
 export interface ReleaseGroup {
 	group: MusicBrainz.ReleaseGroupBase;
@@ -19,7 +20,7 @@ export interface ReleaseGroupGroup {
 	selector: 'app-mb-artist',
 	templateUrl: './mb-artist.component.html',
 	styleUrls: ['./mb-artist.component.scss'],
-	imports: [CommonModule, MbRelationsComponent, MusicbrainzIconComponent]
+	imports: [CommonModule, IconInfoComponent, MbRelationsComponent, IconMusicbrainzComponent]
 })
 export class MbArtistComponent implements OnChanges {
 	readonly mbArtistID = input<string>();

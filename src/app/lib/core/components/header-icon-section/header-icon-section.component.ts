@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output, type Type } from '@angular/core';
 import { IconartImageComponent } from '../iconart-image/iconart-image.component';
 import { type HeaderTab, HeaderTabsComponent } from '../header-tabs/header-tabs.component';
 
@@ -13,7 +13,7 @@ import { type HeaderTab, HeaderTabsComponent } from '../header-tabs/header-tabs.
 	imports: [IconartImageComponent, HeaderTabsComponent]
 })
 export class HeaderIconSectionComponent {
-	readonly icon = input<string>();
+	readonly icon = input<Type<unknown>>();
 	readonly section = input<string>();
 	readonly sectionType = input<string>();
 	readonly smallTabs = input<boolean>(false);

@@ -1,6 +1,8 @@
 import { Component, model, output } from '@angular/core';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 
 @Component({
+	imports: [IconSpinComponent],
 	selector: 'app-load-more-button',
 	templateUrl: './load-more-button.component.html',
 	styleUrls: ['./load-more-button.component.scss']

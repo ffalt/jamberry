@@ -2,9 +2,10 @@ import type { FocusableOption } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, Component, ElementRef, inject, input } from '@angular/core';
 import type { JamObject } from '../../model/helpers';
 import { CoverartImageComponent } from '../coverart-image/coverart-image.component';
-import { FavIconComponent } from '../fav-icon/fav-icon.component';
+import { IconFavComponent } from '../icons/icon-fav.component';
 import { LimitPipe } from '../../pipes/limit.pipe';
 import { DeferLoadDirective } from '@modules/defer-load/defer-load.directive';
+import { IconPlayComponent } from '@core/components/icons/icon-play.component';
 
 @Component({
 	selector: 'app-obj-card',
@@ -15,7 +16,7 @@ import { DeferLoadDirective } from '@modules/defer-load/defer-load.directive';
 		'(contextmenu)': 'contextmenuEvent($event)',
 		'(keydown.enter)': 'contextmenuEvent($event)'
 	},
-	imports: [CoverartImageComponent, FavIconComponent, LimitPipe, DeferLoadDirective]
+	imports: [CoverartImageComponent, DeferLoadDirective, IconFavComponent, IconPlayComponent, LimitPipe]
 })
 export class ObjCardComponent implements FocusableOption {
 	readonly obj = input<JamObject>();

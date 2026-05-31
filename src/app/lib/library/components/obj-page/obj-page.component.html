@@ -6,7 +6,7 @@
 			@if (isPodcastEpisode) {
 				<app-episode-state-button [episode]="asPodcastEpisode" [showTitle]="true" />
 			} @else {
-				<button class="button-primary" (click)="obj.play()"><i class="icon-play"></i>
+				<button class="button-primary" (click)="obj.play()"><app-icon-play />
 					<ng-container i18n>Play</ng-container>
 				</button>
 			}

@@ -5,12 +5,13 @@ import { DialogOverlayService } from '@modules/dialog-overlay';
 import { DialogPasswordComponent, type PasswordEdit } from '@core/components/dialog-password/dialog-password.component';
 import { HeaderSlimComponent } from '@core/components/header-slim/header-slim.component';
 import { NotifyService } from '@core/services/notify/notify.service';
+import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
 
 @Component({
 	selector: 'app-sessions-page',
 	templateUrl: './sessions-page.component.html',
 	styleUrls: ['./sessions-page.component.scss'],
-	imports: [CommonModule, HeaderSlimComponent]
+	imports: [CommonModule, HeaderSlimComponent, IconRemoveComponent]
 })
 export class SessionsPageComponent implements OnInit {
 	sessions?: Array<{ session: Jam.UserSession; isExpired: boolean }>;

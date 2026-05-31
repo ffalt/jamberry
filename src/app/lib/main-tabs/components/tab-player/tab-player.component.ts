@@ -7,18 +7,15 @@ import { SliderVolumeComponent } from '../../../player/components/player-slider-
 import { MediadurationPipe } from '@core/pipes/mediaduration.pipe';
 import { NavigService } from '@core/services/navig/navig.service';
 import { PlayerService } from '@core/services/player/player.service';
+import { IconSpeedComponent } from '@core/components/icons/icon-speed.component';
+import { IconVolumeOffComponent } from '@core/components/icons/icon-volume-off.component';
+import { IconVolumeUpComponent } from '@core/components/icons/icon-volume-up.component';
 
 @Component({
 	selector: 'app-tab-player',
 	templateUrl: './tab-player.component.html',
 	styleUrls: ['./tab-player.component.scss'],
-	imports: [
-		PlayerCurrentInfoComponent,
-		SliderVolumeComponent,
-		SliderSpeedComponent,
-		SliderTimeComponent,
-		MediadurationPipe
-	]
+	imports: [IconSpeedComponent, IconVolumeOffComponent, IconVolumeUpComponent, MediadurationPipe, PlayerCurrentInfoComponent, SliderSpeedComponent, SliderTimeComponent, SliderVolumeComponent]
 })
 export class TabPlayerComponent implements TabComponent {
 	readonly player = inject(PlayerService);

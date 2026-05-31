@@ -10,7 +10,7 @@
 			</div>
 			<div class="artwork-types">
 				<app-inline-edit type="text" [(ngModel)]="art.name" (endEditRequest)="editArtworkName(art)" />
-				<a class="delete-button" title="Delete Image" i18n-title (clickenter)="removeArtwork(art)"><i class="icon-trash" aria-hidden="true"></i></a>
+				<a class="delete-button" title="Delete Image" i18n-title (clickenter)="removeArtwork(art)"><app-icon-trash aria-hidden="true" /></a>
 			</div>
 		</div>
 	}

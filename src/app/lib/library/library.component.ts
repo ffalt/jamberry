@@ -8,6 +8,7 @@ import { LibraryService } from './services/library/library.service';
 import { IndexService } from '@core/services/index/index.service';
 import { AppService } from '@core/services/app/app.service';
 import { SettingsStoreService } from '@core/services/settings-store/settings-store.service';
+import { IconLeftOpenMiniComponent } from '@core/components/icons/icon-left-open-mini.component';
 
 @Component({
 	selector: 'app-library',
@@ -16,7 +17,7 @@ import { SettingsStoreService } from '@core/services/settings-store/settings-sto
 	host: {
 		'(scroll)': 'scrollTrack()'
 	},
-	imports: [RouterModule, SidebarLibraryComponent, SidebarRightComponent, SplitterComponent],
+	imports: [IconLeftOpenMiniComponent, RouterModule, SidebarLibraryComponent, SidebarRightComponent, SplitterComponent],
 	providers: [LibraryService, IndexService]
 })
 

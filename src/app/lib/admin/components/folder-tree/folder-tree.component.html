@@ -1,6 +1,6 @@
 <div class="actions">
 	<span class="name" i18n>Folders</span>
-	<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh Folder Tree"><i aria-hidden="true" class="icon-reload"></i></button>
+	<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh Folder Tree"><app-icon-reload aria-hidden="true" /></button>
 </div>
 <div appFocusKeyList class="tree" role="list">
 	<cdk-virtual-scroll-viewport [itemSize]="22" class="list-container list-group" style="height: 100%">
@@ -12,14 +12,14 @@
 					 role="listitem">
         <span (clickenter)="toggleNode(node)" class="node-toggle" title="Subfolders: {{node.folder.folderCount}}">
           @if (node.isLoading) {
-						<i class="icon-spin icon-spinner"></i>
+						<app-icon-spin class="icon-spin" />
 					}
 					@if (!node.isLoading && node.hasChildren) {
-						<i [class]="node.expanded | stringToggle:'icon-minus':'icon-plus'"></i>
+						@if (node.expanded) {<app-icon-minus />} @else {<app-icon-plus />}
 					}
         </span>
 				<span (clickenter)="toggleNode(node)" [style.color]="node.color" [title]="node.folder.type" class="node-icon">
-          <i [class]="node.expanded | stringToggle:'icon-folder-open':'icon-folder'"></i>
+          @if (node.expanded) {<app-icon-folder-open />} @else {<app-icon-folder />}
         </span>
 				<span [title]="node.folder.name">{{ node.folder.name }}</span>
 				<span class="node-type">| {{ node.folder.type }}</span>

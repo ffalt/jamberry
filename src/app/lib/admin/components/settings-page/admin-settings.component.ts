@@ -5,12 +5,13 @@ import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 import { HeaderSlimComponent } from '@core/components/header-slim/header-slim.component';
+import { IconFloppyComponent } from '@core/components/icons/icon-floppy.component';
 
 @Component({
 	selector: 'app-admin-settings',
 	templateUrl: './admin-settings.component.html',
 	styleUrls: ['./admin-settings.component.scss'],
-	imports: [RouterModule, FormsModule, LoadingComponent, HeaderSlimComponent]
+	imports: [FormsModule, HeaderSlimComponent, IconFloppyComponent, LoadingComponent, RouterModule]
 })
 
 export class AdminSettingsComponent implements OnInit {

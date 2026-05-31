@@ -9,12 +9,14 @@ import { UserListComponent } from '../user-list/user-list.component';
 import { HeaderSlimComponent } from '@core/components/header-slim/header-slim.component';
 import { AdminUserService, type AdminUserServiceEditData } from '@core/services/admin-user/admin-user.service';
 import { NotifyService } from '@core/services/notify/notify.service';
+import { IconPlusComponent } from '@core/components/icons/icon-plus.component';
+import { IconReloadComponent } from '@core/components/icons/icon-reload.component';
 
 @Component({
 	selector: 'app-admin-users',
 	templateUrl: './admin-users.component.html',
 	styleUrls: ['./admin-users.component.scss'],
-	imports: [RouterModule, UserListComponent, HeaderSlimComponent]
+	imports: [HeaderSlimComponent, IconPlusComponent, IconReloadComponent, RouterModule, UserListComponent]
 })
 export class AdminUsersComponent implements OnInit, OnDestroy {
 	users?: Array<Jam.User>;

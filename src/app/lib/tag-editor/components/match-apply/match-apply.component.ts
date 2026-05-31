@@ -4,12 +4,13 @@ import type { Matching, MatchRelease, MatchReleaseGroup } from '../../model/rele
 import { JamService, type LastFM, LastFMLookupType } from '@jam';
 import { FormsModule } from '@angular/forms';
 import { MatchCoverartComponent, type MatchImageNode, type MatchImageSearch } from '../match-coverart/match-coverart.component';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 
 @Component({
 	selector: 'app-match-apply',
 	templateUrl: './match-apply.component.html',
 	styleUrls: ['./match-apply.component.scss'],
-	imports: [FormsModule, MatchCoverartComponent]
+	imports: [FormsModule, IconSpinComponent, MatchCoverartComponent]
 })
 export class MatchApplyComponent {
 	readonly isRunning = input<boolean>(false);

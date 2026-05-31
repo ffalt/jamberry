@@ -1,10 +1,11 @@
 <div class="landscape-wrap" #wrap>
 	<div class="landscape-toolbar">
+		<div class="landscape-search">
 		<input
-			class="landscape-search"
 			placeholder="Search artist or genre..." i18n-placeholder
 			[value]="searchTerm()"
 			(input)="onSearch($any($event.target).value)"/>
+		</div>
 		<button i18n class="landscape-btn" (click)="resetView()">Reset view</button>
 		<button class="landscape-btn" [class.active]="showFilters()" (click)="showFilters.set(!showFilters())" i18n>Filters</button>
 	</div>

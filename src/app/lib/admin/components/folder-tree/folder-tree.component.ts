@@ -2,12 +2,17 @@ import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrollin
 import { Component, inject, type OnDestroy, type OnInit, output, viewChild } from '@angular/core';
 import { FolderType, type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
-import { StringTogglePipe } from '@core/pipes/string-toggle/string-toggle.pipe';
 import { ClickKeyEnterDirective } from '@core/directives/click-enterkey.directive';
 import { FocusKeyListItemDirective } from '@core/directives/focus-key-list-item.directive';
 import { FocusKeyListDirective } from '@core/directives/focus-key-list.directive';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AdminFolderService, AdminFolderServiceNotifyMode } from '@core/services/admin-folder/admin-folder.service';
+import { IconFolderComponent } from '@core/components/icons/icon-folder.component';
+import { IconFolderOpenComponent } from '@core/components/icons/icon-folder-open.component';
+import { IconMinusComponent } from '@core/components/icons/icon-minus.component';
+import { IconPlusComponent } from '@core/components/icons/icon-plus.component';
+import { IconReloadComponent } from '@core/components/icons/icon-reload.component';
+import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 
 export interface TreeNode {
 	level: number;
@@ -33,7 +38,7 @@ function walkChildren(node: TreeNode, onItem: (node: TreeNode) => void): void {
 	selector: 'app-admin-folder-tree',
 	templateUrl: './folder-tree.component.html',
 	styleUrls: ['./folder-tree.component.scss'],
-	imports: [ScrollingModule, StringTogglePipe, ClickKeyEnterDirective, FocusKeyListItemDirective, FocusKeyListDirective]
+	imports: [ClickKeyEnterDirective, FocusKeyListDirective, FocusKeyListItemDirective, IconFolderComponent, IconFolderOpenComponent, IconMinusComponent, IconPlusComponent, IconReloadComponent, IconSpinComponent, ScrollingModule]
 })
 export class FolderTreeComponent implements OnInit, OnDestroy {
 	readonly selectionChange = output<Jam.Folder>();

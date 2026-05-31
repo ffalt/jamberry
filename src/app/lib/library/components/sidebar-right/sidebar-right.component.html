@@ -4,7 +4,7 @@
 		<li (clickenter)="currentTab='chat'" [class.active]="currentTab==='chat'" appFocusKeyListItem role="tab"><a i18n>Chat</a></li>
 	</ul>
 	<button class="close-btn" (click)="closeEvent.emit()" i18n-title title="Hide sidebar">
-		<i class="icon-right-open-mini" aria-hidden="true"></i>
+		<app-icon-right-open-mini aria-hidden="true" />
 	</button>
 </div>
 <div class="content">

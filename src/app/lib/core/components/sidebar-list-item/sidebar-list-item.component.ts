@@ -1,10 +1,11 @@
 import type { FocusableOption } from '@angular/cdk/a11y';
-import { Component, type ElementRef, input, output, viewChild } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import { Component, type ElementRef, input, output, type Type, viewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 export interface SidebarListItem {
 	name: string;
-	icon: string;
+	icon?: Type<unknown>;
 	link: string;
 	options?: {
 		exact: boolean;
@@ -15,7 +16,7 @@ export interface SidebarListItem {
 	selector: 'app-sidebar-list-item',
 	templateUrl: './sidebar-list-item.component.html',
 	styleUrls: ['./sidebar-list-item.component.scss'],
-	imports: [RouterLinkActive, RouterLink]
+	imports: [RouterLinkActive, RouterLink, NgComponentOutlet]
 })
 export class SidebarListItemComponent implements FocusableOption {
 	readonly entry = input<SidebarListItem>();

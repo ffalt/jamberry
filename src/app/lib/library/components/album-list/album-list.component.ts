@@ -8,14 +8,17 @@ import { FocusKeyListDirective } from '@core/directives/focus-key-list.directive
 import { ActionsService } from '@core/services/actions/actions.service';
 import { LibraryService } from '../../services/library/library.service';
 import { BackgroundTextListComponent } from '@core/components/background-text-list/background-text-list.component';
-import { FavIconComponent } from '@core/components/fav-icon/fav-icon.component';
+import { IconFavComponent } from '@core/components/icons/icon-fav.component';
 import { NavigService } from '@core/services/navig/navig.service';
+import { IconHashComponent } from '@core/components/icons/icon-hash.component';
+import { IconHeartEmptyComponent } from '@core/components/icons/icon-heart-empty.component';
+import { IconStopwatchComponent } from '@core/components/icons/icon-stopwatch.component';
 
 @Component({
 	selector: 'app-album-list',
 	templateUrl: './album-list.component.html',
 	styleUrls: ['./album-list.component.scss'],
-	imports: [DurationPipe, ClickKeyEnterDirective, FocusKeyListItemDirective, FocusKeyListDirective, BackgroundTextListComponent, FavIconComponent]
+	imports: [BackgroundTextListComponent, ClickKeyEnterDirective, DurationPipe, IconFavComponent, FocusKeyListDirective, FocusKeyListItemDirective, IconHashComponent, IconHeartEmptyComponent, IconStopwatchComponent]
 })
 export class AlbumListComponent {
 	readonly albums = input<Array<Jam.Album>>();

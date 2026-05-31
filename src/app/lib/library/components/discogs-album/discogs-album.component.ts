@@ -3,7 +3,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 import { JamService } from '@jam';
 import type { Discogs } from '@modules/jam/model/discogs-rest-data';
 import { BackgroundTextComponent } from '@core/components/background-text/background-text.component';
-import { DiscogsIconComponent } from '@core/components/discogs-icon/discogs-icon.component';
+import { IconDiscogsComponent } from '@core/components/icons/icon-discogs.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 
 export interface DiscogsTrackDisplay {
@@ -35,7 +35,7 @@ export interface DiscogsReleaseDisplay {
 	selector: 'app-discogs-album',
 	templateUrl: './discogs-album.component.html',
 	styleUrls: ['./discogs-album.component.scss'],
-	imports: [BackgroundTextComponent, DiscogsIconComponent, LoadingComponent]
+	imports: [BackgroundTextComponent, IconDiscogsComponent, LoadingComponent]
 })
 export class DiscogsAlbumComponent implements OnChanges {
 	readonly artist = input<string>();

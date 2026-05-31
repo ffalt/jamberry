@@ -1,7 +1,7 @@
 <header [class.searching]="searchActive">
-	<button (click)="toggleMobileNavig()" class="sandwich" i18n-title title="Navigation Menu"><i aria-hidden="true" class="icon-menu"></i></button>
+	<button (click)="toggleMobileNavig()" class="sandwich" i18n-title title="Navigation Menu"><app-icon-menu aria-hidden="true" /></button>
 	@if (app.standalone) {
-		<button class="back" title="Go back" i18n-title (click)="back()"><i class="icon-left-bold" aria-hidden="true"></i></button>
+		<button class="back" title="Go back" i18n-title (click)="back()"><app-icon-left-bold aria-hidden="true" /></button>
 	}
 	<a [routerLink]="['/library']" class="logo" i18n-title title="Go to Start">
 		<app-logo-icon />

@@ -166,7 +166,7 @@ a {
 }
 
 .button-with-icon {
-	i {
+	svg {
 		margin-right: variables.$margin-xs;
 	}
 }
@@ -298,11 +298,11 @@ $cdk-z-index-overlay: 1000;
 			color: var(--primary);
 		}
 
-		i {
+		.icon {
+			display: inline-block;
 			font-size: 15px;
-			width: 16px;
+			min-width: 30px;
 			text-align: center;
-			flex-shrink: 0;
 		}
 	}
 
@@ -359,4 +359,20 @@ fieldset {
 	border-radius: variables.$border-radius;
 	border-color: var(--control-box-border);
 	padding: 0.35em 0.75em;
+}
+
+.icon {
+	display: contents;
+
+	svg {
+		display: inline-flex;
+		align-items:center;
+		justify-content:center;
+		//vertical-align:-0.125em;
+		//line-height:0;
+		width: 1em;
+		height: 1em;
+		fill: currentcolor;
+		flex-shrink: 0;
+	}
 }
