@@ -1,1 +1,0 @@
-import{rb as n}from"./chunk-U6CKI5TQ.js";var s=(()=>{class t{transform(r,e,o,i){return(r?e:o)+(i?` (${i})`:"")}static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275pipe=n({name:"stringToggle",type:t,pure:!0})}}return t})();export{s as a};
