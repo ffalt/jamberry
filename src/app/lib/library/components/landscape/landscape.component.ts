@@ -9,6 +9,7 @@ import type { Jam, JamParameters } from '@jam';
 import { JamLandscapeService } from '@modules/jam/services/jam.landscape.service';
 import { GenreDatum, LandscapeArtistRenderNode, LandscapeGenreRenderNode, LandscapeRenderData } from './landscape.types';
 import { ThemeService } from '@modules/theme';
+import { LoadingComponent } from '@core/components/loading/loading.component';
 
 const PADDING = 40;
 const GRID_SCALE = 1.5;
@@ -45,7 +46,7 @@ function buildColorMap(
 	templateUrl: './landscape.component.html',
 	styleUrls: ['./landscape.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [FormsModule, LandscapeTooltipComponent, LandscapePanelComponent]
+	imports: [FormsModule, LandscapeTooltipComponent, LandscapePanelComponent, LoadingComponent]
 })
 export class LandscapeComponent implements OnInit, AfterViewInit {
 	@ViewChild('svg', { static: true }) svgRef!: ElementRef<SVGSVGElement>;

@@ -44,7 +44,7 @@
 		</div>
 	}
 	@if (loading()) {
-		<div i18n class="landscape-loading">Loading landscape data...</div>
+		<app-loading [time]="100" />
 	}
 	@if (errorMessage()) {
 		<div class="landscape-error">{{ errorMessage() }}</div>
