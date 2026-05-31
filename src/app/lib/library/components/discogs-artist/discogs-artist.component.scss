@@ -1,0 +1,56 @@
+@use "_scss/variables";
+@use "_scss/mixins/list";
+
+:host {
+	.section {
+		margin-bottom: variables.$margin-lg;
+	}
+
+	.section-title {
+		text-transform: uppercase;
+		letter-spacing: 1.25px;
+		font-size: variables.$x-small * 1.2;
+		margin-bottom: variables.$margin-sm;
+		color: var(--on-control-ambient);
+
+		svg {
+			vertical-align: middle;
+		}
+	}
+
+	@include list.key-value-list;
+
+	.disambiguation {
+		font-size: variables.$small;
+		color: var(--on-control-ambient);
+		margin-bottom: variables.$margin-sm;
+	}
+
+	.discogs-images {
+		display: flex;
+		flex-wrap: wrap;
+		gap: variables.$padding-xs;
+		margin-bottom: variables.$margin-sm;
+
+		img {
+			width: 150px;
+			height: 150px;
+			object-fit: cover;
+		}
+	}
+
+	.discogs-notes {
+		color: var(--on-control-ambient);
+		line-height: 1.5;
+		margin: variables.$margin-xl 0;
+		white-space: pre-wrap;
+	}
+
+	.track {
+		margin-bottom: variables.$margin-sm;
+
+		&.inactive {
+			color: var(--on-control-ambient);
+		}
+	}
+}

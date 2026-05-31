@@ -1,0 +1,58 @@
+@if (!searchDone) {
+	<app-loading/>
+} @else if (!hasResults) {
+	<app-background-text text="No data available" i18n-text/>
+} @else if (isLoadingDetail) {
+	<app-loading/>
+} @else if (artistDisplay) {
+	<div class="discogs-results">
+		<div class="section-title">
+			<ng-container i18n>Artist Information by</ng-container>&nbsp;
+			<a [href]="artistDisplay.discogsUrl" target="_blank" rel="noopener" title="Discogs">
+				<app-discogs-icon [size]="18"/>
+			</a>
+		</div>
+		<div class="section">
+			<h2><a [href]="artistDisplay.discogsUrl" target="_blank" rel="noopener">{{ artistDisplay.name }} <i class="icon-info"></i></a></h2>
+			@if (artistDisplay.nameVariations) {
+				<div class="disambiguation">{{ artistDisplay.nameVariations }}</div>
+			}
+			@if (artistDisplay.realName) {
+				<div class="key-value-row">
+					<div i18n>Real Name</div>
+					<div>{{ artistDisplay.realName }}</div>
+				</div>
+			}
+			@if (artistDisplay.profile) {
+				<div class="discogs-notes">{{ artistDisplay.profile }}</div>
+			}
+			@if (artistDisplay.images.length) {
+				<div class="discogs-images">
+					@for (img of artistDisplay.images; track img) {
+						<img [src]="img" alt="artist" i18n-alt/>
+					}
+				</div>
+			}
+		</div>
+		@if (artistDisplay.members.length) {
+			<div i18n class="section-title">Members</div>
+			@for (member of artistDisplay.members; track member.name) {
+				<div class="track" [class.inactive]="!member.active">{{ member.name }}</div>
+			}
+		}
+		@if (artistDisplay.aliases.length) {
+			<div i18n class="section-title">Aliases</div>
+			@for (alias of artistDisplay.aliases; track alias) {
+				<div class="track">{{ alias }}</div>
+			}
+		}
+		@if (artistDisplay.urls.length) {
+			<div i18n class="section-title">Links</div>
+			@for (url of artistDisplay.urls; track url) {
+				<div class="track">
+					<a [href]="url" target="_blank" rel="noopener">{{ url }}</a>
+				</div>
+			}
+		}
+	</div>
+}
