@@ -78,7 +78,7 @@
     "@stylistic/eslint-plugin": "5.10.0",
     "@types/mousetrap": "1.6.15",
     "@types/node": "25.9.1",
-    "@vitest/coverage-v8": "^4.1.7",
+    "@vitest/coverage-v8": "^4.1.9",
     "@vitest/eslint-plugin": "^1.6.18",
     "angular-eslint": "21.4.0",
     "baseline-browser-mapping": "2.10.33",
