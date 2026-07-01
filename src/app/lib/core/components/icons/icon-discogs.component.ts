@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-discogs-icon',
-	templateUrl: './icon-discogs.component.html'
+	templateUrl: './icon-discogs.component.html',
+	host: { class: 'icon' }
 })
 export class IconDiscogsComponent {
 }

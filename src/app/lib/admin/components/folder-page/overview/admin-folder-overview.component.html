@@ -39,42 +39,44 @@
 						<div i18n class="label">Folder Count</div>
 						<div>{{ folder.folderCount }}</div>
 					</div>
-					@if (folder.tag?.artist) {
+					@if (folder.tag?.artist; as artist) {
 						<div>
 							<div i18n class="label">Artist</div>
-							<div>{{ folder.tag?.artist }}</div>
+							<div>{{ artist }}</div>
 						</div>
 					}
-					@if (folder.tag?.album) {
+					@if (folder.tag?.album; as album) {
 						<div>
 							<div i18n class="label">Album</div>
-							<div>{{ folder.tag?.album }}</div>
+							<div>{{ album }}</div>
 						</div>
 					}
 				</div>
 				<div>
-					@if (folder.tag?.year) {
+					@if (folder.tag?.year; as year) {
 						<div>
 							<div i18n class="label">Year</div>
-							<div> {{ folder.tag?.year }}</div>
+							<div> {{ year }}</div>
 						</div>
 					}
-					@if (folder.tag?.genres?.length) {
-						<div>
-							<div i18n class="label">Genres</div>
-							<div> {{ folder.tag?.genres }}</div>
-						</div>
+					@if (folder.tag?.genres; as genres) {
+						@if (genres.length) {
+							<div>
+								<div i18n class="label">Genres</div>
+								<div> {{ genres }}</div>
+							</div>
+						}
 					}
-					@if (folder.tag?.mbReleaseID) {
+					@if (folder.tag?.mbReleaseID; as mbReleaseID) {
 						<div>
 							<div i18n class="label">MB Release Id</div>
-							<div><a href="https://musicbrainz.org/release/{{folder.tag?.mbReleaseID}}" target="_blank" rel="noopener">{{ folder.tag?.mbReleaseID }}</a></div>
+							<div><a href="https://musicbrainz.org/release/{{mbReleaseID}}" target="_blank" rel="noopener">{{ mbReleaseID }}</a></div>
 						</div>
 					}
-					@if (folder.tag?.mbArtistID) {
+					@if (folder.tag?.mbArtistID; as mbArtistID) {
 						<div>
 							<div i18n class="label">MB Artist Id</div>
-							<div><a href="https://musicbrainz.org/artist/{{folder.tag?.mbArtistID}}" target="_blank" rel="noopener">{{ folder.tag?.mbArtistID }}</a></div>
+							<div><a href="https://musicbrainz.org/artist/{{mbArtistID}}" target="_blank" rel="noopener">{{ mbArtistID }}</a></div>
 						</div>
 					}
 					@if (folder.parentID) {

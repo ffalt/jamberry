@@ -4,9 +4,9 @@
 			<app-coverart-image alt="Album Art" i18n-alt [coverArtObj]="player.currentTrack" [size]="50" />
 		</div>
 		<div class="song">
-			<a title="Track" i18n-title (clickenter)="navig.toTrack(player.currentTrack)">{{ $safeNavigationMigration(player.currentTrack.tag?.title)|limit:60 }}</a>
-			<a title="Album" i18n-title (clickenter)="navig.toMediaAlbum(player.currentTrack)">{{ $safeNavigationMigration(player.currentTrack.tag?.album)|limit:40 }}</a>
-			<a title="Artist" i18n-title (clickenter)="navig.toMediaArtist(player.currentTrack)">{{ $safeNavigationMigration(player.currentTrack.tag?.artist)|limit:40 }}</a>
+			<a title="Track" i18n-title (clickenter)="navig.toTrack(player.currentTrack)">{{ player.currentTrack.tag?.title|limit:60 }}</a>
+			<a title="Album" i18n-title (clickenter)="navig.toMediaAlbum(player.currentTrack)">{{ player.currentTrack.tag?.album|limit:40 }}</a>
+			<a title="Artist" i18n-title (clickenter)="navig.toMediaArtist(player.currentTrack)">{{ player.currentTrack.tag?.artist|limit:40 }}</a>
 		</div>
 		<div class="fav">
 			<a title="Toggle Track as Favorite" i18n-title (clickenter)="actions.toggleMediaBaseFav(player.currentTrack)">@if (player.currentTrack.state?.faved) {<app-icon-heart-full />} @else {<app-icon-heart-empty />}</a>
@@ -23,7 +23,7 @@
 			<a title="Podcast" i18n-title (clickenter)="navig.toPodcastID(player.currentEpisode.podcastID, player.currentEpisode.podcastName)">{{ player.currentEpisode.podcastName|limit:40 }}</a>
 		</div>
 		<div class="fav">
-			<a title="Toggle Episode as Favorite" i18n-title (clickenter)="actions.toggleMediaBaseFav(player.currentEpisode)"><app-fav-icon [faved]="$safeNavigationMigration(player.currentEpisode.state?.faved)"/></a>
+			<a title="Toggle Episode as Favorite" i18n-title (clickenter)="actions.toggleMediaBaseFav(player.currentEpisode)"><app-fav-icon [faved]="player.currentEpisode.state?.faved"/></a>
 		</div>
 	</section>
 }

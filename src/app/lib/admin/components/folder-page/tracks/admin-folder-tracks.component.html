@@ -1,7 +1,7 @@
 @if (!folder) {
 	<app-loading />
 }
-<app-background-text-list [list]="$safeNavigationMigration(folder?.tracks)" name="Tracks" />
+<app-background-text-list [list]="folder?.tracks" name="Tracks" />
 @if (folder && folder.tracks && folder.tracks.length > 0) {
 	<div class="tracks">
 		<div class="actions">

@@ -1,4 +1,4 @@
-import { Component, type ElementRef, input, model, output, viewChild, linkedSignal } from '@angular/core';
+import { Component, type ElementRef, input, output, viewChild, linkedSignal } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { AutocompleteDataControl, AutocompleteOption } from '@modules/autocomplete/autocomplete.types';
 import { AutocompleteDirective } from '@modules/autocomplete/autocomplete.directive';

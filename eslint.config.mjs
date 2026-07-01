@@ -111,6 +111,8 @@ const commonUnicornRules = {
 	"unicorn/prefer-add-event-listener": "off",
 	"unicorn/prefer-query-selector": "off",
 	"unicorn/no-array-reduce": "off",
+	"unicorn/consistent-class-member-order": "off",
+	"unicorn/consistent-boolean-name": "off",
 	"unicorn/prefer-global-this": "off"
 };
 

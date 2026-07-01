@@ -16,8 +16,8 @@
 				<td class="year">{{ folderItem.folder.tag?.year }}</td>
 				<td class="type">
 					{{ folderItem.folder.type }}
-					@if (folderItem.folder.tag?.albumType) {
-						/ {{ folderItem.folder.tag?.albumType }}
+					@if (folderItem.folder.tag?.albumType; as albumType) {
+						/ {{ albumType }}
 					}
 				</td>
 			</tr>

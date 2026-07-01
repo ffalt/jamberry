@@ -9,7 +9,7 @@
 				<app-coverart-image [coverArtObj]="currentTrack" [size]="135" [alt]="currentTrack.name" />
 			</div>
 			<div class="meta">
-				<app-fav-icon tabindex="0" title="Toggle Favorite" i18n-title [faved]="$safeNavigationMigration(currentTrack.state?.faved)" (clickenter)="actions.toggleMediaBaseFav(currentTrack)" />
+				<app-fav-icon tabindex="0" title="Toggle Favorite" i18n-title [faved]="currentTrack.state?.faved" (clickenter)="actions.toggleMediaBaseFav(currentTrack)" />
 				<div class="year">{{ currentTrack.tag?.year }}</div>
 				<a class="name" tabindex="0"
 					 (clickenter)="navig.toTrack(currentTrack)">{{ currentTrack.tag?.title }}</a>
@@ -33,7 +33,7 @@
 			</div>
 			<div class="meta">
 				<app-fav-icon tabindex="0" title="Toggle Favorite" i18n-title
-											[faved]="$safeNavigationMigration(currentEpisode.state?.faved)"
+											[faved]="currentEpisode.state?.faved"
 											(click)="actions.toggleMediaBaseFav(currentEpisode)" (keydown.enter)="actions.toggleMediaBaseFav(currentEpisode)" />
 				<div class="year">{{ currentEpisode.date | date }}</div>
 				<a class="name"

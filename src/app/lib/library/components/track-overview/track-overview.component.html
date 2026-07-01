@@ -35,28 +35,28 @@
 			<div i18n>Genres</div>
 			<div>{{ track.tag?.genres }}</div>
 		</div>
-		@if (track.tag?.mbTrackID) {
+		@if (track.tag?.mbTrackID; as mbTrackID) {
 			<div class="key-value-row">
 				<div i18n>MusicBrainz Track ID:</div>
-				<div><a href="https://musicbrainz.org/track/{{track.tag?.mbTrackID}}" target="_blank" rel="noopener">{{ track.tag?.mbTrackID }}</a></div>
+				<div><a href="https://musicbrainz.org/track/{{mbTrackID}}" target="_blank" rel="noopener">{{ mbTrackID }}</a></div>
 			</div>
 		}
-		@if (track.tag?.mbReleaseID) {
+		@if (track.tag?.mbReleaseID; as mbReleaseID) {
 			<div class="key-value-row">
 				<div i18n>MusicBrainz Album ID:</div>
-				<div><a href="https://musicbrainz.org/release/{{track.tag?.mbReleaseID}}" target="_blank" rel="noopener">{{ track.tag?.mbReleaseID }}</a></div>
+				<div><a href="https://musicbrainz.org/release/{{mbReleaseID}}" target="_blank" rel="noopener">{{ mbReleaseID }}</a></div>
 			</div>
 		}
-		@if (track.tag?.mbReleaseGroupID) {
+		@if (track.tag?.mbReleaseGroupID; as mbReleaseGroupID) {
 			<div class="key-value-row">
 				<div i18n>MusicBrainz Release Group ID:</div>
-				<div><a href="https://musicbrainz.org/release-group/{{track.tag?.mbReleaseGroupID}}" target="_blank" rel="noopener">{{ track.tag?.mbReleaseGroupID }}</a></div>
+				<div><a href="https://musicbrainz.org/release-group/{{mbReleaseGroupID}}" target="_blank" rel="noopener">{{ mbReleaseGroupID }}</a></div>
 			</div>
 		}
-		@if (track.tag?.mbArtistID) {
+		@if (track.tag?.mbArtistID; as mbArtistID) {
 			<div class="key-value-row">
 				<div i18n>MusicBrainz Artist ID:</div>
-				<div><a href="https://musicbrainz.org/artist/{{track.tag?.mbArtistID}}" target="_blank" rel="noopener">{{ track.tag?.mbArtistID }}</a></div>
+				<div><a href="https://musicbrainz.org/artist/{{mbArtistID}}" target="_blank" rel="noopener">{{ mbArtistID }}</a></div>
 			</div>
 		}
 	</div>
@@ -68,7 +68,7 @@
 		</div>
 		<div class="key-value-row">
 			<div i18n>Size</div>
-			<div>{{ $safeNavigationMigration(track.media?.size) | filesize }}</div>
+			<div>{{ track.media?.size | filesize }}</div>
 		</div>
 		<div class="key-value-row">
 			<div i18n>File created</div>
@@ -78,10 +78,10 @@
 			<div i18n>Duration</div>
 			<div>{{ track.duration | duration }}</div>
 		</div>
-		@if (track.media?.bitRate) {
+		@if (track.media?.bitRate; as bitRate) {
 			<div class="key-value-row">
 				<div i18n>BitRate</div>
-				<div>{{ track.media?.bitRate }}</div>
+				<div>{{ bitRate }}</div>
 			</div>
 		}
 		<div class="key-value-row">
@@ -101,7 +101,7 @@
 		<div i18n class="section-title">User State</div>
 		<div class="key-value-row">
 			<div i18n>Faved</div>
-			<div>{{ $safeNavigationMigration(track.state?.faved) | date:'long' }}</div>
+			<div>{{ track.state?.faved | date:'long' }}</div>
 		</div>
 		<div class="key-value-row">
 			<div i18n>Rated</div>
@@ -109,7 +109,7 @@
 		</div>
 		<div class="key-value-row">
 			<div i18n>Last Played</div>
-			<div>{{ $safeNavigationMigration(track.state?.lastPlayed) | date:'long' }}</div>
+			<div>{{ track.state?.lastPlayed | date:'long' }}</div>
 		</div>
 		<div class="key-value-row">
 			<div i18n>Played</div>

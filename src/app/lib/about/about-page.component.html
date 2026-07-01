@@ -39,8 +39,8 @@
 			<div class="section-title" i18n>Your Browser</div>
 			<div class="key-value-row">
 				<div i18n>Supported Audio Formats</div>
-				@if (player.audioSupport?.formats) {
-					<div>@for (format of player.audioSupport?.formats; track format) {
+				@if (player.audioSupport?.formats; as formats) {
+					<div>@for (format of formats; track format) {
 						<span>{{ format }}</span>
 					}</div>
 				}

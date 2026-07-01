@@ -20,7 +20,7 @@
 			@for (track of tracks; track track) {
 				<div class="track" appFocusKeyListItem role="listitem" (dblclick)="playTrack(track)" (keydown.enter)="playTrack(track)" (contextmenu)="onContextMenu($event, track)">
 					<div class="fav"><a (clickenter)="actions.toggleMediaBaseFav(track)">
-						<app-fav-icon title="Toggle Favorite" i18n-title [faved]="$safeNavigationMigration(track.state?.faved)" />
+						<app-fav-icon title="Toggle Favorite" i18n-title [faved]="track.state?.faved" />
 					</a></div>
 					@if (showRating()) {
 						<div class="rating"><app-icon-checkmark class="small-screen-icon" /> {{ track.state?.rated }}</div>
@@ -29,11 +29,11 @@
 						<div class="play-count"><app-icon-headphones class="small-screen-icon" /> {{ track.state?.played }}</div>
 					}
 					@if (showPlayDate()) {
-						<div title="{{$safeNavigationMigration(track.state?.lastPlayed) | date:'long'}}" class="play-date"><app-icon-clock class="small-screen-icon" /> {{ $safeNavigationMigration(track.state?.lastPlayed) | ago }}</div>
+						<div title="{{track.state?.lastPlayed | date:'long'}}" class="play-date"><app-icon-clock class="small-screen-icon" /> {{ track.state?.lastPlayed | ago }}</div>
 					}
 					<div class="number"><app-icon-hash class="small-screen-icon" />
-						@if ((track.tag?.discTotal || 0) > 1 && track.tag?.disc) {
-							{{ track.tag?.disc }} -
+						@if ((track.tag?.discTotal || 0) > 1 && track.tag?.disc; as disc) {
+							{{ disc }} -
 						}
 						{{ track.tag?.trackNr }}
 					</div>

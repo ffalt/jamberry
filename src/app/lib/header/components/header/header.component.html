@@ -9,9 +9,9 @@
 	</a>
 	<div class="spacer"></div>
 	<app-search-box (searchStateChange)="searchStateChange($event)" class="search" />
-	@if (auth.user?.name) {
+	@if (user()?.name) {
 		<button class="user" title="User Menu" i18n-title (click)="onContextMenu($event)">
-			<app-coverart-image [coverArtObj]="auth.user" [size]="28" [round]="true" />
+			<app-coverart-image [coverArtObj]="user()" [size]="28" [round]="true" />
 		</button>
 	}
 </header>
