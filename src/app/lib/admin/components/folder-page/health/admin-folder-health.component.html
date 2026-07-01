@@ -1,20 +1,20 @@
 <div class="health">
 	<div class="actions">
 		<button (click)="refresh()" class="button-on-control" i18n-title title="Refresh List"><app-icon-reload /></button>
-		@if (modes.length > 0) {
+		@if (modes().length > 0) {
 			<select placeholder="Type of Hints" i18n-placeholder [(ngModel)]="filter" (ngModelChange)="onFilterChange()">
-				@for (m of modes; track m) {
+				@for (m of modes(); track m) {
 					<option [value]="m">{{ m }}</option>
 				}
 			</select>
 		}
 	</div>
 	<div class="health-content">
-		@if (!hints) {
+		@if (!hints()) {
 			<app-loading />
 		}
-		<app-background-text-list [list]="hints" name="Folder Health Issues" />
-		@for (folderHealth of hints; track folderHealth.folder.id) {
+		<app-background-text-list [list]="hints()" name="Folder Health Issues" />
+		@for (folderHealth of hints(); track folderHealth.folder.id) {
 			<div class="folder">
 				<div class="meta">
 					<a [routerLink]="['/admin/folder',folderHealth.folder.id,'overview']">

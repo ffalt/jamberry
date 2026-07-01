@@ -1,6 +1,6 @@
-import { Component, inject, type OnDestroy, type OnInit, type Type, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal, type Type } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
 import { getUrlType, type JamType, JamUrlType } from '@utils/jam-lists';
 import { DeferLoadScrollHostDirective } from '@modules/defer-load/defer-load-scroll-host.directive';
 import { LibraryService } from '../../services/library/library.service';
@@ -13,50 +13,49 @@ import { IconRescanComponent } from '@core/components/icons/icon-rescan.componen
 	selector: 'app-page-objs',
 	templateUrl: './objs-page.component.html',
 	styleUrls: ['./objs-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [RouterModule, DeferLoadScrollHostDirective, HeaderIconSectionComponent]
 })
-export class ObjsPageComponent implements OnInit, OnDestroy {
-	tabs?: Array<HeaderTab>;
-	type?: JamType;
-	icon?: Type<unknown>;
-	section?: string;
-	sectionType?: string;
-	hasContextMenu: boolean = false;
+export class ObjsPageComponent {
+	readonly type = signal<JamType | undefined>(undefined);
+	readonly tabs = computed<Array<HeaderTab> | undefined>(() => {
+		const id = this.type()?.id;
+		return id ? this.library.buildTabs(id) : undefined;
+	});
+
+	readonly icon = computed<Type<unknown> | undefined>(() => this.type()?.icon);
+	readonly section = computed(() => this.type()?.text);
+	readonly sectionType = computed(() => this.type()?.category);
+	readonly hasContextMenu = computed(() => {
+		switch (this.type()?.id) {
+			case JamUrlType.podcasts: {
+				return !!this.library.jam.auth.user?.roles.podcast;
+			}
+			case JamUrlType.playlists: {
+				return true;
+			}
+			default: {
+				return false;
+			}
+		}
+	});
+
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly library = inject(LibraryService);
 
-	ngOnInit(): void {
+	constructor() {
 		this.route.url
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(val => {
-				const type = getUrlType(val);
-				this.type = type;
-				this.hasContextMenu = false;
-				this.sectionType = type?.category;
-				this.icon = type?.icon;
-				this.section = type?.text;
-				switch (type?.id) {
-					case JamUrlType.podcasts: {
-						this.hasContextMenu = !!this.library.jam.auth.user?.roles.podcast;
-						break;
-					}
-					case JamUrlType.playlists: {
-						this.hasContextMenu = true;
-						break;
-					}
-					default:
-				}
-				this.tabs = type?.id ? this.library.buildTabs(type.id) : undefined;
+				this.type.set(getUrlType(val));
 			});
 	}
 
 	onContextMenu($event: Event): void {
-		if (!this.hasContextMenu) {
+		if (!this.hasContextMenu()) {
 			return;
 		}
-		switch (this.type?.id) {
+		switch (this.type()?.id) {
 			case JamUrlType.podcasts: {
 				this.library.openSimpleMenu(
 					[
@@ -94,10 +93,5 @@ export class ObjsPageComponent implements OnInit, OnDestroy {
 			}
 			default:
 		}
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 }

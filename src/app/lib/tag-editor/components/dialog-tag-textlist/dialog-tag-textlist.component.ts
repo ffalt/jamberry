@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
 import { FormsModule } from '@angular/forms';
@@ -13,15 +13,14 @@ export interface TextListEdit {
 	selector: 'app-dialog-tag-textlist',
 	templateUrl: './dialog-tag-textlist.component.html',
 	styleUrls: ['./dialog-tag-textlist.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule]
 })
 export class DialogTagTextlistComponent implements DialogOverlay<TextListEdit> {
+	readonly currentText = signal<string | undefined>(undefined);
 	edit?: TextListEdit;
 	current?: Jam.MediaTagRawFrameTextList;
-	currentText?: string;
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<TextListEdit>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<TextListEdit>>): void {
 		this.edit = options.data;
 		if (this.edit) {
 			this.edit.result = this.edit.frames.map(frame => ({ id: frame.id, value: { ...frame.value } }));
@@ -30,13 +29,14 @@ export class DialogTagTextlistComponent implements DialogOverlay<TextListEdit> {
 				this.edit.result.push(frame);
 			}
 			this.current = this.edit.result[0];
-			this.currentText = this.current.value.list.join('\n');
+			this.currentText.set(this.current.value.list.join('\n'));
 		}
 	}
 
 	onBlur(): void {
-		if (this.current && this.currentText) {
-			this.current.value.list = this.currentText.split('\n');
+		const text = this.currentText();
+		if (this.current && text) {
+			this.current.value.list = text.split('\n');
 		}
 	}
 }

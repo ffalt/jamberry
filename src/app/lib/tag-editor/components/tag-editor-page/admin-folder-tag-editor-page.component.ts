@@ -1,40 +1,32 @@
-import { Component, inject, type OnDestroy, type OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
-
+import { Component, DestroyRef, inject, signal, viewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { ComponentCanDeactivate } from '@core/guards/pending-changes/pending-changes.guard';
-import { Subject, takeUntil } from 'rxjs';
 import { TagEditorComponent } from '../tag-editor/tag-editor.component';
 
 @Component({
 	selector: 'app-admin-folder-tag-editor',
 	templateUrl: './admin-folder-tag-editor-page.component.html',
 	styleUrls: ['./admin-folder-tag-editor-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TagEditorComponent]
 })
-export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, ComponentCanDeactivate {
-	id?: string;
+export class AdminFolderTagEditorPageComponent implements ComponentCanDeactivate {
+	readonly id = signal<string | undefined>(undefined);
 	private readonly child = viewChild(TagEditorComponent);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly route = inject(ActivatedRoute);
 
-	ngOnInit(): void {
+	constructor() {
 		if (this.route.parent?.params) {
 			this.route.parent.paramMap
-				.pipe(takeUntil(this.unsubscribe))
+				.pipe(takeUntilDestroyed(this.lifeRef))
 				.subscribe(paramMap => {
-					this.id = paramMap.get('id') ?? undefined;
+					this.id.set(paramMap.get('id') ?? undefined);
 				});
 		}
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	canDeactivate(): boolean {
-		const child = this.child();
-		return !!(child?.canDeactivate());
+		return !!(this.child()?.canDeactivate());
 	}
 }

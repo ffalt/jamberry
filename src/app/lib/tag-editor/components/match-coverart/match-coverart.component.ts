@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { base64ArrayBuffer } from '@utils/base64';
 import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 import { NotifyService } from '@core/services/notify/notify.service';
@@ -24,29 +24,30 @@ export interface MatchImageNode {
 	selector: 'app-match-coverart',
 	templateUrl: './match-coverart.component.html',
 	styleUrls: ['./match-coverart.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextListComponent, FormsModule, IconSpinComponent, ImageBase64Component]
 })
-export class MatchCoverartComponent implements OnChanges {
+export class MatchCoverartComponent {
 	readonly data = input<MatchImageSearch>();
-	isImageSearchRunning: boolean = false;
+	readonly isImageSearchRunning = signal(false);
+	readonly images = signal<Array<MatchImageNode> | undefined>(undefined);
+	readonly error = signal<string | undefined>(undefined);
 	showFrontImagesOnly: boolean = true;
-	images?: Array<MatchImageNode>;
-	coverArtArchive?: Array<MatchImageNode>;
-	error?: string;
+	private coverArtArchive?: Array<MatchImageNode>;
 	private lastQuery?: MatchImageSearch;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
-	ngOnChanges(): void {
-		const data = this.data();
-		if (data) {
-			this.runSearch(data);
-		} else {
-			this.images = undefined;
-			this.coverArtArchive = undefined;
-			this.error = undefined;
-		}
+	constructor() {
+		effect(() => {
+			const data = this.data();
+			if (data) {
+				this.runSearch(data);
+			} else {
+				this.images.set(undefined);
+				this.coverArtArchive = undefined;
+				this.error.set(undefined);
+			}
+		});
 	}
 
 	retry(): void {
@@ -66,7 +67,7 @@ export class MatchCoverartComponent implements OnChanges {
 			}
 		}
 		if (this.coverArtArchive) {
-			this.images = this.coverArtArchive.filter(i => i.image.front || !this.showFrontImagesOnly);
+			this.images.set(this.coverArtArchive.filter(i => i.image.front || !this.showFrontImagesOnly));
 		}
 	}
 
@@ -76,17 +77,17 @@ export class MatchCoverartComponent implements OnChanges {
 
 	private runSearch(query: MatchImageSearch): void {
 		this.lastQuery = query;
-		this.error = undefined;
+		this.error.set(undefined);
 		this.loadCoverartImages(query).catch((error: unknown) => {
-			this.isImageSearchRunning = false;
-			this.error = serverErrorMsg(error);
+			this.isImageSearchRunning.set(false);
+			this.error.set(serverErrorMsg(error));
 		});
 	}
 
 	private async loadImages(result: CoverArtArchive.Response): Promise<void> {
 		if (result.images) {
 			this.coverArtArchive = result.images.map(image => {
-				image.types = image.types ?? [];
+				image.types ??= [];
 				if (image.types.length === 0) {
 					image.types.push('Other');
 				}
@@ -99,17 +100,14 @@ export class MatchCoverartComponent implements OnChanges {
 						thumbs[key] = thumbs[key].replace('http:', 'https:');
 					}
 				}
-				const node: MatchImageNode = {
-					image,
-					checked: false
-				};
-				return node;
+				return { image, checked: false } as MatchImageNode;
 			});
 			const fronts = this.coverArtArchive
 				.filter(i => i.image.front || i.image.types?.includes('Front'))
 				.toSorted((a, b) => (a.image.types?.length ?? 0) - (b.image.types?.length ?? 0));
-			this.images = this.showFrontImagesOnly ? fronts : this.coverArtArchive;
-			for (const node of this.images) {
+			const imageList = this.showFrontImagesOnly ? fronts : this.coverArtArchive;
+			this.images.set(imageList);
+			for (const node of imageList) {
 				this.getBase64Image(node).catch((error: unknown) => {
 					console.error(error);
 				});
@@ -120,28 +118,27 @@ export class MatchCoverartComponent implements OnChanges {
 				front.checked = true;
 			}
 		} else {
-			this.images = undefined;
+			this.images.set(undefined);
 			this.coverArtArchive = [];
 		}
 	}
 
 	private async loadCoverartImages(query: MatchImageSearch): Promise<void> {
-		if (query.mbReleaseID) {
-			this.isImageSearchRunning = true;
-			let res = await this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.release, mbID: query.mbReleaseID });
-			let data = res.data as CoverArtArchive.Response;
-			await this.loadImages(data);
-			if (this.coverArtArchive?.length === 0 && query.mbReleaseGroupID) {
-				this.images = undefined;
-				this.coverArtArchive = undefined;
-				res = await this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.releaseGroup, mbID: query.mbReleaseGroupID });
-				data = res.data as CoverArtArchive.Response;
-				await this.loadImages(data);
-				this.isImageSearchRunning = false;
-			} else {
-				this.isImageSearchRunning = false;
-			}
+		if (!query.mbReleaseID) {
+			return;
 		}
+		this.isImageSearchRunning.set(true);
+		let res = await this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.release, mbID: query.mbReleaseID });
+		let data = res.data as CoverArtArchive.Response;
+		await this.loadImages(data);
+		if (this.coverArtArchive?.length === 0 && query.mbReleaseGroupID) {
+			this.images.set(undefined);
+			this.coverArtArchive = undefined;
+			res = await this.jam.metadata.coverartarchiveLookup({ type: CoverArtArchiveLookupType.releaseGroup, mbID: query.mbReleaseGroupID });
+			data = res.data as CoverArtArchive.Response;
+			await this.loadImages(data);
+		}
+		this.isImageSearchRunning.set(false);
 	}
 
 	private async getBase64Image(image: MatchImageNode): Promise<void> {

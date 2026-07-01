@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import type { TabComponent } from '@modules/tab-portal';
 import { PlayerCurrentInfoComponent } from '../../../player/components/player-current-info/player-current-info.component';
 import { SliderSpeedComponent } from '../../../player/components/player-slider-speed/slider-speed.component';
@@ -15,7 +15,6 @@ import { IconVolumeUpComponent } from '@core/components/icons/icon-volume-up.com
 	selector: 'app-tab-player',
 	templateUrl: './tab-player.component.html',
 	styleUrls: ['./tab-player.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [IconSpeedComponent, IconVolumeOffComponent, IconVolumeUpComponent, MediadurationPipe, PlayerCurrentInfoComponent, SliderSpeedComponent, SliderTimeComponent, SliderVolumeComponent]
 })
 export class TabPlayerComponent implements TabComponent {

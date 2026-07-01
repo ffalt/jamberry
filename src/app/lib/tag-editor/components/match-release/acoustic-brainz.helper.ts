@@ -33,7 +33,7 @@ export class AcousticBrainzHelper {
 			other: []
 		};
 
-		AcousticBrainzHelper.processHighLevelData(data.highlevel, categories);
+		this.processHighLevelData(data.highlevel, categories);
 
 		return {
 			genres: categories.genres,
@@ -48,22 +48,22 @@ export class AcousticBrainzHelper {
 		categories: AcousticBrainzCategories
 	): void {
 		for (const [key, data] of Object.entries(highlevel)) {
-			if (!data || !AcousticBrainzHelper.isValidValue(data)) {
+			if (!data || !this.isValidValue(data)) {
 				return;
 			}
-			const category = AcousticBrainzHelper.determineCategory(key);
-			AcousticBrainzHelper.addToCategory(data.value, category, categories);
+			const category = this.determineCategory(key);
+			this.addToCategory(data.value, category, categories);
 		}
 	}
 
 	private static isValidValue(data: AcousticBrainz.HighLevelSection): boolean {
-		return data.probability > AcousticBrainzHelper.CONFIDENCE_THRESHOLD && !data.value.includes('not_');
+		return data.probability > this.CONFIDENCE_THRESHOLD && !data.value.includes('not_');
 	}
 
 	private static determineCategory(key: string): string {
-		if (AcousticBrainzHelper.CATEGORY_MAPPINGS.mood(key)) return 'moods';
-		if (AcousticBrainzHelper.CATEGORY_MAPPINGS.genre(key)) return 'genres';
-		if (AcousticBrainzHelper.CATEGORY_MAPPINGS.tonal(key)) return 'tonal';
+		if (this.CATEGORY_MAPPINGS.mood(key)) return 'moods';
+		if (this.CATEGORY_MAPPINGS.genre(key)) return 'genres';
+		if (this.CATEGORY_MAPPINGS.tonal(key)) return 'tonal';
 		return 'other';
 	}
 

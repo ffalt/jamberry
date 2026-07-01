@@ -6,17 +6,19 @@ export class Poller<T extends { id: string }> {
 	}
 
 	poll(o: T, pollNow: boolean = false): void {
-		if (!this.currentPolling.get(o.id)) {
-			this.currentPolling.set(o.id, true);
-			if (pollNow) {
-				this.pollIt(o, () => {
-					this.currentPolling.delete(o.id);
-				});
-			} else {
-				this.doPoll(o, () => {
-					this.currentPolling.delete(o.id);
-				});
-			}
+		if (this.currentPolling.get(o.id)) {
+			return;
+		}
+
+		this.currentPolling.set(o.id, true);
+		if (pollNow) {
+			this.pollIt(o, () => {
+				this.currentPolling.delete(o.id);
+			});
+		} else {
+			this.doPoll(o, () => {
+				this.currentPolling.delete(o.id);
+			});
 		}
 	}
 

@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { JamService } from '@jam';
 import type { Discogs } from '@modules/jam/model/discogs-rest-data';
@@ -28,20 +28,21 @@ export interface DiscogsArtistDisplay {
 	selector: 'app-discogs-artist',
 	templateUrl: './discogs-artist.component.html',
 	styleUrls: ['./discogs-artist.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextComponent, IconDiscogsComponent, IconInfoComponent, LoadingComponent]
 })
-export class DiscogsArtistComponent implements OnChanges {
+export class DiscogsArtistComponent {
 	readonly artist = input<string>();
-	searchDone = false;
-	hasResults = false;
-	artistDisplay?: DiscogsArtistDisplay;
-	isLoadingDetail = false;
+	readonly searchDone = signal(false);
+	readonly hasResults = signal(false);
+	readonly artistDisplay = signal<DiscogsArtistDisplay | undefined>(undefined);
+	readonly isLoadingDetail = signal(false);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
-	ngOnChanges(): void {
-		this.refresh();
+	constructor() {
+		effect(() => {
+			this.refresh();
+		});
 	}
 
 	refresh(): void {
@@ -49,15 +50,15 @@ export class DiscogsArtistComponent implements OnChanges {
 		if (!query) {
 			return;
 		}
-		this.searchDone = false;
-		this.hasResults = false;
-		this.artistDisplay = undefined;
+		this.searchDone.set(false);
+		this.hasResults.set(false);
+		this.artistDisplay.set(undefined);
 		this.jam.metadata.discogsArtistSearch({ query })
 			.then(res => {
 				const data = res.data as Discogs.SearchResponse | undefined;
 				const id = data?.results.find(r => r.id)?.id;
-				this.hasResults = !!id;
-				this.searchDone = true;
+				this.hasResults.set(!!id);
+				this.searchDone.set(true);
 				if (id) {
 					this.loadArtistDetail(id).catch((error: unknown) => {
 						this.notify.error(error);
@@ -65,24 +66,24 @@ export class DiscogsArtistComponent implements OnChanges {
 				}
 			})
 			.catch((error: unknown) => {
-				this.searchDone = true;
+				this.searchDone.set(true);
 				this.notify.error(error);
 			});
 	}
 
 	private async loadArtistDetail(id: number): Promise<void> {
-		this.isLoadingDetail = true;
-		this.artistDisplay = undefined;
+		this.isLoadingDetail.set(true);
+		this.artistDisplay.set(undefined);
 		try {
 			const res = await this.jam.metadata.discogsArtistLookup({ id });
 			const detail = res.data as Discogs.Artist | undefined;
 			if (detail) {
-				this.artistDisplay = this.buildDisplay(detail);
+				this.artistDisplay.set(this.buildDisplay(detail));
 			}
 		} catch (error: unknown) {
 			this.notify.error(error);
 		} finally {
-			this.isLoadingDetail = false;
+			this.isLoadingDetail.set(false);
 		}
 	}
 

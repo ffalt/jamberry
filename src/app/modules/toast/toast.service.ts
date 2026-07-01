@@ -101,7 +101,7 @@ export class ToastService {
 		}
 		found.activeToast.toastRef.close();
 		this.toasts.splice(found.index, 1);
-		this.currentlyActive = this.currentlyActive - 1;
+		this.currentlyActive -= 1;
 		if (!this.toastrConfig.maxOpened || this.toasts.length === 0) {
 			return false;
 		}
@@ -111,7 +111,7 @@ export class ToastService {
 		) {
 			const p = this.toasts[this.currentlyActive].toastRef;
 			if (!p.isInactive()) {
-				this.currentlyActive = this.currentlyActive + 1;
+				this.currentlyActive += 1;
 				p.activate();
 			}
 		}
@@ -199,7 +199,7 @@ export class ToastService {
 				this.clear(this.toasts[0].toastId);
 			}
 		}
-		this.index = this.index + 1;
+		this.index += 1;
 
 		const overlayRef = this.createOverlay(config);
 		const toastRef = new ToastRef(overlayRef);
@@ -224,8 +224,8 @@ export class ToastService {
 		if (!keepInactive) {
 			setTimeout(() => {
 				ins.toastRef.activate();
-				this.currentlyActive = this.currentlyActive + 1;
-			});
+				this.currentlyActive += 1;
+			}, 0);
 		}
 
 		this.toasts.push(ins);

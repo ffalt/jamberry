@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import type { Jam } from '@jam';
-import { type Observable, Subject } from 'rxjs';
+import { type Observable, ReplaySubject } from 'rxjs';
 import { LocalstorageService } from '../localstorage/localstorage.service';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { LocalstorageService } from '../localstorage/localstorage.service';
 export class UserStorageService {
 	userChange: Observable<Jam.SessionUser | undefined>;
 	private readonly localStorageService = inject(LocalstorageService);
-	private readonly subjectUser = new Subject<Jam.SessionUser | undefined>();
+	private readonly subjectUser = new ReplaySubject<Jam.SessionUser | undefined>(1);
 	private userSuffix?: string;
 
 	constructor() {

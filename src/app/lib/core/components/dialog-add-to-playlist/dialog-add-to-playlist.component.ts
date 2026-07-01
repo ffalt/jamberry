@@ -1,7 +1,7 @@
-import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { BackgroundTextComponent } from '../background-text/background-text.component';
 import { LoadingComponent } from '../loading/loading.component';
@@ -18,35 +18,29 @@ export interface ChoosePlaylistData {
 	selector: 'app-dialog-add-to-playlist',
 	templateUrl: './dialog-add-to-playlist.component.html',
 	styleUrls: ['./dialog-add-to-playlist.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextComponent, DurationPipe, IconExpandCollapseComponent, IconRemoveComponent, LoadingComponent]
 })
-export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData>, OnDestroy {
+export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData> {
 	data?: ChoosePlaylistData;
-	playlists?: Array<Jam.Playlist>;
-	mediaList?: Array<Jam.MediaBase>;
+	readonly playlists = signal<Array<Jam.Playlist> | undefined>(undefined);
+	readonly mediaList = signal<Array<Jam.MediaBase> | undefined>(undefined);
 	showTrackPreview: boolean = false;
 	reference?: DialogOverlayRef;
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly notify = inject(NotifyService);
 	private readonly playlistService = inject(PlaylistService);
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ChoosePlaylistData>>): void {
 		this.data = options.data;
 		this.reference = reference;
 		this.playlistService.playlistsChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(playlists => {
-				this.playlists = playlists;
+				this.playlists.set(playlists);
 			});
 		this.playlistService.getLists()
 			.then(playlists => {
-				this.playlists = playlists;
+				this.playlists.set(playlists);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
@@ -59,17 +53,18 @@ export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlayli
 
 	async start(): Promise<void> {
 		if (this.data) {
-			this.mediaList = await this.data.getMedias();
+			this.mediaList.set(await this.data.getMedias());
 		}
 	}
 
 	remove(track: Jam.MediaBase): void {
-		this.mediaList = this.mediaList ? this.mediaList.filter(item => item !== track) : [];
+		this.mediaList.update(list => list ? list.filter(item => item !== track) : []);
 	}
 
 	addTo(playlist: Jam.Playlist): void {
-		if (this.mediaList) {
-			this.playlistService.addToPlaylist(playlist, this.mediaList.map(t => t.id));
+		const mediaList = this.mediaList();
+		if (mediaList) {
+			this.playlistService.addToPlaylist(playlist, mediaList.map(t => t.id));
 		}
 		if (this.reference) {
 			this.reference.close();

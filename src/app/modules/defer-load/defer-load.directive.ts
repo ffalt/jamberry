@@ -109,7 +109,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	private loadFromScroll(): void {
 		setTimeout(() => {
 			this.load();
-		});
+		}, 0);
 	}
 
 	private addScrollListeners(): void {
@@ -123,7 +123,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 			if (this.checkInView(this.deferLoadService.currentViewport)) {
 				this.loadFromScroll();
 			}
-		});
+		}, 0);
 	}
 
 	private removeListeners(): void {

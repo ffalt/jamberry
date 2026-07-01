@@ -1,1 +1,1 @@
-<textarea (blur)="onBlur()" [(ngModel)]="currentText" autocapitalize="off" autocomplete="off" autocorrect="off" i18n-autocapitalize i18n-autocorrect spellcheck="false"></textarea>
+<textarea (blur)="onBlur()" [ngModel]="currentText()" (ngModelChange)="currentText.set($event)" autocapitalize="off" autocomplete="off" autocorrect="off" i18n-autocapitalize i18n-autocorrect spellcheck="false"></textarea>

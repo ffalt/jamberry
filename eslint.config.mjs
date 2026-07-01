@@ -103,7 +103,6 @@ const commonTSRules = {
 const commonUnicornRules = {
 	"unicorn/consistent-function-scoping": "off",
 	"unicorn/explicit-length-check": "off",
-	"unicorn/prevent-abbreviations": "off",
 	"unicorn/empty-brace-spaces": "off",
 	"unicorn/no-useless-promise": "off",
 	"unicorn/no-useless-undefined": "off",
@@ -113,6 +112,10 @@ const commonUnicornRules = {
 	"unicorn/no-array-reduce": "off",
 	"unicorn/consistent-class-member-order": "off",
 	"unicorn/consistent-boolean-name": "off",
+	"unicorn/name-replacements": "off",
+	"unicorn/consistent-compound-words": "off",
+	"unicorn/prefer-await": "off",
+	"unicorn/no-non-function-verb-prefix": "off",
 	"unicorn/prefer-global-this": "off"
 };
 

@@ -1,7 +1,7 @@
-import { Component, inject, type OnDestroy, type OnInit, viewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal, viewChildren } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FolderType, type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TrackHealthComponent } from '../track-health/track-health.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 import { HeaderSlimComponent } from '@core/components/header-slim/header-slim.component';
@@ -14,137 +14,113 @@ import { IconReloadComponent } from '@core/components/icons/icon-reload.componen
 import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 import { IconStopComponent } from '@core/components/icons/icon-stop.component';
 
+type RadarCurrent = { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> };
+
 @Component({
 	selector: 'app-admin-radar',
 	templateUrl: './admin-radar.component.html',
 	styleUrls: ['./admin-radar.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderSlimComponent, IconFolderComponent, IconPlayComponent, IconReloadComponent, IconSpinComponent, IconStopComponent, LoadingComponent, RouterModule, TrackHealthComponent]
 })
-
-export class AdminRadarComponent implements OnInit, OnDestroy {
+export class AdminRadarComponent {
 	static readonly localStorageName = 'admin.radar';
-	folders?: Array<Jam.Folder>;
-	current?: { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> };
-	searching: boolean = false;
+	readonly folders = signal<Array<Jam.Folder> | undefined>(undefined);
+	readonly current = signal<RadarCurrent | undefined>(undefined);
+	readonly searching = signal(false);
 	private readonly trackHealthComponents = viewChildren(TrackHealthComponent);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly uiState = inject(UiStateService);
 	private readonly userStorage = inject(UserStorageService);
 
 	constructor() {
+		const restore = this.uiState.get<{ folders?: Array<Jam.Folder>; current?: RadarCurrent }>('app-admin-radar', {});
+		this.folders.set(restore.folders);
+		this.current.set(restore.current);
+		if (!restore.folders) {
+			this.loadFolders();
+		}
 		this.userStorage.userChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				this.loadFromStorage();
 			});
+		this.lifeRef.onDestroy(() => {
+			this.uiState.data['app-admin-radar'] = { folders: this.folders(), current: this.current() };
+		});
 	}
 
 	trackHealthResolved(health: Jam.TrackHealth): void {
-		if (this.current?.health) {
-			this.current.health = this.current.health.filter(h => h !== health);
-		}
+		this.current.update(c => c?.health ? { ...c, health: c.health.filter(h => h !== health) } : c);
 	}
 
 	stop(): void {
-		this.searching = false;
+		this.searching.set(false);
 	}
 
 	start(): void {
-		if (this.searching || !this.folders) {
+		if (this.searching() || !this.folders()) {
 			return;
 		}
-		this.searching = true;
+		this.searching.set(true);
 		this.request();
 	}
 
 	request(): void {
-		if (!this.searching) {
+		if (!this.searching()) {
 			return;
 		}
-		let pos = 0;
-		if (this.current) {
-			pos = this.current.pos + 1;
-		}
-		this.refresh(pos, true);
+		const current = this.current();
+		this.refresh(current ? current.pos + 1 : 0, true);
 	}
 
 	fixAll(): void {
-		const trackHealthComponents = this.trackHealthComponents();
-		if (this.searching || !this.current) {
+		if (this.searching() || !this.current()) {
 			return;
 		}
-		for (const trackHealthComponent of trackHealthComponents) {
+		for (const trackHealthComponent of this.trackHealthComponents()) {
 			trackHealthComponent.fixAll();
 		}
 	}
 
 	refresh(pos: number, continueNext: boolean): void {
-		this.current = undefined;
-		this.searching = true;
-		const folder = this.folders?.[pos];
+		this.current.set(undefined);
+		this.searching.set(true);
+		const folder = this.folders()?.[pos];
 		if (!folder) {
-			this.searching = false;
+			this.searching.set(false);
 			return;
 		}
-		const current: { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> } = {
-			folder,
-			pos
-		};
-		this.current = current;
+		const current: RadarCurrent = { folder, pos };
+		this.current.set(current);
 		this.userStorage.set(AdminRadarComponent.localStorageName, { folderID: folder.id });
 		this.jam.track.health({ folderIDs: [folder.id], healthMedia: true })
 			.then(health => {
 				if (health.length > 0) {
-					current.health = health;
-					this.searching = false;
+					this.current.set({ ...current, health });
+					this.searching.set(false);
 				} else if (continueNext) {
 					this.request();
 				} else {
-					current.health = [];
-					this.searching = false;
+					this.current.set({ ...current, health: [] });
+					this.searching.set(false);
 				}
 			})
 			.catch((error: unknown) => {
-				this.current = undefined;
-				this.searching = false;
+				this.current.set(undefined);
+				this.searching.set(false);
 				this.notify.error(error);
 			});
 	}
 
-	ngOnInit(): void {
-		const restore = this.uiState.get<{
-			folders?: Array<Jam.Folder>;
-			current?: { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> };
-		}>('app-admin-radar', {});
-		this.folders = restore.folders;
-		this.current = restore.current;
-		if (this.folders) {
-			return;
-		}
-		this.loadFolders();
-	}
-
-	ngOnDestroy(): void {
-		this.uiState.data['app-admin-radar'] = {
-			folders: this.folders,
-			current: this.current
-		};
-		this.current = undefined;
-		this.searching = false;
-		this.folders = undefined;
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	loadFromStorage(): void {
 		const o = this.userStorage.get<{ folderID: string }>(AdminRadarComponent.localStorageName);
-		if (o?.folderID && this.folders) {
-			const pos = this.folders.findIndex(f => f.id === o.folderID);
+		const folders = this.folders();
+		if (o?.folderID && folders) {
+			const pos = folders.findIndex(f => f.id === o.folderID);
 			if (pos !== -1) {
-				this.current = { folder: this.folders[pos], pos };
+				this.current.set({ folder: folders[pos], pos });
 				this.refresh(pos, false);
 			}
 		}
@@ -153,7 +129,7 @@ export class AdminRadarComponent implements OnInit, OnDestroy {
 	loadFolders(): void {
 		this.jam.folder.search({ folderTypes: [FolderType.album, FolderType.multialbum] })
 			.then(data => {
-				this.folders = data.items;
+				this.folders.set(data.items);
 				this.loadFromStorage();
 			})
 			.catch((error: unknown) => {

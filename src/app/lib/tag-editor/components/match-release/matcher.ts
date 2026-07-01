@@ -115,7 +115,7 @@ export class Matcher {
 			track.matchings.push(matching);
 		}
 		matching.score = 1;
-		if (!matching.scores.some(s => s.name === 'Manual Match')) {
+		if (matching.scores.every(s => s.name !== 'Manual Match')) {
 			matching.scores.push({ name: 'Manual Match', score: 1, weight: 1 });
 		}
 		for (const media of release.media) {
@@ -150,12 +150,14 @@ export class Matcher {
 	apply(group: MatchReleaseGroup, release: MatchRelease) {
 		for (const media of release.media) {
 			for (const track of media.tracks) {
-				if (track.currentMatch) {
-					track.currentMatch.match.mbTrack = track.mbTrack;
-					track.currentMatch.match.mbMedia = media.mbMedia;
-					track.currentMatch.match.mbRelease = release.mbRelease;
-					track.currentMatch.match.mbGroup = group.mbGroup;
+				if (!track.currentMatch) {
+					continue;
 				}
+
+				track.currentMatch.match.mbTrack = track.mbTrack;
+				track.currentMatch.match.mbMedia = media.mbMedia;
+				track.currentMatch.match.mbRelease = release.mbRelease;
+				track.currentMatch.match.mbGroup = group.mbGroup;
 			}
 		}
 	}
@@ -241,15 +243,17 @@ export class Matcher {
 	private async loadAcousticBrainz(release: MatchRelease): Promise<void> {
 		for (const media of release.media) {
 			for (const track of media.tracks) {
-				if (!track.abData && track.currentMatch?.match.mbTrack?.recording?.id) {
-					const recordingId = track.currentMatch.match.mbTrack.recording.id;
-					const result = await this.jam.metadata.acousticbrainzLookup({ mbID: recordingId });
-					const res = result.data as AcousticBrainz.Response;
-					const abData = AcousticBrainzHelper.processAcousticBrainzData(res);
-					if (abData) {
-						track.abData = abData;
-						track.currentMatch.match.abdata = abData;
-					}
+				if (!(!track.abData && track.currentMatch?.match.mbTrack?.recording?.id)) {
+					continue;
+				}
+
+				const recordingId = track.currentMatch.match.mbTrack.recording.id;
+				const result = await this.jam.metadata.acousticbrainzLookup({ mbID: recordingId });
+				const res = result.data as AcousticBrainz.Response;
+				const abData = AcousticBrainzHelper.processAcousticBrainzData(res);
+				if (abData) {
+					track.abData = abData;
+					track.currentMatch.match.abdata = abData;
 				}
 			}
 		}
@@ -318,12 +322,14 @@ export class Matcher {
 	private async loadLyricsOVH(release: MatchRelease): Promise<void> {
 		for (const media of release.media) {
 			for (const track of media.tracks) {
-				if (track.currentMatch && !track.currentMatch.match.lyrics && track.mbTrack.artistCredit && track.mbTrack.artistCredit.length > 0) {
-					const artist = track.mbTrack.artistCredit[0].name;
-					const title = track.mbTrack.title;
-					const result = await this.jam.metadata.lyricsovhSearch({ title, artist });
-					track.currentMatch.match.lyrics = result.data;
+				if (!(track.currentMatch && !track.currentMatch.match.lyrics && track.mbTrack.artistCredit && track.mbTrack.artistCredit.length > 0)) {
+					continue;
 				}
+
+				const artist = track.mbTrack.artistCredit[0].name;
+				const title = track.mbTrack.title;
+				const result = await this.jam.metadata.lyricsovhSearch({ title, artist });
+				track.currentMatch.match.lyrics = result.data;
 			}
 		}
 	}

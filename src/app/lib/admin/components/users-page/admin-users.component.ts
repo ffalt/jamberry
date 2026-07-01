@@ -1,7 +1,7 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import type { Jam } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 
 import { DialogUserComponent } from '../dialog-user/dialog-user.component';
@@ -16,59 +16,27 @@ import { IconReloadComponent } from '@core/components/icons/icon-reload.componen
 	selector: 'app-admin-users',
 	templateUrl: './admin-users.component.html',
 	styleUrls: ['./admin-users.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderSlimComponent, IconPlusComponent, IconReloadComponent, RouterModule, UserListComponent]
 })
-export class AdminUsersComponent implements OnInit, OnDestroy {
-	users?: Array<Jam.User>;
-	private readonly unsubscribe = new Subject<void>();
+export class AdminUsersComponent {
+	readonly users = signal<Array<Jam.User> | undefined>(undefined);
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly notify = inject(NotifyService);
 	private readonly userService = inject(AdminUserService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
 
-	getSortValue(column: string, user: Jam.User): string | number | undefined {
-		switch (column) {
-			case 'name': {
-				return user.name;
-			}
-			case 'email': {
-				return user.email;
-			}
-			case 'roleAdmin': {
-				return user.roles.admin ? 1 : 0;
-			}
-			case 'rolePodcast': {
-				return user.roles.podcast ? 1 : 0;
-			}
-			case 'roleUpload': {
-				return user.roles.upload ? 1 : 0;
-			}
-			case 'roleStream': {
-				return user.roles.stream ? 1 : 0;
-			}
-			default: {
-				return;
-			}
-		}
-	}
-
-	ngOnInit(): void {
+	constructor() {
 		this.userService.usersChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe({
 				next: users => {
-					this.users = users.toSorted((a, b) => a.name.localeCompare(b.name));
+					this.users.set(users.toSorted((a, b) => a.name.localeCompare(b.name)));
 				},
-				error: error => {
+				error: (error: unknown) => {
 					this.notify.error(error);
 				}
 			});
 		this.userService.refreshUsers();
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 
 	refresh(): void {

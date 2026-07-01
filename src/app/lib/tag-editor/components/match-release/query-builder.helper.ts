@@ -54,14 +54,16 @@ export class QueryBuilderHelper {
 		const artists: Array<string> = [];
 
 		for (const match of matchings) {
-			if (match.track.tag?.album) {
-				const s = QueryBuilderHelper.cleanAlbumName(match.track.tag.album);
-				if (match.track.tag.album && !albums.includes(s)) {
-					albums.push(s);
-				}
-				if (match.track.tag.artist && !artists.includes(match.track.tag.artist)) {
-					artists.push(match.track.tag.artist);
-				}
+			if (!match.track.tag?.album) {
+				continue;
+			}
+
+			const s = this.cleanAlbumName(match.track.tag.album);
+			if (match.track.tag.album && !albums.includes(s)) {
+				albums.push(s);
+			}
+			if (match.track.tag.artist && !artists.includes(match.track.tag.artist)) {
+				artists.push(match.track.tag.artist);
 			}
 		}
 
@@ -94,13 +96,13 @@ export class QueryBuilderHelper {
 		// Process each matching to build various query types
 		for (const match of matchings) {
 			// Add release group queries
-			QueryBuilderHelper.addReleaseGroupQueries(queries, match, matchingsLength);
+			this.addReleaseGroupQueries(queries, match, matchingsLength);
 
 			// Add release queries
-			QueryBuilderHelper.addReleaseQueries(queries, match, matchingsLength);
+			this.addReleaseQueries(queries, match, matchingsLength);
 
 			// Add recording queries
-			QueryBuilderHelper.addRecordingQueries(queries, match, matchingsLength);
+			this.addRecordingQueries(queries, match, matchingsLength);
 		}
 
 		return queries;
@@ -140,14 +142,14 @@ export class QueryBuilderHelper {
 				// if one is invalid, don't add
 				return;
 			}
-			q[key] = v.split('(')[0]; // keep part before '('
+			q[key] = v.split('(', 1)[0]; // keep part before '('
 		}
 
 		if (trackslength) {
 			q.tracks = matchingsLength;
 		}
 
-		QueryBuilderHelper.addQuery(queries, new MusicbrainzSearchQuery(q), match);
+		this.addQuery(queries, new MusicbrainzSearchQuery(q), match);
 	}
 
 	/**
@@ -166,7 +168,7 @@ export class QueryBuilderHelper {
 		matchingsLength: number
 	): void {
 		// Full release group query with artist
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.releaseGroup,
@@ -178,7 +180,7 @@ export class QueryBuilderHelper {
 		);
 
 		// Fuzzy release group query (just album)
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.releaseGroup,
@@ -198,7 +200,7 @@ export class QueryBuilderHelper {
 		matchingsLength: number
 	): void {
 		// Full release query with artist and track length
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.release,
@@ -211,7 +213,7 @@ export class QueryBuilderHelper {
 		);
 
 		// Full release query with artist without track length
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.release,
@@ -223,7 +225,7 @@ export class QueryBuilderHelper {
 		);
 
 		// Fuzzy release query (just album) with track length
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.release,
@@ -235,7 +237,7 @@ export class QueryBuilderHelper {
 		);
 
 		// Fuzzy release query (just album) without track length
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.release,
@@ -254,10 +256,10 @@ export class QueryBuilderHelper {
 		match: Matching,
 		matchingsLength: number
 	): void {
-		const title = QueryBuilderHelper.getTrackTitle(match);
+		const title = this.getTrackTitle(match);
 
 		// Full recording query with title, release, and artist
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.recording,
@@ -270,7 +272,7 @@ export class QueryBuilderHelper {
 		);
 
 		// Fuzzy recording query with title and release
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.recording,
@@ -282,7 +284,7 @@ export class QueryBuilderHelper {
 		);
 
 		// Fuzzy recording query with title and artist
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.recording,
@@ -294,7 +296,7 @@ export class QueryBuilderHelper {
 		);
 
 		// Fuzziest recording query (just title)
-		QueryBuilderHelper.addMBQuery(
+		this.addMBQuery(
 			queries,
 			{
 				type: MusicBrainzSearchType.recording,

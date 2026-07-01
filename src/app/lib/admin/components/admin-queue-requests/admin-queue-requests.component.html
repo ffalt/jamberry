@@ -1,14 +1,14 @@
-@if (folderService.current) {
+@if (folderService.current(); as current) {
 	<div class="queue-overlay">
 		<div class="current">
-			<span i18n class="label">Current:</span> <app-icon-spin class="icon-spin" /> {{ folderService.current.title }}
-			@if (folderService.current.count > 1) {
-				({{ folderService.current.count }})
+			<span i18n class="label">Current:</span> <app-icon-spin class="icon-spin" /> {{ current.title }}
+			@if (current.count > 1) {
+				({{ current.count }})
 			}
 		</div>
-		@if (folderService.queue.length > 0) {
+		@if (folderService.queue().length > 0) {
 			<div class="other">
-				<span i18n class="label">Other requests in queue:</span> {{ folderService.queue.length }}
+				<span i18n class="label">Other requests in queue:</span> {{ folderService.queue().length }}
 			</div>
 		}
 	</div>

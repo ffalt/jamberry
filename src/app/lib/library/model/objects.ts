@@ -294,21 +294,21 @@ export class JamPlaylistObject extends JamLibraryObject {
 	}
 
 	onContextMenu($event: Event, hideGoto?: boolean): void {
-		let extras: Array<ContextMenuObjComponentOptionsExtra> = [];
-		if (this.playlist.userID === this.library.jam.auth.user?.id) {
-			extras = [
-				{
-					text: 'Edit Playlist', icon: IconEditComponent, click: (): void => {
-						this.library.playlistDialogsService.editPlaylist(this.playlist);
+		const extras: Array<ContextMenuObjComponentOptionsExtra> =
+			this.playlist.userID === this.library.jam.auth.user?.id ?
+				[
+					{
+						text: 'Edit Playlist', icon: IconEditComponent, click: (): void => {
+							this.library.playlistDialogsService.editPlaylist(this.playlist);
+						}
+					},
+					{
+						text: 'Remove Playlist', icon: IconRemoveComponent, click: (): void => {
+							this.library.playlistDialogsService.removePlaylist(this.playlist);
+						}
 					}
-				},
-				{
-					text: 'Remove Playlist', icon: IconRemoveComponent, click: (): void => {
-						this.library.playlistDialogsService.removePlaylist(this.playlist);
-					}
-				}
-			];
-		}
+				] :
+				[];
 		this.library.openJamObjectMenu(this, $event, { extras, hideGoto });
 	}
 

@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import type { Discogs } from '@modules/jam/model/discogs-rest-data';
 import { type Jam, type JamParameters, JamService } from '@jam';
@@ -38,38 +38,39 @@ function buildDiscogsTag(
 	selector: 'app-match-discogs',
 	templateUrl: './match-discogs.component.html',
 	styleUrls: ['./match-discogs.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [IconDiscogsComponent, FormsModule, IconSpinComponent, LoadingComponent]
 })
-export class MatchDiscogsComponent implements OnChanges {
+export class MatchDiscogsComponent {
 	readonly data = input<ReleaseMatching>();
 	searchArtist = '';
 	searchTitle = '';
-	results: Array<Discogs.SearchResult> = [];
+	readonly results = signal<Array<Discogs.SearchResult>>([]);
 	selected?: Discogs.SearchResult;
-	isSearching = false;
-	isApplying = false;
+	readonly isSearching = signal(false);
+	readonly isApplying = signal(false);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
-	ngOnChanges(): void {
-		const data = this.data();
-		if (!data) {
-			return;
-		}
-		const first = data.matchings[0]?.track?.tag;
-		this.searchArtist = first?.artist ?? '';
-		this.searchTitle = first?.title ?? data.folder.name;
-		this.search();
+	constructor() {
+		effect(() => {
+			const data = this.data();
+			if (!data) {
+				return;
+			}
+			const first = data.matchings[0]?.track?.tag;
+			this.searchArtist = first?.artist ?? '';
+			this.searchTitle = first?.title ?? data.folder.name;
+			this.search();
+		});
 	}
 
 	search(): void {
 		if (!this.searchTitle && !this.searchArtist) {
 			return;
 		}
-		this.isSearching = true;
+		this.isSearching.set(true);
 		this.selected = undefined;
-		this.results = [];
+		this.results.set([]);
 		const q: JamParameters.DiscogsSearchParameters = {};
 		if (this.searchArtist) {
 			q.artist = this.searchArtist;
@@ -80,13 +81,13 @@ export class MatchDiscogsComponent implements OnChanges {
 		this.jam.metadata.discogsReleaseSearch(q)
 			.then(response => {
 				const res = response.data as Discogs.SearchResponse;
-				this.results = res.results;
+				this.results.set(res.results);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
 			})
 			.finally(() => {
-				this.isSearching = false;
+				this.isSearching.set(false);
 			});
 	}
 
@@ -106,7 +107,7 @@ export class MatchDiscogsComponent implements OnChanges {
 		if (!data) {
 			return;
 		}
-		this.isApplying = true;
+		this.isApplying.set(true);
 		try {
 			const response = await this.jam.metadata.discogsReleaseLookup({ id: this.selected.id });
 			const release = response.data as Discogs.Release;
@@ -122,7 +123,7 @@ export class MatchDiscogsComponent implements OnChanges {
 		} catch (error: unknown) {
 			this.notify.error(error);
 		} finally {
-			this.isApplying = false;
+			this.isApplying.set(false);
 		}
 	}
 }

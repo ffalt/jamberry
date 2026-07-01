@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { DurationPipe } from '@core/pipes/duration.pipe';
 import { FilesizePipe } from '@core/pipes/filesize.pipe';
 import { PodcastService } from '@core/services/podcast/podcast.service';
@@ -14,27 +14,26 @@ import { InfoTextComponent } from '@core/components/info-text/info-text.componen
 	selector: 'app-episode-overview',
 	templateUrl: './episode-overview.component.html',
 	styleUrls: ['./episode-overview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CommonModule, DurationPipe, FilesizePipe, ChaptersComponent, InfoTextComponent]
 })
-export class EpisodeOverviewComponent implements OnInit, OnDestroy {
-	id?: string;
-	episode?: Jam.Episode;
+export class EpisodeOverviewComponent {
+	readonly episode = signal<Jam.Episode | undefined>(undefined);
+	private id?: string;
 	private readonly podcastService = inject(PodcastService);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 
-	ngOnInit(): void {
+	constructor() {
 		this.route.paramMap
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(paramMap => {
 				this.id = paramMap.get('id') ?? undefined;
 				this.refresh();
 			});
 		this.podcastService.episodeChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(id => {
 				if (id === this.id) {
 					this.refresh();
@@ -42,24 +41,16 @@ export class EpisodeOverviewComponent implements OnInit, OnDestroy {
 			});
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	refresh(): void {
-		if (this.id) {
-			this.jam.episode.id({ id: this.id, episodeIncTag: true, episodeIncState: true, episodeIncMedia: true })
-				.then(episode => {
-					this.display(episode);
-				})
-				.catch((error: unknown) => {
-					this.notify.error(error);
-				});
+		if (!this.id) {
+			return;
 		}
-	}
-
-	display(episode: Jam.Episode): void {
-		this.episode = episode;
+		this.jam.episode.id({ id: this.id, episodeIncTag: true, episodeIncState: true, episodeIncMedia: true })
+			.then(episode => {
+				this.episode.set(episode);
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 }

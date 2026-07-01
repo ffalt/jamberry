@@ -1,5 +1,5 @@
-import { Component, inject, NgZone, type OnDestroy, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, DestroyRef, inject, NgZone, signal, ViewEncapsulation } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DefaultNoComponentGlobalConfig, type IndividualConfig, ToastPackage } from './toast-config';
 
 @Component({
@@ -9,7 +9,6 @@ import { DefaultNoComponentGlobalConfig, type IndividualConfig, ToastPackage } f
 	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None,
 	preserveWhitespaces: false,
-	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		'[class]': 'toastClasses',
 		'[style.display]': 'displayStyle',
@@ -20,29 +19,28 @@ import { DefaultNoComponentGlobalConfig, type IndividualConfig, ToastPackage } f
 		'(mouseleave)': 'delayedHideToast()'
 	}
 })
-export class ToastComponent implements OnDestroy {
+export class ToastComponent {
 	message?: string;
 	title?: string;
 	options: IndividualConfig;
-	duplicatesCount?: number;
 	originalTimeout?: number;
-	/** width of progress bar */
-	width = -1;
 	/** a combination of toast type and options.toastClass */
 	toastClasses = '';
-
+	readonly duplicatesCount = signal<number | undefined>(undefined);
+	/** width of progress bar */
+	readonly width = signal(-1);
 	/** controls animation */
-	state = {
+	readonly state = signal({
 		value: 'inactive',
 		params: {
 			easeTime: DefaultNoComponentGlobalConfig.easeTime,
 			easing: 'ease-in'
 		}
-	};
+	});
 
 	private readonly toastPackage = inject(ToastPackage);
 	private readonly ngZone? = inject(NgZone);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private timeout?: ReturnType<typeof setTimeout>;
 	private intervalId?: ReturnType<typeof setInterval>;
 	private hideTime?: number;
@@ -52,59 +50,45 @@ export class ToastComponent implements OnDestroy {
 		this.title = this.toastPackage.title;
 		this.options = this.toastPackage.config;
 		this.originalTimeout = this.toastPackage.config.timeOut;
-		this.toastClasses = `${this.toastPackage.toastType} ${
-			this.toastPackage.config.toastClass
-		}`;
-		this.state.params.easeTime = this.toastPackage.config.easeTime || DefaultNoComponentGlobalConfig.easeTime;
+		this.toastClasses = `${this.toastPackage.toastType} ${this.toastPackage.config.toastClass}`;
+		this.state.update(s => ({ ...s, params: { ...s.params, easeTime: this.toastPackage.config.easeTime || DefaultNoComponentGlobalConfig.easeTime } }));
 		this.toastPackage.toastRef.afterActivate()
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(() => {
-				this.activateToast();
-			});
-		this.toastPackage.toastRef.manualClosed().pipe(takeUntil(this.unsubscribe))
-			.subscribe(() => {
-				this.remove();
-			});
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe(() => { this.activateToast(); });
+		this.toastPackage.toastRef.manualClosed()
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe(() => { this.remove(); });
 		this.toastPackage.toastRef.timeoutReset()
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(() => {
-				this.resetTimeout();
-			});
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe(() => { this.resetTimeout(); });
 		this.toastPackage.toastRef.countDuplicate()
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(count => {
-				this.duplicatesCount = count;
-			});
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe(count => { this.duplicatesCount.set(count); });
+		this.lifeRef.onDestroy(() => {
+			clearInterval(this.intervalId);
+			clearTimeout(this.timeout);
+		});
 	}
 
 	/** hides component when waiting to be displayed */
 	get displayStyle(): string {
-		if (this.state.value === 'inactive') {
-			return 'none';
-		}
-		return 'inherit';
+		return this.state().value === 'inactive' ? 'none' : 'inherit';
 	}
 
 	get opacityStyle(): number {
-		return this.state.value === 'active' ? 1 : 0;
+		return this.state().value === 'active' ? 1 : 0;
 	}
 
 	get transitionStyle(): string {
-		return `opacity ${this.state.params.easeTime}ms ${this.state.params.easing}`;
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-		clearInterval(this.intervalId);
-		clearTimeout(this.timeout);
+		const { easeTime, easing } = this.state().params;
+		return `opacity ${easeTime}ms ${easing}`;
 	}
 
 	/**
 	 * activates toast and sets timeout
 	 */
 	activateToast(): void {
-		this.state = { ...this.state, value: 'active' };
+		this.state.update(s => ({ ...s, value: 'active' }));
 		if (!this.options.disableTimeOut && this.options.timeOut) {
 			this.outsideTimeout(() => {
 				this.remove();
@@ -122,34 +106,29 @@ export class ToastComponent implements OnDestroy {
 	 * updates progress bar width
 	 */
 	updateProgress(): void {
-		if (this.width === 0 || this.width === 100 || !this.options.timeOut) {
+		const w = this.width();
+		if (w === 0 || w === 100 || !this.options.timeOut) {
 			return;
 		}
 		const now = Date.now();
 		const remaining = (this.hideTime ?? 0) - now;
-		this.width = (remaining / this.options.timeOut) * 100;
+		let next = (remaining / this.options.timeOut) * 100;
 		if (this.options.progressAnimation === 'increasing') {
-			this.width = 100 - this.width;
+			next = 100 - next;
 		}
-		if (this.width <= 0) {
-			this.width = 0;
-		}
-		if (this.width >= 100) {
-			this.width = 100;
-		}
+		this.width.set(Math.min(100, Math.max(0, next)));
 	}
 
 	resetTimeout(): void {
 		clearTimeout(this.timeout);
 		clearInterval(this.intervalId);
-		this.state = { ...this.state, value: 'active' };
-
+		this.state.update(s => ({ ...s, value: 'active' }));
 		this.outsideTimeout(() => {
 			this.remove();
 		}, this.originalTimeout ?? 0);
 		this.options.timeOut = this.originalTimeout ?? 0;
 		this.hideTime = Date.now() + (this.options.timeOut ?? 0);
-		this.width = -1;
+		this.width.set(-1);
 		if (this.options.progressBar) {
 			this.outsideInterval(() => {
 				this.updateProgress();
@@ -161,11 +140,11 @@ export class ToastComponent implements OnDestroy {
 	 * tells toastService to remove this toast after animation time
 	 */
 	remove(): void {
-		if (this.state.value === 'removed') {
+		if (this.state().value === 'removed') {
 			return;
 		}
 		clearTimeout(this.timeout);
-		this.state = { ...this.state, value: 'removed' };
+		this.state.update(s => ({ ...s, value: 'removed' }));
 		this.outsideTimeout(
 			() => {
 				this.toastPackage.toastRemove();
@@ -175,7 +154,7 @@ export class ToastComponent implements OnDestroy {
 	}
 
 	tapToast(): void {
-		if (this.state.value === 'removed') {
+		if (this.state().value === 'removed') {
 			return;
 		}
 		this.toastPackage.triggerTap();
@@ -185,23 +164,22 @@ export class ToastComponent implements OnDestroy {
 	}
 
 	stickAround(): void {
-		if (this.state.value === 'removed') {
+		if (this.state().value === 'removed') {
 			return;
 		}
 		clearTimeout(this.timeout);
 		this.options.timeOut = 0;
 		this.hideTime = 0;
-
 		// disable progressBar
 		clearInterval(this.intervalId);
-		this.width = 0;
+		this.width.set(0);
 	}
 
 	delayedHideToast(): void {
 		if (
 			this.options.disableTimeOut ||
 			this.options.extendedTimeOut === 0 ||
-			this.state.value === 'removed'
+			this.state().value === 'removed'
 		) {
 			return;
 		}
@@ -210,7 +188,7 @@ export class ToastComponent implements OnDestroy {
 		}, this.options.extendedTimeOut);
 		this.options.timeOut = this.options.extendedTimeOut;
 		this.hideTime = Date.now() + (this.options.timeOut || 0);
-		this.width = -1;
+		this.width.set(-1);
 		if (this.options.progressBar) {
 			this.outsideInterval(() => {
 				this.updateProgress();

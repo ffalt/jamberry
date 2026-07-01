@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { JamService, type MusicBrainz, MusicBrainzLookupType } from '@jam';
 import { MbRelationsComponent } from '../mb-relations/mb-relations.component';
@@ -20,36 +20,37 @@ export interface MBAlbumInfoGroup {
 	selector: 'app-mb-album',
 	templateUrl: './mb-album.component.html',
 	styleUrls: ['./mb-album.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [MbRelationsComponent, MbArtistCreditsPipe, MediadurationPipe, IconMusicbrainzComponent]
 })
-export class MbAlbumComponent implements OnChanges {
+export class MbAlbumComponent {
 	readonly mbAlbumID = input<string>();
-	mbAlbum?: MusicBrainz.Release;
-	infoGroups: Array<MBAlbumInfoGroup> = [];
+	readonly mbAlbum = signal<MusicBrainz.Release | undefined>(undefined);
+	readonly infoGroups = signal<Array<MBAlbumInfoGroup>>([]);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
-	ngOnChanges(): void {
-		this.refresh();
+	constructor() {
+		effect(() => {
+			this.refresh();
+		});
 	}
 
 	refresh(): void {
 		const mbAlbumID = this.mbAlbumID();
-		if (mbAlbumID) {
-			this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.release, mbID: mbAlbumID })
-				.then(res => {
-					const data = res.data as MusicBrainz.Response;
-					this.display(data.release!);
-				})
-				.catch((error: unknown) => {
-					this.notify.error(error);
-				});
+		if (!mbAlbumID) {
+			return;
 		}
+		this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.release, mbID: mbAlbumID })
+			.then(res => {
+				const data = res.data as MusicBrainz.Response;
+				this.display(data.release!);
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 
 	display(mbAlbum: MusicBrainz.Release): void {
-		this.mbAlbum = mbAlbum;
 		let tags = mbAlbum.tags ?? [];
 		if (tags.length === 0) {
 			tags = mbAlbum.releaseGroup.tags ?? [];
@@ -74,7 +75,8 @@ export class MbAlbumComponent implements OnChanges {
 				{ name: 'Data Quality', value: mbAlbum.quality }
 			].filter(item => !!item.value) as Array<MBAlbumInfo>
 		};
-		this.infoGroups = [group];
+		this.mbAlbum.set(mbAlbum);
+		this.infoGroups.set([group]);
 	}
 
 	compactArtist(artistCredit?: Array<MusicBrainz.ArtistCredit>): string {

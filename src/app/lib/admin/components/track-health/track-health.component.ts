@@ -1,7 +1,7 @@
-import { Component, inject, input, type OnChanges, type OnDestroy, type OnInit, output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, output, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { type Jam, JamService, TrackHealthID } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
 import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
@@ -23,32 +23,25 @@ export interface TrackHealthHint {
 	imports: [IconSpinComponent, IconWarningComponent],
 	selector: 'app-track-health',
 	templateUrl: './track-health.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./track-health.component.scss']
 })
-export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
+export class TrackHealthComponent {
 	readonly trackHealth = input<Jam.TrackHealth>();
 	readonly resolvedEvent = output();
-	hints?: Array<TrackHealthHint>;
-	solutions: Array<TrackHealthHintSolution> = [];
-	private readonly unsubscribe = new Subject<void>();
+	readonly hints = signal<Array<TrackHealthHint> | undefined>(undefined);
+	readonly solutions = signal<Array<TrackHealthHintSolution>>([]);
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
 	private readonly router = inject(Router);
 
-	ngOnChanges(): void {
-		this.display(this.trackHealth());
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
-	ngOnInit(): void {
+	constructor() {
+		effect(() => {
+			this.display(this.trackHealth());
+		});
 		this.folderService.tracksChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(change => {
 				const health = this.trackHealth();
 				if (health?.track.id === change.id) {
@@ -71,12 +64,11 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 							this.notify.error(error);
 						});
 				}
-			}
-			);
+			});
 	}
 
 	fixAll(): void {
-		for (const solution of this.solutions) {
+		for (const solution of this.solutions()) {
 			if (solution.fixable && !solution.running) {
 				solution.click();
 			}
@@ -84,13 +76,14 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	}
 
 	private display(trackHealth?: Jam.TrackHealth): void {
-		this.hints = [];
-		this.solutions = [];
+		this.solutions.set([]);
 		if (trackHealth?.health) {
-			this.hints = trackHealth.health.map(hint => {
+			this.hints.set(trackHealth.health.map(hint => {
 				const description = this.describeHint(hint, trackHealth.track);
 				return { hint, description };
-			});
+			}));
+		} else {
+			this.hints.set([]);
 		}
 	}
 
@@ -116,7 +109,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 			}
 			// No default
 		}
-		if (!this.solutions.some(sol => sol.name === 'Edit Tag')) {
+		if (!this.solutions().some(sol => sol.name === 'Edit Tag')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Edit Tag',
 				click: (): void => {
@@ -126,7 +119,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						});
 				}
 			};
-			this.solutions.push(sol);
+			this.solutions.update(s => [...s, sol]);
 		}
 		return description;
 	}
@@ -136,7 +129,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 		if (hint.details && hint.details.length > 0) {
 			description = `${hint.details[0].reason} (${hint.details[0].actual} bytes)`;
 		}
-		if (!this.solutions.some(sol => sol.name === 'Fix MP3')) {
+		if (!this.solutions().some(sol => sol.name === 'Fix MP3')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix MP3',
 				fixable: true,
@@ -145,6 +138,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						return;
 					}
 					sol.running = true;
+					this.solutions.update(s => [...s]);
 					this.jam.track.fix({ id: track.id, fixID: hint.id })
 						.then(item => {
 							this.folderService.waitForQueueResult('Fixing Track MP3', item, [], [], [track.id]);
@@ -154,7 +148,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						});
 				}
 			};
-			this.solutions.push(sol);
+			this.solutions.update(s => [...s, sol]);
 		}
 		return description;
 	}
@@ -162,7 +156,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 	private describeMp3ErrorHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		const description = `Stream Errors: ${(hint.details ?? []).length}`;
 
-		if (!this.solutions.some(sol => sol.name === 'Fix Stream')) {
+		if (!this.solutions().some(sol => sol.name === 'Fix Stream')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix Stream',
 				fixable: true,
@@ -171,6 +165,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						return;
 					}
 					sol.running = true;
+					this.solutions.update(s => [...s]);
 					this.jam.track.fix({ id: track.id, fixID: hint.id })
 						.then(item => {
 							this.folderService.waitForQueueResult('Fixing Track Stream', item, [], [], [track.id]);
@@ -180,13 +175,13 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						});
 				}
 			};
-			this.solutions.push(sol);
+			this.solutions.update(s => [...s, sol]);
 		}
 		return description;
 	}
 
 	private describeID3v1Hint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
-		if (!this.solutions.some(sol => sol.name === 'Remove ID3v1')) {
+		if (!this.solutions().some(sol => sol.name === 'Remove ID3v1')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Remove ID3v1',
 				fixable: true,
@@ -195,6 +190,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						return;
 					}
 					sol.running = true;
+					this.solutions.update(s => [...s]);
 					this.jam.track.fix({ id: track.id, fixID: hint.id })
 						.then(item => {
 							this.folderService.waitForQueueResult('Remove ID3v1', item, [], [], [track.id]);
@@ -204,7 +200,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						});
 				}
 			};
-			this.solutions.push(sol);
+			this.solutions.update(s => [...s, sol]);
 		}
 		return '';
 	}
@@ -219,7 +215,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 				return d.reason;
 			}).join(', ');
 		}
-		if (!this.solutions.some(sol => sol.name === 'Fix Header')) {
+		if (!this.solutions().some(sol => sol.name === 'Fix Header')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix Header',
 				fixable: true,
@@ -228,6 +224,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						return;
 					}
 					sol.running = true;
+					this.solutions.update(s => [...s]);
 					this.jam.track.fix({ id: track.id, fixID: hint.id })
 						.then(item => {
 							this.folderService.waitForQueueResult('Fixing Track Header', item, [], [], [track.id]);
@@ -237,7 +234,7 @@ export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {
 						});
 				}
 			};
-			this.solutions.push(sol);
+			this.solutions.update(s => [...s, sol]);
 		}
 		return description;
 	}

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import { RateComponent } from '../rate/rate.component';
 
@@ -11,19 +11,19 @@ export interface RateEdit {
 	selector: 'app-dialog-rate',
 	templateUrl: './dialog-rate.component.html',
 	styleUrls: ['./dialog-rate.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [RateComponent]
 })
 export class DialogRateComponent implements DialogOverlay<RateEdit> {
-	data?: RateEdit;
+	readonly data = signal<RateEdit | undefined>(undefined);
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<RateEdit>>): void {
-		this.data = options.data;
+		this.data.set(options.data);
 	}
 
 	onRated(num: number): void {
-		if (this.data) {
-			this.data.rating = num;
+		const d = this.data();
+		if (d) {
+			this.data.set({ ...d, rating: num });
 		}
 	}
 }

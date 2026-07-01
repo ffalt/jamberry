@@ -1,4 +1,4 @@
-@if (mbAlbum) {
+@if (mbAlbum(); as mbAlbum) {
 	<div class="mbalbum">
 		<div class="section-title">
 			<ng-container i18n>Album Information by</ng-container>
@@ -7,7 +7,7 @@
 				<ng-container i18n>MusicBrainz</ng-container>
 			</a></div>
 		<div class="info-groups">
-			@for (infoGroup of infoGroups; track infoGroup) {
+			@for (infoGroup of infoGroups(); track infoGroup) {
 				<div class="info-group">
 					@for (info of infoGroup.infos; track info) {
 						<div class="key-value-row">

@@ -1097,23 +1097,25 @@ export const FrameTXXXSubIdsDefs: { [id: string]: string } = {
 };
 
 export const FrameUFIDSubIdsDefs: { [id: string]: string } = {
+	// eslint-disable-next-line unicorn/prefer-https
 	'http://musicbrainz.org': 'MusicBrainz Track Id'
 };
 
 export const FrameCOMMSubIdsDefs: { [id: string]: string } = {
+	// eslint-disable-next-line unicorn/prefer-https
 	'http://musicbrainz.org': 'MusicBrainz Track Id',
 	'': 'Default Comment'
 };
 
 export function getFrameSubIds(id: string): Array<{ subid: string; name: string }> {
 	if (id === 'TXXX') {
-		return Object.keys(FrameTXXXSubIdsDefs).map(subid => ({ subid, name: FrameTXXXSubIdsDefs[subid] }));
+		return Object.entries(FrameTXXXSubIdsDefs).map(([subid, value]) => ({ subid, name: value }));
 	}
 	if (id === 'UFID') {
-		return Object.keys(FrameUFIDSubIdsDefs).map(subid => ({ subid, name: FrameUFIDSubIdsDefs[subid] }));
+		return Object.entries(FrameUFIDSubIdsDefs).map(([subid, value]) => ({ subid, name: value }));
 	}
 	if (id === 'COMM') {
-		return Object.keys(FrameCOMMSubIdsDefs).map(subid => ({ subid, name: FrameCOMMSubIdsDefs[subid] }));
+		return Object.entries(FrameCOMMSubIdsDefs).map(([subid, value]) => ({ subid, name: value }));
 	}
 	return [];
 }

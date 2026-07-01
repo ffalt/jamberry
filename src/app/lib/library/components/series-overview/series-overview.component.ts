@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { JamAlbumObject } from '../../model/objects';
 import { ObjGroupsViewComponent } from '../obj-groups-view/obj-groups-view.component';
 import { LibraryService } from '../../services/library/library.service';
@@ -12,50 +12,42 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-series-overview',
 	templateUrl: './series-overview.component.html',
 	styleUrls: ['./series-overview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ObjGroupsViewComponent, LoadingComponent]
 })
-export class SeriesOverviewComponent implements OnInit, OnDestroy {
-	id?: string;
-	series?: Jam.Series;
-	albums?: Array<JamAlbumObject>;
+export class SeriesOverviewComponent {
+	readonly series = signal<Jam.Series | undefined>(undefined);
+	readonly albums = computed(() => {
+		const s = this.series();
+		return s ? (s.albums ?? []).map(a => new JamAlbumObject(a, this.library)) : undefined;
+	});
+
+	private id?: string;
 	private readonly library = inject(LibraryService);
 	private readonly notify = inject(NotifyService);
 	private readonly jam = inject(JamService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 
-	ngOnInit(): void {
+	constructor() {
 		this.route.paramMap
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(paramMap => {
 				this.id = paramMap.get('id') ?? undefined;
 				this.refresh();
 			});
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	refresh(): void {
-		this.series = undefined;
-		this.albums = undefined;
+		this.series.set(undefined);
 		if (!this.id) {
 			return;
 		}
 		this.jam.series.id({ id: this.id, seriesIncState: true, seriesIncAlbums: true, albumIncState: true })
 			.then(series => {
-				this.display(series);
+				this.series.set(series);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
 			});
-	}
-
-	display(series: Jam.Series): void {
-		this.series = series;
-		this.albums = (series.albums ?? []).map(s => new JamAlbumObject(s, this.library));
 	}
 }

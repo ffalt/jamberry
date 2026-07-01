@@ -1,4 +1,4 @@
-@if (artist) {
+@if (artist(); as artist) {
 	<div class="overview">
 		@if (artist.info) {
 			<div class="info">
@@ -10,13 +10,13 @@
 } @else {
 	<app-loading />
 }
-@if (albums && !tracksQuery) {
+@if (albums() && !tracksQuery()) {
 	<div class="artist-albums">
-		<app-obj-groups-view [objs]="albums" [viewTypeList]="true" [grouping]="true" />
+		<app-obj-groups-view [objs]="albums()!" [viewTypeList]="true" [grouping]="true" />
 	</div>
 }
-@if (tracksQuery) {
+@if (tracksQuery(); as query) {
 	<div class="artist-tracks">
-		<app-tracks-loader [queryCmd]="tracksQuery" />
+		<app-tracks-loader [queryCmd]="query" />
 	</div>
 }

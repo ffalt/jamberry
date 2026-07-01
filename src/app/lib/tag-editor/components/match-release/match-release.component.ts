@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, type OnDestroy, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, viewChild } from '@angular/core';
 import { MatchApplyComponent } from '../match-apply/match-apply.component';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -36,10 +36,9 @@ export interface ReleaseMatching {
 	host: {
 		'[class.right-active]': 'rightActive'
 	},
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ContextMenuModule, IconLeftComponent, IconRightComponent, IconSpinComponent, MatchApplyComponent, MatchFileListComponent, MatchResultsComponent, TagEditorAutocompleteComponent]
 })
-export class MatchReleaseComponent implements OnChanges, OnDestroy {
+export class MatchReleaseComponent {
 	readonly data = input<ReleaseMatching>();
 	readonly RunType = RunType;
 	rightActive: boolean = true;
@@ -47,31 +46,27 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 	current?: { group: MatchReleaseGroup; release: MatchRelease };
 	private readonly matchApply = viewChild.required(MatchApplyComponent);
 	private readonly actionMenu = viewChild<ContextMenuComponent>('actionMenu');
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly contextMenuService = inject(ContextMenuService);
 
 	constructor() {
-		const jam = this.jam;
-		const notify = this.notify;
-
-		this.matcher = new Matcher(jam, notify);
-	}
-
-	ngOnChanges(): void {
-		const data = this.data();
-		if (data) {
-			this.matcher.prepare(
-				data.matchings.map(m => ({ track: m.track })),
-				data.folder
-			);
-		} else {
+		this.matcher = new Matcher(this.jam, this.notify);
+		effect(() => {
+			const data = this.data();
+			if (data) {
+				this.matcher.prepare(
+					data.matchings.map(m => ({ track: m.track })),
+					data.folder
+				);
+			} else {
+				this.matcher.abort();
+			}
+		});
+		this.lifeRef.onDestroy(() => {
 			this.matcher.abort();
-		}
-	}
-
-	ngOnDestroy(): void {
-		this.matcher.abort();
+		});
 	}
 
 	apply(): void {
@@ -110,7 +105,7 @@ export class MatchReleaseComponent implements OnChanges, OnDestroy {
 
 	stopApply(): void {
 		this.current = undefined;
-		this.matchApply().genres = undefined;
+		this.matchApply().genres.set(undefined);
 		this.matcher.stopApply();
 	}
 

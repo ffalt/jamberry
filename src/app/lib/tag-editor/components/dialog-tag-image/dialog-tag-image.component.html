@@ -3,12 +3,12 @@
 	<ng-container i18n>Maintain Aspect Ratio</ng-container>
 </label>
 <div (dragover)="onDragOverFile($event)" (drop)="onDropFile($event)" class="drop-zone">
-	@if (current.source) {
+	@if (current().source; as source) {
 		<image-cropper
 			output="base64"
 			[maintainAspectRatio]="maintainAspectRatio"
 			[format]="format"
-			[imageBase64]="current.source"
+			[imageBase64]="source"
 			(imageCropped)="imageCropped($event)" />
 	}
 	<form>

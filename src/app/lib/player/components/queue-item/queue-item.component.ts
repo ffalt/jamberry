@@ -1,4 +1,4 @@
-import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import type { Jam } from '@jam';
 import { DurationPipe } from '@core/pipes/duration.pipe';
 import { ClickStopDirective } from '@core/directives/click-stop.directive';
@@ -16,7 +16,6 @@ import { IconStopwatchComponent } from '@core/components/icons/icon-stopwatch.co
 	selector: 'app-queue-item',
 	templateUrl: './queue-item.component.html',
 	styleUrls: ['./queue-item.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ClickStopDirective, DragDropModule, DurationPipe, IconHashComponent, IconPauseComponent, IconPlayComponent, IconRemoveComponent, IconStopwatchComponent]
 })
 export class QueueItemComponent {

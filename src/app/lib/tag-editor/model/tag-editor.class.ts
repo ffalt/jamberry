@@ -126,7 +126,7 @@ export class TagEditor {
 			const cell: RawTagEditCell<{ text: string }> | undefined = edit.cells[index];
 			let trackNr: string | undefined;
 			if (cell.frames.length > 0) {
-				trackNr = cell.frames[0].value.text.split('/')[0];
+				trackNr = cell.frames[0].value.text.split('/', 1)[0];
 				if (!Number.isNaN(Number(trackNr))) {
 					trackNr = Number(trackNr).toString();
 				}
@@ -336,7 +336,7 @@ export class TagEditor {
 				const id = this.ensureID3v2FrameVersionDef(frame.id, 4);
 				if (id) {
 					frame.id = id;
-					newTag.frames[id] = newTag.frames[id] ?? [];
+					newTag.frames[id] ??= [];
 					newTag.frames[id].push(frame);
 				} else {
 					console.error('upgradeTrackTag', 'missing id3v2 update', frame.id, '=>', id);
@@ -437,13 +437,13 @@ export class TagEditor {
 		const removeCols: Array<RawTagEditColumn> = [];
 		const addCols: Array<RawTagEditColumn> = [];
 		for (const col of this.columns) {
-			const enabled = cols.find(c => c.id === col.def.id && c.subid === col.def.subid);
+			const enabled = cols.some(c => c.id === col.def.id && c.subid === col.def.subid);
 			if (!enabled) {
 				removeCols.push(col);
 			}
 		}
 		for (const col of cols) {
-			const exists = this.columns.find(c => c.def.id === col.id && c.def.subid === col.subid);
+			const exists = this.columns.some(c => c.def.id === col.id && c.def.subid === col.subid);
 			if (!exists) {
 				const newCol = this.frameDef2Column(col.id, col.subid, col.frameDef, 0);
 				addCols.push(newCol);
@@ -455,8 +455,8 @@ export class TagEditor {
 
 	private static getRawTagFrames(rawTag: Jam.MediaTagRaw): Array<Jam.MediaTagRawFrame> {
 		let frames: Array<Jam.MediaTagRawFrame> = [];
-		for (const key of Object.keys(rawTag.frames)) {
-			const additional = (rawTag.frames as MediaTagRawFramesAccess)[key] ?? [];
+		for (const value of Object.values(rawTag.frames as MediaTagRawFramesAccess)) {
+			const additional = value ?? [];
 			frames = [...frames, ...additional];
 		}
 		return frames;
@@ -678,10 +678,7 @@ export class TagEditor {
 
 	private frameDef2Column(id: string, subid: string | undefined, framedef: FrameDef, sort: number): RawTagEditColumn {
 		const name = TagEditor.getFrameDefName(id, subid, framedef);
-		let impl = framedef.impl;
-		if (id === 'UFID' && FrameUFIDSubIdsDefs[subid ?? '']) {
-			impl = FrameType.IdText;
-		}
+		const impl = id === 'UFID' && FrameUFIDSubIdsDefs[subid ?? ''] ? FrameType.IdText : framedef.impl;
 		const col: RawTagEditColumn = {
 			def: { id, subid, name, width: sort >= 0 ? DefaultFrameColumns[sort].width : 100, impl },
 			sort: sort >= 0 ? sort + 1 : -1,
@@ -711,10 +708,12 @@ export class TagEditor {
 
 	private addDefaultColumns(): void {
 		for (const [sort, c] of DefaultFrameColumns.entries()) {
-			if (c.force) {
-				const col = this.frameDef2Column(c.id, c.subid, FrameDefs[c.id], sort);
-				this.columns.push(col);
+			if (!c.force) {
+				continue;
 			}
+
+			const col = this.frameDef2Column(c.id, c.subid, FrameDefs[c.id], sort);
+			this.columns.push(col);
 		}
 	};
 
@@ -798,8 +797,8 @@ export class TagEditor {
 		this.edits = tracks.map(track => {
 			let frames: Array<RawTagEditFrame<any>> = [{ id: FilenameColumnID, value: { text: track.name } }];
 			if (track.tagRaw) {
-				for (const key of Object.keys(track.tagRaw.frames)) {
-					const tagFrames = (track.tagRaw.frames as MediaTagRawFramesAccess)[key] as Array<RawTagEditFrame<any>>;
+				for (const value of Object.values(track.tagRaw.frames)) {
+					const tagFrames = value as Array<RawTagEditFrame<any>>;
 					frames = [...frames, ...tagFrames];
 				}
 			}

@@ -1,7 +1,7 @@
-import { Component, inject, type OnDestroy, type OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal, viewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { type Jam, JamService } from '@jam';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { AdminBaseParentViewIdComponent } from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
 import { DialogChooseFolderComponent, type SelectFolder } from '../../dialog-choose-folder/dialog-choose-folder.component';
@@ -19,11 +19,10 @@ import { IconTrashComponent } from '@core/components/icons/icon-trash.component'
 	selector: 'app-admin-folder-tracks',
 	templateUrl: './admin-folder-tracks.component.html',
 	styleUrls: ['./admin-folder-tracks.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextListComponent, IconReloadComponent, IconRightBoldComponent, IconTrashComponent, LoadingComponent, RouterModule, TrackListComponent]
 })
-export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
-	folder: Jam.Folder | undefined;
+export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent {
+	readonly folder = signal<Jam.Folder | undefined>(undefined);
 	private readonly tracks = viewChild(TrackListComponent);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
@@ -31,19 +30,15 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 	private readonly dialogsService = inject(DialogsService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
 
-	ngOnInit(): void {
-		super.ngOnInit();
+	constructor() {
+		super();
 		this.folderService.foldersChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(change => {
 				if (change.id === this.id) {
 					this.refresh();
 				}
 			});
-	}
-
-	ngOnDestroy(): void {
-		super.ngOnDestroy();
 	}
 
 	deleteTracks(): void {
@@ -66,11 +61,12 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 
 	getTrackIDs(): Array<string> {
 		const tracks = this.tracks();
-		if (!tracks?.trackItems || !this.folder?.tracks) {
+		const folder = this.folder();
+		if (!tracks?.trackItems || !folder?.tracks) {
 			return [];
 		}
 		const selection = tracks.trackItems.filter(t => t.selected).map(t => t.track.id);
-		return (selection.length > 0) ? selection : this.folder.tracks.map(t => t.id);
+		return (selection.length > 0) ? selection : folder.tracks.map(t => t.id);
 	}
 
 	moveTracks(): void {
@@ -91,10 +87,11 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 				if (!destination) {
 					return;
 				}
+				const folder = this.folder();
 				this.jam.track.move({ ids, folderID: destination.id })
 					.then(item => {
 						this.folderService.waitForQueueResult('Moving Tracks', item, [],
-							[destination.id, ...(this.folder?.parentID ? [this.folder.parentID] : [])], ids);
+							[destination.id, ...(folder?.parentID ? [folder.parentID] : [])], ids);
 					})
 					.catch((error: unknown) => {
 						this.notify.error(error);
@@ -105,14 +102,14 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent i
 		});
 	}
 
-	refresh(): void {
-		this.folder = undefined;
+	override refresh(): void {
+		this.folder.set(undefined);
 		if (!this.id) {
 			return;
 		}
 		this.jam.folder.id({ id: this.id, folderIncTracks: true, trackIncTag: true, trackIncMedia: true })
 			.then(data => {
-				this.folder = data;
+				this.folder.set(data);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

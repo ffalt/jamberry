@@ -1,4 +1,4 @@
-import { EventEmitter, inject, Injectable } from '@angular/core';
+import { EventEmitter, inject, Injectable, signal } from '@angular/core';
 import { Poller } from '@utils/poller';
 import { type Jam, JamService } from '@jam';
 import { NotifyService } from '../notify/notify.service';
@@ -25,8 +25,8 @@ export interface AdminChangeQueueInfoPoll {
 export class AdminFolderService {
 	readonly foldersChange = new EventEmitter<{ id: string; mode: AdminFolderServiceNotifyMode }>();
 	readonly tracksChange = new EventEmitter<{ id: string }>();
-	current?: AdminChangeQueueInfoPoll;
-	queue: Array<AdminChangeQueueInfoPoll> = [];
+	readonly current = signal<AdminChangeQueueInfoPoll | undefined>(undefined);
+	readonly queue = signal<Array<AdminChangeQueueInfoPoll>>([]);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
@@ -39,16 +39,19 @@ export class AdminFolderService {
 	}
 
 	waitForQueueResult(title: string, item: Jam.AdminChangeQueueInfo, folderIDs?: Array<string>, refreshChildsFolderIDs?: Array<string>, trackIDs?: Array<string>): EventEmitter<Jam.AdminChangeQueueInfo> {
-		let old = this.queue.find(q => q.id === item.id);
-		if (!old && this.current?.id === item.id) {
-			old = this.current;
+		let old = this.queue().find(q => q.id === item.id);
+		if (!old && this.current()?.id === item.id) {
+			old = this.current();
 		}
 		if (old?.notifyAfter) {
 			this.appendToExistingWaiter(old, folderIDs, refreshChildsFolderIDs, trackIDs);
+			if (this.current() === old) {
+				this.current.set({ ...old });
+			}
 			return old.notifyAfter;
 		}
 		const notifyAfter = new EventEmitter<Jam.AdminChangeQueueInfo>();
-		this.queue.push({ title, id: item.id, item, folderIDs, refreshChildsFolderIDs, trackIDs, count: 1, notifyAfter });
+		this.queue.update(q => [...q, { title, id: item.id, item, folderIDs, refreshChildsFolderIDs, trackIDs, count: 1, notifyAfter }]);
 		this.nextPoll();
 		return notifyAfter;
 	}
@@ -73,7 +76,7 @@ export class AdminFolderService {
 		if (!ids) {
 			return;
 		}
-		waiter[property] = waiter[property] ?? [];
+		waiter[property] ??= [];
 		for (const id of ids) {
 			if (!waiter[property].includes(id)) {
 				waiter[property].push(id);
@@ -82,33 +85,37 @@ export class AdminFolderService {
 	}
 
 	private nextPoll(): void {
-		if (this.current) {
+		if (this.current()) {
 			return;
 		}
-		this.current = this.queue.shift();
-		if (this.current) {
-			const queryPoll = new Poller<AdminChangeQueueInfoPoll>((data, cb) => {
-				this.jam.admin.queueId({ id: data.id })
-					.then(result => {
-						data.item = result;
-						if (result.error || result.done !== undefined) {
-							if (result.error) {
-								this.notify.error(new Error(result.error));
-							}
-							this.pollEnd(data, result);
-							cb(false);
-							return;
-						}
-						cb(true);
-					})
-					.catch((error: unknown) => {
-						console.error('error while polling admin change queue status', error);
-						this.pollEnd(data);
-						cb(false);
-					});
-			});
-			queryPoll.poll(this.current, true);
+		const q = this.queue();
+		if (q.length === 0) {
+			return;
 		}
+		const [first, ...rest] = q;
+		this.current.set(first);
+		this.queue.set(rest);
+		const queryPoll = new Poller<AdminChangeQueueInfoPoll>((data, cb) => {
+			this.jam.admin.queueId({ id: data.id })
+				.then(result => {
+					data.item = result;
+					if (result.error || result.done !== undefined) {
+						if (result.error) {
+							this.notify.error(new Error(result.error));
+						}
+						this.pollEnd(data, result);
+						cb(false);
+						return;
+					}
+					cb(true);
+				})
+				.catch((error: unknown) => {
+					console.error('error while polling admin change queue status', error);
+					this.pollEnd(data);
+					cb(false);
+				});
+		});
+		queryPoll.poll(first, true);
 	}
 
 	private pollEnd(data: AdminChangeQueueInfoPoll, result?: Jam.AdminChangeQueueInfo): void {
@@ -126,7 +133,7 @@ export class AdminFolderService {
 			data.notifyAfter.complete();
 			data.notifyAfter = undefined;
 		}
-		this.current = undefined;
+		this.current.set(undefined);
 		this.nextPoll();
 	}
 }

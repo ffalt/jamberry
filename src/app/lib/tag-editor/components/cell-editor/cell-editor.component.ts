@@ -1,15 +1,16 @@
-import { Component, type ComponentRef, forwardRef, inject, input, type OnChanges, type OnDestroy, output, type Type, viewChild, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, type ComponentRef, DestroyRef, effect, forwardRef, inject, input, output, signal, type Type, viewChild, ViewContainerRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { CellEditor } from './cell-editor.class';
 import { FrameType } from '../../model/id3v2-frames.helper';
 import type { Jam } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { Id3v2ValuePicTypes, type RawTagEditCell, type RawTagEditFrame } from '../../model/tag-editor.types';
 import { CellEditorTxtComponent } from '../cell-editor-txt/cell-editor-txt.component';
 import { DialogTagImageComponent, type PicEdit } from '../dialog-tag-image/dialog-tag-image.component';
 import { DialogTagLyricsComponent, type LyricsEdit } from '../dialog-tag-lyrics/dialog-tag-lyrics.component';
 import { DialogTagMcdiComponent, type McdiEdit } from '../dialog-tag-mcdi/dialog-tag-mcdi.component';
 import { CellEditorDisplayComponent } from '../cell-editor-display/cell-editor-display.component';
+import { ArrayBufferFromBase64 } from '@utils/base64';
 
 @Component({
 	selector: 'app-cell-editor',
@@ -18,35 +19,34 @@ import { CellEditorDisplayComponent } from '../cell-editor-display/cell-editor-d
 	host: {
 		'(click)': 'clickEvent()'
 	},
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CellEditorDisplayComponent]
 })
-export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {
+export class CellEditorComponent extends CellEditor {
 	readonly navigKeyDownRequest = output<{
 		cell: RawTagEditCell<any>;
 		event: KeyboardEvent;
 	}>();
 
 	readonly container = viewChild('cellContainer', { read: ViewContainerRef });
-	cell = input<RawTagEditCell<any>>();
-	lines: Array<string> = [];
-	inactive: boolean = true;
-	private readonly unsubscribe = new Subject<void>();
+	readonly cell = input<RawTagEditCell<any>>();
+	readonly lines = signal<Array<string>>([]);
+	readonly inactive = signal(true);
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly dialogOverlay = inject(DialogOverlayService);
 	private componentRef?: ComponentRef<CellEditorTxtComponent>;
 
-	ngOnDestroy(): void {
-		this.clearEdit();
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
+	constructor() {
+		super();
+		effect(() => {
+			this.display();
+		});
+		this.lifeRef.onDestroy(() => {
+			this.clearEdit();
+		});
 	}
 
 	clickEvent(): void {
 		this.edit();
-	}
-
-	ngOnChanges(): void {
-		this.display();
 	}
 
 	navigTo(): void {
@@ -62,7 +62,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	private static boolFrameToString(frame: Jam.MediaTagRawFrameBool): string {
-		return `${frame.value.bool}`;
+		return String(frame.value.bool);
 	}
 
 	private static textListFrameToString(frame: Jam.MediaTagRawFrameTextList): string {
@@ -78,7 +78,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	private static playCounterFrameToString(frame: Jam.MediaTagRawFrameNumber): string {
-		return `${frame.value.num}`;
+		return String(frame.value.num);
 	}
 
 	private static geobFrameToString(frame: Jam.MediaTagRawFrameGEOB): string {
@@ -91,11 +91,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 
 	private static musicCDIdFrameToString(frame: Jam.MediaTagRawFrameBin): string {
 		try {
-			const binary = atob(frame.value.bin);
-			const bytes = new Uint8Array(binary.length);
-			for (let i = 0; i < binary.length; i++) {
-				bytes[i] = binary.codePointAt(i)!;
-			}
+			const bytes = ArrayBufferFromBase64(frame.value.bin);
 			if (bytes.length >= 4) {
 				const firstTrack = bytes[2];
 				const lastTrack = bytes[3];
@@ -114,7 +110,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 			return v.guid;
 		}
 		if (v.num !== undefined) {
-			return `${v.num}`;
+			return String(v.num);
 		}
 		if (v.text !== undefined) {
 			return v.text;
@@ -184,26 +180,26 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 	}
 
 	private startEdit(type: Type<any>): void {
-		if (!this.inactive) {
+		if (!this.inactive()) {
 			return;
 		}
-		this.inactive = false;
+		this.inactive.set(false);
 		setTimeout(() => {
 			this.createComponent(type);
 			if (this.componentRef) {
 				this.componentRef.instance.cell = this.cell();
 				this.componentRef.instance.changeCell(this.cell());
-				this.componentRef.instance.navigBlur.pipe(takeUntil(this.unsubscribe))
+				this.componentRef.instance.navigBlur.pipe(takeUntilDestroyed(this.lifeRef))
 					.subscribe(() => {
 						this.clearEdit();
-						this.inactive = true;
+						this.inactive.set(true);
 					});
-				this.componentRef.instance.navigChange.pipe(takeUntil(this.unsubscribe))
+				this.componentRef.instance.navigChange.pipe(takeUntilDestroyed(this.lifeRef))
 					.subscribe(() => {
 						this.setChanged();
 					});
 			}
-		});
+		}, 0);
 	}
 
 	private clearEdit(): void {
@@ -299,7 +295,7 @@ export class CellEditorComponent extends CellEditor implements OnChanges, OnDest
 
 	private display(): void {
 		const cell = this.cell();
-		this.lines = cell ? cell.frames.map(f => this.frameToString(f)) : [];
+		this.lines.set(cell ? cell.frames.map(f => this.frameToString(f)) : []);
 	}
 
 	private frameToString(frame: RawTagEditFrame<any>): string {

@@ -1,17 +1,17 @@
 <div class="image-selector">
 	<div class="art-source">
 		<div class="section">
-			@for (src of searchSources; track src.url) {
+			@for (src of searchSources(); track src.url) {
 				<a [href]="src.url" rel="noopener" target="_blank">{{ src.name }}</a>
 			}
 		</div>
-		@if (!nodes) {
+		@if (nodes() === undefined) {
 			<app-loading />
 		} @else {
 			<div>
-				<app-background-text-list name="Images" [list]="nodes" />
+				<app-background-text-list name="Images" [list]="nodes()!" />
 				<div class="images" appFocusKeyList role="list">
-					@for (node of nodes; track node.image) {
+					@for (node of nodes()!; track node.image) {
 						<div appFocusKeyListItem role="listitem" (keydown.enter)="node.checked=!node.checked">
 							<div class="image" (clickenter)="node.checked=!node.checked">
 								<img alt="{{node.name}}" [src]="node.thumbnail">
@@ -34,11 +34,11 @@
 		}
 	</div>
 	<div class="artwork">
-		@if (artworks) {
+		@if (artworks(); as artworks) {
 			@if (data(); as data) {
 				<div class="current">
 					<div i18n class="section">Current Images</div>
-					@if (!isArtRefreshing) {
+					@if (!isArtRefreshing()) {
 						<app-admin-artwork-list [folderID]="data.folder.id" [artworks]="artworks" />
 					}
 				</div>
@@ -47,9 +47,9 @@
 	</div>
 </div>
 <div class="buttons">
-	@if (nodes && nodes.length > 0) {
+	@if (nodes()?.length) {
 		<div>
-			@if (isWorking) {
+			@if (isWorking()) {
 				<button class="button-on-control"><app-icon-spin class="icon-spin" /></button>
 			} @else {
 				<button i18n class="button-on-control" (click)="use()">Use Checked Artwork</button>

@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Jam, JamService } from '@jam';
 import { LoadingComponent } from '@core/components/loading/loading.component';
@@ -29,7 +29,6 @@ export interface PodcastSearch {
 	selector: 'app-page-podcast-search',
 	templateUrl: './podcast-search-page.component.html',
 	styleUrls: ['./podcast-search-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, HeaderIconSectionComponent, IconListAddComponent, IconSearchComponent, LoadingComponent]
 })
 export class PodcastSearchPageComponent {
@@ -37,16 +36,16 @@ export class PodcastSearchPageComponent {
 	readonly app = inject(AppService);
 	readonly jam = inject(JamService);
 	readonly navig = inject(NavigService);
-	podcasts?: Array<PodcastSearch>;
+	readonly podcasts = signal<Array<PodcastSearch> | undefined>(undefined);
+	readonly isSearching = signal(false);
 	searchValue: string = '';
-	isSearching: boolean = false;
 	notify = inject(NotifyService);
 
 	subscribe(pod?: PodcastSearchResult): void {
 		if (!pod) {
 			return;
 		}
-		this.jam.podcast.create({ url: pod.url.toString() })
+		this.jam.podcast.create({ url: pod.url.href })
 			.then(() => {
 				this.notify.success('Podcast subscribed');
 			})
@@ -56,26 +55,27 @@ export class PodcastSearchPageComponent {
 	}
 
 	search(query: string): void {
-		this.podcasts = undefined;
-		if (query && query.length > 0) {
-			this.isSearching = true;
-			this.jam.podcast.discover({ query })
-				.then(data => {
-					if (this.searchValue === query) {
-						this.buildSearchResults(data);
-						this.isSearching = false;
-					}
-				}).catch((error: unknown) => {
-					this.isSearching = false;
-					this.notify.error(error);
-				});
+		this.podcasts.set(undefined);
+		if (!query || query.length === 0) {
+			return;
 		}
+		this.isSearching.set(true);
+		this.jam.podcast.discover({ query })
+			.then(data => {
+				if (this.searchValue !== query) {
+					return;
+				}
+				this.buildSearchResults(data);
+				this.isSearching.set(false);
+			})
+			.catch((error: unknown) => {
+				this.isSearching.set(false);
+				this.notify.error(error);
+			});
 	}
 
 	private buildSearchResults(data: Array<PodcastDiscover>): void {
-		const collect: {
-			[name: string]: PodcastSearch | undefined;
-		} = {};
+		const collect: Record<string, PodcastSearch | undefined> = {};
 		for (const result of data) {
 			const url = new URL(result.url);
 			const allowedHosts = ['feedburner.com', 'www.feedburner.com'];
@@ -98,16 +98,17 @@ export class PodcastSearchPageComponent {
 			if (podcast.logoUrl?.length === 0) {
 				podcast.logoUrl = result.scaled_logo_url;
 			}
-			if (!podcast.pods.some(p => p.url.toString() === url.toString())) {
-				podcast.pods.push({ result, url, displayURL: url.toString() });
+			if (podcast.pods.every(p => p.url.href !== url.href)) {
+				podcast.pods.push({ result, url, displayURL: url.href });
 			}
 		}
-		this.podcasts = Object.keys(collect)
-			.map(key => {
-				const pod = collect[key]!;
-				pod.selected = pod.pods.find(p => p.url.pathname.includes('mp3'));
-				pod.selected ??= pod.pods[0];
-				return pod;
-			});
+		const podcasts: Array<PodcastSearch> =
+			Object.values(collect)
+				.map(pod => {
+					pod!.selected = pod!.pods.find(p => p.url.pathname.includes('mp3'));
+					pod!.selected ??= pod!.pods[0];
+					return pod!;
+				});
+		this.podcasts.set(podcasts);
 	}
 }

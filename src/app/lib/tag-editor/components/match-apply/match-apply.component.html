@@ -1,10 +1,10 @@
 <div class="match-apply">
 	<div>
 		<div class="section" i18n>Genres</div>
-		@if (isGenreSearchRunning) {
+		@if (isGenreSearchRunning()) {
 			<app-icon-spin class="icon-spin" />
 		}
-		@if (genres && !isGenreSearchRunning) {
+		@if (!isGenreSearchRunning() && genres(); as genres) {
 			@for (genre of genres; track genre) {
 				<label title="Usage Count: {{genre.tag.count}}" class="select">
 					<input type="checkbox" [(ngModel)]="genre.checked"> {{ genre.tag.name }} [{{ genre.tag.count }}]

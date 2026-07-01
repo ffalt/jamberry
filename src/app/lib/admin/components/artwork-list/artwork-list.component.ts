@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ImageFormatType, type Jam, JamService } from '@jam';
 import { DialogOverlayService } from '@modules/dialog-overlay';
@@ -36,21 +36,31 @@ function extractExt(filename: string): string {
 	selector: 'app-admin-artwork-list',
 	templateUrl: './artwork-list.component.html',
 	styleUrls: ['./artwork-list.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ClickKeyEnterDirective, FilesizePipe, FocusKeyListDirective, FocusKeyListItemDirective, FormsModule, IconTrashComponent, InlineEditComponent]
 })
-export class ArtworkListComponent implements OnChanges {
+export class ArtworkListComponent {
 	readonly artworks = input<Array<Jam.Artwork>>();
 	readonly folderID = input<string>();
-	nodes?: Array<ArtworkImageNode>;
+	readonly nodes = signal<Array<ArtworkImageNode>>([]);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
 	private readonly dialogs = inject(DialogsService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
 
-	ngOnChanges(): void {
-		this.displayArtworks();
+	constructor() {
+		effect(() => {
+			const artworks = this.artworks();
+			const nodes: Array<ArtworkImageNode> = artworks ?
+				artworks.map(artwork => ({
+					name: extractBasename(artwork.name),
+					type: extractExt(artwork.name),
+					artwork,
+					thumbnail: this.jam.image.imageUrl({ id: artwork.id, size: 128, format: ImageFormatType.webp })
+				})) :
+				[];
+			this.nodes.set(nodes);
+		});
 	}
 
 	editArtworkName(node: ArtworkImageNode): void {
@@ -78,9 +88,7 @@ export class ArtworkListComponent implements OnChanges {
 		this.dialogs.confirm('Remove Artworks?', `Do you want to delete "${node.artwork.name}"?`, () => {
 			this.jam.artwork.remove({ id: node.artwork.id })
 				.then(item => {
-					if (this.nodes) {
-						this.nodes = this.nodes.filter(n => n !== node);
-					}
+					this.nodes.update(list => list.filter(n => n !== node));
 					const folderID = this.folderID();
 					this.folderService.waitForQueueResult('Removing Artwork', item, folderID ? [folderID] : []);
 				})
@@ -88,19 +96,5 @@ export class ArtworkListComponent implements OnChanges {
 					this.notify.error(error);
 				});
 		});
-	}
-
-	private displayArtworks(): void {
-		this.nodes = [];
-		const artworks = this.artworks();
-		if (artworks) {
-			this.nodes = artworks.map(artwork =>
-				({
-					name: extractBasename(artwork.name),
-					type: extractExt(artwork.name),
-					artwork,
-					thumbnail: this.jam.image.imageUrl({ id: artwork.id, size: 128, format: ImageFormatType.webp })
-				}));
-		}
 	}
 }

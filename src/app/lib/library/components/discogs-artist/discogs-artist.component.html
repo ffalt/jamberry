@@ -1,10 +1,10 @@
-@if (!searchDone) {
+@if (!searchDone()) {
 	<app-loading/>
-} @else if (!hasResults) {
+} @else if (!hasResults()) {
 	<app-background-text text="No data available" i18n-text/>
-} @else if (isLoadingDetail) {
+} @else if (isLoadingDetail()) {
 	<app-loading/>
-} @else if (artistDisplay) {
+} @else if (artistDisplay(); as artistDisplay) {
 	<div class="discogs-results">
 		<div class="section-title">
 			<ng-container i18n>Artist Information by</ng-container>&nbsp;

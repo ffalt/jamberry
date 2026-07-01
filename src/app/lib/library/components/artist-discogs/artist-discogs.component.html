@@ -1,6 +1,6 @@
-@if (!artist) {
+@if (!artist()) {
 	<app-loading/>
 }
-@if (artist) {
+@if (artist(); as artist) {
 	<app-discogs-artist [artist]="artist.name"/>
 }

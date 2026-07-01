@@ -48,8 +48,7 @@ export class DialogAlbumComponent implements DialogOverlay<AlbumValuesEdit> {
 		type: { title: 'Album Type', value: '', enabled: true, autocomplete: [] }
 	};
 
-	edits: Array<AlbumValueEdit> = Object.keys(this.edit).map(key => {
-		const o = this.edit[key];
+	edits: Array<AlbumValueEdit> = Object.values(this.edit).map(o => {
 		o.getList = (): Array<string> => this.getAutoCompleteList(o);
 		return o;
 	});

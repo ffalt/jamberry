@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamObjectType, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { getUrlType, type JamType } from '@utils/jam-lists';
 import { JamAlbumObject, JamArtistObject, JamEpisodeObject, JamFolderObject, type JamLibraryObject, JamPlaylistObject, JamPodcastObject, JamSeriesObject, JamTrackObject } from '../../model/objects';
 import { EpisodeStateButtonComponent } from '../episode-state-button/episode-state.button.component';
@@ -17,65 +17,60 @@ import { IconPlayComponent } from '@core/components/icons/icon-play.component';
 	selector: 'app-page-obj',
 	templateUrl: './obj-page.component.html',
 	styleUrls: ['./obj-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundImageDirective, EpisodeStateButtonComponent, HeaderJamBaseComponent, IconPlayComponent, LoadingComponent, RouterModule]
 })
-export class ObjPageComponent implements OnInit, OnDestroy {
-	id?: string;
-	obj?: JamLibraryObject;
-	type?: JamType;
-	infos: Array<HeaderInfo> = [];
-	tabs: Array<HeaderTab> = [];
-	isPodcastEpisode: boolean = false;
+export class ObjPageComponent {
+	readonly obj = signal<JamLibraryObject | undefined>(undefined);
+	readonly isPodcastEpisode = signal(false);
+	readonly infos = signal<Array<HeaderInfo>>([]);
+	readonly tabs = signal<Array<HeaderTab>>([]);
+	private id?: string;
+	private type?: JamType;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly library = inject(LibraryService);
 
 	get asPodcastEpisode(): Jam.Episode | undefined {
-		return (this.obj as any) as Jam.Episode;
+		return this.obj() as Jam.Episode | undefined;
 	}
 
-	ngOnInit(): void {
+	constructor() {
 		this.route.url
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(value => {
 				this.type = getUrlType(value);
-				this.isPodcastEpisode = this.type?.type === JamObjectType.episode;
+				this.isPodcastEpisode.set(this.type?.type === JamObjectType.episode);
 			});
 		this.route.paramMap
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(paramMap => {
 				this.id = paramMap.get('id') ?? undefined;
 				this.refresh();
 			});
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	display(obj?: JamLibraryObject): void {
-		this.obj = obj;
+		this.obj.set(obj);
 		if (obj) {
-			this.infos = obj.getInfos();
-			this.tabs = this.type?.id ? this.library.buildIDTabs(this.type.id, obj.id) : [];
+			this.infos.set(obj.getInfos());
+			this.tabs.set(this.type?.id ? this.library.buildIDTabs(this.type.id, obj.id) : []);
 		}
 	}
 
 	refresh(): void {
-		this.obj = undefined;
-		if (this.id && this.type) {
-			this.get(this.id)
-				.then(obj => {
-					this.display(obj);
-				})
-				.catch((error: unknown) => {
-					this.notify.error(error);
-				});
+		this.obj.set(undefined);
+		if (!this.id || !this.type) {
+			return;
 		}
+		this.get(this.id)
+			.then(obj => {
+				this.display(obj);
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 
 	async get(id: string): Promise<JamLibraryObject | undefined> {

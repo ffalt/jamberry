@@ -159,10 +159,12 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	setSpeed(speed: number): void {
-		if (this.soundObject) {
-			this.soundObject.setPlaybackRate(speed);
-			this.publish(PlayerEvents.SPEED, this.speed());
+		if (!this.soundObject) {
+			return;
 		}
+
+		this.soundObject.setPlaybackRate(speed);
+		this.publish(PlayerEvents.SPEED, this.speed());
 	}
 
 	setVolume(value: number): void {
@@ -181,11 +183,13 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	stop(): void {
-		if (this.soundObject) {
-			this.soundObject.stop();
-			this.unloadLast();
-			this.lastMedia = undefined;
+		if (!this.soundObject) {
+			return;
 		}
+
+		this.soundObject.stop();
+		this.unloadLast();
+		this.lastMedia = undefined;
 	}
 
 	unmute(): void {
@@ -210,10 +214,12 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	private unloadLast(): void {
-		if (this.lastMedia) {
-			soundManager.unload(this.lastMedia.id);
-			soundManager.destroySound(this.lastMedia.id);
-			this.lastMedia = undefined;
+		if (!this.lastMedia) {
+			return;
 		}
+
+		soundManager.unload(this.lastMedia.id);
+		soundManager.destroySound(this.lastMedia.id);
+		this.lastMedia = undefined;
 	}
 }

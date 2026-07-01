@@ -57,12 +57,14 @@ export class SearchBoxComponent implements AutocompleteDataControl<{ type: strin
 		];
 		let list: Array<AutocompleteOption<{ type: string }>> = [];
 		for (const part of parts) {
-			if (part.list && part.list.length > 0) {
-				const items: Array<AutocompleteOption<{ type: string }>> = part.list.map(data =>
-					({ data: { type: part.type, ...data } }));
-				items[0].header = part.type;
-				list = [...list, ...items];
+			if (!(part.list && part.list.length > 0)) {
+				continue;
 			}
+
+			const items: Array<AutocompleteOption<{ type: string }>> = part.list.map(data =>
+				({ data: { type: part.type, ...data } }));
+			items[0].header = part.type;
+			list = [...list, ...items];
 		}
 		return list;
 	}

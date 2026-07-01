@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 
@@ -11,18 +11,17 @@ export interface Image {
 	imports: [IconSpinComponent],
 	selector: 'app-image-overlay-content',
 	templateUrl: './image-overlay-content.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./image-overlay-content.scss']
 })
 export class ImageOverlayContentComponent implements DialogOverlay<Image> {
-	data?: Image;
-	loading = true;
+	readonly data = signal<Image | undefined>(undefined);
+	readonly loading = signal(true);
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<Image>>): void {
-		this.data = options.data;
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<Image>>): void {
+		this.data.set(options.data);
 	}
 
 	onLoad(): void {
-		this.loading = false;
+		this.loading.set(false);
 	}
 }

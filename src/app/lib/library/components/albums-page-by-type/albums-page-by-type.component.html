@@ -1,6 +1,6 @@
-@if (typeInfo) {
+@if (typeInfo(); as typeInfo) {
 	<div class="albums" appDeferLoadScrollHost>
-		<app-view-header-icon-section [section]="typeInfo.text" [sectionType]="typeInfo.category" [icon]="typeInfo.icon" [tabs]="tabs" />
+		<app-view-header-icon-section [section]="typeInfo.text" [sectionType]="typeInfo.category" [icon]="typeInfo.icon" [tabs]="tabs()" />
 		<div class="content">
 			<router-outlet />
 		</div>

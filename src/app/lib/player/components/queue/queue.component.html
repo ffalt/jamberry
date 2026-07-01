@@ -1,13 +1,14 @@
-@if (!entries || entries.length === 0) {
+@let list = entries();
+@if (list.length === 0) {
 	<app-background-text text="No Tracks in Queue" i18n-text />
 } @else {
 	<div class="title" i18n>Queue</div>
 }
-<div [settabindex]="entries.length===0?'':'0'" appFocusKeyList class="tracks-wrapper" role="list">
-	@if (entries && entries.length > 0) {
+<div [settabindex]="list.length===0?'':'0'" appFocusKeyList class="tracks-wrapper" role="list">
+	@if (list.length > 0) {
 		<cdk-virtual-scroll-viewport style="height: 100%; width:100%;" [itemSize]="60">
-			<div class="tracks" cdkDropList [cdkDropListData]="entries" (cdkDropListDropped)="onDrop($event)">
-				<div *cdkVirtualFor="let entry of entries; let index = index;"
+			<div class="tracks" cdkDropList [cdkDropListData]="list" (cdkDropListDropped)="onDrop($event)">
+				<div *cdkVirtualFor="let entry of list; let index = index;"
 						 class="track-wrapper"
 						 cdkDrag
 						 appFocusKeyListItem role="listitem"
@@ -26,7 +27,7 @@
 	}
 </div>
 @if (showControls()) {
-	<div class="queue-actions" [class.disabled]="!entries || entries.length===0">
+	<div class="queue-actions" [class.disabled]="list.length===0">
 		<button class="queue-action" title="Clear Queue" i18n-title (click)="queue.clear()"><app-icon-remove aria-hidden="true" />
 			<ng-container i18n>Clear</ng-container>
 		</button>

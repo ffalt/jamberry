@@ -20,7 +20,7 @@ import { AutocompleteContentDirective } from '@modules/autocomplete/autocomplete
 })
 export class TagEditorInlineAutocompleteComponent implements ControlValueAccessor, AutocompleteDataControl<string> {
 	readonly getList = input<(data: any) => Array<string>>();
-	readonly valueInput = input<string>(undefined, {alias: 'value'});
+	readonly valueInput = input<string>(undefined, { alias: 'value' });
 	readonly value = linkedSignal(this.valueInput);
 	readonly data = input<any>();
 	readonly valueChange = output<string | undefined>();
@@ -81,7 +81,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 			if (editorInput) {
 				editorInput.nativeElement.focus();
 			}
-		});
+		}, 0);
 	}
 
 	autocompleteEnter(query: string): void {

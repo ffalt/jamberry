@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 /*
  * jam icon: stopwatch
  * Source set: MFG Labs (config.json src: "mfglabs")
- * License: SIL Open Font License (http://scripts.sil.org/OFL)
+ * License: SIL Open Font License (https://scripts.sil.org/OFL)
  *   Copyright (C) 2012 by MFG Labs - http://www.mfglabs.com/
  */
 @Component({

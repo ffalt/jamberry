@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, effect, inject, input, signal, viewChild } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, type JamParameters, JamService, type ListType } from '@jam';
 import { TrackListComponent } from '../track-list/track-list.component';
@@ -8,33 +8,45 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-tracks-loader',
 	templateUrl: './tracks-loader.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TrackListComponent, LoadMoreButtonComponent, LoadingComponent]
 })
-export class TracksLoaderComponent implements OnChanges {
+export class TracksLoaderComponent {
 	readonly listType = input<ListType>();
 	readonly query = input<string>();
 	readonly queryCmd = input<JamParameters.TrackFilterParameters>();
-	readonly loadMore = viewChild.required(LoadMoreButtonComponent);
-	showRating: boolean = false;
-	showPlayCount: boolean = false;
-	showPlayDate: boolean = false;
-	tracks?: Array<Jam.Track>;
+	readonly tracks = signal<Array<Jam.Track> | undefined>(undefined);
+	readonly showRating = computed(() => this.listType() === 'highest');
+	readonly showPlayCount = computed(() => this.listType() === 'frequent');
+	readonly showPlayDate = computed(() => this.listType() === 'recent');
+	private readonly loadMore = viewChild.required(LoadMoreButtonComponent);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private activeRequest?: Promise<void>;
+
+	constructor() {
+		effect(() => {
+			const loadMore = this.loadMore();
+			loadMore.skip.set(0);
+			loadMore.total.set(0);
+			loadMore.hasMore.set(false);
+			this.tracks.set(undefined);
+			this.load();
+		});
+	}
 
 	getTracks(requestFunc: () => Promise<Jam.TrackPage>): void {
 		const loadMore = this.loadMore();
 		loadMore.loading.set(true);
 		const request = requestFunc()
 			.then(data => {
-				if (this.activeRequest === request) {
-					this.tracks = [...(this.tracks ?? []), ...data.items];
-					loadMore.hasMore.set((data.total ?? 0) > this.tracks.length);
-					loadMore.total.set(data.total);
-					loadMore.loading.set(false);
+				if (this.activeRequest !== request) {
+					return;
 				}
+				const updated = [...(this.tracks() ?? []), ...data.items];
+				this.tracks.set(updated);
+				loadMore.hasMore.set((data.total ?? 0) > updated.length);
+				loadMore.total.set(data.total);
+				loadMore.loading.set(false);
 			})
 			.catch((error: unknown) => {
 				if (this.activeRequest === request) {
@@ -88,19 +100,7 @@ export class TracksLoaderComponent implements OnChanges {
 		} else if (this.listType()) {
 			this.list();
 		} else {
-			this.tracks = [];
+			this.tracks.set([]);
 		}
-	}
-
-	ngOnChanges(): void {
-		const loadMore = this.loadMore();
-		loadMore.skip.set(0);
-		loadMore.total.set(0);
-		loadMore.hasMore.set(false);
-		this.showRating = this.listType() === 'highest';
-		this.showPlayCount = this.listType() === 'frequent';
-		this.showPlayDate = this.listType() === 'recent';
-		this.tracks = undefined;
-		this.load();
 	}
 }

@@ -1,8 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { extractSVGParts } from '@utils/svg-parts';
 import { DurationPipe } from '@core/pipes/duration.pipe';
 import { FilesizePipe } from '@core/pipes/filesize.pipe';
@@ -15,31 +15,25 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-track-overview',
 	templateUrl: './track-overview.component.html',
 	styleUrls: ['./track-overview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [CommonModule, FilesizePipe, DurationPipe, LoadingComponent, LyricsComponent]
+	imports: [DatePipe, FilesizePipe, DurationPipe, LoadingComponent, LyricsComponent]
 })
-export class TrackOverviewComponent implements OnInit, OnDestroy {
+export class TrackOverviewComponent {
 	readonly navig = inject(NavigService);
-	id?: string;
-	track?: Jam.Track;
-	svg?: { viewbox: string; path: string };
+	readonly track = signal<Jam.Track | undefined>(undefined);
+	readonly svg = signal<{ viewbox: string; path: string } | undefined>(undefined);
+	private id?: string;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 
-	ngOnInit(): void {
+	constructor() {
 		this.route.paramMap
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(paramMap => {
 				this.id = paramMap.get('id') ?? undefined;
 				this.refresh();
 			});
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 
 	load(): void {
@@ -66,7 +60,7 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 		}
 		this.jam.waveform.svg({ id: this.id, width: 2000 })
 			.then(data => {
-				this.svg = extractSVGParts(data);
+				this.svg.set(extractSVGParts(data));
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
@@ -74,13 +68,13 @@ export class TrackOverviewComponent implements OnInit, OnDestroy {
 	}
 
 	refresh(): void {
-		this.track = undefined;
-		this.svg = undefined;
+		this.track.set(undefined);
+		this.svg.set(undefined);
 		this.load();
 	}
 
 	display(track: Jam.Track): void {
-		this.track = track;
+		this.track.set(track);
 		this.loadWaveForm();
 	}
 }

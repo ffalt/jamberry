@@ -66,7 +66,7 @@ export class ActionsService {
 	}
 
 	async toggleFav(type: string, base: Jam.Base): Promise<void> {
-		base.state = base.state ?? {};
+		base.state ??= {};
 		const remove = !!base.state.faved;
 		try {
 			await this.jam.state.fav({ id: base.id, remove });
@@ -111,7 +111,7 @@ export class ActionsService {
 
 	download(base?: Jam.Base): void {
 		if (base) {
-			globalThis.location.href = this.jam.download.downloadUrl({ id: base.id });
+			location.href = this.jam.download.downloadUrl({ id: base.id });
 		}
 	}
 }

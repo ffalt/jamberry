@@ -18,10 +18,7 @@ export class HotkeysService {
 
 	add(hotkey: HotkeyLike, specificEvent?: string): HotkeyLike {
 		if (Array.isArray(hotkey)) {
-			const temp: Array<Hotkey> = [];
-			for (const key of hotkey) {
-				temp.push(this.add(key, specificEvent) as Hotkey);
-			}
+			const temp: Array<Hotkey> = Array.from(hotkey, key => (this.add(key, specificEvent) as Hotkey));
 			return temp;
 		}
 		this.remove(hotkey);
@@ -79,11 +76,7 @@ export class HotkeysService {
 			return this.hotkeys;
 		}
 		if (Array.isArray(combo)) {
-			const temp: Array<Hotkey> = [];
-			for (const key of combo) {
-				temp.push(this.get(key) as Hotkey);
-			}
-			return temp;
+			return Array.from(combo, key => (this.get(key) as Hotkey));
 		}
 		return this.hotkeys.find(hotk => hotk.combo.includes(combo));
 	}
@@ -93,11 +86,7 @@ export class HotkeysService {
 			return this.pause(this.hotkeys);
 		}
 		if (Array.isArray(hotkey)) {
-			const temp: Array<Hotkey> = [];
-			for (const key of hotkey) {
-				temp.push(this.pause(key) as Hotkey);
-			}
-			return temp;
+			return Array.from(hotkey, key => (this.pause(key) as Hotkey));
 		}
 		this.remove(hotkey);
 		this.pausedHotkeys.push(hotkey);
@@ -109,11 +98,7 @@ export class HotkeysService {
 			return this.unpause(this.pausedHotkeys);
 		}
 		if (Array.isArray(hotkey)) {
-			const temp: Array<Hotkey> = [];
-			for (const key of hotkey) {
-				temp.push(this.unpause(key) as Hotkey);
-			}
-			return temp;
+			return Array.from(hotkey, key => (this.unpause(key) as Hotkey));
 		}
 		const index: number = this.pausedHotkeys.indexOf(hotkey);
 		if (index !== -1) {

@@ -4,7 +4,7 @@
 <div class="toast-content">
 @if (title) {
 	<div [class]="options.titleClass">{{ title }}
-		@if (duplicatesCount) {
+		@if (duplicatesCount(); as duplicatesCount) {
 			[{{ duplicatesCount + 1 }}]
 		}
 	</div>
@@ -15,6 +15,6 @@
 </div>
 @if (options.progressBar) {
 	<div>
-		<div class="toast-progress" [style.width.%]="width"></div>
+		<div class="toast-progress" [style.width.%]="width()"></div>
 	</div>
 }

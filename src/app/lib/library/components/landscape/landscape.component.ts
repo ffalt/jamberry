@@ -299,14 +299,16 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 	}
 
 	private onResizeDebounced(): void {
-		if (this.data) {
-			const previousTransform = this.zoomBehavior ?
-				d3.zoomTransform(this.svgRef.nativeElement) :
-				undefined;
-			this.buildChart();
-			if (previousTransform && this.zoomBehavior) {
-				d3.select(this.svgRef.nativeElement).call(this.zoomBehavior.transform.bind(this.zoomBehavior), previousTransform);
-			}
+		if (!this.data) {
+			return;
+		}
+
+		const previousTransform = this.zoomBehavior ?
+			d3.zoomTransform(this.svgRef.nativeElement) :
+			undefined;
+		this.buildChart();
+		if (previousTransform && this.zoomBehavior) {
+			d3.select(this.svgRef.nativeElement).call(this.zoomBehavior.transform.bind(this.zoomBehavior), previousTransform);
 		}
 	}
 
@@ -470,10 +472,12 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 		const initTy = (this.height - (this.y(1) + PADDING) * fitScale) / 2;
 		svg.call(this.zoomBehavior.transform.bind(this.zoomBehavior), d3.zoomIdentity.translate(initTx, initTy).scale(fitScale));
 		svg.on('click', (event: MouseEvent) => {
-			if ((event.target as Element).tagName === 'svg') {
-				this.focusedGenreIds.set(new Set<string>());
-				this.updateVisuals();
+			if ((event.target as Element).tagName !== 'svg') {
+				return;
 			}
+
+			this.focusedGenreIds.set(new Set<string>());
+			this.updateVisuals();
 		});
 	}
 

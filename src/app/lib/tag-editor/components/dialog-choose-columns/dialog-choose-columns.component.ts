@@ -31,8 +31,11 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 	allColumns: Array<SelectColumn> = [];
 	version = 4;
 	urls: { [version: number]: string } = {
+		// eslint-disable-next-line unicorn/prefer-https
 		2: 'http://id3.org/id3v2-00',
+		// eslint-disable-next-line unicorn/prefer-https
 		3: 'http://id3.org/id3v2.3.0',
+		// eslint-disable-next-line unicorn/prefer-https
 		4: 'http://id3.org/id3v2.4.0-frames'
 	};
 
@@ -64,13 +67,13 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 		this.data = options.data;
 		this.allColumns = [];
 		const columns = this.data?.columns ?? [];
-		for (const key of Object.keys(FrameDefs)) {
+		for (const [key, value] of Object.entries(FrameDefs)) {
 			const subids = getFrameSubIds(key);
 			if (subids.length === 0) {
 				const column: RawTagEditColumn | undefined = columns.find(c => c.def.id === key);
 				this.allColumns.push({
 					id: key,
-					frameDef: FrameDefs[key],
+					frameDef: value,
 					column,
 					checked: !!column
 				});
@@ -81,7 +84,7 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 						id: key,
 						subid: sub.subid,
 						name: sub.name,
-						frameDef: FrameDefs[key],
+						frameDef: value,
 						column,
 						checked: !!column
 					});

@@ -1,4 +1,4 @@
-@if (hints) {
+@if (hints(); as hints) {
 	<div class="hints">
 		@for (hint of hints; track hint.hint.id) {
 			<div class="hint">
@@ -11,7 +11,7 @@
 			<div i18n class="hint">No Hints</div>
 		}
 		<div class="solutions">
-			@for (sol of solutions; track sol.name) {
+			@for (sol of solutions(); track sol.name) {
 				<button class="button-on-background" (click)="sol.click()">
 					@if (sol.running) {
 						<app-icon-spin class="icon-spin" />

@@ -40,8 +40,9 @@ export function formatFilenameByTag(track: Jam.Track, tag: Jam.MediaTagRaw): str
 	let start = '';
 	if (tag.frames.TPOS && tag.frames.TPOS.length > 0) {
 		const frame = tag.frames.TPOS[0];
-		let diskNr = (frame.value.text || '').split('/')[0];
-		const totalDiskNr = (frame.value.text || '').split('/')[1] || '99';
+		const split = (frame.value.text || '').split('/', 2);
+		let diskNr = split[0];
+		const totalDiskNr = split[1] || '99';
 		if (Number(totalDiskNr) > 1) {
 			while (diskNr.length < totalDiskNr.length) {
 				diskNr = `0${diskNr}`;
@@ -51,8 +52,9 @@ export function formatFilenameByTag(track: Jam.Track, tag: Jam.MediaTagRaw): str
 	}
 	if (tag.frames.TRCK && tag.frames.TRCK.length > 0) {
 		const frame = tag.frames.TRCK[0];
-		let trackNr = (frame.value.text || '').split('/')[0];
-		const totalTrackNr = (frame.value.text || '').split('/')[1] || '99';
+		const split = (frame.value.text || '').split('/', 2);
+		let trackNr = split[0];
+		const totalTrackNr = split[1] || '99';
 		while (trackNr.length < totalTrackNr.length) {
 			trackNr = `0${trackNr}`;
 		}

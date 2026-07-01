@@ -1,18 +1,21 @@
-import { Component, input, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, input, signal } from '@angular/core';
 
 @Component({
 	selector: 'app-loading',
 	templateUrl: './loading.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./loading.component.scss']
 })
-export class LoadingComponent implements OnInit {
+export class LoadingComponent {
 	readonly time = input<number>(2000);
-	show: boolean = false;
+	readonly show = signal(false);
+	private readonly lifeRef = inject(DestroyRef);
 
-	ngOnInit(): void {
-		setTimeout(() => {
-			this.show = true;
+	constructor() {
+		const timer = setTimeout(() => {
+			this.show.set(true);
 		}, this.time());
+		this.lifeRef.onDestroy(() => {
+			clearTimeout(timer);
+		});
 	}
 }

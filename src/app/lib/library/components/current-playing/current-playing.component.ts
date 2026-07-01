@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LimitPipe } from '@core/pipes/limit.pipe';
 import { ClickKeyEnterDirective } from '@core/directives/click-enterkey.directive';
 import { ActionsService } from '@core/services/actions/actions.service';
@@ -13,7 +13,6 @@ import { IconFavComponent } from '@core/components/icons/icon-fav.component';
 	selector: 'app-current-playing',
 	templateUrl: './current-playing.component.html',
 	styleUrls: ['./current-playing.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [LimitPipe, ClickKeyEnterDirective, CoverartImageComponent, IconHeartEmptyComponent, IconHeartFullComponent, IconFavComponent]
 })
 export class CurrentPlayingComponent {

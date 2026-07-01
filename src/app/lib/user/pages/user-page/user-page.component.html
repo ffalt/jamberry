@@ -1,6 +1,7 @@
 <div class="user">
 	<app-view-header-slim i18n-section section="User" />
-	@if (auth.user) {
+	@let u = user();
+	@if (u) {
 		<div class="content">
 			<div class="row">
 				<div class="column first">
@@ -10,28 +11,28 @@
 				<div class="column">
 					<div class="section">
 						<div i18n class="section-title">Name</div>
-						<div>{{ auth.user.name }}</div>
+						<div>{{ u.name }}</div>
 					</div>
-					@if (auth.user.roles) {
+					@if (u.roles) {
 						<div class="section">
 							<div i18n class="section-title">Permissions</div>
 							<div class="roles">
-								@if (auth.user.roles.stream) {
+								@if (u.roles.stream) {
 									<div><app-icon-checkmark />
 										<ng-container i18n>Stream Audio</ng-container>
 									</div>
 								}
-								@if (auth.user.roles.podcast) {
+								@if (u.roles.podcast) {
 									<div><app-icon-checkmark />
 										<ng-container i18n>Manage Podcasts</ng-container>
 									</div>
 								}
-								@if (auth.user.roles.upload) {
+								@if (u.roles.upload) {
 									<div><app-icon-checkmark />
 										<ng-container i18n>Upload Audio</ng-container>
 									</div>
 								}
-								@if (auth.user.roles.admin) {
+								@if (u.roles.admin) {
 									<div><app-icon-checkmark />
 										<ng-container i18n>Server Administration</ng-container>
 									</div>

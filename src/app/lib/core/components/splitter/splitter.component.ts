@@ -36,13 +36,15 @@ export class SplitterComponent {
 	}
 
 	doDrag(x: number): void {
-		if (this.drag) {
-			let offsetX = this.drag.width + x;
-			if (!this.leftSnap() && this.element.nativeElement.parentNode) {
-				offsetX = (this.element.nativeElement.parentNode as HTMLElement).offsetWidth - offsetX;
-			}
-			this.drag.element.style.width = `${Math.max(0, offsetX).toString()}px`;
+		if (!this.drag) {
+			return;
 		}
+
+		let offsetX = this.drag.width + x;
+		if (!this.leftSnap() && this.element.nativeElement.parentNode) {
+			offsetX = (this.element.nativeElement.parentNode as HTMLElement).offsetWidth - offsetX;
+		}
+		this.drag.element.style.width = `${Math.max(0, offsetX).toString()}px`;
 	}
 
 	onTouchStart(event: TouchEvent): void {

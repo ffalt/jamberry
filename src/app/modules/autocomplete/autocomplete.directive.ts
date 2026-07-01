@@ -116,10 +116,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		const topLimit = list.length - 1;
 		const bottomLimit = NO_INDEX;
 		const currentResultIndex = currentIndex + step;
-		let resultIndex = currentResultIndex;
-		if (currentResultIndex === topLimit + 1) {
-			resultIndex = bottomLimit;
-		}
+		let resultIndex = currentResultIndex === topLimit + 1 ? bottomLimit : currentResultIndex;
 		if (currentResultIndex === bottomLimit - 1) {
 			resultIndex = topLimit;
 		}

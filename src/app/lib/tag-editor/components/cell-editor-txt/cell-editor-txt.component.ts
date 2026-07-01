@@ -24,11 +24,13 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 	}
 
 	changeCell(cell?: RawTagEditCell<{ id?: string; text: string }>): void {
-		if (cell) {
-			this.original =
-				(cell.frames.length === 0 || !cell.frames[0].value.text) ? '' : cell.frames[0].value.text;
-			this.val = this.original;
+		if (!cell) {
+			return;
 		}
+
+		this.original =
+			(cell.frames.length === 0 || !cell.frames[0].value.text) ? '' : cell.frames[0].value.text;
+		this.val = this.original;
 	}
 
 	ngAfterViewInit(): void {

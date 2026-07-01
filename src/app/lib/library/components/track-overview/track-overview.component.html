@@ -1,7 +1,7 @@
-@if (track) {
+@if (track(); as track) {
 	<div>
 		<div i18n class="section-title">Waveform</div>
-		@if (svg) {
+		@if (svg(); as svg) {
 			<div class="svg">
 				<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" i18n-preserveAspectRatio height="100px" width="100%" style="fill-rule:evenodd;clip-rule:evenodd;" [attr.viewBox]="svg.viewbox">
 					<path stroke="#1ed760" fill="#1ed760" [attr.d]="svg.path" />

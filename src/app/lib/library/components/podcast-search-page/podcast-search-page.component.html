@@ -9,10 +9,10 @@
 			<a href="https://gpodder.net" i18n rel="noopener" target="_blank">gpodder.net</a></div>
 	</app-view-header-icon-section>
 	<div class="content">
-		@if (isSearching) {
+		@if (isSearching()) {
 			<app-loading [time]="0" />
 		}
-		@if (podcasts) {
+		@if (podcasts(); as podcasts) {
 			<div class="podcasts">
 				@if (podcasts.length === 0) {
 					<div i18n>No Results</div>

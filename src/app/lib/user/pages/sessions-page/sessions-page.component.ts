@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, type OnInit, signal } from '@angular/core';
 import { type Jam, JamAuthService, JamService } from '@jam';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { DialogPasswordComponent, type PasswordEdit } from '@core/components/dialog-password/dialog-password.component';
@@ -11,33 +11,32 @@ import { IconRemoveComponent } from '@core/components/icons/icon-remove.componen
 	selector: 'app-sessions-page',
 	templateUrl: './sessions-page.component.html',
 	styleUrls: ['./sessions-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CommonModule, HeaderSlimComponent, IconRemoveComponent]
 })
 export class SessionsPageComponent implements OnInit {
-	sessions?: Array<{ session: Jam.UserSession; isExpired: boolean }>;
-	isUnlocked: boolean = false;
+	readonly sessions = signal<Array<{ session: Jam.UserSession; isExpired: boolean }> | undefined>(undefined);
+	readonly isUnlocked = signal(false);
+	readonly subsonicToken = signal<Jam.SubsonicToken | undefined>(undefined);
 	lock: PasswordEdit = { pass: '' };
-	subsonicToken?: Jam.SubsonicToken;
 	private readonly jam = inject(JamService);
 	private readonly auth = inject(JamAuthService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
 	private readonly notify = inject(NotifyService);
 
 	generateSubsonicToken(): void {
-		if (!this.isUnlocked || !this.auth.user) {
+		if (!this.isUnlocked() || !this.auth.user) {
 			return;
 		}
 		this.jam.user.generateSubsonicToken({ id: this.auth.user.id, password: this.lock.pass })
 			.then(token => {
-				this.subsonicToken = token;
-				this.isUnlocked = true;
+				this.subsonicToken.set(token);
+				this.isUnlocked.set(true);
 				this.refresh();
 				this.notify.success('Token generated');
 			})
 			.catch((error: unknown) => {
-				this.subsonicToken = undefined;
-				this.isUnlocked = false;
+				this.subsonicToken.set(undefined);
+				this.isUnlocked.set(false);
 				this.notify.error(error);
 			});
 	}
@@ -47,7 +46,7 @@ export class SessionsPageComponent implements OnInit {
 			childComponent: DialogPasswordComponent,
 			data: this.lock,
 			onOkBtn: async () => {
-				this.isUnlocked = true;
+				this.isUnlocked.set(true);
 			},
 			onCancelBtn: async () => Promise.resolve()
 		});
@@ -63,9 +62,7 @@ export class SessionsPageComponent implements OnInit {
 		const id = session.id;
 		this.jam.session.remove({ id })
 			.then(() => {
-				if (this.sessions) {
-					this.sessions = this.sessions.filter(s => s.session.id !== id);
-				}
+				this.sessions.update(list => list?.filter(s => s.session.id !== id));
 				this.notify.success('Session Login removed');
 			})
 			.catch((error: unknown) => {
@@ -76,7 +73,7 @@ export class SessionsPageComponent implements OnInit {
 	refresh(): void {
 		this.jam.session.list()
 			.then(list => {
-				this.sessions = list.map(session => ({ session, isExpired: ((session.expires !== undefined) && (session.expires < Date.now())) }));
+				this.sessions.set(list.map(session => ({ session, isExpired: ((session.expires !== undefined) && (session.expires < Date.now())) })));
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

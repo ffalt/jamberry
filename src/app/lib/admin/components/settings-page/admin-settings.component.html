@@ -5,7 +5,7 @@
 		</button>
 	</app-view-header-slim>
 	<div class="content">
-		@if (settings) {
+		@if (settings(); as settings) {
 			<div>
 				<div i18n class="section-title">Server</div>
 				<div class="section-entry">

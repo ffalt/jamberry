@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, type OnDestroy, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ObjsLoaderComponent } from '../objs-loader/objs-loader.component';
@@ -29,13 +29,12 @@ const noClick = (): void => {
 	selector: 'app-page-genre',
 	templateUrl: './genre-page.component.html',
 	styleUrls: ['./genre-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ObjsLoaderComponent, TracksLoaderComponent, HeaderIconSectionComponent]
 })
 export class GenrePageComponent implements OnDestroy {
-	title = 'Genre';
+	readonly title = signal('Genre');
+	readonly genreID = signal<string | undefined>(undefined);
 	genre = '';
-	genreID?: string;
 	mode?: string;
 	library = inject(LibraryService);
 	tabsObjs: GenreTabs = {
@@ -45,8 +44,7 @@ export class GenrePageComponent implements OnDestroy {
 	};
 
 	currentTab: GenreTab = this.tabsObjs.artists;
-	tabs: Array<HeaderTab> = Object.keys(this.tabsObjs).map(key => {
-		const tab = this.tabsObjs[key];
+	tabs: Array<HeaderTab> = Object.values(this.tabsObjs).map(tab => {
 		tab.click = (): void => {
 			this.setCurrentTab(tab);
 		};
@@ -61,10 +59,10 @@ export class GenrePageComponent implements OnDestroy {
 	constructor() {
 		this.route.paramMap
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(paramMap => {
-				this.genre = paramMap.get('name') ?? '';
-				this.title = `Genre: ${this.genre}`;
-				this.genreID = paramMap.get('id') ?? undefined;
+			.subscribe(parameterMap => {
+				this.genre = parameterMap.get('name') ?? '';
+				this.title.set(`Genre: ${this.genre}`);
+				this.genreID.set(parameterMap.get('id') ?? undefined);
 				// TODO: load genre by id if param.name is empty
 			});
 	}

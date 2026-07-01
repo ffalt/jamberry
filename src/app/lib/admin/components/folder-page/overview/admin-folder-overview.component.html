@@ -1,4 +1,4 @@
-@if (folder) {
+@if (folder(); as folder) {
 	<div class="folder">
 		<div class="actions">
 			<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><app-icon-reload /></button>
@@ -20,7 +20,7 @@
 					<div>
 						<div i18n class="label">Type</div>
 						<div>{{ folder.type }}
-							@if (isAlbum) {
+							@if (isAlbum()) {
 								/ {{ folder.tag?.albumType }}
 							}
 						</div>
@@ -92,12 +92,12 @@
 					<button class="button-on-control button-with-icon" (click)="uploadImage()"><app-icon-upload-cloud />
 						<ng-container i18n>Upload Artwork</ng-container>
 					</button>
-					@if (isAlbum && folder.tag) {
+					@if (isAlbum() && folder.tag) {
 						<button class="button-on-control button-with-icon" title="Album Images" i18n-title (click)="searchImages()"><app-icon-picture />
 							<ng-container i18n>Search Artwork</ng-container>
 						</button>
 					}
-					@if (isArtist && folder.tag) {
+					@if (isArtist() && folder.tag) {
 						<button class="button-on-control button-with-icon" title="Artist Images" i18n-title (click)="searchImages()"><app-icon-picture />
 							<ng-container i18n>Search Art</ng-container>
 						</button>

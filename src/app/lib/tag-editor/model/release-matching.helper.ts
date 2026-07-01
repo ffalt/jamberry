@@ -84,28 +84,32 @@ export class MatchingTrack {
 	}
 
 	private scoreAcoustid(match: Matching, scores: Array<Score>): void {
-		if (match.acoustidEntries && this.mbTrack.recording?.id) {
-			const id = this.mbTrack.recording.id;
-			const acoustIDEntry = match.acoustidEntries.find(item => item.recordingID === id);
-			if (acoustIDEntry) {
-				scores.push({ name: 'acoustid', score: acoustIDEntry.score, weight: 1 });
-			}
+		if (!(match.acoustidEntries && this.mbTrack.recording?.id)) {
+			return;
+		}
+
+		const id = this.mbTrack.recording.id;
+		const acoustIDEntry = match.acoustidEntries.find(item => item.recordingID === id);
+		if (acoustIDEntry) {
+			scores.push({ name: 'acoustid', score: acoustIDEntry.score, weight: 1 });
 		}
 	}
 
 	private scoreDuration(match: Matching, scores: Array<Score>): void {
-		if (this.mbTrack.length) {
-			const lengthDiff = Math.abs((Math.round(match.track.duration || 0) * 1000) - (this.mbTrack.length || 0));
-			let durationScore = 0;
-			if (lengthDiff === 0) {
-				durationScore = 1;
-			} else if (lengthDiff < 1000) {
-				durationScore = 0.8;
-			} else if (lengthDiff < 10_000) {
-				durationScore = 0.2;
-			}
-			scores.push({ name: 'duration', score: durationScore, weight: 0.2 });
+		if (!this.mbTrack.length) {
+			return;
 		}
+
+		const lengthDiff = Math.abs((Math.round(match.track.duration || 0) * 1000) - (this.mbTrack.length || 0));
+		let durationScore = 0;
+		if (lengthDiff === 0) {
+			durationScore = 1;
+		} else if (lengthDiff < 1000) {
+			durationScore = 0.8;
+		} else if (lengthDiff < 10_000) {
+			durationScore = 0.2;
+		}
+		scores.push({ name: 'duration', score: durationScore, weight: 0.2 });
 	}
 
 	private scoreTrackNr(match: Matching, scores: Array<Score>): void {
@@ -161,7 +165,7 @@ export class MatchMedia {
 			}
 		}
 		if (this.tracks.length > 0) {
-			this.score = this.score / this.tracks.length;
+			this.score /= this.tracks.length;
 		} else {
 			this.complete = false;
 		}
@@ -212,20 +216,23 @@ export class MatchRelease {
 		const matchings: { [id: string]: Array<MatchingTrack> } = {};
 		for (const media of this.media) {
 			for (const track of media.tracks) {
-				if (track.currentMatch) {
-					matchings[track.currentMatch.match.track.id] = matchings[track.currentMatch.match.track.id] ?? [];
-					matchings[track.currentMatch.match.track.id].push(track);
+				if (!track.currentMatch) {
+					continue;
 				}
+
+				matchings[track.currentMatch.match.track.id] ??= [];
+				matchings[track.currentMatch.match.track.id].push(track);
 			}
 		}
-		for (const key of Object.keys(matchings)) {
-			let tracks = matchings[key];
-			if (tracks.length > 1) {
-				tracks = tracks.toSorted((a, b) => (b.currentMatch?.score ?? 0) - (a.currentMatch?.score ?? 0));
-				tracks.shift();
-				for (const track of tracks) {
-					track.currentMatch = undefined;
-				}
+		for (const tracks of Object.values(matchings)) {
+			if (tracks.length <= 1) {
+				continue;
+			}
+
+			const tracksSorted = tracks.toSorted((a, b) => (b.currentMatch?.score ?? 0) - (a.currentMatch?.score ?? 0));
+			tracksSorted.shift();
+			for (const track of tracksSorted) {
+				track.currentMatch = undefined;
 			}
 		}
 	}
@@ -235,14 +242,11 @@ export class MatchReleaseGroup {
 	releases: Array<MatchRelease> = [];
 	score: number = 0;
 	expanded?: boolean;
-	selecting?: boolean;
 	currentRelease?: MatchRelease;
 
 	constructor(public mbGroup: MusicBrainz.ReleaseGroup) {
-		for (const release of (mbGroup.releases ?? [])) {
-			this.releases.push(new MatchRelease(release));
-		}
-		this.releases = this.releases.toSorted((a, b) => a.sortDate - b.sortDate);
+		const releases = (mbGroup.releases ?? []).map(release => new MatchRelease(release));
+		this.releases = releases.toSorted((a, b) => a.sortDate - b.sortDate);
 	}
 
 	findRelease(releaseID: string): MatchRelease | undefined {

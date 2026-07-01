@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, input, type OnChanges, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 import { FormsModule } from '@angular/forms';
 import { ArtworkImageType, type CoverArtArchive, CoverArtArchiveLookupType, FolderType, type Jam, JamService, type MusicBrainz, MusicBrainzLookupType, type WikiData } from '@jam';
 import type { Discogs } from '@modules/jam/model/discogs-rest-data';
-import { firstValueFrom, Subject, takeUntil } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { hasFileExtension } from '../../../tag-editor/model/utils';
 import { ArtworkListComponent } from '../artwork-list/artwork-list.component';
 import { ClickKeyEnterDirective } from '@core/directives/click-enterkey.directive';
@@ -34,43 +35,36 @@ export interface ArtworkNode {
 	selector: 'app-admin-folder-artwork-search',
 	templateUrl: './folder-artwork-search-image.component.html',
 	styleUrls: ['./folder-artwork-search-image.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ArtworkListComponent, BackgroundTextListComponent, ClickKeyEnterDirective, FocusKeyListDirective, FocusKeyListItemDirective, FormsModule, IconSpinComponent, LoadingComponent]
 })
-export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnDestroy {
+export class FolderArtworkSearchImageComponent {
 	readonly data = input<ArtworkSearch>();
-	artworks?: Array<Jam.Artwork>;
-	nodes?: Array<ArtworkNode>;
-	isWorking = false;
-	isArtRefreshing = false;
-	searchSources: Array<{ name: string; url: string }> = [];
-	private readonly unsubscribe = new Subject<void>();
+	readonly artworks = signal<Array<Jam.Artwork> | undefined>(undefined);
+	readonly nodes = signal<Array<ArtworkNode> | undefined>(undefined);
+	readonly isWorking = signal(false);
+	readonly isArtRefreshing = signal(false);
+	readonly searchSources = signal<Array<{ name: string; url: string }>>([]);
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
 	private readonly http = inject(HttpClient);
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
-	ngOnChanges(): void {
-		this.search();
-		const data = this.data();
-		if (data?.folder) {
-			if (data.folder.artworks) {
-				this.artworks = data.folder.artworks;
-			} else {
-				this.refreshArtworks();
+	constructor() {
+		effect(() => {
+			this.search();
+			const data = this.data();
+			if (data?.folder) {
+				if (data.folder.artworks) {
+					this.artworks.set(data.folder.artworks);
+				} else {
+					this.refreshArtworks();
+				}
 			}
-		}
-	}
-
-	ngOnInit(): void {
+		});
 		this.folderService.foldersChange
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(change => {
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe((change: { id: string }) => {
 				if (change.id === this.data()?.folder.id) {
 					this.refreshArtworks();
 				}
@@ -78,10 +72,10 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	}
 
 	use(): void {
-		const node = (this.nodes ?? []).find(i => i.checked && !i.storing);
+		const node = (this.nodes() ?? []).find(i => i.checked && !i.storing);
 		const folder = this.data()?.folder;
 		if (node && folder) {
-			this.isWorking = true;
+			this.isWorking.set(true);
 			node.storing = true;
 			this.jam.artwork.createByUrl({
 				folderID: folder.id,
@@ -90,7 +84,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			})
 				.then(info => {
 					this.folderService.waitForQueueResult('Creating Artwork', info, [folder.id])
-						.pipe(takeUntil(this.unsubscribe))
+						.pipe(takeUntilDestroyed(this.lifeRef))
 						.subscribe(() => {
 							node.storing = false;
 							node.checked = false;
@@ -102,7 +96,7 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 					this.notify.error(error);
 				});
 		} else {
-			this.isWorking = false;
+			this.isWorking.set(false);
 		}
 	}
 
@@ -111,14 +105,14 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 		if (!data) {
 			return;
 		}
-		this.isArtRefreshing = true;
+		this.isArtRefreshing.set(true);
 		this.jam.artwork.search({ folderIDs: [data.folder.id] })
 			.then(art => {
-				this.isArtRefreshing = false;
-				this.artworks = art.items;
+				this.isArtRefreshing.set(false);
+				this.artworks.set(art.items);
 			})
 			.catch((error: unknown) => {
-				this.isArtRefreshing = false;
+				this.isArtRefreshing.set(false);
 				console.error(error);
 			});
 	}
@@ -289,14 +283,14 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 	}
 
 	private display(nodes: Array<ArtworkNode>): void {
-		this.nodes = nodes;
 		let node = nodes.find(n => n.types.length === 1 && n.types[0] === ArtworkImageType.front);
 		node ??= nodes.find(n => n.types.includes(ArtworkImageType.front));
 		if (node) {
-			for (const n of this.nodes) {
+			for (const n of nodes) {
 				n.checked = n === node;
 			}
 		}
+		this.nodes.set(nodes);
 	}
 
 	private searchArtist(tag: Jam.FolderTag): void {
@@ -318,13 +312,13 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			return;
 		}
 
-		this.searchSources = sources;
+		this.searchSources.set(sources);
 		Promise.all(promises)
 			.then(results => {
 				this.display(results.flat());
 			})
 			.catch((error: unknown) => {
-				this.nodes = [];
+				this.nodes.set([]);
 				this.notify.error(error);
 			});
 	}
@@ -346,13 +340,13 @@ export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnD
 			return;
 		}
 
-		this.searchSources = sources;
+		this.searchSources.set(sources);
 		Promise.all(promises)
 			.then(results => {
 				this.display(results.flat());
 			})
 			.catch((error: unknown) => {
-				this.nodes = [];
+				this.nodes.set([]);
 				this.notify.error(error);
 			});
 	}

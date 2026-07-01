@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, inject, signal } from '@angular/core';
 import { PlayerService } from '@core/services/player/player.service';
 import { PlayerEvents } from '@core/services/player/player.interface';
 
@@ -6,19 +6,25 @@ import { PlayerEvents } from '@core/services/player/player.interface';
 	selector: 'app-volume-slider',
 	templateUrl: './slider-volume.component.html',
 	styleUrls: ['./slider-volume.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		'[tabindex]': 'tabindex',
 		'(keydown.arrowLeft)': 'volumeDown()',
 		'(keydown.arrowRight)': 'volumeUp()'
 	}
 })
-export class SliderVolumeComponent implements OnInit {
-	volumePC: number = 50;
+export class SliderVolumeComponent {
+	readonly volumePC = signal(50);
 	tabindex = '0';
 	private readonly player = inject(PlayerService);
 	private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
 	private volume: number = 0;
+
+	constructor() {
+		this.displayVolume(this.player.getVolume());
+		this.player.on(PlayerEvents.VOLUME, (volume: number) => {
+			this.displayVolume(volume);
+		});
+	}
 
 	volumeDown() {
 		this.player.volumeDown();
@@ -28,13 +34,6 @@ export class SliderVolumeComponent implements OnInit {
 		this.player.volumeUp();
 	}
 
-	ngOnInit(): void {
-		this.displayVolume(this.player.getVolume());
-		this.player.on(PlayerEvents.VOLUME, (volume: number) => {
-			this.displayVolume(volume);
-		});
-	}
-
 	changeVolume(event: MouseEvent): void {
 		const percent = this.calculateVolumeByPosition(event.offsetX);
 		this.player.volume(percent);
@@ -42,7 +41,7 @@ export class SliderVolumeComponent implements OnInit {
 
 	private displayVolume(volume: number): void {
 		this.volume = volume;
-		this.volumePC = this.calculatePositionPercentByVolume();
+		this.volumePC.set(this.calculatePositionPercentByVolume());
 	}
 
 	private calculatePositionPercentByVolume(): number {

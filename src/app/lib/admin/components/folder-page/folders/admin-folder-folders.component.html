@@ -1,17 +1,19 @@
-@if (!folder) {
-	<app-loading />
-} @else if (folder.folders) {
-	<div class="folders">
-		<div class="actions">
-			<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><app-icon-reload /></button>
-			<button class="button-on-control" title="New Folder…" i18n-title (click)="newFolder()"><app-icon-plus /></button>
-			@if (folder.folders && folder.folders.length) {
-				<button class="button-on-control" title="Move Subfolders…" i18n-title (click)="moveSubfolders()"><app-icon-right-bold /></button>
+@if (folder(); as folder) {
+	@if (folder.folders) {
+		<div class="folders">
+			<div class="actions">
+				<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><app-icon-reload /></button>
+				<button class="button-on-control" title="New Folder…" i18n-title (click)="newFolder()"><app-icon-plus /></button>
+				@if (folder.folders.length) {
+					<button class="button-on-control" title="Move Subfolders…" i18n-title (click)="moveSubfolders()"><app-icon-right-bold /></button>
+				}
+			</div>
+			<app-background-text-list name="Folders" [list]="folder.folders" />
+			@if (folder.folders.length) {
+				<app-admin-folder-list [folders]="folder.folders" />
 			}
 		</div>
-		<app-background-text-list name="Folders" [list]="folder.folders" />
-		@if (folder.folders && folder.folders.length) {
-			<app-admin-folder-list [folders]="folder.folders" />
-		}
-	</div>
+	}
+} @else {
+	<app-loading />
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, inject, signal } from '@angular/core';
 import { JamService } from '@jam';
 import { PlayerService } from '@core/services/player/player.service';
 import { PlayerEvents } from '@core/services/player/player.interface';
@@ -6,16 +6,15 @@ import { PlayerEvents } from '@core/services/player/player.interface';
 @Component({
 	selector: 'app-mini-time-slider',
 	templateUrl: './mini-slider-time.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./mini-slider-time.component.scss']
 })
-export class MiniSliderTimeComponent implements OnInit {
+export class MiniSliderTimeComponent {
 	readonly player = inject(PlayerService);
 	readonly jam = inject(JamService);
-	timePC: number = 0;
+	readonly timePC = signal(0);
 	private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
 
-	ngOnInit(): void {
+	constructor() {
 		this.player.on(PlayerEvents.TIME, () => {
 			this.updateTimeIndicator();
 		});
@@ -26,7 +25,7 @@ export class MiniSliderTimeComponent implements OnInit {
 	}
 
 	updateTimeIndicator(): void {
-		this.timePC = this.calculatePositionPercentByTime();
+		this.timePC.set(this.calculatePositionPercentByTime());
 	}
 
 	calculatePositionPercentByTime(): number {

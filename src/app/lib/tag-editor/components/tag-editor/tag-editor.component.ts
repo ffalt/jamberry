@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, viewChild, viewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input, signal, viewChild, viewChildren } from '@angular/core';
 import type { ComponentCanDeactivate } from '@core/guards/pending-changes/pending-changes.guard';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { CellEditor } from '../cell-editor/cell-editor.class';
@@ -41,20 +41,19 @@ export interface SaveAction {
 	host: {
 		'(window:beforeunload)': 'canDeactivate()'
 	},
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [
 		CellEditorComponent, ColumnToolComponent, ContextMenuModule, LoadingComponent,
 		IconDiscogsComponent, IconEditComponent, IconFloppyComponent, IconListAddComponent, IconReloadComponent, IconSpinComponent, IconMusicbrainzComponent
 	]
 })
-export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
+export class TagEditorComponent implements ComponentCanDeactivate {
 	readonly id = input<string>();
-	folder?: Jam.Folder;
-	tracks?: Array<Jam.Track>;
+	readonly folder = signal<Jam.Folder | undefined>(undefined);
+	readonly tracks = signal<Array<Jam.Track> | undefined>(undefined);
+	readonly canLoadRecursive = signal(false);
+	readonly isSaving = signal(false);
 	editor: TagEditor;
-	canLoadRecursive = false;
 	activeCol?: RawTagEditColumn;
-	isSaving = false;
 	private readonly cellEditors = viewChildren(CellEditor);
 	private readonly actionMenu = viewChild<ContextMenuComponent>('actionMenu');
 	private readonly folderService = inject(AdminFolderService);
@@ -69,19 +68,18 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 
 	constructor() {
 		this.editor = new TagEditor(this.jam);
+		effect(() => {
+			this.refresh();
+		});
 	}
 
 	canDeactivate(): boolean {
-		return !this.isSaving;
-	}
-
-	ngOnChanges(): void {
-		this.refresh();
+		return !this.isSaving();
 	}
 
 	refresh(): void {
-		this.folder = undefined;
-		this.tracks = undefined;
+		this.folder.set(undefined);
+		this.tracks.set(undefined);
 		this.activeCol = undefined;
 		const id = this.id();
 		if (id) {
@@ -105,15 +103,16 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	loadRecursive(): void {
-		if (!this.folder) {
+		const folder = this.folder();
+		if (!folder) {
 			return;
 		}
-		this.canLoadRecursive = false;
-		this.tracks = undefined;
-		this.jam.track.search({ childOfID: this.folder.id, trackIncTag: true, trackIncRawTag: true, orderBy: TrackOrderFields.filename })
-			.then(tracks => {
-				this.tracks = tracks.items;
-				this.editor.build(this.tracks);
+		this.canLoadRecursive.set(false);
+		this.tracks.set(undefined);
+		this.jam.track.search({ childOfID: folder.id, trackIncTag: true, trackIncRawTag: true, orderBy: TrackOrderFields.filename })
+			.then(result => {
+				this.tracks.set(result.items);
+				this.editor.build(result.items);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
@@ -121,7 +120,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	save(): void {
-		if (this.isSaving) {
+		if (this.isSaving()) {
 			return;
 		}
 		const edits = this.editor.edits.filter(ed => ed.changed);
@@ -137,13 +136,13 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 		if (!action) {
 			return;
 		}
-		this.isSaving = true;
+		this.isSaving.set(true);
 		this.runSave(action, saveActions)
 			.then(() => {
-				this.isSaving = false;
+				this.isSaving.set(false);
 			})
 			.catch((error: unknown) => {
-				this.isSaving = false;
+				this.isSaving.set(false);
 				for (const edit of edits) {
 					edit.saving = false;
 				}
@@ -172,23 +171,23 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	saveEdit(edit: RawTagEditRow): void {
-		if (!edit.changed || this.isSaving) {
+		if (!edit.changed || this.isSaving()) {
 			return;
 		}
-		this.isSaving = true;
+		this.isSaving.set(true);
 		const action = this.prepareEditSave(edit);
 		this.runSave(action, [])
 			.then(() => {
-				this.isSaving = false;
+				this.isSaving.set(false);
 			})
 			.catch((error: unknown) => {
-				this.isSaving = false;
+				this.isSaving.set(false);
 				this.notify.error(error);
 			});
 	}
 
 	chooseColumns(): void {
-		if (this.isSaving) {
+		if (this.isSaving()) {
 			this.notify.error(new Error('Saving is in progress'));
 			return;
 		}
@@ -200,8 +199,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			data,
 			onOkBtn: async () => {
 				try {
-					if (this.tracks) {
-						this.editor.updateColumns(this.tracks, data.resultColumns);
+					const tracks = this.tracks();
+					if (tracks) {
+						this.editor.updateColumns(tracks, data.resultColumns);
 					}
 				} catch (error) {
 					this.notify.error(error);
@@ -213,7 +213,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	brainz(): void {
-		if (!this.folder || !this.tracks) {
+		const folder = this.folder();
+		const tracks = this.tracks();
+		if (!folder || !tracks) {
 			return;
 		}
 		if (!this.canDeactivate()) {
@@ -221,8 +223,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			return;
 		}
 		const matching: ReleaseMatching = {
-			folder: this.folder,
-			matchings: this.tracks.map(t => ({ track: t })),
+			folder,
+			matchings: tracks.map(t => ({ track: t })),
 			apply: () => {
 				this.applyMatching(matching);
 			}
@@ -236,7 +238,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	discogs(): void {
-		if (!this.folder || !this.tracks) {
+		const folder = this.folder();
+		const tracks = this.tracks();
+		if (!folder || !tracks) {
 			return;
 		}
 		if (!this.canDeactivate()) {
@@ -244,8 +248,8 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			return;
 		}
 		const matching: ReleaseMatching = {
-			folder: this.folder,
-			matchings: this.tracks.map(t => ({ track: t })),
+			folder,
+			matchings: tracks.map(t => ({ track: t })),
 			apply: () => {
 				this.applyMatching(matching);
 			}
@@ -282,8 +286,9 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 				match.track.tagRaw = match.rawTag;
 			}
 		}
-		if (this.tracks) {
-			this.editor.build(this.tracks);
+		const tracks = this.tracks();
+		if (tracks) {
+			this.editor.build(tracks);
 			this.applyMatchingTracks(matching);
 		}
 	}
@@ -316,7 +321,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 			if (nexteditor) {
 				setTimeout(() => {
 					nexteditor.navigTo();
-				});
+				}, 0);
 			}
 		}
 	}
@@ -332,7 +337,7 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 				if (nexteditor) {
 					setTimeout(() => {
 						nexteditor.navigTo();
-					});
+					}, 0);
 				}
 			}
 		}
@@ -363,11 +368,12 @@ export class TagEditorComponent implements OnChanges, ComponentCanDeactivate {
 	}
 
 	private display(folder: Jam.Folder): void {
-		this.folder = folder;
-		this.tracks = folder.tracks ?? [];
-		this.editor.build(this.tracks);
-		this.canLoadRecursive = this.tracks.length === 0 && (folder.folders ?? []).length > 0;
-		if (this.canLoadRecursive && folder.type === FolderType.multialbum) {
+		const tracks = folder.tracks ?? [];
+		this.folder.set(folder);
+		this.tracks.set(tracks);
+		this.editor.build(tracks);
+		this.canLoadRecursive.set(tracks.length === 0 && (folder.folders ?? []).length > 0);
+		if (this.canLoadRecursive() && folder.type === FolderType.multialbum) {
 			this.loadRecursive();
 		}
 	}

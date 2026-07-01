@@ -28,22 +28,24 @@ export class MainTabsService {
 	}
 
 	dispose(): void {
-		if (this.tabPortalHost) {
-			this.tabPortalHost.dispose();
-			this.tabPortalHost = undefined;
+		if (!this.tabPortalHost) {
+			return;
 		}
+
+		this.tabPortalHost.dispose();
+		this.tabPortalHost = undefined;
 	}
 
 	clickInfo(): void {
-		this.switchTo(this.currentTabName === this.infoTab.name ? this.mainTab.name : this.infoTab.name);
+		this.switchTo((this.currentTabName === this.infoTab.name ? this.mainTab : this.infoTab).name);
 	}
 
 	clickPlayer(): void {
-		this.switchTo(this.currentTabName === this.playerTab.name ? this.mainTab.name : this.playerTab.name);
+		this.switchTo((this.currentTabName === this.playerTab.name ? this.mainTab : this.playerTab).name);
 	}
 
 	clickQueue(): void {
-		this.switchTo(this.currentTabName === this.queueTab.name ? this.mainTab.name : this.queueTab.name);
+		this.switchTo((this.currentTabName === this.queueTab.name ? this.mainTab : this.queueTab).name);
 	}
 
 	switchTo(name: string): void {

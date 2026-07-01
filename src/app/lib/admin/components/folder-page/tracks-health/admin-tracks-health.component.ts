@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { type Jam, JamService } from '@jam';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AdminBaseParentViewIdComponent } from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
 import { TrackHealthComponent } from '../../track-health/track-health.component';
 import { BackgroundTextListComponent } from '@core/components/background-text-list/background-text-list.component';
@@ -15,24 +15,22 @@ import { IconReloadComponent } from '@core/components/icons/icon-reload.componen
 	selector: 'app-admin-tracks-health',
 	templateUrl: './admin-tracks-health.component.html',
 	styleUrls: ['./admin-tracks-health.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextListComponent, FormsModule, IconReloadComponent, LoadingComponent, RouterModule, TrackHealthComponent]
 })
-
-export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
-	all?: Array<Jam.TrackHealth>;
-	hints?: Array<Jam.TrackHealth>;
+export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent {
+	readonly all = signal<Array<Jam.TrackHealth> | undefined>(undefined);
+	readonly hints = signal<Array<Jam.TrackHealth> | undefined>(undefined);
+	readonly modes = signal<Array<string>>([]);
 	filter?: string;
-	modes: Array<string> = [];
 	mediaCheck: boolean = false;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
 
-	ngOnInit(): void {
-		super.ngOnInit();
+	constructor() {
+		super();
 		this.folderService.foldersChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(change => {
 				if (change.id === this.id) {
 					this.refresh();
@@ -40,23 +38,21 @@ export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent i
 			});
 	}
 
-	ngOnDestroy(): void {
-		super.ngOnDestroy();
-	}
-
 	checkChange(): void {
 		this.refresh();
 	}
 
 	trackHealthResolved(health: Jam.TrackHealth): void {
-		if (this.all) {
-			this.all = this.all.filter(h => h !== health);
-			this.reDisplay();
+		const all = this.all();
+		if (!all) {
+			return;
 		}
+		this.all.set(all.filter(h => h !== health));
+		this.reDisplay();
 	}
 
-	refresh(): void {
-		this.hints = undefined;
+	override refresh(): void {
+		this.hints.set(undefined);
 		if (!this.id) {
 			return;
 		}
@@ -70,21 +66,21 @@ export class AdminTracksHealthComponent extends AdminBaseParentViewIdComponent i
 	}
 
 	private reDisplay(): void {
-		this.hints = !this.filter || !this.all ?
-			this.all :
-			this.all.filter(f => f.health.find(p => p.name === this.filter));
+		const all = this.all();
+		this.hints.set(!this.filter || !all ? all : all.filter(f => f.health.find(p => p.name === this.filter)));
 	}
 
 	private display(trackHealths: Array<Jam.TrackHealth>): void {
-		this.all = trackHealths;
-		this.modes = [];
+		this.all.set(trackHealths);
+		const modes: Array<string> = [];
 		for (const trackHealth of trackHealths) {
 			for (const hint of trackHealth.health) {
-				if (!this.modes.includes(hint.name)) {
-					this.modes.push(hint.name);
+				if (!modes.includes(hint.name)) {
+					modes.push(hint.name);
 				}
 			}
 		}
+		this.modes.set(modes);
 		this.reDisplay();
 	}
 }

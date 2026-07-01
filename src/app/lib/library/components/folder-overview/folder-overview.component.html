@@ -1,4 +1,4 @@
-@if (folder) {
+@if (folder(); as folder) {
 	<div i18n class="section-title">Navigation</div>
 	@if (folder.parents && folder.parents.length > 0) {
 		<ul class="breadcrumb">
@@ -14,7 +14,7 @@
 			<app-info-note [info]="folder.info" />
 		</div>
 	}
-	@if (childFolders) {
+	@if (childFolders(); as childFolders) {
 		<app-obj-groups-view [objs]="childFolders" />
 	}
 	@if (folder.tracks && folder.tracks.length > 0) {

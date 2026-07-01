@@ -1,5 +1,5 @@
 import { HttpEventType } from '@angular/common/http';
-import { Component, inject, input, type OnChanges, type OnDestroy, output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, input, type OnChanges, type OnDestroy, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, type SafeUrl } from '@angular/platform-browser';
 import { type Jam, JamService } from '@jam';
@@ -19,13 +19,12 @@ export interface ImageEdit {
 	selector: 'app-admin-artwork-edit',
 	templateUrl: './artwork-edit.component.html',
 	styleUrls: ['./artwork-edit.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, ImageCropperComponent]
 })
 export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	readonly data = input<ImageEdit>();
 	readonly imageEdited = output();
-	imageBase64: string = '';
+	readonly imageBase64 = signal('');
 	croppedImage?: SafeUrl;
 	croppedImageFile?: Blob;
 	maintainAspectRatio: boolean = true;
@@ -46,7 +45,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 		if (dataValue) {
 			this.jam.image.imageBinary({ id: dataValue.artwork.id })
 				.then(data => {
-					this.imageBase64 = `data:${(data.contentType || 'image/jpeg')};base64,${base64ArrayBuffer(data.buffer)}`;
+					this.imageBase64.set(`data:${(data.contentType || 'image/jpeg')};base64,${base64ArrayBuffer(data.buffer)}`);
 				})
 				.catch((error: unknown) => {
 					this.notify.error(error);
@@ -84,10 +83,12 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe({
 				next: event => {
-					if (event.type === HttpEventType.Response && event.body !== null) {
-						this.folderService.waitForQueueResult('Updating Folder Artwork', event.body, [folderID]);
-						this.imageEdited.emit();
+					if (!(event.type === HttpEventType.Response && event.body !== null)) {
+						return;
 					}
+
+					this.folderService.waitForQueueResult('Updating Folder Artwork', event.body, [folderID]);
+					this.imageEdited.emit();
 				},
 				error: error => {
 					this.notify.error(error);

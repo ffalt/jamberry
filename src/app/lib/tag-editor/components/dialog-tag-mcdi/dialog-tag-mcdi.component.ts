@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
+import { ArrayBufferFromBase64 } from '@utils/base64';
 
 export interface McdiEdit {
 	frames: Array<Jam.MediaTagRawFrameBin>;
@@ -50,11 +51,7 @@ export class DialogTagMcdiComponent implements DialogOverlay<McdiEdit> {
 	}
 
 	private static parseToc(base64: string): McdiInfo {
-		const binary = atob(base64);
-		const bytes = new Uint8Array(binary.length);
-		for (let i = 0; i < binary.length; i++) {
-			bytes[i] = binary.codePointAt(i) ?? 0;
-		}
+		const bytes = ArrayBufferFromBase64(base64);
 
 		if (bytes.length < 4) {
 			throw new Error('TOC too short');
@@ -68,7 +65,7 @@ export class DialogTagMcdiComponent implements DialogOverlay<McdiEdit> {
 			const trackNum = bytes[i + 2];
 			const lba = ((bytes[i + 4] << 24) | (bytes[i + 5] << 16) | (bytes[i + 6] << 8) | bytes[i + 7]) >>> 0;
 			const label = trackNum === 0xAA ? 'Lead-out' : `Track ${trackNum}`;
-			tracks.push({ label, offset: lba, time: DialogTagMcdiComponent.lbaToTime(lba) });
+			tracks.push({ label, offset: lba, time: this.lbaToTime(lba) });
 		}
 
 		const hex = [...bytes].map(b => b.toString(16).padStart(2, '0')).join(' ');

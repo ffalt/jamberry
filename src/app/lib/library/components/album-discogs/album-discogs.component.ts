@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { DiscogsAlbumComponent } from '../discogs-album/discogs-album.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 
@@ -10,21 +10,20 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-album-discogs',
 	templateUrl: './album-discogs.component.html',
 	styleUrls: ['./album-discogs.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [DiscogsAlbumComponent, LoadingComponent]
 })
-export class AlbumDiscogsComponent implements OnInit, OnDestroy {
-	id?: string;
-	album?: Jam.Album;
+export class AlbumDiscogsComponent {
+	readonly album = signal<Jam.Album | undefined>(undefined);
+	private id?: string;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 
-	ngOnInit(): void {
+	constructor() {
 		if (this.route.parent) {
 			this.route.parent.paramMap
-				.pipe(takeUntil(this.unsubscribe))
+				.pipe(takeUntilDestroyed(this.lifeRef))
 				.subscribe(paramMap => {
 					this.id = paramMap.get('id') ?? undefined;
 					this.refresh();
@@ -32,19 +31,14 @@ export class AlbumDiscogsComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	refresh(): void {
-		this.album = undefined;
+		this.album.set(undefined);
 		if (!this.id) {
 			return;
 		}
 		this.jam.album.id({ id: this.id })
 			.then(album => {
-				this.album = album;
+				this.album.set(album);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

@@ -1,4 +1,4 @@
-import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import type { Matcher } from '../match-release/matcher';
 import type { MatchingTrack, MatchRelease, MatchReleaseGroup } from '../../model/release-matching.helper';
 import { ScoreBoxComponent } from '../score-box/score-box.component';
@@ -15,7 +15,6 @@ import { IconWarningComponent } from '@core/components/icons/icon-warning.compon
 	selector: 'app-match-results',
 	templateUrl: './match-results.component.html',
 	styleUrls: ['./match-results.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CommonModule, IconCheckmarkComponent, IconMinusComponent, IconPlusComponent, IconTrashComponent, IconWarningComponent, JsonPipe, MbArtistCreditsPipe, ScoreBoxComponent]
 })
 export class MatchResultsComponent {

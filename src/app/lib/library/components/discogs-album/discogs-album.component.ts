@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { JamService } from '@jam';
 import type { Discogs } from '@modules/jam/model/discogs-rest-data';
@@ -35,21 +35,22 @@ export interface DiscogsReleaseDisplay {
 	selector: 'app-discogs-album',
 	templateUrl: './discogs-album.component.html',
 	styleUrls: ['./discogs-album.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextComponent, IconDiscogsComponent, LoadingComponent]
 })
-export class DiscogsAlbumComponent implements OnChanges {
+export class DiscogsAlbumComponent {
 	readonly artist = input<string>();
 	readonly title = input<string>();
-	searchDone = false;
-	hasResults = false;
-	releaseDisplay?: DiscogsReleaseDisplay;
-	isLoadingDetail = false;
+	readonly searchDone = signal(false);
+	readonly hasResults = signal(false);
+	readonly releaseDisplay = signal<DiscogsReleaseDisplay | undefined>(undefined);
+	readonly isLoadingDetail = signal(false);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
-	ngOnChanges(): void {
-		this.refresh();
+	constructor() {
+		effect(() => {
+			this.refresh();
+		});
 	}
 
 	refresh(): void {
@@ -58,15 +59,15 @@ export class DiscogsAlbumComponent implements OnChanges {
 		if (!artist || !title) {
 			return;
 		}
-		this.searchDone = false;
-		this.hasResults = false;
-		this.releaseDisplay = undefined;
+		this.searchDone.set(false);
+		this.hasResults.set(false);
+		this.releaseDisplay.set(undefined);
 		this.jam.metadata.discogsReleaseSearch({ artist, title })
 			.then(res => {
 				const data = res.data as Discogs.SearchResponse | undefined;
 				const masterId = data?.results.find(r => r.master_id)?.master_id;
-				this.hasResults = !!masterId;
-				this.searchDone = true;
+				this.hasResults.set(!!masterId);
+				this.searchDone.set(true);
 				if (masterId) {
 					this.loadReleaseDetail(masterId).catch((error: unknown) => {
 						this.notify.error(error);
@@ -74,24 +75,24 @@ export class DiscogsAlbumComponent implements OnChanges {
 				}
 			})
 			.catch((error: unknown) => {
-				this.searchDone = true;
+				this.searchDone.set(true);
 				this.notify.error(error);
 			});
 	}
 
 	private async loadReleaseDetail(id: number): Promise<void> {
-		this.isLoadingDetail = true;
-		this.releaseDisplay = undefined;
+		this.isLoadingDetail.set(true);
+		this.releaseDisplay.set(undefined);
 		try {
 			const res = await this.jam.metadata.discogsMasterLookup({ id });
 			const detail = res.data as Discogs.Master | undefined;
 			if (detail) {
-				this.releaseDisplay = this.buildDisplay(detail);
+				this.releaseDisplay.set(this.buildDisplay(detail));
 			}
 		} catch (error: unknown) {
 			this.notify.error(error);
 		} finally {
-			this.isLoadingDetail = false;
+			this.isLoadingDetail.set(false);
 		}
 	}
 

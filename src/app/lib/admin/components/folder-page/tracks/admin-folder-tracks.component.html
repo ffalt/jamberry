@@ -1,14 +1,16 @@
-@if (!folder) {
+@if (!folder()) {
 	<app-loading />
 }
-<app-background-text-list [list]="folder?.tracks" name="Tracks" />
-@if (folder && folder.tracks && folder.tracks.length > 0) {
-	<div class="tracks">
-		<div class="actions">
-			<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><app-icon-reload /></button>
-			<button class="button-on-control" title="Move Tracks…" i18n-title (click)="moveTracks()"><app-icon-right-bold /></button>
-			<button class="button-on-control" title="Delete Tracks…" i18n-title (click)="deleteTracks()"><app-icon-trash /></button>
+<app-background-text-list [list]="folder()?.tracks" name="Tracks" />
+@if (folder(); as folder) {
+	@if (folder.tracks?.length) {
+		<div class="tracks">
+			<div class="actions">
+				<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><app-icon-reload /></button>
+				<button class="button-on-control" title="Move Tracks…" i18n-title (click)="moveTracks()"><app-icon-right-bold /></button>
+				<button class="button-on-control" title="Delete Tracks…" i18n-title (click)="deleteTracks()"><app-icon-trash /></button>
+			</div>
+			<app-admin-track-list class="content" [tracks]="folder.tracks" />
 		</div>
-		<app-admin-track-list class="content" [tracks]="folder.tracks" />
-	</div>
+	}
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -9,12 +9,11 @@ import { CoverartImageComponent } from '@core/components/coverart-image/coverart
 	selector: 'app-chat',
 	templateUrl: './chat.component.html',
 	styleUrls: ['./chat.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, CommonModule, CoverartImageComponent]
 })
 export class ChatComponent implements OnInit, OnDestroy {
 	msg: string = '';
-	messages: Array<Jam.Chat> = [];
+	readonly messages = signal<Array<Jam.Chat>>([]);
 	isPolling: boolean = false;
 	timer?: ReturnType<typeof setInterval>;
 	private readonly jam = inject(JamService);
@@ -25,11 +24,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 			return;
 		}
 		this.isPolling = true;
-		const since = this.messages.length > 0 ? this.messages.at(-1)?.created : undefined;
+		const since = this.messages().at(-1)?.created;
 		this.jam.chat.list({ since })
 			.then(messages => {
 				this.isPolling = false;
-				this.messages = [...this.messages, ...messages];
+				this.messages.update(current => [...current, ...messages]);
 			})
 			.catch((error: unknown) => {
 				this.isPolling = false;
@@ -40,7 +39,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 	refresh(): void {
 		this.jam.chat.list({})
 			.then(messages => {
-				this.messages = messages;
+				this.messages.set(messages);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

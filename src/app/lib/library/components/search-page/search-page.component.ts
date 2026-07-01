@@ -64,8 +64,7 @@ export class SearchPageComponent implements AutocompleteDataControl<{ name: stri
 	};
 
 	currentTab: SearchTab = this.tabsObjs.artists;
-	tabs: Array<HeaderTab> = Object.keys(this.tabsObjs).map(key => {
-		const tab = this.tabsObjs[key];
+	tabs: Array<HeaderTab> = Object.values(this.tabsObjs).map(tab => {
 		tab.click = (): void => {
 			this.setCurrentTab(tab);
 		};

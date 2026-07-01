@@ -15,17 +15,19 @@ export class NotifyService {
 	}
 
 	error(err: unknown): void {
-		if (err) {
-			const newtext = serverErrorMsg(err);
-			const newtimestamp = Date.now();
-			if (this.lastError === newtext && ((newtimestamp - this.lastErrorTimestamp) < 10_000)) {
-				return;
-			}
-			this.lastError = newtext;
-			this.lastErrorTimestamp = newtimestamp;
-			this.toastService.error(newtext, 'Error', { timeOut: 10_000 });
-			console.error(err);
+		if (!err) {
+			return;
 		}
+
+		const newtext = serverErrorMsg(err);
+		const newtimestamp = Date.now();
+		if (this.lastError === newtext && ((newtimestamp - this.lastErrorTimestamp) < 10_000)) {
+			return;
+		}
+		this.lastError = newtext;
+		this.lastErrorTimestamp = newtimestamp;
+		this.toastService.error(newtext, 'Error', { timeOut: 10_000 });
+		console.error(err);
 	}
 
 	info(s: string): void {

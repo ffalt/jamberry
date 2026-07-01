@@ -404,6 +404,7 @@ export class ID3V24TagBuilder {
 	}
 
 	mbTrackID(value?: string): this {
+		// eslint-disable-next-line unicorn/prefer-https
 		this.rawBuilder.idText('UFID', 'http://musicbrainz.org', value);
 		return this;
 	}

@@ -1,7 +1,7 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { type Jam, RootScanStrategy } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { DialogRootComponent } from '../dialog-root/dialog-root.component';
 import { RootListComponent } from '../root-list/root-list.component';
@@ -16,47 +16,27 @@ import { IconRescanComponent } from '@core/components/icons/icon-rescan.componen
 	selector: 'app-admin-root',
 	templateUrl: './admin-root.component.html',
 	styleUrls: ['./admin-root.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderSlimComponent, IconPlusComponent, IconReloadComponent, IconRescanComponent, RootListComponent, RouterModule]
 })
-export class AdminRootComponent implements OnInit, OnDestroy {
-	roots?: Array<Jam.Root>;
-	private readonly unsubscribe = new Subject<void>();
+export class AdminRootComponent {
+	readonly roots = signal<Array<Jam.Root> | undefined>(undefined);
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly notify = inject(NotifyService);
 	private readonly rootService = inject(AdminRootService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
 
-	static getSortValue(column: string, root: Jam.Root): string | number | undefined {
-		switch (column) {
-			case 'name': {
-				return root.name;
-			}
-			case 'path': {
-				return root.path;
-			}
-			default: {
-				return;
-			}
-		}
-	}
-
-	ngOnInit(): void {
+	constructor() {
 		this.rootService.rootsChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe({
 				next: roots => {
-					this.roots = roots.toSorted((a, b) => a.name.localeCompare(b.name));
+					this.roots.set(roots.toSorted((a, b) => a.name.localeCompare(b.name)));
 				},
-				error: error => {
+				error: (error: unknown) => {
 					this.notify.error(error);
 				}
 			});
 		this.rootService.refreshRoots();
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 
 	refresh(): void {

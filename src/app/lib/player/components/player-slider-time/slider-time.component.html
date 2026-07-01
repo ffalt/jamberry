@@ -1,13 +1,13 @@
 <div (mousedown)="changePlaybackTime($event)" class="slider">
-	@if (!this.app.settings.showWaveform || !svg) {
+	@if (!this.app.settings.showWaveform || !svg()) {
 		<div class="back"></div>
 	}
-	@if (this.app.settings.showWaveform && svg) {
+	@if (this.app.settings.showWaveform && svg(); as svg) {
 		<div class="waveform">
 			<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" i18n-preserveAspectRatio style="fill-rule:evenodd;clip-rule:evenodd;" [attr.viewBox]="svg.viewbox">
 				<defs>
 					<clipPath id="cut-off-right">
-						<rect x="0" y="0" height="256" [style.width.%]="timePC" />
+						<rect x="0" y="0" height="256" [style.width.%]="timePC()" />
 					</clipPath>
 					<path id="waveform-path" [attr.d]="svg.path" />
 				</defs>
@@ -16,5 +16,5 @@
 			</svg>
 		</div>
 	}
-	<div [class.line]="!!svg" [style.width.%]="timePC" class="scrubber"></div>
+	<div [class.line]="!!svg()" [style.width.%]="timePC()" class="scrubber"></div>
 </div>

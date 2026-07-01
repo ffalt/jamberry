@@ -210,7 +210,7 @@ export class ContextMenuService {
 				newLeaf.contextMenu.isLeaf.set(true);
 			}
 			this.isDestroyingLeafMenu = false;
-		});
+		}, 0);
 	}
 
 	destroySubMenus(contextMenu: ContextMenuContentComponent): void {

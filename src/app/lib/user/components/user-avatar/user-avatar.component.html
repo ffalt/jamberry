@@ -2,9 +2,9 @@
 	<div class="placeholder" i18n>
 		Drag an Image File here
 	</div>
-	<app-coverart-image [coverArtObj]="auth.user" [refreshRandom]="refreshRandom" [round]="true" [size]="100" />
+	<app-coverart-image [coverArtObj]="user()" [refreshRandom]="refreshRandom()" [round]="true" [size]="100" />
 	<button (click)="randomAvatar()" class="button-primary">
-		@if (refreshing) {
+		@if (refreshing()) {
 			<app-icon-spin class="icon-spin" />
 		} @else {
 			<span i18n>Random Image</span>

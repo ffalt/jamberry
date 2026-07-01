@@ -1,23 +1,22 @@
-import { Component, ElementRef, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, inject, signal } from '@angular/core';
 import { PlayerService } from '@core/services/player/player.service';
 import { PlayerEvents } from '@core/services/player/player.interface';
 
 @Component({
 	selector: 'app-speed-slider',
 	templateUrl: './slider-speed.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./slider-speed.component.scss']
 })
-export class SliderSpeedComponent implements OnInit {
-	speedPC: number = 20;
-	speedString: string = 'Speed: 1x';
+export class SliderSpeedComponent {
+	readonly speedPC = signal(20);
+	readonly speedString = signal('Speed: 1x');
 	private readonly min: number = 0;
 	private readonly max: number = 3.5;
 	private readonly player = inject(PlayerService);
 	private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
 	private speed: number = 1;
 
-	ngOnInit(): void {
+	constructor() {
 		this.displaySpeed(this.player.getSpeed());
 		this.player.on(PlayerEvents.SPEED, (speed: number) => {
 			this.displaySpeed(speed);
@@ -32,8 +31,8 @@ export class SliderSpeedComponent implements OnInit {
 
 	private displaySpeed(speed: number): void {
 		this.speed = speed;
-		this.speedString = `Speed: ${speed.toFixed(2)}x`;
-		this.speedPC = this.calculatePositionPercentBySpeed();
+		this.speedString.set(`Speed: ${speed.toFixed(2)}x`);
+		this.speedPC.set(this.calculatePositionPercentBySpeed());
 	}
 
 	private calculatePositionPercentBySpeed(): number {

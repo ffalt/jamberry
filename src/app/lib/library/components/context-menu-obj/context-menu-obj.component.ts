@@ -1,5 +1,5 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, type Type, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, type Type, viewChild } from '@angular/core';
 import type { JamLibraryObject } from '../../model/objects';
 import type { ContextMenuHostComponentInterface } from '@core/services/contextmenu/menu.service';
 import { ContextEntryRateComponent } from '@core/components/context-entry-rate/context-entry-rate.component';
@@ -28,7 +28,6 @@ export interface ContextMenuObjComponentOptions {
 @Component({
 	selector: 'app-context-menu-obj',
 	templateUrl: './context-menu-obj.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [
 		ContextEntryRateComponent, ContextMenuModule, NgComponentOutlet,
 		IconDownloadCloudComponent, IconListAddComponent, IconPlayComponent, IconPlaylistComponent, IconViewDetailsComponent,
@@ -37,12 +36,12 @@ export interface ContextMenuObjComponentOptions {
 })
 export class ContextMenuObjComponent implements ContextMenuHostComponentInterface<ContextMenuObjComponentOptions> {
 	readonly contextMenu = viewChild.required<ContextMenuComponent>('objMenu');
-	extras?: Array<ContextMenuObjComponentOptionsExtra> = [];
-	showGoto: boolean = true;
+	readonly extras = signal<Array<ContextMenuObjComponentOptionsExtra> | undefined>([]);
+	readonly showGoto = signal(true);
 
 	initOpts(opts?: ContextMenuObjComponentOptions): void {
-		this.showGoto = !opts?.hideGoto;
-		this.extras = opts ? opts.extras : [];
+		this.showGoto.set(!opts?.hideGoto);
+		this.extras.set(opts ? opts.extras : []);
 	}
 
 	toLibraryObject(item: unknown): JamLibraryObject {

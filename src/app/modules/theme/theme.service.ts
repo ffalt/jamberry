@@ -29,8 +29,8 @@ export class ThemeService {
 
 	private updateDom(theme: Theme): void {
 		// project properties onto the element
-		for (const key of Object.keys(theme.properties)) {
-			this.document.body.style.setProperty(key, theme.properties[key]);
+		for (const [key, value] of Object.entries(theme.properties)) {
+			this.document.body.style.setProperty(key, value);
 		}
 		// remove old theme
 		for (const t of this.themes) {

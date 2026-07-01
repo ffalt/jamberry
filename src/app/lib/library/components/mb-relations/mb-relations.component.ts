@@ -34,16 +34,18 @@ export class MbRelationsComponent implements OnChanges {
 	displayRelationGroups(relations?: Array<MusicBrainz.Relation>): void {
 		this.urlRelationGroup = undefined;
 		const relTypes: { [name: string]: { [type: string]: Array<MusicBrainz.Relation> } } = {};
-		for (const rel of (relations ?? [])) {
-			relTypes[rel.targetType] = relTypes[rel.targetType] ?? {};
-			relTypes[rel.targetType][rel.type] = relTypes[rel.targetType][rel.type] ?? [];
+		const relationLists = relations ?? [];
+		for (const rel of relationLists) {
+			relTypes[rel.targetType] ??= {};
+			relTypes[rel.targetType][rel.type] ??= [];
 			relTypes[rel.targetType][rel.type].push(rel);
 		}
-		const relationGroups = Object.keys(relTypes).map(key =>
-			({
-				targetType: key,
-				types: Object.keys(relTypes[key]).map(k => ({ type: k, relations: relTypes[key][k] }))
-			}));
+		const relationGroups = Object.entries(relTypes)
+			.map(([targetType, typeMap]) =>
+				({
+					targetType,
+					types: Object.entries(typeMap).map(([type, rels]) => ({ type, relations: rels }))
+				}));
 		this.urlRelationGroup = relationGroups.find(r => r.targetType === 'url');
 	}
 }

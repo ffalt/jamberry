@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, inject, signal } from '@angular/core';
 import { JamService } from '@jam';
 import { extractSVGParts } from '@utils/svg-parts';
 import { AppService } from '@core/services/app/app.service';
@@ -9,23 +9,22 @@ import { PlayerEvents } from '@core/services/player/player.interface';
 	selector: 'app-time-slider',
 	templateUrl: './slider-time.component.html',
 	styleUrls: ['./slider-time.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		'[tabindex]': 'tabindex',
 		'(keydown.arrowLeft)': 'rewind()',
 		'(keydown.arrowRight)': 'forward()'
 	}
 })
-export class SliderTimeComponent implements OnInit {
+export class SliderTimeComponent {
 	readonly player = inject(PlayerService);
 	readonly jam = inject(JamService);
 	readonly app = inject(AppService);
-	timePC: number = 0;
-	svg?: { viewbox: string; path: string };
+	readonly timePC = signal(0);
+	readonly svg = signal<{ viewbox: string; path: string } | undefined>(undefined);
 	tabindex = '0';
 	private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
 
-	ngOnInit(): void {
+	constructor() {
 		this.player.on(PlayerEvents.TIME, () => {
 			this.updateTimeIndicator();
 		});
@@ -51,11 +50,11 @@ export class SliderTimeComponent implements OnInit {
 	}
 
 	displayWaveForm(): void {
-		this.svg = undefined;
+		this.svg.set(undefined);
 		if (this.app.settings.showWaveform && this.player.currentMedia) {
 			this.jam.waveform.svg({ id: this.player.currentMedia.id, width: this.app.smallscreen ? 1000 : 4000 })
 				.then(data => {
-					this.svg = extractSVGParts(data);
+					this.svg.set(extractSVGParts(data));
 				})
 				.catch((error: unknown) => {
 					console.error(error);
@@ -64,7 +63,7 @@ export class SliderTimeComponent implements OnInit {
 	}
 
 	updateTimeIndicator(): void {
-		this.timePC = this.calculatePositionPercentByTime();
+		this.timePC.set(this.calculatePositionPercentByTime());
 	}
 
 	calculatePositionPercentByTime(): number {

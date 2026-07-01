@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { type Jam, JamService } from '@jam';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AdminBaseParentViewIdComponent } from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
 import { FolderHealthComponent } from '../../folder-health/folder-health.component';
 import { BackgroundTextListComponent } from '@core/components/background-text-list/background-text-list.component';
@@ -15,65 +15,66 @@ import { IconReloadComponent } from '@core/components/icons/icon-reload.componen
 	selector: 'app-admin-folder-health',
 	templateUrl: './admin-folder-health.component.html',
 	styleUrls: ['./admin-folder-health.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextListComponent, FolderHealthComponent, FormsModule, IconReloadComponent, LoadingComponent, RouterModule]
 })
-export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
-	all?: Array<Jam.FolderHealth>;
-	hints?: Array<Jam.FolderHealth>;
+export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent {
+	readonly all = signal<Array<Jam.FolderHealth> | undefined>(undefined);
+	readonly hints = signal<Array<Jam.FolderHealth> | undefined>(undefined);
+	readonly modes = signal<Array<string>>([]);
 	filter?: string;
-	modes: Array<string> = [];
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
 
-	onFilterChange(): void {
-		this.reDisplay();
-	}
-
-	ngOnInit(): void {
-		super.ngOnInit();
+	constructor() {
+		super();
 		this.folderService.foldersChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(change => {
 				this.processChange(change.id);
 			});
 	}
 
-	ngOnDestroy(): void {
-		super.ngOnDestroy();
+	onFilterChange(): void {
+		this.reDisplay();
 	}
 
 	processChange(id: string): void {
 		if (id === this.id) {
 			this.refresh();
-		} else if (this.all) {
-			const folderHealth = this.all.find(f => f.folder.id === id);
-			if (folderHealth) {
-				this.jam.folder.health({ ids: [id], folderIncTag: true })
-					.then(data => {
-						if (this.all) {
-							const newFolderHealth = data.find(d => d.folder.id === folderHealth.folder.id);
-							if (newFolderHealth) {
-								this.all[this.all.indexOf(folderHealth)] = newFolderHealth;
-							} else {
-								this.all = this.all.filter(fh => fh.folder.id !== folderHealth.folder.id);
-							}
-						}
-						this.reDisplay();
-					})
-					.catch((error: unknown) => {
-						this.notify.error(error);
-					});
-			}
+			return;
 		}
+		const all = this.all();
+		const folderHealth = all?.find(f => f.folder.id === id);
+		if (!folderHealth) {
+			return;
+		}
+		this.jam.folder.health({ ids: [id], folderIncTag: true })
+			.then(data => {
+				const currentAll = this.all();
+				if (!currentAll) {
+					return;
+				}
+				const newFolderHealth = data.find(d => d.folder.id === folderHealth.folder.id);
+				if (newFolderHealth) {
+					const updated = [...currentAll];
+					updated[updated.indexOf(folderHealth)] = newFolderHealth;
+					this.all.set(updated);
+				} else {
+					this.all.set(currentAll.filter(fh => fh.folder.id !== folderHealth.folder.id));
+				}
+				this.reDisplay();
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 
-	refresh(): void {
+	override refresh(): void {
 		if (!this.id) {
 			return;
 		}
-		this.hints = undefined;
+		this.hints.set(undefined);
 		this.jam.folder.health({ inSubtreeOfID: this.id, folderIncTag: true })
 			.then(data => {
 				this.display(data);
@@ -84,21 +85,21 @@ export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent i
 	}
 
 	private reDisplay(): void {
-		this.hints = !this.filter || !this.all ?
-			this.all :
-			this.all.filter(f => f.health.find(p => p.name === this.filter));
+		const all = this.all();
+		this.hints.set(!this.filter || !all ? all : all.filter(f => f.health.find(p => p.name === this.filter)));
 	}
 
 	private display(folderHealths: Array<Jam.FolderHealth>): void {
-		this.all = folderHealths;
-		this.modes = [];
+		this.all.set(folderHealths);
+		const modes: Array<string> = [];
 		for (const folderHealth of folderHealths) {
 			for (const hint of folderHealth.health) {
-				if (!this.modes.includes(hint.name)) {
-					this.modes.push(hint.name);
+				if (!modes.includes(hint.name)) {
+					modes.push(hint.name);
 				}
 			}
 		}
+		this.modes.set(modes);
 		this.reDisplay();
 	}
 }

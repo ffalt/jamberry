@@ -1,7 +1,7 @@
 <div (dragover)="onDragOverFile($event)" (drop)="onDropFile($event)" class="drop-zone">
 	<form>
 		<div class="root-form-control">
-			<img [src]="userAvatar" alt="User Avatar" i18n-alt>
+			<img [src]="userAvatar()" alt="User Avatar" i18n-alt>
 		</div>
 	</form>
 	<form>

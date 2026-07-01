@@ -1,7 +1,7 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { JamFolderObject } from '../../model/objects';
 import { ObjGroupsViewComponent } from '../obj-groups-view/obj-groups-view.component';
 import { TrackListComponent } from '../track-list/track-list.component';
@@ -15,63 +15,54 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-folder-overview',
 	templateUrl: './folder-overview.component.html',
 	styleUrls: ['./folder-overview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TrackListComponent, ObjGroupsViewComponent, InfoNoteComponent, LoadingComponent]
 })
-export class FolderOverviewComponent implements OnInit, OnDestroy {
+export class FolderOverviewComponent {
 	readonly navig = inject(NavigService);
-	id?: string;
-	folder?: Jam.Folder;
-	childFolders?: Array<JamFolderObject>;
+	readonly folder = signal<Jam.Folder | undefined>(undefined);
+	readonly childFolders = computed(() => {
+		const folders = this.folder()?.folders;
+		return folders?.length ? folders.map(o => new JamFolderObject(o, this.library)) : undefined;
+	});
+
+	private id?: string;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly library = inject(LibraryService);
 
-	ngOnInit(): void {
+	constructor() {
 		this.route.paramMap
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(paramMap => {
 				this.id = paramMap.get('id') ?? undefined;
 				this.refresh();
 			});
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	refresh(): void {
-		this.folder = undefined;
-		if (this.id) {
-			this.jam.folder.id({
-				id: this.id,
-				trackIncState: true,
-				trackIncTag: true,
-				folderIncParents: true,
-				folderIncState: true,
-				folderIncTag: true,
-				folderIncChildren: true,
-				folderIncInfo: true,
-				folderChildIncTag: true,
-				folderChildIncState: true
+		this.folder.set(undefined);
+		if (!this.id) {
+			return;
+		}
+		this.jam.folder.id({
+			id: this.id,
+			trackIncState: true,
+			trackIncTag: true,
+			folderIncParents: true,
+			folderIncState: true,
+			folderIncTag: true,
+			folderIncChildren: true,
+			folderIncInfo: true,
+			folderChildIncTag: true,
+			folderChildIncState: true
+		})
+			.then(folder => {
+				this.folder.set(folder);
 			})
-				.then(folder => {
-					this.display(folder);
-				})
-				.catch((error: unknown) => {
-					this.notify.error(error);
-				});
-		}
-	}
-
-	display(folder: Jam.Folder): void {
-		this.folder = folder;
-		this.childFolders = undefined;
-		if (this.folder.folders && this.folder.folders.length > 0) {
-			this.childFolders = this.folder.folders.map(o => new JamFolderObject(o, this.library));
-		}
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 }

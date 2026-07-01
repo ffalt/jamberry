@@ -1,4 +1,4 @@
-import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, type OnInit, signal } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AlbumType, JamService } from '@jam';
 import { getTypeByAlbumType } from '@utils/jam-lists';
@@ -8,18 +8,17 @@ import { filterStats, StatsComponent, type StatsList } from '@core/components/st
 	selector: 'app-start-stats',
 	templateUrl: './start-stats.component.html',
 	styleUrls: ['./start-stats.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [StatsComponent]
 })
 export class StartStatsComponent implements OnInit {
-	stats?: StatsList;
+	readonly stats = signal<StatsList | undefined>(undefined);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
 	ngOnInit(): void {
 		this.jam.stats.get({})
 			.then(stats => {
-				this.stats = filterStats(
+				this.stats.set(filterStats(
 					[
 						{ text: 'Artists', link: '/library/artists', value: stats.artistTypes.album },
 						...[
@@ -41,7 +40,7 @@ export class StartStatsComponent implements OnInit {
 						})),
 						{ text: 'Folders', link: '/library/folders', value: stats.folder },
 						{ text: 'Tracks', link: '/library/tracks', value: stats.track }
-					]);
+					]));
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

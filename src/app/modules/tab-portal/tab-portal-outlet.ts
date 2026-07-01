@@ -41,9 +41,7 @@ export class TabPortalOutlet {
 		// At this point the component has been instantiated, so we move it to the location in the DOM where we want it to be rendered.
 		const element = this.outletElement.element.nativeElement as HTMLElement;
 		// Clear element content safely without using innerHTML
-		while (element.firstChild) {
-			element.firstChild.remove();
-		}
+		element.replaceChildren();
 		if (instance) {
 			element.append(TabPortalOutlet.getComponentRootNode(instance.componentRef));
 			this.curTab = instance;
@@ -65,8 +63,8 @@ export class TabPortalOutlet {
 	 */
 	dispose(): void {
 		// Dispose all active tabs
-		for (const name of Object.keys(this.activeTabs)) {
-			this.activeTabs[name]?.dispose();
+		for (const value of Object.values(this.activeTabs)) {
+			value?.dispose();
 		}
 		// Remove outlet element
 		const element = this.outletElement.element.nativeElement as HTMLElement;

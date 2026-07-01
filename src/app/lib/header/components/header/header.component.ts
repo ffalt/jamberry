@@ -1,8 +1,6 @@
 import { Location as AngularLocation } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
-import { JamAuthService } from '@jam';
 import { MainTabsService } from '../../../main-tabs/services/main-tabs.service';
 import { ContextMenuUserComponent } from '../context-menu-user/context-menu-user.component';
 import { SearchBoxComponent } from '../search-box/search-box.component';
@@ -13,7 +11,7 @@ import { AppService } from '@core/services/app/app.service';
 import { NavigService } from '@core/services/navig/navig.service';
 import { IconLeftBoldComponent } from '@core/components/icons/icon-left-bold.component';
 import { IconMenuComponent } from '@core/components/icons/icon-menu.component';
-import { UserStorageService } from '@core/services/userstorage/userstorage.service';
+import { injectUser } from '@core/services/user/user.service';
 
 @Component({
 	selector: 'app-header',
@@ -25,7 +23,7 @@ export class HeaderComponent {
 	readonly app = inject(AppService);
 	readonly navig = inject(NavigService);
 	readonly tabService = inject(MainTabsService);
-	readonly user = toSignal(inject(UserStorageService).userChange, { initialValue: inject(JamAuthService).user });
+	readonly user = injectUser();
 	searchActive: boolean = false;
 	private readonly location = inject(AngularLocation);
 	private readonly menuService = inject(MenuService);

@@ -1,8 +1,9 @@
 import { type CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, inject, input, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import type { Jam } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
+import { map } from 'rxjs';
 import { ContextMenuQueueTrackComponent } from '../context-menu-queue-track/context-menu-queue-track.component';
 import { QueueItemComponent } from '../queue-item/queue-item.component';
 import { FocusKeyListItemDirective } from '@core/directives/focus-key-list-item.directive';
@@ -18,33 +19,21 @@ import { IconShuffleComponent } from '@core/components/icons/icon-shuffle.compon
 	selector: 'app-queue',
 	templateUrl: './queue.component.html',
 	styleUrls: ['./queue.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextComponent, DragDropModule, FocusKeyListDirective, FocusKeyListItemDirective, IconRemoveComponent, IconShuffleComponent, QueueItemComponent, ScrollingModule]
 })
-export class QueueComponent implements OnInit, OnDestroy {
+export class QueueComponent {
 	readonly showControls = input<boolean>(true);
 	readonly queue = inject(QueueService);
-	entries: Array<Jam.MediaBase> = [];
+	readonly entries = toSignal(
+		this.queue.queueChange.pipe(map(() => [...this.queue.entries])),
+		{ initialValue: [...this.queue.entries] }
+	);
+
 	private readonly player = inject(PlayerService);
-	private readonly unsubscribe = new Subject<void>();
 	private readonly menuService = inject(MenuService);
 	private currentSwipeElement?: HTMLElement;
 	private touchStartX = 0;
 	private currentTouchX = 0;
-
-	ngOnInit(): void {
-		this.entries = [...this.queue.entries];
-		this.queue.queueChange
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(() => {
-				this.entries = [...this.queue.entries];
-			});
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
 
 	onContextMenu($event: Event, item: Jam.MediaBase): void {
 		this.menuService.openMenuComponent<undefined>(ContextMenuQueueTrackComponent, item, $event);
@@ -90,27 +79,31 @@ export class QueueComponent implements OnInit, OnDestroy {
 	}
 
 	onTouchEnd(event: TouchEvent, track: Jam.MediaBase): void {
-		if (this.currentSwipeElement) {
-			this.currentSwipeElement.style.marginLeft = '0px';
-			const deltaX = this.currentTouchX - this.touchStartX;
-			this.currentSwipeElement = undefined;
-			this.touchStartX = 0;
-			this.currentTouchX = 0;
+		if (!this.currentSwipeElement) {
+			return;
+		}
 
-			if (deltaX >= 200) {
-				setTimeout(() => {
-					this.queue.remove(track);
-				});
-			}
+		this.currentSwipeElement.style.marginLeft = '0px';
+		const deltaX = this.currentTouchX - this.touchStartX;
+		this.currentSwipeElement = undefined;
+		this.touchStartX = 0;
+		this.currentTouchX = 0;
+
+		if (deltaX >= 200) {
+			setTimeout(() => {
+				this.queue.remove(track);
+			}, 0);
 		}
 	}
 
 	onTouchCancel(): void {
-		if (this.currentSwipeElement) {
-			this.currentSwipeElement.style.marginLeft = '0px';
-			this.currentSwipeElement = undefined;
-			this.touchStartX = 0;
-			this.currentTouchX = 0;
+		if (!this.currentSwipeElement) {
+			return;
 		}
+
+		this.currentSwipeElement.style.marginLeft = '0px';
+		this.currentSwipeElement = undefined;
+		this.touchStartX = 0;
+		this.currentTouchX = 0;
 	}
 }

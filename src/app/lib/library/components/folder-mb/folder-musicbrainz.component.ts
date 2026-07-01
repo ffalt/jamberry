@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { FolderType, type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { MbArtistComponent } from '../mb-artist/mb-artist.component';
 import { BackgroundTextComponent } from '@core/components/background-text/background-text.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
@@ -12,22 +12,21 @@ import { MbAlbumComponent } from '../mb-album/mb-album.component';
 	selector: 'app-folder-musicbrainz',
 	templateUrl: './folder-musicbrainz.component.html',
 	styleUrls: ['./folder-musicbrainz.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [MbArtistComponent, BackgroundTextComponent, LoadingComponent, MbAlbumComponent]
 })
-export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
-	folder?: Jam.Folder;
-	id?: string;
+export class FolderMusicbrainzComponent {
+	readonly folder = signal<Jam.Folder | undefined>(undefined);
 	protected readonly FolderType = FolderType;
+	private id?: string;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 
-	ngOnInit(): void {
+	constructor() {
 		if (this.route.parent) {
 			this.route.parent.paramMap
-				.pipe(takeUntil(this.unsubscribe))
+				.pipe(takeUntilDestroyed(this.lifeRef))
 				.subscribe(paramMap => {
 					this.id = paramMap.get('id') ?? undefined;
 					this.refresh();
@@ -35,25 +34,17 @@ export class FolderMusicbrainzComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	refresh(): void {
-		this.folder = undefined;
-		if (this.id) {
-			this.jam.folder.id({ id: this.id, folderIncTag: true })
-				.then(folder => {
-					this.display(folder);
-				})
-				.catch((error: unknown) => {
-					this.notify.error(error);
-				});
+		this.folder.set(undefined);
+		if (!this.id) {
+			return;
 		}
-	}
-
-	display(folder?: Jam.Folder): void {
-		this.folder = folder;
+		this.jam.folder.id({ id: this.id, folderIncTag: true })
+			.then(folder => {
+				this.folder.set(folder);
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 }

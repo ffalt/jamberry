@@ -1,7 +1,7 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { type Jam, JamService } from '@jam';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import type { FolderEdit } from '../../../admin.interface';
 import { AdminBaseParentViewIdComponent } from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';
@@ -20,20 +20,19 @@ import { IconRightBoldComponent } from '@core/components/icons/icon-right-bold.c
 	selector: 'app-admin-folder-folders',
 	templateUrl: './admin-folder-folders.component.html',
 	styleUrls: ['./admin-folder-folders.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextListComponent, FolderListComponent, IconPlusComponent, IconReloadComponent, IconRightBoldComponent, LoadingComponent, RouterModule]
 })
-export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
-	folder: Jam.Folder | undefined;
+export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent {
+	readonly folder = signal<Jam.Folder | undefined>(undefined);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
 
-	ngOnInit(): void {
-		super.ngOnInit();
+	constructor() {
+		super();
 		this.folderService.foldersChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(change => {
 				if (change.id === this.id) {
 					this.refresh();
@@ -41,18 +40,14 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 			});
 	}
 
-	ngOnDestroy(): void {
-		super.ngOnDestroy();
-	}
-
-	refresh(): void {
-		this.folder = undefined;
+	override refresh(): void {
+		this.folder.set(undefined);
 		if (!this.id) {
 			return;
 		}
 		this.jam.folder.id({ id: this.id, folderIncFolders: true, folderIncTag: true })
 			.then(data => {
-				this.folder = data;
+				this.folder.set(data);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
@@ -60,10 +55,10 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 	}
 
 	newFolder(): void {
-		if (!this.folder) {
+		const folder = this.folder();
+		if (!folder) {
 			return;
 		}
-		const folder = this.folder;
 		const edit: FolderEdit = { folder, name: '' };
 		this.dialogOverlay.open<FolderEdit>({
 			childComponent: DialogFolderComponent,
@@ -88,11 +83,12 @@ export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent 
 	}
 
 	moveSubfolders(): void {
-		if (!this.id || !this.folder?.folders) {
+		const folder = this.folder();
+		if (!this.id || !folder?.folders) {
 			return;
 		}
 		const id = this.id;
-		const folderIDs = this.folder.folders.map(f => f.id);
+		const folderIDs = folder.folders.map(f => f.id);
 		const refreshID = [id, ...folderIDs];
 		const data: SelectFolder = {
 			selectID: id,

@@ -1,8 +1,8 @@
 import { CdkTrapFocus, FocusKeyManager } from '@angular/cdk/a11y';
 import type { OverlayRef } from '@angular/cdk/overlay';
-import { type AfterViewInit, Component, type ElementRef, inject, model, type OnDestroy, type OnInit, output, type QueryList, viewChild, viewChildren, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { type AfterViewInit, Component, DestroyRef, type ElementRef, inject, model, type OnInit, output, type QueryList, viewChild, viewChildren, ViewChildren } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContextMenuContentItemComponent } from '@modules/ngx-contextmenu/lib/contextmenu-content-item.component';
-import { Subscription } from 'rxjs';
 import type { ContextMenuItemDirective } from './contextmenu.item.directive';
 import type { IContextMenuOptions } from './contextmenu.options';
 import type { CloseLeafMenuEvent, IContextMenuClickEvent } from './contextmenu.service';
@@ -26,10 +26,9 @@ import { ContextMenuContentItemComponent as ContextMenuContentItemComponent_1 } 
 		'(document:contextmenu)': 'closeMenu($event)',
 		'(document:click)': 'closeMenu($event)'
 	},
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [NgClass, CdkTrapFocus, ContextMenuContentItemComponent_1]
 })
-export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ContextMenuContentComponent implements OnInit, AfterViewInit {
 	readonly menuItems = model<Array<ContextMenuItemDirective>>([]);
 	readonly item = model<unknown>();
 	readonly event = model<Event>();
@@ -50,8 +49,8 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 	readonly menuItemElements = viewChildren<ElementRef<HTMLOListElement>>('li');
 	autoFocus = false;
 	@ViewChildren(ContextMenuContentItemComponent) menuItemFocusElements!: QueryList<ContextMenuContentItemComponent>;
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly options = inject<IContextMenuOptions>(CONTEXT_MENU_OPTIONS, { optional: true });
-	private readonly subscription: Subscription = new Subscription();
 	private keyManager!: FocusKeyManager<ContextMenuContentItemComponent>;
 
 	constructor() {
@@ -65,11 +64,12 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		const item = this.item();
 		for (const menuItem of items) {
 			menuItem.currentItem = item;
-			this.subscription.add(
-				menuItem.execute.subscribe(event => {
-					this.execute.emit({ ...event, menuItem });
-				})
-			);
+			const sub = menuItem.execute.subscribe(event => {
+				this.execute.emit({ ...event, menuItem });
+			});
+			this.lifeRef.onDestroy(() => {
+				sub.unsubscribe();
+			});
 		}
 	}
 
@@ -81,18 +81,15 @@ export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterView
 		if (this.autoFocus) {
 			setTimeout(() => {
 				this.focus();
-			});
+			}, 0);
 		}
 		this.registerKeys();
 		this.menuItemFocusElements.changes
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				this.registerKeys();
 			});
 		this.overlay()?.updatePosition();
-	}
-
-	ngOnDestroy() {
-		this.subscription.unsubscribe();
 	}
 
 	focus(): void {

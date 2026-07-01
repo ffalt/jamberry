@@ -35,14 +35,14 @@ export class Hotkey {
 
 	static symbolize(combo: string): string {
 		const map: Record<string, string> = {
-			command: '\u2318', // ⌘
-			shift: '\u21E7', // ⇧
-			left: '\u2190', // ←
-			right: '\u2192', // →
-			up: '\u2191', // ↑
-			down: '\u2193', // ↓
-			return: '\u23CE', // ⏎
-			backspace: '\u232B' // ⌫
+			command: '\u{2318}', // ⌘
+			shift: '\u{21E7}', // ⇧
+			left: '\u{2190}', // ←
+			right: '\u{2192}', // →
+			up: '\u{2191}', // ↑
+			down: '\u{2193}', // ↓
+			return: '\u{23CE}', // ⏎
+			backspace: '\u{232B}' // ⌫
 		};
 		const comboSplit: Array<string> = combo.split('+');
 

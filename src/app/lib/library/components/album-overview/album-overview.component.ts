@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AlbumType, type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { TrackListComponent } from '../track-list/track-list.component';
 import { InfoNoteComponent } from '@core/components/info-note/info-note.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
@@ -11,57 +11,45 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-album-overview',
 	templateUrl: './album-overview.component.html',
 	styleUrls: ['./album-overview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TrackListComponent, InfoNoteComponent, LoadingComponent]
 })
-export class AlbumOverviewComponent implements OnInit, OnDestroy {
-	id?: string;
-	album?: Jam.Album;
-	tracks: Array<Jam.Track> = [];
-	isCompilation: boolean = false;
-	private readonly unsubscribe = new Subject<void>();
+export class AlbumOverviewComponent {
+	readonly album = signal<Jam.Album | undefined>(undefined);
+	readonly tracks = computed(() => this.album()?.tracks ?? []);
+	readonly isCompilation = computed(() => this.album()?.albumType === AlbumType.compilation);
+	private id?: string;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
+	private readonly lifeRef = inject(DestroyRef);
 
-	ngOnInit(): void {
+	constructor() {
 		this.route.paramMap
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(paramMap => {
 				this.id = paramMap.get('id') ?? undefined;
 				this.refresh();
 			});
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
-	display(album: Jam.Album): void {
-		this.album = album;
-		this.isCompilation = this.album.albumType === AlbumType.compilation;
-		this.tracks = album.tracks ?? [];
-	}
-
 	refresh(): void {
-		this.album = undefined;
-		this.tracks = [];
-		if (this.id) {
-			this.jam.album.id({
-				id: this.id,
-				trackIncState: true,
-				trackIncTag: true,
-				albumIncGenres: true,
-				albumIncTracks: true,
-				albumIncInfo: true
-			})
-				.then(album => {
-					this.display(album);
-				})
-				.catch((error: unknown) => {
-					this.notify.error(error);
-				});
+		this.album.set(undefined);
+		if (!this.id) {
+			return;
 		}
+		this.jam.album.id({
+			id: this.id,
+			trackIncState: true,
+			trackIncTag: true,
+			albumIncGenres: true,
+			albumIncTracks: true,
+			albumIncInfo: true
+		})
+			.then(album => {
+				this.album.set(album);
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 }

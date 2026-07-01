@@ -1,6 +1,6 @@
 <div class="genre">
-	<app-view-header-icon-section [section]="title" [tabs]="tabs" [icon]="headerIcon" />
-	@if (genreID) {
+	<app-view-header-icon-section [section]="title()" [tabs]="tabs" [icon]="headerIcon" />
+	@if (genreID(); as genreID) {
 		<div class="content">
 			<div class="tab-content">
 				@switch (currentTab.id) {

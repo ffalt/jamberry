@@ -1,13 +1,13 @@
 <div class="sessions">
 	<app-view-header-slim i18n-section section="Session Logins" />
-	@if (sessions) {
+	@if (sessions(); as sessions) {
 		<div class="content">
 			<div class="subsonic">
 				<div class="section-title" i18n>Subsonic Token</div>
-				@if (isUnlocked) {
+				@if (isUnlocked()) {
 					<div i18n>Click to generate or update a Subsonic Token. Warning: Existing token will no longer be valid.</div>
 					<button class="button-primary" i18n (click)="generateSubsonicToken()">Generate New Subsonic Token</button>
-					@if (subsonicToken?.token; as token) {
+					@if (subsonicToken()?.token; as token) {
 						<div i18n class="token">This is your Subsonic Token. Please copy and store, you can not see it here again.</div>
 						<div><code>{{ token }}</code></div>
 					}

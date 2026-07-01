@@ -1,35 +1,30 @@
-import { Component, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
-import { Subject, takeUntil } from 'rxjs';
 import { MatchDiscogsComponent } from '../match-discogs/match-discogs.component';
 import type { ReleaseMatching } from '../match-release/match-release.component';
 
 @Component({
 	selector: 'app-dialog-match-discogs',
 	templateUrl: './dialog-match-discogs.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [MatchDiscogsComponent]
 })
-export class DialogMatchDiscogsComponent implements DialogOverlay<ReleaseMatching>, OnDestroy {
-	data?: ReleaseMatching;
-	private readonly unsubscribe = new Subject<void>();
+export class DialogMatchDiscogsComponent implements DialogOverlay<ReleaseMatching> {
+	readonly data = signal<ReleaseMatching | undefined>(undefined);
+	private readonly lifeRef = inject(DestroyRef);
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ReleaseMatching>>): void {
-		this.data = options.data;
-		if (this.data) {
-			this.data.close = (): void => {
+		const data = options.data;
+		this.data.set(data);
+		if (data) {
+			data.close = (): void => {
 				reference.close();
 			};
 		}
 		reference.beforeClose()
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
-				this.data = undefined;
+				this.data.set(undefined);
 			});
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 }

@@ -1,7 +1,7 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { type AfterViewInit, Component, inject, input, type OnDestroy, type OnInit, viewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { type AfterViewInit, Component, DestroyRef, inject, input, signal, viewChildren } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { SidebarListItemComponent } from '../sidebar-list-item/sidebar-list-item.component';
 import { type SidebarList, SidebarListComponent } from '../sidebar-list/sidebar-list.component';
 import { AppService, type SidebarProvider } from '../../services/app/app.service';
@@ -12,43 +12,39 @@ import { AppService, type SidebarProvider } from '../../services/app/app.service
 	styleUrls: ['./sidebar.component.scss'],
 	host: {
 		'[class.active]': 'collapsed',
-		'[class.show]': 'showMobileNavig'
+		'[class.show]': 'showMobileNavig()'
 	},
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [SidebarListComponent]
 })
-export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, SidebarProvider {
+export class SidebarComponent implements AfterViewInit, SidebarProvider {
 	readonly sections = input<Array<SidebarList>>([]);
 	readonly listName = input<string>('');
 	collapsed: boolean = false;
-	showMobileNavig: boolean = false;
+	readonly showMobileNavig = signal(false);
 	private readonly app = inject(AppService);
 	private readonly router = inject(Router);
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly items = viewChildren(SidebarListComponent);
 	private keyManager: FocusKeyManager<SidebarListItemComponent> | undefined;
-	private readonly unsubscribe = new Subject<void>();
 
-	ngOnInit(): void {
+	constructor() {
 		this.app.view.currentSidebar = this;
 		this.router.events
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
-				this.showMobileNavig = false;
+				this.showMobileNavig.set(false);
 			});
-	}
-
-	ngOnDestroy(): void {
-		this.app.view.currentSidebar = undefined;
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
+		this.lifeRef.onDestroy(() => {
+			this.app.view.currentSidebar = undefined;
+		});
 	}
 
 	toggleMobileNavig(): void {
-		this.showMobileNavig = !this.showMobileNavig;
+		this.showMobileNavig.update(v => !v);
 	}
 
 	onNavigate(): void {
-		this.showMobileNavig = false;
+		this.showMobileNavig.set(false);
 	}
 
 	manageKey(event: Event) {

@@ -1,5 +1,5 @@
 <context-menu #objMenu>
-	@if (showGoto) {
+	@if (showGoto()) {
 		<ng-template contextMenuItem (execute)="toLibraryObject($event.item).navigTo()"><app-icon-view-details />
 			<ng-container i18n>Navigate to</ng-container>
 		</ng-template>
@@ -28,7 +28,7 @@
 	<ng-template (execute)="toLibraryObject($event.item).download()" contextMenuItem><app-icon-download-cloud />
 		<ng-container i18n>Download</ng-container>
 	</ng-template>
-	@for (extra of extras; track extra) {
+	@for (extra of extras(); track extra) {
 		<ng-template contextMenuItem (execute)="extra.click()"><ng-container [ngComponentOutlet]="extra.icon" /> {{ extra.text }}</ng-template>
 	}
 </context-menu>

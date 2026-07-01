@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { MbArtistComponent } from '../mb-artist/mb-artist.component';
 import { BackgroundTextComponent } from '@core/components/background-text/background-text.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
@@ -11,22 +11,21 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-artist-mb',
 	templateUrl: './artist-mb.component.html',
 	styleUrls: ['./artist-mb.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [MbArtistComponent, BackgroundTextComponent, LoadingComponent]
 })
-export class ArtistMbComponent implements OnInit, OnDestroy {
-	mbArtistID?: string;
-	artist?: Jam.Artist;
-	id?: string;
+export class ArtistMbComponent {
+	readonly artist = signal<Jam.Artist | undefined>(undefined);
+	readonly mbArtistID = computed(() => this.artist()?.mbArtistID);
+	private id?: string;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 
-	ngOnInit(): void {
+	constructor() {
 		if (this.route.parent) {
 			this.route.parent.paramMap
-				.pipe(takeUntil(this.unsubscribe))
+				.pipe(takeUntilDestroyed(this.lifeRef))
 				.subscribe(paramMap => {
 					this.id = paramMap.get('id') ?? undefined;
 					this.refresh();
@@ -34,20 +33,14 @@ export class ArtistMbComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	refresh(): void {
-		this.artist = undefined;
+		this.artist.set(undefined);
 		if (!this.id) {
 			return;
 		}
 		this.jam.artist.id({ id: this.id })
 			.then(artist => {
-				this.artist = artist;
-				this.mbArtistID = artist.mbArtistID;
+				this.artist.set(artist);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

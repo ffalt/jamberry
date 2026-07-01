@@ -1,29 +1,29 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { DiscogsArtistComponent } from '../discogs-artist/discogs-artist.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 
 @Component({
 	selector: 'app-artist-discogs',
 	templateUrl: './artist-discogs.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [DiscogsArtistComponent, LoadingComponent]
 })
-export class ArtistDiscogsComponent implements OnInit, OnDestroy {
-	id?: string;
-	artist?: Jam.Artist;
+export class ArtistDiscogsComponent {
+	readonly artist = signal<Jam.Artist | undefined>(undefined);
+
+	private id?: string;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 
-	ngOnInit(): void {
+	constructor() {
 		if (this.route.parent) {
 			this.route.parent.paramMap
-				.pipe(takeUntil(this.unsubscribe))
+				.pipe(takeUntilDestroyed(this.lifeRef))
 				.subscribe(paramMap => {
 					this.id = paramMap.get('id') ?? undefined;
 					this.refresh();
@@ -31,19 +31,14 @@ export class ArtistDiscogsComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	refresh(): void {
-		this.artist = undefined;
+		this.artist.set(undefined);
 		if (!this.id) {
 			return;
 		}
 		this.jam.artist.id({ id: this.id })
-			.then(artist => {
-				this.artist = artist;
+			.then(a => {
+				this.artist.set(a);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

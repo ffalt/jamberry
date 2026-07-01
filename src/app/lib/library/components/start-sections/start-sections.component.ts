@@ -1,4 +1,4 @@
-import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, type OnInit, signal } from '@angular/core';
 import { JamService, ListType } from '@jam';
 import { StartSectionComponent, type StartSectionItem } from '../start-section/start-section.component';
 import { NavigService } from '@core/services/navig/navig.service';
@@ -8,16 +8,13 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-start-sections',
 	templateUrl: './start-sections.component.html',
 	styleUrls: ['./start-sections.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [StartSectionComponent]
 })
 export class StartSectionsComponent implements OnInit {
-	data: {
-		artistRecent?: Array<StartSectionItem>;
-		artistFaved?: Array<StartSectionItem>;
-		albumFaved?: Array<StartSectionItem>;
-		albumRecent?: Array<StartSectionItem>;
-	} = {};
+	readonly artistRecent = signal<Array<StartSectionItem> | undefined>(undefined);
+	readonly artistFaved = signal<Array<StartSectionItem> | undefined>(undefined);
+	readonly albumFaved = signal<Array<StartSectionItem> | undefined>(undefined);
+	readonly albumRecent = signal<Array<StartSectionItem> | undefined>(undefined);
 
 	private readonly jam = inject(JamService);
 	private readonly navig = inject(NavigService);
@@ -26,44 +23,44 @@ export class StartSectionsComponent implements OnInit {
 	ngOnInit(): void {
 		this.jam.artist.search({ list: ListType.recent, take: 5 })
 			.then(data => {
-				this.data.artistRecent = data.items.map(obj => ({
+				this.artistRecent.set(data.items.map(obj => ({
 					obj, click: (): void => {
 						this.navig.toArtist(obj);
 					}
-				}));
+				})));
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
 			});
 		this.jam.artist.search({ list: ListType.faved, take: 5 })
 			.then(data => {
-				this.data.artistFaved = data.items.map(obj => ({
+				this.artistFaved.set(data.items.map(obj => ({
 					obj, click: (): void => {
 						this.navig.toArtist(obj);
 					}
-				}));
+				})));
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
 			});
 		this.jam.album.search({ list: ListType.faved, take: 5 })
 			.then(data => {
-				this.data.albumFaved = data.items.map(obj => ({
+				this.albumFaved.set(data.items.map(obj => ({
 					obj, click: (): void => {
 						this.navig.toAlbum(obj);
 					}
-				}));
+				})));
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
 			});
 		this.jam.album.search({ list: ListType.recent, take: 5 })
 			.then(data => {
-				this.data.albumRecent = data.items.map(obj => ({
+				this.albumRecent.set(data.items.map(obj => ({
 					obj, click: (): void => {
 						this.navig.toAlbum(obj);
 					}
-				}));
+				})));
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

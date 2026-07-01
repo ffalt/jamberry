@@ -1,4 +1,4 @@
-@if (mbArtist) {
+@if (mbArtist(); as mbArtist) {
 	<div class="mbartist">
 		<div class="section-title">
 			<ng-container i18n>Artist Information by</ng-container>
@@ -12,9 +12,9 @@
 			<div class="disambiguation">{{ mbArtist.disambiguation }}</div>
 			<div><span i18n class="label">Type: </span>{{ mbArtist.type }}</div>
 		</div>
-		@if (releaseGroups && releaseGroups.length > 0) {
+		@if (releaseGroups().length > 0) {
 			<div class="section">
-				@for (typeGroup of releaseGroups; track typeGroup) {
+				@for (typeGroup of releaseGroups(); track typeGroup) {
 					<div>
 						<div i18n class="section-title">Discography: {{ typeGroup.type }}</div>
 						<div class="releasegroups">

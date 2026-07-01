@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
 import { type ImageCroppedEvent, ImageCropperComponent, type OutputFormat } from 'ngx-image-cropper';
@@ -13,13 +13,12 @@ export interface PicEdit {
 	selector: 'app-dialog-tag-image',
 	templateUrl: './dialog-tag-image.component.html',
 	styleUrls: ['./dialog-tag-image.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, ImageCropperComponent]
 })
 export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	edit?: PicEdit;
 	maintainAspectRatio: boolean = true;
-	current: { frame?: Jam.MediaTagRawFramePic; source?: string } = {};
+	readonly current = signal<{ frame?: Jam.MediaTagRawFramePic; source?: string }>({});
 	format: OutputFormat = 'jpeg';
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PicEdit>>): void {
@@ -33,9 +32,8 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	}
 
 	displayFrame(frame: Jam.MediaTagRawFramePic): void {
-		const base64 = `data:${(frame.value.mimeType ?? 'image/jpeg')};base64,${frame.value.bin}`;
-		this.current.frame = frame;
-		this.current.source = base64;
+		const source = `data:${(frame.value.mimeType ?? 'image/jpeg')};base64,${frame.value.bin}`;
+		this.current.set({ frame, source });
 	}
 
 	onDropFile(event: DragEvent): void {
@@ -79,16 +77,15 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 			if (typeof fullBase64 !== 'string') {
 				return;
 			}
-			if (!this.current.frame) {
-				this.current.frame = this.buildFrame(fullBase64);
-				if (this.edit?.result) {
-					this.edit.result.push(this.current.frame);
-				}
+			let frame = this.current().frame;
+			if (!frame) {
+				frame = this.buildFrame(fullBase64);
+				this.edit?.result?.push(frame);
 			}
-			this.current.source = fullBase64;
 			const { mimeType, base64 } = this.splitBase64(fullBase64);
-			this.current.frame.value.mimeType = mimeType;
-			this.current.frame.value.bin = base64;
+			frame.value.mimeType = mimeType;
+			frame.value.bin = base64;
+			this.current.set({ frame, source: fullBase64 });
 		};
 
 		const onError = (e: ProgressEvent<FileReader>): void => {
@@ -101,10 +98,12 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	}
 
 	imageCropped(event: ImageCroppedEvent): void {
-		if (this.current.frame && event.base64) {
-			const { mimeType, base64 } = this.splitBase64(event.base64);
-			this.current.frame.value.mimeType = mimeType;
-			this.current.frame.value.bin = base64;
+		const frame = this.current().frame;
+		if (!(frame && event.base64)) {
+			return;
 		}
+		const { mimeType, base64 } = this.splitBase64(event.base64);
+		frame.value.mimeType = mimeType;
+		frame.value.bin = base64;
 	}
 }

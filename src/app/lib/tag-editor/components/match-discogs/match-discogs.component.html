@@ -2,14 +2,14 @@
 	<div class="search-fields">
 		<input class="input-on-control" [(ngModel)]="searchArtist" placeholder="Artist" i18n-placeholder />
 		<input class="input-on-control" [(ngModel)]="searchTitle" placeholder="Album" i18n-placeholder />
-		<button class="button-on-control" (click)="search()" [disabled]="isSearching" i18n>Search</button>
+		<button class="button-on-control" (click)="search()" [disabled]="isSearching()" i18n>Search</button>
 	</div>
 </div>
 <div class="results">
-	@if (isSearching) {
+	@if (isSearching()) {
 		<app-loading />
 	} @else {
-		@for (result of results; track result.id) {
+		@for (result of results(); track result.id) {
 			<div class="result" [class.selected]="selected?.id === result.id" (click)="selected = result">
 				@if (result.thumb) {
 					<img class="thumb" [src]="imageUrl(result.thumb)" alt="" />
@@ -29,7 +29,7 @@
 	}
 </div>
 <div class="buttons">
-	@if (isApplying || isSearching) {
+	@if (isApplying() || isSearching()) {
 		<button class="button-primary"><app-icon-spin class="icon-spin" /></button>
 	} @else {
 		<button class="button-primary" [disabled]="!selected" (click)="apply()" i18n>Apply</button>

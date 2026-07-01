@@ -1,4 +1,4 @@
-@if (lyrics) {
+@if (lyrics(); as lyrics) {
 	<div class="info">
 		<div class="description">
 			<div class="note">
@@ -7,7 +7,7 @@
 						<div [innerHTML]="note"></div>
 					</div>
 				}
-				@if (lyricsSource) {
+				@if (lyricsSource(); as lyricsSource) {
 					<div class="info-footnote">
 						<a i18n [href]="lyricsSource">Source</a>
 					</div>

@@ -1,5 +1,5 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, type OnDestroy, signal } from '@angular/core';
 import { type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
@@ -11,14 +11,13 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-dialog-upload-image',
 	templateUrl: './dialog-upload-image.component.html',
 	styleUrls: ['./dialog-upload-image.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [LoadingComponent]
 })
 export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.Folder }>, OnDestroy {
 	folder?: Jam.Folder;
 	reference?: DialogOverlayRef;
-	isIdle: boolean = true;
-	isUploading: boolean = false;
+	readonly isIdle = signal(true);
+	readonly isUploading = signal(false);
 	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
@@ -42,7 +41,7 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 		this.folderService.waitForQueueResult('Creating Artwork', item, [])
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(() => {
-				this.isIdle = true;
+				this.isIdle.set(true);
 				this.folderService.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
 				if (!item.error) {
 					this.notify.success('Upload done');
@@ -76,26 +75,28 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 			return;
 		}
 		const file: File = files[0];
-		this.isIdle = false;
-		this.isUploading = true;
+		this.isIdle.set(false);
+		this.isUploading.set(true);
 		this.jam.artwork.createByUpload({ folderID: this.folder.id, types: [] }, file)
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe({
 				next: event => {
-					if (event instanceof HttpResponse) {
-						const result = event.body;
-						if (result) {
-							this.waitForCreationEnd(result as Jam.AdminChangeQueueInfo);
-						}
+					if (!(event instanceof HttpResponse)) {
+						return;
+					}
+
+					const result = event.body;
+					if (result) {
+						this.waitForCreationEnd(result as Jam.AdminChangeQueueInfo);
 					}
 				},
 				error: error => {
-					this.isUploading = false;
-					this.isIdle = true;
+					this.isUploading.set(false);
+					this.isIdle.set(true);
 					this.notify.error(error);
 				},
 				complete: () => {
-					this.isUploading = false;
+					this.isUploading.set(false);
 				}
 			});
 	}

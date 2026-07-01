@@ -1,5 +1,5 @@
-@if (data) {
-	@if (loading) {
+@if (data(); as data) {
+	@if (loading()) {
 		<app-icon-spin class="icon-spin" />
 	}
 	<img [src]="data.url" [alt]="data.name" (load)="onLoad()">

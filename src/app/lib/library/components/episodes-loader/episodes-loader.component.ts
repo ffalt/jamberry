@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input, signal, viewChild } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, type JamParameters, JamService, type ListType } from '@jam';
 import { EpisodeListComponent } from '../episode-list/episode-list.component';
@@ -8,31 +8,44 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-episodes-loader',
 	templateUrl: './episodes-loader.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [EpisodeListComponent, LoadMoreButtonComponent, LoadingComponent]
 })
-export class EpisodesLoaderComponent implements OnChanges {
+export class EpisodesLoaderComponent {
 	readonly listType = input<ListType>();
 	readonly latest = input<boolean>(false);
 	readonly query = input<string>();
 	readonly queryCmd = input<JamParameters.EpisodeFilterParameters>();
-	episodes?: Array<Jam.Episode>;
+	readonly episodes = signal<Array<Jam.Episode> | undefined>(undefined);
 	private readonly loadMore = viewChild.required(LoadMoreButtonComponent);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private activeRequest?: Promise<void>;
+
+	constructor() {
+		effect(() => {
+			const loadMore = this.loadMore();
+			loadMore.skip.set(0);
+			loadMore.total.set(0);
+			loadMore.hasMore.set(false);
+			this.episodes.set(undefined);
+			this.load();
+		});
+	}
 
 	getEpisodes(requestFunc: () => Promise<Jam.EpisodePage>): void {
 		const loadMore = this.loadMore();
 		loadMore.loading.set(true);
 		const request = requestFunc()
 			.then(data => {
-				if (this.activeRequest === request) {
-					this.episodes = [...(this.episodes ?? []), ...data.items];
-					loadMore.hasMore.set((data.total ?? 0) > this.episodes.length);
-					loadMore.total.set(data.total);
-					loadMore.loading.set(false);
+				if (this.activeRequest !== request) {
+					return;
 				}
+
+				const updated = [...(this.episodes() ?? []), ...data.items];
+				this.episodes.set(updated);
+				loadMore.hasMore.set((data.total ?? 0) > updated.length);
+				loadMore.total.set(data.total);
+				loadMore.loading.set(false);
 			})
 			.catch((error: unknown) => {
 				if (this.activeRequest === request) {
@@ -100,16 +113,7 @@ export class EpisodesLoaderComponent implements OnChanges {
 		} else if (this.listType()) {
 			this.list();
 		} else {
-			this.episodes = [];
+			this.episodes.set([]);
 		}
-	}
-
-	ngOnChanges(): void {
-		const loadMore = this.loadMore();
-		loadMore.skip.set(0);
-		loadMore.total.set(0);
-		loadMore.hasMore.set(false);
-		this.episodes = undefined;
-		this.load();
 	}
 }

@@ -6,20 +6,21 @@
 	<div class="section">
 		<a href="https://coverartarchive.org/" i18n rel="noopener" target="_blank">Coverart</a>
 	</div>
-	@if (isImageSearchRunning) {
+	@if (isImageSearchRunning()) {
 		<app-icon-spin class="icon-spin" />
 	}
-	@if (error) {
+	@if (error()) {
 		<div class="search-error">
-			<span>{{ error }}</span>
+			<span>{{ error() }}</span>
 			<button class="button-on-control" (click)="retry()" i18n>Retry</button>
 		</div>
 	}
-	@if (images && !isImageSearchRunning && !error) {
+	@let list = images();
+	@if (list && !isImageSearchRunning() && !error()) {
 		<div class="match-images">
-			<app-background-text-list name="Images" [list]="images" />
+			<app-background-text-list name="Images" [list]="list" />
 			<div class="media-cards">
-				@for (node of images; track node.image.id) {
+				@for (node of list; track node.image.id) {
 					<div class="media-card no-hover">
 						@if (node.base64) {
 							<div class="image">

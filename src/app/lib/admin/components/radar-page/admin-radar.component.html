@@ -1,7 +1,7 @@
 <div class="radar">
 	<app-view-header-slim i18n-section section="Health Radar">
-		@if (folders) {
-			@if (searching) {
+		@if (folders()) {
+			@if (searching()) {
 				<div class="buttons">
 					<button class="button-on-control" (click)="stop()"><app-icon-stop /> <span i18n>Stop</span></button>
 				</div>
@@ -10,7 +10,7 @@
 					<button class="button-primary" (click)="start()"><app-icon-play />
 						<ng-container i18n>Next</ng-container>
 					</button>
-					@if (current) {
+					@if (current(); as current) {
 						<button class="button-on-control" (click)="refresh(current.pos, false)"><app-icon-reload />
 							<ng-container i18n>Refresh</ng-container>
 						</button>
@@ -23,31 +23,33 @@
 		}
 	</app-view-header-slim>
 	<div class="content">
-		@if (!folders) {
+		@if (!folders()) {
 			<app-loading />
 		}
-		@if (folders && current) {
-			<div>
-				<div class="current">
-          <span>@if (searching) {
-						<app-icon-spin class="icon-spin" />
-					}</span>
-					<span>{{ current.pos + 1 }} / {{ folders.length }}</span>
-					<a [routerLink]="['/admin/folder', current.folder.id, 'tags']"><app-icon-folder /> {{ current.folder.name }}</a>
-				</div>
-				@if (current.health) {
-					@for (trackHealth of current.health; track trackHealth.track.id) {
-						<div class="track">
-							<div class="meta">
-								{{ trackHealth.track.name }}
+		@if (folders(); as folders) {
+			@if (current(); as current) {
+				<div>
+					<div class="current">
+						<span>@if (searching()) {
+							<app-icon-spin class="icon-spin" />
+						}</span>
+						<span>{{ current.pos + 1 }} / {{ folders.length }}</span>
+						<a [routerLink]="['/admin/folder', current.folder.id, 'tags']"><app-icon-folder /> {{ current.folder.name }}</a>
+					</div>
+					@if (current.health) {
+						@for (trackHealth of current.health; track trackHealth.track.id) {
+							<div class="track">
+								<div class="meta">
+									{{ trackHealth.track.name }}
+								</div>
+								<div class="track-health">
+									<app-track-health [trackHealth]="trackHealth" (resolvedEvent)="trackHealthResolved(trackHealth)" />
+								</div>
 							</div>
-							<div class="track-health">
-								<app-track-health [trackHealth]="trackHealth" (resolvedEvent)="trackHealthResolved(trackHealth)" />
-							</div>
-						</div>
+						}
 					}
-				}
-			</div>
+				</div>
+			}
 		}
 	</div>
 </div>

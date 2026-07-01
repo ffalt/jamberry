@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { JamArtistObject } from '../../model/objects';
 import { ObjGroupsViewComponent } from '../obj-groups-view/obj-groups-view.component';
 import { LibraryService } from '../../services/library/library.service';
@@ -12,22 +12,21 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-artist-similar',
 	templateUrl: './artist-similar.component.html',
 	styleUrls: ['./artist-similar.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ObjGroupsViewComponent, LoadingComponent]
 })
-export class ArtistSimilarComponent implements OnInit, OnDestroy {
-	id?: string;
-	similar?: Array<JamArtistObject>;
+export class ArtistSimilarComponent {
+	readonly similar = signal<Array<JamArtistObject> | undefined>(undefined);
+	private id?: string;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly library = inject(LibraryService);
 
-	ngOnInit(): void {
+	constructor() {
 		if (this.route.parent) {
 			this.route.parent.paramMap
-				.pipe(takeUntil(this.unsubscribe))
+				.pipe(takeUntilDestroyed(this.lifeRef))
 				.subscribe(paramMap => {
 					this.id = paramMap.get('id') ?? undefined;
 					this.refresh();
@@ -35,19 +34,14 @@ export class ArtistSimilarComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	refresh(): void {
-		this.similar = undefined;
+		this.similar.set(undefined);
 		if (!this.id) {
 			return;
 		}
 		this.jam.artist.similar({ id: this.id, artistIncState: true })
 			.then(data => {
-				this.similar = data.items.map(o => new JamArtistObject(o, this.library));
+				this.similar.set(data.items.map(o => new JamArtistObject(o, this.library)));
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

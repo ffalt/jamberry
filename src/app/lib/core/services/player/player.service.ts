@@ -120,13 +120,15 @@ export class PlayerService implements OnDestroy {
 	}
 
 	stop(): void {
-		if (this.currentMedia !== undefined) {
-			this.currentMedia = undefined;
-			this.currentTrack = undefined;
-			this.currentEpisode = undefined;
-			this.soundPlayer.stop();
-			this.setPlaying(false);
+		if (!this.currentMedia) {
+			return;
 		}
+
+		this.currentMedia = undefined;
+		this.currentTrack = undefined;
+		this.currentEpisode = undefined;
+		this.soundPlayer.stop();
+		this.setPlaying(false);
 	}
 
 	onTrackFinish(): void {
@@ -187,10 +189,12 @@ export class PlayerService implements OnDestroy {
 	}
 
 	seek(time: number): void {
-		if (this.currentMedia) {
-			this.soundPlayer.seek(time);
-			this.syncPlayerWithLocalStorage();
+		if (!this.currentMedia) {
+			return;
 		}
+
+		this.soundPlayer.seek(time);
+		this.syncPlayerWithLocalStorage();
 	}
 
 	volume(percent: number): void {
@@ -348,10 +352,12 @@ export class PlayerService implements OnDestroy {
 	}
 
 	startEpisode(episode: Jam.Episode): void {
-		if (episode.status === PodcastStatus.completed) {
-			this.queue.clear();
-			this.play(episode, true);
+		if (episode.status !== PodcastStatus.completed) {
+			return;
 		}
+
+		this.queue.clear();
+		this.play(episode, true);
 	}
 
 	startEpisodeSeek(episode: Jam.Episode, seek: number): void {
@@ -597,10 +603,12 @@ export class PlayerService implements OnDestroy {
 	}
 
 	private closePushNotification(): void {
-		if (this.currentNotification) {
-			this.notification.close(this.currentNotification);
-			this.currentNotification = undefined;
+		if (!this.currentNotification) {
+			return;
 		}
+
+		this.notification.close(this.currentNotification);
+		this.currentNotification = undefined;
 	}
 
 	private setPushNotification(media?: Jam.MediaBase): void {

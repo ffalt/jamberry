@@ -1,4 +1,4 @@
-import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
 import { CurrentPlayingComponent } from '../current-playing/current-playing.component';
@@ -23,69 +23,63 @@ import { IconTrackComponent } from '@core/components/icons/icon-track.component'
 	selector: 'app-libary-sidebar',
 	templateUrl: './sidebar-library.component.html',
 	styleUrls: ['./sidebar-library.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CurrentPlayingComponent, SidebarComponent]
 })
-export class SidebarLibraryComponent implements OnInit {
-	root?: Jam.Root;
-	stats?: Jam.Stats;
-	mainList: Array<SidebarListItem> = [];
-	musicList: Array<SidebarListItem> = [];
-	spokenList: Array<SidebarListItem> = [];
-	sections: Array<SidebarList> = [];
-	private readonly notify = inject(NotifyService);
-	private readonly jam = inject(JamService);
-
-	ngOnInit(): void {
-		this.updateNavigation();
-		this.refreshStats();
-	}
-
-	refreshStats(): void {
-		this.jam.stats.get({})
-			.then(stats => {
-				this.stats = stats;
-				this.updateNavigation();
-			})
-			.catch((error: unknown) => {
-				this.notify.error(error);
-			});
-	}
-
-	updateNavigation(): void {
-		this.mainList = [
+export class SidebarLibraryComponent {
+	readonly stats = signal<Jam.Stats | undefined>(undefined);
+	readonly sections = computed<Array<SidebarList>>(() => {
+		const stats = this.stats();
+		const mainList: Array<SidebarListItem> = [
 			{ link: '/library/', name: 'Home', icon: IconBrowseComponent, options: { exact: true } },
 			{ link: '/library/search', name: 'Search', icon: IconSearchComponent },
 			{ link: '/library/playlists', name: 'Playlists', icon: IconPlaylistComponent },
 			{ link: '/library/genres', name: 'Genres', icon: IconGenreComponent },
 			{ link: '/library/landscape', name: 'Landscape', icon: IconGenreComponent }
 		];
-		this.spokenList = [
-			{ link: '/library/podcasts', name: 'Podcasts', icon: IconPodcastsComponent }];
-		if (this.stats && this.stats.albumTypes.audiobook > 0) {
-			this.spokenList.push({ link: '/library/audiobooks', name: 'Books', icon: IconAudiobookComponent });
+		const spokenList: Array<SidebarListItem> = [
+			{ link: '/library/podcasts', name: 'Podcasts', icon: IconPodcastsComponent }
+		];
+		if (stats && stats.albumTypes.audiobook > 0) {
+			spokenList.push({ link: '/library/audiobooks', name: 'Books', icon: IconAudiobookComponent });
 		}
-		if (this.stats && this.stats.series > 0) {
-			this.spokenList.push({ link: '/library/series', name: 'Series', icon: IconSeriesComponent });
+		if (stats && stats.series > 0) {
+			spokenList.push({ link: '/library/series', name: 'Series', icon: IconSeriesComponent });
 		}
-		this.musicList = [
+		const musicList: Array<SidebarListItem> = [
 			{ link: '/library/artists', name: 'Artists', icon: IconArtistComponent },
 			{ link: '/library/albums', name: 'Albums', icon: IconAlbumComponent }
 		];
-		if (this.stats && this.stats.albumTypes.compilation > 0) {
-			this.musicList.push({ link: '/library/compilations', name: 'Compilations', icon: IconCompilationComponent });
+		if (stats && stats.albumTypes.compilation > 0) {
+			musicList.push({ link: '/library/compilations', name: 'Compilations', icon: IconCompilationComponent });
 		}
-		if (this.stats && this.stats.albumTypes.soundtrack > 0) {
-			this.musicList.push({ link: '/library/soundtracks', name: 'Soundtracks', icon: IconSoundtrackComponent });
+		if (stats && stats.albumTypes.soundtrack > 0) {
+			musicList.push({ link: '/library/soundtracks', name: 'Soundtracks', icon: IconSoundtrackComponent });
 		}
-		this.musicList.push(
+		musicList.push(
 			{ link: '/library/tracks', name: 'Tracks', icon: IconTrackComponent },
 			{ link: '/library/folders', name: 'Folders', icon: IconFolderComponent }
 		);
-		this.sections = [
-			{ name: 'Browse', entries: this.mainList },
-			{ name: 'Music', entries: this.musicList },
-			{ name: 'Spoken', entries: this.spokenList }
+		return [
+			{ name: 'Browse', entries: mainList },
+			{ name: 'Music', entries: musicList },
+			{ name: 'Spoken', entries: spokenList }
 		];
+	});
+
+	private readonly notify = inject(NotifyService);
+	private readonly jam = inject(JamService);
+
+	constructor() {
+		this.refreshStats();
+	}
+
+	refreshStats(): void {
+		this.jam.stats.get({})
+			.then(stats => {
+				this.stats.set(stats);
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 }

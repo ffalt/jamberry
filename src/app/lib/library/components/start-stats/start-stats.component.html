@@ -1,5 +1,5 @@
 <div class="section" i18n>Library Stats</div>
-@if (stats) {
+@if (stats(); as stats) {
 	<div class="section-content">
 		<app-stats [stats]="stats" />
 	</div>

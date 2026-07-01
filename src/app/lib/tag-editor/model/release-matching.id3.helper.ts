@@ -146,11 +146,13 @@ function fillMood(builder: ID3V24TagBuilder, match: Matching): void {
 }
 
 function fillAcoustID(builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack): void {
-	if (match.acoustidEntries && track.recording?.id) {
-		const acoustIDEntry = match.acoustidEntries.find(item => item.recordingID === track.recording?.id);
-		if (acoustIDEntry) {
-			builder.acoustidID(acoustIDEntry.acoustID);
-		}
+	if (!(match.acoustidEntries && track.recording?.id)) {
+		return;
+	}
+
+	const acoustIDEntry = match.acoustidEntries.find(item => item.recordingID === track.recording?.id);
+	if (acoustIDEntry) {
+		builder.acoustidID(acoustIDEntry.acoustID);
 	}
 }
 

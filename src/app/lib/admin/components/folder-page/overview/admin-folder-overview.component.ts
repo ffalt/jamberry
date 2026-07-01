@@ -1,8 +1,8 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { FolderType, type Jam, JamService } from '@jam';
-import { takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogOverlayRef, DialogOverlayService } from '@modules/dialog-overlay';
 import { isErrorWithCode } from '@utils/errors';
 import { FolderTypesAlbum } from '@utils/jam-lists';
@@ -28,14 +28,17 @@ import { IconUploadCloudComponent } from '@core/components/icons/icon-upload-clo
 	selector: 'app-admin-folder',
 	templateUrl: './admin-folder-overview.component.html',
 	styleUrls: ['./admin-folder-overview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ArtworkListComponent, FormsModule, IconPictureComponent, IconReloadComponent, IconRightBoldComponent, IconTrashComponent, IconUploadCloudComponent, InfoNoteComponent, InlineEditComponent, LoadingComponent, RouterModule]
 })
-export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
+export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent {
 	name: string = '';
-	folder?: Jam.Folder;
-	isAlbum: boolean = false;
-	isArtist: boolean = false;
+	readonly folder = signal<Jam.Folder | undefined>(undefined);
+	readonly isArtist = computed(() => this.folder()?.type === FolderType.artist);
+	readonly isAlbum = computed(() => {
+		const f = this.folder();
+		return f ? FolderTypesAlbum.includes(f.type) : false;
+	});
+
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly dialogsService = inject(DialogsService);
@@ -43,10 +46,10 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 	private readonly folderService = inject(AdminFolderService);
 	private readonly router = inject(Router);
 
-	ngOnInit(): void {
-		super.ngOnInit();
+	constructor() {
+		super();
 		this.folderService.foldersChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(change => {
 				if (change.id === this.id) {
 					this.refresh();
@@ -54,20 +57,17 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			});
 	}
 
-	ngOnDestroy(): void {
-		super.ngOnDestroy();
-	}
-
 	editFolderName(): void {
-		if (!this.folder) {
+		const folder = this.folder();
+		if (!folder) {
 			return;
 		}
 		const name = (this.name || '').trim();
-		if (name.length === 0 || name === this.folder.name) {
-			this.name = this.folder.name;
+		if (name.length === 0 || name === folder.name) {
+			this.name = folder.name;
 			return;
 		}
-		const id = this.folder.id;
+		const id = folder.id;
 		this.jam.folder.rename({ id, name })
 			.then(item => {
 				this.folderService.waitForQueueResult('Renaming Folder', item, [id]);
@@ -77,36 +77,37 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			});
 	}
 
-	refresh(): void {
-		if (this.id) {
-			this.jam.folder.id({
-				id: this.id,
-				folderIncTag: true,
-				folderIncParents: true,
-				folderIncArtworks: true,
-				folderIncTrackInSubtreeCount: true,
-				folderIncChildFolderCount: true,
-				folderIncTrackCount: true
-			})
-				.then(data => {
-					this.display(data);
-				})
-				.catch((error: unknown) => {
-					if (isErrorWithCode(error) && (error.code === 404)) {
-						this.router.navigate(['/admin/folder/']).catch((error: unknown) => {
-							console.error(error);
-						});
-					} else {
-						this.notify.error(error);
-					}
-				});
+	override refresh(): void {
+		if (!this.id) {
+			return;
 		}
+		this.jam.folder.id({
+			id: this.id,
+			folderIncTag: true,
+			folderIncParents: true,
+			folderIncArtworks: true,
+			folderIncTrackInSubtreeCount: true,
+			folderIncChildFolderCount: true,
+			folderIncTrackCount: true
+		})
+			.then(data => {
+				this.display(data);
+			})
+			.catch((error: unknown) => {
+				if (isErrorWithCode(error) && (error.code === 404)) {
+					this.router.navigate(['/admin/folder/']).catch((error: unknown) => {
+						console.error(error);
+					});
+				} else {
+					this.notify.error(error);
+				}
+			});
 	}
 
 	registerRefresh(ref: DialogOverlayRef): void {
 		ref
 			.afterClosed()
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				this.refresh();
 			});
@@ -117,7 +118,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			this.dialogOverlay.open<{ folder: Jam.Folder }>({
 				childComponent: DialogUploadImageComponent,
 				title: 'Upload Folder Images',
-				data: { folder: this.folder! }
+				data: { folder: this.folder()! }
 			})
 		);
 	}
@@ -127,14 +128,14 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			this.dialogOverlay.open<ArtworkSearch>({
 				childComponent: DialogFolderArtworkSearchComponent,
 				title: 'Search Artwork Images',
-				data: { folder: this.folder!, artworks: [] },
+				data: { folder: this.folder()!, artworks: [] },
 				panelClass: 'overlay-panel-large-buttons'
 			})
 		);
 	}
 
 	removeFolder(): void {
-		const folder = this.folder;
+		const folder = this.folder();
 		if (!folder) {
 			return;
 		}
@@ -155,7 +156,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 	}
 
 	moveFolder(): void {
-		const folder = this.folder;
+		const folder = this.folder();
 		if (!folder) {
 			return;
 		}
@@ -188,15 +189,7 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 	}
 
 	private display(folder?: Jam.Folder): void {
-		this.name = '';
-		this.isAlbum = false;
-		this.isArtist = false;
-		this.folder = folder;
-		if (!folder) {
-			return;
-		}
-		this.name = folder.name;
-		this.isAlbum = FolderTypesAlbum.includes(folder.type);
-		this.isArtist = folder.type === FolderType.artist;
+		this.name = folder?.name ?? '';
+		this.folder.set(folder);
 	}
 }

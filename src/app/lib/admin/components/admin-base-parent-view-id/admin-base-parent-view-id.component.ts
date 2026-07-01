@@ -1,21 +1,20 @@
-import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, type OnInit } from '@angular/core';
 import { ActivatedRoute, type ParamMap } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-admin-base-parent-view-id',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	templateUrl: './admin-base-parent-view-id.component.html'
 })
-export class AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
+export class AdminBaseParentViewIdComponent implements OnInit {
 	id?: string;
-	protected readonly unsubscribe = new Subject<void>();
+	protected readonly lifeRef = inject(DestroyRef);
 	protected readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {
 		if (this.route.parent) {
 			this.route.parent.paramMap
-				.pipe(takeUntil(this.unsubscribe))
+				.pipe(takeUntilDestroyed(this.lifeRef))
 				.subscribe(paramMap => {
 					this.resolve(paramMap);
 					this.refresh();
@@ -24,16 +23,11 @@ export class AdminBaseParentViewIdComponent implements OnInit, OnDestroy {
 	}
 
 	idChanged(): void {
-		// To be overridden
+		// overridden by subclasses
 	}
 
 	refresh(): void {
-		// To be overridden
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
+		// overridden by subclasses
 	}
 
 	protected resolve(paramMap: ParamMap): void {

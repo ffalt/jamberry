@@ -34,10 +34,12 @@ export class QueueService {
 	}
 
 	add(track: Jam.MediaBase, allowDuplicates?: boolean): void {
-		if (allowDuplicates || this.indexOfTrack(track.id) < 0) {
-			this.entries.push(track);
-			this.publishChanges();
+		if (!(allowDuplicates || this.indexOfTrack(track.id) < 0)) {
+			return;
 		}
+
+		this.entries.push(track);
+		this.publishChanges();
 	}
 
 	addMedias(tracks: Array<Jam.MediaBase>, allowDuplicates?: boolean): number {
@@ -48,11 +50,13 @@ export class QueueService {
 		} else {
 			const existingIds = new Set(this.entries.map(t => t.id));
 			for (const track of tracks) {
-				if (!existingIds.has(track.id)) {
-					this.entries.push(track);
-					existingIds.add(track.id);
-					added++;
+				if (existingIds.has(track.id)) {
+					continue;
 				}
+
+				this.entries.push(track);
+				existingIds.add(track.id);
+				added++;
 			}
 		}
 		if (added > 0) {
@@ -137,7 +141,9 @@ export class QueueService {
 		const currentMedia = this.getCurrent();
 		for (let i = this.entries.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
-			[this.entries[i], this.entries[j]] = [this.entries[j], this.entries[i]];
+			const temp = this.entries[i];
+			this.entries[i] = this.entries[j];
+			this.entries[j] = temp;
 		}
 		if (currentMedia) {
 			this.setIndexByTrack(currentMedia);

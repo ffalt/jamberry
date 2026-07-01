@@ -39,11 +39,6 @@ export class AgoPipe implements PipeTransform {
 		const d = new Date(value);
 		const now = new Date();
 		const seconds = Math.round(Math.abs((now.getTime() - d.getTime()) / 1000));
-		const minutes = Math.round(Math.abs(seconds / 60));
-		const hours = Math.round(Math.abs(minutes / 60));
-		const days = Math.round(Math.abs(hours / 24));
-		const months = Math.round(Math.abs(days / 30.416));
-		const years = Math.round(Math.abs(days / 365));
 		if (Number.isNaN(seconds)) {
 			return '';
 		}
@@ -53,30 +48,35 @@ export class AgoPipe implements PipeTransform {
 		if (seconds <= 90) {
 			return 'a minute ago';
 		}
+		const minutes = Math.round(Math.abs(seconds / 60));
 		if (minutes <= 45) {
 			return `${minutes.toString()} minutes ago`;
 		}
 		if (minutes <= 90) {
 			return 'an hour ago';
 		}
+		const hours = Math.round(Math.abs(minutes / 60));
 		if (hours <= 22) {
 			return `${hours.toString()} hours ago`;
 		}
 		if (hours <= 36) {
 			return 'a day ago';
 		}
+		const days = Math.round(Math.abs(hours / 24));
 		if (days <= 25) {
 			return `${days.toString()} days ago`;
 		}
 		if (days <= 45) {
 			return 'a month ago';
 		}
+		const months = Math.round(Math.abs(days / 30.416));
 		if (days <= 345) {
 			return `${months.toString()} months ago`;
 		}
 		if (days <= 545) {
 			return 'a year ago';
 		}
+		const years = Math.round(Math.abs(days / 365));
 		return `${years.toString()} years ago`;
 	}
 }

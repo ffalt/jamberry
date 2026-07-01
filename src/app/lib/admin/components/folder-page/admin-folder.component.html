@@ -15,7 +15,7 @@
 	</div>
 	<app-splitter />
 	<div class="right-content">
-		@if (id) {
+		@if (id(); as id) {
 			<nav class="navigation">
 				<ul class="tabs">
 					<li routerLinkActive="active" [routerLink]="['/admin/folder',id,'overview']"><a i18n>Overview</a></li>

@@ -1,31 +1,27 @@
-import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { JamAuthService, JamService } from '@jam';
+import { Component, inject, signal, type OnDestroy } from '@angular/core';
+import { JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
 import { randomString } from '@utils/random';
 import { CoverartImageComponent } from '@core/components/coverart-image/coverart-image.component';
 import { AppService } from '@core/services/app/app.service';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
+import { injectUser } from '@core/services/user/user.service';
 
 @Component({
 	selector: 'app-user-avatar',
 	templateUrl: './user-avatar.component.html',
 	styleUrls: ['./user-avatar.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CoverartImageComponent, IconSpinComponent]
 })
 export class UserAvatarComponent implements OnDestroy {
-	readonly auth = inject(JamAuthService);
 	readonly app = inject(AppService);
-	refreshRandom: string;
-	refreshing: boolean = false;
+	readonly user = injectUser();
+	readonly refreshRandom = signal(randomString());
+	readonly refreshing = signal(false);
 	private readonly unsubscribe = new Subject<void>();
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
-
-	constructor() {
-		this.refreshRandom = randomString();
-	}
 
 	ngOnDestroy(): void {
 		this.unsubscribe.next();
@@ -52,12 +48,13 @@ export class UserAvatarComponent implements OnDestroy {
 	}
 
 	uploadFile(files?: FileList): void {
-		if (!files || files.length === 0 || !this.auth.user) {
+		const user = this.user();
+		if (!files || files.length === 0 || !user) {
 			return;
 		}
 		const file: File = files[0];
 
-		this.jam.user.uploadUserImage({ id: this.auth.user.id }, file)
+		this.jam.user.uploadUserImage({ id: user.id }, file)
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe({
 				next: () => {
@@ -67,25 +64,26 @@ export class UserAvatarComponent implements OnDestroy {
 					this.notify.error(error);
 				},
 				complete: () => {
-					this.refreshRandom = randomString();
+					this.refreshRandom.set(randomString());
 					this.notify.success('Upload done');
 				}
 			});
 	}
 
 	randomAvatar(): void {
-		if (this.refreshing || !this.auth.user) {
+		const user = this.user();
+		if (this.refreshing() || !user) {
 			return;
 		}
-		this.refreshing = true;
-		this.jam.user.generateUserImage({ id: this.auth.user.id })
+		this.refreshing.set(true);
+		this.jam.user.generateUserImage({ id: user.id })
 			.then(() => {
-				this.refreshing = false;
-				this.refreshRandom = randomString();
+				this.refreshing.set(false);
+				this.refreshRandom.set(randomString());
 				this.notify.success('Image randomized');
 			})
 			.catch((error: unknown) => {
-				this.refreshing = false;
+				this.refreshing.set(false);
 				this.notify.error(error);
 			});
 	}

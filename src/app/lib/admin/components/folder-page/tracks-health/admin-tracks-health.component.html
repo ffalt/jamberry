@@ -7,11 +7,11 @@
 		</label>
 	</div>
 	<div class="content">
-		@if (!hints) {
+		@if (!hints()) {
 			<app-loading />
 		}
-		<app-background-text-list [list]="hints" name="Track Health Issues" />
-		@for (trackHealth of hints; track trackHealth.track.id) {
+		<app-background-text-list [list]="hints()" name="Track Health Issues" />
+		@for (trackHealth of hints(); track trackHealth.track.id) {
 			<div class="track">
 				<div class="meta">
 					{{ trackHealth.track.name }}

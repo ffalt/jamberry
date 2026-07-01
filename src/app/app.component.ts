@@ -1,11 +1,11 @@
-import { Component, inject, Injector, type OnDestroy, type OnInit, viewChild, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, Injector, type OnInit, viewChild, ViewContainerRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { Hotkey, HotkeysService } from '@modules/hotkeys';
 import { TabPortalOutlet } from '@modules/tab-portal';
 import { ThemeService } from '@modules/theme';
 import { HOTKEYS } from '@utils/keys';
 import { JamAuthService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { DeferLoadService } from '@modules/defer-load/defer-load.service';
 import { PlayerService } from '@core/services/player/player.service';
 import { AppService } from '@core/services/app/app.service';
@@ -26,16 +26,15 @@ import { MainTabsService } from './lib/main-tabs/services/main-tabs.service';
 		'(window:scroll)': 'scrollTrack()',
 		'(window:resize)': 'resize()'
 	},
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderComponent, PlayerComponent, MiniPlayerComponent]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 	readonly tabContentOutlet = viewChild.required('tabContentOutlet', { read: ViewContainerRef });
 	readonly player = inject(PlayerService);
 	readonly app = inject(AppService);
 	readonly auth = inject(JamAuthService);
 	private readonly tabService = inject(MainTabsService);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly hotkeysService = inject(HotkeysService);
 	private readonly router = inject(Router);
 	private readonly deferLoadService = inject(DeferLoadService);
@@ -44,6 +43,9 @@ export class AppComponent implements OnInit, OnDestroy {
 	private readonly injector = inject(Injector);
 
 	constructor() {
+		this.lifeRef.onDestroy(() => {
+			this.tabService.dispose();
+		});
 		this.init();
 	}
 
@@ -55,15 +57,9 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.tabService.init(new TabPortalOutlet(this.tabService.tabs, this.tabContentOutlet(), this.injector));
 	}
 
-	ngOnDestroy(): void {
-		this.tabService.dispose();
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	init() {
 		this.settingsStore.settingsChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				this.setTheme();
 			});
@@ -72,8 +68,6 @@ export class AppComponent implements OnInit, OnDestroy {
 				console.error(error);
 			});
 		}
-		// qlty-ignore: biome:lint/complexity/noForEach
-		// eslint-disable-next-line unicorn/no-array-for-each
 		this.router.events.forEach(() => {
 			this.tabService.switchToMain();
 		}).catch((error: unknown) => {
@@ -86,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	isStandaloneWebApp(): boolean {
-		return (navigator.standalone === true) || (globalThis.matchMedia('(display-mode: standalone)').matches);
+		return (navigator.standalone === true) || (matchMedia('(display-mode: standalone)').matches);
 	}
 
 	isElectronApp(): boolean {

@@ -1,4 +1,4 @@
-import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, type OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JamAuthService } from '@jam';
 import { serverErrorMsg } from '@utils/errors';
@@ -11,17 +11,11 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, LogoIconComponent]
 })
 export class LoginComponent implements OnInit {
 	readonly app = inject(AppService);
-	credentials = {
-		server: '',
-		username: '',
-		password: ''
-	};
-
+	credentials = { server: '', username: '', password: '' };
 	showServer = false;
 	error?: string;
 	returnUrl?: string;
@@ -31,10 +25,6 @@ export class LoginComponent implements OnInit {
 	private readonly notify = inject(NotifyService);
 
 	constructor() {
-		this.init();
-	}
-
-	init() {
 		const fixed = this.getFixed();
 		this.credentials.server = fixed.server ?? '';
 		this.credentials.username = fixed.user ?? '';

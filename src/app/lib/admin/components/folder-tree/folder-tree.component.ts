@@ -1,7 +1,7 @@
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, inject, type OnDestroy, type OnInit, output, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, output, signal, viewChild } from '@angular/core';
 import { FolderType, type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ClickKeyEnterDirective } from '@core/directives/click-enterkey.directive';
 import { FocusKeyListItemDirective } from '@core/directives/focus-key-list-item.directive';
 import { FocusKeyListDirective } from '@core/directives/focus-key-list.directive';
@@ -38,25 +38,24 @@ function walkChildren(node: TreeNode, onItem: (node: TreeNode) => void): void {
 	selector: 'app-admin-folder-tree',
 	templateUrl: './folder-tree.component.html',
 	styleUrls: ['./folder-tree.component.scss'],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ClickKeyEnterDirective, FocusKeyListDirective, FocusKeyListItemDirective, IconFolderComponent, IconFolderOpenComponent, IconMinusComponent, IconPlusComponent, IconReloadComponent, IconSpinComponent, ScrollingModule]
 })
-export class FolderTreeComponent implements OnInit, OnDestroy {
+export class FolderTreeComponent {
 	readonly selectionChange = output<Jam.Folder>();
-	selected?: TreeNode;
-	nodes: Array<TreeNode> = [];
+	readonly selected = signal<TreeNode | undefined>(undefined);
+	readonly nodes = signal<Array<TreeNode>>([]);
 	expandIDs: Array<string> = [];
 	private readonly viewport = viewChild(CdkVirtualScrollViewport);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
 
-	ngOnInit(): void {
+	constructor() {
 		this.folderService.foldersChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(change => {
-				const node = this.nodes.find(n => n.folder.id === change.id);
+				const node = this.nodes().find(n => n.folder.id === change.id);
 				if (node) {
 					this.jam.folder.id({ id: change.id, folderIncTrackCount: true, folderIncChildFolderCount: true })
 						.then(folder => {
@@ -71,6 +70,7 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 									this.checkLoadExpanded(node);
 								}
 							}
+							this.nodes.update(n => [...n]);
 						})
 						.catch((error: unknown) => {
 							console.error(error);
@@ -79,14 +79,9 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 			});
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	selectNode(node: TreeNode): void {
 		this.selectionChange.emit(node.folder);
-		this.selected = node;
+		this.selected.set(node);
 	}
 
 	toggleNode(node: TreeNode): void {
@@ -103,17 +98,16 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 		}
 		this.jam.folder.search({ level: 0, folderIncChildFolderCount: true, folderIncTrackCount: true })
 			.then(data => {
-				this.nodes = data.items
-					.map(folder =>
-						({
-							folder,
-							hasChildren: (folder.folderCount ?? 0) > 0,
-							level: 0,
-							color: this.typeToColor(folder),
-							expanded: this.expandIDs.includes(folder.id),
-							isLoading: false
-						}));
-				for (const node of this.nodes) {
+				const nodes = data.items.map(folder => ({
+					folder,
+					hasChildren: (folder.folderCount ?? 0) > 0,
+					level: 0,
+					color: this.typeToColor(folder),
+					expanded: this.expandIDs.includes(folder.id),
+					isLoading: false
+				}));
+				this.nodes.set(nodes);
+				for (const node of nodes) {
 					this.checkLoadExpanded(node);
 				}
 			})
@@ -150,31 +144,34 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 	}
 
 	onFolderUpdate(data: Jam.Folder): void {
-		const node = this.nodes.find(n => n.folder.id === data.id);
+		const node = this.nodes().find(n => n.folder.id === data.id);
 		if (node) {
 			node.folder = data;
 			node.hasChildren = (data.folderCount ?? 0) > 0;
 			node.color = this.typeToColor(data);
+			this.nodes.update(n => [...n]);
 		}
 	}
 
 	selectFolderByID(id: string): void {
-		const node = this.nodes.find(n => n.folder.id === id);
+		const node = this.nodes().find(n => n.folder.id === id);
 		if (node) {
-			this.selected = node;
+			this.selected.set(node);
 		} else {
 			this.jam.folder.id({ id, folderIncParents: true })
 				.then(folder => {
-					if (folder.parents) {
-						for (const p of folder.parents) {
-							if (!this.expandIDs.includes(p.id)) {
-								this.expandIDs.push(p.id);
-							}
+					if (!folder.parents) {
+						return;
+					}
+
+					for (const p of folder.parents) {
+						if (!this.expandIDs.includes(p.id)) {
+							this.expandIDs.push(p.id);
 						}
-						for (const n of this.nodes) {
-							n.expanded = this.expandIDs.includes(n.folder.id);
-							this.checkLoadExpanded(n, id);
-						}
+					}
+					for (const n of this.nodes()) {
+						n.expanded = this.expandIDs.includes(n.folder.id);
+						this.checkLoadExpanded(n, id);
 					}
 				})
 				.catch((error: unknown) => {
@@ -192,10 +189,10 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 			});
 		}
 		if (node.folder.id === selectID) {
-			this.selected = node;
+			this.selected.set(node);
 			const viewport = this.viewport();
 			if (viewport) {
-				viewport.scrollToIndex(this.nodes.indexOf(node));
+				viewport.scrollToIndex(this.nodes().indexOf(node));
 			}
 		}
 	}
@@ -209,18 +206,18 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 			.then(data => {
 				const result: Array<TreeNode> = data.items
 					.toSorted((a, b) => a.name.localeCompare(b.name))
-					.map(folder =>
-						({
-							folder,
-							hasChildren: (folder.folderCount ?? 0) > 0,
-							level: node.level + 1,
-							color: this.typeToColor(folder),
-							expanded: this.expandIDs.includes(folder.id),
-							isLoading: false
-						}));
-				const index = this.nodes.indexOf(node);
+					.map(folder => ({
+						folder,
+						hasChildren: (folder.folderCount ?? 0) > 0,
+						level: node.level + 1,
+						color: this.typeToColor(folder),
+						expanded: this.expandIDs.includes(folder.id),
+						isLoading: false
+					}));
+				const current = this.nodes();
+				const index = current.indexOf(node);
 				if (index !== -1) {
-					this.nodes = [...this.nodes.slice(0, index + 1), ...result, ...this.nodes.slice(index + 1)];
+					this.nodes.set([...current.slice(0, index + 1), ...result, ...current.slice(index + 1)]);
 				}
 				node.children = result;
 				node.isLoading = false;
@@ -234,45 +231,48 @@ export class FolderTreeComponent implements OnInit, OnDestroy {
 	}
 
 	private collapseNode(node: TreeNode): void {
-		if (node.expanded) {
-			const viewport = this.viewport();
-			const scrollOffset = viewport?.measureScrollOffset() ?? 0;
-			const itemSize = 22;
+		if (!node.expanded) {
+			return;
+		}
+		const viewport = this.viewport();
+		const scrollOffset = viewport?.measureScrollOffset() ?? 0;
+		const itemSize = 22;
 
-			const ids = new Set<string>();
-			walkChildren(node, child => ids.add(child.folder.id));
+		const ids = new Set<string>();
+		walkChildren(node, child => ids.add(child.folder.id));
 
-			// Count removed items that are above the current scroll position
-			let removedAbove = 0;
-			for (const [i, n] of this.nodes.entries()) {
-				if (ids.has(n.folder.id) && i * itemSize < scrollOffset) {
-					removedAbove++;
-				}
+		// Count removed items that are above the current scroll position
+		let removedAbove = 0;
+		for (const [i, n] of this.nodes().entries()) {
+			if (ids.has(n.folder.id) && i * itemSize < scrollOffset) {
+				removedAbove++;
 			}
+		}
 
-			this.nodes = this.nodes.filter(n => !ids.has(n.folder.id));
-			node.expanded = false;
-			node.children = undefined;
-			this.expandIDs = this.expandIDs.filter(n => n !== node.folder.id);
+		this.nodes.set(this.nodes().filter(n => !ids.has(n.folder.id)));
+		node.expanded = false;
+		node.children = undefined;
+		this.expandIDs = this.expandIDs.filter(n => n !== node.folder.id);
 
-			if (viewport && removedAbove > 0) {
-				requestAnimationFrame(() => {
-					viewport.scrollToOffset(scrollOffset - removedAbove * itemSize);
-				});
-			}
+		if (viewport && removedAbove > 0) {
+			requestAnimationFrame(() => {
+				viewport.scrollToOffset(scrollOffset - removedAbove * itemSize);
+			});
 		}
 	}
 
 	private expandNode(node: TreeNode): void {
-		if (!node.expanded) {
-			if (node.children) {
-				const index = this.nodes.indexOf(node);
-				this.nodes = [...this.nodes.slice(0, index + 1), ...node.children, ...this.nodes.slice(index + 1)];
-			} else {
-				this.loadChildren(node);
-			}
-			this.expandIDs.push(node.folder.id);
-			node.expanded = true;
+		if (node.expanded) {
+			return;
 		}
+		if (node.children) {
+			const current = this.nodes();
+			const index = current.indexOf(node);
+			this.nodes.set([...current.slice(0, index + 1), ...node.children, ...current.slice(index + 1)]);
+		} else {
+			this.loadChildren(node);
+		}
+		this.expandIDs.push(node.folder.id);
+		node.expanded = true;
 	}
 }

@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input, signal, viewChild } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import type { AlbumType, Jam, ListType } from '@jam';
 import type { JamObjsLoader } from '../../model/loaders';
@@ -10,10 +10,9 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-obj-loader',
 	templateUrl: './objs-loader.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ObjGroupsViewComponent, LoadMoreButtonComponent, LoadingComponent]
 })
-export class ObjsLoaderComponent implements OnChanges {
+export class ObjsLoaderComponent {
 	readonly grouping = input<boolean>(false);
 	readonly showParent = input<boolean>(false);
 	readonly loader = input<JamObjsLoader>();
@@ -31,22 +30,35 @@ export class ObjsLoaderComponent implements OnChanges {
 
 	readonly loadAll = input<boolean>(false);
 	readonly changeTrigger = input<string>();
-	objs?: Array<JamLibraryObject>;
+	readonly objs = signal<Array<JamLibraryObject> | undefined>(undefined);
 	private readonly notify = inject(NotifyService);
 	private readonly loadMore = viewChild.required(LoadMoreButtonComponent);
 	private activeRequest?: Promise<void>;
+
+	constructor() {
+		effect(() => {
+			this.changeTrigger();
+			const loadMore = this.loadMore();
+			loadMore.skip.set(0);
+			loadMore.total.set(0);
+			loadMore.hasMore.set(false);
+			this.objs.set(undefined);
+			this.load();
+		});
+	}
 
 	getObjs(requestFunc: () => Promise<{ list: Jam.Page; items: Array<JamLibraryObject> }>): void {
 		const loadMore = this.loadMore();
 		loadMore.loading.set(true);
 		const request = requestFunc()
 			.then(data => {
-				if (this.activeRequest === request) {
-					this.objs = [...(this.objs ?? []), ...data.items];
-					loadMore.hasMore.set((data.list.total ?? 0) > this.objs.length);
-					loadMore.total.set(data.list.total);
-					loadMore.loading.set(false);
+				if (this.activeRequest !== request) {
+					return;
 				}
+				this.objs.update(current => [...(current ?? []), ...data.items]);
+				loadMore.hasMore.set((data.list.total ?? 0) > (this.objs()?.length ?? 0));
+				loadMore.total.set(data.list.total);
+				loadMore.loading.set(false);
 			})
 			.catch((error: unknown) => {
 				if (this.activeRequest === request) {
@@ -60,7 +72,7 @@ export class ObjsLoaderComponent implements OnChanges {
 	load(): void {
 		const loader = this.loader();
 		if (!loader) {
-			this.objs = [];
+			this.objs.set([]);
 			return;
 		}
 		const search = this.searchQuery();
@@ -77,15 +89,6 @@ export class ObjsLoaderComponent implements OnChanges {
 			this.getObjs(async () => loader.all(this.loadMore().skip(), this.loadMore().take()));
 			return;
 		}
-		this.objs = [];
-	}
-
-	ngOnChanges(): void {
-		const loadMore = this.loadMore();
-		loadMore.skip.set(0);
-		loadMore.total.set(0);
-		loadMore.hasMore.set(false);
-		this.objs = undefined;
-		this.load();
+		this.objs.set([]);
 	}
 }

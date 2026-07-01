@@ -1,29 +1,23 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { ImageFormatType, type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import { randomString } from '@utils/random';
 
 @Component({
 	selector: 'app-dialog-avatar',
 	templateUrl: './dialog-avatar.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./dialog-avatar.component.scss']
 })
-export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy {
+export class DialogAvatarComponent implements DialogOverlay<Jam.User> {
+	readonly userAvatar = signal<string | undefined>(undefined);
 	user?: Jam.User;
-	userAvatar?: string;
 	hasChanged: boolean = false;
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<Jam.User>>): void {
 		this.user = options.data;
@@ -35,13 +29,13 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 	}
 
 	setImageSource(): void {
-		this.userAvatar = this.user ?
+		this.userAvatar.set(this.user ?
 			`${this.jam.image.imageUrl({
 				id: this.user.id,
 				size: 60,
 				format: ImageFormatType.webp
 			})}?${randomString()}` :
-			undefined;
+			undefined);
 	}
 
 	// At the drag drop area
@@ -67,17 +61,18 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy
 			return;
 		}
 		const file: File = files[0];
-
 		this.jam.user.uploadUserImage({ id: this.user.id }, file)
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe({
 				next: event => {
-					if (event instanceof HttpResponse) {
-						this.setImageSource();
-						this.hasChanged = true;
+					if (!(event instanceof HttpResponse)) {
+						return;
 					}
+
+					this.setImageSource();
+					this.hasChanged = true;
 				},
-				error: error => {
+				error: (error: unknown) => {
 					this.setImageSource();
 					this.notify.error(error);
 				},

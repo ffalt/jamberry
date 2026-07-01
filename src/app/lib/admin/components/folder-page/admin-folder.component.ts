@@ -1,7 +1,7 @@
-import { Component, inject, type OnDestroy, type OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DestroyRef, inject, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import type { Jam } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { folderSubSections } from '../../admin.types';
 import { FolderTreeComponent } from '../folder-tree/folder-tree.component';
 import { SplitterComponent } from '@core/components/splitter/splitter.component';
@@ -14,20 +14,54 @@ import { IconRightComponent } from '@core/components/icons/icon-right.component'
 	templateUrl: './admin-folder.component.html',
 	styleUrls: ['./admin-folder.component.scss'],
 	imports: [FolderTreeComponent, IconLeftComponent, IconRightComponent, RouterModule, SplitterComponent],
-	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		'[class.right-active]': 'rightActive'
 	}
 })
-export class AdminFolderComponent implements OnInit, OnDestroy {
+export class AdminFolderComponent {
 	rightActive: boolean = false;
-	id?: string;
+	readonly id = signal<string | undefined>(undefined);
 	private readonly tree = viewChild(FolderTreeComponent);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly route = inject(ActivatedRoute);
 	private readonly router = inject(Router);
 	private readonly uiState = inject(UiStateService);
 	private mode: string = 'overview';
+
+	constructor() {
+		this.router.events
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe(event => {
+				if (!(event instanceof NavigationEnd && this.route.firstChild?.snapshot.url[0])) {
+					return;
+				}
+
+				const m = this.route.firstChild.snapshot.url[0].path;
+				if (folderSubSections.includes(m)) {
+					this.mode = m;
+				}
+			});
+		this.route.paramMap
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe(paramMap => {
+				const id = paramMap.get('id') ?? undefined;
+				this.id.set(id);
+				if (id) {
+					setTimeout(() => {
+						const tree = this.tree();
+						if (tree) {
+							tree.selectFolderByID(id);
+						}
+					}, 0);
+				}
+			});
+		this.lifeRef.onDestroy(() => {
+			const tree = this.tree();
+			if (tree) {
+				this.uiState.put('app-admin-folders', tree.expandIDs);
+			}
+		});
+	}
 
 	refresh(): void {
 		const tree = this.tree();
@@ -47,46 +81,5 @@ export class AdminFolderComponent implements OnInit, OnDestroy {
 		if (tree) {
 			tree.onFolderUpdate(data);
 		}
-	}
-
-	ngOnInit(): void {
-		this.router.events
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(event => {
-				if (event instanceof NavigationEnd && this.route.firstChild?.snapshot.url[0]) {
-					const m = this.route.firstChild.snapshot.url[0].path;
-					if (folderSubSections.includes(m)) {
-						this.mode = m;
-					}
-				}
-			});
-		this.route.paramMap
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(paramMap => {
-				const id = paramMap.get('id') ?? undefined;
-				this.id = id;
-				if (this.tree() && id) {
-					setTimeout(() => {
-						const tree = this.tree();
-						if (tree) {
-							tree.selectFolderByID(id);
-						}
-					});
-				}
-			});
-		const tree = this.tree();
-		if (tree) {
-			tree.expandIDs = this.uiState.get<Array<string>>('app-admin-folders', []);
-		}
-		this.refresh();
-	}
-
-	ngOnDestroy(): void {
-		const tree = this.tree();
-		if (tree) {
-			this.uiState.put('app-admin-folders', tree.expandIDs);
-		}
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 }

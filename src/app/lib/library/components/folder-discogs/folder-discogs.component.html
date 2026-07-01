@@ -1,19 +1,21 @@
-@if (!folder) {
+@if (!folder()) {
 	<app-loading/>
-} @else if (folder.type === FolderType.artist) {
-	@if (folder.tag?.artist; as artist) {
-		<app-discogs-artist [artist]="artist"/>
+} @else if (folder(); as folder) {
+	@if (folder.type === FolderType.artist) {
+		@if (folder.tag?.artist; as artist) {
+			<app-discogs-artist [artist]="artist"/>
+		} @else {
+			<app-background-text text="No artist name available" i18n-text/>
+		}
+	} @else if ([FolderType.album, FolderType.multialbum].includes(folder.type)) {
+		@let artist = folder.tag?.artist;
+		@let album = folder.tag?.album;
+		@if (artist && album) {
+			<app-discogs-album [artist]="artist" [title]="album"/>
+		} @else {
+			<app-background-text text="No album info available" i18n-text/>
+		}
 	} @else {
-		<app-background-text text="No artist name available" i18n-text/>
+		<app-background-text text="No info available" i18n-text/>
 	}
-} @else if ([FolderType.album, FolderType.multialbum].includes(folder.type)) {
-	@let artist = folder.tag?.artist;
-	@let album = folder.tag?.album;
-	@if (artist && album) {
-		<app-discogs-album [artist]="artist" [title]="album"/>
-	} @else {
-		<app-background-text text="No album info available" i18n-text/>
-	}
-} @else {
-	<app-background-text text="No info available" i18n-text/>
 }

@@ -39,7 +39,7 @@ export class MenuService {
 				this.cleanUp();
 				subscription.unsubscribe();
 			});
-		});
+		}, 0);
 		event.preventDefault();
 		event.stopPropagation();
 	}
