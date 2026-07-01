@@ -1,5 +1,5 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, inject, type OnDestroy } from '@angular/core';
+import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { ImageFormatType, type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -9,6 +9,7 @@ import { randomString } from '@utils/random';
 @Component({
 	selector: 'app-dialog-avatar',
 	templateUrl: './dialog-avatar.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./dialog-avatar.component.scss']
 })
 export class DialogAvatarComponent implements DialogOverlay<Jam.User>, OnDestroy {

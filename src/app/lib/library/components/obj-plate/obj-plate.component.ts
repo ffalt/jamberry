@@ -1,5 +1,5 @@
 import type { FocusableOption } from '@angular/cdk/a11y';
-import { Component, input, type OnChanges, viewChild } from '@angular/core';
+import { Component, input, type OnChanges, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { JamObjectType } from '@jam';
 import type { JamLibraryObject } from '../../model/objects';
 import { AlbumListComponent } from '../album-list/album-list.component';
@@ -15,6 +15,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	host: {
 		'[tabindex]': 'tabindex'
 	},
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [AlbumListComponent, EpisodeListComponent, TrackListComponent, MediaListComponent, MediaPlateComponent, LoadingComponent]
 })
 export class ObjPlateComponent implements OnChanges, FocusableOption {

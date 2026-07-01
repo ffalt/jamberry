@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -12,6 +12,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-series-overview',
 	templateUrl: './series-overview.component.html',
 	styleUrls: ['./series-overview.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ObjGroupsViewComponent, LoadingComponent]
 })
 export class SeriesOverviewComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, input, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AlbumType, JamObjectType } from '@jam';
@@ -13,6 +13,7 @@ import { CoverartImageComponent } from '@core/components/coverart-image/coverart
 	host: {
 		'[class.active]': 'collapsed'
 	},
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [RouterModule, CoverartImageComponent]
 })
 export class SidebarIndexComponent implements OnInit, OnDestroy {

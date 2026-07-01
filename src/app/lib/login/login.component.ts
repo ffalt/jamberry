@@ -1,4 +1,4 @@
-import { Component, inject, type OnInit } from '@angular/core';
+import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JamAuthService } from '@jam';
 import { serverErrorMsg } from '@utils/errors';
@@ -11,6 +11,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, LogoIconComponent]
 })
 export class LoginComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import { FormsModule } from '@angular/forms';
 
@@ -10,6 +10,7 @@ export interface PasswordEdit {
 	selector: 'app-dialog-password',
 	templateUrl: './dialog-password.component.html',
 	styleUrls: ['./dialog-password.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule]
 })
 export class DialogPasswordComponent implements DialogOverlay<PasswordEdit> {

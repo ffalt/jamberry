@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Jam, JamService } from '@jam';
 import { LoadingComponent } from '@core/components/loading/loading.component';
@@ -29,6 +29,7 @@ export interface PodcastSearch {
 	selector: 'app-page-podcast-search',
 	templateUrl: './podcast-search-page.component.html',
 	styleUrls: ['./podcast-search-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, HeaderIconSectionComponent, IconListAddComponent, IconSearchComponent, LoadingComponent]
 })
 export class PodcastSearchPageComponent {

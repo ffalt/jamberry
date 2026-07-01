@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { type Jam, JamService, PodcastStatus } from '@jam';
 import { PodcastService } from '@core/services/podcast/podcast.service';
 import { PlayerService } from '@core/services/player/player.service';
@@ -10,6 +10,7 @@ import { IconWarningComponent } from '@core/components/icons/icon-warning.compon
 @Component({
 	imports: [IconDownloadComponent, IconPlayComponent, IconSpinComponent, IconWarningComponent],
 	selector: 'app-episode-state-button',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	templateUrl: './episode-state.button.component.html'
 })
 export class EpisodeStateButtonComponent {

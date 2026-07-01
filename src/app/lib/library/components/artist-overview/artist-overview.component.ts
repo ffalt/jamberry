@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, type JamParameters, JamService } from '@jam';
@@ -14,6 +14,7 @@ import { InfoNoteComponent } from '@core/components/info-note/info-note.componen
 	selector: 'app-artist-overview',
 	templateUrl: './artist-overview.component.html',
 	styleUrls: ['./artist-overview.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TracksLoaderComponent, ObjGroupsViewComponent, LoadingComponent, InfoNoteComponent]
 })
 export class ArtistOverviewComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { type Jam, JamService } from '@jam';
@@ -15,6 +15,7 @@ import { IconReloadComponent } from '@core/components/icons/icon-reload.componen
 	selector: 'app-admin-folder-health',
 	templateUrl: './admin-folder-health.component.html',
 	styleUrls: ['./admin-folder-health.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextListComponent, FolderHealthComponent, FormsModule, IconReloadComponent, LoadingComponent, RouterModule]
 })
 export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {

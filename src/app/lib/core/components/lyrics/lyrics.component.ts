@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges } from '@angular/core';
+import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { JamService } from '@jam';
 import { LoadingComponent } from '../loading/loading.component';
 import { NotifyService } from '../../services/notify/notify.service';
@@ -7,6 +7,7 @@ import { NotifyService } from '../../services/notify/notify.service';
 	selector: 'app-lyrics',
 	templateUrl: './lyrics.component.html',
 	styleUrls: ['./lyrics.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [LoadingComponent]
 })
 export class LyricsComponent implements OnChanges {

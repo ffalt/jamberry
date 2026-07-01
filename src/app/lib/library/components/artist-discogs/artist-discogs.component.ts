@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -9,6 +9,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-artist-discogs',
 	templateUrl: './artist-discogs.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [DiscogsArtistComponent, LoadingComponent]
 })
 export class ArtistDiscogsComponent implements OnInit, OnDestroy {

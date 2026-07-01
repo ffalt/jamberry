@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, viewChild } from '@angular/core';
+import { Component, inject, input, type OnChanges, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import type { AlbumType, Jam, ListType } from '@jam';
 import type { JamObjsLoader } from '../../model/loaders';
@@ -10,6 +10,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-obj-loader',
 	templateUrl: './objs-loader.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ObjGroupsViewComponent, LoadMoreButtonComponent, LoadingComponent]
 })
 export class ObjsLoaderComponent implements OnChanges {

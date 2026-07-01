@@ -1,5 +1,5 @@
 import { HttpEventType } from '@angular/common/http';
-import { Component, inject, input, type OnChanges, type OnDestroy, output } from '@angular/core';
+import { Component, inject, input, type OnChanges, type OnDestroy, output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, type SafeUrl } from '@angular/platform-browser';
 import { type Jam, JamService } from '@jam';
@@ -19,6 +19,7 @@ export interface ImageEdit {
 	selector: 'app-admin-artwork-edit',
 	templateUrl: './artwork-edit.component.html',
 	styleUrls: ['./artwork-edit.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, ImageCropperComponent]
 })
 export class ArtworkEditComponent implements OnChanges, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit, viewChild } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { type Jam, JamService } from '@jam';
 import { takeUntil } from 'rxjs';
@@ -19,6 +19,7 @@ import { IconTrashComponent } from '@core/components/icons/icon-trash.component'
 	selector: 'app-admin-folder-tracks',
 	templateUrl: './admin-folder-tracks.component.html',
 	styleUrls: ['./admin-folder-tracks.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextListComponent, IconReloadComponent, IconRightBoldComponent, IconTrashComponent, LoadingComponent, RouterModule, TrackListComponent]
 })
 export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {

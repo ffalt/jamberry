@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ import { IconExpandCollapseComponent } from '@core/components/icons/icon-expand-
 	selector: 'app-dialog-new-playlist',
 	templateUrl: './dialog-playlist.component.html',
 	styleUrls: ['./dialog-playlist.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [DurationPipe, IconExpandCollapseComponent, FormsModule, IconRemoveComponent]
 })
 export class DialogPlaylistComponent implements DialogOverlay<PlaylistEdit> {

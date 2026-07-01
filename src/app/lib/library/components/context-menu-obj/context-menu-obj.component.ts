@@ -1,5 +1,5 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, type Type, viewChild } from '@angular/core';
+import { Component, type Type, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import type { JamLibraryObject } from '../../model/objects';
 import type { ContextMenuHostComponentInterface } from '@core/services/contextmenu/menu.service';
 import { ContextEntryRateComponent } from '@core/components/context-entry-rate/context-entry-rate.component';
@@ -28,6 +28,7 @@ export interface ContextMenuObjComponentOptions {
 @Component({
 	selector: 'app-context-menu-obj',
 	templateUrl: './context-menu-obj.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [
 		ContextEntryRateComponent, ContextMenuModule, NgComponentOutlet,
 		IconDownloadCloudComponent, IconListAddComponent, IconPlayComponent, IconPlaylistComponent, IconViewDetailsComponent,

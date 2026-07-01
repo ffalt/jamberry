@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { type Jam, RootScanStrategy } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -16,6 +16,7 @@ import { IconRescanComponent } from '@core/components/icons/icon-rescan.componen
 	selector: 'app-admin-root',
 	templateUrl: './admin-root.component.html',
 	styleUrls: ['./admin-root.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderSlimComponent, IconPlusComponent, IconReloadComponent, IconRescanComponent, RootListComponent, RouterModule]
 })
 export class AdminRootComponent implements OnInit, OnDestroy {

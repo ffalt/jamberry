@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import type { Jam } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -16,6 +16,7 @@ import { IconReloadComponent } from '@core/components/icons/icon-reload.componen
 	selector: 'app-admin-users',
 	templateUrl: './admin-users.component.html',
 	styleUrls: ['./admin-users.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderSlimComponent, IconPlusComponent, IconReloadComponent, RouterModule, UserListComponent]
 })
 export class AdminUsersComponent implements OnInit, OnDestroy {

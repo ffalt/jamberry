@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, viewChild, viewChildren } from '@angular/core';
+import { Component, inject, input, type OnChanges, viewChild, viewChildren, ChangeDetectionStrategy } from '@angular/core';
 import type { ComponentCanDeactivate } from '@core/guards/pending-changes/pending-changes.guard';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { CellEditor } from '../cell-editor/cell-editor.class';
@@ -41,6 +41,7 @@ export interface SaveAction {
 	host: {
 		'(window:beforeunload)': 'canDeactivate()'
 	},
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [
 		CellEditorComponent, ColumnToolComponent, ContextMenuModule, LoadingComponent,
 		IconDiscogsComponent, IconEditComponent, IconFloppyComponent, IconListAddComponent, IconReloadComponent, IconSpinComponent, IconMusicbrainzComponent

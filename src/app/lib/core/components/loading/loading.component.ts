@@ -1,8 +1,9 @@
-import { Component, input, type OnInit } from '@angular/core';
+import { Component, input, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
 	selector: 'app-loading',
 	templateUrl: './loading.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./loading.component.scss']
 })
 export class LoadingComponent implements OnInit {

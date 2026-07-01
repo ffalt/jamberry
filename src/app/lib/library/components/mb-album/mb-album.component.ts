@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges } from '@angular/core';
+import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { JamService, type MusicBrainz, MusicBrainzLookupType } from '@jam';
 import { MbRelationsComponent } from '../mb-relations/mb-relations.component';
@@ -20,6 +20,7 @@ export interface MBAlbumInfoGroup {
 	selector: 'app-mb-album',
 	templateUrl: './mb-album.component.html',
 	styleUrls: ['./mb-album.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [MbRelationsComponent, MbArtistCreditsPipe, MediadurationPipe, IconMusicbrainzComponent]
 })
 export class MbAlbumComponent implements OnChanges {

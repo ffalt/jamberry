@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
 import { type ImageCroppedEvent, ImageCropperComponent, type OutputFormat } from 'ngx-image-cropper';
@@ -13,6 +13,7 @@ export interface PicEdit {
 	selector: 'app-dialog-tag-image',
 	templateUrl: './dialog-tag-image.component.html',
 	styleUrls: ['./dialog-tag-image.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, ImageCropperComponent]
 })
 export class DialogTagImageComponent implements DialogOverlay<PicEdit> {

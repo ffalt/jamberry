@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy } from '@angular/core';
+import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ObjsLoaderComponent } from '../objs-loader/objs-loader.component';
@@ -29,6 +29,7 @@ const noClick = (): void => {
 	selector: 'app-page-genre',
 	templateUrl: './genre-page.component.html',
 	styleUrls: ['./genre-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ObjsLoaderComponent, TracksLoaderComponent, HeaderIconSectionComponent]
 })
 export class GenrePageComponent implements OnDestroy {

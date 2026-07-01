@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AlbumType, JamObjectType, type JamParameters } from '@jam';
@@ -12,6 +12,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-obj-index-loader',
 	templateUrl: './objs-index-loader.component.html',
 	styleUrls: ['./objs-index-loader.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [IndexComponent, LoadingComponent]
 })
 export class ObjsIndexLoaderComponent implements OnInit, OnDestroy {

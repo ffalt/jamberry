@@ -1,5 +1,5 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, inject, type OnDestroy } from '@angular/core';
+import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
@@ -11,6 +11,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-dialog-upload-image',
 	templateUrl: './dialog-upload-image.component.html',
 	styleUrls: ['./dialog-upload-image.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [LoadingComponent]
 })
 export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.Folder }>, OnDestroy {

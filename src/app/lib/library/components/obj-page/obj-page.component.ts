@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamObjectType, JamService } from '@jam';
@@ -17,6 +17,7 @@ import { IconPlayComponent } from '@core/components/icons/icon-play.component';
 	selector: 'app-page-obj',
 	templateUrl: './obj-page.component.html',
 	styleUrls: ['./obj-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundImageDirective, EpisodeStateButtonComponent, HeaderJamBaseComponent, IconPlayComponent, LoadingComponent, RouterModule]
 })
 export class ObjPageComponent implements OnInit, OnDestroy {

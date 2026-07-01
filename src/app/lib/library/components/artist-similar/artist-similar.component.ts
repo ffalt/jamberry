@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { JamService } from '@jam';
@@ -12,6 +12,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-artist-similar',
 	templateUrl: './artist-similar.component.html',
 	styleUrls: ['./artist-similar.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ObjGroupsViewComponent, LoadingComponent]
 })
 export class ArtistSimilarComponent implements OnInit, OnDestroy {

@@ -1,6 +1,6 @@
 import { type CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, inject, input, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, input, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import type { Jam } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
 import { ContextMenuQueueTrackComponent } from '../context-menu-queue-track/context-menu-queue-track.component';
@@ -18,6 +18,7 @@ import { IconShuffleComponent } from '@core/components/icons/icon-shuffle.compon
 	selector: 'app-queue',
 	templateUrl: './queue.component.html',
 	styleUrls: ['./queue.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextComponent, DragDropModule, FocusKeyListDirective, FocusKeyListItemDirective, IconRemoveComponent, IconShuffleComponent, QueueItemComponent, ScrollingModule]
 })
 export class QueueComponent implements OnInit, OnDestroy {

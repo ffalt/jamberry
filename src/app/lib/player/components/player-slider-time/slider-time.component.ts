@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, type OnInit } from '@angular/core';
+import { Component, ElementRef, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { JamService } from '@jam';
 import { extractSVGParts } from '@utils/svg-parts';
 import { AppService } from '@core/services/app/app.service';
@@ -9,6 +9,7 @@ import { PlayerEvents } from '@core/services/player/player.interface';
 	selector: 'app-time-slider',
 	templateUrl: './slider-time.component.html',
 	styleUrls: ['./slider-time.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		'[tabindex]': 'tabindex',
 		'(keydown.arrowLeft)': 'rewind()',

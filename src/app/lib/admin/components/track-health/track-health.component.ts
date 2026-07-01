@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, type OnDestroy, type OnInit, output } from '@angular/core';
+import { Component, inject, input, type OnChanges, type OnDestroy, type OnInit, output, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { type Jam, JamService, TrackHealthID } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -23,6 +23,7 @@ export interface TrackHealthHint {
 	imports: [IconSpinComponent, IconWarningComponent],
 	selector: 'app-track-health',
 	templateUrl: './track-health.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./track-health.component.scss']
 })
 export class TrackHealthComponent implements OnChanges, OnInit, OnDestroy {

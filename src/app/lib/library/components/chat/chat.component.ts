@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -9,6 +9,7 @@ import { CoverartImageComponent } from '@core/components/coverart-image/coverart
 	selector: 'app-chat',
 	templateUrl: './chat.component.html',
 	styleUrls: ['./chat.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, CommonModule, CoverartImageComponent]
 })
 export class ChatComponent implements OnInit, OnDestroy {

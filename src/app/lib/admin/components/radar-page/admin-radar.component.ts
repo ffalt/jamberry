@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit, viewChildren } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, viewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FolderType, type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -18,6 +18,7 @@ import { IconStopComponent } from '@core/components/icons/icon-stop.component';
 	selector: 'app-admin-radar',
 	templateUrl: './admin-radar.component.html',
 	styleUrls: ['./admin-radar.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderSlimComponent, IconFolderComponent, IconPlayComponent, IconReloadComponent, IconSpinComponent, IconStopComponent, LoadingComponent, RouterModule, TrackHealthComponent]
 })
 

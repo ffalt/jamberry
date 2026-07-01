@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import type { ListType } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -9,6 +9,7 @@ import { TracksLoaderComponent } from '../tracks-loader/tracks-loader.component'
 	selector: 'app-tracks-loader-page-by-type',
 	templateUrl: './tracks-loader-by-type.component.html',
 	styleUrls: ['./tracks-loader-by-type.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TracksLoaderComponent]
 })
 export class TracksLoaderByTypeComponent implements OnInit, OnDestroy {

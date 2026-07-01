@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -10,6 +10,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-album-discogs',
 	templateUrl: './album-discogs.component.html',
 	styleUrls: ['./album-discogs.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [DiscogsAlbumComponent, LoadingComponent]
 })
 export class AlbumDiscogsComponent implements OnInit, OnDestroy {

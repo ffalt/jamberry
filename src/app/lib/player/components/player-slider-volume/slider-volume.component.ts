@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, type OnInit } from '@angular/core';
+import { Component, ElementRef, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PlayerService } from '@core/services/player/player.service';
 import { PlayerEvents } from '@core/services/player/player.interface';
 
@@ -6,6 +6,7 @@ import { PlayerEvents } from '@core/services/player/player.interface';
 	selector: 'app-volume-slider',
 	templateUrl: './slider-volume.component.html',
 	styleUrls: ['./slider-volume.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		'[tabindex]': 'tabindex',
 		'(keydown.arrowLeft)': 'volumeDown()',

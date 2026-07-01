@@ -1,6 +1,6 @@
 import { CdkTrapFocus, FocusKeyManager } from '@angular/cdk/a11y';
 import type { OverlayRef } from '@angular/cdk/overlay';
-import { type AfterViewInit, Component, type ElementRef, inject, model, type OnDestroy, type OnInit, output, type QueryList, viewChild, viewChildren, ViewChildren } from '@angular/core';
+import { type AfterViewInit, Component, type ElementRef, inject, model, type OnDestroy, type OnInit, output, type QueryList, viewChild, viewChildren, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { ContextMenuContentItemComponent } from '@modules/ngx-contextmenu/lib/contextmenu-content-item.component';
 import { Subscription } from 'rxjs';
 import type { ContextMenuItemDirective } from './contextmenu.item.directive';
@@ -26,6 +26,7 @@ import { ContextMenuContentItemComponent as ContextMenuContentItemComponent_1 } 
 		'(document:contextmenu)': 'closeMenu($event)',
 		'(document:click)': 'closeMenu($event)'
 	},
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [NgClass, CdkTrapFocus, ContextMenuContentItemComponent_1]
 })
 export class ContextMenuContentComponent implements OnInit, OnDestroy, AfterViewInit {

@@ -10,15 +10,15 @@
 		<app-loading [time]="100" />
 	}
 	@if (hasMedia) {
-		<app-media-list [entries]="obj()?.media" [showArtist]="showParent()" />
+		<app-media-list [entries]="$safeNavigationMigration(obj()?.media)" [showArtist]="showParent()" />
 	}
 	@if (hasTracks) {
-		<app-track-list [tracks]="obj()?.tracks" [showArtist]="showParent()" />
+		<app-track-list [tracks]="$safeNavigationMigration(obj()?.tracks)" [showArtist]="showParent()" />
 	}
 	@if (hasEpisodes) {
-		<app-episode-list [episodes]="obj()?.episodes" />
+		<app-episode-list [episodes]="$safeNavigationMigration(obj()?.episodes)" />
 	}
 	@if (hasAlbums) {
-		<app-album-list [albums]="obj()?.albums" />
+		<app-album-list [albums]="$safeNavigationMigration(obj()?.albums)" />
 	}
 }

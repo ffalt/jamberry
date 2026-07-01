@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit, type Type } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, type Type, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { getUrlType, type JamType, JamUrlType } from '@utils/jam-lists';
@@ -13,6 +13,7 @@ import { IconRescanComponent } from '@core/components/icons/icon-rescan.componen
 	selector: 'app-page-objs',
 	templateUrl: './objs-page.component.html',
 	styleUrls: ['./objs-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [RouterModule, DeferLoadScrollHostDirective, HeaderIconSectionComponent]
 })
 export class ObjsPageComponent implements OnInit, OnDestroy {

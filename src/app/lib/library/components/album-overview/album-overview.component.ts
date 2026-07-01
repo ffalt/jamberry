@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AlbumType, type Jam, JamService } from '@jam';
@@ -11,6 +11,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-album-overview',
 	templateUrl: './album-overview.component.html',
 	styleUrls: ['./album-overview.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TrackListComponent, InfoNoteComponent, LoadingComponent]
 })
 export class AlbumOverviewComponent implements OnInit, OnDestroy {

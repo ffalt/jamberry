@@ -1,4 +1,4 @@
-import { Component, inject, type OnInit } from '@angular/core';
+import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
 import { CurrentPlayingComponent } from '../current-playing/current-playing.component';
@@ -23,6 +23,7 @@ import { IconTrackComponent } from '@core/components/icons/icon-track.component'
 	selector: 'app-libary-sidebar',
 	templateUrl: './sidebar-library.component.html',
 	styleUrls: ['./sidebar-library.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CurrentPlayingComponent, SidebarComponent]
 })
 export class SidebarLibraryComponent implements OnInit {

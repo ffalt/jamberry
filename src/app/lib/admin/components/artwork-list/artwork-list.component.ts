@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges } from '@angular/core';
+import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ImageFormatType, type Jam, JamService } from '@jam';
 import { DialogOverlayService } from '@modules/dialog-overlay';
@@ -36,6 +36,7 @@ function extractExt(filename: string): string {
 	selector: 'app-admin-artwork-list',
 	templateUrl: './artwork-list.component.html',
 	styleUrls: ['./artwork-list.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ClickKeyEnterDirective, FilesizePipe, FocusKeyListDirective, FocusKeyListItemDirective, FormsModule, IconTrashComponent, InlineEditComponent]
 })
 export class ArtworkListComponent implements OnChanges {

@@ -1,5 +1,5 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { type AfterViewInit, Component, inject, input, type OnDestroy, type OnInit, viewChildren } from '@angular/core';
+import { type AfterViewInit, Component, inject, input, type OnDestroy, type OnInit, viewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import type { SidebarListItemComponent } from '../sidebar-list-item/sidebar-list-item.component';
@@ -14,6 +14,7 @@ import { AppService, type SidebarProvider } from '../../services/app/app.service
 		'[class.active]': 'collapsed',
 		'[class.show]': 'showMobileNavig'
 	},
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [SidebarListComponent]
 })
 export class SidebarComponent implements AfterViewInit, OnInit, OnDestroy, SidebarProvider {

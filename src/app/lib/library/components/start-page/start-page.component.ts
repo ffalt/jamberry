@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { JamService } from '@jam';
 import { StartSectionsComponent } from '../start-sections/start-sections.component';
 import { StartStatsComponent } from '../start-stats/start-stats.component';
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
 	selector: 'app-page-start',
 	templateUrl: './start-page.component.html',
 	styleUrls: ['./start-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [StartStatsComponent, StartSectionsComponent, LogoIconComponent, RouterLink]
 })
 export class StartPageComponent {

@@ -1,9 +1,10 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, type ParamMap } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-admin-base-parent-view-id',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	templateUrl: './admin-base-parent-view-id.component.html'
 })
 export class AdminBaseParentViewIdComponent implements OnInit, OnDestroy {

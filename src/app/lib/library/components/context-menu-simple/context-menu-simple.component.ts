@@ -1,5 +1,5 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, type Type, viewChild } from '@angular/core';
+import { Component, type Type, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import type { ContextMenuHostComponentInterface } from '@core/services/contextmenu/menu.service';
 import { ContextMenuModule } from '@modules/ngx-contextmenu/lib/ngx-contextmenu.module';
 import type { ContextMenuComponent } from '@modules/ngx-contextmenu/lib/contextmenu.component';
@@ -11,6 +11,7 @@ export interface ContextMenuSimpleComponentOptions {
 @Component({
 	selector: 'app-context-menu-simple',
 	templateUrl: './context-menu-simple.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ContextMenuModule, NgComponentOutlet]
 })
 export class ContextMenuSimpleComponent implements ContextMenuHostComponentInterface<ContextMenuSimpleComponentOptions> {

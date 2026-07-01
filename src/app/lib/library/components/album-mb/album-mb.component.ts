@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -11,6 +11,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-album-mb',
 	templateUrl: './album-mb.component.html',
 	styleUrls: ['./album-mb.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [MbAlbumComponent, BackgroundTextComponent, LoadingComponent]
 })
 export class AlbumMbComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { HOTKEYS } from '@utils/keys';
 import { MainTabsService } from '../../../main-tabs/services/main-tabs.service';
 import { SliderSpeedComponent } from '../player-slider-speed/slider-speed.component';
@@ -24,6 +24,7 @@ import { IconVolumeUpComponent } from '@core/components/icons/icon-volume-up.com
 	selector: 'app-player',
 	templateUrl: './player.component.html',
 	styleUrls: ['./player.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [
 		IconFastBackwardComponent, IconFastForwardComponent, IconInfoComponent, IconLoopComponent, IconPauseComponent, IconPlayComponent, IconQueueComponent,
 		IconSpeedComponent, IconVolumeOffComponent, IconVolumeUpComponent, MediadurationPipe, SliderSpeedComponent, SliderTimeComponent, SliderVolumeComponent, StringTogglePipe

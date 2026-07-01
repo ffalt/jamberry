@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges } from '@angular/core';
+import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { JamService } from '@jam';
 import type { Discogs } from '@modules/jam/model/discogs-rest-data';
@@ -35,6 +35,7 @@ export interface DiscogsReleaseDisplay {
 	selector: 'app-discogs-album',
 	templateUrl: './discogs-album.component.html',
 	styleUrls: ['./discogs-album.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextComponent, IconDiscogsComponent, LoadingComponent]
 })
 export class DiscogsAlbumComponent implements OnChanges {

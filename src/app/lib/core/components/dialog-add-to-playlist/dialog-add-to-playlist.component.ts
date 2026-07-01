@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy } from '@angular/core';
+import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -18,6 +18,7 @@ export interface ChoosePlaylistData {
 	selector: 'app-dialog-add-to-playlist',
 	templateUrl: './dialog-add-to-playlist.component.html',
 	styleUrls: ['./dialog-add-to-playlist.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextComponent, DurationPipe, IconExpandCollapseComponent, IconRemoveComponent, LoadingComponent]
 })
 export class DialogChoosePlaylistComponent implements DialogOverlay<ChoosePlaylistData>, OnDestroy {

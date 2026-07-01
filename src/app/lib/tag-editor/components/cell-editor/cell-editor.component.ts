@@ -1,4 +1,4 @@
-import { Component, type ComponentRef, forwardRef, inject, input, type OnChanges, type OnDestroy, output, type Type, viewChild, ViewContainerRef } from '@angular/core';
+import { Component, type ComponentRef, forwardRef, inject, input, type OnChanges, type OnDestroy, output, type Type, viewChild, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { CellEditor } from './cell-editor.class';
 import { FrameType } from '../../model/id3v2-frames.helper';
@@ -18,6 +18,7 @@ import { CellEditorDisplayComponent } from '../cell-editor-display/cell-editor-d
 	host: {
 		'(click)': 'clickEvent()'
 	},
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CellEditorDisplayComponent]
 })
 export class CellEditorComponent extends CellEditor implements OnChanges, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { getUrlType, type JamType } from '@utils/jam-lists';
@@ -11,6 +11,7 @@ import { DeferLoadScrollHostDirective } from '@modules/defer-load/defer-load-scr
 	selector: 'app-albums-page-by-type',
 	templateUrl: './albums-page-by-type.component.html',
 	styleUrls: ['./albums-page-by-type.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [RouterModule, HeaderIconSectionComponent, DeferLoadScrollHostDirective]
 })
 export class AlbumsPageByTypeComponent implements OnInit, OnDestroy {

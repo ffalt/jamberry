@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { FolderType, type Jam, JamService } from '@jam';
@@ -11,6 +11,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-folder-discogs',
 	templateUrl: './folder-discogs.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [DiscogsAlbumComponent, DiscogsArtistComponent, BackgroundTextComponent, LoadingComponent]
 })
 export class FolderDiscogsComponent implements OnInit, OnDestroy {

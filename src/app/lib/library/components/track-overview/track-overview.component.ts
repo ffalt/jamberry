@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -15,6 +15,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-track-overview',
 	templateUrl: './track-overview.component.html',
 	styleUrls: ['./track-overview.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CommonModule, FilesizePipe, DurationPipe, LoadingComponent, LyricsComponent]
 })
 export class TrackOverviewComponent implements OnInit, OnDestroy {

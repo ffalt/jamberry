@@ -1,4 +1,4 @@
-import { Component, type ElementRef, input, output, viewChild, ViewEncapsulation } from '@angular/core';
+import { Component, type ElementRef, input, output, viewChild, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IconEditComponent } from '@core/components/icons/icon-edit.component';
 
@@ -13,6 +13,7 @@ import { IconEditComponent } from '@core/components/icons/icon-edit.component';
 	styleUrls: ['./inline-edit.component.scss'],
 	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, IconEditComponent]
 })
 export class InlineEditComponent implements ControlValueAccessor {

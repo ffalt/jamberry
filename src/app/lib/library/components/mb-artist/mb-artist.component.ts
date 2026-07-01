@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, type OnChanges } from '@angular/core';
+import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService, type MusicBrainz, MusicBrainzLookupType } from '@jam';
 import { MbRelationsComponent } from '../mb-relations/mb-relations.component';
@@ -20,6 +20,7 @@ export interface ReleaseGroupGroup {
 	selector: 'app-mb-artist',
 	templateUrl: './mb-artist.component.html',
 	styleUrls: ['./mb-artist.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CommonModule, IconInfoComponent, MbRelationsComponent, IconMusicbrainzComponent]
 })
 export class MbArtistComponent implements OnChanges {

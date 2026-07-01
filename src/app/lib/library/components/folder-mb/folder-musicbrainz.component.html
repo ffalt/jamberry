@@ -2,13 +2,13 @@
 	<app-loading/>
 } @else if (folder.type === FolderType.artist) {
 	@if (folder.tag?.mbArtistID) {
-		<app-mb-artist [mbArtistID]="folder.tag?.mbArtistID" />
+		<app-mb-artist [mbArtistID]="$safeNavigationMigration(folder.tag?.mbArtistID)" />
 	} @else {
 		<app-background-text text="No artist name available" i18n-text/>
 	}
 } @else if ([FolderType.album, FolderType.multialbum].includes(folder.type)) {
 	@if (folder.tag?.mbReleaseID) {
-		<app-mb-album [mbAlbumID]="folder.tag?.mbReleaseID"/>
+		<app-mb-album [mbAlbumID]="$safeNavigationMigration(folder.tag?.mbReleaseID)"/>
 	} @else {
 		<app-background-text text="No album info available" i18n-text/>
 	}

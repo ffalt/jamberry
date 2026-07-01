@@ -1,4 +1,4 @@
-import { Component, inject, type OnInit } from '@angular/core';
+import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { JamService, ListType } from '@jam';
 import { StartSectionComponent, type StartSectionItem } from '../start-section/start-section.component';
 import { NavigService } from '@core/services/navig/navig.service';
@@ -8,6 +8,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-start-sections',
 	templateUrl: './start-sections.component.html',
 	styleUrls: ['./start-sections.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [StartSectionComponent]
 })
 export class StartSectionsComponent implements OnInit {

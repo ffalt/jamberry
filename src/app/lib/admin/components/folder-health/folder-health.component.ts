@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, type OnDestroy } from '@angular/core';
+import { Component, inject, input, type OnChanges, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FolderHealthID, type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -27,6 +27,7 @@ export interface FolderHealthHint {
 	imports: [IconSpinComponent, IconWarningComponent],
 	selector: 'app-folder-health',
 	templateUrl: './folder-health.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./folder-health.component.scss']
 })
 export class FolderHealthComponent implements OnChanges, OnDestroy {

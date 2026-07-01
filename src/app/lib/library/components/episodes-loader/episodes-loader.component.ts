@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, viewChild } from '@angular/core';
+import { Component, inject, input, type OnChanges, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, type JamParameters, JamService, type ListType } from '@jam';
 import { EpisodeListComponent } from '../episode-list/episode-list.component';
@@ -8,6 +8,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 @Component({
 	selector: 'app-episodes-loader',
 	templateUrl: './episodes-loader.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [EpisodeListComponent, LoadMoreButtonComponent, LoadingComponent]
 })
 export class EpisodesLoaderComponent implements OnChanges {

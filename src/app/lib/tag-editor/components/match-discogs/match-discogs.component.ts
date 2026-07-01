@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges } from '@angular/core';
+import { Component, inject, input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import type { Discogs } from '@modules/jam/model/discogs-rest-data';
 import { type Jam, type JamParameters, JamService } from '@jam';
@@ -38,6 +38,7 @@ function buildDiscogsTag(
 	selector: 'app-match-discogs',
 	templateUrl: './match-discogs.component.html',
 	styleUrls: ['./match-discogs.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [IconDiscogsComponent, FormsModule, IconSpinComponent, LoadingComponent]
 })
 export class MatchDiscogsComponent implements OnChanges {

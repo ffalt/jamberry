@@ -1,5 +1,5 @@
 import type { FocusableOption } from '@angular/cdk/a11y';
-import { Component, type ElementRef, input, output, viewChild } from '@angular/core';
+import { Component, type ElementRef, input, output, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import type { ContextMenuItemDirective } from './contextmenu.item.directive';
 import { NgTemplateOutlet } from '@angular/common';
 
@@ -12,6 +12,7 @@ interface ContextMenuItemDirectiveEvent {
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: 'context-menu-content-item',
 	templateUrl: './contextmenu-content-item.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [NgTemplateOutlet]
 })
 export class ContextMenuContentItemComponent implements FocusableOption {

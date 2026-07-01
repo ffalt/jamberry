@@ -1,10 +1,11 @@
-import { Component, ElementRef, inject, type OnInit } from '@angular/core';
+import { Component, ElementRef, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PlayerService } from '@core/services/player/player.service';
 import { PlayerEvents } from '@core/services/player/player.interface';
 
 @Component({
 	selector: 'app-speed-slider',
 	templateUrl: './slider-speed.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./slider-speed.component.scss']
 })
 export class SliderSpeedComponent implements OnInit {

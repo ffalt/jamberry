@@ -68,7 +68,7 @@
 		</div>
 		<div class="key-value-row">
 			<div i18n>Size</div>
-			<div>{{ track.media?.size | filesize }}</div>
+			<div>{{ $safeNavigationMigration(track.media?.size) | filesize }}</div>
 		</div>
 		<div class="key-value-row">
 			<div i18n>File created</div>
@@ -101,7 +101,7 @@
 		<div i18n class="section-title">User State</div>
 		<div class="key-value-row">
 			<div i18n>Faved</div>
-			<div>{{ track.state?.faved | date:'long' }}</div>
+			<div>{{ $safeNavigationMigration(track.state?.faved) | date:'long' }}</div>
 		</div>
 		<div class="key-value-row">
 			<div i18n>Rated</div>
@@ -109,7 +109,7 @@
 		</div>
 		<div class="key-value-row">
 			<div i18n>Last Played</div>
-			<div>{{ track.state?.lastPlayed | date:'long' }}</div>
+			<div>{{ $safeNavigationMigration(track.state?.lastPlayed) | date:'long' }}</div>
 		</div>
 		<div class="key-value-row">
 			<div i18n>Played</div>

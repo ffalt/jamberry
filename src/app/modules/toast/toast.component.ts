@@ -1,4 +1,4 @@
-import { Component, inject, NgZone, type OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, inject, NgZone, type OnDestroy, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { DefaultNoComponentGlobalConfig, type IndividualConfig, ToastPackage } from './toast-config';
 
@@ -9,6 +9,7 @@ import { DefaultNoComponentGlobalConfig, type IndividualConfig, ToastPackage } f
 	// eslint-disable-next-line @angular-eslint/use-component-view-encapsulation
 	encapsulation: ViewEncapsulation.None,
 	preserveWhitespaces: false,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		'[class]': 'toastClasses',
 		'[style.display]': 'displayStyle',

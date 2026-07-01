@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy } from '@angular/core';
+import { Component, inject, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { JamAuthService, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
 import { randomString } from '@utils/random';
@@ -11,6 +11,7 @@ import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 	selector: 'app-user-avatar',
 	templateUrl: './user-avatar.component.html',
 	styleUrls: ['./user-avatar.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CoverartImageComponent, IconSpinComponent]
 })
 export class UserAvatarComponent implements OnDestroy {

@@ -2,13 +2,13 @@
 	<app-loading/>
 } @else if (folder.type === FolderType.artist) {
 	@if (folder.tag?.artist) {
-		<app-discogs-artist [artist]="folder.tag?.artist"/>
+		<app-discogs-artist [artist]="$safeNavigationMigration(folder.tag?.artist)"/>
 	} @else {
 		<app-background-text text="No artist name available" i18n-text/>
 	}
 } @else if ([FolderType.album, FolderType.multialbum].includes(folder.type)) {
 	@if (folder.tag?.artist && folder.tag?.album) {
-		<app-discogs-album [artist]="folder.tag?.artist" [title]="folder.tag?.album"/>
+		<app-discogs-album [artist]="$safeNavigationMigration(folder.tag?.artist)" [title]="$safeNavigationMigration(folder.tag?.album)"/>
 	} @else {
 		<app-background-text text="No album info available" i18n-text/>
 	}

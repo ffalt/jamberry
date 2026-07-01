@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import type { TabComponent } from '@modules/tab-portal';
 import { ClickKeyEnterDirective } from '@core/directives/click-enterkey.directive';
 import { ActionsService } from '@core/services/actions/actions.service';
@@ -14,6 +14,7 @@ import { NavigService } from '@core/services/navig/navig.service';
 	selector: 'app-player-current-info',
 	templateUrl: './player-current-info.component.html',
 	styleUrls: ['./player-current-info.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CommonModule, ClickKeyEnterDirective, ChaptersComponent, IconFavComponent, CoverartImageComponent, LyricsComponent]
 })
 export class PlayerCurrentInfoComponent implements TabComponent {

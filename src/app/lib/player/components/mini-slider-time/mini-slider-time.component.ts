@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, type OnInit } from '@angular/core';
+import { Component, ElementRef, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { JamService } from '@jam';
 import { PlayerService } from '@core/services/player/player.service';
 import { PlayerEvents } from '@core/services/player/player.interface';
@@ -6,6 +6,7 @@ import { PlayerEvents } from '@core/services/player/player.interface';
 @Component({
 	selector: 'app-mini-time-slider',
 	templateUrl: './mini-slider-time.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./mini-slider-time.component.scss']
 })
 export class MiniSliderTimeComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import type { Jam } from '@jam';
 import { Subject, type Subscription, takeUntil } from 'rxjs';
@@ -11,6 +11,7 @@ import { NavigService } from '@core/services/navig/navig.service';
 	selector: 'app-podcast-overview',
 	templateUrl: './podcast-overview.component.html',
 	styleUrls: ['./podcast-overview.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [EpisodeListComponent, InfoTextComponent]
 })
 export class PodcastOverviewComponent implements OnInit, OnDestroy {

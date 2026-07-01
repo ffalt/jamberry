@@ -1,5 +1,5 @@
 import { Location as AngularLocation } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JamAuthService } from '@jam';
 import { MainTabsService } from '../../../main-tabs/services/main-tabs.service';
@@ -17,6 +17,7 @@ import { IconMenuComponent } from '@core/components/icons/icon-menu.component';
 	selector: 'app-header',
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CoverartImageComponent, IconLeftBoldComponent, IconMenuComponent, LogoIconComponent, RouterModule, SearchBoxComponent]
 })
 export class HeaderComponent {

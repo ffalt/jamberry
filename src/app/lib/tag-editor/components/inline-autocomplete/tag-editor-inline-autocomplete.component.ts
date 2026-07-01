@@ -1,4 +1,4 @@
-import { Component, type ElementRef, input, model, output, viewChild } from '@angular/core';
+import { Component, type ElementRef, input, model, output, viewChild, linkedSignal } from '@angular/core';
 import { type ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { AutocompleteDataControl, AutocompleteOption } from '@modules/autocomplete/autocomplete.types';
 import { AutocompleteDirective } from '@modules/autocomplete/autocomplete.directive';
@@ -20,7 +20,8 @@ import { AutocompleteContentDirective } from '@modules/autocomplete/autocomplete
 })
 export class TagEditorInlineAutocompleteComponent implements ControlValueAccessor, AutocompleteDataControl<string> {
 	readonly getList = input<(data: any) => Array<string>>();
-	readonly value = model<string>();
+	readonly valueInput = input<string>(undefined, {alias: 'value'});
+	readonly value = linkedSignal(this.valueInput);
 	readonly data = input<any>();
 	readonly valueChange = output<string | undefined>();
 	readonly endEditRequest = output();

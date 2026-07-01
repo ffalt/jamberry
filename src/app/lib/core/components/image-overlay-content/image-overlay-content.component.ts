@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 
@@ -11,6 +11,7 @@ export interface Image {
 	imports: [IconSpinComponent],
 	selector: 'app-image-overlay-content',
 	templateUrl: './image-overlay-content.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./image-overlay-content.scss']
 })
 export class ImageOverlayContentComponent implements DialogOverlay<Image> {

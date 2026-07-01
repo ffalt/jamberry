@@ -1,4 +1,4 @@
-import { Component, inject, type OnInit } from '@angular/core';
+import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AlbumType, JamService } from '@jam';
 import { getTypeByAlbumType } from '@utils/jam-lists';
@@ -8,6 +8,7 @@ import { filterStats, StatsComponent, type StatsList } from '@core/components/st
 	selector: 'app-start-stats',
 	templateUrl: './start-stats.component.html',
 	styleUrls: ['./start-stats.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [StatsComponent]
 })
 export class StartStatsComponent implements OnInit {

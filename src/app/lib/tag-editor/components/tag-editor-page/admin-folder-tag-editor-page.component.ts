@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit, viewChild } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import type { ComponentCanDeactivate } from '@core/guards/pending-changes/pending-changes.guard';
@@ -9,6 +9,7 @@ import { TagEditorComponent } from '../tag-editor/tag-editor.component';
 	selector: 'app-admin-folder-tag-editor',
 	templateUrl: './admin-folder-tag-editor-page.component.html',
 	styleUrls: ['./admin-folder-tag-editor-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TagEditorComponent]
 })
 export class AdminFolderTagEditorPageComponent implements OnInit, OnDestroy, ComponentCanDeactivate {

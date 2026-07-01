@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlbumType, JamObjectType, type ListType } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -14,6 +14,7 @@ import { LibraryService } from '../../services/library/library.service';
 	selector: 'app-objs-loader-page-by-type',
 	templateUrl: './objs-loader-by-type.component.html',
 	styleUrls: ['./objs-loader-by-type.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ObjsLoaderComponent]
 })
 export class ObjsLoaderByTypeComponent implements OnInit, OnDestroy {

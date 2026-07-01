@@ -1,4 +1,4 @@
-import { Component, inject, input, type OnChanges, type OnDestroy, viewChild } from '@angular/core';
+import { Component, inject, input, type OnChanges, type OnDestroy, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatchApplyComponent } from '../match-apply/match-apply.component';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -36,6 +36,7 @@ export interface ReleaseMatching {
 	host: {
 		'[class.right-active]': 'rightActive'
 	},
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ContextMenuModule, IconLeftComponent, IconRightComponent, IconSpinComponent, MatchApplyComponent, MatchFileListComponent, MatchResultsComponent, TagEditorAutocompleteComponent]
 })
 export class MatchReleaseComponent implements OnChanges, OnDestroy {

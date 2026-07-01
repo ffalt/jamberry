@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import { RateComponent } from '../rate/rate.component';
 
@@ -11,6 +11,7 @@ export interface RateEdit {
 	selector: 'app-dialog-rate',
 	templateUrl: './dialog-rate.component.html',
 	styleUrls: ['./dialog-rate.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [RateComponent]
 })
 export class DialogRateComponent implements DialogOverlay<RateEdit> {

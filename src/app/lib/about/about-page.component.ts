@@ -1,4 +1,4 @@
-import { Component, inject, VERSION } from '@angular/core';
+import { Component, inject, VERSION, ChangeDetectionStrategy } from '@angular/core';
 import { JamAuthService } from '@jam';
 import { HotkeysService } from '@modules/hotkeys';
 import { HeaderSlimComponent } from '@core/components/header-slim/header-slim.component';
@@ -9,6 +9,7 @@ import { AppService } from '@core/services/app/app.service';
 	selector: 'app-page-about',
 	templateUrl: './about-page.component.html',
 	styleUrls: ['./about-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderSlimComponent]
 })
 export class AboutPageComponent {

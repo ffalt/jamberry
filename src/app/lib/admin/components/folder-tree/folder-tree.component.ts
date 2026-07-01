@@ -1,5 +1,5 @@
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { Component, inject, type OnDestroy, type OnInit, output, viewChild } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, output, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FolderType, type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
 import { ClickKeyEnterDirective } from '@core/directives/click-enterkey.directive';
@@ -38,6 +38,7 @@ function walkChildren(node: TreeNode, onItem: (node: TreeNode) => void): void {
 	selector: 'app-admin-folder-tree',
 	templateUrl: './folder-tree.component.html',
 	styleUrls: ['./folder-tree.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ClickKeyEnterDirective, FocusKeyListDirective, FocusKeyListItemDirective, IconFolderComponent, IconFolderOpenComponent, IconMinusComponent, IconPlusComponent, IconReloadComponent, IconSpinComponent, ScrollingModule]
 })
 export class FolderTreeComponent implements OnInit, OnDestroy {

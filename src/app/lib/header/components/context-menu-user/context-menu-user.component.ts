@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from '@angular/core';
+import { Component, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { JamAuthService } from '@jam';
 import type { ContextMenuHostComponentInterface } from '@core/services/contextmenu/menu.service';
 import { NavigService } from '@core/services/navig/navig.service';
@@ -14,6 +14,7 @@ import { IconUserComponent } from '@core/components/icons/icon-user.component';
 @Component({
 	selector: 'app-context-menu-user',
 	templateUrl: './context-menu-user.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ContextMenuModule, IconAdminComponent, IconBrowseComponent, IconHelpComponent, IconLogoutComponent, IconSettingsComponent, IconUserComponent]
 })
 export class ContextMenuUserComponent implements ContextMenuHostComponentInterface<any> {

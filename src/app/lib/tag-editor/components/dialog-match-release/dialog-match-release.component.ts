@@ -1,4 +1,4 @@
-import { Component, type OnDestroy } from '@angular/core';
+import { Component, type OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import { Subject, takeUntil } from 'rxjs';
 import { MatchReleaseComponent, type ReleaseMatching } from '../match-release/match-release.component';
@@ -6,6 +6,7 @@ import { MatchReleaseComponent, type ReleaseMatching } from '../match-release/ma
 @Component({
 	selector: 'app-dialog-match-release',
 	templateUrl: './dialog-match-release.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [MatchReleaseComponent]
 })
 export class DialogMatchReleaseComponent implements DialogOverlay<ReleaseMatching>, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { type Jam, JamService } from '@jam';
 import { takeUntil } from 'rxjs';
@@ -20,6 +20,7 @@ import { IconRightBoldComponent } from '@core/components/icons/icon-right-bold.c
 	selector: 'app-admin-folder-folders',
 	templateUrl: './admin-folder-folders.component.html',
 	styleUrls: ['./admin-folder-folders.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [BackgroundTextListComponent, FolderListComponent, IconPlusComponent, IconReloadComponent, IconRightBoldComponent, LoadingComponent, RouterModule]
 })
 export class AdminFolderFoldersComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { themeConfig } from '../../../../app.providers';
 import { HeaderSlimComponent } from '@core/components/header-slim/header-slim.component';
@@ -11,6 +11,7 @@ import { SettingsStoreService } from '@core/services/settings-store/settings-sto
 	selector: 'app-page-settings',
 	templateUrl: './settings-page.component.html',
 	styleUrls: ['./settings-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CommonModule, FormsModule, HeaderSlimComponent]
 })
 export class SettingsPageComponent {

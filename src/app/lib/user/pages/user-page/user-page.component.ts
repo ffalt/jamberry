@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { JamAuthService } from '@jam';
 import { UserAvatarComponent } from '../../components/user-avatar/user-avatar.component';
 import { UserStatsComponent } from '../../components/user-stats/user-stats.component';
@@ -9,6 +9,7 @@ import { IconCheckmarkComponent } from '@core/components/icons/icon-checkmark.co
 	selector: 'app-user-page',
 	templateUrl: './user-page.component.html',
 	styleUrls: ['./user-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderSlimComponent, IconCheckmarkComponent, UserAvatarComponent, UserStatsComponent]
 })
 export class UserPageComponent {

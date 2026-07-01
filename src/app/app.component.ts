@@ -1,4 +1,4 @@
-import { Component, inject, Injector, type OnDestroy, type OnInit, viewChild, ViewContainerRef } from '@angular/core';
+import { Component, inject, Injector, type OnDestroy, type OnInit, viewChild, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Hotkey, HotkeysService } from '@modules/hotkeys';
 import { TabPortalOutlet } from '@modules/tab-portal';
@@ -26,6 +26,7 @@ import { MainTabsService } from './lib/main-tabs/services/main-tabs.service';
 		'(window:scroll)': 'scrollTrack()',
 		'(window:resize)': 'resize()'
 	},
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [HeaderComponent, PlayerComponent, MiniPlayerComponent]
 })
 export class AppComponent implements OnInit, OnDestroy {

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, input, type OnChanges, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, input, type OnChanges, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 import { FormsModule } from '@angular/forms';
 import { ArtworkImageType, type CoverArtArchive, CoverArtArchiveLookupType, FolderType, type Jam, JamService, type MusicBrainz, MusicBrainzLookupType, type WikiData } from '@jam';
@@ -34,6 +34,7 @@ export interface ArtworkNode {
 	selector: 'app-admin-folder-artwork-search',
 	templateUrl: './folder-artwork-search-image.component.html',
 	styleUrls: ['./folder-artwork-search-image.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ArtworkListComponent, BackgroundTextListComponent, ClickKeyEnterDirective, FocusKeyListDirective, FocusKeyListItemDirective, FormsModule, IconSpinComponent, LoadingComponent]
 })
 export class FolderArtworkSearchImageComponent implements OnChanges, OnInit, OnDestroy {

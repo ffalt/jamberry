@@ -6,7 +6,7 @@
 				<span>{{ t.type }}</span>
 				@for (rel of t.relations; track rel) {
 					<div>
-						<a target="_blank" [href]="rel.url?.resource"> {{ rel.url?.resource }}</a>
+						<a target="_blank" [href]="$safeNavigationMigration(rel.url?.resource)"> {{ rel.url?.resource }}</a>
 					</div>
 				}
 			</div>

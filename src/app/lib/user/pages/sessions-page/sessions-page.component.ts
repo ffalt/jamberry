@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, type OnInit } from '@angular/core';
+import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { type Jam, JamAuthService, JamService } from '@jam';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { DialogPasswordComponent, type PasswordEdit } from '@core/components/dialog-password/dialog-password.component';
@@ -11,6 +11,7 @@ import { IconRemoveComponent } from '@core/components/icons/icon-remove.componen
 	selector: 'app-sessions-page',
 	templateUrl: './sessions-page.component.html',
 	styleUrls: ['./sessions-page.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [CommonModule, HeaderSlimComponent, IconRemoveComponent]
 })
 export class SessionsPageComponent implements OnInit {

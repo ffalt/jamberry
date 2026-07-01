@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import type { Jam } from '@jam';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ export interface TextListEdit {
 	selector: 'app-dialog-tag-textlist',
 	templateUrl: './dialog-tag-textlist.component.html',
 	styleUrls: ['./dialog-tag-textlist.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule]
 })
 export class DialogTagTextlistComponent implements DialogOverlay<TextListEdit> {

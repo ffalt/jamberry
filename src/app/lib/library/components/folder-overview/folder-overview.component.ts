@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { type Jam, JamService } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -15,6 +15,7 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	selector: 'app-folder-overview',
 	templateUrl: './folder-overview.component.html',
 	styleUrls: ['./folder-overview.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TrackListComponent, ObjGroupsViewComponent, InfoNoteComponent, LoadingComponent]
 })
 export class FolderOverviewComponent implements OnInit, OnDestroy {

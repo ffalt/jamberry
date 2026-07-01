@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { FolderType, type Jam, JamService } from '@jam';
@@ -28,6 +28,7 @@ import { IconUploadCloudComponent } from '@core/components/icons/icon-upload-clo
 	selector: 'app-admin-folder',
 	templateUrl: './admin-folder-overview.component.html',
 	styleUrls: ['./admin-folder-overview.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [ArtworkListComponent, FormsModule, IconPictureComponent, IconReloadComponent, IconRightBoldComponent, IconTrashComponent, IconUploadCloudComponent, InfoNoteComponent, InlineEditComponent, LoadingComponent, RouterModule]
 })
 export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent implements OnInit, OnDestroy {

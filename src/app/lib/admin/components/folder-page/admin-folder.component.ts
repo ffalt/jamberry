@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit, viewChild } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import type { Jam } from '@jam';
 import { Subject, takeUntil } from 'rxjs';
@@ -14,6 +14,7 @@ import { IconRightComponent } from '@core/components/icons/icon-right.component'
 	templateUrl: './admin-folder.component.html',
 	styleUrls: ['./admin-folder.component.scss'],
 	imports: [FolderTreeComponent, IconLeftComponent, IconRightComponent, RouterModule, SplitterComponent],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	host: {
 		'[class.right-active]': 'rightActive'
 	}

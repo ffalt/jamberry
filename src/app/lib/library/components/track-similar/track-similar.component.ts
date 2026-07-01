@@ -1,4 +1,4 @@
-import { Component, inject, type OnDestroy, type OnInit, viewChild } from '@angular/core';
+import { Component, inject, type OnDestroy, type OnInit, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -11,6 +11,7 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 	selector: 'app-track-similar',
 	templateUrl: './track-similar.component.html',
 	styleUrls: ['./track-similar.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [TrackListComponent, LoadMoreButtonComponent, LoadingComponent]
 })
 export class TrackSimilarComponent implements OnInit, OnDestroy {

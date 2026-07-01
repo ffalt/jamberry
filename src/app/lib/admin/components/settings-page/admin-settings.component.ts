@@ -1,4 +1,4 @@
-import { Component, inject, type OnInit } from '@angular/core';
+import { Component, inject, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
@@ -11,6 +11,7 @@ import { IconFloppyComponent } from '@core/components/icons/icon-floppy.componen
 	selector: 'app-admin-settings',
 	templateUrl: './admin-settings.component.html',
 	styleUrls: ['./admin-settings.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, HeaderSlimComponent, IconFloppyComponent, LoadingComponent, RouterModule]
 })
 

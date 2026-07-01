@@ -1,4 +1,4 @@
-import { Component, inject, input, output, viewChild } from '@angular/core';
+import { Component, inject, input, output, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { type GenreTag, getLastFMAlbumGenres, getLastFMArtistGenres, getMusicBrainzGenres, getTrackGenres, mergeGenres } from '../../model/genres.helper';
 import type { Matching, MatchRelease, MatchReleaseGroup } from '../../model/release-matching.helper';
 import { JamService, type LastFM, LastFMLookupType } from '@jam';
@@ -10,6 +10,7 @@ import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 	selector: 'app-match-apply',
 	templateUrl: './match-apply.component.html',
 	styleUrls: ['./match-apply.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [FormsModule, IconSpinComponent, MatchCoverartComponent]
 })
 export class MatchApplyComponent {
