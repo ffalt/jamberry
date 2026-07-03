@@ -1,11 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import type { Jam } from '@jam';
 import { type Observable, ReplaySubject } from 'rxjs';
 import { LocalstorageService } from '../localstorage/localstorage.service';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class UserStorageService {
 	userChange: Observable<Jam.SessionUser | undefined>;
 	private readonly localStorageService = inject(LocalstorageService);

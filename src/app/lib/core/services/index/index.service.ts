@@ -1,4 +1,4 @@
-import { EventEmitter, inject, Injectable } from '@angular/core';
+import { EventEmitter, inject, Service } from '@angular/core';
 import { getTypeByAlbumType } from '@utils/jam-lists';
 import { ImageFormatType, type Jam, JamObjectType, type JamParameters, JamService } from '@jam';
 import { AppService } from '../app/app.service';
@@ -172,9 +172,7 @@ export class IndexCache {
 	}
 }
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class IndexService {
 	readonly indexNotify = new EventEmitter<IndexCache>();
 	private readonly app = inject(AppService);

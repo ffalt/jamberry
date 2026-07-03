@@ -1,21 +1,20 @@
-import { inject, Injectable, type OnDestroy } from '@angular/core';
+import { DestroyRef, inject, Service } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import type { Jam } from '@jam';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { filter } from 'rxjs';
 import { AppService } from '../app/app.service';
 import { PlayerEvents } from '../player/player.interface';
 import { PlayerService } from '../player/player.service';
 
-@Injectable({
-	providedIn: 'root'
-})
-export class TitleService implements OnDestroy {
+@Service()
+export class TitleService {
 	title = inject(Title);
 	titles: Array<string> = [];
 	private readonly app = inject(AppService);
 	private readonly player = inject(PlayerService);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly router = inject(Router);
 	private readonly route = inject(ActivatedRoute);
 
@@ -23,7 +22,7 @@ export class TitleService implements OnDestroy {
 		this.router.events
 			.pipe(
 				filter(event => event instanceof NavigationEnd),
-				takeUntil(this.unsubscribe))
+				takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				this.titles = [];
 
@@ -69,11 +68,6 @@ export class TitleService implements OnDestroy {
 				}
 			}
 		});
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 
 	refreshTitleSong(track: Jam.Track): void {

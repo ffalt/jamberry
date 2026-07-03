@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import type { Route } from '@angular/router';
 import { JamService } from '@jam';
 import type { LinkRoute } from '../../../../../@types/link-route';
@@ -16,9 +16,7 @@ import { PlayerService } from '@core/services/player/player.service';
 import { NavigService } from '@core/services/navig/navig.service';
 import { NotifyService } from '@core/services/notify/notify.service';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class LibraryService {
 	readonly actions = inject(ActionsService);
 	readonly player = inject(PlayerService);

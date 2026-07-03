@@ -1,4 +1,4 @@
-import { inject, Injectable, InjectionToken } from '@angular/core';
+import { inject, Service, InjectionToken } from '@angular/core';
 import { type Auth, type Jam, JamConfiguration } from '@jam';
 import { AppService } from '../app/app.service';
 import { LocalstorageService } from '../localstorage/localstorage.service';
@@ -8,9 +8,7 @@ export const WINDOW = new InjectionToken('window',
 	{ providedIn: 'root', factory: (): typeof globalThis => globalThis }
 );
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class ConfigurationService extends JamConfiguration {
 	static readonly localStorageName = 'jam.auth';
 	clientName: string;

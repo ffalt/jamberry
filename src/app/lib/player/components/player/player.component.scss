@@ -18,7 +18,10 @@
 			color: var(--on-control-ambient);
 			cursor: pointer;
 			border: 1px solid transparent;
+			border-radius: 4px;
 			padding-top: 4px;
+			padding-bottom: 4px;
+			display: flex;
 
 			&.active {
 				color: var(--on-background-highlight);
@@ -88,8 +91,6 @@
 			.player-control {
 				margin-right: variables.$padding-xs;
 				font-size: 1.5em;
-				border-radius: 2px;
-				line-height: 1.5em;
 
 				&.button-queue {
 					display: none;

@@ -1,6 +1,6 @@
-import { Component, inject, signal, type OnDestroy } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { randomString } from '@utils/random';
 import { CoverartImageComponent } from '@core/components/coverart-image/coverart-image.component';
 import { AppService } from '@core/services/app/app.service';
@@ -14,19 +14,14 @@ import { injectUser } from '@core/services/user/user.service';
 	styleUrls: ['./user-avatar.component.scss'],
 	imports: [CoverartImageComponent, IconSpinComponent]
 })
-export class UserAvatarComponent implements OnDestroy {
+export class UserAvatarComponent {
 	readonly app = inject(AppService);
 	readonly user = injectUser();
 	readonly refreshRandom = signal(randomString());
 	readonly refreshing = signal(false);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
 
 	// At the drag drop area
 	onDropFile(event: DragEvent): void {
@@ -55,7 +50,7 @@ export class UserAvatarComponent implements OnDestroy {
 		const file: File = files[0];
 
 		this.jam.user.uploadUserImage({ id: user.id }, file)
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe({
 				next: () => {
 					// nop

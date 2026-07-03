@@ -1,7 +1,7 @@
 import { Overlay, OverlayConfig, type OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { type ComponentRef, inject, Injectable, Injector, type OnDestroy, type ProviderToken } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { type ComponentRef, DestroyRef, inject, Injectable, Injector, type ProviderToken } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DialogOverlayRef } from './dialog-overlay-ref.class';
 import { DialogOverlayComponent } from './dialog-overlay.component';
 import { DIALOG_OVERLAY_DIALOG_CONFIG } from './dialog-overlay.tokens';
@@ -26,15 +26,10 @@ export class PortalInjector<T> implements Injector {
 }
 
 @Injectable()
-export class DialogOverlayService implements OnDestroy {
+export class DialogOverlayService {
 	private readonly injector = inject(Injector);
 	private readonly overlay = inject(Overlay);
-	private readonly unsubscribe = new Subject<void>();
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
+	private readonly lifeRef = inject(DestroyRef);
 
 	open<T>(config: Partial<DialogOverlayDialogConfig<T>> = {}): DialogOverlayRef {
 		// Override default configuration
@@ -45,7 +40,7 @@ export class DialogOverlayService implements OnDestroy {
 		const dialogRef = new DialogOverlayRef(overlayRef);
 		dialogRef.componentInstance = this.attachDialogContainer(overlayRef, dialogConfig, dialogRef);
 		overlayRef.backdropClick()
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				dialogRef.close();
 			});

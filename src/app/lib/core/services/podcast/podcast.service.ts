@@ -1,13 +1,11 @@
-import { EventEmitter, inject, Injectable } from '@angular/core';
+import { EventEmitter, inject, Service } from '@angular/core';
 import { Notifiers } from '@utils/notifier';
 import { Poller } from '@utils/poller';
 import { type Jam, JamService, PodcastStatus } from '@jam';
 import { DialogsService } from '../dialogs/dialogs.service';
 import { NotifyService } from '../notify/notify.service';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class PodcastService {
 	podcastsChange = new EventEmitter<Array<Jam.Podcast>>();
 	podcastChange = new Notifiers<Jam.Podcast | undefined>();

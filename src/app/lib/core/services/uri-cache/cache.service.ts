@@ -1,10 +1,8 @@
 import { type HttpEvent, type HttpHandler, type HttpRequest, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import { Observable, of, share, tap } from 'rxjs';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class CacheService {
 	private readonly cachedData = new Map<string, Observable<HttpEvent<unknown>> | HttpResponse<unknown>>();
 

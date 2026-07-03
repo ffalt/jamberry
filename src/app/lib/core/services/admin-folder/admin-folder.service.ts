@@ -19,9 +19,7 @@ export interface AdminChangeQueueInfoPoll {
 	notifyAfter?: EventEmitter<Jam.AdminChangeQueueInfo>;
 }
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class AdminFolderService {
 	readonly foldersChange = new EventEmitter<{ id: string; mode: AdminFolderServiceNotifyMode }>();
 	readonly tracksChange = new EventEmitter<{ id: string }>();

@@ -1,10 +1,8 @@
-import { inject, Injectable, NgZone } from '@angular/core';
+import { inject, Service, NgZone } from '@angular/core';
 import { ImageFormatType, type Jam, JamService } from '@jam';
 import { MediaSessionEvents } from './mediasession.events';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class MediaSessionService {
 	private readonly jam = inject(JamService);
 	private readonly ngZone = inject(NgZone);

@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, inject, type OnDestroy, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type Jam, JamService } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from '@modules/dialog-overlay';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 import { AdminFolderService, AdminFolderServiceNotifyMode } from '@core/services/admin-folder/admin-folder.service';
@@ -13,20 +13,15 @@ import { NotifyService } from '@core/services/notify/notify.service';
 	styleUrls: ['./dialog-upload-image.component.scss'],
 	imports: [LoadingComponent]
 })
-export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.Folder }>, OnDestroy {
+export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.Folder }> {
 	folder?: Jam.Folder;
 	reference?: DialogOverlayRef;
 	readonly isIdle = signal(true);
 	readonly isUploading = signal(false);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<{ folder: Jam.Folder }>>): void {
 		this.reference = reference;
@@ -39,7 +34,7 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 		}
 		const id = this.folder.id;
 		this.folderService.waitForQueueResult('Creating Artwork', item, [])
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				this.isIdle.set(true);
 				this.folderService.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
@@ -78,7 +73,7 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 		this.isIdle.set(false);
 		this.isUploading.set(true);
 		this.jam.artwork.createByUpload({ folderID: this.folder.id, types: [] }, file)
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe({
 				next: event => {
 					if (!(event instanceof HttpResponse)) {

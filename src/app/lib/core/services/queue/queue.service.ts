@@ -1,10 +1,8 @@
-import { EventEmitter, inject, Injectable } from '@angular/core';
+import { EventEmitter, inject, Service } from '@angular/core';
 
 import { type Jam, JamService, PodcastStatus } from '@jam';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class QueueService {
 	entries: Array<Jam.MediaBase> = [];
 	currentIndex = -1;

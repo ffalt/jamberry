@@ -1,35 +1,26 @@
-import { EventEmitter, inject, Injectable, type OnDestroy } from '@angular/core';
+import { DestroyRef, EventEmitter, inject, Service } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Settings } from '../../../../app.settings';
-import { Subject, takeUntil } from 'rxjs';
 import { AppService } from '../app/app.service';
 import { PushNotificationService } from '../push-notification/push-notification.service';
 import { UserStorageService } from '../userstorage/userstorage.service';
 
-@Injectable({
-	providedIn: 'root'
-})
-export class SettingsStoreService implements OnDestroy {
+@Service()
+export class SettingsStoreService {
 	private static readonly localstorageName = 'settings';
 	readonly settingsChange = new EventEmitter<void>();
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly userStorage = inject(UserStorageService);
 	private readonly pushNotificationService = inject(PushNotificationService);
 	private readonly app = inject(AppService);
 
 	constructor() {
-		const userStorage = this.userStorage;
-
-		userStorage.userChange
-			.pipe(takeUntil(this.unsubscribe))
+		this.userStorage.userChange
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe((/* user */) => {
 				this.loadFromStorage();
 			});
 		this.loadFromStorage();
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 
 	loadFromStorage(): void {

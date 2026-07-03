@@ -1,10 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { Router } from '@angular/router';
 import type { Jam } from '@jam';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class NavigService {
 	private readonly router = inject(Router);
 

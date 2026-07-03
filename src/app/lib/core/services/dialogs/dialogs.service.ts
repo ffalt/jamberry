@@ -1,10 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { TextOverlayContentComponent } from '../../components/text-overlay-content/text-overlay-content.component';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class DialogsService {
 	readonly dialogOverlay = inject(DialogOverlayService);
 

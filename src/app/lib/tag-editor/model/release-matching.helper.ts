@@ -242,6 +242,7 @@ export class MatchReleaseGroup {
 	releases: Array<MatchRelease> = [];
 	score: number = 0;
 	expanded?: boolean;
+	selecting?: boolean;
 	currentRelease?: MatchRelease;
 
 	constructor(public mbGroup: MusicBrainz.ReleaseGroup) {

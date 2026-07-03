@@ -2,11 +2,9 @@
  * https://github.com/alexcastillo/ng2-notifications
  */
 
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class PushNotificationService {
 	title?: string;
 	body?: string;

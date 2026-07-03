@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import { Settings } from '../../../../app.settings';
 import { environment } from '../../../../../environments/environment';
 
@@ -6,9 +6,7 @@ export interface SidebarProvider {
 	toggleMobileNavig(): void;
 }
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class AppService {
 	name: string = 'Jam';
 	version: string;

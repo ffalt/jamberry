@@ -8,9 +8,7 @@ export interface AdminUserServiceEditData {
 	edit: JamParameters.UserMutateParameters;
 }
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class AdminUserService {
 	usersChange = new EventEmitter<Array<Jam.User>>();
 	userChange = new Notifiers<Jam.User>();

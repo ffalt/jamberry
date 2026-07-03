@@ -1,6 +1,6 @@
 import { Overlay, type OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, type ComponentType } from '@angular/cdk/portal';
-import { inject, Injectable, type Signal } from '@angular/core';
+import { inject, Service, type Signal } from '@angular/core';
 import type { ContextMenuComponent } from '@modules/ngx-contextmenu/lib/contextmenu.component';
 import { ContextMenuService } from '@modules/ngx-contextmenu/lib/contextmenu.service';
 
@@ -10,9 +10,7 @@ export interface ContextMenuHostComponentInterface<T> {
 	initOpts?(opts: T): void;
 }
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class MenuService {
 	private readonly overlay = inject(Overlay);
 	private readonly contextMenuService = inject(ContextMenuService);

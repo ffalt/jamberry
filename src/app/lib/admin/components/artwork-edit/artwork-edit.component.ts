@@ -1,10 +1,10 @@
 import { HttpEventType } from '@angular/common/http';
-import { Component, inject, input, type OnChanges, type OnDestroy, output, signal } from '@angular/core';
+import { Component, DestroyRef, inject, input, type OnChanges, output, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, type SafeUrl } from '@angular/platform-browser';
 import { type Jam, JamService } from '@jam';
 import { type ImageCroppedEvent, ImageCropperComponent, type OutputFormat } from 'ngx-image-cropper';
-import { Subject, takeUntil } from 'rxjs';
 import { base64ArrayBuffer } from '@utils/base64';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
 import { NotifyService } from '@core/services/notify/notify.service';
@@ -21,7 +21,7 @@ export interface ImageEdit {
 	styleUrls: ['./artwork-edit.component.scss'],
 	imports: [FormsModule, ImageCropperComponent]
 })
-export class ArtworkEditComponent implements OnChanges, OnDestroy {
+export class ArtworkEditComponent implements OnChanges {
 	readonly data = input<ImageEdit>();
 	readonly imageEdited = output();
 	readonly imageBase64 = signal('');
@@ -29,16 +29,11 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 	croppedImageFile?: Blob;
 	maintainAspectRatio: boolean = true;
 	format: OutputFormat = 'jpeg';
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly folderService = inject(AdminFolderService);
 	private readonly notify = inject(NotifyService);
 	private readonly sanitizer = inject(DomSanitizer);
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
 
 	load(): void {
 		const dataValue = this.data();
@@ -80,7 +75,7 @@ export class ArtworkEditComponent implements OnChanges, OnDestroy {
 		const folderID = data.folderID;
 		const file = new File([this.croppedImageFile], data.artwork.name, { type: this.croppedImageFile.type });
 		this.jam.artwork.update({ id: data.artwork.id }, file)
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe({
 				next: event => {
 					if (!(event.type === HttpEventType.Response && event.body !== null)) {

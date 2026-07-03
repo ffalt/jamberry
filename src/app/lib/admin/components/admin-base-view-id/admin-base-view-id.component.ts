@@ -1,19 +1,19 @@
-import { Component, inject, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, type OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, type ParamMap } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-admin-base-view-id',
 	templateUrl: './admin-base-view-id.component.html'
 })
-export class AdminBaseViewIdComponent implements OnInit, OnDestroy {
+export class AdminBaseViewIdComponent implements OnInit {
 	id?: string;
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {
 		this.route.paramMap
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(paramMap => {
 				this.resolve(paramMap);
 				this.refresh();
@@ -26,11 +26,6 @@ export class AdminBaseViewIdComponent implements OnInit, OnDestroy {
 
 	refresh(): void {
 		// To be overridden
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 
 	protected resolve(paramMap: ParamMap): void {

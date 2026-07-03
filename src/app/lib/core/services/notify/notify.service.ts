@@ -1,10 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { ToastService } from '@modules/toast';
 import { serverErrorMsg } from '@utils/errors';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class NotifyService {
 	private readonly toastService = inject(ToastService);
 	private lastError?: string;

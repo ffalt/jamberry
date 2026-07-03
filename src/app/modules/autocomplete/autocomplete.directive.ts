@@ -1,6 +1,7 @@
 import { ConnectionPositionPair, Overlay, OverlayConfig, type OverlayRef, type PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Directive, ElementRef, inject, input, type OnChanges, type OnDestroy, type OnInit, output, type SimpleChange, ViewContainerRef } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, inject, input, type OnChanges, type OnInit, output, type SimpleChange, ViewContainerRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { AutocompleteControl, AutocompleteDataControl, AutocompleteOption } from '@modules/autocomplete/autocomplete.types';
 import { isArrowKeys, isDownArrowKey, isEnterKey, isEscapeKey, isLeftArrowKey, isNonCharKey, isRightArrowKey } from '@utils/keys';
 import { concat, debounceTime, distinctUntilChanged, filter, fromEvent, map, type Observable, Subject, switchMap, takeUntil, tap } from 'rxjs';
@@ -38,7 +39,7 @@ export function overlayClickOutside(overlayRef: OverlayRef, origin: HTMLElement)
 		'(keyup)': 'onkeyup($event)'
 	}
 })
-export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, AutocompleteControl<any> {
+export class AutocompleteDirective implements OnInit, OnChanges, AutocompleteControl<any> {
 	readonly appAutocomplete = input<AutocompleteComponent>();
 	readonly appAutocompleteControl = input<AutocompleteDataControl<any>>();
 	readonly appAutocompleteSettings = input<Partial<AutocompleteSettings>>();
@@ -47,7 +48,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 	activeIndex: number = NO_INDEX;
 	query: string = '';
 	options: Array<AutocompleteOption<any>> = [];
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly host = inject<ElementRef<HTMLInputElement>>(ElementRef);
 	private readonly vcr = inject(ViewContainerRef);
 	private readonly overlay = inject(Overlay);
@@ -61,11 +62,6 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		this.filterEnterEvent(this.keydown$);
 		this.listenAndSuggest(this.keyup$);
 		this.navigateSuggestionsWithArrows(this.keydown$);
-	}
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 
 	ngOnChanges(changes: { appAutocompleteSettings?: SimpleChange }): void {
@@ -141,7 +137,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 				}),
 				filter((query: string) => this.settings.allowEmpty || query.length > 0),
 				switchMap(async (query: string) => this.request(query)),
-				takeUntil(this.unsubscribe)
+				takeUntilDestroyed(this.lifeRef)
 			)
 			.subscribe((results: Array<AutocompleteOption<any>>) => {
 				this.activeIndex = NO_INDEX;
@@ -173,7 +169,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		elementObs
 			.pipe(
 				filter(isEnterKey),
-				takeUntil(this.unsubscribe)
+				takeUntilDestroyed(this.lifeRef)
 			)
 			.subscribe(() => {
 				if (!this.isVisible) {
@@ -199,7 +195,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		elementObs
 			.pipe(
 				filter(isArrowKeys),
-				takeUntil(this.unsubscribe)
+				takeUntilDestroyed(this.lifeRef)
 			)
 			.subscribe((e: KeyboardEvent) => {
 				if (isRightArrowKey(e)) {
@@ -230,7 +226,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy, OnChanges, Auto
 		const template = new TemplatePortal(rootTemplate, this.vcr, { control: this });
 		this.overlayRef.attach(template);
 		overlayClickOutside(this.overlayRef, this.host.nativeElement)
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				this.close();
 			});

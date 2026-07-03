@@ -1,11 +1,9 @@
-import { EventEmitter, inject, Injectable } from '@angular/core';
+import { EventEmitter, inject, Service } from '@angular/core';
 import { Notifiers } from '@utils/notifier';
 import { type Jam, JamService } from '@jam';
 import { NotifyService } from '../notify/notify.service';
 
-@Injectable({
-	providedIn: 'root'
-})
+@Service()
 export class PlaylistService {
 	playlistsChange = new EventEmitter<Array<Jam.Playlist>>();
 	playlistChange = new Notifiers<Jam.Playlist | undefined>();

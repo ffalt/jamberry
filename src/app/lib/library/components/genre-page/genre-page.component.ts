@@ -1,6 +1,6 @@
-import { Component, inject, type OnDestroy, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
 import { ObjsLoaderComponent } from '../objs-loader/objs-loader.component';
 import type { SearchTab } from '../search-page/search-page.component';
 import { TracksLoaderComponent } from '../tracks-loader/tracks-loader.component';
@@ -31,7 +31,7 @@ const noClick = (): void => {
 	styleUrls: ['./genre-page.component.scss'],
 	imports: [ObjsLoaderComponent, TracksLoaderComponent, HeaderIconSectionComponent]
 })
-export class GenrePageComponent implements OnDestroy {
+export class GenrePageComponent {
 	readonly title = signal('Genre');
 	readonly genreID = signal<string | undefined>(undefined);
 	genre = '';
@@ -54,11 +54,11 @@ export class GenrePageComponent implements OnDestroy {
 	readonly headerIcon = IconGenreComponent;
 
 	private readonly route = inject(ActivatedRoute);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 
 	constructor() {
 		this.route.paramMap
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(parameterMap => {
 				this.genre = parameterMap.get('name') ?? '';
 				this.title.set(`Genre: ${this.genre}`);
@@ -75,8 +75,4 @@ export class GenrePageComponent implements OnDestroy {
 		tab.active = true;
 	}
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
 }

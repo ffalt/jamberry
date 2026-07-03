@@ -1,8 +1,8 @@
-import { EventEmitter, inject, Injectable, type OnDestroy } from '@angular/core';
+import { DestroyRef, EventEmitter, inject, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Notifiers } from '@utils/notifier';
 import { Poller } from '@utils/poller';
 import { type Jam, JamService, type RootScanStrategy } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { AdminFolderService } from '../admin-folder/admin-folder.service';
 import { NotifyService } from '../notify/notify.service';
 
@@ -13,13 +13,11 @@ export interface AdminRootServiceEditData {
 	strategy: RootScanStrategy;
 }
 
-@Injectable({
-	providedIn: 'root'
-})
-export class AdminRootService implements OnDestroy {
+@Injectable()
+export class AdminRootService {
 	readonly rootsChange = new EventEmitter<Array<Jam.Root>>();
 	readonly rootChange = new Notifiers<Jam.Root>();
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly folderService = inject(AdminFolderService);
@@ -46,17 +44,12 @@ export class AdminRootService implements OnDestroy {
 
 	private roots: Array<Jam.Root> = [];
 
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
-
 	async applyDialogRoot(edit: AdminRootServiceEditData): Promise<void> {
 		if (edit.root) {
 			const id = edit.root.id;
 			const item = await this.jam.root.update({ id, name: edit.name, path: edit.path, strategy: edit.strategy });
 			this.folderService.waitForQueueResult('Updating Root', item, [])
-				.pipe(takeUntil(this.unsubscribe))
+				.pipe(takeUntilDestroyed(this.lifeRef))
 				.subscribe(() => {
 					this.notify.success('Root updated');
 					this.refreshRoot(id);
@@ -64,7 +57,7 @@ export class AdminRootService implements OnDestroy {
 		} else {
 			const item = await this.jam.root.create({ name: edit.name, path: edit.path, strategy: edit.strategy });
 			this.folderService.waitForQueueResult('Creating Root', item, [])
-				.pipe(takeUntil(this.unsubscribe))
+				.pipe(takeUntilDestroyed(this.lifeRef))
 				.subscribe(() => {
 					this.notify.success('Root created');
 					this.refreshRoots();
@@ -106,7 +99,7 @@ export class AdminRootService implements OnDestroy {
 		this.jam.root.remove({ id: root.id })
 			.then(item => {
 				this.folderService.waitForQueueResult('Removing Root', item, [])
-					.pipe(takeUntil(this.unsubscribe))
+					.pipe(takeUntilDestroyed(this.lifeRef))
 					.subscribe(() => {
 						this.roots = this.roots.filter(r => r.id !== root.id);
 						this.rootChange.emit(root.id);

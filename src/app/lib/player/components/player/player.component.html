@@ -2,7 +2,7 @@
 	<div class="actions">
 		<button (click)="player.previous()" [disabled]="!queue.hasPrevious" [title]="`Previous Track (${HOTKEYS.previousTrack.shortcut})`"><app-icon-fast-backward aria-hidden="true" /></button>
 		<button (click)="togglePlayPause()" [disabled]="queue.isEmpty" [title]="player.isPlaying | stringToggle : 'Pause' : 'Play' : HOTKEYS.playPause.shortcut"
-						class="play"><i aria-hidden="true">@if (player.isPlaying) {<app-icon-pause />} @else {<app-icon-play />}</i></button>
+						class="play">@if (player.isPlaying) {<app-icon-pause />} @else {<app-icon-play />}</button>
 		<button (click)="player.next()" [disabled]="!queue.hasNext" [title]="`Next Track (${HOTKEYS.nextTrack.shortcut})`"><app-icon-fast-forward aria-hidden="true" /></button>
 	</div>
 	<div class="progress">
@@ -16,7 +16,7 @@
 		<div class="player-slider-controls">
 			<div class="player-controls">
 				<button (click)="player.unmute()" [title]="player.isMuted | stringToggle : 'Unmute' : 'Mute'" class="player-control">
-					<i aria-hidden="true">@if (player.isMuted) {<app-icon-volume-off />} @else {<app-icon-volume-up />}</i></button>
+					@if (player.isMuted) {<app-icon-volume-off />} @else {<app-icon-volume-up />}</button>
 				<app-volume-slider i18n-title title="Volume" />
 			</div>
 		</div>

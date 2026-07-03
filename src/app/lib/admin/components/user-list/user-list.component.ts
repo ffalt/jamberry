@@ -1,6 +1,6 @@
-import { Component, inject, input, type OnDestroy } from '@angular/core';
+import { Component, DestroyRef, inject, input } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import type { Jam } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { DialogAvatarComponent } from '../dialog-avatar/dialog-avatar.component';
 import { DialogUserPassComponent, type UserPasswordEdit } from '../dialog-user-pass/dialog-user-pass.component';
@@ -23,18 +23,13 @@ import { IconRemoveComponent } from '@core/components/icons/icon-remove.componen
 	styleUrls: ['./user-list.component.scss'],
 	imports: [CoverartImageComponent, FocusKeyListDirective, FocusKeyListItemDirective, IconCheckmarkComponent, IconEditComponent, IconKeyComponent, IconPictureComponent, IconRemoveComponent]
 })
-export class UserListComponent implements OnDestroy {
+export class UserListComponent {
 	readonly users = input<Array<Jam.User> | undefined>([]);
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly notify = inject(NotifyService);
 	private readonly dialogs = inject(DialogsService);
 	private readonly userService = inject(AdminUserService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
-
-	ngOnDestroy(): void {
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
-	}
 
 	editUser(user: Jam.User): void {
 		const edit: AdminUserServiceEditData = {
@@ -72,7 +67,7 @@ export class UserListComponent implements OnDestroy {
 			title: 'Edit User Avatar',
 			data: user
 		}).afterClosed()
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				this.userService.refreshUser(user.id);
 			});

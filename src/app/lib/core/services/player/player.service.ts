@@ -1,8 +1,8 @@
-import { inject, Injectable, type OnDestroy } from '@angular/core';
+import { DestroyRef, inject, Service } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MediaSessionEvents } from '../mediasession/mediasession.events';
 import { MediaSessionService } from '../mediasession/mediasession.service';
 import { ImageFormatType, type Jam, JamObjectType, JamService, PodcastStatus } from '@jam';
-import { Subject, takeUntil } from 'rxjs';
 import { StopWatch } from '@utils/stopwatch';
 import { NotifyService } from '../notify/notify.service';
 import { PushNotificationService } from '../push-notification/push-notification.service';
@@ -11,10 +11,8 @@ import { UserStorageService } from '../userstorage/userstorage.service';
 import { type PlayerEventHandler, type PlayerEventMap, PlayerEvents, type PlayerSubscriberStore, type SoundPlayerAudioSupport } from './player.interface';
 import { PlayerSoundmanager2 } from './player.soundmanager2';
 
-@Injectable({
-	providedIn: 'root'
-})
-export class PlayerService implements OnDestroy {
+@Service()
+export class PlayerService {
 	static readonly localPlayerStorageName = 'player';
 	static readonly localQueueStorageName = 'queue';
 	currentEpisode?: Jam.Episode;
@@ -30,7 +28,7 @@ export class PlayerService implements OnDestroy {
 	scrobbled = false;
 	currentNotification?: Notification;
 	private readonly soundPlayer: PlayerSoundmanager2;
-	private readonly unsubscribe = new Subject<void>();
+	private readonly lifeRef = inject(DestroyRef);
 	private readonly queue = inject(QueueService);
 	private readonly notify = inject(NotifyService);
 	private readonly notification = inject(PushNotificationService);
@@ -41,33 +39,27 @@ export class PlayerService implements OnDestroy {
 	private positionStoreTimer?: ReturnType<typeof setInterval>;
 
 	constructor() {
-		const userStorage = this.userStorage;
-		const jam = this.jam;
-
-		this.soundPlayer = new PlayerSoundmanager2(jam);
+		this.soundPlayer = new PlayerSoundmanager2(this.jam);
 		this.subscribeSoundPlayerEvents();
 		this.subscribeMediaSessionEvents();
-		userStorage.userChange
-			.pipe(takeUntil(this.unsubscribe))
+		this.userStorage.userChange
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe((/* user */) => {
 				this.loadFromStorage();
 			});
 		this.loadFromStorage();
 		this.queue.queueChange
-			.pipe(takeUntil(this.unsubscribe))
+			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(() => {
 				this.syncQueueWithLocalStorage();
 			});
+		this.lifeRef.onDestroy(() => {
+			this.stopPositionStore();
+		});
 	}
 
 	get empty(): Readonly<boolean> {
 		return !(this.currentTrack ?? this.currentEpisode);
-	}
-
-	ngOnDestroy(): void {
-		this.stopPositionStore();
-		this.unsubscribe.next();
-		this.unsubscribe.complete();
 	}
 
 	playQueuePos(index: number): void {
