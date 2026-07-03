@@ -81,12 +81,12 @@
     "@vitest/coverage-v8": "4.1.9",
     "@vitest/eslint-plugin": "1.6.20",
     "angular-eslint": "22.0.0",
-    "baseline-browser-mapping": "2.10.40",
+    "baseline-browser-mapping": "2.10.41",
     "conventional-changelog": "8.0.0",
     "conventional-changelog-angular": "9.2.0",
     "eslint": "10.6.0",
     "eslint-plugin-rxjs-x": "1.0.2",
-    "eslint-plugin-unicorn": "69.0.0",
+    "eslint-plugin-unicorn": "70.0.0",
     "globals": "17.7.0",
     "jsdom": "29.1.1",
     "postcss": "8.5.16",
@@ -98,5 +98,14 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.62.1",
     "vitest": "4.1.9"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "esbuild@0.27.7": true,
+    "fsevents@2.3.3": true,
+    "lmdb@3.5.4": true,
+    "msgpackr-extract@3.0.4": true,
+    "@parcel/watcher@2.5.6": true,
+    "core-js@3.49.0": true
   }
 }
