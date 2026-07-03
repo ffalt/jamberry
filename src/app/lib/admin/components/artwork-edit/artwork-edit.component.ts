@@ -78,7 +78,7 @@ export class ArtworkEditComponent implements OnChanges {
 			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe({
 				next: event => {
-					if (!(event.type === HttpEventType.Response && event.body !== null)) {
+					if (event.type !== HttpEventType.Response || event.body === null) {
 						return;
 					}
 

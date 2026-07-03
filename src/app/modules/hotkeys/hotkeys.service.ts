@@ -35,10 +35,7 @@ export class HotkeysService {
 			// don't execute callback if the event was fired from inside an element listed in preventIn but not in allowIn
 			const shouldExecute =
 				(` ${target.className} `).includes(' mousetrap ') ||
-				!(
-					this.preventIn.includes(nodeName) &&
-					!(hotkey.allowIn ?? []).map(allow => allow.toUpperCase()).includes(nodeName)
-				);
+				!this.preventIn.includes(nodeName) || (hotkey.allowIn ?? []).map(allow => allow.toUpperCase()).includes(nodeName);
 			if (shouldExecute) {
 				return Reflect.apply((hotkey).callback, this, [event, combo]);
 			}
