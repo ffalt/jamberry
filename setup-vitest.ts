@@ -30,21 +30,23 @@ const mockBrowser = () => {
 	};
 };
 
-Object.defineProperty(globalThis, 'localStorage', { value: mockBrowser(), writable: true, configurable: true });
-Object.defineProperty(globalThis, 'sessionStorage', { value: mockBrowser(), writable: true, configurable: true });
-Object.defineProperty(globalThis, 'matchMedia', {
-	writable: true,
-	configurable: true,
-	value: (query: string) => ({
-		matches: false,
-		media: query,
-		onchange: undefined,
-		addListener: vi.fn(),
-		removeListener: vi.fn(),
-		addEventListener: vi.fn(),
-		removeEventListener: vi.fn(),
-		dispatchEvent: vi.fn()
-	})
+Object.defineProperties(globalThis, {
+	localStorage: { value: mockBrowser(), writable: true, configurable: true },
+	sessionStorage: { value: mockBrowser(), writable: true, configurable: true },
+	matchMedia: {
+		writable: true,
+		configurable: true,
+		value: (query: string) => ({
+			matches: false,
+			media: query,
+			onchange: undefined,
+			addListener: vi.fn(),
+			removeListener: vi.fn(),
+			addEventListener: vi.fn(),
+			removeEventListener: vi.fn(),
+			dispatchEvent: vi.fn()
+		})
+	},
 });
 
 vi.spyOn(console, 'error').mockImplementation(() => {

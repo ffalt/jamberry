@@ -2,7 +2,7 @@ import path from "node:path";
 import fs from "node:fs";
 
 const __dirname = import.meta.dirname;
-const appVersion = JSON.parse(fs.readFileSync('./package.json')).version;
+const appVersion = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
 
 async function updateVersion() {
 	const versionFilePath = path.join(__dirname, "/src/environments/version.ts");
