@@ -1,7 +1,7 @@
-import { DOCUMENT, EventEmitter, inject, Injectable } from '@angular/core';
+import { DOCUMENT, EventEmitter, inject, Service } from '@angular/core';
 import { ACTIVE_THEME, type Theme, THEMES } from './theme.model';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ThemeService {
 	readonly themes = inject<Array<Theme>>(THEMES);
 	readonly themeChange = new EventEmitter<Theme>();

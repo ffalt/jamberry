@@ -1,6 +1,6 @@
 import { Overlay, OverlayConfig, type OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { type ComponentRef, inject, Injectable, Injector, NgZone } from '@angular/core';
+import { type ComponentRef, inject, Injector, NgZone, Service } from '@angular/core';
 import type { Observable } from 'rxjs';
 
 import { type GlobalConfig, type IndividualConfig, TOAST_CONFIG, ToastPackage, type ToastToken } from './toast-config';
@@ -27,7 +27,7 @@ export interface ActiveToast<C> {
 	onAction: Observable<any>;
 }
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ToastService {
 	toastrConfig: GlobalConfig;
 	currentlyActive = 0;

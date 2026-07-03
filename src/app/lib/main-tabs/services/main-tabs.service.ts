@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import type { TabInterface, TabPortalOutlet } from '../../../modules/tab-portal';
 import { TabInfoComponent } from '../components/tab-info/tab-info.component';
 import { TabMainComponent } from '../components/tab-main/tab-main.component';
 import { TabPlayerComponent } from '../components/tab-player/tab-player.component';
 import { TabQueueComponent } from '../components/tab-queue/tab-queue.component';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class MainTabsService {
 	infoTab: TabInterface = { name: 'info-queue', componentClass: TabInfoComponent };
 	playerTab: TabInterface = { name: 'player', componentClass: TabPlayerComponent };

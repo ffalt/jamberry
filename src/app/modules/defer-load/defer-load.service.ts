@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { EventEmitter, inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { EventEmitter, inject, PLATFORM_ID, Service } from '@angular/core';
 import { debounceTime, merge, type Observable, Subject, throttleTime } from 'rxjs';
 import { Rect } from './rect';
 
@@ -12,7 +12,7 @@ export interface ScrollNotifyEvent {
 	rect: Rect;
 }
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class DeferLoadService {
 	readonly isBrowser: boolean;
 	readonly hasIntersectionObserver: boolean;
