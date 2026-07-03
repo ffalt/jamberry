@@ -24,14 +24,12 @@ export class FolderMusicbrainzComponent {
 	private readonly lifeRef = inject(DestroyRef);
 
 	constructor() {
-		if (this.route.parent) {
-			this.route.parent.paramMap
-				.pipe(takeUntilDestroyed(this.lifeRef))
-				.subscribe(paramMap => {
-					this.id = paramMap.get('id') ?? undefined;
-					this.refresh();
-				});
-		}
+		this.route.paramMap
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe(paramMap => {
+				this.id = paramMap.get('id') ?? undefined;
+				this.refresh();
+			});
 	}
 
 	refresh(): void {

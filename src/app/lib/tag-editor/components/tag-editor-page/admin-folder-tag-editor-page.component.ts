@@ -17,13 +17,11 @@ export class AdminFolderTagEditorPageComponent implements ComponentCanDeactivate
 	private readonly route = inject(ActivatedRoute);
 
 	constructor() {
-		if (this.route.parent?.params) {
-			this.route.parent.paramMap
-				.pipe(takeUntilDestroyed(this.lifeRef))
-				.subscribe(paramMap => {
-					this.id.set(paramMap.get('id') ?? undefined);
-				});
-		}
+		this.route.paramMap
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe(paramMap => {
+				this.id.set(paramMap.get('id') ?? undefined);
+			});
 	}
 
 	canDeactivate(): boolean {

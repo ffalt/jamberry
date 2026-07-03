@@ -12,14 +12,12 @@ export class AdminBaseParentViewIdComponent implements OnInit {
 	protected readonly route = inject(ActivatedRoute);
 
 	ngOnInit(): void {
-		if (this.route.parent) {
-			this.route.parent.paramMap
-				.pipe(takeUntilDestroyed(this.lifeRef))
-				.subscribe(paramMap => {
-					this.resolve(paramMap);
-					this.refresh();
-				});
-		}
+		this.route.paramMap
+			.pipe(takeUntilDestroyed(this.lifeRef))
+			.subscribe(paramMap => {
+				this.resolve(paramMap);
+				this.refresh();
+			});
 	}
 
 	idChanged(): void {
