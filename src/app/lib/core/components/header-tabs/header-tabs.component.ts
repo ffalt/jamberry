@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FocusKeyListDirective } from '../../directives/focus-key-list.directive';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FocusKeyListItemDirective } from '../../directives/focus-key-list-item.directive';
@@ -18,7 +18,6 @@ export interface HeaderTab {
 	selector: 'app-view-header-tabs',
 	templateUrl: './header-tabs.component.html',
 	styleUrls: ['./header-tabs.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [RouterLinkActive, FocusKeyListItemDirective, RouterLink, FocusKeyListDirective]
 })
 export class HeaderTabsComponent {

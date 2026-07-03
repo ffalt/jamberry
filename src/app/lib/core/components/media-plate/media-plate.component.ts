@@ -1,5 +1,5 @@
 import type { FocusableOption } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, inject, input } from '@angular/core';
 import type { JamObject } from '../../model/helpers';
 import { CoverartImageComponent } from '../coverart-image/coverart-image.component';
 import { ClickStopDirective } from '../../directives/click-stop.directive';
@@ -11,7 +11,6 @@ import { IconPlayComponent } from '@core/components/icons/icon-play.component';
 	selector: 'app-media-plate',
 	templateUrl: './media-plate.component.html',
 	styleUrls: ['./media-plate.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[tabindex]': 'tabindex',
 		'(keydown.enter)': 'contextmenuEvent($event)',

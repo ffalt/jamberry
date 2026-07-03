@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output, type Type } from '@angular/core';
+import { Component, input, output, type Type } from '@angular/core';
 import { IconartImageComponent } from '../iconart-image/iconart-image.component';
 import { type HeaderTab, HeaderTabsComponent } from '../header-tabs/header-tabs.component';
 
@@ -6,7 +6,6 @@ import { type HeaderTab, HeaderTabsComponent } from '../header-tabs/header-tabs.
 	selector: 'app-view-header-icon-section',
 	templateUrl: './header-icon-section.component.html',
 	styleUrls: ['./header-icon-section.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'(contextmenu)': 'contextmenuEvent($event)'
 	},

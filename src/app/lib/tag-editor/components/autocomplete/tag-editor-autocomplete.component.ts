@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, type OnChanges, output } from '@angular/core';
+import { Component, input, type OnChanges, output } from '@angular/core';
 import type { AutocompleteDataControl, AutocompleteOption } from '@modules/autocomplete/autocomplete.types';
 import { FormsModule } from '@angular/forms';
 import { AutocompleteComponent } from '@modules/autocomplete/autocomplete.component';
@@ -11,7 +11,6 @@ import { AutocompleteDirective } from '@modules/autocomplete/autocomplete.direct
 	selector: 'app-tag-editor-autocomplete',
 	templateUrl: './tag-editor-autocomplete.component.html',
 	styleUrls: ['./tag-editor-autocomplete.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FormsModule, AutocompleteComponent, OptionComponent, OptionHeaderComponent,
 		AutocompleteDirective, AutocompleteContentDirective]
 })

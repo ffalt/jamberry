@@ -1,4 +1,4 @@
-import { type AfterViewInit, ChangeDetectionStrategy, Component, type ElementRef, DestroyRef, effect, HostListener, inject, type OnInit, signal, ViewChild } from '@angular/core';
+import { type AfterViewInit, Component, type ElementRef, DestroyRef, effect, HostListener, inject, type OnInit, signal, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import * as d3 from 'd3';
@@ -45,7 +45,6 @@ function buildColorMap(
 	selector: 'app-landscape',
 	templateUrl: './landscape.component.html',
 	styleUrls: ['./landscape.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FormsModule, LandscapeTooltipComponent, LandscapePanelComponent, LoadingComponent]
 })
 export class LandscapeComponent implements OnInit, AfterViewInit {

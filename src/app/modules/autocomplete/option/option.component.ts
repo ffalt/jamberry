@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import type { AutocompleteControl, AutocompleteOption } from '@modules/autocomplete/autocomplete.types';
 
 @Component({
 	selector: 'app-autocomplete-option',
 	template: '<ng-content />',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: ['./option.component.scss'],
 	host: {
 		'[class.active]': 'getActive',

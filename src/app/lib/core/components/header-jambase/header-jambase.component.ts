@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import type { Jam } from '@jam';
 import { CoverartImageComponent } from '../coverart-image/coverart-image.component';
 import { type HeaderTab, HeaderTabsComponent } from '../header-tabs/header-tabs.component';
@@ -14,7 +14,6 @@ export interface HeaderInfo {
 	selector: 'app-view-header-jam-base',
 	templateUrl: './header-jambase.component.html',
 	styleUrls: ['./header-jambase.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'(contextmenu)': 'contextmenuEvent($event)'
 	},
