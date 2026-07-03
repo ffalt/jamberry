@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderIconSectionComponent } from './header-icon-section.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('HeaderIconSectionComponent', () => {
 	let component: HeaderIconSectionComponent;

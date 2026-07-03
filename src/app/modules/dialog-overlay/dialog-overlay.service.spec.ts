@@ -1,6 +1,7 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { inject, TestBed } from '@angular/core/testing';
 import { DialogOverlayService } from './dialog-overlay.service';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogOverlayService', () => {
 	beforeEach(() => {

@@ -2,6 +2,7 @@ import { inject, TestBed } from '@angular/core/testing';
 import { ToastModule } from '@modules/toast';
 import { QueueService } from './queue.service';
 import { TEST_JAM_MODULE } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('QueueService', () => {
 	beforeEach(() => {

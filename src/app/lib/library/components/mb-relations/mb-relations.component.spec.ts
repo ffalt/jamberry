@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { MbRelationsComponent } from './mb-relations.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('MbRelationsComponent', () => {
 	let component: MbRelationsComponent;

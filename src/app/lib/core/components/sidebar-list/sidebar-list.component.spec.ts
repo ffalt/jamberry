@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { SidebarListComponent } from './sidebar-list.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('SidebarListComponent', () => {
 	let component: SidebarListComponent;

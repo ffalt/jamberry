@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { LyricsComponent } from './lyrics.component';
 import { TEST_IMPORTS } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('LyricsComponent', () => {
 	let component: LyricsComponent;

@@ -1,6 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { TitleService } from './title.service';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('TitleService', () => {
 	beforeEach(() => {

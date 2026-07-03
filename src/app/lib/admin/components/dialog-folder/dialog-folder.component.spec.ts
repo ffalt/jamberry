@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogFolderComponent } from './dialog-folder.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogFolderComponent', () => {
 	let component: DialogFolderComponent;

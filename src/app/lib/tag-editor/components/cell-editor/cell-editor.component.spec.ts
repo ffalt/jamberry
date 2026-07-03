@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogOverlayModule } from '@modules/dialog-overlay';
 import { CellEditorComponent } from './cell-editor.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('CellEditorComponent', () => {
 	let component: CellEditorComponent;

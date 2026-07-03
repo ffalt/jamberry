@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TabInfoComponent } from './tab-info.component';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('TabInfoComponent', () => {
 	let component: TabInfoComponent;

@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatchResultsComponent } from './match-results.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('MatchResultsComponent', () => {
 	let component: MatchResultsComponent;

@@ -2,6 +2,7 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
 import { UserComponent } from './user.component';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('UserComponent', () => {
 	let component: UserComponent;

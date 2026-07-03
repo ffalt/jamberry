@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { SidebarComponent } from './sidebar.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('SidebarComponent', () => {
 	let component: SidebarComponent;

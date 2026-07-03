@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TabQueueComponent } from './tab-queue.component';
 import { TEST_IMPORTS } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('TabQueueComponent', () => {
 	let component: TabQueueComponent;

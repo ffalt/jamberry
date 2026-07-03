@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogChoosePlaylistComponent } from './dialog-add-to-playlist.component';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogChoosePlaylistComponent', () => {
 	let component: DialogChoosePlaylistComponent;

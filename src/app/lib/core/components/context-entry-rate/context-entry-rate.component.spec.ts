@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContextEntryRateComponent } from './context-entry-rate.component';
 import { TEST_IMPORTS } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('ContextEntryRateComponent', () => {
 	let component: ContextEntryRateComponent;

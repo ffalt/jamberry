@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { HeaderComponent } from './header.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('HeaderComponent', () => {
 	let component: HeaderComponent;

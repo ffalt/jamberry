@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SplitterComponent } from './splitter.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('SplitterComponent', () => {
 	let component: SplitterComponent;

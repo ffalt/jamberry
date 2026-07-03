@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_PROVIDERS } from '../../../../app.mock';
 import { AdminBaseViewIdComponent } from './admin-base-view-id.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('AdminBaseViewIdComponent', () => {
 	let component: AdminBaseViewIdComponent;

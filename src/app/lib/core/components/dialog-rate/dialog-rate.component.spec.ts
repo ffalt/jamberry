@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogRateComponent } from './dialog-rate.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogRateComponent', () => {
 	let component: DialogRateComponent;

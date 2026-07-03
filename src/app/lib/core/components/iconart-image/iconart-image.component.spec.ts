@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconartImageComponent } from './iconart-image.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('IconartImageComponent', () => {
 	let component: IconartImageComponent;

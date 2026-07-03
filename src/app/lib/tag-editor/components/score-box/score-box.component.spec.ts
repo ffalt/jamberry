@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { ScoreBoxComponent } from './score-box.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('ScoreBoxComponent', () => {
 	let component: ScoreBoxComponent;

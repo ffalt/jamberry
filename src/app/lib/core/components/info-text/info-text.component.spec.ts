@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { InfoTextComponent } from './info-text.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('InfoTextComponent', () => {
 	let component: InfoTextComponent;

@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { DialogTagLyricsComponent } from './dialog-tag-lyrics.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogTagLyricsComponent', () => {
 	let component: DialogTagLyricsComponent;

@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { BackgroundTextListComponent } from './background-text-list.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('BackgroundTextListComponent', () => {
 	let component: BackgroundTextListComponent;

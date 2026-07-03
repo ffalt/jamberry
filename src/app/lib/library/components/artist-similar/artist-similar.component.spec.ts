@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { ArtistSimilarComponent } from './artist-similar.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('ArtistSimilarComponent', () => {
 	let component: ArtistSimilarComponent;

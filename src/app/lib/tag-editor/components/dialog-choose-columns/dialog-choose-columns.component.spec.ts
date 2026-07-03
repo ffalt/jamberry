@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogChooseColumnsComponent } from './dialog-choose-columns.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogChooseColumnsComponent', () => {
 	let component: DialogChooseColumnsComponent;

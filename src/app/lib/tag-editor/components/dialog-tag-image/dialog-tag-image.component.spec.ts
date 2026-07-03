@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { DialogTagImageComponent } from './dialog-tag-image.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogTagImageComponent', () => {
 	let component: DialogTagImageComponent;

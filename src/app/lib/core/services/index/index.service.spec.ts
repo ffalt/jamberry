@@ -1,6 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { IndexService } from './index.service';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('IndexService', () => {
 	beforeEach(() => {

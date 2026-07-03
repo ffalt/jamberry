@@ -1,6 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { AuthCanActivateGuard } from './auth.can-activate.guard';
 import { TEST_IMPORTS } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('AuthCanActivateGuard', () => {
 	beforeEach(() => {

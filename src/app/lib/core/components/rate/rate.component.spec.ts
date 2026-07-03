@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { RateComponent } from './rate.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('RateComponent', () => {
 	let component: RateComponent;

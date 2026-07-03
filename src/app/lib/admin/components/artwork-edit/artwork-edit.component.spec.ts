@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { ArtworkEditComponent } from './artwork-edit.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('ArtworkEditComponent', () => {
 	let component: ArtworkEditComponent;

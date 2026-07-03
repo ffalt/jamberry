@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogPasswordComponent } from './dialog-password.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogPasswordComponent', () => {
 	let component: DialogPasswordComponent;

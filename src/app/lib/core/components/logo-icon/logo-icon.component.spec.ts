@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { LogoIconComponent } from './logo-icon.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('LogoIconComponent', () => {
 	let component: LogoIconComponent;

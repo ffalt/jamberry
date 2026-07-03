@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { SessionsPageComponent } from './sessions-page.component';
 import { TEST_IMPORTS } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('SessionsPageComponent', () => {
 	let component: SessionsPageComponent;

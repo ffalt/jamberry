@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { InlineEditComponent } from './inline-edit.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('InlineEditComponent', () => {
 	let component: InlineEditComponent;

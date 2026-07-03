@@ -1,5 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { AppService } from './app.service';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('AppService', () => {
 	beforeEach(() => {

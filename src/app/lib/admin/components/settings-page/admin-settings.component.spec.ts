@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS } from '../../../../app.mock';
 import { AdminSettingsComponent } from './admin-settings.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('AdminSettingsComponent', () => {
 	let component: AdminSettingsComponent;

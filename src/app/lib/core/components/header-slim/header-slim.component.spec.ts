@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderSlimComponent } from './header-slim.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('HeaderSlimComponent', () => {
 	let component: HeaderSlimComponent;

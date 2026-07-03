@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogUserComponent } from './dialog-user.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogUserComponent', () => {
 	let component: DialogUserComponent;

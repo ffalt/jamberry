@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { ContextMenuUserComponent } from './context-menu-user.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('ContextMenuUserComponent', () => {
 	let component: ContextMenuUserComponent;

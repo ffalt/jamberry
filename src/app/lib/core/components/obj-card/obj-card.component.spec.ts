@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { ObjCardComponent } from './obj-card.component';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('ObjCardComponent', () => {
 	let component: ObjCardComponent;

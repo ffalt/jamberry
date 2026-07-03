@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderJamBaseComponent } from './header-jambase.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('HeaderJamBaseComponent', () => {
 	let component: HeaderJamBaseComponent;

@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderTabsComponent } from './header-tabs.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('HeaderTabsComponent', () => {
 	let component: HeaderTabsComponent;

@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoadMoreButtonComponent } from './load-more-button.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('LoadMoreButtonComponent', () => {
 	let component: LoadMoreButtonComponent;

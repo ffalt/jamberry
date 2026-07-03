@@ -1,6 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { TEST_JAM_MODULE } from '../../../../app.mock';
 import { ConfigurationService } from './configuration.service';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('ConfigurationService', () => {
 	beforeEach(() => {

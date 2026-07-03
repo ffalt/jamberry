@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogConfirmComponent } from './dialog-confirm.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogConfirmComponent', () => {
 	let component: DialogConfirmComponent;

@@ -1,6 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { DialogOverlayModule } from '@modules/dialog-overlay';
 import { DialogsService } from './dialogs.service';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogsService', () => {
 	beforeEach(() => {

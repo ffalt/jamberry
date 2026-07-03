@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { PlayerComponent } from './player.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('PlayerComponent', () => {
 	let component: PlayerComponent;

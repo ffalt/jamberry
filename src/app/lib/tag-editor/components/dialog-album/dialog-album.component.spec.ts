@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { DialogAlbumComponent } from './dialog-album.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogAlbumComponent', () => {
 	let component: DialogAlbumComponent;

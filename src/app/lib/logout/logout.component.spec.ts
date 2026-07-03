@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { LogoutComponent } from './logout.component';
 import { TEST_IMPORTS } from '../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('LogoutComponent', () => {
 	let component: LogoutComponent;

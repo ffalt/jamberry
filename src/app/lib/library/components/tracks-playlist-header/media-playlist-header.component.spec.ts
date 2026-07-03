@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { MediaPlaylistHeaderComponent } from './media-playlist-header.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('MediaPlaylistHeaderComponent', () => {
 	let component: MediaPlaylistHeaderComponent;

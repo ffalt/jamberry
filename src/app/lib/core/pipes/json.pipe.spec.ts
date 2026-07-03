@@ -1,4 +1,5 @@
 import { JsonPipe } from './json.pipe';
+import { describe, it, expect } from 'vitest';
 
 describe('JsonPipe', () => {
 	it('create an instance', () => {

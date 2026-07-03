@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TextOverlayContentComponent } from './text-overlay-content.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('TextOverlayContentComponent', () => {
 	let component: TextOverlayContentComponent;

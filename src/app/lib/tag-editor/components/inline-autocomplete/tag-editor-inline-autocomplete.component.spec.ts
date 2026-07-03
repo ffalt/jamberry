@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TagEditorInlineAutocompleteComponent } from './tag-editor-inline-autocomplete.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('TagEditorInlineAutocompleteComponent', () => {
 	let component: TagEditorInlineAutocompleteComponent;

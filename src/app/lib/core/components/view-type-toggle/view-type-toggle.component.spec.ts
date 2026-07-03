@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { ViewTypeToggleComponent } from './view-type-toggle.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('ViewTypeToggleComponent', () => {
 	let component: ViewTypeToggleComponent;

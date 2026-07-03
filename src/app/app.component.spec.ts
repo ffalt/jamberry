@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { provideTheme } from '@modules/theme';
 import { AuthCanActivateGuard } from '@core/guards/auth-can-active/auth.can-activate.guard';
 import { TEST_IMPORTS, TEST_PROVIDERS } from './app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('AppComponent', () => {
 	let component: AppComponent;

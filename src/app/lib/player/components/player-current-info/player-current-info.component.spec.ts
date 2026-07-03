@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { PlayerCurrentInfoComponent } from './player-current-info.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('PlayerCurrentInfoComponent', () => {
 	let component: PlayerCurrentInfoComponent;

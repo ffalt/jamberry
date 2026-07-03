@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { TrackSimilarComponent } from './track-similar.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('TrackSimilarComponent', () => {
 	let component: TrackSimilarComponent;

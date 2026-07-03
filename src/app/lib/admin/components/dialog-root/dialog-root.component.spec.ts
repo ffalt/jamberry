@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { DialogRootComponent } from './dialog-root.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('DialogRootComponent', () => {
 	let component: DialogRootComponent;

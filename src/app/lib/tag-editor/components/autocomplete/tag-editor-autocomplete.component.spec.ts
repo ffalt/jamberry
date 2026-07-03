@@ -2,6 +2,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { TagEditorAutocompleteComponent } from './tag-editor-autocomplete.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('TagEditorAutocompleteComponent', () => {
 	let component: TagEditorAutocompleteComponent;

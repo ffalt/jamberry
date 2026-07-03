@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { ImageEditOverlayContentComponent } from './image-edit-overlay-content.component';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('ImageEditOverlayContentComponent', () => {
 	let component: ImageEditOverlayContentComponent;

@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../app.mock';
+import { describe, it, expect, beforeEach } from 'vitest';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;
