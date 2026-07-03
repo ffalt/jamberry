@@ -1,4 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { TrackSimilarComponent } from './track-similar.component';
 
@@ -9,7 +11,13 @@ describe('TrackSimilarComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_IMPORTS, TrackSimilarComponent],
-			providers: [...TEST_PROVIDERS],
+			providers: [
+				...TEST_PROVIDERS,
+				{
+					provide: ActivatedRoute,
+					useValue: { paramMap: new Subject() }
+				}
+			],
 			teardown: { destroyAfterEach: false }
 		}).compileComponents()
 	);

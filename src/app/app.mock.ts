@@ -19,6 +19,9 @@ import { UserStorageService } from '@core/services/userstorage/userstorage.servi
 import { PushNotificationService } from '@core/services/push-notification/push-notification.service';
 import { LocalstorageService } from '@core/services/localstorage/localstorage.service';
 import { HotkeyModule } from '@modules/hotkeys';
+import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
+import { AdminRootService } from '@core/services/admin-root/admin-root.service';
+import { AdminUserService } from '@core/services/admin-user/admin-user.service';
 
 export const TEST_JAM_MODULE = JamModule.forRoot(
 	[{
@@ -41,6 +44,9 @@ export const TEST_IMPORTS = [
 export const TEST_PROVIDERS = [
 	MainTabsService,
 	ActionsService,
+	AdminFolderService,
+	AdminRootService,
+	AdminUserService,
 	PlaylistDialogsService,
 	PlaylistService,
 	PodcastService,

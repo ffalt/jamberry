@@ -1,5 +1,5 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { TEST_IMPORTS } from '../../../../app.mock';
+import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { AdminRootComponent } from './admin-root.component';
 
 describe('AdminRootComponent', () => {
@@ -9,6 +9,7 @@ describe('AdminRootComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_IMPORTS, AdminRootComponent],
+			providers: [...TEST_PROVIDERS],
 			teardown: { destroyAfterEach: false }
 		}).compileComponents()
 	);

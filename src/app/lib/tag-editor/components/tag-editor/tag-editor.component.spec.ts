@@ -1,6 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { TagEditorComponent } from './tag-editor.component';
-import { TEST_IMPORTS } from '../../../../app.mock';
+import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 
 describe('TagEditorComponent', () => {
 	let component: TagEditorComponent;
@@ -10,6 +10,7 @@ describe('TagEditorComponent', () => {
 		TestBed.configureTestingModule(
 			{
 				imports: [...TEST_IMPORTS, TagEditorComponent],
+				providers: [...TEST_PROVIDERS],
 				teardown: { destroyAfterEach: false }
 			}
 		).compileComponents()

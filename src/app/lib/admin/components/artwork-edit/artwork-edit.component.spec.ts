@@ -1,5 +1,5 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { TEST_IMPORTS } from '../../../../app.mock';
+import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { ArtworkEditComponent } from './artwork-edit.component';
 
 describe('ArtworkEditComponent', () => {
@@ -9,6 +9,7 @@ describe('ArtworkEditComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_IMPORTS, ArtworkEditComponent],
+			providers: [...TEST_PROVIDERS],
 			teardown: { destroyAfterEach: false }
 		}).compileComponents()
 	);

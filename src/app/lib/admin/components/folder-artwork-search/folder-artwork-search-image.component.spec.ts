@@ -1,5 +1,5 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { TEST_IMPORTS } from '../../../../app.mock';
+import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { FolderArtworkSearchImageComponent } from './folder-artwork-search-image.component';
 
 describe('FolderArtworkSearchImageComponent', () => {
@@ -9,6 +9,7 @@ describe('FolderArtworkSearchImageComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_IMPORTS, FolderArtworkSearchImageComponent],
+			providers: [...TEST_PROVIDERS],
 			teardown: { destroyAfterEach: false }
 		}).compileComponents()
 	);

@@ -1,5 +1,5 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { TEST_IMPORTS } from '../../../../app.mock';
+import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { TrackHealthComponent } from './track-health.component';
 
 describe('TrackHealthComponent', () => {
@@ -9,6 +9,7 @@ describe('TrackHealthComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_IMPORTS, TrackHealthComponent],
+			providers: [...TEST_PROVIDERS],
 			teardown: { destroyAfterEach: false }
 		}).compileComponents()
 	);

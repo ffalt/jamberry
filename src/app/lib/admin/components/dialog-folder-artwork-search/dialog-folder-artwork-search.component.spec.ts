@@ -1,5 +1,5 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { TEST_IMPORTS } from '../../../../app.mock';
+import { TEST_IMPORTS, TEST_PROVIDERS } from '../../../../app.mock';
 import { DialogFolderArtworkSearchComponent } from './dialog-folder-artwork-search.component';
 
 describe('DialogFolderArtworkSearchComponent', () => {
@@ -9,6 +9,7 @@ describe('DialogFolderArtworkSearchComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_IMPORTS, DialogFolderArtworkSearchComponent],
+			providers: [...TEST_PROVIDERS],
 			teardown: { destroyAfterEach: false }
 		}).compileComponents()
 	);
