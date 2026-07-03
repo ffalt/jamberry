@@ -9,11 +9,11 @@
 			}
 		</ng-template>
 	</app-autocomplete>
-	<input #editorInput type="text" autocomplete="off" [value]="value()"
-				 [appAutocomplete]="autocomplete" [appAutocompleteControl]="this" [appAutocompleteSettings]="{allowEmpty:true}" [(ngModel)]="value"
+	<input #editorInput type="text" autocomplete="off" [value]="currentValue()"
+				 [appAutocomplete]="autocomplete" [appAutocompleteControl]="this" [appAutocompleteSettings]="{allowEmpty:true}" [(ngModel)]="currentValue"
 				 (blur)="onBlur()" (appAutocompleteNavigKeyDown)="onNavigKeyDown($event)"
 	>
 }
 @if (!editing) {
-	<div #editorStart tabindex="0" [title]="value()" (focus)="editValue()">{{ value() }}</div>
+	<div #editorStart tabindex="0" [title]="currentValue()" (focus)="editValue()">{{ currentValue() }}</div>
 }

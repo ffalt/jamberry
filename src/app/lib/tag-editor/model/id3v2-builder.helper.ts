@@ -218,7 +218,7 @@ export class ID3V24TagBuilder {
 
 	isCompilation(value?: boolean | number | string): this {
 		if (value !== undefined) {
-			this.rawBuilder.bool('TCMP', value === 1 || value === 'true' || value === true);
+			this.rawBuilder.bool('TCMP', [1, 'true', true].includes(value as never));
 		}
 		return this;
 	}

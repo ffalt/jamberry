@@ -111,7 +111,7 @@ export class ActionsService {
 
 	download(base?: Jam.Base): void {
 		if (base) {
-			location.href = this.jam.download.downloadUrl({ id: base.id });
+			location.assign(this.jam.download.downloadUrl({ id: base.id }));
 		}
 	}
 }

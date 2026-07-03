@@ -17,7 +17,9 @@ export class LyricsComponent {
 	private readonly notify = inject(NotifyService);
 
 	constructor() {
-		effect(() => this.loadLyrics());
+		effect(() => {
+			this.loadLyrics();
+		});
 	}
 
 	loadLyrics(): void {

@@ -21,13 +21,13 @@ export function hasFileExtension(filename: string, exts: Array<string>): boolean
 export function replaceFileSystemChars(s: string, replace: string): string {
 	return s
 		.replaceAll(':', ' - ')
-		.replaceAll(/[?/!\\]/g, replace);
+		.replaceAll(/[?/!\\]/g, () => replace);
 }
 
 export function replaceFolderSystemChars(s: string, replace: string): string {
 	return s
 		.replaceAll(':', ' -')
-		.replaceAll(/[.*?/!\\]/g, replace);
+		.replaceAll(/[.*?/!\\]/g, () => replace);
 }
 
 export function findTrackNr(filename: string): number {

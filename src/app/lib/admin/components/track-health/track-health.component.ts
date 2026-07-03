@@ -109,7 +109,7 @@ export class TrackHealthComponent {
 			}
 			// No default
 		}
-		if (!this.solutions().some(sol => sol.name === 'Edit Tag')) {
+		if (this.solutions().every(sol => sol.name !== 'Edit Tag')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Edit Tag',
 				click: (): void => {
@@ -125,11 +125,8 @@ export class TrackHealthComponent {
 	}
 
 	private describeMp3GarbageHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
-		let description = '';
-		if (hint.details && hint.details.length > 0) {
-			description = `${hint.details[0].reason} (${hint.details[0].actual} bytes)`;
-		}
-		if (!this.solutions().some(sol => sol.name === 'Fix MP3')) {
+		const description = hint.details && hint.details.length > 0 ? `${hint.details[0].reason} (${hint.details[0].actual} bytes)` : '';
+		if (this.solutions().every(sol => sol.name !== 'Fix MP3')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix MP3',
 				fixable: true,
@@ -156,7 +153,7 @@ export class TrackHealthComponent {
 	private describeMp3ErrorHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		const description = `Stream Errors: ${(hint.details ?? []).length}`;
 
-		if (!this.solutions().some(sol => sol.name === 'Fix Stream')) {
+		if (this.solutions().every(sol => sol.name !== 'Fix Stream')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix Stream',
 				fixable: true,
@@ -181,7 +178,7 @@ export class TrackHealthComponent {
 	}
 
 	private describeID3v1Hint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
-		if (!this.solutions().some(sol => sol.name === 'Remove ID3v1')) {
+		if (this.solutions().every(sol => sol.name !== 'Remove ID3v1')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Remove ID3v1',
 				fixable: true,
@@ -206,16 +203,15 @@ export class TrackHealthComponent {
 	}
 
 	private describeMP3HeaderHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
-		let description = '';
-		if (hint.id === TrackHealthID.mp3HeaderValid) {
-			description = (hint.details ?? []).map(d => {
+		const description = hint.id === TrackHealthID.mp3HeaderValid ?
+			(hint.details ?? []).map(d => {
 				if (d.expected && d.actual) {
 					return `${d.reason}  (${d.actual} instead of ${d.expected})`;
 				}
 				return d.reason;
-			}).join(', ');
-		}
-		if (!this.solutions().some(sol => sol.name === 'Fix Header')) {
+			}).join(', ') :
+			'';
+		if (this.solutions().every(sol => sol.name !== 'Fix Header')) {
 			const sol: TrackHealthHintSolution = {
 				name: 'Fix Header',
 				fixable: true,

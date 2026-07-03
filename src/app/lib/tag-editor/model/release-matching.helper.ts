@@ -216,12 +216,10 @@ export class MatchRelease {
 		const matchings: { [id: string]: Array<MatchingTrack> } = {};
 		for (const media of this.media) {
 			for (const track of media.tracks) {
-				if (!track.currentMatch) {
-					continue;
+				if (track.currentMatch) {
+					matchings[track.currentMatch.match.track.id] ??= [];
+					matchings[track.currentMatch.match.track.id].push(track);
 				}
-
-				matchings[track.currentMatch.match.track.id] ??= [];
-				matchings[track.currentMatch.match.track.id].push(track);
 			}
 		}
 		for (const tracks of Object.values(matchings)) {

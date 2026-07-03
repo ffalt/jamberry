@@ -74,5 +74,4 @@ export class GenrePageComponent {
 		}
 		tab.active = true;
 	}
-
 }

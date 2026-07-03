@@ -14,7 +14,11 @@ import { IconReloadComponent } from '@core/components/icons/icon-reload.componen
 import { IconSpinComponent } from '@core/components/icons/icon-spin.component';
 import { IconStopComponent } from '@core/components/icons/icon-stop.component';
 
-type RadarCurrent = { pos: number; folder: Jam.Folder; health?: Array<Jam.TrackHealth> };
+interface RadarCurrent {
+	pos: number;
+	folder: Jam.Folder;
+	health?: Array<Jam.TrackHealth>;
+}
 
 @Component({
 	selector: 'app-admin-radar',

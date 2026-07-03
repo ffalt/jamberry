@@ -27,7 +27,7 @@ export class ContextEntryRateComponent implements OnChanges {
 			return;
 		}
 		this.rating = num;
-		base.state = base.state ?? {};
+		base.state ??= {};
 		if (base.state.rated !== this.rating) {
 			try {
 				await this.jam.state.rate({ id: base.id, rating: this.rating });

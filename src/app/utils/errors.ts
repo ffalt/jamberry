@@ -42,7 +42,7 @@ export function getHttpErrorMessage(error: HttpErrorResponse): string {
 		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 		const retryAfter = error.headers?.get('retry-after');
 		if (retryAfter) {
-			const seconds = Number.parseInt(retryAfter, 10);
+			const seconds = Math.trunc(Number(retryAfter));
 			if (!Number.isNaN(seconds) && seconds > 0) {
 				return `Rate limit exceeded. Try again in ${formatRetryDuration(seconds)}.`;
 			}

@@ -34,10 +34,12 @@ export class InlineEditComponent implements ControlValueAccessor {
 	}
 
 	set value(v: string) {
-		if (v !== this.editValue) {
-			this.editValue = v;
-			this.onChange?.(v);
+		if (v === this.editValue) {
+			return;
 		}
+
+		this.editValue = v;
+		this.onChange?.(v);
 	}
 
 	// Required for ControlValueAccessor interface
@@ -81,6 +83,6 @@ export class InlineEditComponent implements ControlValueAccessor {
 			if (inlineEditControl?.nativeElement) {
 				inlineEditControl.nativeElement.focus();
 			}
-		});
+		}, 0);
 	}
 }

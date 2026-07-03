@@ -49,11 +49,7 @@ function gramCounter(value: string, gramSize: number): { [name: string]: number 
 	const result: { [name: string]: number } = {};
 	const grams = iterateGrams(value, gramSize || 2);
 	for (const g of grams) {
-		if (g in result) {
-			result[g] += 1;
-		} else {
-			result[g] = 1;
-		}
+		result[g] = (result[g] ?? 0) + 1;
 	}
 	return result;
 }
@@ -86,8 +82,8 @@ export class FuzzySet {
 	useLevenshtein: boolean;
 	gramSizeLower: number;
 	gramSizeUpper: number;
-	private exactSet: Record<string, string> = {};
-	private matchDict: Record<string, Array<[number, number]>> = {};
+	private exactSet: Record<string, string | undefined> = {};
+	private matchDict: Record<string, Array<[number, number]> | undefined> = {};
 	private items: Record<number, Array<[number, string]>> = {};
 
 	constructor(arr?: Array<string>, useLevenshtein?: boolean, gramSizeLower?: number, gramSizeUpper?: number) {
@@ -116,7 +112,7 @@ export class FuzzySet {
 
 	add(value: string): void {
 		const normalizedValue = normalizeStr(value);
-		if (normalizedValue in this.exactSet) {
+		if (this.exactSet[normalizedValue] !== undefined) {
 			return;
 		}
 		for (let i = this.gramSizeLower; i < this.gramSizeUpper + 1; i += 1) {
@@ -210,7 +206,7 @@ export class FuzzySet {
 			const gramCount = gramCounts[gram];
 			sumOfSquareGramCounts += Math.pow(gramCount, 2);
 
-			if (gram in this.matchDict) {
+			if (this.matchDict[gram] !== undefined) {
 				this.updateMatches(matches, gram, gramCount);
 			}
 		}
@@ -218,13 +214,14 @@ export class FuzzySet {
 		return { matches, sumOfSquareGramCounts };
 	}
 
-	private updateMatches(matches: { [num: string]: number }, gram: string, gramCount: number): void {
+	private updateMatches(matches: { [num: string]: number | undefined }, gram: string, gramCount: number): void {
 		const dict = this.matchDict[gram];
+		if (dict === undefined) {
+			return;
+		}
 		for (const m of dict) {
 			const [index, otherGramCount] = m;
-			matches[index] = (index in matches) ?
-				matches[index] + gramCount * otherGramCount :
-				gramCount * otherGramCount;
+			matches[index] = (matches[index] ?? 0) + gramCount * otherGramCount;
 		}
 	}
 
@@ -237,7 +234,7 @@ export class FuzzySet {
 		const items = this.items[gramSize];
 		const results: Array<[number, string]> = Object.entries(matches)
 			.map(([matchIndex, matchScore]) => {
-				const index = Number.parseInt(matchIndex, 10);
+				const index = Math.trunc(Number(matchIndex));
 				return [matchScore / (vectorNormal * items[index][0]), items[index][1]];
 			});
 		return results.toSorted((a, b) => sortDescending(a, b));
@@ -255,7 +252,7 @@ export class FuzzySet {
 		const topScore = results[0][0];
 		return results
 			.filter(r => r[0] === topScore)
-			.map(r => [r[0], this.exactSet[r[1]]]);
+			.map(r => [r[0], this.exactSet[r[1]]!]);
 	}
 
 	private addVal(value: string, gramSize: number): void {
@@ -271,11 +268,8 @@ export class FuzzySet {
 
 			const gramCount = gramCounts[gram];
 			sumOfSquareGramCounts += Math.pow(gramCount, 2);
-			if (gram in this.matchDict) {
-				this.matchDict[gram].push([index, gramCount]);
-			} else {
-				this.matchDict[gram] = [[index, gramCount]];
-			}
+			this.matchDict[gram] ??= [];
+			this.matchDict[gram].push([index, gramCount]);
 		}
 		const vectorNormal = Math.sqrt(sumOfSquareGramCounts);
 		items[index] = [vectorNormal, normalizedValue];

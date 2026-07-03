@@ -466,16 +466,19 @@ export class TagEditor {
 		let name = framedef.title;
 		const subKey = subid ?? '';
 		if (framedef.impl === FrameType.IdText) {
-			if (id === 'TXXX' && FrameTXXXSubIdsDefs[subKey]) {
-				name = FrameTXXXSubIdsDefs[subKey];
-			} else if (id === 'UFID' && FrameUFIDSubIdsDefs[subKey]) {
-				name = FrameUFIDSubIdsDefs[subKey];
+			const txxx = FrameTXXXSubIdsDefs[subKey];
+			const ufid = FrameUFIDSubIdsDefs[subKey];
+			if (id === 'TXXX' && txxx) {
+				name = txxx;
+			} else if (id === 'UFID' && ufid) {
+				name = ufid;
 			} else if (subid) {
 				name += ` (${subid})`;
 			}
 		} else if (framedef.impl === FrameType.LangDescText) {
-			if (id === 'COMM' && FrameCOMMSubIdsDefs[subKey]) {
-				name = FrameCOMMSubIdsDefs[subKey];
+			const comm = FrameCOMMSubIdsDefs[subKey];
+			if (id === 'COMM' && comm) {
+				name = comm;
 			} else if (subid) {
 				name += ` (${subid})`;
 			}
@@ -678,7 +681,8 @@ export class TagEditor {
 
 	private frameDef2Column(id: string, subid: string | undefined, framedef: FrameDef, sort: number): RawTagEditColumn {
 		const name = TagEditor.getFrameDefName(id, subid, framedef);
-		const impl = id === 'UFID' && FrameUFIDSubIdsDefs[subid ?? ''] ? FrameType.IdText : framedef.impl;
+		const ufid = FrameUFIDSubIdsDefs[subid ?? ''];
+		const impl = id === 'UFID' && ufid ? FrameType.IdText : framedef.impl;
 		const col: RawTagEditColumn = {
 			def: { id, subid, name, width: sort >= 0 ? DefaultFrameColumns[sort].width : 100, impl },
 			sort: sort >= 0 ? sort + 1 : -1,

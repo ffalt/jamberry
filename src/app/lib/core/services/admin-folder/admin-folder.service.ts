@@ -117,13 +117,16 @@ export class AdminFolderService {
 	}
 
 	private pollEnd(data: AdminChangeQueueInfoPoll, result?: Jam.AdminChangeQueueInfo): void {
-		for (const id of (data.folderIDs ?? [])) {
+		const folderIDs = data.folderIDs ?? [];
+		for (const id of folderIDs) {
 			this.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
 		}
-		for (const id of (data.refreshChildsFolderIDs ?? [])) {
+		const refreshChildsFolderIDs = data.refreshChildsFolderIDs ?? [];
+		for (const id of refreshChildsFolderIDs) {
 			this.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefreshChilds);
 		}
-		for (const id of (data.trackIDs ?? [])) {
+		const trackIDs = data.trackIDs ?? [];
+		for (const id of trackIDs) {
 			this.notifyTrackChange(id);
 		}
 		if (data.notifyAfter) {

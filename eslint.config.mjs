@@ -115,6 +115,7 @@ const commonUnicornRules = {
 	"unicorn/name-replacements": "off",
 	"unicorn/consistent-compound-words": "off",
 	"unicorn/prefer-await": "off",
+	"unicorn/prefer-continue": "off",
 	"unicorn/no-non-function-verb-prefix": "off",
 	"unicorn/prefer-global-this": "off"
 };

@@ -20,8 +20,8 @@ import { AutocompleteContentDirective } from '@modules/autocomplete/autocomplete
 })
 export class TagEditorInlineAutocompleteComponent implements ControlValueAccessor, AutocompleteDataControl<string> {
 	readonly getList = input<(data: any) => Array<string>>();
-	readonly valueInput = input<string>(undefined, { alias: 'value' });
-	readonly value = linkedSignal(this.valueInput);
+	readonly value = input<string>();
+	readonly currentValue = linkedSignal(this.value);
 	readonly data = input<any>();
 	readonly valueChange = output<string | undefined>();
 	readonly endEditRequest = output();
@@ -54,7 +54,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 
 	// Do stuff when the input element loses focus
 	onBlur(): void {
-		const value = this.value();
+		const value = this.currentValue();
 		if (this.autoCompleteValue !== value) {
 			this.valueChange.emit(value);
 		}
@@ -71,7 +71,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	editValue(): void {
 		this.list = [];
 		this.editing = true;
-		this.autoCompleteValue = this.value();
+		this.autoCompleteValue = this.currentValue();
 		const getList = this.getList();
 		if (getList) {
 			this.list = getList(this.data());
@@ -85,7 +85,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	}
 
 	autocompleteEnter(query: string): void {
-		this.value.set(query);
+		this.currentValue.set(query);
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption<string>>> {
@@ -97,7 +97,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 
 	autocompleteSelectResult(result: AutocompleteOption<string>): string {
 		this.autoCompleteValue = result.data;
-		this.value.set(result.data);
-		return this.value() ?? '';
+		this.currentValue.set(result.data);
+		return this.currentValue() ?? '';
 	}
 }

@@ -47,7 +47,7 @@ export class JamAlbumObject extends JamLibraryObject {
 
 	constructor(public album: Jam.Album, library: LibraryService) {
 		super(album, library);
-		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : `${album.year ?? ''}`;
+		this.year = album.seriesNr ? `Episode ${album.seriesNr}` : String(album.year ?? '');
 		this.parent = album.artistName;
 		this.mediaType = album.albumType;
 		this.group = album.albumType;
@@ -144,7 +144,7 @@ export class JamFolderObject extends JamLibraryObject {
 			case FolderType.multialbum: {
 				this.name = folder.tag?.album ?? '[Unknown Album]';
 				this.parent = folder.tag?.artist;
-				this.year = folder.tag?.year ? `${folder.tag.year}` : undefined;
+				this.year = folder.tag?.year ? String(folder.tag.year) : undefined;
 				break;
 			}
 			default:

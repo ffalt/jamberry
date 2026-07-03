@@ -9,6 +9,7 @@ function slugify(genre: string): string {
 
 export function getKnownGenre(genre: string): string | undefined {
 	const slug = slugify(genre);
+	// eslint-disable-next-line unicorn/no-top-level-assignment-in-function
 	GenresSlugs ??= Object.fromEntries(Genres.map(g => [slugify(g), g] as const));
 	return GenresSlugs[slug];
 }
@@ -19,7 +20,7 @@ function extractNumberAndCleanValue(text: string): { value: string; num?: number
 
 	const numpart = /\((\d+)\)/.exec(value);
 	if (numpart) {
-		num = Number.parseInt(numpart[1], 10);
+		num = Math.trunc(Number(numpart[1]));
 		value = value.slice(0, numpart.index) + value.slice(numpart.index + numpart[0].length);
 	}
 

@@ -27,7 +27,8 @@
 			"@angular/localize"
 		],
 		"lib": [
-			"es2023",
+			"es2024",
+			"esnext.typedarrays",
 			"dom"
 		],
 		"paths": {
