@@ -1,5 +1,5 @@
 import type { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import type { ComponentRef } from '@angular/core';
+import type { ComponentRef, WritableSignal } from '@angular/core';
 
 /**
  * Interface for the tab definitions passed to a TabPortalOutlet.
@@ -9,7 +9,8 @@ import type { ComponentRef } from '@angular/core';
 export interface TabInterface {
 	name: string;
 	componentClass: ComponentType<TabComponent>;
-	active?: boolean;
+	// Signal-backed so `active` reads in templates/host bindings react under zoneless change detection.
+	active: WritableSignal<boolean>;
 }
 
 /**

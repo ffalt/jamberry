@@ -1,4 +1,4 @@
-import { Service } from '@angular/core';
+import { Service, signal } from '@angular/core';
 import type { TabInterface, TabPortalOutlet } from '../../../modules/tab-portal';
 import { TabInfoComponent } from '../components/tab-info/tab-info.component';
 import { TabMainComponent } from '../components/tab-main/tab-main.component';
@@ -7,10 +7,10 @@ import { TabQueueComponent } from '../components/tab-queue/tab-queue.component';
 
 @Service()
 export class MainTabsService {
-	infoTab: TabInterface = { name: 'info-queue', componentClass: TabInfoComponent };
-	playerTab: TabInterface = { name: 'player', componentClass: TabPlayerComponent };
-	queueTab: TabInterface = { name: 'queue', componentClass: TabQueueComponent };
-	mainTab: TabInterface = { name: 'main', componentClass: TabMainComponent };
+	infoTab: TabInterface = { name: 'info-queue', componentClass: TabInfoComponent, active: signal(false) };
+	playerTab: TabInterface = { name: 'player', componentClass: TabPlayerComponent, active: signal(false) };
+	queueTab: TabInterface = { name: 'queue', componentClass: TabQueueComponent, active: signal(false) };
+	mainTab: TabInterface = { name: 'main', componentClass: TabMainComponent, active: signal(false) };
 	tabs = [this.mainTab, this.playerTab, this.queueTab, this.infoTab];
 	private tabPortalHost?: TabPortalOutlet;
 

@@ -1,7 +1,7 @@
-<app-mini-time-slider [class.hidden]="tabService.playerTab.active" />
+<app-mini-time-slider [class.hidden]="tabService.playerTab.active()" />
 <div class="buttons">
 	<div>
-		<button (click)="tabService.clickPlayer()" [class.active]="tabService.playerTab.active" class="art">
+		<button (click)="tabService.clickPlayer()" [class.active]="tabService.playerTab.active()" class="art">
 			@if (player.currentMedia) {
 				<div>
 					<app-coverart-image alt="Album Art" i18n-alt [coverArtObj]="player.currentMedia" [size]="50" [fill]="true" />
@@ -21,6 +21,6 @@
 		<button (click)="player.next()" [disabled]="!queue.hasNext" i18n-title title="Next Track"><app-icon-fast-forward aria-hidden="true" /></button>
 	</div>
 	<div>
-		<button (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active"><app-icon-queue aria-hidden="true" /></button>
+		<button (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active()"><app-icon-queue aria-hidden="true" /></button>
 	</div>
 </div>

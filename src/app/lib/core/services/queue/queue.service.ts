@@ -1,14 +1,40 @@
-import { EventEmitter, inject, Service } from '@angular/core';
+import { EventEmitter, inject, Service, signal } from '@angular/core';
 
 import { type Jam, JamService, PodcastStatus } from '@jam';
 
 @Service()
 export class QueueService {
-	entries: Array<Jam.MediaBase> = [];
-	currentIndex = -1;
-	repeatQueue = false;
 	queueChange = new EventEmitter<void>();
+	// Signal-backed so the derived getters (isEmpty/hasPrevious/hasNext) reread reactively under zoneless.
+	// Public accessors keep the plain-property API; array mutations reassign so the signal notifies.
+	private readonly _entries = signal<Array<Jam.MediaBase>>([]);
+	private readonly _currentIndex = signal(-1);
+	private readonly _repeatQueue = signal(false);
 	private readonly jam = inject(JamService);
+
+	get entries(): Array<Jam.MediaBase> {
+		return this._entries();
+	}
+
+	set entries(value: Array<Jam.MediaBase>) {
+		this._entries.set(value);
+	}
+
+	get currentIndex(): number {
+		return this._currentIndex();
+	}
+
+	set currentIndex(value: number) {
+		this._currentIndex.set(value);
+	}
+
+	get repeatQueue(): boolean {
+		return this._repeatQueue();
+	}
+
+	set repeatQueue(value: boolean) {
+		this._repeatQueue.set(value);
+	}
 
 	get isEmpty(): boolean {
 		return this.entries.length === 0;
@@ -36,28 +62,30 @@ export class QueueService {
 			return;
 		}
 
-		this.entries.push(track);
+		this.entries = [...this.entries, track];
 		this.publishChanges();
 	}
 
 	addMedias(tracks: Array<Jam.MediaBase>, allowDuplicates?: boolean): number {
+		const next = [...this.entries];
 		let added = 0;
 		if (allowDuplicates) {
-			this.entries.push(...tracks);
+			next.push(...tracks);
 			added = tracks.length;
 		} else {
-			const existingIds = new Set(this.entries.map(t => t.id));
+			const existingIds = new Set(next.map(t => t.id));
 			for (const track of tracks) {
 				if (existingIds.has(track.id)) {
 					continue;
 				}
 
-				this.entries.push(track);
+				next.push(track);
 				existingIds.add(track.id);
 				added++;
 			}
 		}
 		if (added > 0) {
+			this.entries = next;
 			this.publishChanges();
 		}
 		return added;
@@ -119,7 +147,7 @@ export class QueueService {
 	remove(track: Jam.MediaBase): void {
 		const index = this.indexOfTrack(track.id);
 		if (index >= 0) {
-			this.entries.splice(index, 1);
+			this.entries = this.entries.filter((_, i) => i !== index);
 			if (index < this.currentIndex) {
 				this.currentIndex--;
 			} else if (this.currentIndex >= this.entries.length) {
@@ -137,12 +165,14 @@ export class QueueService {
 
 	shuffle(): void {
 		const currentMedia = this.getCurrent();
-		for (let i = this.entries.length - 1; i > 0; i--) {
+		const next = [...this.entries];
+		for (let i = next.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
-			const temp = this.entries[i];
-			this.entries[i] = this.entries[j];
-			this.entries[j] = temp;
+			const temp = next[i];
+			next[i] = next[j];
+			next[j] = temp;
 		}
+		this.entries = next;
 		if (currentMedia) {
 			this.setIndexByTrack(currentMedia);
 		} else {

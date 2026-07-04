@@ -35,10 +35,10 @@
 			<button (click)="showSpeed=!showSpeed" [class.active]="showSpeed" [title]="showSpeed | stringToggle:'Hide Playback Speed Control' :'Show Playback Speed Control'" class="player-control">
 				<app-icon-speed aria-hidden="true" />
 			</button>
-			<button (click)="tabService.clickInfo()" [class.active]="tabService.infoTab.active" [title]="tabService.infoTab.active | stringToggle:'Hide Play Info' :'Show Play Info'" class="player-control button-info">
+			<button (click)="tabService.clickInfo()" [class.active]="tabService.infoTab.active()" [title]="tabService.infoTab.active() | stringToggle:'Hide Play Info' :'Show Play Info'" class="player-control button-info">
 				<app-icon-info aria-hidden="true" />
 			</button>
-			<button (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active" [title]="tabService.queueTab.active | stringToggle: 'Hide Play Queue':'Show Play Queue'" class="player-control button-queue">
+			<button (click)="tabService.clickQueue()" [class.active]="tabService.queueTab.active()" [title]="tabService.queueTab.active() | stringToggle: 'Hide Play Queue':'Show Play Queue'" class="player-control button-queue">
 				<app-icon-queue aria-hidden="true" />
 			</button>
 		</div>

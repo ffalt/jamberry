@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
 	}
 
 	get expandBody(): boolean {
-		return !!this.tabService.mainTab.active;
+		return this.tabService.mainTab.active();
 	}
 
 	ngOnInit(): void {

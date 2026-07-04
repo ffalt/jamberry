@@ -31,9 +31,9 @@ export class TabPortalOutlet {
 			return;
 		}
 		for (const t of this.availableTabs) {
-			t.active = false;
+			t.active.set(false);
 		}
-		tab.active = true;
+		tab.active.set(true);
 		// Detach any current instance
 		this.detach();
 		// Get existing or new component instance

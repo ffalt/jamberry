@@ -1,11 +1,10 @@
-import { inject, Service, NgZone } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { ImageFormatType, type Jam, JamService } from '@jam';
 import { MediaSessionEvents } from './mediasession.events';
 
 @Service()
 export class MediaSessionService {
 	private readonly jam = inject(JamService);
-	private readonly ngZone = inject(NgZone);
 	private readonly mediaSession?: MediaSession;
 	private subscribers: { [key: number]: Array<(data: any) => void> | undefined } = {};
 
@@ -92,31 +91,21 @@ export class MediaSessionService {
 		}
 
 		this.mediaSession.setActionHandler('play', () => {
-			this.ngZone.run(() => {
-				this.publish(MediaSessionEvents.PLAY);
-			});
+			this.publish(MediaSessionEvents.PLAY);
 		});
 		this.mediaSession.setActionHandler('pause', () => {
-			this.ngZone.run(() => {
-				this.publish(MediaSessionEvents.PAUSE);
-			});
+			this.publish(MediaSessionEvents.PAUSE);
 		});
 		this.mediaSession.setActionHandler('seekbackward', () => {
-			this.ngZone.run(() => {
-				this.publish(MediaSessionEvents.REWIND);
-			});
+			this.publish(MediaSessionEvents.REWIND);
 		});
 		this.mediaSession.setActionHandler('seekforward', () => {
-			this.ngZone.run(() => {
-				this.publish(MediaSessionEvents.FORWARD);
-			});
+			this.publish(MediaSessionEvents.FORWARD);
 		});
 		try {
 			this.mediaSession.setActionHandler('stop', () => {
 				/* Stop (supported since Chrome 77) */
-				this.ngZone.run(() => {
-					this.publish(MediaSessionEvents.STOP);
-				});
+				this.publish(MediaSessionEvents.STOP);
 			});
 		} catch {
 			console.warn('Warning! The "stop" media session action is not supported.');
@@ -124,22 +113,16 @@ export class MediaSessionService {
 		try {
 			this.mediaSession.setActionHandler('seekto', event => {
 				/* Seek To (supported since Chrome 78) */
-				this.ngZone.run(() => {
-					this.publish(MediaSessionEvents.SEEK, { fastSeek: event.fastSeek, seekTime: event.seekTime });
-				});
+				this.publish(MediaSessionEvents.SEEK, { fastSeek: event.fastSeek, seekTime: event.seekTime });
 			});
 		} catch {
 			console.warn('Warning! The "seekto" media session action is not supported.');
 		}
 		this.mediaSession.setActionHandler('previoustrack', () => {
-			this.ngZone.run(() => {
-				this.publish(MediaSessionEvents.PREVIOUS);
-			});
+			this.publish(MediaSessionEvents.PREVIOUS);
 		});
 		this.mediaSession.setActionHandler('nexttrack', () => {
-			this.ngZone.run(() => {
-				this.publish(MediaSessionEvents.NEXT);
-			});
+			this.publish(MediaSessionEvents.NEXT);
 		});
 	}
 }

@@ -46,7 +46,7 @@ Object.defineProperties(globalThis, {
 			removeEventListener: vi.fn(),
 			dispatchEvent: vi.fn()
 		})
-	},
+	}
 });
 
 vi.spyOn(console, 'error').mockImplementation(() => {

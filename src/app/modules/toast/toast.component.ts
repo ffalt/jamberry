@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, NgZone, signal, ViewEncapsulation } from '@angular/core';
+import { Component, DestroyRef, inject, signal, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DefaultNoComponentGlobalConfig, type IndividualConfig, ToastPackage } from './toast-config';
 
@@ -39,7 +39,6 @@ export class ToastComponent {
 	});
 
 	private readonly toastPackage = inject(ToastPackage);
-	private readonly ngZone? = inject(NgZone);
 	private readonly lifeRef = inject(DestroyRef);
 	private timeout?: ReturnType<typeof setTimeout>;
 	private intervalId?: ReturnType<typeof setInterval>;
@@ -197,38 +196,10 @@ export class ToastComponent {
 	}
 
 	outsideTimeout(func: () => void, timeout: number): void {
-		if (this.ngZone) {
-			this.ngZone.runOutsideAngular(
-				() => {
-					this.timeout = setTimeout(() => {
-						this.runInsideAngular(func);
-					}, timeout);
-				}
-			);
-		} else {
-			this.timeout = setTimeout(func, timeout);
-		}
+		this.timeout = setTimeout(func, timeout);
 	}
 
 	outsideInterval(func: () => void, timeout: number): void {
-		if (this.ngZone) {
-			this.ngZone.runOutsideAngular(
-				() => {
-					this.intervalId = setInterval(() => {
-						this.runInsideAngular(func);
-					}, timeout);
-				}
-			);
-		} else {
-			this.intervalId = setInterval(func, timeout);
-		}
-	}
-
-	private runInsideAngular(func: () => void): void {
-		if (this.ngZone) {
-			this.ngZone.run(func);
-		} else {
-			func();
-		}
+		this.intervalId = setInterval(func, timeout);
 	}
 }

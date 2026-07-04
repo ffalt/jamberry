@@ -1,4 +1,4 @@
-import { DestroyRef, inject, Service } from '@angular/core';
+import { DestroyRef, inject, Service, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MediaSessionEvents } from '../mediasession/mediasession.events';
 import { MediaSessionService } from '../mediasession/mediasession.service';
@@ -15,18 +15,20 @@ import { PlayerSoundmanager2 } from './player.soundmanager2';
 export class PlayerService {
 	static readonly localPlayerStorageName = 'player';
 	static readonly localQueueStorageName = 'queue';
-	currentEpisode?: Jam.Episode;
-	currentTrack?: Jam.Track;
-	currentMedia?: Jam.MediaBase;
 	audioSupport?: SoundPlayerAudioSupport;
-	currentTime?: number;
-	totalTime?: number;
-	isMuted: boolean = false;
-	isPlaying = false;
-	repeatTrack = false;
 	scrobbleWatch = new StopWatch();
 	scrobbled = false;
 	currentNotification?: Notification;
+	// Player state is signal-backed so template/consumer reads react to change under zoneless change detection.
+	// The public accessors preserve the plain-property API used across components and templates.
+	private readonly _currentEpisode = signal<Jam.Episode | undefined>(undefined);
+	private readonly _currentTrack = signal<Jam.Track | undefined>(undefined);
+	private readonly _currentMedia = signal<Jam.MediaBase | undefined>(undefined);
+	private readonly _currentTime = signal<number | undefined>(undefined);
+	private readonly _totalTime = signal<number | undefined>(undefined);
+	private readonly _isMuted = signal(false);
+	private readonly _isPlaying = signal(false);
+	private readonly _repeatTrack = signal(false);
 	private readonly soundPlayer: PlayerSoundmanager2;
 	private readonly lifeRef = inject(DestroyRef);
 	private readonly queue = inject(QueueService);
@@ -60,6 +62,70 @@ export class PlayerService {
 
 	get empty(): Readonly<boolean> {
 		return !(this.currentTrack ?? this.currentEpisode);
+	}
+
+	get currentEpisode(): Jam.Episode | undefined {
+		return this._currentEpisode();
+	}
+
+	set currentEpisode(value: Jam.Episode | undefined) {
+		this._currentEpisode.set(value);
+	}
+
+	get currentTrack(): Jam.Track | undefined {
+		return this._currentTrack();
+	}
+
+	set currentTrack(value: Jam.Track | undefined) {
+		this._currentTrack.set(value);
+	}
+
+	get currentMedia(): Jam.MediaBase | undefined {
+		return this._currentMedia();
+	}
+
+	set currentMedia(value: Jam.MediaBase | undefined) {
+		this._currentMedia.set(value);
+	}
+
+	get currentTime(): number | undefined {
+		return this._currentTime();
+	}
+
+	set currentTime(value: number | undefined) {
+		this._currentTime.set(value);
+	}
+
+	get totalTime(): number | undefined {
+		return this._totalTime();
+	}
+
+	set totalTime(value: number | undefined) {
+		this._totalTime.set(value);
+	}
+
+	get isMuted(): boolean {
+		return this._isMuted();
+	}
+
+	set isMuted(value: boolean) {
+		this._isMuted.set(value);
+	}
+
+	get isPlaying(): boolean {
+		return this._isPlaying();
+	}
+
+	set isPlaying(value: boolean) {
+		this._isPlaying.set(value);
+	}
+
+	get repeatTrack(): boolean {
+		return this._repeatTrack();
+	}
+
+	set repeatTrack(value: boolean) {
+		this._repeatTrack.set(value);
 	}
 
 	playQueuePos(index: number): void {

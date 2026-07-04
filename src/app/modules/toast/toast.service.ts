@@ -1,6 +1,6 @@
 import { Overlay, OverlayConfig, type OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { type ComponentRef, inject, Injector, NgZone, Service } from '@angular/core';
+import { type ComponentRef, inject, Injector, Service } from '@angular/core';
 import type { Observable } from 'rxjs';
 
 import { type GlobalConfig, type IndividualConfig, TOAST_CONFIG, ToastPackage, type ToastToken } from './toast-config';
@@ -35,7 +35,6 @@ export class ToastService {
 	previousToastMessage: string | undefined;
 	private readonly overlay = inject(Overlay);
 	private readonly injector = inject(Injector);
-	private readonly ngZone = inject(NgZone);
 	private index = 0;
 
 	constructor() {
@@ -150,12 +149,6 @@ export class ToastService {
 	 * Determines the need to run inside angular's zone then builds the toast
 	 */
 	private preBuildNotification(toastType: string, message: string | undefined, title: string | undefined, config: GlobalConfig): ActiveToast<any> | undefined {
-		if (config.onActivateTick) {
-			this.ngZone.run(() =>
-				this.buildNotification(toastType, message, title, config)
-			);
-			return;
-		}
 		return this.buildNotification(toastType, message, title, config);
 	}
 

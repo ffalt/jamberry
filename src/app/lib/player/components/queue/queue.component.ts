@@ -40,7 +40,9 @@ export class QueueComponent {
 	}
 
 	onDrop(event: CdkDragDrop<Array<Jam.MediaBase>>): void {
-		moveItemInArray(this.queue.entries, event.previousIndex, event.currentIndex);
+		const entries = [...this.queue.entries];
+		moveItemInArray(entries, event.previousIndex, event.currentIndex);
+		this.queue.entries = entries;
 		this.queue.publishChanges();
 	}
 

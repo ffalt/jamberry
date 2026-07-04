@@ -1,6 +1,6 @@
 /// <reference types="@angular/localize" />
 
-import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { enableProdMode, importProvidersFrom, provideCheckNoChangesConfig, provideZonelessChangeDetection } from '@angular/core';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { environment } from './environments/environment';
 import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport, withXhr } from '@angular/common/http';
@@ -45,7 +45,10 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
 	providers: [
-		provideZoneChangeDetection(),
+		provideZonelessChangeDetection(),
+		// Exhaustive checkNoChanges catches state mutated outside the change-detection graph (a common zoneless bug).
+		// It is inert in optimized production builds, where the checkNoChanges machinery is stripped (ngDevMode === false).
+		provideCheckNoChangesConfig({ exhaustive: true }),
 		importProvidersFrom(
 			BrowserModule,
 			FormsModule,
