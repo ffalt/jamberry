@@ -1,21 +1,19 @@
-import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
 import { MbArtistComponent } from '../mb-artist/mb-artist.component';
-import { BackgroundTextComponent } from '@core/components/background-text/background-text.component';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 
 @Component({
 	selector: 'app-artist-mb',
 	templateUrl: './artist-mb.component.html',
 	styleUrls: ['./artist-mb.component.scss'],
-	imports: [MbArtistComponent, BackgroundTextComponent, LoadingComponent]
+	imports: [MbArtistComponent, LoadingComponent]
 })
 export class ArtistMbComponent {
 	readonly artist = signal<Jam.Artist | undefined>(undefined);
-	readonly mbArtistID = computed(() => this.artist()?.mbArtistID);
 	private id?: string;
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);

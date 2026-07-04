@@ -1,4 +1,6 @@
-@if (mbAlbum(); as mbAlbum) {
+@if (loading()) {
+	<app-loading />
+} @else if (mbAlbum(); as mbAlbum) {
 	<div class="mbalbum">
 		<div class="section-title">
 			<ng-container i18n>Album Information by</ng-container>
@@ -51,4 +53,6 @@
 		}
 		<app-mb-relations [relations]="mbAlbum.relations" />
 	</div>
+} @else if (searchDone()) {
+	<app-background-text text="No data available" i18n-text />
 }

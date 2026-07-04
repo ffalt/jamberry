@@ -1,10 +1,12 @@
 import { Component, effect, inject, input, signal } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
-import { JamService, type MusicBrainz, MusicBrainzLookupType } from '@jam';
+import { JamService, type MusicBrainz, MusicBrainzLookupType, MusicBrainzSearchType } from '@jam';
 import { MbRelationsComponent } from '../mb-relations/mb-relations.component';
 import { MbArtistCreditsPipe } from '@core/pipes/mb-artist-credits.pipe';
 import { MediadurationPipe } from '@core/pipes/mediaduration.pipe';
 import { IconMusicbrainzComponent } from '@core/components/icons/icon-musicbrainz.component';
+import { BackgroundTextComponent } from '@core/components/background-text/background-text.component';
+import { LoadingComponent } from '@core/components/loading/loading.component';
 
 export interface MBAlbumInfo {
 	name: string;
@@ -20,12 +22,16 @@ export interface MBAlbumInfoGroup {
 	selector: 'app-mb-album',
 	templateUrl: './mb-album.component.html',
 	styleUrls: ['./mb-album.component.scss'],
-	imports: [MbRelationsComponent, MbArtistCreditsPipe, MediadurationPipe, IconMusicbrainzComponent]
+	imports: [MbRelationsComponent, MbArtistCreditsPipe, MediadurationPipe, IconMusicbrainzComponent, BackgroundTextComponent, LoadingComponent]
 })
 export class MbAlbumComponent {
 	readonly mbAlbumID = input<string>();
+	readonly artist = input<string>();
+	readonly title = input<string>();
 	readonly mbAlbum = signal<MusicBrainz.Release | undefined>(undefined);
 	readonly infoGroups = signal<Array<MBAlbumInfoGroup>>([]);
+	readonly loading = signal(false);
+	readonly searchDone = signal(false);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
@@ -37,17 +43,14 @@ export class MbAlbumComponent {
 
 	refresh(): void {
 		const mbAlbumID = this.mbAlbumID();
-		if (!mbAlbumID) {
+		this.mbAlbum.set(undefined);
+		this.infoGroups.set([]);
+		this.searchDone.set(false);
+		if (mbAlbumID) {
+			this.lookup(mbAlbumID);
 			return;
 		}
-		this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.release, mbID: mbAlbumID })
-			.then(res => {
-				const data = res.data as MusicBrainz.Response;
-				this.display(data.release!);
-			})
-			.catch((error: unknown) => {
-				this.notify.error(error);
-			});
+		this.searchByName();
 	}
 
 	display(mbAlbum: MusicBrainz.Release): void {
@@ -84,5 +87,46 @@ export class MbAlbumComponent {
 			return '';
 		}
 		return artistCredit.map(a => a.name + (a.joinphrase || ' ')).join('').trim();
+	}
+
+	private searchByName(): void {
+		const artist = this.artist();
+		const title = this.title();
+		if (!artist || !title) {
+			return;
+		}
+		this.loading.set(true);
+		this.jam.metadata.musicbrainzSearch({ type: MusicBrainzSearchType.release, artist, release: title })
+			.then(res => {
+				const data = res.data as MusicBrainz.Response;
+				const mbID = data.releases?.[0]?.id;
+				if (mbID) {
+					this.lookup(mbID);
+				} else {
+					this.loading.set(false);
+					this.searchDone.set(true);
+				}
+			})
+			.catch((error: unknown) => {
+				this.loading.set(false);
+				this.searchDone.set(true);
+				this.notify.error(error);
+			});
+	}
+
+	private lookup(mbAlbumID: string): void {
+		this.loading.set(true);
+		this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.release, mbID: mbAlbumID })
+			.then(res => {
+				const data = res.data as MusicBrainz.Response;
+				this.display(data.release!);
+				this.loading.set(false);
+				this.searchDone.set(true);
+			})
+			.catch((error: unknown) => {
+				this.loading.set(false);
+				this.searchDone.set(true);
+				this.notify.error(error);
+			});
 	}
 }

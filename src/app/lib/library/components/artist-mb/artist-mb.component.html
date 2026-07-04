@@ -1,9 +1,6 @@
 @if (!artist()) {
 	<app-loading />
 }
-@if (mbArtistID(); as id) {
-	<app-mb-artist [mbArtistID]="id" />
-}
-@if (artist() && !mbArtistID()) {
-	<app-background-text text="No data available" i18n-text />
+@if (artist(); as artist) {
+	<app-mb-artist [mbArtistID]="artist.mbArtistID" [name]="artist.name" />
 }

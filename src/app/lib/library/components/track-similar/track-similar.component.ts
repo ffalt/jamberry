@@ -1,5 +1,5 @@
-import { Component, DestroyRef, inject, signal, viewChild } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, computed, effect, inject, signal, untracked, viewChild } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -15,24 +15,25 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 })
 export class TrackSimilarComponent {
 	readonly similar = signal<Array<Jam.Track> | undefined>(undefined);
-	private id?: string;
+	private readonly paramMap = toSignal(inject(ActivatedRoute).paramMap);
+	private readonly id = computed(() => this.paramMap()?.get('id') ?? undefined);
 	private readonly loadMore = viewChild.required(LoadMoreButtonComponent);
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
-	private readonly route = inject(ActivatedRoute);
-	private readonly lifeRef = inject(DestroyRef);
 
 	constructor() {
-		this.route.paramMap
-			.pipe(takeUntilDestroyed(this.lifeRef))
-			.subscribe(paramMap => {
-				this.id = paramMap.get('id') ?? undefined;
-				this.refresh();
+		effect(() => {
+			this.id();
+			untracked(() => {
+				this.similar.set(undefined);
+				this.loadMore().skip.set(0);
+				this.loadSimilar();
 			});
+		});
 	}
 
 	loadSimilar(): void {
-		const id = this.id;
+		const id = this.id();
 		if (!id) {
 			return;
 		}
@@ -44,7 +45,7 @@ export class TrackSimilarComponent {
 			take: this.loadMore().take()
 		})
 			.then(data => {
-				if (this.id !== id) {
+				if (this.id() !== id) {
 					return;
 				}
 				const updated = [...(this.similar() ?? []), ...data.items];
@@ -56,11 +57,5 @@ export class TrackSimilarComponent {
 			.catch((error: unknown) => {
 				this.notify.error(error);
 			});
-	}
-
-	refresh(): void {
-		this.similar.set(undefined);
-		this.loadMore().skip.set(0);
-		this.loadSimilar();
 	}
 }

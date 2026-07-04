@@ -1,9 +1,6 @@
 @if (!album()) {
 	<app-loading />
 }
-@if (mbReleaseID(); as id) {
-	<app-mb-album [mbAlbumID]="id" />
-}
-@if (album() && !mbReleaseID()) {
-	<app-background-text text="No data available" i18n-text />
+@if (album(); as album) {
+	<app-mb-album [mbAlbumID]="album.mbReleaseID" [artist]="album.artistName" [title]="album.name" />
 }
