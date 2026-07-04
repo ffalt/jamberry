@@ -1,1 +1,0 @@
-import{b as t}from"./chunk-CTEOCYOX.js";import{rb as r}from"./chunk-NV6LUTTQ.js";var p=(()=>{class e{transform(i){return i===void 0?"":t(i)}static{this.\u0275fac=function(n){return new(n||e)}}static{this.\u0275pipe=r({name:"filesize",type:e,pure:!0})}}return e})();export{p as a};

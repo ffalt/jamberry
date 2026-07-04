@@ -1,0 +1,2 @@
+import {b as eT,aK as qp,a$ as Ed,bv as cy,b0 as Id}from'./main-PO4GCZRJ.js';var p=(()=>{class t{static{this.\u0275fac=function(e){return new(e||t)};}static{this.\u0275cmp=eT({type:t,selectors:[["app-icon-minus"]],hostAttrs:[1,"icon"],decls:2,vars:0,consts:[["viewBox","0 -850 580 1000","aria-hidden","true","xmlns","http://www.w3.org/2000/svg"],["transform","scale(1,-1)","d","M550 400q30 0 30-50t-30-50l-520 0q-30 0-30 50t30 50l520 0z"]],template:function(e,c){e&1&&(qp(),Ed(0,"svg",0),cy(1,"path",1),Id());},encapsulation:2});}}return t})();
+export{p};

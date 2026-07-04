@@ -1,0 +1,1 @@
+import {c1 as u,by as Tr}from'./main-PO4GCZRJ.js';var p=(()=>{class e{transform(i){return i===void 0?"":u(i)}static{this.\u0275fac=function(n){return new(n||e)};}static{this.\u0275pipe=Tr({name:"filesize",type:e,pure:true});}}return e})();export{p};

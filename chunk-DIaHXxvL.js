@@ -1,0 +1,1 @@
+import {by as Tr}from'./main-PO4GCZRJ.js';var p=(()=>{class r{transform(i,t){return !i||Number.isNaN(t)||t<=0?"":i.length<t?i:`${i.slice(0,t-1).trim()}\u2026`}static{this.\u0275fac=function(t){return new(t||r)};}static{this.\u0275pipe=Tr({name:"limit",type:r,pure:true});}}return r})();export{p};
