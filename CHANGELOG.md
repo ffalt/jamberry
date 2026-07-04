@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.15](https://github.com/ffalt/jamberry/compare/v0.6.14...v0.6.15) (2026-07-04)
+
+
+### Features
+
+* **angular:** go zoneless ([940b124](https://github.com/ffalt/jamberry/commit/940b124c9797bab6ab89b6192be42d5a4614b570))
+* **landscape:** replace loading text with loading component in landscape view ([771ebd2](https://github.com/ffalt/jamberry/commit/771ebd2fe16fefdb6aae4e5537c2e14fd480099e))
+* **musicbraint:** try load album and artist without musicbrainz IDs ([2dee8f5](https://github.com/ffalt/jamberry/commit/2dee8f5394359c1ec1f671ff73432e19273bc056))
+
+
+### Bug Fixes
+
+* **landscape:** adjust height for landscape view on smaller screens ([ab62f8c](https://github.com/ffalt/jamberry/commit/ab62f8c03267cf25b1f035ba8bcfe41df3353dfe))
+* **player:** replace unmute with toggleMute method ([f58a3fe](https://github.com/ffalt/jamberry/commit/f58a3fe034f1654799974ba0f9aff19eb5894c56))
+
 ## [0.6.14](https://github.com/ffalt/jamberry/compare/v0.6.13...v0.6.14) (2026-05-31)
 
 
