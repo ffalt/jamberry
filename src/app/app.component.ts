@@ -8,6 +8,7 @@ import { HOTKEYS } from '@utils/keys';
 import { JamAuthService } from '@jam';
 import { DeferLoadService } from '@modules/defer-load/defer-load.service';
 import { PlayerService } from '@core/services/player/player.service';
+import { QueueService } from '@core/services/queue/queue.service';
 import { AppService } from '@core/services/app/app.service';
 import { SettingsStoreService } from '@core/services/settings-store/settings-store.service';
 import { HeaderComponent } from './lib/header/components/header/header.component';
@@ -31,6 +32,7 @@ import { MainTabsService } from './lib/main-tabs/services/main-tabs.service';
 export class AppComponent implements OnInit {
 	readonly tabContentOutlet = viewChild.required('tabContentOutlet', { read: ViewContainerRef });
 	readonly player = inject(PlayerService);
+	readonly queue = inject(QueueService);
 	readonly app = inject(AppService);
 	readonly auth = inject(JamAuthService);
 	private readonly tabService = inject(MainTabsService);

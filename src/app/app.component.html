@@ -5,6 +5,6 @@
 @if (auth.user) {
 	<app-player class="footer" />
 }
-@if (this.player.currentMedia) {
+@if (this.player.currentMedia || !this.queue.isEmpty) {
 	<app-mini-player class="mini-player" />
 }

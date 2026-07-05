@@ -18,11 +18,17 @@
 			flex-flow: row nowrap;
 			width: 100%;
 			margin-bottom: variables.$margin-xs;
+			align-items: center;
+
+			a {
+				display: inline-flex;
+				align-items: center;
+			}
 
 			.icon {
 				color: var(--on-control-ambient);
 				font-size: 1.5em;
-				display: block;
+				display: inline-flex;
 
 				&:hover {
 					color: var(--on-control-ambient-hover);
@@ -36,6 +42,7 @@
 			flex: 1;
 			margin-left: variables.$margin;
 			margin-top: variables.$margin-xs;
+			margin-bottom: variables.$margin-xs;
 		}
 
 		.progress {
