@@ -10,14 +10,10 @@
 		border-right: 3px solid transparent;
 		transition: all .1s ease-in-out;
 		transform-origin: left center;
+		gap: 6px;
 
 		app-coverart-image {
 			margin-right: 6px;
-		}
-
-		.icon {
-			width: 25px;
-			display: block;
 		}
 
 		&:hover {

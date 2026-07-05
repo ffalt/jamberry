@@ -23,6 +23,7 @@
 		color: var(--on-control);
 		font-size: variables.$small;
 		cursor: pointer;
+		padding-top: 4px;
 
 		&:hover {
 			color: var(--on-input-hover);

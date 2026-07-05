@@ -19,6 +19,7 @@
 	width: 100%;
 	padding: variables.$padding-sm;
 	line-height: 1.25em;
+	gap: 8px;
 
 	@media (max-width: variables.$break-notebook) {
 		height: auto;
@@ -152,18 +153,11 @@
 		}
 
 		.handle {
-			order: 2;
 			width: 25%;
 			text-align: center;
-
-			span.grippy {
-				transform: rotate(0deg);
-			}
-
 		}
 
 		.title {
-			order: 6;
 			margin-left: 0;
 			margin-right: 0;
 			padding-right: 0;
@@ -311,10 +305,6 @@
 			order: 5;
 			width: 25%;
 			text-align: right;
-		}
-
-		.title {
-			order: 6;
 		}
 	}
 }

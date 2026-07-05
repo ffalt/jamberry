@@ -134,7 +134,7 @@
 		@media (max-width: variables.$break-desktop-large) {
 			.options {
 				.player-control.button-queue {
-					display: inline;
+					display: inline-flex;
 				}
 			}
 		}

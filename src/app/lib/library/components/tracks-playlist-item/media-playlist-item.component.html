@@ -15,7 +15,6 @@
 		@if (showPlayDate()) {
 			<div title="{{media.state?.lastPlayed | date:'long'}}" class="play-date">{{ media.state?.lastPlayed | date }}</div>
 		}
-		<div class="number">{{ media.tag?.trackNr }}</div>
 		<div class="title"><p>{{ media.tag?.title }}</p>
 			@if (showArtist() && media.tag?.artist; as artist) {
 				<a title="Artist" i18n-title (click)="navig.toMediaArtist(media)">{{ artist }}</a>

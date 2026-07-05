@@ -2,7 +2,7 @@
 	#item (click)="clickEntry()"
 	(keydown.enter)="clickEntry()" [routerLinkActiveOptions]="entry()?.options || {exact: false}" [routerLink]="entry()?.link"
 	class="item" routerLinkActive="active" tabindex="-1">
-	<span class="icon">@if (entry()?.icon; as ic) {
+	@if (entry()?.icon; as ic) {
 		<ng-container [ngComponentOutlet]="ic" />
-	}</span>{{ entry()?.name }}
+	}{{ entry()?.name }}
 </a>

@@ -7,6 +7,7 @@
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(100px, auto));
 	gap: 5px;
+	padding-bottom: 5px;
 
 	.stat {
 		padding: variables.$padding;
