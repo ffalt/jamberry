@@ -1,0 +1,1 @@
+import {by as Tr}from'./main-AH5SCC3P.js';var s=(()=>{class t{transform(r){return r===void 0||r.length===0?"":r.map(i=>i.name+(i.joinphrase||" ")).join("").trim()}static{this.\u0275fac=function(i){return new(i||t)};}static{this.\u0275pipe=Tr({name:"mbArtistCredits",type:t,pure:true});}}return t})();export{s};
