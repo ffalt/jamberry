@@ -86,7 +86,7 @@ export class AdminFolderHealthComponent extends AdminBaseParentViewIdComponent {
 
 	private reDisplay(): void {
 		const all = this.all();
-		this.hints.set(!this.filter || !all ? all : all.filter(f => f.health.find(p => p.name === this.filter)));
+		this.hints.set(!all || !this.filter ? all : all.filter(f => f.health.find(p => p.name === this.filter)));
 	}
 
 	private display(folderHealths: Array<Jam.FolderHealth>): void {

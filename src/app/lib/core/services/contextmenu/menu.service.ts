@@ -21,7 +21,7 @@ export class MenuService {
 		this.templateOverlays.push(templateOverlay);
 		const contextMenuTemplate = templateOverlay.attach(new ComponentPortal(contextMenuHost));
 		const instance = contextMenuTemplate.instance;
-		if (instance.initOpts && options) {
+		if (options && instance.initOpts) {
 			instance.initOpts(options);
 		}
 		setTimeout(() => {

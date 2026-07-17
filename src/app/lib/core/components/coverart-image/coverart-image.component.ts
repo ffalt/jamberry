@@ -83,7 +83,7 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 
 	showImageOverlay(event: MouseEvent): void {
 		const coverArtObj = this.coverArtObj();
-		if (this.allowEnlarge() && coverArtObj) {
+		if (coverArtObj && this.allowEnlarge()) {
 			event.stopPropagation();
 			this.dialogOverlay.open<{ name: string; url: string }>({
 				childComponent: ImageOverlayContentComponent,

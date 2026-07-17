@@ -209,7 +209,7 @@ export class Matcher {
 	}
 
 	loadLyrics(release?: MatchRelease): void {
-		if (this.isRunning || !release) {
+		if (!release || this.isRunning) {
 			return;
 		}
 		this.setRunning('Searching Lyrics');
@@ -224,7 +224,7 @@ export class Matcher {
 	}
 
 	loadMoods(release?: MatchRelease): void {
-		if (this.isRunning || !release) {
+		if (!release || this.isRunning) {
 			return;
 		}
 		this.setRunning('Searching Moods');

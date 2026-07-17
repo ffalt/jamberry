@@ -177,7 +177,7 @@ export class ContextMenuService {
 
 	getLastAttachedOverlay(): OverlayRefWithContextMenu | undefined {
 		let overlay: OverlayRefWithContextMenu | undefined = this.overlays.at(-1);
-		while (this.overlays.length > 1 && overlay && !overlay.hasAttached()) {
+		while (overlay && this.overlays.length > 1 && !overlay.hasAttached()) {
 			overlay.detach();
 			overlay.dispose();
 			this.overlays = this.overlays.slice(0, -1);
@@ -194,11 +194,11 @@ export class ContextMenuService {
 
 		setTimeout(() => {
 			const overlay = this.getLastAttachedOverlay();
-			if (this.overlays.length > 1 && overlay) {
+			if (overlay && this.overlays.length > 1) {
 				overlay.detach();
 				overlay.dispose();
 				this.overlays = this.overlays.slice(0, -1);
-			} else if (!exceptRootMenu && this.overlays.length > 0 && overlay) {
+			} else if (overlay && !exceptRootMenu && this.overlays.length > 0) {
 				this.close.next({ eventType: 'cancel', event });
 				overlay.detach();
 				overlay.dispose();

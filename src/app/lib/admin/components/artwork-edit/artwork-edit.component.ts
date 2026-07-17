@@ -69,7 +69,7 @@ export class ArtworkEditComponent implements OnChanges {
 
 	upload(): void {
 		const data = this.data();
-		if (!this.croppedImageFile || !data) {
+		if (!data || !this.croppedImageFile) {
 			return;
 		}
 		const folderID = data.folderID;

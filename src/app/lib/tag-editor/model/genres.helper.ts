@@ -28,7 +28,7 @@ function extractNumberAndCleanValue(text: string): { value: string; num?: number
 }
 
 function getGenreFromNumber(currentValue: string, num?: number): string {
-	if (currentValue.length === 0 && num !== undefined) {
+	if (num !== undefined && currentValue.length === 0) {
 		const genreName = GenresByNumbers[num];
 		return genreName || currentValue;
 	}

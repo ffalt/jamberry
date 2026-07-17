@@ -35,7 +35,7 @@ export class DialogTagTextlistComponent implements DialogOverlay<TextListEdit> {
 
 	onBlur(): void {
 		const text = this.currentText();
-		if (this.current && text) {
+		if (text && this.current) {
 			this.current.value.list = text.split('\n');
 		}
 	}

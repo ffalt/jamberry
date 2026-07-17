@@ -482,7 +482,7 @@ export class TagEditor {
 			} else if (subid) {
 				name += ` (${subid})`;
 			}
-		} else if ((framedef.impl === FrameType.IdBin || framedef.impl === FrameType.PRIV) && subid) {
+		} else if (subid && (framedef.impl === FrameType.IdBin || framedef.impl === FrameType.PRIV)) {
 			name += ` (${subid})`;
 		}
 		return name;

@@ -44,7 +44,7 @@ export class UserAvatarComponent {
 
 	uploadFile(files?: FileList): void {
 		const user = this.user();
-		if (!files || files.length === 0 || !user) {
+		if (!files || !user || files.length === 0) {
 			return;
 		}
 		const file: File = files[0];
@@ -67,7 +67,7 @@ export class UserAvatarComponent {
 
 	randomAvatar(): void {
 		const user = this.user();
-		if (this.refreshing() || !user) {
+		if (!user || this.refreshing()) {
 			return;
 		}
 		this.refreshing.set(true);

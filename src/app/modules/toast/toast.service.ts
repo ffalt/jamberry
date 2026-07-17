@@ -105,7 +105,7 @@ export class ToastService {
 			return false;
 		}
 		const activeToast = this.toasts.at(this.currentlyActive);
-		if (this.currentlyActive < this.toastrConfig.maxOpened && activeToast) {
+		if (activeToast && this.currentlyActive < this.toastrConfig.maxOpened) {
 			const p = activeToast.toastRef;
 			if (!p.isInactive()) {
 				this.currentlyActive += 1;
@@ -175,7 +175,7 @@ export class ToastService {
 			this.toastrConfig.resetTimeoutOnDuplicate,
 			this.toastrConfig.countDuplicates
 		);
-		if (message && this.toastrConfig.preventDuplicates && duplicate !== undefined) {
+		if (message && duplicate !== undefined && this.toastrConfig.preventDuplicates) {
 			return duplicate;
 		}
 

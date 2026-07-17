@@ -121,7 +121,7 @@ export class AdminRadarComponent {
 	loadFromStorage(): void {
 		const o = this.userStorage.get<{ folderID: string }>(AdminRadarComponent.localStorageName);
 		const folders = this.folders();
-		if (o?.folderID && folders) {
+		if (folders && o?.folderID) {
 			const pos = folders.findIndex(f => f.id === o.folderID);
 			if (pos !== -1) {
 				this.current.set({ folder: folders[pos], pos });
