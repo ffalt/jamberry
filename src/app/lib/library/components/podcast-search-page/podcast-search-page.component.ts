@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Jam, JamService } from '@jam';
+import { type Jam, JamService } from '@jam';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 import { HeaderIconSectionComponent } from '@core/components/header-icon-section/header-icon-section.component';
 import { AppService } from '@core/services/app/app.service';
 import { NavigService } from '@core/services/navig/navig.service';
 import { NotifyService } from '@core/services/notify/notify.service';
-import PodcastDiscover = Jam.PodcastDiscover;
 import { IconListAddComponent } from '@core/components/icons/icon-list-add.component';
 import { IconPodcastComponent } from '@core/components/icons/icon-podcast.component';
 import { IconSearchComponent } from '@core/components/icons/icon-search.component';
@@ -14,7 +13,7 @@ import { IconSearchComponent } from '@core/components/icons/icon-search.componen
 export interface PodcastSearchResult {
 	url: URL;
 	displayURL: string;
-	result: PodcastDiscover;
+	result: Jam.PodcastDiscover;
 }
 
 export interface PodcastSearch {
@@ -74,7 +73,7 @@ export class PodcastSearchPageComponent {
 			});
 	}
 
-	private buildSearchResults(data: Array<PodcastDiscover>): void {
+	private buildSearchResults(data: Array<Jam.PodcastDiscover>): void {
 		const collect: Record<string, PodcastSearch | undefined> = {};
 		for (const result of data) {
 			const url = new URL(result.url);
