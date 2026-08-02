@@ -1,7 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport, withXhr } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { type ModuleWithProviders, NgModule, type Provider } from '@angular/core';
 
 import { JamAuthService } from './jam.auth.service';
@@ -77,7 +77,7 @@ export const jamProviders: Array<Provider> =
 	];
 
 @NgModule({
-	providers: [provideHttpClient(withXhr(), withInterceptorsFromDi(), withJsonpSupport())]
+	providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())]
 })
 export class JamModule {
 	static forRoot(provider: Provider): ModuleWithProviders<JamModule> {

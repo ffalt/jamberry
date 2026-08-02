@@ -3,7 +3,7 @@
 import { enableProdMode, importProvidersFrom, provideCheckNoChangesConfig, provideZonelessChangeDetection } from '@angular/core';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { environment } from './environments/environment';
-import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport, withXhr } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { provideTheme } from '@modules/theme';
 import { FormsModule } from '@angular/forms';
 import { JamConfiguration, JamModule } from '@jam';
@@ -88,7 +88,7 @@ bootstrapApplication(AppComponent, {
 		SettingsStoreService,
 		PushNotificationService,
 		provideHTTPCache(),
-		provideHttpClient(withXhr(), withInterceptorsFromDi(), withJsonpSupport()),
+		provideHttpClient(withXhr(), withInterceptorsFromDi()),
 		...provideTheme(themeConfig)
 	]
 })
