@@ -53,8 +53,13 @@ export class PlaylistService {
 	}
 
 	removeFromPlaylist(playlist: Jam.Playlist, removeTrackIDs: Array<string>): void {
-		const trackIDs = (playlist.entries ?? []).map(entry => entry.id).filter(t => !removeTrackIDs.includes(t));
-		this.savePlaylist(playlist, trackIDs);
+		this.getPlaylistEntriesIDs(playlist)
+			.then(list => {
+				this.savePlaylist(playlist, list.filter(id => !removeTrackIDs.includes(id)));
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 
 	refreshPlaylist(id: string): void {
