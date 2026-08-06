@@ -152,7 +152,7 @@ export class ToastPackage {
 			});
 	}
 
-	/** Fired on click */
+	// Fired on click
 	triggerTap(): void {
 		this.onTapSubj.next();
 		if (this.config.tapToDismiss) {
@@ -164,7 +164,7 @@ export class ToastPackage {
 		return this.onTapSubj.asObservable();
 	}
 
-	/** available for use in custom toast */
+	// available for use in custom toast
 	triggerAction(action?: any): void {
 		this.onActionSubj.next(action);
 	}

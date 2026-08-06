@@ -104,7 +104,7 @@ export class MediaSessionService {
 		});
 		try {
 			this.mediaSession.setActionHandler('stop', () => {
-				/* Stop (supported since Chrome 77) */
+				// Stop (supported since Chrome 77)
 				this.publish(MediaSessionEvents.STOP);
 			});
 		} catch {
@@ -112,7 +112,7 @@ export class MediaSessionService {
 		}
 		try {
 			this.mediaSession.setActionHandler('seekto', event => {
-				/* Seek To (supported since Chrome 78) */
+				// Seek To (supported since Chrome 78)
 				this.publish(MediaSessionEvents.SEEK, { fastSeek: event.fastSeek, seekTime: event.seekTime });
 			});
 		} catch {

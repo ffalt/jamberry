@@ -73,7 +73,7 @@ export class TabPortalOutlet {
 		}
 	}
 
-	/** Gets the root HTMLElement for an instantiated component. */
+	// Gets the root HTMLElement for an instantiated component
 	private static getComponentRootNode(componentRef: ComponentRef<unknown>): HTMLElement {
 		return (componentRef.hostView as EmbeddedViewRef<unknown>).rootNodes[0] as HTMLElement;
 	}

@@ -24,12 +24,12 @@ export class ToastComponent {
 	title?: string;
 	options: IndividualConfig;
 	originalTimeout?: number;
-	/** a combination of toast type and options.toastClass */
+	// a combination of toast type and options.toastClass
 	toastClasses = '';
 	readonly duplicatesCount = signal<number | undefined>(undefined);
-	/** width of progress bar */
+	// width of progress bar
 	readonly width = signal(-1);
-	/** controls animation */
+	// controls animation
 	readonly state = signal({
 		value: 'inactive',
 		params: {
@@ -69,7 +69,7 @@ export class ToastComponent {
 		});
 	}
 
-	/** hides component when waiting to be displayed */
+	// hides component when waiting to be displayed
 	get displayStyle(): string {
 		return this.state().value === 'inactive' ? 'none' : 'inherit';
 	}

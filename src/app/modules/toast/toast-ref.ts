@@ -5,19 +5,19 @@ import { type Observable, Subject } from 'rxjs';
  * Reference to a toast opened via the Toastr service.
  */
 export class ToastRef<T> {
-	/** The instance of component opened into the toast. */
+	// The instance of component opened into the toast
 	componentInstance!: T;
-	/** Subject for notifying the user that the toast has finished closing. */
+	// Subject for notifying the user that the toast has finished closing
 	private readonly afterClosedSubj = new Subject<void>();
-	/** triggered when toast is activated */
+	// triggered when toast is activated
 	private readonly activateSubj = new Subject<void>();
-	/** notifies the toast that it should close before the timeout */
+	// notifies the toast that it should close before the timeout
 	private readonly manualCloseSubj = new Subject<void>();
-	/** notifies the toast that it should reset the timeouts */
+	// notifies the toast that it should reset the timeouts
 	private readonly resetTimeoutSubj = new Subject<void>();
-	/** notifies the toast that it should count a duplicate toast */
+	// notifies the toast that it should count a duplicate toast
 	private readonly countDuplicateSubj = new Subject<number>();
-	/** Count of duplicates of this toast */
+	// Count of duplicates of this toast
 	private duplicatesCount = 0;
 	private isActivateCompleted = false;
 
@@ -55,7 +55,7 @@ export class ToastRef<T> {
 		this.countDuplicateSubj.complete();
 	}
 
-	/** Gets an observable that is notified when the toast is finished closing. */
+	// Gets an observable that is notified when the toast is finished closing.
 	afterClosed(): Observable<any> {
 		return this.afterClosedSubj.asObservable();
 	}
@@ -70,12 +70,12 @@ export class ToastRef<T> {
 		this.isActivateCompleted = true;
 	}
 
-	/** Gets an observable that is notified when the toast has started opening. */
+	// Gets an observable that is notified when the toast has started opening.
 	afterActivate(): Observable<any> {
 		return this.activateSubj.asObservable();
 	}
 
-	/** Reset the toast timouts and count duplicates */
+	// Reset the toast timouts and count duplicates
 	onDuplicate(resetTimeout: boolean, countDuplicate: boolean): void {
 		if (resetTimeout) {
 			this.resetTimeoutSubj.next();

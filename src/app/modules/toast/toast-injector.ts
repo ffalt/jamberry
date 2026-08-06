@@ -1,7 +1,7 @@
 import type { Injector, ProviderToken } from '@angular/core';
 import { ToastPackage } from './toast-config';
 
-/** Custom injector type specifically for instantiating components with a toast. */
+// Custom injector type specifically for instantiating components with a toast
 export class ToastInjector implements Injector {
 	constructor(
 		private readonly toastPackage: ToastPackage,
