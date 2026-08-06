@@ -201,7 +201,14 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	private getLoading(): number {
-		return this.soundObject ? (this.soundObject.bytesLoaded ?? 0) : 0;
+		if (!this.soundObject) {
+			return 0;
+		}
+		const total = this.soundObject.bytesTotal ?? 0;
+		if (total === 0) {
+			return 0;
+		}
+		return Math.round(((this.soundObject.bytesLoaded ?? 0) / total) * 100);
 	}
 
 	private publish(event: number, data?: any): void {
