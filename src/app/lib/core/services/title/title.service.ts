@@ -50,7 +50,7 @@ export class TitleService {
 				}
 
 				this.titles.push(this.app.name);
-				if (!this.app.settings.playingTrackInTitle) {
+				if (!this.app.settings.playingTrackInTitle || !this.player.currentTrack) {
 					this.refreshTitle();
 				}
 			});
