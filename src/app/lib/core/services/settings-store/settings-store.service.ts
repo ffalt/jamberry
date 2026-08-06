@@ -27,7 +27,9 @@ export class SettingsStoreService {
 		const load = this.userStorage.get<Settings>(SettingsStoreService.localstorageName);
 		if (load) {
 			for (const key of Object.keys(this.app.settings)) {
-				this.app.settings[key] = load[key];
+				if (Object.hasOwn(load, key)) {
+					this.app.settings[key] = load[key];
+				}
 			}
 			this.setTheme();
 			this.pushNotificationService.enabled = this.app.settings.notificationSong;
