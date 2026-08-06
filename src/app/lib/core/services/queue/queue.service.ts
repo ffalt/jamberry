@@ -138,8 +138,10 @@ export class QueueService {
 		}
 		if (this.currentIndex > 0) {
 			this.currentIndex--;
-		} else {
+		} else if (this.repeatQueue) {
 			this.currentIndex = this.entries.length - 1;
+		} else {
+			return;
 		}
 		return this.entries[this.currentIndex];
 	}
