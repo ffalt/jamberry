@@ -26,10 +26,12 @@ export class MenuService {
 		}
 		setTimeout(() => {
 			if (!instance.contextMenu) {
+				this.cleanUp();
 				return;
 			}
 			const contextMenu = instance.contextMenu();
 			if (!contextMenu) {
+				this.cleanUp();
 				return;
 			}
 			this.contextMenuService.show.next({ contextMenu, event, item, anchorElement: event.target as HTMLElement });
