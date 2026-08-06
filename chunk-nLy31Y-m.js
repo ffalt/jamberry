@@ -1,0 +1,1 @@
+import{Yt as Tr}from"./chunk-BvN4FbyS.js";import{t as i}from"./chunk-Apijea_x.js";var a=(()=>{class t{transform(e){if(e===void 0)return``;let r=Number(e);return Number.isNaN(r)||r<0?``:r===0?`00:00`:i(r)}static{this.ɵfac=function(r){return new(r||t)}}static{this.ɵpipe=Tr({name:`duration`,type:t,pure:!0})}}return t})();export{a as t};

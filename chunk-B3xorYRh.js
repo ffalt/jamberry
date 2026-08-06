@@ -1,0 +1,1 @@
+import{Yt as Tr}from"./chunk-BvN4FbyS.js";var s=(()=>{class t{transform(r){return r===void 0||r.length===0?``:r.map(i=>i.name+(i.joinphrase||` `)).join(``).trim()}static{this.ɵfac=function(i){return new(i||t)}}static{this.ɵpipe=Tr({name:`mbArtistCredits`,type:t,pure:!0})}}return t})();export{s as t};
