@@ -238,6 +238,10 @@ export class IndexService {
 				}
 			})
 			.catch((error: unknown) => {
+				const idx = this.indexes.indexOf(result);
+				if (idx !== -1) {
+					this.indexes.splice(idx, 1);
+				}
 				this.notify.error(error);
 			});
 		return;
