@@ -1,7 +1,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { type ModuleWithProviders, NgModule, type Provider } from '@angular/core';
 
 import { JamAuthService } from './jam.auth.service';
@@ -22,7 +22,7 @@ import { JamFolderService } from './services/jam.folder.service';
 import { JamGenreService } from './services/jam.genre.service';
 import { JamImageService } from './services/jam.image.service';
 import { JamLandscapeService } from './services/jam.landscape.service';
-import { JamMetaDataService } from './services/jam.metadata.service';
+import { JamMetadataService } from './services/jam.metadata.service';
 import { JamNowPlayingService } from './services/jam.nowplaying.service';
 import { JamPingService } from './services/jam.ping.service';
 import { JamPlaylistService } from './services/jam.playlist.service';
@@ -57,7 +57,7 @@ export const jamProviders: Array<Provider> =
 		JamGenreService,
 		JamImageService,
 		JamLandscapeService,
-		JamMetaDataService,
+		JamMetadataService,
 		JamNowPlayingService,
 		JamPingService,
 		JamPlaylistService,
@@ -77,7 +77,7 @@ export const jamProviders: Array<Provider> =
 	];
 
 @NgModule({
-	providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())]
+	providers: [provideHttpClient(withInterceptorsFromDi())]
 })
 export class JamModule {
 	static forRoot(provider: Provider): ModuleWithProviders<JamModule> {

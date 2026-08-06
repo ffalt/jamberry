@@ -19,7 +19,7 @@ import { JamFolderService } from './services/jam.folder.service';
 import { JamGenreService } from './services/jam.genre.service';
 import { JamImageService } from './services/jam.image.service';
 import { JamLandscapeService } from './services/jam.landscape.service';
-import { JamMetaDataService } from './services/jam.metadata.service';
+import { JamMetadataService } from './services/jam.metadata.service';
 import { JamNowPlayingService } from './services/jam.nowplaying.service';
 import { JamPingService } from './services/jam.ping.service';
 import { JamPlaylistService } from './services/jam.playlist.service';
@@ -53,7 +53,7 @@ export class JamService {
 	readonly genre = inject(JamGenreService);
 	readonly image = inject(JamImageService);
 	readonly landscape = inject(JamLandscapeService);
-	readonly metadata = inject(JamMetaDataService);
+	readonly metadata = inject(JamMetadataService);
 	readonly nowplaying = inject(JamNowPlayingService);
 	readonly ping = inject(JamPingService);
 	readonly playlist = inject(JamPlaylistService);

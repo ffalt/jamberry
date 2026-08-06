@@ -1770,6 +1770,8 @@ export declare namespace JamParameters {
 		folderIDs?: Array<string>;
 		/** filter by Bookmark Ids */
 		bookmarkIDs?: Array<string>;
+		/** filter by MusicBrainz Track Ids */
+		mbTrackIDs?: Array<string>;
 		/**
 		 * filter by since year
 		 * @TJS-type integer
