@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.17](https://github.com/ffalt/jamberry/compare/v0.6.16...v0.6.17) (2026-08-06)
+
+### Bug Fixes
+
+* **formatters:** formatFileSize misreports exact power-of-1024 sizes ([9f5d318](https://github.com/ffalt/jamberry/commit/9f5d3186379d70a9666b4529246990540ba472e7))
+* **menu:** add cleanup logic for context menu visibility checks ([478372f](https://github.com/ffalt/jamberry/commit/478372face9ac6b23c647b626bd22da1b0433d1c))
+* **playlist:** update removeFromPlaylist to handle asynchronous entry retrieval ([bb6d994](https://github.com/ffalt/jamberry/commit/bb6d9943fe77795c53250894a748eab62eccdcc1))
+* **queue:** adjust currentIndex handling when removing track ([9c7b309](https://github.com/ffalt/jamberry/commit/9c7b3097b27538bc7d908672b846d29b450a4b19))
+* **queue:** handle currentIndex decrement with repeatQueue condition ([8934305](https://github.com/ffalt/jamberry/commit/8934305995b04fc0957e8e335217217ca1cd8ac5))
+* **service:** better error handling in HTTP response ([5fc6979](https://github.com/ffalt/jamberry/commit/5fc6979bbc76ae35363136aede080b2a122c5e6b))
+* **service:** remove index entry cache on error ([0978c43](https://github.com/ffalt/jamberry/commit/0978c43d382491b9722b24397454d71feda8168d))
+* **settings:** stored settings overwrite defaults with undefined ([d20f9a0](https://github.com/ffalt/jamberry/commit/d20f9a0cbdd3c8634233a95326258d198122c0bf))
+* **soundmanager:** improve loading percentage calculation for soundObject ([05c1f55](https://github.com/ffalt/jamberry/commit/05c1f55758946cc0d5688fe746a4120ef1c07338))
+* **title:** update title refresh logic to account for currentTrack presence ([f09566c](https://github.com/ffalt/jamberry/commit/f09566c218dffb432f9a0b19fcad530a9edfe747))
 ## [0.6.16](https://github.com/ffalt/jamberry/compare/v0.6.15...v0.6.16) (2026-07-05)
 
 ## [0.6.15](https://github.com/ffalt/jamberry/compare/v0.6.14...v0.6.15) (2026-07-04)
