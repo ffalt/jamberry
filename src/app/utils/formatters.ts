@@ -50,7 +50,7 @@ export function formatFileSize(value?: number | string): string {
 	do {
 		val /= 1024;
 		i++;
-	} while (val > 1024);
+	} while (val >= 1024);
 
 	return Math.max(val, 0.1).toFixed(1) + byteUnits[i];
 }
