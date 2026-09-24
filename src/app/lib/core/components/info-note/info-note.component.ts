@@ -2,10 +2,7 @@ import { Component, input, type OnChanges } from '@angular/core';
 import type { Jam } from '@jam';
 
 function splitLines(text: string): Array<string> {
-	if (!text) {
-		return [];
-	}
-	return text.split('\n').filter(s => s.trim().length > 0);
+	return text ? text.split('\n').filter(s => s.trim().length > 0) : [];
 }
 
 @Component({

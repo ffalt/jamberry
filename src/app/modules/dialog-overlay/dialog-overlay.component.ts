@@ -29,10 +29,12 @@ export class DialogOverlayComponent implements OnInit {
 
 	ngOnInit(): void {
 		const dynamicComponentTarget = this.dynamicComponentTarget();
-		if (dynamicComponentTarget && this.config.childComponent) {
-			this.childComponentRef = dynamicComponentTarget.createComponent(this.config.childComponent);
-			this.childComponentRef.instance.dialogInit(this.dialogRef, this.config);
+		if (!(dynamicComponentTarget && this.config.childComponent)) {
+			return;
 		}
+
+		this.childComponentRef = dynamicComponentTarget.createComponent(this.config.childComponent);
+		this.childComponentRef.instance.dialogInit(this.dialogRef, this.config);
 	}
 
 	getResult(): boolean | undefined {

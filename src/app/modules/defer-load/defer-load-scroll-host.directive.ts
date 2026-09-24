@@ -18,11 +18,13 @@ export class DeferLoadScrollHostDirective implements OnChanges {
 		}
 
 		const o = changes.scrollTo.currentValue;
-		if (o.id && o.id.length > 0) {
-			const elm = document.getElementById(o.id);
-			if (elm) {
-				this.element.nativeElement.scrollTop = elm.offsetTop - elm.offsetHeight;
-			}
+		if (!o.id) {
+			return;
+		}
+
+		const elm = document.getElementById(o.id);
+		if (elm) {
+			this.element.nativeElement.scrollTop = elm.offsetTop - elm.offsetHeight;
 		}
 	}
 

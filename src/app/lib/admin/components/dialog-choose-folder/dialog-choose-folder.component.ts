@@ -28,11 +28,13 @@ export class DialogChooseFolderComponent implements DialogOverlay<SelectFolder> 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<SelectFolder>>): void {
 		this.data = options.data;
 		const tree = this.tree();
-		if (tree) {
-			tree.refresh();
-			if (this.data?.selectID) {
-				tree.selectFolderByID(this.data.selectID);
-			}
+		if (!tree) {
+			return;
+		}
+
+		tree.refresh();
+		if (this.data?.selectID) {
+			tree.selectFolderByID(this.data.selectID);
 		}
 	}
 }

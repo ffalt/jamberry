@@ -215,14 +215,16 @@ export class ContextMenuService {
 
 	destroySubMenus(contextMenu: ContextMenuContentComponent): void {
 		const overlay = contextMenu.overlay();
-		if (overlay) {
-			const index = this.overlays.indexOf(overlay);
-			const list = this.overlays.slice(index + 1);
-			for (const subMenuOverlay of list) {
-				subMenuOverlay.detach();
-				subMenuOverlay.dispose();
-			}
-			this.overlays = this.overlays.slice(0, index + 1);
+		if (!overlay) {
+			return;
 		}
+
+		const index = this.overlays.indexOf(overlay);
+		const list = this.overlays.slice(index + 1);
+		for (const subMenuOverlay of list) {
+			subMenuOverlay.detach();
+			subMenuOverlay.dispose();
+		}
+		this.overlays = this.overlays.slice(0, index + 1);
 	}
 }

@@ -287,10 +287,12 @@ export class TagEditorComponent implements ComponentCanDeactivate {
 			}
 		}
 		const tracks = this.tracks();
-		if (tracks) {
-			this.editor.build(tracks);
-			this.applyMatchingTracks(matching);
+		if (!tracks) {
+			return;
 		}
+
+		this.editor.build(tracks);
+		this.applyMatchingTracks(matching);
 	}
 
 	private applyMatchingTracks(matching: ReleaseMatching) {
@@ -303,12 +305,14 @@ export class TagEditorComponent implements ComponentCanDeactivate {
 
 	private applyMatchingTrack(match: ReleaseDataMatching) {
 		const edit = this.editor.edits.find(e => e.track === match.track);
-		if (edit) {
-			edit.changed = true;
-			for (const cell of edit.cells) {
-				if (cell.column.def.id !== FilenameColumnID) {
-					cell.changed = true;
-				}
+		if (!edit) {
+			return;
+		}
+
+		edit.changed = true;
+		for (const cell of edit.cells) {
+			if (cell.column.def.id !== FilenameColumnID) {
+				cell.changed = true;
 			}
 		}
 	}
@@ -316,13 +320,14 @@ export class TagEditorComponent implements ComponentCanDeactivate {
 	private onCellEditorNavigationKeyDownLeftRight(data: { cell: RawTagEditCell<any>; event: KeyboardEvent }) {
 		const nextIndex = data.cell.parent.cells.indexOf(data.cell) + (isRightArrowKey(data.event) ? 1 : -1);
 		const nextcell = nextIndex >= 0 ? data.cell.parent.cells.at(nextIndex) : undefined;
-		if (nextcell) {
-			const nexteditor = this.cellEditors().find(editor => editor.cell() === nextcell);
-			if (nexteditor) {
-				setTimeout(() => {
-					nexteditor.navigTo();
-				}, 0);
-			}
+		if (!nextcell) {
+			return;
+		}
+		const nexteditor = this.cellEditors().find(editor => editor.cell() === nextcell);
+		if (nexteditor) {
+			setTimeout(() => {
+				nexteditor.navigTo();
+			}, 0);
 		}
 	}
 
@@ -330,16 +335,18 @@ export class TagEditorComponent implements ComponentCanDeactivate {
 		const rowIndex = this.editor.edits.indexOf(data.cell.parent);
 		const nextRowIndex = rowIndex + (isDownArrowKey(data.event) ? 1 : -1);
 		const nextrow = nextRowIndex >= 0 ? this.editor.edits.at(nextRowIndex) : undefined;
-		if (nextrow) {
-			const nextcell = nextrow.cells.at(data.cell.parent.cells.indexOf(data.cell));
-			if (nextcell) {
-				const nexteditor = this.cellEditors().find(editor => editor.cell() === nextcell);
-				if (nexteditor) {
-					setTimeout(() => {
-						nexteditor.navigTo();
-					}, 0);
-				}
-			}
+		if (!nextrow) {
+			return;
+		}
+		const nextcell = nextrow.cells.at(data.cell.parent.cells.indexOf(data.cell));
+		if (!nextcell) {
+			return;
+		}
+		const nexteditor = this.cellEditors().find(editor => editor.cell() === nextcell);
+		if (nexteditor) {
+			setTimeout(() => {
+				nexteditor.navigTo();
+			}, 0);
 		}
 	}
 

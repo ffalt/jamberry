@@ -42,20 +42,24 @@ export class TabPortalOutlet {
 		const element = this.outletElement.element.nativeElement as HTMLElement;
 		// Clear element content safely without using innerHTML
 		element.replaceChildren();
-		if (instance) {
-			element.append(TabPortalOutlet.getComponentRootNode(instance.componentRef));
-			this.curTab = instance;
-			instance.componentRef.instance.onActivate();
+		if (!instance) {
+			return;
 		}
+
+		element.append(TabPortalOutlet.getComponentRootNode(instance.componentRef));
+		this.curTab = instance;
+		instance.componentRef.instance.onActivate();
 	}
 
 	detach(): void {
 		const current = this.curTab;
-		if (current !== undefined) {
-			// eslint-disable-next-line unicorn/no-null
-			current.portal.setAttachedHost(null);
-			this.curTab = undefined;
+		if (current === undefined) {
+			return;
 		}
+
+		// eslint-disable-next-line unicorn/no-null
+		current.portal.setAttachedHost(null);
+		this.curTab = undefined;
 	}
 
 	/**

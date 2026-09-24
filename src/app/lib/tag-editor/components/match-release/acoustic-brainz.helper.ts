@@ -63,8 +63,7 @@ export class AcousticBrainzHelper {
 	private static determineCategory(key: string): string {
 		if (this.CATEGORY_MAPPINGS.mood(key)) return 'moods';
 		if (this.CATEGORY_MAPPINGS.genre(key)) return 'genres';
-		if (this.CATEGORY_MAPPINGS.tonal(key)) return 'tonal';
-		return 'other';
+		return this.CATEGORY_MAPPINGS.tonal(key) ? 'tonal' : 'other';
 	}
 
 	private static addToCategory(value: string, category: string, categories: AcousticBrainzCategories): void {

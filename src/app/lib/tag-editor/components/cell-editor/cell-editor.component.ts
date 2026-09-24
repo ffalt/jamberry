@@ -109,13 +109,7 @@ export class CellEditorComponent extends CellEditor {
 		if (v.guid !== undefined) {
 			return v.guid;
 		}
-		if (v.num !== undefined) {
-			return String(v.num);
-		}
-		if (v.text !== undefined) {
-			return v.text;
-		}
-		return `Binary ${v.bin?.length ?? 0} bytes`;
+		return v.num === undefined ? v.text ?? `Binary ${v.bin?.length ?? 0} bytes` : String(v.num);
 	}
 
 	private static langDescFrameToString(frame: Jam.MediaTagRawFrameLangDescText): string {
@@ -186,19 +180,21 @@ export class CellEditorComponent extends CellEditor {
 		this.inactive.set(false);
 		setTimeout(() => {
 			this.createComponent(type);
-			if (this.componentRef) {
-				this.componentRef.instance.cell = this.cell();
-				this.componentRef.instance.changeCell(this.cell());
-				this.componentRef.instance.navigBlur.pipe(takeUntilDestroyed(this.lifeRef))
-					.subscribe(() => {
-						this.clearEdit();
-						this.inactive.set(true);
-					});
-				this.componentRef.instance.navigChange.pipe(takeUntilDestroyed(this.lifeRef))
-					.subscribe(() => {
-						this.setChanged();
-					});
+			if (!this.componentRef) {
+				return;
 			}
+
+			this.componentRef.instance.cell = this.cell();
+			this.componentRef.instance.changeCell(this.cell());
+			this.componentRef.instance.navigBlur.pipe(takeUntilDestroyed(this.lifeRef))
+				.subscribe(() => {
+					this.clearEdit();
+					this.inactive.set(true);
+				});
+			this.componentRef.instance.navigChange.pipe(takeUntilDestroyed(this.lifeRef))
+				.subscribe(() => {
+					this.setChanged();
+				});
 		}, 0);
 	}
 
@@ -222,75 +218,85 @@ export class CellEditorComponent extends CellEditor {
 
 	private editBool(): void {
 		const cell: RawTagEditCell<{ bool: boolean }> | undefined = this.cell();
-		if (cell) {
-			if (cell.frames.length === 0) {
-				cell.frames.push({ id: cell.column.def.id, value: { bool: false } });
-			}
-			cell.frames[0].value.bool = !cell.frames[0].value.bool;
-			this.setChanged();
+		if (!cell) {
+			return;
 		}
+
+		if (cell.frames.length === 0) {
+			cell.frames.push({ id: cell.column.def.id, value: { bool: false } });
+		}
+		cell.frames[0].value.bool = !cell.frames[0].value.bool;
+		this.setChanged();
 	}
 
 	private setChanged(): void {
 		const cell = this.cell();
-		if (cell) {
-			cell.changed = true;
-			cell.parent.changed = true;
-			this.display();
+		if (!cell) {
+			return;
 		}
+
+		cell.changed = true;
+		cell.parent.changed = true;
+		this.display();
 	}
 
 	private editPictures(): void {
 		const cell = this.cell();
-		if (cell) {
-			const data: PicEdit = { frames: cell.frames };
-			this.dialogOverlay.open<PicEdit>({
-				childComponent: DialogTagImageComponent,
-				title: 'Tag Pictures',
-				data,
-				onOkBtn: async () => {
-					cell.frames = (data.result ?? []) as Array<RawTagEditFrame<any>>;
-					this.setChanged();
-					return Promise.resolve();
-				},
-				onCancelBtn: async () => Promise.resolve()
-			});
+		if (!cell) {
+			return;
 		}
+
+		const data: PicEdit = { frames: cell.frames };
+		this.dialogOverlay.open<PicEdit>({
+			childComponent: DialogTagImageComponent,
+			title: 'Tag Pictures',
+			data,
+			onOkBtn: async () => {
+				cell.frames = (data.result ?? []) as Array<RawTagEditFrame<any>>;
+				this.setChanged();
+				return Promise.resolve();
+			},
+			onCancelBtn: async () => Promise.resolve()
+		});
 	}
 
 	private editMusicCDId(): void {
 		const cell = this.cell();
-		if (cell) {
-			const data: McdiEdit = { frames: cell.frames };
-			this.dialogOverlay.open<McdiEdit>({
-				childComponent: DialogTagMcdiComponent,
-				title: 'Music CD Identifier',
-				data,
-				onOkBtn: async () => Promise.resolve(),
-				onCancelBtn: async () => Promise.resolve()
-			});
+		if (!cell) {
+			return;
 		}
+
+		const data: McdiEdit = { frames: cell.frames };
+		this.dialogOverlay.open<McdiEdit>({
+			childComponent: DialogTagMcdiComponent,
+			title: 'Music CD Identifier',
+			data,
+			onOkBtn: async () => Promise.resolve(),
+			onCancelBtn: async () => Promise.resolve()
+		});
 	}
 
 	private editLyrics(): void {
 		const cell = this.cell();
-		if (cell) {
-			const data: LyricsEdit = { frames: cell.frames };
-			this.dialogOverlay.open<LyricsEdit>({
-				childComponent: DialogTagLyricsComponent,
-				title: 'Tag Lyrics',
-				data,
-				panelClass: 'overlay-panel-large-buttons',
-				onOkBtn: async () => {
-					cell.frames = data.result ?
-						data.result.filter(f => f.value.text.length > 0) as Array<RawTagEditFrame<any>> :
-						[];
-					this.setChanged();
-					return Promise.resolve();
-				},
-				onCancelBtn: async () => Promise.resolve()
-			});
+		if (!cell) {
+			return;
 		}
+
+		const data: LyricsEdit = { frames: cell.frames };
+		this.dialogOverlay.open<LyricsEdit>({
+			childComponent: DialogTagLyricsComponent,
+			title: 'Tag Lyrics',
+			data,
+			panelClass: 'overlay-panel-large-buttons',
+			onOkBtn: async () => {
+				cell.frames = data.result ?
+					data.result.filter(f => f.value.text.length > 0) as Array<RawTagEditFrame<any>> :
+					[];
+				this.setChanged();
+				return Promise.resolve();
+			},
+			onCancelBtn: async () => Promise.resolve()
+		});
 	}
 
 	private display(): void {

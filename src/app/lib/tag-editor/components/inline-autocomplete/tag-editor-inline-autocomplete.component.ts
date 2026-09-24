@@ -89,10 +89,7 @@ export class TagEditorInlineAutocompleteComponent implements ControlValueAccesso
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption<string>>> {
-		if (query.length === 0) {
-			return this.list.map(data => ({ data }));
-		}
-		return this.list.filter(data => data.includes(query)).map(data => ({ data }));
+		return query.length === 0 ? this.list.map(data => ({ data })) : this.list.filter(data => data.includes(query)).map(data => ({ data }));
 	}
 
 	autocompleteSelectResult(result: AutocompleteOption<string>): string {

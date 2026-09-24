@@ -11,9 +11,6 @@ export class DurationPipe implements PipeTransform {
 		if (Number.isNaN(parsedValue) || parsedValue < 0) {
 			return '';
 		}
-		if (parsedValue === 0) {
-			return '00:00';
-		}
-		return formatDuration(parsedValue);
+		return parsedValue === 0 ? '00:00' : formatDuration(parsedValue);
 	}
 }

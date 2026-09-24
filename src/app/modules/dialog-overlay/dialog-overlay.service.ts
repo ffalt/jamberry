@@ -17,11 +17,7 @@ export class PortalInjector<T> implements Injector {
 	get(token: ProviderToken<T>, notFoundValue: undefined): T {
 		const value = this.customTokens.get(token);
 
-		if (value !== undefined && value !== null) {
-			return value;
-		}
-
-		return this.parentInjector.get<T>(token, notFoundValue);
+		return value ?? this.parentInjector.get<T>(token, notFoundValue);
 	}
 }
 

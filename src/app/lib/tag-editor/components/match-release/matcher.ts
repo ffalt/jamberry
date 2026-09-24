@@ -137,13 +137,14 @@ export class Matcher {
 				this.manualSearchData.artist = list[0];
 			}
 		}
-		if (this.manualSearchData.releaseGroup.length === 0) {
-			const list = this.manualSearchData.getAutoCompleteAlbumList();
-			if (list.length > 0) {
-				this.manualSearchData.releaseGroup = list[0];
-			} else if (this.folder) {
-				this.manualSearchData.releaseGroup = this.folder.name;
-			}
+		if (this.manualSearchData.releaseGroup.length !== 0) {
+			return;
+		}
+		const list = this.manualSearchData.getAutoCompleteAlbumList();
+		if (list.length > 0) {
+			this.manualSearchData.releaseGroup = list[0];
+		} else if (this.folder) {
+			this.manualSearchData.releaseGroup = this.folder.name;
 		}
 	}
 
@@ -188,10 +189,11 @@ export class Matcher {
 		if (this.manualSearchData.releaseGroup && this.manualSearchData.releaseGroup.trim().length > 0) {
 			q.releasegroup = this.manualSearchData.releaseGroup;
 		}
-		if (Object.keys(q).length > 1) {
-			const query = new MusicbrainzSearchQuery(q);
-			await this.runQuery(query, []);
+		if (Object.keys(q).length <= 1) {
+			return;
 		}
+		const query = new MusicbrainzSearchQuery(q);
+		await this.runQuery(query, []);
 	}
 
 	setRelease(group: MatchReleaseGroup, release: MatchRelease): void {
@@ -353,10 +355,7 @@ export class Matcher {
 		this.currentAction = `Loading MusicBrainz Release: ${releaseID}`;
 		const data = await this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.release, mbID: releaseID });
 		const res = data.data as MusicBrainz.Response;
-		if (!res.release) {
-			return Promise.reject(new Error('Got empty data'));
-		}
-		return this.addReleaseGroupByID(res.release.releaseGroup.id);
+		return res.release ? this.addReleaseGroupByID(res.release.releaseGroup.id) : Promise.reject(new Error('Got empty data'));
 	}
 
 	private async addReleaseGroupByID(releasegroupID: string): Promise<MatchReleaseGroup> {
@@ -385,10 +384,7 @@ export class Matcher {
 		const releases = rg.releases.toSorted((a, b) => {
 			const resA = Math.abs((a.totalTrack ?? 0) - this.matchings.length);
 			const resB = Math.abs((b.totalTrack ?? 0) - this.matchings.length);
-			if (resA === resB) {
-				return a.sortDate - b.sortDate;
-			}
-			return resA - resB;
+			return resA === resB ? a.sortDate - b.sortDate : resA - resB;
 		});
 		for (const rel of releases) {
 			if (this.shouldStop()) {
@@ -400,10 +396,12 @@ export class Matcher {
 				return;
 			}
 		}
-		if (rg.releases.length > 0) {
-			await this.loadRelease(rg.releases[0]);
-			rg.currentRelease = rg.releases[0];
+		if (!(rg.releases.length > 0)) {
+			return;
 		}
+
+		await this.loadRelease(rg.releases[0]);
+		rg.currentRelease = rg.releases[0];
 	}
 
 	private async loadByReleaseGroups(releaseGroups: Array<MusicBrainz.ReleaseGroup>): Promise<void> {

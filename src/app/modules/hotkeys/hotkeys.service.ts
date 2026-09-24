@@ -72,10 +72,7 @@ export class HotkeysService {
 		if (!combo) {
 			return this.hotkeys;
 		}
-		if (Array.isArray(combo)) {
-			return Array.from(combo, key => (this.get(key) as Hotkey));
-		}
-		return this.hotkeys.find(hotk => hotk.combo.includes(combo));
+		return Array.isArray(combo) ? Array.from(combo, key => (this.get(key) as Hotkey)) : this.hotkeys.find(hotk => hotk.combo.includes(combo));
 	}
 
 	pause(hotkey?: HotkeyLike): HotkeyLike {

@@ -119,10 +119,7 @@ export class LoginComponent implements OnInit {
 		try {
 			const urlObj = new URL(url);
 			// Only allow http and https protocols
-			if (urlObj.protocol !== 'http:' && urlObj.protocol !== 'https:') {
-				return false;
-			}
-			return !!urlObj.hostname;
+			return (urlObj.protocol === 'http:' || urlObj.protocol === 'https:') && !!urlObj.hostname;
 		} catch {
 			return false;
 		}

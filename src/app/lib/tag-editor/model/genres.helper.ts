@@ -162,15 +162,9 @@ function getLastFMGenres(tags?: Array<LastFM.Tag>): Array<GenreTag> {
 }
 
 export function getLastFMAlbumGenres(album: LastFM.Album): Array<GenreTag> {
-	if (!album.tags) {
-		return [];
-	}
-	return getLastFMGenres(album.tags);
+	return album.tags ? getLastFMGenres(album.tags) : [];
 }
 
 export function getLastFMArtistGenres(artist?: LastFM.Artist): Array<GenreTag> {
-	if (!artist) {
-		return [];
-	}
-	return getLastFMGenres(artist.tags);
+	return artist ? getLastFMGenres(artist.tags) : [];
 }

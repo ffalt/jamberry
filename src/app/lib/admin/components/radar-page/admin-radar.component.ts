@@ -121,13 +121,15 @@ export class AdminRadarComponent {
 	loadFromStorage(): void {
 		const o = this.userStorage.get<{ folderID: string }>(AdminRadarComponent.localStorageName);
 		const folders = this.folders();
-		if (folders && o?.folderID) {
-			const pos = folders.findIndex(f => f.id === o.folderID);
-			if (pos !== -1) {
-				this.current.set({ folder: folders[pos], pos });
-				this.refresh(pos, false);
-			}
+		if (!(folders && o?.folderID)) {
+			return;
 		}
+		const pos = folders.findIndex(f => f.id === o.folderID);
+		if (pos === -1) {
+			return;
+		}
+		this.current.set({ folder: folders[pos], pos });
+		this.refresh(pos, false);
 	}
 
 	loadFolders(): void {

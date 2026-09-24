@@ -20,13 +20,15 @@ export class DialogTagLyricsComponent implements DialogOverlay<LyricsEdit> {
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<LyricsEdit>>): void {
 		this.edit = options.data;
-		if (this.edit) {
-			this.edit.result = this.edit.frames.map(frame => ({ id: frame.id, value: { ...frame.value } }));
-			if (this.edit.result.length === 0) {
-				const frame = { id: 'USLT', value: { id: '', language: '', text: '' } };
-				this.edit.result.push(frame);
-			}
-			this.currentLyrics = this.edit.result[0];
+		if (!this.edit) {
+			return;
 		}
+
+		this.edit.result = this.edit.frames.map(frame => ({ id: frame.id, value: { ...frame.value } }));
+		if (this.edit.result.length === 0) {
+			const frame = { id: 'USLT', value: { id: '', language: '', text: '' } };
+			this.edit.result.push(frame);
+		}
+		this.currentLyrics = this.edit.result[0];
 	}
 }

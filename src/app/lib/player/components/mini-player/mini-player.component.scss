@@ -44,10 +44,7 @@
 	.buttons {
 		display: flex;
 		flex-direction: row;
-		padding-top: 8px;
-		padding-bottom: 4px;
-		padding-left: variables.$padding;
-		padding-right: variables.$padding;
+		padding: 8px variables.$padding 4px variables.$padding;
 
 		> div {
 			display: flex;

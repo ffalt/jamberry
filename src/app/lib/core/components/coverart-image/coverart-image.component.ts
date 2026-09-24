@@ -83,28 +83,31 @@ export class CoverartImageComponent implements OnChanges, AfterContentInit {
 
 	showImageOverlay(event: MouseEvent): void {
 		const coverArtObj = this.coverArtObj();
-		if (coverArtObj && this.allowEnlarge()) {
-			event.stopPropagation();
-			this.dialogOverlay.open<{ name: string; url: string }>({
-				childComponent: ImageOverlayContentComponent,
-				title: coverArtObj.name,
-				data: {
-					name: coverArtObj.name,
-					url: this.jam.image.imageUrl({ id: coverArtObj.id })
-				}
-			});
+		if (!(coverArtObj && this.allowEnlarge())) {
+			return;
 		}
+
+		event.stopPropagation();
+		this.dialogOverlay.open<{ name: string; url: string }>({
+			childComponent: ImageOverlayContentComponent,
+			title: coverArtObj.name,
+			data: {
+				name: coverArtObj.name,
+				url: this.jam.image.imageUrl({ id: coverArtObj.id })
+			}
+		});
 	}
 
 	private buildUrl(): void {
 		const coverArtObj = this.coverArtObj();
-		if (coverArtObj) {
-			let url = this.jam.image.imageUrl({ id: coverArtObj.id, size: this.size(), format: ImageFormatType.webp });
-			const refreshRandom = this.refreshRandom();
-			if (refreshRandom) {
-				url += `${url.includes('?') ? '&' : '?'}refresh=${refreshRandom}`;
-			}
-			this.imageSrc = url;
+		if (!coverArtObj) {
+			return;
 		}
+		let url = this.jam.image.imageUrl({ id: coverArtObj.id, size: this.size(), format: ImageFormatType.webp });
+		const refreshRandom = this.refreshRandom();
+		if (refreshRandom) {
+			url += `${url.includes('?') ? '&' : '?'}refresh=${refreshRandom}`;
+		}
+		this.imageSrc = url;
 	}
 }

@@ -121,19 +121,21 @@ export class MatchingTrack {
 
 	private scoreTitle(match: Matching, scores: Array<Score>): void {
 		const title = match.track.tag?.title ?? stripExtension(match.track.name);
-		if (title && title.trim().length > 0) {
-			const toSlug = this.mbTrack.title.length > 0 ? this.mbTrack.title : (this.mbTrack.recording?.title ?? 'Unknown');
-			const titles = [slugify(toSlug)];
-			const list = this.mbTrack.recording?.aliases ?? [];
-			for (const alias of list) {
-				const aliasTitle = slugify(alias.name);
-				titles.push(aliasTitle);
-			}
-			const scoredTitles = titles.map(t =>
-				({ title: t, score: fuzzyMatch(title, t) })).toSorted((a, b) => b.score - a.score);
-			if (scoredTitles.length > 0) {
-				scores.push({ name: 'title', score: scoredTitles[0].score, weight: 1 });
-			}
+		if (!title || title.trim().length === 0) {
+			return;
+		}
+
+		const toSlug = this.mbTrack.title.length > 0 ? this.mbTrack.title : (this.mbTrack.recording?.title ?? 'Unknown');
+		const titles = [slugify(toSlug)];
+		const list = this.mbTrack.recording?.aliases ?? [];
+		for (const alias of list) {
+			const aliasTitle = slugify(alias.name);
+			titles.push(aliasTitle);
+		}
+		const scoredTitles = titles.map(t =>
+			({ title: t, score: fuzzyMatch(title, t) })).toSorted((a, b) => b.score - a.score);
+		if (scoredTitles.length > 0) {
+			scores.push({ name: 'title', score: scoredTitles[0].score, weight: 1 });
 		}
 	}
 }

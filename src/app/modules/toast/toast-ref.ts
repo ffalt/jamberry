@@ -80,9 +80,11 @@ export class ToastRef<T> {
 		if (resetTimeout) {
 			this.resetTimeoutSubj.next();
 		}
-		if (countDuplicate) {
-			this.duplicatesCount++;
-			this.countDuplicateSubj.next(this.duplicatesCount);
+		if (!countDuplicate) {
+			return;
 		}
+
+		this.duplicatesCount++;
+		this.countDuplicateSubj.next(this.duplicatesCount);
 	}
 }

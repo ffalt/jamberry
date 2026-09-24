@@ -39,16 +39,18 @@ export class TagEditor {
 				frames = [{ id: cell.column.def.id, value: { text } }];
 			}
 		}
-		if (cell.frames.length === 0 || cell.frames[0].value.text !== text) {
-			edit.cells[index] = {
-				parent: edit,
-				track: cell.track,
-				column,
-				frames,
-				changed: true
-			};
-			edit.changed = true;
+		if (cell.frames.length !== 0 && cell.frames[0].value.text === text) {
+			return;
 		}
+
+		edit.cells[index] = {
+			parent: edit,
+			track: cell.track,
+			column,
+			frames,
+			changed: true
+		};
+		edit.changed = true;
 	}
 
 	setColumnTrackNrFromFile(column: RawTagEditColumn): void {
@@ -318,32 +320,31 @@ export class TagEditor {
 
 	upgradeTrackTag(track: Jam.Track): void {
 		const raw = track.tagRaw;
-		if (raw?.version === undefined) {
+		if (raw?.version === undefined || raw.version >= 4) {
 			return;
 		}
-		if (raw.version < 4) {
-			let frames: Array<Jam.MediaTagRawFrame> = TagEditor.getRawTagFrames(raw);
-			const newTag: { version: number; frames: { [key: string]: Array<Jam.MediaTagRawFrame> | undefined } } = {
-				version: 4,
-				frames: {}
-			};
-			const dates = this.upgradeDateFramesTov24Date(frames);
-			if (dates) {
-				frames = frames.filter(frame => !dates.dateFrames.includes(frame));
-				frames.push(dates.newFrame);
-			}
-			for (const frame of frames) {
-				const id = this.ensureID3v2FrameVersionDef(frame.id, 4);
-				if (id) {
-					frame.id = id;
-					newTag.frames[id] ??= [];
-					newTag.frames[id].push(frame);
-				} else {
-					console.error('upgradeTrackTag', 'missing id3v2 update', frame.id, '=>', id);
-				}
-			}
-			track.tagRaw = newTag;
+
+		let frames: Array<Jam.MediaTagRawFrame> = TagEditor.getRawTagFrames(raw);
+		const newTag: { version: number; frames: { [key: string]: Array<Jam.MediaTagRawFrame> | undefined } } = {
+			version: 4,
+			frames: {}
+		};
+		const dates = this.upgradeDateFramesTov24Date(frames);
+		if (dates) {
+			frames = frames.filter(frame => !dates.dateFrames.includes(frame));
+			frames.push(dates.newFrame);
 		}
+		for (const frame of frames) {
+			const id = this.ensureID3v2FrameVersionDef(frame.id, 4);
+			if (id) {
+				frame.id = id;
+				newTag.frames[id] ??= [];
+				newTag.frames[id].push(frame);
+			} else {
+				console.error('upgradeTrackTag', 'missing id3v2 update', frame.id, '=>', id);
+			}
+		}
+		track.tagRaw = newTag;
 	}
 
 	ensureID3v2FrameVersionDef(id: string, dest: number): string | undefined {
@@ -489,10 +490,7 @@ export class TagEditor {
 	}
 
 	private static matchColumn(frame: { id: string; value?: { id?: string } }, column: { id: string; subid?: string }): boolean {
-		if (column.subid && (!frame.value?.id || frame.value.id !== column.subid)) {
-			return false;
-		}
-		return (frame.id === column.id);
+		return frame.id === column.id && (!column.subid || frame.value?.id === column.subid);
 	}
 
 	private getAutoCompleteList(column: RawTagEditColumn, cell?: RawTagEditCell<any>): Array<string> {
@@ -775,10 +773,7 @@ export class TagEditor {
 			if (a.sort < 0) {
 				return 1;
 			}
-			if (b.sort < 0) {
-				return -1;
-			}
-			return a.sort - b.sort;
+			return b.sort < 0 ? -1 : a.sort - b.sort;
 		});
 		const fillColumns = (
 			track: Jam.Track,

@@ -241,9 +241,9 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 
 	private buildFilterParams(): JamParameters.LandscapeParameters {
 		return {
-			ignoreUnknownGenres: this.filterIgnoreUnknownGenres() ? true : undefined,
-			artistsWithAlbumsOnly: this.filterArtistsWithAlbumsOnly() ? true : undefined,
-			ignoreUnpositionedArtists: this.filterIgnoreUnpositionedArtists() ? true : undefined,
+			ignoreUnknownGenres: this.filterIgnoreUnknownGenres() || undefined,
+			artistsWithAlbumsOnly: this.filterArtistsWithAlbumsOnly() || undefined,
+			ignoreUnpositionedArtists: this.filterIgnoreUnpositionedArtists() || undefined,
 			minGenreTrackCount: this.filterMinGenreTrackCount() > 0 ? this.filterMinGenreTrackCount() : undefined,
 			minGenreArtistCount: this.filterMinGenreArtistCount() > 0 ? this.filterMinGenreArtistCount() : undefined,
 			minArtistTrackCount: this.filterMinArtistTrackCount() > 0 ? this.filterMinArtistTrackCount() : undefined

@@ -23,11 +23,13 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 
 	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PicEdit>>): void {
 		this.edit = options.data;
-		if (this.edit) {
-			this.edit.result = this.edit.frames.map(frame => ({ id: frame.id, value: { ...frame.value } }));
-			if (this.edit.result.length > 0) {
-				this.displayFrame(this.edit.result[0]);
-			}
+		if (!this.edit) {
+			return;
+		}
+
+		this.edit.result = this.edit.frames.map(frame => ({ id: frame.id, value: { ...frame.value } }));
+		if (this.edit.result.length > 0) {
+			this.displayFrame(this.edit.result[0]);
 		}
 	}
 

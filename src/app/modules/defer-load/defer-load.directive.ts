@@ -75,13 +75,15 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 			return;
 		}
 		this.intersectionObserver = this.deferLoadService.getObserver();
-		if (this.elementRef.nativeElement) {
-			this.intersectionObserver.observe(this.elementRef.nativeElement as Element);
-			this.observeSubscription = this.deferLoadService.observeNotify
-				.subscribe((entries: Array<IntersectionObserverEntry>) => {
-					this.checkForIntersection(entries);
-				});
+		if (!this.elementRef.nativeElement) {
+			return;
 		}
+
+		this.intersectionObserver.observe(this.elementRef.nativeElement as Element);
+		this.observeSubscription = this.deferLoadService.observeNotify
+			.subscribe((entries: Array<IntersectionObserverEntry>) => {
+				this.checkForIntersection(entries);
+			});
 	}
 
 	private checkForIntersection(entries: Array<IntersectionObserverEntry>): void {
@@ -95,10 +97,7 @@ export class DeferLoadDirective implements AfterViewInit, OnDestroy {
 	private checkIfIntersecting(entry: IntersectionObserverEntry): boolean {
 		// For Samsung native browser, IO has been partially implemented where by the
 		// callback fires, but entry object is empty. We will check manually.
-		if (entry.time) {
-			return entry.isIntersecting;
-		}
-		return this.isVisible();
+		return entry.time ? entry.isIntersecting : this.isVisible();
 	}
 
 	private load(): void {

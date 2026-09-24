@@ -53,10 +53,12 @@ export class ObjPageComponent {
 
 	display(obj?: JamLibraryObject): void {
 		this.obj.set(obj);
-		if (obj) {
-			this.infos.set(obj.getInfos());
-			this.tabs.set(this.type?.id ? this.library.buildIDTabs(this.type.id, obj.id) : []);
+		if (!obj) {
+			return;
 		}
+
+		this.infos.set(obj.getInfos());
+		this.tabs.set(this.type?.id ? this.library.buildIDTabs(this.type.id, obj.id) : []);
 	}
 
 	refresh(): void {

@@ -77,12 +77,14 @@ function fillCommon(
 	}
 
 	const label = release?.labelInfo[0];
-	if (label) {
-		if (label.label) {
-			builder.label(label.label.name);
-		}
-		builder.catalogNumber(label.catalogNumber);
+	if (!label) {
+		return;
 	}
+
+	if (label.label) {
+		builder.label(label.label.name);
+	}
+	builder.catalogNumber(label.catalogNumber);
 }
 
 function fillTypes(builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack, release: MusicBrainz.Release | undefined): void {
@@ -113,8 +115,7 @@ function getPictureType(types: Array<string> = []): number {
 	if (types.includes('Medium')) return 6;
 	if (types.includes('Booklet')) return 5;
 	if (types.includes('Front')) return 3;
-	if (types.includes('Back')) return 4;
-	return 0;
+	return types.includes('Back') ? 4 : 0;
 }
 
 function addNewImages(builder: ID3V24TagBuilder, images: Array<MatchImageNode>): void {

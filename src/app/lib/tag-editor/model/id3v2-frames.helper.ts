@@ -1114,8 +1114,5 @@ export function getFrameSubIds(id: string): Array<{ subid: string; name: string 
 	if (id === 'UFID') {
 		return Object.entries(FrameUFIDSubIdsDefs).map(([subid, value]) => ({ subid, name: value }));
 	}
-	if (id === 'COMM') {
-		return Object.entries(FrameCOMMSubIdsDefs).map(([subid, value]) => ({ subid, name: value }));
-	}
-	return [];
+	return id === 'COMM' ? Object.entries(FrameCOMMSubIdsDefs).map(([subid, value]) => ({ subid, name: value })) : [];
 }

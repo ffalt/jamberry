@@ -34,10 +34,7 @@ export class ContextMenuItemDirective implements Highlightable {
 	}
 
 	evaluateIfFunction<T, Y>(value: T | ((item: Y) => T), item: Y): T {
-		if (typeof value === 'function') {
-			return (value as (item: Y) => T)(item);
-		}
-		return value;
+		return typeof value === 'function' ? (value as (item: Y) => T)(item) : value;
 	}
 
 	setActiveStyles(): void {

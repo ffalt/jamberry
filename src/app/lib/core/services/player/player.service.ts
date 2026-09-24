@@ -510,12 +510,13 @@ export class PlayerService {
 	private loadFromStorage(): void {
 		this.loadQueueFromStorage();
 		const current: { index: number; position: number } | undefined = this.userStorage.get(PlayerService.localPlayerStorageName);
-		if (current) {
-			this.queue.currentIndex = current.index;
-			const track = this.queue.getCurrent();
-			if (track) {
-				this.play(track, false, current.position, true);
-			}
+		if (!current) {
+			return;
+		}
+		this.queue.currentIndex = current.index;
+		const track = this.queue.getCurrent();
+		if (track) {
+			this.play(track, false, current.position, true);
 		}
 	}
 

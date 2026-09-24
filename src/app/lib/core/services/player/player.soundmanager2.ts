@@ -31,10 +31,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	getVolume(): number {
-		if (!this.soundObject || this.isMute) {
-			return this.volume;
-		}
-		return this.soundObject.volume;
+		return !this.soundObject || this.isMute ? this.volume : this.soundObject.volume;
 	}
 
 	buildSoundObject(media: Jam.MediaBase, position: number | undefined): SMSound | undefined {
@@ -74,11 +71,12 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 			},
 			whileplaying: () => {
 				const now = Date.now();
-				if (now - this.lastTimeUpdate > 500) {
-					this.lastTimeUpdate = now;
-					const time = this.position();
-					this.publish(PlayerEvents.TIME, time);
+				if (now - this.lastTimeUpdate <= 500) {
+					return;
 				}
+				this.lastTimeUpdate = now;
+				const time = this.position();
+				this.publish(PlayerEvents.TIME, time);
 			}
 		});
 	}
@@ -176,10 +174,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 	}
 
 	speed(): number {
-		if (this.soundObject) {
-			return this.soundObject._iO.playbackRate;
-		}
-		return 1;
+		return this.soundObject ? this.soundObject._iO.playbackRate : 1;
 	}
 
 	stop(): void {
@@ -205,10 +200,7 @@ export class PlayerSoundmanager2 implements SoundPlayer {
 			return 0;
 		}
 		const total = this.soundObject.bytesTotal ?? 0;
-		if (total === 0) {
-			return 0;
-		}
-		return Math.round(((this.soundObject.bytesLoaded ?? 0) / total) * 100);
+		return total === 0 ? 0 : Math.round(((this.soundObject.bytesLoaded ?? 0) / total) * 100);
 	}
 
 	private publish(event: number, data?: any): void {

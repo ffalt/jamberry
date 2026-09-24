@@ -10,9 +10,6 @@ export class ToastInjector implements Injector {
 	}
 
 	get(token: ProviderToken<any>, notFoundValue: undefined): any {
-		if (token === ToastPackage) {
-			return this.toastPackage;
-		}
-		return this.parentInjector.get<any>(token, notFoundValue);
+		return token === ToastPackage ? this.toastPackage : this.parentInjector.get<any>(token, notFoundValue);
 	}
 }

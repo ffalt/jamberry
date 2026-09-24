@@ -52,10 +52,7 @@ export class ObjsLoaderByTypeComponent {
 					if (jamType === JamObjectType.playlist) {
 						return this.playlistService.playlistsChange;
 					}
-					if (jamType === JamObjectType.podcast) {
-						return this.podcastService.podcastsChange;
-					}
-					return EMPTY;
+					return jamType === JamObjectType.podcast ? this.podcastService.podcastsChange : EMPTY;
 				})
 			).subscribe(() => {
 				this.changeTrigger.set(randomString());
@@ -108,10 +105,12 @@ export class ObjsLoaderByTypeComponent {
 	private handleFolderType(): void {
 		this.loader.set(this.library.folderLoader);
 		const listType = this.listType();
-		if (listType) {
-			this.listQuery.set({ listType, albumType: this.albumType() });
-			this.valid.set(true);
+		if (!listType) {
+			return;
 		}
+
+		this.listQuery.set({ listType, albumType: this.albumType() });
+		this.valid.set(true);
 	}
 
 	private handlePlaylistType(): void {
@@ -133,37 +132,45 @@ export class ObjsLoaderByTypeComponent {
 	private handleSeriesType(): void {
 		this.loader.set(this.library.seriesLoader);
 		const listType = this.listType();
-		if (listType) {
-			this.listQuery.set({ listType, albumType: this.albumType() });
-			this.valid.set(true);
+		if (!listType) {
+			return;
 		}
+
+		this.listQuery.set({ listType, albumType: this.albumType() });
+		this.valid.set(true);
 	}
 
 	private handleAlbumType(albumType?: AlbumType): void {
 		this.loader.set(this.library.albumLoader);
 		const listType = this.listType();
-		if (listType) {
-			this.albumType.set(albumType);
-			this.valid.set(!!albumType);
-			this.listQuery.set({ listType, albumType });
+		if (!listType) {
+			return;
 		}
+
+		this.albumType.set(albumType);
+		this.valid.set(!!albumType);
+		this.listQuery.set({ listType, albumType });
 	}
 
 	private handleArtistType(): void {
 		this.loader.set(this.library.artistLoader);
 		const listType = this.listType();
-		if (listType) {
-			this.listQuery.set({ listType, albumType: AlbumType.album });
-			this.valid.set(true);
+		if (!listType) {
+			return;
 		}
+
+		this.listQuery.set({ listType, albumType: AlbumType.album });
+		this.valid.set(true);
 	}
 
 	private handleGenreType(): void {
 		this.loader.set(this.library.genreLoader);
 		const listType = this.listType();
-		if (listType) {
-			this.listQuery.set({ listType });
-			this.valid.set(true);
+		if (!listType) {
+			return;
 		}
+
+		this.listQuery.set({ listType });
+		this.valid.set(true);
 	}
 }

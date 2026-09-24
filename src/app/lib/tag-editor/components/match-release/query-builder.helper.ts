@@ -39,10 +39,7 @@ export class QueryBuilderHelper {
 			result = result.slice(0, i);
 		}
 		result = result.trim();
-		if (result.length === 0) {
-			return s;
-		}
-		return result;
+		return result.length === 0 ? s : result;
 	}
 
 	/**

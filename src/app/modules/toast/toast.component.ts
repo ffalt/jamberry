@@ -88,16 +88,18 @@ export class ToastComponent {
 	 */
 	activateToast(): void {
 		this.state.update(s => ({ ...s, value: 'active' }));
-		if (!this.options.disableTimeOut && this.options.timeOut) {
-			this.outsideTimeout(() => {
-				this.remove();
-			}, this.options.timeOut);
-			this.hideTime = Date.now() + this.options.timeOut;
-			if (this.options.progressBar) {
-				this.outsideInterval(() => {
-					this.updateProgress();
-				}, 10);
-			}
+		if (this.options.disableTimeOut || !this.options.timeOut) {
+			return;
+		}
+
+		this.outsideTimeout(() => {
+			this.remove();
+		}, this.options.timeOut);
+		this.hideTime = Date.now() + this.options.timeOut;
+		if (this.options.progressBar) {
+			this.outsideInterval(() => {
+				this.updateProgress();
+			}, 10);
 		}
 	}
 

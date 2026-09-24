@@ -3,10 +3,7 @@ import { Pipe, type PipeTransform } from '@angular/core';
 @Pipe({ name: 'limit' })
 export class LimitPipe implements PipeTransform {
 	transform(value: string | undefined, chars: number): string {
-		if (!value || Number.isNaN(chars)) {
-			return '';
-		}
-		if (chars <= 0) {
+		if (!value || Number.isNaN(chars) || (chars <= 0)) {
 			return '';
 		}
 		if (value.length < chars) {

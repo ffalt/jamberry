@@ -38,18 +38,12 @@ export function findTrackNr(filename: string): number {
 	const parts = s.split(/[ \-_.:;?!~,`"&|()<>{}[\]\r\n/\\]+/)
 		.map(Number)
 		.filter(p => !Number.isNaN(p));
-	if (parts.length > 0) {
-		return parts[0];
-	}
-	return 0;
+	return parts.length > 0 ? parts[0] : 0;
 }
 
 export function fuzzyMatch(title1: string, title2: string): number {
 	const a = new FuzzySet();
 	a.add(title1);
 	const result = a.get(title2);
-	if (!result) {
-		return 0;
-	}
-	return result[0][0];
+	return result ? result[0][0] : 0;
 }

@@ -22,15 +22,17 @@ export class DialogTagTextlistComponent implements DialogOverlay<TextListEdit> {
 
 	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<TextListEdit>>): void {
 		this.edit = options.data;
-		if (this.edit) {
-			this.edit.result = this.edit.frames.map(frame => ({ id: frame.id, value: { ...frame.value } }));
-			if (this.edit.result.length === 0) {
-				const frame: Jam.MediaTagRawFrameTextList = { id: this.edit.id, value: { list: [] } };
-				this.edit.result.push(frame);
-			}
-			this.current = this.edit.result[0];
-			this.currentText.set(this.current.value.list.join('\n'));
+		if (!this.edit) {
+			return;
 		}
+
+		this.edit.result = this.edit.frames.map(frame => ({ id: frame.id, value: { ...frame.value } }));
+		if (this.edit.result.length === 0) {
+			const frame: Jam.MediaTagRawFrameTextList = { id: this.edit.id, value: { list: [] } };
+			this.edit.result.push(frame);
+		}
+		this.current = this.edit.result[0];
+		this.currentText.set(this.current.value.list.join('\n'));
 	}
 
 	onBlur(): void {

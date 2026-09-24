@@ -145,12 +145,14 @@ export class FolderTreeComponent {
 
 	onFolderUpdate(data: Jam.Folder): void {
 		const node = this.nodes().find(n => n.folder.id === data.id);
-		if (node) {
-			node.folder = data;
-			node.hasChildren = (data.folderCount ?? 0) > 0;
-			node.color = this.typeToColor(data);
-			this.nodes.update(n => [...n]);
+		if (!node) {
+			return;
 		}
+
+		node.folder = data;
+		node.hasChildren = (data.folderCount ?? 0) > 0;
+		node.color = this.typeToColor(data);
+		this.nodes.update(n => [...n]);
 	}
 
 	selectFolderByID(id: string): void {
@@ -188,12 +190,13 @@ export class FolderTreeComponent {
 				}
 			});
 		}
-		if (node.folder.id === selectID) {
-			this.selected.set(node);
-			const viewport = this.viewport();
-			if (viewport) {
-				viewport.scrollToIndex(this.nodes().indexOf(node));
-			}
+		if (node.folder.id !== selectID) {
+			return;
+		}
+		this.selected.set(node);
+		const viewport = this.viewport();
+		if (viewport) {
+			viewport.scrollToIndex(this.nodes().indexOf(node));
 		}
 	}
 

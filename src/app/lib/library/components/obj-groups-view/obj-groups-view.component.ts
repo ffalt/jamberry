@@ -28,22 +28,23 @@ export class ObjGroupsViewComponent implements OnChanges {
 	ngOnChanges(): void {
 		this.groups = undefined;
 		const objs = this.objs();
-		if (objs) {
-			if (!this.grouping()) {
-				this.groups = (objs.length > 0) ? [{ type: undefined, objs: objs }] : [];
-				return;
-			}
-			const groups = [];
-			for (const obj of objs) {
-				const type = obj.groupType();
-				let group: ObjGroupsView | undefined = groups.find(g => g.type === type);
-				if (!group) {
-					group = { type, objs: [] };
-					groups.push(group);
-				}
-				group.objs.push(obj);
-			}
-			this.groups = groups;
+		if (!objs) {
+			return;
 		}
+		if (!this.grouping()) {
+			this.groups = (objs.length > 0) ? [{ type: undefined, objs: objs }] : [];
+			return;
+		}
+		const groups = [];
+		for (const obj of objs) {
+			const type = obj.groupType();
+			let group: ObjGroupsView | undefined = groups.find(g => g.type === type);
+			if (!group) {
+				group = { type, objs: [] };
+				groups.push(group);
+			}
+			group.objs.push(obj);
+		}
+		this.groups = groups;
 	}
 }

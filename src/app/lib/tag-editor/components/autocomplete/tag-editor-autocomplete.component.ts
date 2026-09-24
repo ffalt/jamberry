@@ -33,10 +33,7 @@ export class TagEditorAutocompleteComponent implements AutocompleteDataControl<{
 	}
 
 	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption<{ text: string }>>> {
-		if (query.length === 0) {
-			return this.list.map(data => ({ data }));
-		}
-		return this.list.filter(data => data.text.includes(query)).map(data => ({ data }));
+		return query.length === 0 ? this.list.map(data => ({ data })) : this.list.filter(data => data.text.includes(query)).map(data => ({ data }));
 	}
 
 	autocompleteSelectResult(result: AutocompleteOption<{ text: string }>): string {

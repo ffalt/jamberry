@@ -75,16 +75,17 @@ export class MatchReleaseComponent {
 			match.genres = genres;
 		}
 		const data = this.data();
-		if (data) {
-			const images = this.matchApply().getCoverArtImages();
-			for (const result of data.matchings) {
-				const match = this.matcher.matchings.find(m => m.track.id === result.track.id);
-				result.rawTag = match ? toID3v24(match, genres, images) : undefined;
-			}
-			data.apply();
-			if (data.close) {
-				data.close();
-			}
+		if (!data) {
+			return;
+		}
+		const images = this.matchApply().getCoverArtImages();
+		for (const result of data.matchings) {
+			const match = this.matcher.matchings.find(m => m.track.id === result.track.id);
+			result.rawTag = match ? toID3v24(match, genres, images) : undefined;
+		}
+		data.apply();
+		if (data.close) {
+			data.close();
 		}
 	}
 

@@ -46,10 +46,7 @@ export class RateComponent implements OnInit, OnChanges {
 		if (index <= this.marked) {
 			return IconStarFullComponent;
 		}
-		if (index < this.marked + 1) {
-			return IconStarHalfComponent;
-		}
-		return IconStarEmptyComponent;
+		return index < this.marked + 1 ? IconStarHalfComponent : IconStarEmptyComponent;
 	}
 
 	ngOnChanges(): void {

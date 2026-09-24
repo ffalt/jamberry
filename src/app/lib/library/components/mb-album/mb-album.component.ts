@@ -83,10 +83,7 @@ export class MbAlbumComponent {
 	}
 
 	compactArtist(artistCredit?: Array<MusicBrainz.ArtistCredit>): string {
-		if (!artistCredit?.length) {
-			return '';
-		}
-		return artistCredit.map(a => a.name + (a.joinphrase || ' ')).join('').trim();
+		return artistCredit?.length ? artistCredit.map(a => a.name + (a.joinphrase || ' ')).join('').trim() : '';
 	}
 
 	private searchByName(): void {

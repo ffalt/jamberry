@@ -49,21 +49,20 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 
 	onChange(): void {
 		const cell = this.cell;
-		if (!cell) {
+		if (!cell || this.val === this.original) {
 			return;
 		}
-		if (this.val !== this.original) {
-			if (cell.frames.length === 0) {
-				cell.frames.push({
-					id: cell.column.def.id, value: {
-						id: cell.column.def.subid,
-						text: this.val
-					}
-				});
-			}
-			cell.frames[0].value.text = this.val;
-			this.navigChange.next(undefined);
+
+		if (cell.frames.length === 0) {
+			cell.frames.push({
+				id: cell.column.def.id, value: {
+					id: cell.column.def.subid,
+					text: this.val
+				}
+			});
 		}
+		cell.frames[0].value.text = this.val;
+		this.navigChange.next(undefined);
 	}
 
 	onBlur(): void {

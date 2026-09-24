@@ -148,15 +148,17 @@ export class QueueService {
 
 	remove(track: Jam.MediaBase): void {
 		const index = this.indexOfTrack(track.id);
-		if (index >= 0) {
-			this.entries = this.entries.filter((_, i) => i !== index);
-			if (index <= this.currentIndex) {
-				this.currentIndex--;
-			} else if (this.currentIndex >= this.entries.length) {
-				this.currentIndex = this.entries.length - 1;
-			}
-			this.publishChanges();
+		if (!(index >= 0)) {
+			return;
 		}
+
+		this.entries = this.entries.filter((_, i) => i !== index);
+		if (index <= this.currentIndex) {
+			this.currentIndex--;
+		} else if (this.currentIndex >= this.entries.length) {
+			this.currentIndex = this.entries.length - 1;
+		}
+		this.publishChanges();
 	}
 
 	clear(): void {

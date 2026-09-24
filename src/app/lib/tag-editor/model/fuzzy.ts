@@ -28,10 +28,7 @@ function distance(str1?: string, str2?: string): number {
 		return 0;
 	}
 	const result = levenshtein(str1, str2);
-	if (str1.length > str2.length) {
-		return 1 - result / str1.length;
-	}
-	return 1 - result / str2.length;
+	return 1 - (result / Math.max(str1.length, str2.length));
 }
 
 function iterateGrams(value: string, gs = 2): Array<string> {
@@ -72,8 +69,7 @@ function normalizeStr(str: unknown): string {
 
 function sortDescending(a: [number, string], b: [number, string]): number {
 	if (a[0] < b[0]) return 1;
-	if (a[0] > b[0]) return -1;
-	return 0;
+	return a[0] > b[0] ? -1 : 0;
 }
 
 export class FuzzySet {
@@ -104,10 +100,7 @@ export class FuzzySet {
 	get(value: string, defaultValue?: Array<[number, string]>): Array<[number, string]> | undefined {
 		// check for value in set, returning defaultValue or undefined if none found
 		const result = this.getVal(value);
-		if (!result && defaultValue) {
-			return defaultValue;
-		}
-		return result;
+		return !result && defaultValue ? defaultValue : result;
 	}
 
 	add(value: string): void {

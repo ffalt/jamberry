@@ -68,9 +68,6 @@ export class Rect {
 		const right = Math.min(this.right, rect.right);
 		const bottom = Math.min(this.bottom, rect.bottom);
 
-		if (right >= left && bottom >= top) {
-			return new Rect(left, top, right, bottom);
-		}
-		return Rect.empty;
+		return right >= left && bottom >= top ? new Rect(left, top, right, bottom) : Rect.empty;
 	}
 }

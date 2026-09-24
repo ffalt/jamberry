@@ -16,18 +16,17 @@ export class OptionComponent {
 
 	get getActive(): boolean {
 		const control = this.control();
-		if (control) {
-			return control.options[control.activeIndex] === this.option();
-		}
-		return false;
+		return control ? control.options[control.activeIndex] === this.option() : false;
 	}
 
 	mouseDownEvent(event: MouseEvent): void {
 		const control = this.control();
 		const option = this.option();
-		if (control && option) {
-			control.selectOption(option);
-			event.stopPropagation();
+		if (!(control && option)) {
+			return;
 		}
+
+		control.selectOption(option);
+		event.stopPropagation();
 	}
 }

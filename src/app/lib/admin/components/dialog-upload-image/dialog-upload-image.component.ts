@@ -38,11 +38,13 @@ export class DialogUploadImageComponent implements DialogOverlay<{ folder: Jam.F
 			.subscribe(() => {
 				this.isIdle.set(true);
 				this.folderService.notifyFolderChange(id, AdminFolderServiceNotifyMode.fsnRefresh);
-				if (!item.error) {
-					this.notify.success('Upload done');
-					if (this.reference) {
-						this.reference.close();
-					}
+				if (item.error) {
+					return;
+				}
+
+				this.notify.success('Upload done');
+				if (this.reference) {
+					this.reference.close();
 				}
 			});
 	}

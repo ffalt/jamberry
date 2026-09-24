@@ -72,13 +72,14 @@ export class SliderTimeComponent {
 
 	changePlaybackTime(event: MouseEvent): void {
 		const total = this.player.totalTime;
-		if (total !== undefined) {
-			const width = this.element.nativeElement.getBoundingClientRect().width || 1;
-			const percent = event.offsetX / width;
-			const time = total * percent;
-			setTimeout(() => {
-				this.player.seek(time);
-			}, 0);
+		if (total === undefined) {
+			return;
 		}
+		const width = this.element.nativeElement.getBoundingClientRect().width || 1;
+		const percent = event.offsetX / width;
+		const time = total * percent;
+		setTimeout(() => {
+			this.player.seek(time);
+		}, 0);
 	}
 }

@@ -16,14 +16,16 @@ export class ContextMenuAttachDirective {
 
 	onContextMenu(event: Event): void {
 		const contextMenu = this.contextMenu();
-		if (!contextMenu.disabled()) {
-			this.contextMenuService.show.next({
-				contextMenu: contextMenu,
-				event,
-				item: this.contextMenuSubject()
-			});
-			event.preventDefault();
-			event.stopPropagation();
+		if (contextMenu.disabled()) {
+			return;
 		}
+
+		this.contextMenuService.show.next({
+			contextMenu: contextMenu,
+			event,
+			item: this.contextMenuSubject()
+		});
+		event.preventDefault();
+		event.stopPropagation();
 	}
 }

@@ -15,10 +15,7 @@ export class ScoreBoxComponent implements OnChanges {
 		if (score > 0.7) {
 			return 'green';
 		}
-		if (score > 0.3) {
-			return 'yellow';
-		}
-		return 'red';
+		return score > 0.3 ? 'yellow' : 'red';
 	}
 
 	ngOnChanges(): void {

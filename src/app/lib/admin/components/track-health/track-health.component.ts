@@ -44,26 +44,28 @@ export class TrackHealthComponent {
 			.pipe(takeUntilDestroyed(this.lifeRef))
 			.subscribe(change => {
 				const health = this.trackHealth();
-				if (health?.track.id === change.id) {
-					health.health = [];
-					this.jam.track.health({ ids: [health.track.id], healthMedia: true })
-						.then(data => {
-							const h = data.find(d => d.track.id === health.track.id);
-							if (h?.health) {
-								health.track = h.track;
-								health.health = h.health;
-							} else {
-								health.health = [];
-							}
-							if (health.health.length === 0) {
-								this.resolvedEvent.emit();
-							}
-							this.display(health);
-						})
-						.catch((error: unknown) => {
-							this.notify.error(error);
-						});
+				if (health?.track.id !== change.id) {
+					return;
 				}
+
+				health.health = [];
+				this.jam.track.health({ ids: [health.track.id], healthMedia: true })
+					.then(data => {
+						const h = data.find(d => d.track.id === health.track.id);
+						if (h?.health) {
+							health.track = h.track;
+							health.health = h.health;
+						} else {
+							health.health = [];
+						}
+						if (health.health.length === 0) {
+							this.resolvedEvent.emit();
+						}
+						this.display(health);
+					})
+					.catch((error: unknown) => {
+						this.notify.error(error);
+					});
 			});
 	}
 
@@ -99,12 +101,7 @@ export class TrackHealthComponent {
 				break;
 			}
 			case TrackHealthID.id3v2Valid: {
-				description = (hint.details ?? []).map(d => {
-					if (d.expected && d.actual) {
-						return `${d.reason}  (${d.actual} instead of ${d.expected})`;
-					}
-					return d.reason;
-				}).join(', ');
+				description = (hint.details ?? []).map(d => d.expected && d.actual ? `${d.reason}  (${d.actual} instead of ${d.expected})` : d.reason).join(', ');
 				break;
 			}
 			// No default
@@ -204,12 +201,7 @@ export class TrackHealthComponent {
 
 	private describeMP3HeaderHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		const description = hint.id === TrackHealthID.mp3HeaderValid ?
-			(hint.details ?? []).map(d => {
-				if (d.expected && d.actual) {
-					return `${d.reason}  (${d.actual} instead of ${d.expected})`;
-				}
-				return d.reason;
-			}).join(', ') :
+			(hint.details ?? []).map(d => d.expected && d.actual ? `${d.reason}  (${d.actual} instead of ${d.expected})` : d.reason).join(', ') :
 			'';
 		if (this.solutions().every(sol => sol.name !== 'Fix Header')) {
 			const sol: TrackHealthHintSolution = {

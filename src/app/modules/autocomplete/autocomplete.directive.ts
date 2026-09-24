@@ -159,10 +159,7 @@ export class AutocompleteDirective implements OnInit, OnChanges, AutocompleteCon
 
 	private async request(query: string): Promise<Array<AutocompleteOption<any>>> {
 		const appAutocompleteControl = this.appAutocompleteControl();
-		if (appAutocompleteControl) {
-			return appAutocompleteControl.autocompleteGetData(query);
-		}
-		return [];
+		return appAutocompleteControl ? appAutocompleteControl.autocompleteGetData(query) : [];
 	}
 
 	private filterEnterEvent(elementObs: Subject<KeyboardEvent>): void {

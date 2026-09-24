@@ -78,33 +78,19 @@ function processRecording(
 	recording: Recording,
 	track: Jam.Track
 ): Array<AcoustIDEntry> {
-	if (!recording.releasegroups || !recording.id) {
-		return [];
-	}
-
-	return recording.releasegroups.flatMap(releasegroup => {
-		if (!releasegroup.id || !releasegroup.releases) {
-			return [];
-		}
-
-		return releasegroup.releases.flatMap(release => {
-			if (!release.id || !release.mediums) {
-				return [];
-			}
-
-			return release.mediums.map(medium =>
-				createAcoustIDEntry(acoustid, recording, releasegroup, release, medium, track)
-			);
-		});
-	});
+	return !recording.releasegroups || !recording.id ?
+		[] :
+		recording.releasegroups.flatMap(releasegroup => !releasegroup.id || !releasegroup.releases ?
+			[] :
+			releasegroup.releases.flatMap(release => !release.id || !release.mediums ?
+				[] :
+				release.mediums.map(medium =>
+					createAcoustIDEntry(acoustid, recording, releasegroup, release, medium, track)
+				)));
 }
 
 export function acoustidResultToList(data: Array<Acoustid.Result> | undefined, track: Jam.Track): Array<AcoustIDEntry> {
-	if (!data) {
-		return [];
-	}
-
-	return data.flatMap(acoustid => (acoustid.recordings ?? []).flatMap(recording => processRecording(acoustid, recording, track)));
+	return data ? data.flatMap(acoustid => (acoustid.recordings ?? []).flatMap(recording => processRecording(acoustid, recording, track))) : [];
 }
 
 export interface AcoustidTreeMatch {
