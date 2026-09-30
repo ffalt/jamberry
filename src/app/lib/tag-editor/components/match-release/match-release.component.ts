@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, inject, input, viewChild } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, signal, viewChild } from '@angular/core';
 import { MatchApplyComponent } from '../match-apply/match-apply.component';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -41,6 +41,7 @@ export interface ReleaseMatching {
 export class MatchReleaseComponent {
 	readonly data = input<ReleaseMatching>();
 	readonly RunType = RunType;
+	readonly matcherVersion = signal(0);
 	rightActive: boolean = true;
 	matcher: Matcher;
 	current?: { group: MatchReleaseGroup; release: MatchRelease };
@@ -52,7 +53,9 @@ export class MatchReleaseComponent {
 	private readonly contextMenuService = inject(ContextMenuService);
 
 	constructor() {
-		this.matcher = new Matcher(this.jam, this.notify);
+		this.matcher = new Matcher(this.jam, this.notify, () => {
+			this.matcherVersion.update(version => version + 1);
+		});
 		effect(() => {
 			const data = this.data();
 			if (data) {
@@ -92,7 +95,7 @@ export class MatchReleaseComponent {
 	chooseRelease({ group, release }: { group: MatchReleaseGroup; release: MatchRelease }): void {
 		this.stopApply();
 		this.current = { group, release };
-		this.matchApply().coverArtSearch = { mbReleaseID: release.mbRelease.id, mbReleaseGroupID: group.mbGroup.id };
+		this.matchApply().coverArtSearch.set({ mbReleaseID: release.mbRelease.id, mbReleaseGroupID: group.mbGroup.id });
 		this.matcher.apply(group, release);
 		const data = this.data();
 		if (!data) {
@@ -107,6 +110,7 @@ export class MatchReleaseComponent {
 	stopApply(): void {
 		this.current = undefined;
 		this.matchApply().genres.set(undefined);
+		this.matchApply().coverArtSearch.set(undefined);
 		this.matcher.stopApply();
 	}
 

@@ -1,4 +1,4 @@
-<div (click)="rightActive=!rightActive" class="toggle">
+<div [attr.data-matcher-version]="matcherVersion()" (click)="rightActive=!rightActive" class="toggle">
 	@if (rightActive) {
 		<a class="button-on-control"><app-icon-left />
 			<ng-container i18n>Show Tracks</ng-container>
@@ -13,7 +13,7 @@
 	<app-match-file-list [matchings]="matcher.matchings" class="match-files" />
 	<app-match-apply (loadLyricsRequest)="loadLyricsRequest()" (loadMoodsRequest)="loadMoodsRequest()" [hidden]="!current" [isRunning]="matcher.isRunning" class="match-releases" />
 	@if (!current) {
-		<app-match-results class="match-releases" [matcher]="matcher" (chooseReleaseRequest)="chooseRelease($event)" />
+		<app-match-results class="match-releases" [matcher]="matcher" [version]="matcherVersion()" (chooseReleaseRequest)="chooseRelease($event)" />
 	}
 </div>
 @if (matcher.isRunning) {

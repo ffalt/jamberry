@@ -1,4 +1,5 @@
-@if (matcher(); as matcher) {
+<div [attr.data-matcher-version]="version()">
+	@if (matcher(); as matcher) {
 	<div class="match-results">
 		@for (group of matcher.matchTree.groups; track group) {
 			<div class="match-releasegroup">
@@ -111,3 +112,4 @@
 		}
 	</div>
 }
+</div>

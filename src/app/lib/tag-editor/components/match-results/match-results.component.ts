@@ -19,6 +19,7 @@ import { IconWarningComponent } from '@core/components/icons/icon-warning.compon
 })
 export class MatchResultsComponent {
 	readonly matcher = input<Matcher>();
+	readonly version = input(0);
 	readonly chooseReleaseRequest = output<{
 		group: MatchReleaseGroup;
 		release: MatchRelease;

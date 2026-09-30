@@ -15,7 +15,7 @@
 			</label>
 		}
 	</div>
-	@if (coverArtSearch) {
+	@if (coverArtSearch(); as coverArtSearch) {
 		<app-match-coverart [data]="coverArtSearch" />
 	}
 	<div class="match-track-moods">

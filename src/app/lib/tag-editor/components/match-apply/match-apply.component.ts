@@ -18,8 +18,8 @@ export class MatchApplyComponent {
 	readonly loadMoodsRequest = output();
 	readonly isGenreSearchRunning = signal(false);
 	readonly genres = signal<Array<{ tag: GenreTag; checked: boolean }> | undefined>(undefined);
+	readonly coverArtSearch = signal<MatchImageSearch | undefined>(undefined);
 	customGenre = { text: '', checked: true };
-	coverArtSearch?: MatchImageSearch;
 	private readonly coverArt = viewChild(MatchCoverartComponent);
 	private readonly jam = inject(JamService);
 

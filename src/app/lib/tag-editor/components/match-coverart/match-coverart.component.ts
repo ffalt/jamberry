@@ -56,19 +56,15 @@ export class MatchCoverartComponent {
 		}
 	}
 
-	onToggleShowFrontImagesOnly(): void {
-		if (!this.showFrontImagesOnly && this.coverArtArchive) {
-			for (const node of this.coverArtArchive) {
-				if (!node.base64 && !node.requested) {
-					this.getBase64Image(node).catch((error: unknown) => {
-						console.error(error);
-					});
-				}
-			}
+	async onToggleShowFrontImagesOnly(): Promise<void> {
+		if (!this.coverArtArchive) {
+			return;
 		}
-		if (this.coverArtArchive) {
-			this.images.set(this.coverArtArchive.filter(i => i.image.front || !this.showFrontImagesOnly));
+		if (!this.showFrontImagesOnly) {
+			this.coverArtArchive = await Promise.all(this.coverArtArchive.map(async node =>
+				node.base64 ? node : this.getBase64Image(node)));
 		}
+		this.images.set(this.coverArtArchive.filter(i => i.image.front || !this.showFrontImagesOnly));
 	}
 
 	getChecked(): Array<MatchImageNode> {
@@ -105,18 +101,16 @@ export class MatchCoverartComponent {
 			const fronts = this.coverArtArchive
 				.filter(i => i.image.front || i.image.types?.includes('Front'))
 				.toSorted((a, b) => (a.image.types?.length ?? 0) - (b.image.types?.length ?? 0));
-			const imageList = this.showFrontImagesOnly ? fronts : this.coverArtArchive;
-			this.images.set(imageList);
-			for (const node of imageList) {
-				this.getBase64Image(node).catch((error: unknown) => {
-					console.error(error);
-				});
-			}
 			let front = fronts.find(i => i.image.types?.length === 1);
 			front ??= fronts.at(0);
 			if (front) {
 				front.checked = true;
 			}
+			const imageList = this.showFrontImagesOnly ? fronts : this.coverArtArchive;
+			const updatedImages = await Promise.all(imageList.map(async node => this.getBase64Image(node)));
+			const updatedImageMap = new Map(updatedImages.map(node => [node.image.id, node]));
+			this.coverArtArchive = this.coverArtArchive.map(node => updatedImageMap.get(node.image.id) ?? node);
+			this.images.set(this.showFrontImagesOnly ? this.coverArtArchive.filter(i => i.image.front || i.image.types?.includes('Front')) : this.coverArtArchive);
 		} else {
 			this.images.set(undefined);
 			this.coverArtArchive = [];
@@ -141,27 +135,29 @@ export class MatchCoverartComponent {
 		this.isImageSearchRunning.set(false);
 	}
 
-	private async getBase64Image(image: MatchImageNode): Promise<void> {
+	private async getBase64Image(image: MatchImageNode): Promise<MatchImageNode> {
 		if (image.requested) {
-			return;
+			return image;
 		}
 		const imageUrl = image.image.thumbnails?.['500'] ?? image.image.thumbnails?.small;
 		if (!imageUrl) {
 			this.notify.error({ error: 'No image to fetch from https://coverartarchive.org' });
-			return;
+			return image;
 		}
-		image.requested = true;
 		let bin: { buffer: ArrayBuffer; contentType: string } | undefined;
 		try {
 			bin = await this.jam.metadata.coverartarchiveImageBinary({ url: imageUrl });
 		} catch (error) {
 			console.error(error);
 		}
-		image.requested = false;
 		if (bin) {
-			image.base64 = { title: imageUrl, mimeType: bin.contentType, base64: base64ArrayBuffer(bin.buffer) };
-		} else {
-			this.notify.error({ error: 'Invalid result from https://coverartarchive.org' });
+			return {
+				...image,
+				requested: false,
+				base64: { title: imageUrl, mimeType: bin.contentType, base64: base64ArrayBuffer(bin.buffer) }
+			};
 		}
+		this.notify.error({ error: 'Invalid result from https://coverartarchive.org' });
+		return { ...image, requested: false };
 	}
 }

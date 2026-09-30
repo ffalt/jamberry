@@ -24,10 +24,16 @@ export class Matcher {
 	matchings: Array<Matching> = [];
 	matchTree = new MatchTree();
 	manualSearchData: ManualSearchData;
+	private readonly changeTracker: { notify: () => void };
 	private readonly releaseLoader: ReleaseLoaderHelper;
 
-	constructor(private readonly jam: JamService, private readonly notify: NotifyService) {
+	constructor(
+		private readonly jam: JamService,
+		private readonly notify: NotifyService,
+		onChange: () => void = () => undefined
+	) {
 		this.manualSearchData = new ManualSearchData(() => this.matchings);
+		this.changeTracker = { notify: onChange };
 		this.releaseLoader = new ReleaseLoaderHelper(
 			this.matchTree,
 			() => this.shouldStop(),
@@ -39,6 +45,7 @@ export class Matcher {
 	abort() {
 		this.matchings = [];
 		this.isAborted = true;
+		this.changeTracker.notify();
 	}
 
 	stop(): void {
@@ -46,6 +53,7 @@ export class Matcher {
 			return;
 		}
 		this.isAborted = true;
+		this.changeTracker.notify();
 	}
 
 	start(type: RunType): void {
@@ -54,18 +62,21 @@ export class Matcher {
 		}
 		this.isAborted = false;
 		this.isRunning = true;
+		this.changeTracker.notify();
 		this.run(type)
 			.then(() => {
 				this.matchTree.sort();
 				this.isRunning = false;
 				this.isAborted = false;
 				this.currentAction = '';
+				this.changeTracker.notify();
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
 				this.isRunning = false;
 				this.isAborted = false;
 				this.currentAction = '';
+				this.changeTracker.notify();
 			});
 	}
 
@@ -74,6 +85,7 @@ export class Matcher {
 			return;
 		}
 		this.matchTree = new MatchTree();
+		this.changeTracker.notify();
 	}
 
 	manualSearch(): void {
@@ -82,17 +94,20 @@ export class Matcher {
 		}
 		this.isAborted = false;
 		this.isRunning = true;
+		this.changeTracker.notify();
 		this.searchManual()
 			.then(() => {
 				this.isRunning = false;
 				this.isAborted = false;
 				this.currentAction = '';
+				this.changeTracker.notify();
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
 				this.isRunning = false;
 				this.isAborted = false;
 				this.currentAction = '';
+				this.changeTracker.notify();
 			});
 	}
 
@@ -102,6 +117,7 @@ export class Matcher {
 		if (!this.isRunning) {
 			this.isAborted = false;
 		}
+		this.changeTracker.notify();
 	}
 
 	selectMatch(id: string, group: MatchReleaseGroup, release: MatchRelease, track: MatchingTrack) {
@@ -127,6 +143,7 @@ export class Matcher {
 		}
 		track.currentMatch = matching;
 		group.updateScore();
+		this.changeTracker.notify();
 	}
 
 	setManualSearch(): void {
@@ -138,6 +155,7 @@ export class Matcher {
 			}
 		}
 		if (this.manualSearchData.releaseGroup.length !== 0) {
+			this.changeTracker.notify();
 			return;
 		}
 		const list = this.manualSearchData.getAutoCompleteAlbumList();
@@ -146,6 +164,7 @@ export class Matcher {
 		} else if (this.folder) {
 			this.manualSearchData.releaseGroup = this.folder.name;
 		}
+		this.changeTracker.notify();
 	}
 
 	apply(group: MatchReleaseGroup, release: MatchRelease) {
@@ -169,16 +188,19 @@ export class Matcher {
 			match.mbGroup = undefined;
 			match.genres = undefined;
 		}
+		this.changeTracker.notify();
 	}
 
 	setRunning(action: string): void {
 		this.currentAction = action;
 		this.isRunning = true;
+		this.changeTracker.notify();
 	}
 
 	stopRunning(): void {
 		this.isRunning = false;
 		this.currentAction = '';
+		this.changeTracker.notify();
 	}
 
 	async searchManual(): Promise<void> {
@@ -198,6 +220,7 @@ export class Matcher {
 
 	setRelease(group: MatchReleaseGroup, release: MatchRelease): void {
 		group.currentRelease = release;
+		this.changeTracker.notify();
 		if (!release.loaded) {
 			this.loadRelease(release).catch((error: unknown) => {
 				this.notify.error(error);
@@ -208,6 +231,7 @@ export class Matcher {
 	removeMatching(group: MatchReleaseGroup, track: MatchingTrack): void {
 		track.currentMatch = undefined;
 		group.updateScore();
+		this.changeTracker.notify();
 	}
 
 	loadLyrics(release?: MatchRelease): void {
@@ -266,6 +290,7 @@ export class Matcher {
 		for (const match of this.matchings) {
 			if (!match.acoustidEntries) {
 				this.currentAction = `Checking files with AcoustID: ${match.track.name}`;
+				this.changeTracker.notify();
 				try {
 					const data = await this.jam.metadata.acoustidLookup({ trackID: match.track.id });
 					const res = data.data as Array<Acoustid.Result>;
@@ -286,6 +311,7 @@ export class Matcher {
 
 	private async acoustId(): Promise<void> {
 		this.currentAction = 'Checking files with AcoustID';
+		this.changeTracker.notify();
 		// first make a list of all entries
 		const list: Array<AcoustIDEntry> = await this.collectList();
 		if (this.isAborted) {
@@ -314,6 +340,7 @@ export class Matcher {
 				}
 			}
 			this.matchTree.sort();
+			this.changeTracker.notify();
 		}
 	}
 
@@ -335,8 +362,10 @@ export class Matcher {
 			return;
 		}
 		release.isLoading = true;
+		this.changeTracker.notify();
 		try {
 			this.currentAction = `Loading MusicBrainz Release: ${release.mbRelease.id}`;
+			this.changeTracker.notify();
 			const data = await this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.release, mbID: release.mbRelease.id });
 			const res = data.data as MusicBrainz.Response;
 			if (!res.release) {
@@ -345,14 +374,17 @@ export class Matcher {
 			release.setLookupRelease(res.release, this.matchings);
 			release.loaded = true;
 			release.isLoading = false;
+			this.changeTracker.notify();
 		} catch (error) {
 			release.isLoading = false;
+			this.changeTracker.notify();
 			return Promise.reject(error);
 		}
 	}
 
 	private async addReleaseGroupByReleaseID(releaseID: string): Promise<MatchReleaseGroup> {
 		this.currentAction = `Loading MusicBrainz Release: ${releaseID}`;
+		this.changeTracker.notify();
 		const data = await this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.release, mbID: releaseID });
 		const res = data.data as MusicBrainz.Response;
 		return res.release ? this.addReleaseGroupByID(res.release.releaseGroup.id) : Promise.reject(new Error('Got empty data'));
@@ -362,12 +394,14 @@ export class Matcher {
 		let rg = this.matchTree.findReleaseGroup(releasegroupID);
 		if (!rg) {
 			this.currentAction = `Loading MusicBrainz Release Group: ${releasegroupID}`;
+			this.changeTracker.notify();
 			const data = await this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.releaseGroup, mbID: releasegroupID });
 			const res = data.data as MusicBrainz.Response;
 			if (!res.releaseGroup) {
 				return Promise.reject(new Error('Got empty data'));
 			}
 			rg = this.matchTree.addReleaseGroup(res.releaseGroup);
+			this.changeTracker.notify();
 		}
 		return rg;
 	}
@@ -421,6 +455,7 @@ export class Matcher {
 			return;
 		}
 		this.currentAction = q.name;
+		this.changeTracker.notify();
 		const result = await this.jam.metadata.musicbrainzSearch(q.q);
 		const res = result.data as MusicBrainz.Response;
 		if (res.releaseGroups) {
@@ -433,6 +468,7 @@ export class Matcher {
 			console.error('Not implemented result set', res);
 		}
 		this.matchTree.sort();
+		this.changeTracker.notify();
 		if (this.shouldStop()) {
 			return;
 		}
