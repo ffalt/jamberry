@@ -47,6 +47,10 @@
 	.match-track-moods {
 		border-top: 1px solid var(--background-border);
 		padding-top: variables.$padding;
+
+		button {
+			margin-right: variables.$padding-xs;
+		}
 	}
 }
 
