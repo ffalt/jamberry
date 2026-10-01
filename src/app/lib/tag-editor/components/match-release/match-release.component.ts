@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, inject, input, signal, viewChild } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, signal, untracked, viewChild } from '@angular/core';
 import { MatchApplyComponent } from '../match-apply/match-apply.component';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
@@ -34,17 +34,16 @@ export interface ReleaseMatching {
 	templateUrl: './match-release.component.html',
 	styleUrls: ['./match-release.component.scss'],
 	host: {
-		'[class.right-active]': 'rightActive'
+		'[class.right-active]': 'rightActive()'
 	},
 	imports: [ContextMenuModule, IconLeftComponent, IconRightComponent, IconSpinComponent, MatchApplyComponent, MatchFileListComponent, MatchResultsComponent, TagEditorAutocompleteComponent]
 })
 export class MatchReleaseComponent {
 	readonly data = input<ReleaseMatching>();
 	readonly RunType = RunType;
-	readonly matcherVersion = signal(0);
-	rightActive: boolean = true;
-	matcher: Matcher;
-	current?: { group: MatchReleaseGroup; release: MatchRelease };
+	readonly rightActive = signal(true);
+	readonly matcher: Matcher;
+	readonly current = signal<{ group: MatchReleaseGroup; release: MatchRelease } | undefined>(undefined);
 	private readonly matchApply = viewChild.required(MatchApplyComponent);
 	private readonly actionMenu = viewChild<ContextMenuComponent>('actionMenu');
 	private readonly lifeRef = inject(DestroyRef);
@@ -53,18 +52,20 @@ export class MatchReleaseComponent {
 	private readonly contextMenuService = inject(ContextMenuService);
 
 	constructor() {
-		this.matcher = new Matcher(this.jam, this.notify, () => {
-			this.matcherVersion.update(version => version + 1);
-		});
+		this.matcher = new Matcher(this.jam, this.notify);
 		effect(() => {
 			const data = this.data();
 			if (data) {
-				this.matcher.prepare(
-					data.matchings.map(m => ({ track: m.track })),
-					data.folder
-				);
+				untracked(() => {
+					this.matcher.prepare(
+						data.matchings.map(m => ({ track: m.track })),
+						data.folder
+					);
+				});
 			} else {
-				this.matcher.abort();
+				untracked(() => {
+					this.matcher.abort();
+				});
 			}
 		});
 		this.lifeRef.onDestroy(() => {
@@ -74,7 +75,7 @@ export class MatchReleaseComponent {
 
 	apply(): void {
 		const genres = this.matchApply().getGenres();
-		for (const match of this.matcher.matchings) {
+		for (const match of this.matcher.matchings()) {
 			match.genres = genres;
 		}
 		const data = this.data();
@@ -83,7 +84,7 @@ export class MatchReleaseComponent {
 		}
 		const images = this.matchApply().getCoverArtImages();
 		for (const result of data.matchings) {
-			const match = this.matcher.matchings.find(m => m.track.id === result.track.id);
+			const match = this.matcher.matchings().find(m => m.track.id === result.track.id);
 			result.rawTag = match ? toID3v24(match, genres, images) : undefined;
 		}
 		data.apply();
@@ -94,7 +95,7 @@ export class MatchReleaseComponent {
 
 	chooseRelease({ group, release }: { group: MatchReleaseGroup; release: MatchRelease }): void {
 		this.stopApply();
-		this.current = { group, release };
+		this.current.set({ group, release });
 		this.matchApply().coverArtSearch.set({ mbReleaseID: release.mbRelease.id, mbReleaseGroupID: group.mbGroup.id });
 		this.matcher.apply(group, release);
 		const data = this.data();
@@ -108,21 +109,23 @@ export class MatchReleaseComponent {
 	}
 
 	stopApply(): void {
-		this.current = undefined;
+		this.current.set(undefined);
 		this.matchApply().genres.set(undefined);
 		this.matchApply().coverArtSearch.set(undefined);
 		this.matcher.stopApply();
 	}
 
 	loadLyricsRequest(): void {
-		if (this.current) {
-			this.matcher.loadLyrics(this.current.group.currentRelease);
+		const current = this.current();
+		if (current) {
+			this.matcher.loadLyrics(current.group.currentRelease);
 		}
 	}
 
 	loadMoodsRequest(): void {
-		if (this.current) {
-			this.matcher.loadMoods(this.current.group.currentRelease);
+		const current = this.current();
+		if (current) {
+			this.matcher.loadMoods(current.group.currentRelease);
 		}
 	}
 

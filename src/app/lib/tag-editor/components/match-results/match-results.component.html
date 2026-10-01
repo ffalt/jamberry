@@ -1,7 +1,6 @@
-<div [attr.data-matcher-version]="version()">
-	@if (matcher(); as matcher) {
+@if (matcher(); as matcher) {
 	<div class="match-results">
-		@for (group of matcher.matchTree.groups; track group) {
+		@for (group of matcher.matchTree().groups; track group) {
 			<div class="match-releasegroup">
 				<div class="match-releasegroup-title">
 					<span class="value">{{ group.mbGroup.title }}</span>
@@ -27,7 +26,7 @@
 					</div>
 				}
 				<div class="match-select-releases">
-					@if (!matcher.isRunning) {
+					@if (!matcher.isRunning()) {
 						<button i18n class="button-on-background" (click)="group.expanded = !group.expanded">Tracks</button>
 						@if (group.releases.length > 1) {
 							<button i18n class="button-on-background" (click)="group.selecting=!group.selecting">Releases</button>
@@ -112,4 +111,3 @@
 		}
 	</div>
 }
-</div>

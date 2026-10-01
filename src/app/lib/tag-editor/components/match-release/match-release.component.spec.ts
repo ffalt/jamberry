@@ -4,11 +4,15 @@ import { TEST_IMPORTS } from '../../../../app.mock';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { JamService, MusicBrainzLookupType } from '@jam';
 import { NotifyService } from '@core/services/notify/notify.service';
+import type { Matching, MatchRelease } from '../../model/release-matching.helper';
+import type { LyricsOVHResponse } from '@modules/jam/model/lyricsovh-rest-data';
 
 const jamServiceMock = {
 	metadata: {
 		musicbrainzSearch: vi.fn(),
-		musicbrainzLookup: vi.fn()
+		musicbrainzLookup: vi.fn(),
+		lyricsovhSearch: vi.fn(),
+		acousticbrainzLookup: vi.fn()
 	}
 };
 
@@ -34,6 +38,8 @@ describe('MatchReleaseComponent', () => {
 	beforeEach(() => {
 		jamServiceMock.metadata.musicbrainzSearch.mockReset();
 		jamServiceMock.metadata.musicbrainzLookup.mockReset();
+		jamServiceMock.metadata.lyricsovhSearch.mockReset();
+		jamServiceMock.metadata.acousticbrainzLookup.mockReset();
 		notifyServiceMock.error.mockReset();
 		fixture = TestBed.createComponent(MatchReleaseComponent);
 		component = fixture.componentInstance;
@@ -42,6 +48,60 @@ describe('MatchReleaseComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
+	});
+
+	it('shows lyrics found for each track as loading progresses', async () => {
+		const matches = ['First track', 'Second track'].map(name => ({
+			track: { id: name, name },
+			mbTrack: { title: name, artistCredit: [{ name: 'Artist' }] }
+		})) as Array<Matching>;
+		const release = {
+			media: [{ tracks: matches.map(match => ({ mbTrack: match.mbTrack, currentMatch: { match } })) }]
+		} as unknown as MatchRelease;
+		component.matcher.matchings.set(matches);
+		fixture.detectChanges();
+		const first = Promise.withResolvers<{ data: LyricsOVHResponse }>();
+		const second = Promise.withResolvers<{ data: LyricsOVHResponse }>();
+		jamServiceMock.metadata.lyricsovhSearch.mockReturnValueOnce(first.promise).mockReturnValueOnce(second.promise);
+		component.matcher.loadLyrics(release);
+		first.resolve({ data: { lyrics: 'Found lyrics' } });
+		await fixture.whenStable();
+
+		const element = fixture.nativeElement as HTMLElement;
+		const tracks = element.querySelectorAll('.match-file');
+		expect(component.matcher.isRunning()).toBe(true);
+		expect(tracks[0].textContent).toContain('Lyrics:');
+		expect(tracks[1].textContent).not.toContain('Lyrics:');
+
+		second.resolve({ data: {} });
+		await vi.waitFor(() => expect(component.matcher.isRunning()).toBe(false));
+		await fixture.whenStable();
+		expect(tracks[1].textContent).not.toContain('Lyrics:');
+		expect(notifyServiceMock.error).not.toHaveBeenCalled();
+	});
+
+	it('updates track moods after async loading', async () => {
+		const matches = [{
+			track: { id: 'track', name: 'Track' },
+			mbTrack: { title: 'Track', artistCredit: [{ name: 'Artist' }], recording: { id: 'recording' } }
+		}] as Array<Matching>;
+		const release = {
+			media: [{ tracks: matches.map(match => ({ mbTrack: match.mbTrack, currentMatch: { match } })) }]
+		} as unknown as MatchRelease;
+		component.matcher.prepare(matches);
+		await fixture.whenStable();
+		jamServiceMock.metadata.acousticbrainzLookup.mockResolvedValue({
+			data: { highlevel: { mood_happy: { value: 'happy', probability: 0.95 } } }
+		});
+
+		component.matcher.loadMoods(release);
+		await vi.waitFor(() => expect(component.matcher.isRunning()).toBe(false));
+		await fixture.whenStable();
+
+		const element = fixture.nativeElement as HTMLElement;
+		expect(element.textContent).toContain('Moods:');
+		expect(element.textContent).toContain('happy');
+		expect(notifyServiceMock.error).not.toHaveBeenCalled();
 	});
 
 	it('renders manual search results and hides the spinner after async completion', async () => {
@@ -122,11 +182,11 @@ describe('MatchReleaseComponent', () => {
 		fixture.detectChanges();
 
 		component.matcher.setManualSearch();
-		component.matcher.manualSearchData.artist = 'Test Artist';
-		component.matcher.manualSearchData.releaseGroup = 'Test Album';
+		component.matcher.manualSearchData.artist.set('Test Artist');
+		component.matcher.manualSearchData.releaseGroup.set('Test Album');
 		component.matcher.manualSearch();
 
-		expect(component.matcher.isRunning).toBe(true);
+		expect(component.matcher.isRunning()).toBe(true);
 		resolveSearch({
 			data: {
 				releaseGroups: [{ id: 'rg-1' }]
@@ -136,10 +196,19 @@ describe('MatchReleaseComponent', () => {
 		await fixture.whenStable();
 
 		const text = fixture.nativeElement.textContent as string;
-		expect(component.matcher.isRunning).toBe(false);
-		expect(component.matcher.matchTree.groups[0]?.mbGroup.title).toBe('Test Album');
+		expect(component.matcher.isRunning()).toBe(false);
+		expect(component.matcher.matchTree().groups[0]?.mbGroup.title).toBe('Test Album');
 		expect(text).toContain('Test Album');
 		expect(fixture.nativeElement.querySelector('.current-log')).toBeNull();
 		expect(notifyServiceMock.error).not.toHaveBeenCalled();
+
+		component.matcher.clear();
+		await fixture.whenStable();
+		expect(fixture.nativeElement.querySelector('.match-releasegroup')).toBeNull();
+		component.matcher.manualSearch();
+		await vi.waitFor(() => expect(component.matcher.isRunning()).toBe(false));
+		await fixture.whenStable();
+		expect(fixture.nativeElement.querySelector('.match-releasegroup')?.textContent).toContain('Test Album');
+		expect(jamServiceMock.metadata.musicbrainzLookup).toHaveBeenCalledTimes(4);
 	});
 });

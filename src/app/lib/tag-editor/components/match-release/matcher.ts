@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { type AcoustIDEntry, acoustidResultToList, AcoustidTree } from '../../model/acoustid.helper';
 import { type Matching, type MatchingTrack, type MatchRelease, type MatchReleaseGroup, MatchTree } from '../../model/release-matching.helper';
 import { type AcousticBrainz, type Acoustid, type Jam, type JamParameters, type JamService, type MusicBrainz, MusicBrainzLookupType, MusicBrainzSearchType } from '@jam';
@@ -16,26 +17,23 @@ export enum RunType {
 }
 
 export class Matcher {
-	isRunning: boolean = false;
-	isAborted: boolean = false;
-	manual: boolean = false;
-	currentAction?: string;
-	folder?: Jam.Folder;
-	matchings: Array<Matching> = [];
-	matchTree = new MatchTree();
-	manualSearchData: ManualSearchData;
-	private readonly changeTracker: { notify: () => void };
+	readonly isRunning = signal(false);
+	readonly isAborted = signal(false);
+	readonly manual = signal(false);
+	readonly currentAction = signal('');
+	readonly folder = signal<Jam.Folder | undefined>(undefined);
+	readonly matchings = signal<Array<Matching>>([]);
+	readonly matchTree = signal(new MatchTree());
+	readonly manualSearchData: ManualSearchData;
 	private readonly releaseLoader: ReleaseLoaderHelper;
 
 	constructor(
 		private readonly jam: JamService,
-		private readonly notify: NotifyService,
-		onChange: () => void = () => undefined
+		private readonly notify: NotifyService
 	) {
-		this.manualSearchData = new ManualSearchData(() => this.matchings);
-		this.changeTracker = { notify: onChange };
+		this.manualSearchData = new ManualSearchData(() => this.matchings());
 		this.releaseLoader = new ReleaseLoaderHelper(
-			this.matchTree,
+			() => this.matchTree(),
 			() => this.shouldStop(),
 			async (id: string) => this.addReleaseGroupByID(id),
 			async (rg: MatchReleaseGroup) => this.loadBestMatchingCurrentRelease(rg)
@@ -43,85 +41,78 @@ export class Matcher {
 	}
 
 	abort() {
-		this.matchings = [];
-		this.isAborted = true;
-		this.changeTracker.notify();
+		this.matchings.set([]);
+		this.isAborted.set(true);
 	}
 
 	stop(): void {
-		if (!this.isRunning) {
+		if (!this.isRunning()) {
 			return;
 		}
-		this.isAborted = true;
-		this.changeTracker.notify();
+		this.isAborted.set(true);
 	}
 
 	start(type: RunType): void {
-		if (this.isRunning) {
+		if (this.isRunning()) {
 			return;
 		}
-		this.isAborted = false;
-		this.isRunning = true;
-		this.changeTracker.notify();
+		this.isAborted.set(false);
+		this.isRunning.set(true);
+
 		this.run(type)
 			.then(() => {
-				this.matchTree.sort();
-				this.isRunning = false;
-				this.isAborted = false;
-				this.currentAction = '';
-				this.changeTracker.notify();
+				this.matchTree().sort();
+				this.updateMatchTree();
+				this.isRunning.set(false);
+				this.isAborted.set(false);
+				this.currentAction.set('');
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
-				this.isRunning = false;
-				this.isAborted = false;
-				this.currentAction = '';
-				this.changeTracker.notify();
+				this.isRunning.set(false);
+				this.isAborted.set(false);
+				this.currentAction.set('');
 			});
 	}
 
 	clear(): void {
-		if (this.isRunning) {
+		if (this.isRunning()) {
 			return;
 		}
-		this.matchTree = new MatchTree();
-		this.changeTracker.notify();
+		this.matchTree.set(new MatchTree());
 	}
 
 	manualSearch(): void {
-		if (this.isRunning) {
+		if (this.isRunning()) {
 			return;
 		}
-		this.isAborted = false;
-		this.isRunning = true;
-		this.changeTracker.notify();
+		this.isAborted.set(false);
+		this.isRunning.set(true);
+
 		this.searchManual()
 			.then(() => {
-				this.isRunning = false;
-				this.isAborted = false;
-				this.currentAction = '';
-				this.changeTracker.notify();
+				this.isRunning.set(false);
+				this.isAborted.set(false);
+				this.currentAction.set('');
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);
-				this.isRunning = false;
-				this.isAborted = false;
-				this.currentAction = '';
-				this.changeTracker.notify();
+				this.isRunning.set(false);
+				this.isAborted.set(false);
+				this.currentAction.set('');
 			});
 	}
 
 	prepare(items: Array<Matching>, folder?: Jam.Folder): void {
-		this.matchings = items;
-		this.folder = folder;
-		if (!this.isRunning) {
-			this.isAborted = false;
+		this.matchings.set(items);
+		this.folder.set(folder);
+		if (!this.isRunning()) {
+			this.isAborted.set(false);
 		}
-		this.changeTracker.notify();
 	}
 
 	selectMatch(id: string, group: MatchReleaseGroup, release: MatchRelease, track: MatchingTrack) {
-		const match = this.matchings.find(m => m.track.id === id);
+		const match = this.matchings().find(m => m.track.id === id);
 		if (!match) {
 			return;
 		}
@@ -143,28 +134,26 @@ export class Matcher {
 		}
 		track.currentMatch = matching;
 		group.updateScore();
-		this.changeTracker.notify();
+		this.updateMatchTree();
 	}
 
 	setManualSearch(): void {
-		this.manual = true;
-		if (this.manualSearchData.artist.length === 0) {
+		this.manual.set(true);
+		if (this.manualSearchData.artist().length === 0) {
 			const list = this.manualSearchData.getAutoCompleteArtistList();
 			if (list.length > 0) {
-				this.manualSearchData.artist = list[0];
+				this.manualSearchData.artist.set(list[0]);
 			}
 		}
-		if (this.manualSearchData.releaseGroup.length !== 0) {
-			this.changeTracker.notify();
+		if (this.manualSearchData.releaseGroup().length !== 0) {
 			return;
 		}
 		const list = this.manualSearchData.getAutoCompleteAlbumList();
 		if (list.length > 0) {
-			this.manualSearchData.releaseGroup = list[0];
-		} else if (this.folder) {
-			this.manualSearchData.releaseGroup = this.folder.name;
+			this.manualSearchData.releaseGroup.set(list[0]);
+		} else if (this.folder()) {
+			this.manualSearchData.releaseGroup.set(this.folder()?.name ?? '');
 		}
-		this.changeTracker.notify();
 	}
 
 	apply(group: MatchReleaseGroup, release: MatchRelease) {
@@ -178,38 +167,38 @@ export class Matcher {
 				}
 			}
 		}
+		this.updateMatchings();
 	}
 
 	stopApply() {
-		for (const match of this.matchings) {
+		for (const match of this.matchings()) {
 			match.mbTrack = undefined;
 			match.mbMedia = undefined;
 			match.mbRelease = undefined;
 			match.mbGroup = undefined;
 			match.genres = undefined;
 		}
-		this.changeTracker.notify();
+
+		this.updateMatchings();
 	}
 
 	setRunning(action: string): void {
-		this.currentAction = action;
-		this.isRunning = true;
-		this.changeTracker.notify();
+		this.currentAction.set(action);
+		this.isRunning.set(true);
 	}
 
 	stopRunning(): void {
-		this.isRunning = false;
-		this.currentAction = '';
-		this.changeTracker.notify();
+		this.isRunning.set(false);
+		this.currentAction.set('');
 	}
 
 	async searchManual(): Promise<void> {
 		const q: JamParameters.MusicBrainzSearchParameters = { type: MusicBrainzSearchType.releaseGroup };
-		if (this.manualSearchData.artist && this.manualSearchData.artist.trim().length > 0) {
-			q.artist = this.manualSearchData.artist;
+		if (this.manualSearchData.artist() && this.manualSearchData.artist().trim().length > 0) {
+			q.artist = this.manualSearchData.artist();
 		}
-		if (this.manualSearchData.releaseGroup && this.manualSearchData.releaseGroup.trim().length > 0) {
-			q.releasegroup = this.manualSearchData.releaseGroup;
+		if (this.manualSearchData.releaseGroup() && this.manualSearchData.releaseGroup().trim().length > 0) {
+			q.releasegroup = this.manualSearchData.releaseGroup();
 		}
 		if (Object.keys(q).length <= 1) {
 			return;
@@ -220,7 +209,8 @@ export class Matcher {
 
 	setRelease(group: MatchReleaseGroup, release: MatchRelease): void {
 		group.currentRelease = release;
-		this.changeTracker.notify();
+		this.updateMatchTree();
+
 		if (!release.loaded) {
 			this.loadRelease(release).catch((error: unknown) => {
 				this.notify.error(error);
@@ -231,11 +221,11 @@ export class Matcher {
 	removeMatching(group: MatchReleaseGroup, track: MatchingTrack): void {
 		track.currentMatch = undefined;
 		group.updateScore();
-		this.changeTracker.notify();
+		this.updateMatchTree();
 	}
 
 	loadLyrics(release?: MatchRelease): void {
-		if (!release || this.isRunning) {
+		if (!release || this.isRunning()) {
 			return;
 		}
 		this.setRunning('Searching Lyrics');
@@ -250,7 +240,7 @@ export class Matcher {
 	}
 
 	loadMoods(release?: MatchRelease): void {
-		if (!release || this.isRunning) {
+		if (!release || this.isRunning()) {
 			return;
 		}
 		this.setRunning('Searching Moods');
@@ -275,6 +265,8 @@ export class Matcher {
 					if (abData) {
 						track.abData = abData;
 						track.currentMatch.match.abdata = abData;
+						this.updateMatchings();
+						this.updateMatchTree();
 					}
 				}
 			}
@@ -282,23 +274,24 @@ export class Matcher {
 	}
 
 	private shouldStop(): boolean {
-		return (this.matchTree.enough(this.matchings.length) || this.isAborted);
+		return (this.matchTree().enough(this.matchings().length) || this.isAborted());
 	}
 
 	private async collectList(): Promise<Array<AcoustIDEntry>> {
 		let list: Array<AcoustIDEntry> = [];
-		for (const match of this.matchings) {
+		for (const match of this.matchings()) {
 			if (!match.acoustidEntries) {
-				this.currentAction = `Checking files with AcoustID: ${match.track.name}`;
-				this.changeTracker.notify();
+				this.currentAction.set(`Checking files with AcoustID: ${match.track.name}`);
+
 				try {
 					const data = await this.jam.metadata.acoustidLookup({ trackID: match.track.id });
 					const res = data.data as Array<Acoustid.Result>;
 					match.acoustidEntries = acoustidResultToList(res, match.track);
+					this.updateMatchings();
 				} catch (error) {
 					console.error(error);
 				}
-				if (this.isAborted) {
+				if (this.isAborted()) {
 					return list;
 				}
 			}
@@ -310,11 +303,11 @@ export class Matcher {
 	}
 
 	private async acoustId(): Promise<void> {
-		this.currentAction = 'Checking files with AcoustID';
-		this.changeTracker.notify();
+		this.currentAction.set('Checking files with AcoustID');
+
 		// first make a list of all entries
 		const list: Array<AcoustIDEntry> = await this.collectList();
-		if (this.isAborted) {
+		if (this.isAborted()) {
 			return;
 		}
 		// build best matching sorted releases tree
@@ -331,7 +324,7 @@ export class Matcher {
 			if (this.shouldStop()) {
 				return;
 			}
-			let rg2 = this.matchTree.findReleaseGroup(rg.id);
+			let rg2 = this.matchTree().findReleaseGroup(rg.id);
 			rg2 ??= await this.addReleaseGroupByID(rg.id);
 			if (!rg2.currentRelease) {
 				await this.loadBestMatchingCurrentRelease(rg2);
@@ -339,8 +332,8 @@ export class Matcher {
 					return;
 				}
 			}
-			this.matchTree.sort();
-			this.changeTracker.notify();
+			this.matchTree().sort();
+			this.updateMatchTree();
 		}
 	}
 
@@ -352,6 +345,7 @@ export class Matcher {
 					const title = track.mbTrack.title;
 					const result = await this.jam.metadata.lyricsovhSearch({ title, artist });
 					track.currentMatch.match.lyrics = result.data;
+					this.updateMatchings();
 				}
 			}
 		}
@@ -362,62 +356,64 @@ export class Matcher {
 			return;
 		}
 		release.isLoading = true;
-		this.changeTracker.notify();
+		this.updateMatchTree();
+
 		try {
-			this.currentAction = `Loading MusicBrainz Release: ${release.mbRelease.id}`;
-			this.changeTracker.notify();
+			this.currentAction.set(`Loading MusicBrainz Release: ${release.mbRelease.id}`);
+
 			const data = await this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.release, mbID: release.mbRelease.id });
 			const res = data.data as MusicBrainz.Response;
 			if (!res.release) {
 				throw new Error('Got empty data');
 			}
-			release.setLookupRelease(res.release, this.matchings);
+			release.setLookupRelease(res.release, this.matchings());
 			release.loaded = true;
 			release.isLoading = false;
-			this.changeTracker.notify();
+			this.updateMatchTree();
 		} catch (error) {
 			release.isLoading = false;
-			this.changeTracker.notify();
+			this.updateMatchTree();
+
 			return Promise.reject(error);
 		}
 	}
 
 	private async addReleaseGroupByReleaseID(releaseID: string): Promise<MatchReleaseGroup> {
-		this.currentAction = `Loading MusicBrainz Release: ${releaseID}`;
-		this.changeTracker.notify();
+		this.currentAction.set(`Loading MusicBrainz Release: ${releaseID}`);
+
 		const data = await this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.release, mbID: releaseID });
 		const res = data.data as MusicBrainz.Response;
 		return res.release ? this.addReleaseGroupByID(res.release.releaseGroup.id) : Promise.reject(new Error('Got empty data'));
 	}
 
 	private async addReleaseGroupByID(releasegroupID: string): Promise<MatchReleaseGroup> {
-		let rg = this.matchTree.findReleaseGroup(releasegroupID);
+		let rg = this.matchTree().findReleaseGroup(releasegroupID);
 		if (!rg) {
-			this.currentAction = `Loading MusicBrainz Release Group: ${releasegroupID}`;
-			this.changeTracker.notify();
+			this.currentAction.set(`Loading MusicBrainz Release Group: ${releasegroupID}`);
+
 			const data = await this.jam.metadata.musicbrainzLookup({ type: MusicBrainzLookupType.releaseGroup, mbID: releasegroupID });
 			const res = data.data as MusicBrainz.Response;
 			if (!res.releaseGroup) {
 				return Promise.reject(new Error('Got empty data'));
 			}
-			rg = this.matchTree.addReleaseGroup(res.releaseGroup);
-			this.changeTracker.notify();
+			rg = this.matchTree().addReleaseGroup(res.releaseGroup);
+			this.updateMatchTree();
 		}
 		return rg;
 	}
 
 	private buildQuickQueries(): Array<MusicbrainzSearchQuery> {
-		return QueryBuilderHelper.buildQuickQueries(this.matchings, this.folder);
+		return QueryBuilderHelper.buildQuickQueries(this.matchings(), this.folder());
 	}
 
 	private buildQueries(): Array<MusicbrainzSearchQuery> {
-		return QueryBuilderHelper.buildQueries(this.matchings);
+		return QueryBuilderHelper.buildQueries(this.matchings());
 	}
 
 	private async loadBestMatchingCurrentRelease(rg: MatchReleaseGroup): Promise<void> {
 		const releases = rg.releases.toSorted((a, b) => {
-			const resA = Math.abs((a.totalTrack ?? 0) - this.matchings.length);
-			const resB = Math.abs((b.totalTrack ?? 0) - this.matchings.length);
+			const resA = Math.abs((a.totalTrack ?? 0) - this.matchings().length);
+			const resB = Math.abs((b.totalTrack ?? 0) - this.matchings().length);
 			return resA === resB ? a.sortDate - b.sortDate : resA - resB;
 		});
 		for (const rel of releases) {
@@ -427,6 +423,7 @@ export class Matcher {
 			await this.loadRelease(rel);
 			if (rel.complete) {
 				rg.currentRelease = rel;
+				this.updateMatchTree();
 				return;
 			}
 		}
@@ -436,6 +433,7 @@ export class Matcher {
 
 		await this.loadRelease(rg.releases[0]);
 		rg.currentRelease = rg.releases[0];
+		this.updateMatchTree();
 	}
 
 	private async loadByReleaseGroups(releaseGroups: Array<MusicBrainz.ReleaseGroup>): Promise<void> {
@@ -454,8 +452,8 @@ export class Matcher {
 		if (this.shouldStop()) {
 			return;
 		}
-		this.currentAction = q.name;
-		this.changeTracker.notify();
+		this.currentAction.set(q.name);
+
 		const result = await this.jam.metadata.musicbrainzSearch(q.q);
 		const res = result.data as MusicBrainz.Response;
 		if (res.releaseGroups) {
@@ -467,8 +465,9 @@ export class Matcher {
 		} else {
 			console.error('Not implemented result set', res);
 		}
-		this.matchTree.sort();
-		this.changeTracker.notify();
+		this.matchTree().sort();
+		this.updateMatchTree();
+
 		if (this.shouldStop()) {
 			return;
 		}
@@ -495,7 +494,7 @@ export class Matcher {
 	}
 
 	private async musicBrainzRefresh(): Promise<void> {
-		for (const match of this.matchings) {
+		for (const match of this.matchings()) {
 			if (this.shouldStop()) {
 				return;
 			}
@@ -530,13 +529,26 @@ export class Matcher {
 				console.error('Could not find the release with id', match.track.tag.mbReleaseID);
 			}
 			matchReleaseGroup.currentRelease = rel;
-			if (!matchReleaseGroup.enough(this.matchings.length)) {
+			if (!matchReleaseGroup.enough(this.matchings().length)) {
 				matchReleaseGroup.currentRelease = undefined;
 			}
 		}
 		if (!matchReleaseGroup.currentRelease) {
 			await this.loadBestMatchingCurrentRelease(matchReleaseGroup);
 		}
+		this.updateMatchTree();
+	}
+
+	private updateMatchTree(): void {
+		this.matchTree.update(tree => {
+			const updated = new MatchTree();
+			updated.groups = [...tree.groups];
+			return updated;
+		});
+	}
+
+	private updateMatchings(): void {
+		this.matchings.update(matches => [...matches]);
 	}
 
 	private async run(type: RunType): Promise<void> {

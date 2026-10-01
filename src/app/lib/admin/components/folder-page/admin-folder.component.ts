@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal, viewChild } from '@angular/core';
+import { type AfterViewInit, Component, DestroyRef, inject, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import type { Jam } from '@jam';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -18,7 +18,7 @@ import { IconRightComponent } from '@core/components/icons/icon-right.component'
 		'[class.right-active]': 'rightActive'
 	}
 })
-export class AdminFolderComponent {
+export class AdminFolderComponent implements AfterViewInit {
 	rightActive: boolean = false;
 	readonly id = signal<string | undefined>(undefined);
 	private readonly tree = viewChild(FolderTreeComponent);
@@ -61,6 +61,15 @@ export class AdminFolderComponent {
 				this.uiState.put('app-admin-folders', tree.expandIDs);
 			}
 		});
+	}
+
+	ngAfterViewInit(): void {
+		const tree = this.tree();
+		if (!tree) {
+			return;
+		}
+		tree.expandIDs = this.uiState.get<Array<string>>('app-admin-folders', []);
+		tree.refresh();
 	}
 
 	refresh(): void {

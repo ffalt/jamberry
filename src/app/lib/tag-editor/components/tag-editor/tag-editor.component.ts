@@ -293,6 +293,7 @@ export class TagEditorComponent implements ComponentCanDeactivate {
 
 		this.editor.build(tracks);
 		this.applyMatchingTracks(matching);
+		this.tracks.set([...tracks]);
 	}
 
 	private applyMatchingTracks(matching: ReleaseMatching) {

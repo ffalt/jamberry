@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import type { Matching } from '../../model/release-matching.helper';
 
 /**
@@ -6,8 +7,8 @@ import type { Matching } from '../../model/release-matching.helper';
 export class ManualSearchData {
 	artists: Array<string> = [];
 	albums: Array<string> = [];
-	artist: string = '';
-	releaseGroup: string = '';
+	readonly artist = signal('');
+	readonly releaseGroup = signal('');
 
 	constructor(private readonly getMatchings: () => Array<Matching>) {
 	}

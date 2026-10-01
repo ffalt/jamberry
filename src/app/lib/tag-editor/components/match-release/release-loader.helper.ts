@@ -6,7 +6,7 @@ import type { MusicBrainz } from '@jam';
  */
 export class ReleaseLoaderHelper {
 	constructor(
-		private readonly matchTree: MatchTree,
+		private readonly getMatchTree: () => MatchTree,
 		private readonly shouldStop: () => boolean,
 		private readonly addReleaseGroupByID: (id: string) => Promise<MatchReleaseGroup>,
 		private readonly loadBestMatchingCurrentRelease: (rg: MatchReleaseGroup) => Promise<void>
@@ -62,7 +62,7 @@ export class ReleaseLoaderHelper {
 	 * Process a single release to find or create a release group and load the best matching release
 	 */
 	private async processRelease(releaseGroupId: string): Promise<void> {
-		let rg = this.matchTree.findReleaseGroup(releaseGroupId);
+		let rg = this.getMatchTree().findReleaseGroup(releaseGroupId);
 		rg ??= await this.addReleaseGroupByID(releaseGroupId);
 		if (!rg.currentRelease) {
 			await this.loadBestMatchingCurrentRelease(rg);
