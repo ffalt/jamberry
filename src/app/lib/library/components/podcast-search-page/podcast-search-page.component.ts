@@ -77,10 +77,6 @@ export class PodcastSearchPageComponent {
 		const collect: Record<string, PodcastSearch | undefined> = {};
 		for (const result of data) {
 			const url = new URL(result.url);
-			const allowedHosts = ['feedburner.com', 'www.feedburner.com'];
-			if (!allowedHosts.includes(url.hostname)) {
-				return;
-			}
 			let podcast = collect[result.title];
 			if (!podcast) {
 				podcast = {
