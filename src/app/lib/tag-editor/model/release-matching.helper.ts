@@ -140,8 +140,8 @@ export class MatchingTrack {
 	}
 }
 
-function buildSortDate(s?: string): number {
-	const parts = (s ?? '').split('-');
+function buildSortDate(s: string = ''): number {
+	const parts = s.split('-');
 	return (new Date(parts[0] ? Number(parts[0]) : 9999, parts[1] ? Number(parts[1]) : 12, parts[2] ? Number(parts[2]) : 31)).valueOf();
 }
 

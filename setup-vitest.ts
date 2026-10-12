@@ -22,7 +22,7 @@ const mockBrowser = () => {
 	const storage = new Map<string, unknown>();
 	return {
 		getItem: (key: string): unknown => storage.get(key),
-		setItem: (key: string, value: string): Map<string, unknown> => storage.set(key, value || ''),
+		setItem: (key: string, value: string = ''): Map<string, unknown> => storage.set(key, value),
 		removeItem: (key: string): boolean => storage.delete(key),
 		clear: (): void => {
 			storage.clear();

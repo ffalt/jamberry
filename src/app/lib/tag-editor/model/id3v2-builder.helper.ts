@@ -53,12 +53,11 @@ export class ID3V2RawBuilder {
 		return this;
 	}
 
-	idLangText(key: string, value: string | undefined, lang: string | undefined, id: string | undefined): this {
+	idLangText(key: string, value: string | undefined, lang = '', id = ''): this {
 		if (value) {
-			const cid = id ?? '';
 			const list = ((this.frameValues[key] ?? []) as Array<Jam.MediaTagRawFrameLangDescText>)
-				.filter(f => f.value.id !== cid);
-			const frame: Jam.MediaTagRawFrameLangDescText = { id: key, value: { id: cid, language: lang ?? '', text: value } };
+				.filter(f => f.value.id !== id);
+			const frame: Jam.MediaTagRawFrameLangDescText = { id: key, value: { id, language: lang, text: value } };
 			this.frameValues[key] = [...list, frame];
 		}
 		return this;

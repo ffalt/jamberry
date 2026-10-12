@@ -25,10 +25,10 @@ export class TagEditor {
 		}
 	}
 
-	updateEditTextCell(edit: RawTagEditRow, column: RawTagEditColumn, value?: string): void {
+	updateEditTextCell(edit: RawTagEditRow, column: RawTagEditColumn, value: string = ''): void {
 		const index = this.columns.indexOf(column);
 		const cell: RawTagEditCell<{ text: string } | { id: string; language: string; text: string }> | undefined = edit.cells[index];
-		const text = value ?? '';
+		const text = value;
 		let frames: Array<RawTagEditFrame<{ text: string } | { id: string; language: string; text: string }>> = [];
 		if (text.length > 0) {
 			if (column.def.impl === FrameType.LangDescText) {

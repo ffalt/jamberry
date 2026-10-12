@@ -41,10 +41,10 @@ function iterateGrams(value: string, gs = 2): Array<string> {
 	return results;
 }
 
-function gramCounter(value: string, gramSize: number): { [name: string]: number } {
+function gramCounter(value: string, gramSize = 2): { [name: string]: number } {
 	// return an object where key=gram, value=number of occurrences
 	const result: { [name: string]: number } = {};
-	const grams = iterateGrams(value, gramSize || 2);
+	const grams = iterateGrams(value, gramSize);
 	for (const g of grams) {
 		result[g] = (result[g] ?? 0) + 1;
 	}
@@ -82,11 +82,11 @@ export class FuzzySet {
 	private matchDict: Record<string, Array<[number, number]> | undefined> = {};
 	private items: Record<number, Array<[number, string]>> = {};
 
-	constructor(arr?: Array<string>, useLevenshtein?: boolean, gramSizeLower?: number, gramSizeUpper?: number) {
-		this.arr = arr ?? [];
-		this.useLevenshtein = useLevenshtein ?? true;
-		this.gramSizeLower = gramSizeLower ?? 2;
-		this.gramSizeUpper = gramSizeUpper ?? 3;
+	constructor(arr: Array<string> = [], useLevenshtein = true, gramSizeLower = 2, gramSizeUpper = 3) {
+		this.arr = arr;
+		this.useLevenshtein = useLevenshtein;
+		this.gramSizeLower = gramSizeLower;
+		this.gramSizeUpper = gramSizeUpper;
 		// initialization
 		for (let i = this.gramSizeLower; i < this.gramSizeUpper + 1; i += 1) {
 			this.items[i] = [];

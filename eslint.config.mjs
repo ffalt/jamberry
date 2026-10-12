@@ -141,6 +141,7 @@ const commonStylisticRules = {
 	"@stylistic/no-trailing-spaces": "error"
 };
 
+// eslint-disable-next-line unicorn/no-top-level-side-effects
 export default ts.config(
 	{
 		files: ["**/*.ts"],
