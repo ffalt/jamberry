@@ -12,8 +12,8 @@ export class JamLandscapeService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Get Music Collection Landscape Data for visualization // Rights needed: stream
-	 */
+	Get Music Collection Landscape Data for visualization // Rights needed: stream
+	*/
 	async get(parameters: JamParameters.LandscapeParameters): Promise<Jam.LandscapeData> {
 		return this.base.requestData<Jam.LandscapeData>('/landscape', parameters);
 	}

@@ -272,7 +272,7 @@ export class FolderArtworkSearchImageComponent {
 					thumbnail: image.thumbnails?.small ? this.jam.metadata.coverartarchiveImageUrl({ url: image.thumbnails.small }) : '',
 					licence: '',
 					image: image.image,
-					types: types.map(s => s.toLowerCase() as ArtworkImageType),
+					types: types.map(s => Object.values(ArtworkImageType).find(type => type === s.toLowerCase()) ?? ArtworkImageType.other),
 					checked: false,
 					storing: false,
 					stored: false

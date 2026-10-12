@@ -13,16 +13,16 @@ export declare namespace Jam {
 		// Queue ID
 		id: string;
 		/**
-		 * Waiting Position
-		 * @TJS-type integer
-		 */
+		Waiting Position
+		@TJS-type integer
+		*/
 		position?: number;
 		// Error (if any)
 		error?: string;
 		/**
-		 * Changes Completed Timestamp
-		 * @TJS-type integer
-		 */
+		Changes Completed Timestamp
+		@TJS-type integer
+		*/
 		done?: number;
 	}
 
@@ -45,10 +45,10 @@ export declare namespace Jam {
 	 */
 	export interface AdminSettingsChat {
 		/**
-		 * Maximum Number of Chat Messages to keep
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Maximum Number of Chat Messages to keep
+		@TJS-type integer
+		@minimum 0
+		*/
 		maxMessages: number;
 		// Maximum Age of Chat Messages to keep
 		maxAge: AdminSettingsChatMaxAge;
@@ -59,10 +59,10 @@ export declare namespace Jam {
 	 */
 	export interface AdminSettingsChatMaxAge {
 		/**
-		 * Value of Maximum Age
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Value of Maximum Age
+		@TJS-type integer
+		@minimum 0
+		*/
 		value: number;
 		// Unit of Maximum Age
 		unit: string;
@@ -73,9 +73,9 @@ export declare namespace Jam {
 	 */
 	export interface AdminSettingsExternal {
 		/**
-		 * Enable External Services
-		 * @TJS-type boolean
-		 */
+		Enable External Services
+		@TJS-type boolean
+		*/
 		enabled: boolean;
 	}
 
@@ -92,9 +92,9 @@ export declare namespace Jam {
 	 */
 	export interface AdminSettingsLibrary {
 		/**
-		 * Start Root Scanning on Server Start
-		 * @TJS-type boolean
-		 */
+		Start Root Scanning on Server Start
+		@TJS-type boolean
+		*/
 		scanAtStart: boolean;
 	}
 
@@ -115,28 +115,28 @@ export declare namespace Jam {
 		// Album Type
 		albumType: JamEnums.AlbumType;
 		/**
-		 * Album Play Duration
-		 * @TJS-type integer
-		 */
+		Album Play Duration
+		@TJS-type integer
+		*/
 		duration: number;
 		// Album Artist Id
 		artistID: string;
 		// Album Artist
 		artistName: string;
 		/**
-		 * Number of Tracks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Tracks
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount?: number;
 		// List of Track Ids
 		trackIDs?: Array<string>;
 		// Genres
 		genres?: Array<GenreBase>;
 		/**
-		 * Album Release Year
-		 * @TJS-type integer
-		 */
+		Album Release Year
+		@TJS-type integer
+		*/
 		year?: number;
 		// MusicBrainz Artist Id
 		mbArtistID?: string;
@@ -157,9 +157,9 @@ export declare namespace Jam {
 	 */
 	export interface AlbumIndex {
 		/**
-		 * Last Change Timestamp
-		 * @TJS-type integer
-		 */
+		Last Change Timestamp
+		@TJS-type integer
+		*/
 		lastModified: number;
 		// Album Index Groups
 		groups: Array<AlbumIndexGroup>;
@@ -178,10 +178,10 @@ export declare namespace Jam {
 		// Artist Id
 		artistID: string;
 		/**
-		 * Track Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Track Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount: number;
 	}
 
@@ -227,26 +227,26 @@ export declare namespace Jam {
 		// MusicBrainz Artist Id
 		mbArtistID?: string;
 		/**
-		 * Number of Albums
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Albums
+		@TJS-type integer
+		@minimum 0
+		*/
 		albumCount?: number;
 		// List of Album Ids
 		albumIDs?: Array<string>;
 		/**
-		 * Number of Series
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Series
+		@TJS-type integer
+		@minimum 0
+		*/
 		seriesCount?: number;
 		// List of Series Ids
 		seriesIDs?: Array<string>;
 		/**
-		 * Number of Tracks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Tracks
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount?: number;
 		// List of Track Ids
 		trackIDs?: Array<string>;
@@ -259,9 +259,9 @@ export declare namespace Jam {
 	 */
 	export interface ArtistIndex {
 		/**
-		 * Last Change Timestamp
-		 * @TJS-type integer
-		 */
+		Last Change Timestamp
+		@TJS-type integer
+		*/
 		lastModified: number;
 		// Artist Index Groups
 		groups: Array<ArtistIndexGroup>;
@@ -276,16 +276,16 @@ export declare namespace Jam {
 		// Name
 		name: string;
 		/**
-		 * Album Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Album Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		albumCount: number;
 		/**
-		 * Track Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Track Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount: number;
 	}
 
@@ -321,24 +321,24 @@ export declare namespace Jam {
 		// Artwork Image Type
 		types: Array<JamEnums.ArtworkImageType>;
 		/**
-		 * Image Height
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Image Height
+		@TJS-type integer
+		@minimum 0
+		*/
 		height?: number;
 		/**
-		 * Image Width
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Image Width
+		@TJS-type integer
+		@minimum 0
+		*/
 		width?: number;
 		// Image Format
 		format?: string;
 		/**
-		 * File Size
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		File Size
+		@TJS-type integer
+		@minimum 0
+		*/
 		size: number;
 	}
 
@@ -390,10 +390,10 @@ export declare namespace Jam {
 		// User State Info
 		state?: State;
 		/**
-		 * Created Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Created Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		created: number;
 	}
 
@@ -418,23 +418,23 @@ export declare namespace Jam {
 		// Episode Id
 		episodeID?: string;
 		/**
-		 * Position in Audio
-		 * @TJS-type integer
-		 */
+		Position in Audio
+		@TJS-type integer
+		*/
 		position: number;
 		// Comment
 		comment: string;
 		/**
-		 * Created Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Created Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		created: number;
 		/**
-		 * Changed Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Changed Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		changed: number;
 	}
 
@@ -455,10 +455,10 @@ export declare namespace Jam {
 		// User Id
 		userID: string;
 		/**
-		 * Created Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Created Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		created: number;
 		// Chat Message
 		message: string;
@@ -483,10 +483,10 @@ export declare namespace Jam {
 		// Episode Status
 		status: JamEnums.PodcastStatus;
 		/**
-		 * Published Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Published Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		date: number;
 		// Episode Summary
 		summary?: string;
@@ -509,10 +509,10 @@ export declare namespace Jam {
 	 */
 	export interface EpisodeChapter {
 		/**
-		 * Chapter Start Time
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Chapter Start Time
+		@TJS-type integer
+		@minimum 0
+		*/
 		start: number;
 		// Chapter Title
 		title: string;
@@ -583,35 +583,35 @@ export declare namespace Jam {
 		// Album Type
 		type: JamEnums.FolderType;
 		/**
-		 * Level in Root
-		 * @TJS-type integer
-		 */
+		Level in Root
+		@TJS-type integer
+		*/
 		level: number;
 		// Parent Folder Id
 		parentID?: string;
 		/**
-		 * Number of Tracks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Tracks
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount?: number;
 		/**
-		 * Number of Tracks in Subtree
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Tracks in Subtree
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackInSubtreeCount?: number;
 		/**
-		 * Number of Folders
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Folders
+		@TJS-type integer
+		@minimum 0
+		*/
 		folderCount?: number;
 		/**
-		 * Number of Artworks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Artworks
+		@TJS-type integer
+		@minimum 0
+		*/
 		artworkCount?: number;
 		// Genres
 		genres?: Array<GenreBase>;
@@ -652,9 +652,9 @@ export declare namespace Jam {
 	 */
 	export interface FolderIndex {
 		/**
-		 * Last Change Timestamp
-		 * @TJS-type integer
-		 */
+		Last Change Timestamp
+		@TJS-type integer
+		*/
 		lastModified: number;
 		// Folder Index Groups
 		groups: Array<FolderIndexGroup>;
@@ -669,10 +669,10 @@ export declare namespace Jam {
 		// Name
 		name: string;
 		/**
-		 * Track Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Track Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount: number;
 	}
 
@@ -718,9 +718,9 @@ export declare namespace Jam {
 		// Genres
 		genres?: Array<string>;
 		/**
-		 * Year
-		 * @TJS-type integer
-		 */
+		Year
+		@TJS-type integer
+		*/
 		year?: number;
 		// MusicBrainz Artist Id
 		mbArtistID?: string;
@@ -735,28 +735,28 @@ export declare namespace Jam {
 	 */
 	export interface Genre extends GenreBase {
 		/**
-		 * Album Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Album Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		albumCount: number;
 		/**
-		 * Track Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Track Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount: number;
 		/**
-		 * Artist Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Artist Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		artistCount: number;
 		/**
-		 * Folder Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Folder Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		folderCount: number;
 	}
 
@@ -771,9 +771,9 @@ export declare namespace Jam {
 	 */
 	export interface GenreIndex {
 		/**
-		 * Last Change Timestamp
-		 * @TJS-type integer
-		 */
+		Last Change Timestamp
+		@TJS-type integer
+		*/
 		lastModified: number;
 		// Genre Index Groups
 		groups: Array<GenreIndexGroup>;
@@ -788,28 +788,28 @@ export declare namespace Jam {
 		// Name
 		name: string;
 		/**
-		 * Track Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Track Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount: number;
 		/**
-		 * Artist Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Artist Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		artistCount: number;
 		/**
-		 * Album Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Album Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		albumCount: number;
 		/**
-		 * Folder Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Folder Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		folderCount: number;
 	}
 
@@ -861,28 +861,28 @@ export declare namespace Jam {
 		// Name
 		name: string;
 		/**
-		 * Album Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Album Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		albumCount: number;
 		/**
-		 * Track Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Track Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount: number;
 		// Genre IDs this artist belongs to
 		genreIDs: Array<string>;
 		/**
-		 * Computed X position (centroid of genre noise coords + jitter)
-		 * @TJS-type integer
-		 */
+		Computed X position (centroid of genre noise coords + jitter)
+		@TJS-type integer
+		*/
 		noiseX?: number;
 		/**
-		 * Computed Y position (centroid of genre noise coords + jitter)
-		 * @TJS-type integer
-		 */
+		Computed Y position (centroid of genre noise coords + jitter)
+		@TJS-type integer
+		*/
 		noiseY?: number;
 	}
 
@@ -895,9 +895,9 @@ export declare namespace Jam {
 		// All artists as scatter plot dots
 		artists: Array<LandscapeArtistNode>;
 		/**
-		 * Fraction of genres matched to ENAO coordinate data (0-1)
-		 * @TJS-type integer
-		 */
+		Fraction of genres matched to ENAO coordinate data (0-1)
+		@TJS-type integer
+		*/
 		noiseMatchRate: number;
 	}
 
@@ -910,32 +910,32 @@ export declare namespace Jam {
 		// Name
 		name: string;
 		/**
-		 * Track Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Track Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount: number;
 		/**
-		 * Artist Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Artist Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		artistCount: number;
 		/**
-		 * Album Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Album Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		albumCount: number;
 		/**
-		 * ENAO X coordinate (0=left/organic, 1=right/mechanical)
-		 * @TJS-type integer
-		 */
+		ENAO X coordinate (0=left/organic, 1=right/mechanical)
+		@TJS-type integer
+		*/
 		noiseX?: number;
 		/**
-		 * ENAO Y coordinate (0=top/atmospheric, 1=bottom/energetic)
-		 * @TJS-type integer
-		 */
+		ENAO Y coordinate (0=top/atmospheric, 1=bottom/energetic)
+		@TJS-type integer
+		*/
 		noiseY?: number;
 	}
 
@@ -946,10 +946,10 @@ export declare namespace Jam {
 		// Media Base Object Type
 		objType: JamEnums.JamObjectType;
 		/**
-		 * Duration of Track
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Duration of Track
+		@TJS-type integer
+		@minimum 0
+		*/
 		duration: number;
 		// Tag Meta Information
 		tag?: MediaTag;
@@ -982,31 +982,31 @@ export declare namespace Jam {
 	 */
 	export interface MediaInfo {
 		/**
-		 * Bit Rate
-		 * @TJS-type integer
-		 */
+		Bit Rate
+		@TJS-type integer
+		*/
 		bitRate?: number;
 		// Media Format
 		format?: string;
 		/**
-		 * Media Channels
-		 * @TJS-type integer
-		 */
+		Media Channels
+		@TJS-type integer
+		*/
 		channels?: number;
 		/**
-		 * Sample Rate (Hz)
-		 * @TJS-type integer
-		 */
+		Sample Rate (Hz)
+		@TJS-type integer
+		*/
 		sampleRate?: number;
 		/**
-		 * Bit Depth
-		 * @TJS-type integer
-		 */
+		Bit Depth
+		@TJS-type integer
+		*/
 		bitDepth?: number;
 		/**
-		 * File Size
-		 * @TJS-type integer
-		 */
+		File Size
+		@TJS-type integer
+		*/
 		size?: number;
 	}
 
@@ -1023,24 +1023,24 @@ export declare namespace Jam {
 		// Genres
 		genres?: Array<string>;
 		/**
-		 * Year
-		 * @TJS-type integer
-		 */
+		Year
+		@TJS-type integer
+		*/
 		year?: number;
 		/**
-		 * Track Nr
-		 * @TJS-type integer
-		 */
+		Track Nr
+		@TJS-type integer
+		*/
 		trackNr?: number;
 		/**
-		 * Disc Nr
-		 * @TJS-type integer
-		 */
+		Disc Nr
+		@TJS-type integer
+		*/
 		disc?: number;
 		/**
-		 * Total Nr. of Disc
-		 * @TJS-type integer
-		 */
+		Total Nr. of Disc
+		@TJS-type integer
+		*/
 		discTotal?: number;
 		// MusicBrainz Track Id
 		mbTrackID?: string;
@@ -1063,9 +1063,9 @@ export declare namespace Jam {
 	 */
 	export interface MediaTagRaw {
 		/**
-		 * Tag Version
-		 * @TJS-type integer
-		 */
+		Tag Version
+		@TJS-type integer
+		*/
 		version: number;
 		// Tag Frames
 		frames: MediaTagRawFrames;
@@ -1852,9 +1852,9 @@ export declare namespace Jam {
 		// User Id
 		userID: string;
 		/**
-		 * Minutes ago
-		 * @TJS-type integer
-		 */
+		Minutes ago
+		@TJS-type integer
+		*/
 		minutesAgo: number;
 		// The played track
 		track?: TrackBase;
@@ -1876,22 +1876,22 @@ export declare namespace Jam {
 
 	export interface Page {
 		/**
-		 * Items starting from offset position
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Items starting from offset position
+		@TJS-type integer
+		@minimum 0
+		*/
 		skip?: number;
 		/**
-		 * Amount of returned items
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Amount of returned items
+		@TJS-type integer
+		@minimum 0
+		*/
 		take?: number;
 		/**
-		 * Total amount of available items
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Total amount of available items
+		@TJS-type integer
+		@minimum 0
+		*/
 		total?: number;
 	}
 
@@ -1917,35 +1917,35 @@ export declare namespace Jam {
 		// Owner User Name
 		userName: string;
 		/**
-		 * Playlist is public?
-		 * @TJS-type boolean
-		 */
+		Playlist is public?
+		@TJS-type boolean
+		*/
 		isPublic: boolean;
 		// Comment
 		comment?: string;
 		/**
-		 * Playlist Created Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Playlist Created Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		created: number;
 		/**
-		 * Playlist Changed Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Playlist Changed Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		changed: number;
 		/**
-		 * Playlist duration
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Playlist duration
+		@TJS-type integer
+		@minimum 0
+		*/
 		duration: number;
 		/**
-		 * Number of Entries
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Entries
+		@TJS-type integer
+		@minimum 0
+		*/
 		entriesCount: number;
 		// List of Media Base IDs
 		entriesIDs?: Array<string>;
@@ -1964,9 +1964,9 @@ export declare namespace Jam {
 	 */
 	export interface PlaylistIndex {
 		/**
-		 * Last Change Timestamp
-		 * @TJS-type integer
-		 */
+		Last Change Timestamp
+		@TJS-type integer
+		*/
 		lastModified: number;
 		// Playlist Index Groups
 		groups: Array<PlaylistIndexGroup>;
@@ -1981,10 +1981,10 @@ export declare namespace Jam {
 		// Name
 		name: string;
 		/**
-		 * Entry Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Entry Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		entryCount: number;
 	}
 
@@ -2022,36 +2022,36 @@ export declare namespace Jam {
 		// User Id
 		userID: string;
 		/**
-		 * Number of Entries
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Entries
+		@TJS-type integer
+		@minimum 0
+		*/
 		entriesCount: number;
 		// List of Media IDs
 		entriesIDs?: Array<string>;
 		/**
-		 * Current Entry Index in PlayQueue
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Current Entry Index in PlayQueue
+		@TJS-type integer
+		@minimum 0
+		*/
 		currentIndex?: number;
 		/**
-		 * Position in Current Entry
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Position in Current Entry
+		@TJS-type integer
+		@minimum 0
+		*/
 		mediaPosition?: number;
 		/**
-		 * Created Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Created Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		created: number;
 		/**
-		 * Changed Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Changed Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		changed: number;
 		// Last Changed by Client
 		changedBy: string;
@@ -2074,9 +2074,9 @@ export declare namespace Jam {
 		// Podcast Status
 		status: JamEnums.PodcastStatus;
 		/**
-		 * Last Check Timestamp
-		 * @TJS-type integer
-		 */
+		Last Check Timestamp
+		@TJS-type integer
+		*/
 		lastCheck?: number;
 		// Podcast Download Error (if any)
 		error?: string;
@@ -2085,10 +2085,10 @@ export declare namespace Jam {
 		// List of Episode Ids
 		episodeIDs?: Array<string>;
 		/**
-		 * Number of Episode
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Episode
+		@TJS-type integer
+		@minimum 0
+		*/
 		episodeCount?: number;
 	}
 
@@ -2141,9 +2141,9 @@ export declare namespace Jam {
 	 */
 	export interface PodcastIndex {
 		/**
-		 * Last Change Timestamp
-		 * @TJS-type integer
-		 */
+		Last Change Timestamp
+		@TJS-type integer
+		*/
 		lastModified: number;
 		// Podcast Index Groups
 		groups: Array<PodcastIndexGroup>;
@@ -2158,10 +2158,10 @@ export declare namespace Jam {
 		// Name
 		name: string;
 		/**
-		 * Episode Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Episode Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		episodeCount: number;
 	}
 
@@ -2191,9 +2191,9 @@ export declare namespace Jam {
 		// Feed Download Error (if any)
 		error?: string;
 		/**
-		 * Last Check Timestamp
-		 * @TJS-type integer
-		 */
+		Last Check Timestamp
+		@TJS-type integer
+		*/
 		lastCheck?: number;
 	}
 
@@ -2206,14 +2206,14 @@ export declare namespace Jam {
 		// Homepage
 		homepage: string;
 		/**
-		 * Changed Timestamp
-		 * @TJS-type integer
-		 */
+		Changed Timestamp
+		@TJS-type integer
+		*/
 		changed: number;
 		/**
-		 * Disabled
-		 * @TJS-type boolean
-		 */
+		Disabled
+		@TJS-type boolean
+		*/
 		disabled?: boolean;
 	}
 
@@ -2222,9 +2222,9 @@ export declare namespace Jam {
 	 */
 	export interface RadioIndex {
 		/**
-		 * Last Change Timestamp
-		 * @TJS-type integer
-		 */
+		Last Change Timestamp
+		@TJS-type integer
+		*/
 		lastModified: number;
 		// Radio Index Groups
 		groups: Array<RadioIndexGroup>;
@@ -2284,16 +2284,16 @@ export declare namespace Jam {
 	 */
 	export interface RootUpdateStatus {
 		/**
-		 * Last Scan Timestamp
-		 * @TJS-type integer
-		 */
+		Last Scan Timestamp
+		@TJS-type integer
+		*/
 		lastScan: number;
 		// Last Error (if any)
 		error?: string;
 		/**
-		 * Is currently scanning?
-		 * @TJS-type boolean
-		 */
+		Is currently scanning?
+		@TJS-type boolean
+		*/
 		scanning?: boolean;
 	}
 
@@ -2316,16 +2316,16 @@ export declare namespace Jam {
 		// Series Artist Id
 		artistID: string;
 		/**
-		 * Album Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Album Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		albumCount?: number;
 		/**
-		 * Track Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Track Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount?: number;
 		// Album Types
 		albumTypes: Array<JamEnums.AlbumType>;
@@ -2342,9 +2342,9 @@ export declare namespace Jam {
 	 */
 	export interface SeriesIndex {
 		/**
-		 * Last Change Timestamp
-		 * @TJS-type integer
-		 */
+		Last Change Timestamp
+		@TJS-type integer
+		*/
 		lastModified: number;
 		// Series Index Groups
 		groups: Array<SeriesIndexGroup>;
@@ -2359,16 +2359,16 @@ export declare namespace Jam {
 		// Name
 		name: string;
 		/**
-		 * Album Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Album Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		albumCount: number;
 		/**
-		 * Track Count
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Track Count
+		@TJS-type integer
+		@minimum 0
+		*/
 		trackCount: number;
 	}
 
@@ -2417,29 +2417,29 @@ export declare namespace Jam {
 	 */
 	export interface State {
 		/**
-		 * Number of Plays
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Plays
+		@TJS-type integer
+		@minimum 0
+		*/
 		played?: number;
 		/**
-		 * Last Played Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Last Played Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		lastPlayed?: number;
 		/**
-		 * Faved Timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Faved Timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		faved?: number;
 		/**
-		 * User Rating
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @maximum 5
-		 */
+		User Rating
+		@TJS-type integer
+		@minimum 0
+		@maximum 5
+		*/
 		rated?: number;
 	}
 
@@ -2468,36 +2468,36 @@ export declare namespace Jam {
 		// Root ID
 		rootID?: string;
 		/**
-		 * Number of Tracks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Tracks
+		@TJS-type integer
+		@minimum 0
+		*/
 		track: number;
 		/**
-		 * Number of Folders
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Folders
+		@TJS-type integer
+		@minimum 0
+		*/
 		folder: number;
 		/**
-		 * Number of Series
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Series
+		@TJS-type integer
+		@minimum 0
+		*/
 		series: number;
 		/**
-		 * Number of Artists
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Artists
+		@TJS-type integer
+		@minimum 0
+		*/
 		artist: number;
 		// Detailed Artists Stats
 		artistTypes: StatsAlbumTypes;
 		/**
-		 * Number of Albums
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Albums
+		@TJS-type integer
+		@minimum 0
+		*/
 		album: number;
 		// Detailed Album Stats
 		albumTypes: StatsAlbumTypes;
@@ -2508,70 +2508,70 @@ export declare namespace Jam {
 	 */
 	export interface StatsAlbumTypes {
 		/**
-		 * Number of Type Album
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Type Album
+		@TJS-type integer
+		@minimum 0
+		*/
 		album: number;
 		/**
-		 * Number of Various Artists Type Compilation
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Various Artists Type Compilation
+		@TJS-type integer
+		@minimum 0
+		*/
 		compilation: number;
 		/**
-		 * Number of Single Artists Type Compilation
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Single Artists Type Compilation
+		@TJS-type integer
+		@minimum 0
+		*/
 		artistCompilation: number;
 		/**
-		 * Number of Type Live
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Type Live
+		@TJS-type integer
+		@minimum 0
+		*/
 		live: number;
 		/**
-		 * Number of Type Audiobooks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Type Audiobooks
+		@TJS-type integer
+		@minimum 0
+		*/
 		audiobook: number;
 		/**
-		 * Number of Type Soundtracks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Type Soundtracks
+		@TJS-type integer
+		@minimum 0
+		*/
 		soundtrack: number;
 		/**
-		 * Number of Type Series
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Type Series
+		@TJS-type integer
+		@minimum 0
+		*/
 		series: number;
 		/**
-		 * Number of Type Bootlegs
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Type Bootlegs
+		@TJS-type integer
+		@minimum 0
+		*/
 		bootleg: number;
 		/**
-		 * Number of Type EPs
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Type EPs
+		@TJS-type integer
+		@minimum 0
+		*/
 		ep: number;
 		/**
-		 * Number of Type Singles
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Type Singles
+		@TJS-type integer
+		@minimum 0
+		*/
 		single: number;
 		/**
-		 * Number of Type Unknown
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Type Unknown
+		@TJS-type integer
+		@minimum 0
+		*/
 		unknown: number;
 	}
 
@@ -2646,36 +2646,36 @@ export declare namespace Jam {
 	 */
 	export interface UserDetailStats {
 		/**
-		 * Number of Tracks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Tracks
+		@TJS-type integer
+		@minimum 0
+		*/
 		track: number;
 		/**
-		 * Number of Folders
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Folders
+		@TJS-type integer
+		@minimum 0
+		*/
 		folder: number;
 		/**
-		 * Number of Series
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Series
+		@TJS-type integer
+		@minimum 0
+		*/
 		series: number;
 		/**
-		 * Number of Artist
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Artist
+		@TJS-type integer
+		@minimum 0
+		*/
 		artist: number;
 		// Detailed Artists Stats
 		artistTypes: StatsAlbumTypes;
 		/**
-		 * Number of Albums
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Albums
+		@TJS-type integer
+		@minimum 0
+		*/
 		album: number;
 		// Detailed Album Stats
 		albumTypes: StatsAlbumTypes;
@@ -2691,24 +2691,24 @@ export declare namespace Jam {
 
 	export interface UserRoles {
 		/**
-		 * User is Administrator
-		 * @TJS-type boolean
-		 */
+		User is Administrator
+		@TJS-type boolean
+		*/
 		admin: boolean;
 		/**
-		 * User has API Access
-		 * @TJS-type boolean
-		 */
+		User has API Access
+		@TJS-type boolean
+		*/
 		stream: boolean;
 		/**
-		 * User can upload files
-		 * @TJS-type boolean
-		 */
+		User can upload files
+		@TJS-type boolean
+		*/
 		upload: boolean;
 		/**
-		 * User can manage podcasts
-		 * @TJS-type boolean
-		 */
+		User can manage podcasts
+		@TJS-type boolean
+		*/
 		podcast: boolean;
 	}
 
@@ -2721,9 +2721,9 @@ export declare namespace Jam {
 		// Session Client
 		client: string;
 		/**
-		 * Session Expiration
-		 * @TJS-type integer
-		 */
+		Session Expiration
+		@TJS-type integer
+		*/
 		expires?: number;
 		// Session Mode
 		mode: JamEnums.SessionMode;
@@ -2740,16 +2740,16 @@ export declare namespace Jam {
 	 */
 	export interface UserStats {
 		/**
-		 * Number of Playlists
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Playlists
+		@TJS-type integer
+		@minimum 0
+		*/
 		playlist: number;
 		/**
-		 * Number of Bookmarks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of Bookmarks
+		@TJS-type integer
+		@minimum 0
+		*/
 		bookmark: number;
 		// Detailed User Favorites Stats
 		favorite: UserDetailStats;
@@ -2762,45 +2762,45 @@ export declare namespace Jam {
 	 */
 	export interface WaveFormData {
 		/**
-		 * The version number of the waveform data format
-		 * @TJS-type integer
-		 * @minimum 1
-		 */
+		The version number of the waveform data format
+		@TJS-type integer
+		@minimum 1
+		*/
 		version: number;
 		/**
-		 * The number of waveform channels present
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		The number of waveform channels present
+		@TJS-type integer
+		@minimum 0
+		*/
 		channels: number;
 		/**
-		 * Sample rate of original audio file (Hz)
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Sample rate of original audio file (Hz)
+		@TJS-type integer
+		@minimum 0
+		*/
 		sample_rate: number;
 		/**
-		 * Number of audio samples per waveform minimum/maximum pair
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Number of audio samples per waveform minimum/maximum pair
+		@TJS-type integer
+		@minimum 0
+		*/
 		samples_per_pixel: number;
 		/**
-		 * Resolution of waveform data. May be either 8 or 16
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Resolution of waveform data. May be either 8 or 16
+		@TJS-type integer
+		@minimum 0
+		*/
 		bits: number;
 		/**
-		 * Length of waveform data (number of minimum and maximum value pairs per channel)
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Length of waveform data (number of minimum and maximum value pairs per channel)
+		@TJS-type integer
+		@minimum 0
+		*/
 		length: number;
 		/**
-		 * Array of minimum and maximum waveform data points, interleaved. Depending on bits, each value may be in the range -128 to +127 or -32768 to +32727
-		 * @TJS-type integer
-		 */
+		Array of minimum and maximum waveform data points, interleaved. Depending on bits, each value may be in the range -128 to +127 or -32768 to +32727
+		@TJS-type integer
+		*/
 		data: Array<number>;
 	}
 

@@ -1,6 +1,6 @@
 /**
- * https://github.com/alexcastillo/ng2-notifications
- */
+https://github.com/alexcastillo/ng2-notifications
+*/
 
 import { Service } from '@angular/core';
 

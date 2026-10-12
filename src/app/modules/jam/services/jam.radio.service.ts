@@ -12,43 +12,43 @@ export class JamRadioService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Get a Radio by Id // Rights needed: stream
-	 */
+	Get a Radio by Id // Rights needed: stream
+	*/
 	async id(parameters: JamParameters.RadioIdParameters): Promise<Jam.Radio> {
 		return this.base.requestData<Jam.Radio>('/radio/id', parameters);
 	}
 
 	/**
-	 * Get the Navigation Index for Radios // Rights needed: stream
-	 */
+	Get the Navigation Index for Radios // Rights needed: stream
+	*/
 	async index(parameters: JamParameters.RadioFilterParameters): Promise<Jam.RadioIndex> {
 		return this.base.requestData<Jam.RadioIndex>('/radio/index', parameters);
 	}
 
 	/**
-	 * Search Radios // Rights needed: stream
-	 */
+	Search Radios // Rights needed: stream
+	*/
 	async search(parameters: JamParameters.RadioSearchParameters): Promise<Jam.RadioPage> {
 		return this.base.requestData<Jam.RadioPage>('/radio/search', parameters);
 	}
 
 	/**
-	 * Create a Radio // Rights needed: stream
-	 */
+	Create a Radio // Rights needed: stream
+	*/
 	async create(parameters: JamParameters.RadioMutateParameters): Promise<void> {
 		return this.base.requestPostDataOK('/radio/create', parameters);
 	}
 
 	/**
-	 * Update a Radio // Rights needed: stream
-	 */
+	Update a Radio // Rights needed: stream
+	*/
 	async update(parameters: JamParameters.RadioUpdateParameters): Promise<void> {
 		return this.base.requestPostDataOK('/radio/update', parameters);
 	}
 
 	/**
-	 * Remove a Radio // Rights needed: stream
-	 */
+	Remove a Radio // Rights needed: stream
+	*/
 	async remove(parameters: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/radio/remove', parameters);
 	}

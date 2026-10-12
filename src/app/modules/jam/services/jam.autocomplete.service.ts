@@ -12,8 +12,8 @@ export class JamAutocompleteService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Get compact Search Results for Autocomplete Features // Rights needed: stream
-	 */
+	Get compact Search Results for Autocomplete Features // Rights needed: stream
+	*/
 	async autocomplete(parameters: JamParameters.AutoCompleteFilterParameters): Promise<Jam.AutoComplete> {
 		return this.base.requestData<Jam.AutoComplete>('/autocomplete', parameters);
 	}

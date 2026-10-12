@@ -11,8 +11,8 @@ export class JamPingService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Is the Api online?
-	 */
+	Is the Api online?
+	*/
 	async ping(): Promise<Jam.Ping> {
 		return this.base.requestData<Jam.Ping>('/ping', {});
 	}

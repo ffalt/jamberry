@@ -2,8 +2,8 @@ import { signal } from '@angular/core';
 import type { Matching } from '../../model/release-matching.helper';
 
 /**
- * Class to handle manual search data for the Matcher
- */
+Class to handle manual search data for the Matcher
+*/
 export class ManualSearchData {
 	artists: Array<string> = [];
 	albums: Array<string> = [];

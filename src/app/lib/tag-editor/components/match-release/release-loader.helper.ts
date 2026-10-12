@@ -2,8 +2,8 @@ import type { MatchReleaseGroup, MatchTree } from '../../model/release-matching.
 import type { MusicBrainz } from '@jam';
 
 /**
- * Helper class for loading release groups and releases
- */
+Helper class for loading release groups and releases
+*/
 export class ReleaseLoaderHelper {
 	constructor(
 		private readonly getMatchTree: () => MatchTree,
@@ -14,8 +14,8 @@ export class ReleaseLoaderHelper {
 	}
 
 	/**
-	 * Load release groups
-	 */
+	Load release groups
+	*/
 	async loadByReleaseGroups(releaseGroups: Array<MusicBrainz.ReleaseGroup>): Promise<void> {
 		for (const r of releaseGroups) {
 			if (this.shouldStop()) {
@@ -26,8 +26,8 @@ export class ReleaseLoaderHelper {
 	}
 
 	/**
-	 * Load releases
-	 */
+	Load releases
+	*/
 	async loadByReleases(releases: Array<MusicBrainz.Release>): Promise<void> {
 		for (const rel of releases) {
 			if (this.shouldStop()) {
@@ -38,8 +38,8 @@ export class ReleaseLoaderHelper {
 	}
 
 	/**
-	 * Load recordings
-	 */
+	Load recordings
+	*/
 	async loadByRecordings(recordings: Array<MusicBrainz.Recording>): Promise<void> {
 		for (const rec of recordings) {
 			if (this.shouldStop()) {
@@ -59,8 +59,8 @@ export class ReleaseLoaderHelper {
 	}
 
 	/**
-	 * Process a single release to find or create a release group and load the best matching release
-	 */
+	Process a single release to find or create a release group and load the best matching release
+	*/
 	private async processRelease(releaseGroupId: string): Promise<void> {
 		let rg = this.getMatchTree().findReleaseGroup(releaseGroupId);
 		rg ??= await this.addReleaseGroupByID(releaseGroupId);

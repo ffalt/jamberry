@@ -64,11 +64,11 @@ declare module 'soundmanager2' {
 
 	export interface SoundManagerProps {
 		/**
-		 * The directory where SM2 can find the flash movies (soundmanager2.swf,
-		 * soundmanager2_flash9.swf and debug versions etc.) Note that SM2 will
-		 * append the correct SWF file name, depending on flashVersion and
-		 * debugMode settings.
-		 */
+		The directory where SM2 can find the flash movies (soundmanager2.swf,
+		soundmanager2_flash9.swf and debug versions etc.) Note that SM2 will
+		append the correct SWF file name, depending on flashVersion and
+		debugMode settings.
+		*/
 		url?: string;
 
 		allowScriptAccess?: ScriptAccess;
@@ -78,9 +78,9 @@ declare module 'soundmanager2' {
 		debugMode?: boolean;
 		debugFlash?: boolean;
 		/**
-		 * Some properties are dynamic, determined at initialisation or later
-		 * during runtime, and should be treated as read-only.
-		 */
+		Some properties are dynamic, determined at initialisation or later
+		during runtime, and should be treated as read-only.
+		*/
 		readonly features?: Record<string, unknown>;
 
 		flashVersion?: number;
@@ -125,8 +125,8 @@ declare module 'soundmanager2' {
 		clearOnPosition(id: string, msecOffset: number, callback?: (() => void)): SMSound;
 
 		/**
-		 * Creates a sound object, supporting an arbitrary number of optional arguments. Returns a SMSound object instance. At minimum, a url parameter is required.
-		 */
+		Creates a sound object, supporting an arbitrary number of optional arguments. Returns a SMSound object instance. At minimum, a url parameter is required.
+		*/
 		createSound(properties: SoundProperties): SMSound | undefined;
 
 		destroySound(id: string): void;
@@ -168,9 +168,9 @@ declare module 'soundmanager2' {
 		setVolume(id: string, volume: number): SMSound;
 
 		/**
-		 * Sets the volume of all sound objects. Accepted values: 0-100. Affects volume property.
-		 * @param volume Volume of all sound objects. Accepted values: 0 - 100
-		 */
+		Sets the volume of all sound objects. Accepted values: 0-100. Affects volume property.
+		@param volume Volume of all sound objects. Accepted values: 0 - 100
+		*/
 		setVolume(volume: number): void;
 
 		stop(id: string): SMSound;

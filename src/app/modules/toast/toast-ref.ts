@@ -2,8 +2,8 @@ import type { OverlayRef } from '@angular/cdk/overlay';
 import { type Observable, Subject } from 'rxjs';
 
 /**
- * Reference to a toast opened via the Toastr service.
- */
+Reference to a toast opened via the Toastr service.
+*/
 export class ToastRef<T> {
 	// The instance of component opened into the toast
 	componentInstance!: T;
@@ -42,8 +42,8 @@ export class ToastRef<T> {
 	}
 
 	/**
-	 * Close the toast.
-	 */
+	Close the toast.
+	*/
 	close(): void {
 		this.overlayRef.detach();
 		this.afterClosedSubj.next();

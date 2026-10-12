@@ -12,29 +12,29 @@ export class JamEpisodeService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Get a Episode by Id // Rights needed: stream
-	 */
+	Get a Episode by Id // Rights needed: stream
+	*/
 	async id(parameters: JamParameters.EpisodeIdParameters): Promise<Jam.Episode> {
 		return this.base.requestData<Jam.Episode>('/episode/id', parameters);
 	}
 
 	/**
-	 * Search Episodes // Rights needed: stream
-	 */
+	Search Episodes // Rights needed: stream
+	*/
 	async search(parameters: JamParameters.EpisodeSearchParameters): Promise<Jam.EpisodePage> {
 		return this.base.requestData<Jam.EpisodePage>('/episode/search', parameters);
 	}
 
 	/**
-	 * Get a Episode Status by Id // Rights needed: stream
-	 */
+	Get a Episode Status by Id // Rights needed: stream
+	*/
 	async status(parameters: JamParameters.ID): Promise<Jam.EpisodeUpdateStatus> {
 		return this.base.requestData<Jam.EpisodeUpdateStatus>('/episode/status', parameters);
 	}
 
 	/**
-	 * Retrieve a Podcast Episode Media File // Rights needed: stream
-	 */
+	Retrieve a Podcast Episode Media File // Rights needed: stream
+	*/
 	async retrieve(parameters: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/episode/retrieve', parameters);
 	}

@@ -12,15 +12,15 @@ export class JamNowPlayingService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Get a List of media [Track, Episode] played currently by Users // Rights needed: stream
-	 */
+	Get a List of media [Track, Episode] played currently by Users // Rights needed: stream
+	*/
 	async list(parameters: JamParameters.NowPlayingListParameters): Promise<Array<Jam.NowPlaying>> {
 		return this.base.requestData<Array<Jam.NowPlaying>>('/nowPlaying/list', parameters);
 	}
 
 	/**
-	 * Report playing (scrobble) a media file [Track, Episode] // Rights needed: stream
-	 */
+	Report playing (scrobble) a media file [Track, Episode] // Rights needed: stream
+	*/
 	async scrobble(parameters: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/nowPlaying/scrobble', parameters);
 	}

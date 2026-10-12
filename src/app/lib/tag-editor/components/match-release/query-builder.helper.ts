@@ -3,8 +3,8 @@ import { stripExtension } from '../../model/utils';
 import { type Jam, type JamParameters, MusicBrainzSearchType } from '@jam';
 
 /**
- * Class representing a MusicBrainz search query
- */
+Class representing a MusicBrainz search query
+*/
 export class MusicbrainzSearchQuery {
 	id: string;
 	name: string;
@@ -22,12 +22,12 @@ export class MusicbrainzSearchQuery {
 }
 
 /**
- * Helper class for building MusicBrainz search queries
- */
+Helper class for building MusicBrainz search queries
+*/
 export class QueryBuilderHelper {
 	/**
-	 * Clean album name by removing parentheses and brackets
-	 */
+	Clean album name by removing parentheses and brackets
+	*/
 	static cleanAlbumName(s: string): string {
 		let i = s.indexOf('(');
 		let result = s;
@@ -43,8 +43,8 @@ export class QueryBuilderHelper {
 	}
 
 	/**
-	 * Build quick queries based on album and artist information
-	 */
+	Build quick queries based on album and artist information
+	*/
 	static buildQuickQueries(matchings: Array<Matching>, folder?: Jam.Folder): Array<MusicbrainzSearchQuery> {
 		const queries: Array<MusicbrainzSearchQuery> = [];
 		const albums: Array<string> = [];
@@ -84,8 +84,8 @@ export class QueryBuilderHelper {
 	}
 
 	/**
-	 * Build comprehensive queries for searching MusicBrainz
-	 */
+	Build comprehensive queries for searching MusicBrainz
+	*/
 	static buildQueries(matchings: Array<Matching>): Array<MusicbrainzSearchQuery> {
 		const queries: Array<MusicbrainzSearchQuery> = [];
 		const matchingsLength = matchings.length;
@@ -106,8 +106,8 @@ export class QueryBuilderHelper {
 	}
 
 	/**
-	 * Helper method to add a query to the list, avoiding duplicates
-	 */
+	Helper method to add a query to the list, avoiding duplicates
+	*/
 	private static addQuery(queries: Array<MusicbrainzSearchQuery>, q: MusicbrainzSearchQuery, match: Matching): void {
 		const samequery = queries.find(qu => qu.id === q.id);
 		if (samequery) {
@@ -119,8 +119,8 @@ export class QueryBuilderHelper {
 	}
 
 	/**
-	 * Helper method to create and add a MusicBrainz query
-	 */
+	Helper method to create and add a MusicBrainz query
+	*/
 	private static addMBQuery(
 		queries: Array<MusicbrainzSearchQuery>,
 		fields: JamParameters.MusicBrainzSearchParameters,
@@ -150,15 +150,15 @@ export class QueryBuilderHelper {
 	}
 
 	/**
-	 * Get the track title or name without extension
-	 */
+	Get the track title or name without extension
+	*/
 	private static getTrackTitle(match: Matching): string {
 		return match.track.tag?.title ?? stripExtension(match.track.name);
 	}
 
 	/**
-	 * Add release group queries for a match
-	 */
+	Add release group queries for a match
+	*/
 	private static addReleaseGroupQueries(
 		queries: Array<MusicbrainzSearchQuery>,
 		match: Matching,
@@ -189,8 +189,8 @@ export class QueryBuilderHelper {
 	}
 
 	/**
-	 * Add release queries for a match
-	 */
+	Add release queries for a match
+	*/
 	private static addReleaseQueries(
 		queries: Array<MusicbrainzSearchQuery>,
 		match: Matching,
@@ -246,8 +246,8 @@ export class QueryBuilderHelper {
 	}
 
 	/**
-	 * Add recording queries for a match
-	 */
+	Add recording queries for a match
+	*/
 	private static addRecordingQueries(
 		queries: Array<MusicbrainzSearchQuery>,
 		match: Matching,

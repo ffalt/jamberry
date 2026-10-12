@@ -1,12 +1,12 @@
 import { RunType } from './matcher';
 
 /**
- * Helper class for run strategies
- */
+Helper class for run strategies
+*/
 export const RunStrategyHelper = {
 	/**
-	 * Execute the appropriate strategy based on the run type
-	 */
+	Execute the appropriate strategy based on the run type
+	*/
 	executeStrategy: async (
 		type: RunType,
 		acoustId: () => Promise<void>,

@@ -38,16 +38,16 @@ export class MediaSessionService {
 		}
 	}
 
-	updatePositionState = (duration?: number, playbackRate?: number, position?: number) => {
+	updatePositionState = (duration = 0, playbackRate = 1, position = 0) => {
 		if (!(this.mediaSession && 'setPositionState' in this.mediaSession)) {
 			return;
 		}
 
-		const d = (duration ?? 0) / 1000;
+		const d = duration / 1000;
 		const state = {
 			duration: d,
-			playbackRate: playbackRate ?? 1,
-			position: Math.min(d, (position ?? 0) / 1000)
+			playbackRate,
+			position: Math.min(d, position / 1000)
 		};
 		try {
 			this.mediaSession.setPositionState(state);

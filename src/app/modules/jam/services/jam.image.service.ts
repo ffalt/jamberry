@@ -11,8 +11,8 @@ export class JamImageService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Image Binary [Album, Artist, Artwork, Episode, Folder, Root, Playlist, Podcast, Radio, Series, Track, User] // Rights needed: stream
-	 */
+	Image Binary [Album, Artist, Artwork, Episode, Folder, Root, Playlist, Podcast, Radio, Series, Track, User] // Rights needed: stream
+	*/
 	imageUrl(params: JamParameters.ImageParameters): string {
 		if (!params.id) {
 			return '';
@@ -21,8 +21,8 @@ export class JamImageService {
 	}
 
 	/**
-	 * Image Binary [Album, Artist, Artwork, Episode, Folder, Root, Playlist, Podcast, Radio, Series, Track, User] // Rights needed: stream
-	 */
+	Image Binary [Album, Artist, Artwork, Episode, Folder, Root, Playlist, Podcast, Radio, Series, Track, User] // Rights needed: stream
+	*/
 	async imageBinary(params: JamParameters.ImageParameters): Promise<{ buffer: ArrayBuffer; contentType: string }> {
 		if (!params.id) {
 			throw new Error('Invalid Parameter');

@@ -12,22 +12,22 @@ export class JamAdminService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Get the Server Admin Settings // Rights needed: admin
-	 */
+	Get the Server Admin Settings // Rights needed: admin
+	*/
 	async settings(): Promise<Jam.AdminSettings> {
 		return this.base.requestData<Jam.AdminSettings>('/admin/settings/get', {});
 	}
 
 	/**
-	 * Get Queue Information for Admin Change Tasks // Rights needed: admin
-	 */
+	Get Queue Information for Admin Change Tasks // Rights needed: admin
+	*/
 	async queueId(parameters: JamParameters.ID): Promise<Jam.AdminChangeQueueInfo> {
 		return this.base.requestData<Jam.AdminChangeQueueInfo>('/admin/queue/id', parameters);
 	}
 
 	/**
-	 * Update the Server Admin Settings // Rights needed: admin
-	 */
+	Update the Server Admin Settings // Rights needed: admin
+	*/
 	async settingsUpdate(parameters: JamParameters.AdminSettingsParameters): Promise<void> {
 		return this.base.requestPostDataOK('/admin/settings/update', parameters);
 	}

@@ -112,9 +112,9 @@ export class LoginComponent implements OnInit {
 	}
 
 	/**
-	 * Validates that a server URL has a proper format.
-	 * Only allows http:// or https:// protocols for security.
-	 */
+	Validates that a server URL has a proper format.
+	Only allows http:// or https:// protocols for security.
+	*/
 	private isValidServerUrl(url: string): boolean {
 		try {
 			const urlObj = new URL(url);

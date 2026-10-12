@@ -84,8 +84,8 @@ export class ToastComponent {
 	}
 
 	/**
-	 * activates toast and sets timeout
-	 */
+	activates toast and sets timeout
+	*/
 	activateToast(): void {
 		this.state.update(s => ({ ...s, value: 'active' }));
 		if (this.options.disableTimeOut || !this.options.timeOut) {
@@ -104,8 +104,8 @@ export class ToastComponent {
 	}
 
 	/**
-	 * updates progress bar width
-	 */
+	updates progress bar width
+	*/
 	updateProgress(): void {
 		const w = this.width();
 		if (w === 0 || w === 100 || !this.options.timeOut) {
@@ -138,8 +138,8 @@ export class ToastComponent {
 	}
 
 	/**
-	 * tells toastService to remove this toast after animation time
-	 */
+	tells toastService to remove this toast after animation time
+	*/
 	remove(): void {
 		if (this.state().value === 'removed') {
 			return;

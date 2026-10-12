@@ -12,22 +12,22 @@ export class JamPlayQueueService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Get a PlayQueue for the calling user // Rights needed: stream
-	 */
+	Get a PlayQueue for the calling user // Rights needed: stream
+	*/
 	async get(parameters: JamParameters.PlayQueueGetParameters): Promise<Jam.PlayQueue> {
 		return this.base.requestData<Jam.PlayQueue>('/playqueue/get', parameters);
 	}
 
 	/**
-	 * Create/update the PlayQueue for the calling user // Rights needed: stream
-	 */
+	Create/update the PlayQueue for the calling user // Rights needed: stream
+	*/
 	async set(parameters: JamParameters.PlayQueueSetParameters): Promise<void> {
 		return this.base.requestPostDataOK('/playqueue/set', parameters);
 	}
 
 	/**
-	 * Clear the PlayQueue for the calling user // Rights needed: stream
-	 */
+	Clear the PlayQueue for the calling user // Rights needed: stream
+	*/
 	async clear(): Promise<void> {
 		return this.base.requestPostDataOK('/playqueue/clear', {});
 	}

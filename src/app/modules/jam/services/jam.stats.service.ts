@@ -12,15 +12,15 @@ export class JamStatsService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Get count stats for Folders/Tracks/Albums/... // Rights needed: stream
-	 */
+	Get count stats for Folders/Tracks/Albums/... // Rights needed: stream
+	*/
 	async get(parameters: JamParameters.StatsFilter): Promise<Jam.Stats> {
 		return this.base.requestData<Jam.Stats>('/stats', parameters);
 	}
 
 	/**
-	 * Get count stats for the calling User: Playlists/Favorites/Played // Rights needed: stream
-	 */
+	Get count stats for the calling User: Playlists/Favorites/Played // Rights needed: stream
+	*/
 	async user(): Promise<Jam.UserStats> {
 		return this.base.requestData<Jam.UserStats>('/stats/user', {});
 	}

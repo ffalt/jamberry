@@ -12,22 +12,22 @@ export class JamSessionService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	 * Check the Login State
-	 */
+	Check the Login State
+	*/
 	async session(): Promise<Jam.Session> {
 		return this.base.requestData<Jam.Session>('/session', {});
 	}
 
 	/**
-	 * Get a list of all sessions of the current user // Rights needed: stream
-	 */
+	Get a list of all sessions of the current user // Rights needed: stream
+	*/
 	async list(): Promise<Array<Jam.UserSession>> {
 		return this.base.requestData<Array<Jam.UserSession>>('/session/list', {});
 	}
 
 	/**
-	 * Remove a user session // Rights needed: stream
-	 */
+	Remove a user session // Rights needed: stream
+	*/
 	async remove(parameters: JamParameters.ID): Promise<void> {
 		return this.base.requestPostDataOK('/session/remove', parameters);
 	}

@@ -9,8 +9,8 @@ interface AcousticBrainzCategories {
 }
 
 /**
- * Helper class for processing AcousticBrainz data
- */
+Helper class for processing AcousticBrainz data
+*/
 export class AcousticBrainzHelper {
 	private static readonly CONFIDENCE_THRESHOLD = 0.8;
 	private static readonly CATEGORY_MAPPINGS = {
@@ -20,8 +20,8 @@ export class AcousticBrainzHelper {
 	};
 
 	/**
-	 * Process AcousticBrainz data into categorized lists
-	 */
+	Process AcousticBrainz data into categorized lists
+	*/
 	static processAcousticBrainzData(data: AcousticBrainz.Response): ABData | undefined {
 		if (!data.highlevel) {
 			return undefined;

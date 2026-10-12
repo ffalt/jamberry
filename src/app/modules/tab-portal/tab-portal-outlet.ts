@@ -3,8 +3,8 @@ import type { ComponentRef, EmbeddedViewRef, Injector, ViewContainerRef } from '
 import type { ActiveTabInterface, TabInterface } from './tab-portal.interfaces';
 
 /**
- * A PortalOutlet that lets multiple components live for the lifetime of the outlet, allowing faster switching and persistent data.
- */
+A PortalOutlet that lets multiple components live for the lifetime of the outlet, allowing faster switching and persistent data.
+*/
 export class TabPortalOutlet {
 	private readonly activeTabs: { [name: string]: ActiveTabInterface | undefined } = {};
 	private curTab: ActiveTabInterface | undefined;
@@ -63,8 +63,8 @@ export class TabPortalOutlet {
 	}
 
 	/**
-	 * Clears out a portal from the DOM.
-	 */
+	Clears out a portal from the DOM.
+	*/
 	dispose(): void {
 		// Dispose all active tabs
 		for (const value of Object.values(this.activeTabs)) {
