@@ -76,7 +76,7 @@
     "@stylistic/eslint-plugin": "5.10.0",
     "@types/mousetrap": "1.6.15",
     "@types/node": "26.6.5",
-    "@vitest/coverage-v8": "4.1.11",
+    "@vitest/coverage-v8": "5.0.4",
     "@vitest/eslint-plugin": "1.6.27",
     "angular-eslint": "22.6.0",
     "baseline-browser-mapping": "2.11.28",
@@ -95,7 +95,7 @@
     "ts-node": "10.9.2",
     "typescript": "6.0.3",
     "typescript-eslint": "8.71.1",
-    "vitest": "4.1.11"
+    "vitest": "5.0.4"
   },
   "allowScripts": {
     "esbuild@0.28.1": true,

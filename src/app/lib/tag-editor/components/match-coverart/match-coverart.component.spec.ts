@@ -77,6 +77,7 @@ describe('MatchCoverartComponent', () => {
 		});
 
 		await fixture.whenStable();
+		fixture.detectChanges();
 
 		expect(component.images()?.[0]?.base64).toBeDefined();
 		expect(fixture.debugElement.query(By.directive(ImageBase64Component))).not.toBeNull();
