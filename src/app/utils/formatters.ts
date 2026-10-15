@@ -30,11 +30,7 @@ export function formatDuration(val: number): string {
 		duration.push(`${time.days.toString()}d `);
 	}
 	if (time.hours > 0) {
-		if (duration.length > 0) {
-			duration.push(`${padTime(time.hours)}:`);
-		} else {
-			duration.push(`${time.hours.toString()}:`);
-		}
+		duration.push(duration.length > 0 ? `${padTime(time.hours)}:` : `${time.hours.toString()}:`);
 	}
 	duration.push(padTime(time.minutes), `:${padTime(time.seconds)}`);
 	return duration.join('');

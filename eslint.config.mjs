@@ -117,6 +117,7 @@ const commonUnicornRules = {
 	"unicorn/prefer-await": "off",
 	"unicorn/prefer-continue": "off",
 	"unicorn/no-non-function-verb-prefix": "off",
+	"unicorn/prefer-logical-operator-over-ternary": "off",
 	"unicorn/prefer-global-this": "off"
 };
 

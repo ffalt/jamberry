@@ -34,9 +34,9 @@ function buildColorMap(
 ): Map<string, string> {
 	const map = new Map<string, string>();
 	for (const g of genres) {
-		map.set(g.id, g.noiseX !== undefined && g.noiseY !== undefined ?
-			noiseColor(g.noiseX, g.noiseY, lightness) :
-			`oklch(${greyLightness}% 0 0)`);
+		map.set(g.id, g.noiseX === undefined || g.noiseY === undefined ?
+			`oklch(${greyLightness}% 0 0)` :
+			noiseColor(g.noiseX, g.noiseY, lightness));
 	}
 	return map;
 }

@@ -104,7 +104,7 @@ export class JamAuthService {
 			if (error instanceof HttpErrorResponse) {
 				return Promise.reject(new Error(error.message || `HTTP error ${error.status}`));
 			}
-			return error instanceof Error && error.message ? Promise.reject(new Error(error.message)) : Promise.reject(new Error('Server Error'));
+			return Promise.reject(new Error(error instanceof Error && error.message ? error.message : 'Server Error'));
 		}
 	}
 
