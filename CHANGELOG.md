@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.18](https://github.com/ffalt/jamberry/compare/v0.6.17...v0.6.18) (2026-10-15)
+
+### Bug Fixes
+
+* **admin-section:** adjust signals ([8fafa6b](https://github.com/ffalt/jamberry/commit/8fafa6b487074c5e4de0d37369b796dce66d5965))
+* **admin:** improve spacing ([2881dde](https://github.com/ffalt/jamberry/commit/2881ddeee4b192cc4da1536bd80a8b682b3e34da))
+* **matching:** adjust signals ([0dc3309](https://github.com/ffalt/jamberry/commit/0dc330983e56e52322f441426979455f92c2dae6))
+
 ## [0.6.17](https://github.com/ffalt/jamberry/compare/v0.6.16...v0.6.17) (2026-08-06)
 
 ### Bug Fixes
