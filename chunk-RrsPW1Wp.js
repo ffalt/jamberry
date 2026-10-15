@@ -1,0 +1,1 @@
+import{aa as yt}from"./chunk-SWOH9FG6.js";var i=class{constructor(){this.notifiers={}}notifier(t){return this.notifiers[t]??=new yt,this.notifiers[t]}observed(t){return this.notifiers[t]?.observed??!1}emit(t,r){this.notifiers[t]?.emit(r)}};export{i as t};

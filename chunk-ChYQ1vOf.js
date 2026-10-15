@@ -1,0 +1,2 @@
+import{Ft as Nd,Kr as m_,wt as MH,zr as kT}from"./chunk-SWOH9FG6.js";var d=(()=>{class t{constructor(){this.text=MH()}static{this.ɵfac=function(e){return new(e||t)}}static{this.ɵcmp=kT({type:t,selectors:[[`app-background-text`]],inputs:{text:[1,`text`]},decls:1,vars:1,template:function(e,a){e&1&&m_(0),e&2&&Nd(`[`,a.text(),`]
+`)},styles:[`[_nghost-%COMP%]{margin-top:30px;margin-bottom:30px;text-align:center;font-size:1.6em;-webkit-user-select:none;user-select:none;cursor:default;color:var(--%NS%on-background);opacity:.7;display:block}`]})}}return t})();export{d as t};

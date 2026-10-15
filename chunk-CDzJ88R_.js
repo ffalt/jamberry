@@ -1,0 +1,1 @@
+import{on as Tr}from"./chunk-SWOH9FG6.js";import{n as u}from"./chunk-BcJ1hSFV.js";var f=(()=>{class e{transform(i){return i===void 0?``:u(i)}static{this.ɵfac=function(n){return new(n||e)}}static{this.ɵpipe=Tr({name:`filesize`,type:e,pure:!0})}}return e})();export{f as t};
