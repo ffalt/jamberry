@@ -10,7 +10,7 @@ export type HTTPResponseType = 'arraybuffer' | 'text' | 'json';
 export interface HTTPOptions {
 	headers?: HttpHeaders;
 	params?: HttpParams;
-	reportProgress?: boolean;
+	reportUploadProgress?: boolean;
 	withCredentials?: boolean;
 	responseType?: HTTPResponseType;
 }
@@ -33,7 +33,7 @@ export class JamHttpService {
 				this.client.get<ArrayBuffer>(url, {
 					headers: options.headers,
 					params: options.params,
-					reportProgress: options.reportProgress,
+					reportUploadProgress: options.reportUploadProgress,
 					responseType: 'arraybuffer' as 'json', // angular not detecting overload type for {responseType: 'arraybuffer', observe: 'response'}
 					withCredentials: options.withCredentials,
 					observe: 'response'
@@ -60,7 +60,7 @@ export class JamHttpService {
 		try {
 			return await firstValueFrom(this.client.get<T>(url,
 				{
-					params: options.params, headers: options.headers, reportProgress: options.reportProgress,
+					params: options.params, headers: options.headers, reportUploadProgress: options.reportUploadProgress,
 					withCredentials: options.withCredentials, responseType: options.responseType as 'json'
 				}
 			));
@@ -72,7 +72,7 @@ export class JamHttpService {
 	async post<T>(url: string, body: unknown, options: HTTPOptions): Promise<T> {
 		try {
 			return await firstValueFrom(this.client.post<T>(url, body,
-				{ params: options.params, headers: options.headers, reportProgress: options.reportProgress, withCredentials: options.withCredentials }
+				{ params: options.params, headers: options.headers, reportUploadProgress: options.reportUploadProgress, withCredentials: options.withCredentials }
 			));
 		} catch (error: unknown) {
 			handleError(error);
@@ -83,7 +83,7 @@ export class JamHttpService {
 		return this.client.request<T>(new HttpRequest('POST', url, body, {
 			params: options.params,
 			headers: options.headers,
-			reportProgress: options.reportProgress,
+			reportUploadProgress: options.reportUploadProgress,
 			withCredentials: options.withCredentials
 		}));
 	}
