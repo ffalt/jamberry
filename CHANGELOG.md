@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.21](https://github.com/ffalt/jamberry/compare/v0.6.20...v0.6.21) (2026-11-13)
+
+### Bug Fixes
+
+* **admin:** add missing DialogService ([fffd769](https://github.com/ffalt/jamberry/commit/fffd769b49989cb9c41c8e76df8205ad8a9bd1af))
+
 ## [0.6.20](https://github.com/ffalt/jamberry/compare/v0.6.19...v0.6.20) (2026-11-05)
 
 ## [0.6.19](https://github.com/ffalt/jamberry/compare/v0.6.18...v0.6.19) (2026-10-24)
