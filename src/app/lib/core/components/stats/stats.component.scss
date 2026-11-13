@@ -2,14 +2,14 @@
 
 :host {
 	width: 100%;
-	background-color: var(--background-box);
-	border-radius: 4px;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(100px, auto));
 	gap: 5px;
 	padding-bottom: 5px;
 
 	.stat {
+		background-color: var(--background-box);
+		border-radius: 8px;
 		padding: variables.$padding;
 		margin-top: variables.$margin;
 		text-align: center;
