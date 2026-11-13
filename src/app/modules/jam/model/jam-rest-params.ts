@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len, max-lines */
 // @generated
 // This file was automatically generated and should not be edited.
 
@@ -10,10 +10,10 @@ export declare namespace JamParameters {
 		// MusicBrainz ID
 		mbID: string;
 		/**
-		 * Page parameter if more than one acousticbrainz info is available
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Page parameter if more than one acousticbrainz info is available
+		@TJS-type integer
+		@minimum 0
+		*/
 		nr?: number;
 	}
 
@@ -21,9 +21,9 @@ export declare namespace JamParameters {
 		// Track ID
 		trackID: string;
 		/**
-		 * Lookup Includes (comma-separated AcoustId includes)
-		 * @default recordings,releases,releasegroups,tracks,compress,usermeta,sources
-		 */
+		Lookup Includes (comma-separated AcoustId includes)
+		@default recordings,releases,releasegroups,tracks,compress,usermeta,sources
+		*/
 		inc?: string;
 	}
 
@@ -40,10 +40,10 @@ export declare namespace JamParameters {
 
 	export interface AdminSettingsChat {
 		/**
-		 * Maximum Number of Chat Messages to keep
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Maximum Number of Chat Messages to keep
+		@TJS-type integer
+		@minimum 0
+		*/
 		maxMessages: number;
 		// Maximum Age of Chat Messages to keep
 		maxAge: AdminSettingsChatMaxAge;
@@ -51,10 +51,10 @@ export declare namespace JamParameters {
 
 	export interface AdminSettingsChatMaxAge {
 		/**
-		 * Value of Maximum Age
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Value of Maximum Age
+		@TJS-type integer
+		@minimum 0
+		*/
 		value: number;
 		// Unit of Maximum Age
 		unit: string;
@@ -62,9 +62,9 @@ export declare namespace JamParameters {
 
 	export interface AdminSettingsExternal {
 		/**
-		 * Enable External Services
-		 * @TJS-type boolean
-		 */
+		Enable External Services
+		@TJS-type boolean
+		*/
 		enabled: boolean;
 	}
 
@@ -75,9 +75,9 @@ export declare namespace JamParameters {
 
 	export interface AdminSettingsLibrary {
 		/**
-		 * Start Root Scanning on Server Start
-		 * @TJS-type boolean
-		 */
+		Start Root Scanning on Server Start
+		@TJS-type boolean
+		*/
 		scanAtStart: boolean;
 	}
 
@@ -118,22 +118,22 @@ export declare namespace JamParameters {
 		// filter by Genre Ids
 		genreIDs?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		/**
-		 * filter by since year
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by since year
+		@TJS-type integer
+		@minimum 0
+		*/
 		fromYear?: number;
 		/**
-		 * filter by until year
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by until year
+		@TJS-type integer
+		@minimum 0
+		*/
 		toYear?: number;
 	}
 
@@ -174,10 +174,10 @@ export declare namespace JamParameters {
 		// exclude by MusicBrainz Artist Id
 		notMbArtistID?: string;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 	}
 
@@ -202,46 +202,46 @@ export declare namespace JamParameters {
 		// filter by Artwork Image Types
 		types?: Array<JamEnums.ArtworkImageType>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		/**
-		 * filter by since size
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by since size
+		@TJS-type integer
+		@minimum 0
+		*/
 		sizeFrom?: number;
 		/**
-		 * filter by until size
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by until size
+		@TJS-type integer
+		@minimum 0
+		*/
 		sizeTo?: number;
 		/**
-		 * filter by since width
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by since width
+		@TJS-type integer
+		@minimum 0
+		*/
 		widthFrom?: number;
 		/**
-		 * filter by until width
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by until width
+		@TJS-type integer
+		@minimum 0
+		*/
 		widthTo?: number;
 		/**
-		 * filter by since height
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by since height
+		@TJS-type integer
+		@minimum 0
+		*/
 		heightFrom?: number;
 		/**
-		 * filter by until height
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by until height
+		@TJS-type integer
+		@minimum 0
+		*/
 		heightTo?: number;
 	}
 
@@ -271,60 +271,60 @@ export declare namespace JamParameters {
 		// query to complete
 		query: string;
 		/**
-		 * amount of track names to complete
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @default 0
-		 */
+		amount of track names to complete
+		@TJS-type integer
+		@minimum 0
+		@default 0
+		*/
 		track?: number;
 		/**
-		 * amount of artist names to complete
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @default 0
-		 */
+		amount of artist names to complete
+		@TJS-type integer
+		@minimum 0
+		@default 0
+		*/
 		artist?: number;
 		/**
-		 * amount of album names to complete
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @default 0
-		 */
+		amount of album names to complete
+		@TJS-type integer
+		@minimum 0
+		@default 0
+		*/
 		album?: number;
 		/**
-		 * amount of folder names to complete
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @default 0
-		 */
+		amount of folder names to complete
+		@TJS-type integer
+		@minimum 0
+		@default 0
+		*/
 		folder?: number;
 		/**
-		 * amount of playlist names to complete
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @default 0
-		 */
+		amount of playlist names to complete
+		@TJS-type integer
+		@minimum 0
+		@default 0
+		*/
 		playlist?: number;
 		/**
-		 * amount of podcast names to complete
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @default 0
-		 */
+		amount of podcast names to complete
+		@TJS-type integer
+		@minimum 0
+		@default 0
+		*/
 		podcast?: number;
 		/**
-		 * amount of episode names to complete
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @default 0
-		 */
+		amount of episode names to complete
+		@TJS-type integer
+		@minimum 0
+		@default 0
+		*/
 		episode?: number;
 		/**
-		 * amount of series names to complete
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @default 0
-		 */
+		amount of series names to complete
+		@TJS-type integer
+		@minimum 0
+		@default 0
+		*/
 		series?: number;
 	}
 
@@ -332,10 +332,10 @@ export declare namespace JamParameters {
 		// a track or episode id
 		mediaID: string;
 		/**
-		 * the position of the bookmark (in ms)
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		the position of the bookmark (in ms)
+		@TJS-type integer
+		@minimum 0
+		*/
 		position: number;
 		// a comment
 		comment: string;
@@ -353,10 +353,10 @@ export declare namespace JamParameters {
 		// filter by Episode Ids
 		episodeIDs?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by User Ids
 		userIDs?: Array<string>;
@@ -374,18 +374,18 @@ export declare namespace JamParameters {
 
 	export interface ChatFilterParameters {
 		/**
-		 * filter by message timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by message timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 	}
 
 	export interface ChatRemoveParameters {
 		/**
-		 * Chat time
-		 * @TJS-type integer
-		 */
+		Chat time
+		@TJS-type integer
+		*/
 		time: number;
 	}
 
@@ -409,9 +409,9 @@ export declare namespace JamParameters {
 		// User client
 		client: string;
 		/**
-		 * Generate JSON Web Token
-		 * @TJS-type boolean
-		 */
+		Generate JSON Web Token
+		@TJS-type boolean
+		*/
 		jwt?: boolean;
 	}
 
@@ -422,9 +422,9 @@ export declare namespace JamParameters {
 
 	export interface DiscogsArtistLookupParameters {
 		/**
-		 * Discogs Artist ID
-		 * @TJS-type integer
-		 */
+		Discogs Artist ID
+		@TJS-type integer
+		*/
 		id: number;
 	}
 
@@ -440,17 +440,17 @@ export declare namespace JamParameters {
 
 	export interface DiscogsMasterLookupParameters {
 		/**
-		 * Discogs Master Release ID
-		 * @TJS-type integer
-		 */
+		Discogs Master Release ID
+		@TJS-type integer
+		*/
 		id: number;
 	}
 
 	export interface DiscogsReleaseLookupParameters {
 		/**
-		 * Discogs Release ID
-		 * @TJS-type integer
-		 */
+		Discogs Release ID
+		@TJS-type integer
+		*/
 		id: number;
 	}
 
@@ -483,9 +483,9 @@ export declare namespace JamParameters {
 
 	export interface DownloadParameters {
 		/**
-		 * format of download stream
-		 * @default zip
-		 */
+		format of download stream
+		@default zip
+		*/
 		format?: JamEnums.DownloadFormatType;
 	}
 
@@ -499,10 +499,10 @@ export declare namespace JamParameters {
 		// filter by Podcast Ids
 		podcastIDs?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by Authors
 		authors?: Array<string>;
@@ -521,10 +521,10 @@ export declare namespace JamParameters {
 		// ID
 		id: string;
 		/**
-		 * add or remove the item fav
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		add or remove the item fav
+		@TJS-type boolean
+		@default false
+		*/
 		remove: boolean;
 	}
 
@@ -543,10 +543,10 @@ export declare namespace JamParameters {
 		// filter by Folder Ids
 		ids?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by Folder Parent Ids
 		parentIDs?: Array<string>;
@@ -555,10 +555,10 @@ export declare namespace JamParameters {
 		// filter by folder id and all its sub folders
 		inSubtreeOfID?: string;
 		/**
-		 * filter by Folder Tree Level
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Folder Tree Level
+		@TJS-type integer
+		@minimum 0
+		*/
 		level?: number;
 		// filter by Album Types
 		albumTypes?: Array<JamEnums.AlbumType>;
@@ -575,16 +575,16 @@ export declare namespace JamParameters {
 		// filter by Title
 		title?: Array<string>;
 		/**
-		 * filter by since year
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by since year
+		@TJS-type integer
+		@minimum 0
+		*/
 		fromYear?: number;
 		/**
-		 * filter by until year
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by until year
+		@TJS-type integer
+		@minimum 0
+		*/
 		toYear?: number;
 		// filter by MusicBrainz Release Ids
 		mbReleaseIDs?: Array<string>;
@@ -639,10 +639,10 @@ export declare namespace JamParameters {
 		// filter by Track Ids
 		trackIDs?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 	}
 
@@ -665,491 +665,491 @@ export declare namespace JamParameters {
 
 	export interface ImageSizeParameters {
 		/**
-		 * size of the image
-		 * @TJS-type integer
-		 * @minimum 16
-		 * @maximum 1024
-		 */
+		size of the image
+		@TJS-type integer
+		@minimum 16
+		@maximum 1024
+		*/
 		size?: number;
 	}
 
 	export interface IncludesAlbumChildrenParameters {
 		/**
-		 * include tracks on album(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tracks on album(s)
+		@TJS-type boolean
+		@default false
+		*/
 		albumIncTracks?: boolean;
 		/**
-		 * include artist on album(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include artist on album(s)
+		@TJS-type boolean
+		@default false
+		*/
 		albumIncArtist?: boolean;
 	}
 
 	export interface IncludesAlbumParameters {
 		/**
-		 * include track ids on album(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track ids on album(s)
+		@TJS-type boolean
+		@default false
+		*/
 		albumIncTrackIDs?: boolean;
 		/**
-		 * include track count on album(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track count on album(s)
+		@TJS-type boolean
+		@default false
+		*/
 		albumIncTrackCount?: boolean;
 		/**
-		 * include user states (fav,rate) on album(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include user states (fav,rate) on album(s)
+		@TJS-type boolean
+		@default false
+		*/
 		albumIncState?: boolean;
 		/**
-		 * include extended meta data on album(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include extended meta data on album(s)
+		@TJS-type boolean
+		@default false
+		*/
 		albumIncInfo?: boolean;
 		/**
-		 * include genre on album(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include genre on album(s)
+		@TJS-type boolean
+		@default false
+		*/
 		albumIncGenres?: boolean;
 	}
 
 	export interface IncludesArtistChildrenParameters {
 		/**
-		 * include albums on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include albums on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncAlbums?: boolean;
 		/**
-		 * include tracks on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tracks on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncTracks?: boolean;
 		/**
-		 * include series on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include series on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncSeries?: boolean;
 		/**
-		 * include similar artists on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include similar artists on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncSimilar?: boolean;
 	}
 
 	export interface IncludesArtistParameters {
 		/**
-		 * include album ids on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include album ids on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncAlbumIDs?: boolean;
 		/**
-		 * include album count on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include album count on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncAlbumCount?: boolean;
 		/**
-		 * include user states (fav,rate) on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include user states (fav,rate) on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncState?: boolean;
 		/**
-		 * include track ids on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track ids on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncTrackIDs?: boolean;
 		/**
-		 * include track count on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track count on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncTrackCount?: boolean;
 		/**
-		 * include series ids on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include series ids on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncSeriesIDs?: boolean;
 		/**
-		 * include series count on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include series count on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncSeriesCount?: boolean;
 		/**
-		 * include extended meta data on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include extended meta data on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncInfo?: boolean;
 		/**
-		 * include genre on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include genre on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artistIncGenres?: boolean;
 	}
 
 	export interface IncludesArtworkChildrenParameters {
 		/**
-		 * include folder on artwork(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include folder on artwork(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artworkIncFolder?: boolean;
 	}
 
 	export interface IncludesArtworkParameters {
 		/**
-		 * include state (fav,rate) on artwork(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include state (fav,rate) on artwork(s)
+		@TJS-type boolean
+		@default false
+		*/
 		artworkIncState?: boolean;
 	}
 
 	export interface IncludesBookmarkChildrenParameters {
 		/**
-		 * include track on bookmarks(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track on bookmarks(s)
+		@TJS-type boolean
+		@default false
+		*/
 		bookmarkIncTrack?: boolean;
 	}
 
 	export interface IncludesEpisodeParameters {
 		/**
-		 * include media information on episode(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include media information on episode(s)
+		@TJS-type boolean
+		@default false
+		*/
 		episodeIncMedia?: boolean;
 		/**
-		 * include tag on episode(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tag on episode(s)
+		@TJS-type boolean
+		@default false
+		*/
 		episodeIncTag?: boolean;
 		/**
-		 * include raw tag on episode(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include raw tag on episode(s)
+		@TJS-type boolean
+		@default false
+		*/
 		episodeIncRawTag?: boolean;
 		/**
-		 * include user states (fav,rate) on episode(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include user states (fav,rate) on episode(s)
+		@TJS-type boolean
+		@default false
+		*/
 		episodeIncState?: boolean;
 	}
 
 	export interface IncludesEpisodeParentParameters {
 		/**
-		 * include parent podcast on episode(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include parent podcast on episode(s)
+		@TJS-type boolean
+		@default false
+		*/
 		episodeIncParent?: boolean;
 	}
 
 	export interface IncludesFolderChildrenParameters {
 		/**
-		 * include artwork images list on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include artwork images list on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncArtworks?: boolean;
 		/**
-		 * include tracks and sub folders on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tracks and sub folders on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncChildren?: boolean;
 		/**
-		 * include child folders on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include child folders on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncFolders?: boolean;
 		/**
-		 * include tracks on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tracks on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncTracks?: boolean;
 		/**
-		 * include tag on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tag on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncTag?: boolean;
 		/**
-		 * include state (fav,rate) on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include state (fav,rate) on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncState?: boolean;
 		/**
-		 * include child folder count on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include child folder count on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncChildFolderCount?: boolean;
 		/**
-		 * include track count on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track count on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncTrackCount?: boolean;
 		/**
-		 * include artwork count on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include artwork count on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncArtworkCount?: boolean;
 		/**
-		 * include a list of all parent folder ids/names on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include a list of all parent folder ids/names on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncParents?: boolean;
 		/**
-		 * include extended meta data on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include extended meta data on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncInfo?: boolean;
 		/**
-		 * include similar folders list on child folder(s) - only for folders of type artist
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include similar folders list on child folder(s) - only for folders of type artist
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncSimilar?: boolean;
 		/**
-		 * include artwork images Ids on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include artwork images Ids on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncArtworkIDs?: boolean;
 		/**
-		 * include track Ids on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track Ids on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncTrackIDs?: boolean;
 		/**
-		 * include children folder Ids on child folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include children folder Ids on child folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderChildIncFolderIDs?: boolean;
 	}
 
 	export interface IncludesFolderParameters {
 		/**
-		 * include tag on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tag on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncTag?: boolean;
 		/**
-		 * include state (fav,rate) on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include state (fav,rate) on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncState?: boolean;
 		/**
-		 * include child folder count on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include child folder count on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncChildFolderCount?: boolean;
 		/**
-		 * include child track count on folder subtree(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include child track count on folder subtree(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncTrackInSubtreeCount?: boolean;
 		/**
-		 * include track count on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track count on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncTrackCount?: boolean;
 		/**
-		 * include genre on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include genre on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncGenres?: boolean;
 		/**
-		 * include artwork count on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include artwork count on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncArtworkCount?: boolean;
 		/**
-		 * include a list of all parent folder ids/names on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include a list of all parent folder ids/names on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncParents?: boolean;
 		/**
-		 * include extended meta data on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include extended meta data on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncInfo?: boolean;
 		/**
-		 * include similar folders list on folder(s) - only for folders of type artist
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include similar folders list on folder(s) - only for folders of type artist
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncSimilar?: boolean;
 		/**
-		 * include artwork images Ids on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include artwork images Ids on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncArtworkIDs?: boolean;
 		/**
-		 * include track Ids on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track Ids on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncTrackIDs?: boolean;
 		/**
-		 * include children folder Ids on folder(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include children folder Ids on folder(s)
+		@TJS-type boolean
+		@default false
+		*/
 		folderIncFolderIDs?: boolean;
 	}
 
 	export interface IncludesGenreParameters {
 		/**
-		 * include state (fav,rate) on genre(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include state (fav,rate) on genre(s)
+		@TJS-type boolean
+		@default false
+		*/
 		genreState?: boolean;
 	}
 
 	export interface IncludesNowPlayingParameters {
 		/**
-		 * include track Id on now playing entries
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track Id on now playing entries
+		@TJS-type boolean
+		@default false
+		*/
 		nowPlayingIncTrackIDs?: boolean;
 		/**
-		 * include tracks on now playing entries
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tracks on now playing entries
+		@TJS-type boolean
+		@default false
+		*/
 		nowPlayingIncTracks?: boolean;
 		/**
-		 * include track Id on now playing entries
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track Id on now playing entries
+		@TJS-type boolean
+		@default false
+		*/
 		nowPlayingIncEpisodeIDs?: boolean;
 		/**
-		 * include tracks on now playing entries
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tracks on now playing entries
+		@TJS-type boolean
+		@default false
+		*/
 		nowPlayingIncEpisodes?: boolean;
 	}
 
 	export interface IncludesPlaylistParameters {
 		/**
-		 * include entries on playlist
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include entries on playlist
+		@TJS-type boolean
+		@default false
+		*/
 		playlistIncEntries?: boolean;
 		/**
-		 * include entry ids on playlist
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include entry ids on playlist
+		@TJS-type boolean
+		@default false
+		*/
 		playlistIncEntriesIDs?: boolean;
 		/**
-		 * include user state on playlist
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include user state on playlist
+		@TJS-type boolean
+		@default false
+		*/
 		playlistIncState?: boolean;
 	}
 
 	export interface IncludesPlayQueueParameters {
 		/**
-		 * include entries on play queue
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include entries on play queue
+		@TJS-type boolean
+		@default false
+		*/
 		playQueueEntries?: boolean;
 		/**
-		 * include entry ids on play queue
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include entry ids on play queue
+		@TJS-type boolean
+		@default false
+		*/
 		playQueueEntriesIDs?: boolean;
 	}
 
 	export interface IncludesPodcastChildrenParameters {
 		/**
-		 * include episodes on podcast(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include episodes on podcast(s)
+		@TJS-type boolean
+		@default false
+		*/
 		podcastIncEpisodes?: boolean;
 	}
 
 	export interface IncludesPodcastParameters {
 		/**
-		 * include state (fav,rate) on podcast(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include state (fav,rate) on podcast(s)
+		@TJS-type boolean
+		@default false
+		*/
 		podcastIncState?: boolean;
 		/**
-		 * include episodes id on podcast(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include episodes id on podcast(s)
+		@TJS-type boolean
+		@default false
+		*/
 		podcastIncEpisodeIDs?: boolean;
 		/**
-		 * include episode count on podcast(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include episode count on podcast(s)
+		@TJS-type boolean
+		@default false
+		*/
 		podcastIncEpisodeCount?: boolean;
 	}
 
 	export interface IncludesRadioParameters {
 		/**
-		 * include state (fav,rate) on radio(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include state (fav,rate) on radio(s)
+		@TJS-type boolean
+		@default false
+		*/
 		radioState?: boolean;
 	}
 
@@ -1158,88 +1158,88 @@ export declare namespace JamParameters {
 
 	export interface IncludesSeriesChildrenParameters {
 		/**
-		 * include albums on series
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include albums on series
+		@TJS-type boolean
+		@default false
+		*/
 		seriesIncAlbums?: boolean;
 		/**
-		 * include tracks on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tracks on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		seriesIncTracks?: boolean;
 	}
 
 	export interface IncludesSeriesParameters {
 		/**
-		 * include album ids on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include album ids on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		seriesIncAlbumIDs?: boolean;
 		/**
-		 * include album counts on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include album counts on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		seriesIncAlbumCount?: boolean;
 		/**
-		 * include user states (fav,rate) on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include user states (fav,rate) on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		seriesIncState?: boolean;
 		/**
-		 * include track ids on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track ids on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		seriesIncTrackIDs?: boolean;
 		/**
-		 * include track counts on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include track counts on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		seriesIncTrackCount?: boolean;
 		/**
-		 * include extended meta data on artist(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include extended meta data on artist(s)
+		@TJS-type boolean
+		@default false
+		*/
 		seriesIncInfo?: boolean;
 	}
 
 	export interface IncludesTrackParameters {
 		/**
-		 * include media information on track(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include media information on track(s)
+		@TJS-type boolean
+		@default false
+		*/
 		trackIncMedia?: boolean;
 		/**
-		 * include tag on track(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include tag on track(s)
+		@TJS-type boolean
+		@default false
+		*/
 		trackIncTag?: boolean;
 		/**
-		 * include raw tag on track(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include raw tag on track(s)
+		@TJS-type boolean
+		@default false
+		*/
 		trackIncRawTag?: boolean;
 		/**
-		 * include genre on track(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include genre on track(s)
+		@TJS-type boolean
+		@default false
+		*/
 		trackIncGenres?: boolean;
 		/**
-		 * include user states (fav,rate) on track(s)
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		include user states (fav,rate) on track(s)
+		@TJS-type boolean
+		@default false
+		*/
 		trackIncState?: boolean;
 	}
 
@@ -1248,37 +1248,37 @@ export declare namespace JamParameters {
 
 	export interface LandscapeParameters {
 		/**
-		 * Ignore genre entries with no ENAO coordinate match
-		 * @TJS-type boolean
-		 */
+		Ignore genre entries with no ENAO coordinate match
+		@TJS-type boolean
+		*/
 		ignoreUnknownGenres?: boolean;
 		/**
-		 * Include only artists that have at least one album
-		 * @TJS-type boolean
-		 */
+		Include only artists that have at least one album
+		@TJS-type boolean
+		*/
 		artistsWithAlbumsOnly?: boolean;
 		/**
-		 * Exclude artists that have no computed noise position (all genres unpositioned)
-		 * @TJS-type boolean
-		 */
+		Exclude artists that have no computed noise position (all genres unpositioned)
+		@TJS-type boolean
+		*/
 		ignoreUnpositionedArtists?: boolean;
 		/**
-		 * Minimum track count for a genre to be included
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Minimum track count for a genre to be included
+		@TJS-type integer
+		@minimum 0
+		*/
 		minGenreTrackCount?: number;
 		/**
-		 * Minimum artist count for a genre to be included
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Minimum artist count for a genre to be included
+		@TJS-type integer
+		@minimum 0
+		*/
 		minGenreArtistCount?: number;
 		/**
-		 * Minimum track count for an artist to be included
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Minimum track count for an artist to be included
+		@TJS-type integer
+		@minimum 0
+		*/
 		minArtistTrackCount?: number;
 	}
 
@@ -1304,9 +1304,9 @@ export declare namespace JamParameters {
 		// Song Album
 		album: string;
 		/**
-		 * Song Duration in seconds
-		 * @TJS-type integer
-		 */
+		Song Duration in seconds
+		@TJS-type integer
+		*/
 		duration: number;
 	}
 
@@ -1319,18 +1319,18 @@ export declare namespace JamParameters {
 
 	export interface MediaHealthParameters {
 		/**
-		 * check media file integrity
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		check media file integrity
+		@TJS-type boolean
+		@default false
+		*/
 		healthMedia?: boolean;
 	}
 
 	export interface MediaTagRawUpdateParameters {
 		/**
-		 * Tag Version
-		 * @TJS-type integer
-		 */
+		Tag Version
+		@TJS-type integer
+		*/
 		version: number;
 		// Tag Frames
 		frames: unknown;
@@ -1357,34 +1357,34 @@ export declare namespace JamParameters {
 		// Search by Artist Name
 		artist?: string;
 		/**
-		 * Search by Number of Release Tracks
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Search by Number of Release Tracks
+		@TJS-type integer
+		@minimum 0
+		*/
 		tracks?: number;
 	}
 
 	export interface OrderByParameters {
 		/**
-		 * order direction ascending or descending
-		 * @TJS-type boolean
-		 */
+		order direction ascending or descending
+		@TJS-type boolean
+		*/
 		orderDesc?: boolean;
 	}
 
 	export interface PageParameters {
 		/**
-		 * return items starting from offset position
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @default 0
-		 */
+		return items starting from offset position
+		@TJS-type integer
+		@minimum 0
+		@default 0
+		*/
 		skip?: number;
 		/**
-		 * amount of returned items
-		 * @TJS-type integer
-		 * @minimum 1
-		 */
+		amount of returned items
+		@TJS-type integer
+		@minimum 1
+		*/
 		take?: number;
 	}
 
@@ -1408,29 +1408,29 @@ export declare namespace JamParameters {
 		// filter by Playlist Ids
 		ids?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by User Ids
 		userIDs?: Array<string>;
 		/**
-		 * filter by isPublic Flag
-		 * @TJS-type boolean
-		 */
+		filter by isPublic Flag
+		@TJS-type boolean
+		*/
 		isPublic?: boolean;
 		/**
-		 * filter by since Playlist duration
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by since Playlist duration
+		@TJS-type integer
+		@minimum 0
+		*/
 		durationFrom?: number;
 		/**
-		 * filter by until Playlist duration
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by until Playlist duration
+		@TJS-type integer
+		@minimum 0
+		*/
 		durationTo?: number;
 	}
 
@@ -1440,9 +1440,9 @@ export declare namespace JamParameters {
 		// Comment
 		comment?: string;
 		/**
-		 * Playlist is public?
-		 * @TJS-type boolean
-		 */
+		Playlist is public?
+		@TJS-type boolean
+		*/
 		isPublic?: boolean;
 		// Track/Episode IDs of the playlist, may include duplicates
 		mediaIDs?: Array<string>;
@@ -1457,10 +1457,10 @@ export declare namespace JamParameters {
 		// Current Media Id
 		currentID?: string;
 		/**
-		 * Position in Current Media
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		Position in Current Media
+		@TJS-type integer
+		@minimum 0
+		*/
 		position?: number;
 	}
 
@@ -1489,26 +1489,26 @@ export declare namespace JamParameters {
 		// filter by Episode Ids
 		episodeIDs?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by URL
 		url?: string;
 		// filter by Podcast Status
 		statuses?: Array<JamEnums.PodcastStatus>;
 		/**
-		 * filter by since Last Check timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by since Last Check timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		lastCheckFrom?: number;
 		/**
-		 * filter by until Last Check timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by until Last Check timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		lastCheckTo?: number;
 		// filter by Title
 		title?: string;
@@ -1544,15 +1544,15 @@ export declare namespace JamParameters {
 		// filter by Homepage URL
 		homepage?: string;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		/**
-		 * filter by Disabled Flag
-		 * @TJS-type boolean
-		 */
+		filter by Disabled Flag
+		@TJS-type boolean
+		*/
 		disabled?: boolean;
 	}
 
@@ -1564,9 +1564,9 @@ export declare namespace JamParameters {
 		// Homepage
 		homepage?: string;
 		/**
-		 * Disabled
-		 * @TJS-type boolean
-		 */
+		Disabled
+		@TJS-type boolean
+		*/
 		disabled?: boolean;
 	}
 
@@ -1577,11 +1577,11 @@ export declare namespace JamParameters {
 		// ID
 		id: string;
 		/**
-		 * Rating
-		 * @TJS-type integer
-		 * @minimum 0
-		 * @maximum 5
-		 */
+		Rating
+		@TJS-type integer
+		@minimum 0
+		@maximum 5
+		*/
 		rating: number;
 	}
 
@@ -1600,10 +1600,10 @@ export declare namespace JamParameters {
 		// filter by Root Ids
 		ids?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by Scan Strategy
 		strategies?: Array<JamEnums.RootScanStrategy>;
@@ -1622,7 +1622,7 @@ export declare namespace JamParameters {
 	export interface RootMutateParameters {
 		// Root Name
 		name: string;
-		// Absolute Path for Root 
+		// Absolute Path for Root
 		path: string;
 		// Scan Strategy
 		strategy: JamEnums.RootScanStrategy;
@@ -1646,10 +1646,10 @@ export declare namespace JamParameters {
 		// filter by Album Types
 		albumTypes?: Array<JamEnums.AlbumType>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by Track Ids
 		trackIDs?: Array<string>;
@@ -1670,26 +1670,26 @@ export declare namespace JamParameters {
 
 	export interface SessionFilterParameters {
 		/**
-		 * filter by session timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by session timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by client name
 		client?: string;
 		// filter by client name
 		agent?: string;
 		/**
-		 * filter by since expiry date
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by since expiry date
+		@TJS-type integer
+		@minimum 0
+		*/
 		expiresFrom?: number;
 		/**
-		 * filter by to expiry date
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by to expiry date
+		@TJS-type integer
+		@minimum 0
+		*/
 		expiresTo?: number;
 		// filter by session mode
 		mode?: JamEnums.SessionMode;
@@ -1714,20 +1714,20 @@ export declare namespace JamParameters {
 
 	export interface StreamParameters {
 		/**
-		 * start offset for transcoding/streaming
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		start offset for transcoding/streaming
+		@TJS-type integer
+		@minimum 0
+		*/
 		timeOffset?: number;
 	}
 
 	export interface StreamPathParameters {
 		/**
-		 * maximal bitrate if transcoding (in Kbps)
-		 * @TJS-type integer
-		 * @minimum 10
-		 * @maximum 320
-		 */
+		maximal bitrate if transcoding (in Kbps)
+		@TJS-type integer
+		@minimum 10
+		@maximum 320
+		*/
 		maxBitRate?: number;
 		// format of the audio
 		format?: JamEnums.AudioFormatType;
@@ -1751,10 +1751,10 @@ export declare namespace JamParameters {
 		// filter by Genre Ids
 		genreIDs?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by Series Ids
 		seriesIDs?: Array<string>;
@@ -1773,16 +1773,16 @@ export declare namespace JamParameters {
 		// filter by MusicBrainz Track Ids
 		mbTrackIDs?: Array<string>;
 		/**
-		 * filter by since year
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by since year
+		@TJS-type integer
+		@minimum 0
+		*/
 		fromYear?: number;
 		/**
-		 * filter by until year
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by until year
+		@TJS-type integer
+		@minimum 0
+		*/
 		toYear?: number;
 	}
 
@@ -1827,10 +1827,10 @@ export declare namespace JamParameters {
 		// filter by User Ids
 		ids?: Array<string>;
 		/**
-		 * filter by Creation timestamp
-		 * @TJS-type integer
-		 * @minimum 0
-		 */
+		filter by Creation timestamp
+		@TJS-type integer
+		@minimum 0
+		*/
 		since?: number;
 		// filter by User email
 		email?: string;
@@ -1851,28 +1851,28 @@ export declare namespace JamParameters {
 		// User Email
 		email: string;
 		/**
-		 * User has admin rights?
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		User has admin rights?
+		@TJS-type boolean
+		@default false
+		*/
 		roleAdmin: boolean;
 		/**
-		 * User has podcast admin rights?
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		User has podcast admin rights?
+		@TJS-type boolean
+		@default false
+		*/
 		rolePodcast: boolean;
 		/**
-		 * User has api rights?
-		 * @TJS-type boolean
-		 * @default true
-		 */
+		User has api rights?
+		@TJS-type boolean
+		@default true
+		*/
 		roleStream: boolean;
 		/**
-		 * User has upload rights?
-		 * @TJS-type boolean
-		 * @default false
-		 */
+		User has upload rights?
+		@TJS-type boolean
+		@default false
+		*/
 		roleUpload: boolean;
 	}
 
@@ -1895,11 +1895,11 @@ export declare namespace JamParameters {
 		// format of the waveform
 		format?: JamEnums.WaveformFormatType;
 		/**
-		 * Width of svg
-		 * @TJS-type integer
-		 * @minimum 100
-		 * @maximum 4000
-		 */
+		Width of svg
+		@TJS-type integer
+		@minimum 100
+		@maximum 4000
+		*/
 		width?: number;
 	}
 
@@ -1907,11 +1907,11 @@ export declare namespace JamParameters {
 		// Object Id
 		id: string;
 		/**
-		 * Width of svg
-		 * @TJS-type integer
-		 * @minimum 100
-		 * @maximum 4000
-		 */
+		Width of svg
+		@TJS-type integer
+		@minimum 100
+		@maximum 4000
+		*/
 		width?: number;
 	}
 
@@ -1924,9 +1924,9 @@ export declare namespace JamParameters {
 		// WikiData ID
 		wikiDataID: string;
 		/**
-		 * Wikipedia Language
-		 * @default en
-		 */
+		Wikipedia Language
+		@default en
+		*/
 		lang?: string;
 	}
 
@@ -1934,9 +1934,9 @@ export declare namespace JamParameters {
 		// MusicBrainz ID
 		title: string;
 		/**
-		 * Wikipedia Language
-		 * @default en
-		 */
+		Wikipedia Language
+		@default en
+		*/
 		lang?: string;
 	}
 

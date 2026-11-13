@@ -19,7 +19,7 @@ export class DialogAvatarComponent implements DialogOverlay<Jam.User> {
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<Jam.User>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<Jam.User>>): void {
 		this.user = options.data;
 		this.setImageSource();
 	}

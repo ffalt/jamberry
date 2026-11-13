@@ -39,10 +39,6 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 		4: 'http://id3.org/id3v2.4.0-frames'
 	};
 
-	trackByFn(index: number, value: SelectColumn): string {
-		return value.id;
-	}
-
 	checkChange(): void {
 		this.setResult();
 	}
@@ -63,7 +59,7 @@ export class DialogChooseColumnsComponent implements DialogOverlay<SelectColumns
 		this.refresh();
 	}
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<SelectColumns>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<SelectColumns>>): void {
 		this.data = options.data;
 		this.allColumns = [];
 		const columns = this.data?.columns ?? [];

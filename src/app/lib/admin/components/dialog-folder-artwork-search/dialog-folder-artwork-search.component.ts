@@ -10,7 +10,7 @@ import { type ArtworkSearch, FolderArtworkSearchImageComponent } from '../folder
 export class DialogFolderArtworkSearchComponent implements DialogOverlay<ArtworkSearch> {
 	data?: ArtworkSearch;
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ArtworkSearch>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<ArtworkSearch>>): void {
 		this.data = options.data;
 	}
 }

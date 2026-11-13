@@ -17,7 +17,7 @@ function fillGenres(builder: ID3V24TagBuilder, match: Matching, genres?: Array<s
 
 // eslint-disable-next-line complexity
 function fillCommon(
-	builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack,
+	builder: ID3V24TagBuilder, _match: Matching, track: MusicBrainz.ReleaseTrack,
 	release: MusicBrainz.Release | undefined,
 	group: MusicBrainz.ReleaseGroup | undefined,
 	media: MusicBrainz.ReleaseMedia | undefined
@@ -87,7 +87,7 @@ function fillCommon(
 	builder.catalogNumber(label.catalogNumber);
 }
 
-function fillTypes(builder: ID3V24TagBuilder, match: Matching, track: MusicBrainz.ReleaseTrack, release: MusicBrainz.Release | undefined): void {
+function fillTypes(builder: ID3V24TagBuilder, _match: Matching, _track: MusicBrainz.ReleaseTrack, release: MusicBrainz.Release | undefined): void {
 	let types = [];
 	if (release?.releaseGroup.primaryType) {
 		types.push(release.releaseGroup.primaryType);

@@ -18,7 +18,7 @@ export interface UserPasswordEdit {
 export class DialogUserPassComponent implements DialogOverlay<UserPasswordEdit> {
 	data?: UserPasswordEdit;
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<UserPasswordEdit>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<UserPasswordEdit>>): void {
 		this.data = options.data;
 	}
 

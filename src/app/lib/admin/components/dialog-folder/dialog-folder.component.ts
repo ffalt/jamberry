@@ -12,7 +12,7 @@ import type { FolderEdit } from '../../admin.interface';
 export class DialogFolderComponent implements DialogOverlay<FolderEdit> {
 	edit?: FolderEdit;
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<FolderEdit>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<FolderEdit>>): void {
 		this.edit = options.data;
 	}
 }

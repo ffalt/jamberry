@@ -80,7 +80,7 @@ export class QueueComponent {
 		this.currentSwipeElement.style.marginLeft = `${Math.min(Math.max(0, deltaX), 200).toString()}px`;
 	}
 
-	onTouchEnd(event: TouchEvent, track: Jam.MediaBase): void {
+	onTouchEnd(_event: TouchEvent, track: Jam.MediaBase): void {
 		if (!this.currentSwipeElement) {
 			return;
 		}

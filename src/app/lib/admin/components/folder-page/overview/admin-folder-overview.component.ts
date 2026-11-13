@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { FolderType, type Jam, JamService } from '@jam';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DialogOverlayRef, DialogOverlayService } from '@modules/dialog-overlay';
+import { type DialogOverlayRef, DialogOverlayService } from '@modules/dialog-overlay';
 import { isErrorWithCode } from '@utils/errors';
 import { FolderTypesAlbum } from '@utils/jam-lists';
 import { AdminBaseParentViewIdComponent } from '../../admin-base-parent-view-id/admin-base-parent-view-id.component';

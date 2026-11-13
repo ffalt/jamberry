@@ -1,4 +1,4 @@
-import { JamConfig } from './jamconfig';
+import type { JamConfig } from './jamconfig';
 
 declare global {
 	interface Navigator {

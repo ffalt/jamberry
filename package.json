@@ -9,7 +9,7 @@
     "start": "ng serve",
     "start:prod": "ng serve --configuration production",
     "build": "ng build",
-    "check": "qlty check --all",
+    "check": "qlty check --all --no-formatters",
     "test": "ng test",
     "test:watch": "ng test --watch true",
     "test:coverage": "ng test --coverage",
@@ -41,11 +41,8 @@
     }
   },
   "overrides": {
-    "minimatch": "10.2.5",
-    "glob": "13.0.6",
-    "@angular/build": {
-      "typescript": "6.0.3"
-    }
+    "minimatch": "11.0.8",
+    "glob": "13.0.7"
   },
   "dependencies": {
     "@angular/cdk": "22.2.6",

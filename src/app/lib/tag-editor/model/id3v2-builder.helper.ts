@@ -338,7 +338,7 @@ export class ID3V24TagBuilder {
 	}
 
 	custom(id: string, value?: string): this {
-		this.rawBuilder.idText('TXXX', 'VERSION', value);
+		this.rawBuilder.idText('TXXX', id, value);
 		return this;
 	}
 

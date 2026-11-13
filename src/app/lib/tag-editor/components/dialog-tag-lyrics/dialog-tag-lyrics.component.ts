@@ -18,7 +18,7 @@ export class DialogTagLyricsComponent implements DialogOverlay<LyricsEdit> {
 	edit?: LyricsEdit;
 	currentLyrics?: Jam.MediaTagRawFrameLangDescText;
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<LyricsEdit>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<LyricsEdit>>): void {
 		this.edit = options.data;
 		if (!this.edit) {
 			return;

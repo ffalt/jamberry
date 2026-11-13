@@ -148,7 +148,7 @@ export class QueueService {
 
 	remove(track: Jam.MediaBase): void {
 		const index = this.indexOfTrack(track.id);
-		if (!(index >= 0)) {
+		if (index < 0) {
 			return;
 		}
 

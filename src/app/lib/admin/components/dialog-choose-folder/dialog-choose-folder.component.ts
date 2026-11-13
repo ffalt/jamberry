@@ -25,7 +25,7 @@ export class DialogChooseFolderComponent implements DialogOverlay<SelectFolder> 
 		}
 	}
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<SelectFolder>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<SelectFolder>>): void {
 		this.data = options.data;
 		const tree = this.tree();
 		if (!tree) {

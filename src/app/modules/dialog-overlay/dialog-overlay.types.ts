@@ -20,7 +20,7 @@ export const DEFAULT_CONFIG: Partial<DialogOverlayDialogConfig<any>> = {
 };
 
 export interface DialogOverlay<T> {
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<T>>): void;
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<T>>): void;
 
 	dialogResult?(): boolean;
 }

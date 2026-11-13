@@ -21,7 +21,7 @@ export class DialogTagImageComponent implements DialogOverlay<PicEdit> {
 	readonly current = signal<{ frame?: Jam.MediaTagRawFramePic; source?: string }>({});
 	format: OutputFormat = 'jpeg';
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PicEdit>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PicEdit>>): void {
 		this.edit = options.data;
 		if (!this.edit) {
 			return;

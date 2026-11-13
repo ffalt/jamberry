@@ -7,7 +7,7 @@ import { LandscapeTooltipComponent } from './landscape-tooltip.component';
 import { LandscapePanelComponent, type PanelNode } from './landscape-panel.component';
 import type { Jam, JamParameters } from '@jam';
 import { JamLandscapeService } from '@modules/jam/services/jam.landscape.service';
-import { GenreDatum, LandscapeArtistRenderNode, LandscapeGenreRenderNode, LandscapeRenderData } from './landscape.types';
+import type { GenreDatum, LandscapeArtistRenderNode, LandscapeGenreRenderNode, LandscapeRenderData } from './landscape.types';
 import { ThemeService } from '@modules/theme';
 import { LoadingComponent } from '@core/components/loading/loading.component';
 
@@ -39,6 +39,26 @@ function buildColorMap(
 			noiseColor(g.noiseX, g.noiseY, lightness));
 	}
 	return map;
+}
+
+interface PlacedLabel {
+	gx: number;
+	gy: number;
+	hw: number;
+}
+
+function findFreeLabelY(label: PlacedLabel, placed: Array<PlacedLabel>, lineH: number): number {
+	for (let step = 0; step <= 12; step++) {
+		const offsets = step === 0 ? [0] : [step * lineH, -step * lineH];
+		for (const offset of offsets) {
+			const testY = label.gy + offset;
+			const overlaps = placed.some(p => Math.abs(p.gx - label.gx) < p.hw + label.hw && Math.abs(p.gy - testY) < lineH);
+			if (!overlaps) {
+				return testY;
+			}
+		}
+	}
+	return label.gy;
 }
 
 @Component({
@@ -352,22 +372,11 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 	private nudgeGenreLabels(labels: Array<GenreDatum>): void {
 		const lineH = GENRE_FONT_SIZE + 3;
 		const charW = GENRE_FONT_SIZE * 0.55;
-		const placed: Array<{ gx: number; gy: number; hw: number }> = [];
+		const placed: Array<PlacedLabel> = [];
 		const sorted = [...labels].toSorted((a, b) => b.genre.artistCount - a.genre.artistCount);
 		for (const d of sorted) {
 			const hw = (d.genre.name.length * charW) / 2;
-			let nudgedY = d.gy;
-			outer: for (let step = 0; step <= 12; step++) {
-				const offsets = step === 0 ? [0] : [step * lineH, -step * lineH];
-				for (const offset of offsets) {
-					const testY = d.gy + offset;
-					const overlaps = placed.some(p => Math.abs(p.gx - d.gx) < p.hw + hw && Math.abs(p.gy - testY) < lineH);
-					if (!overlaps) {
-						nudgedY = testY;
-						break outer;
-					}
-				}
-			}
+			const nudgedY = findFreeLabelY({ gx: d.gx, gy: d.gy, hw }, placed, lineH);
 			d.gy = nudgedY;
 			placed.push({ gx: d.gx, gy: nudgedY, hw });
 		}
@@ -464,7 +473,6 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 			.scaleExtent([fitScale * 0.8, 12])
 			.on('zoom', (event: d3.D3ZoomEvent<SVGSVGElement, unknown>) => {
 				g.attr('transform', event.transform.toString());
-				// this.currentZoom = event.transform.k;
 			});
 		svg.call(this.zoomBehavior);
 		const initTx = (this.width - (this.x(1) + PADDING) * fitScale) / 2;

@@ -79,8 +79,8 @@ export class FuzzySet {
 	gramSizeLower: number;
 	gramSizeUpper: number;
 	private exactSet: Record<string, string | undefined> = {};
-	private matchDict: Record<string, Array<[number, number]> | undefined> = {};
 	private items: Record<number, Array<[number, string]>> = {};
+	private readonly matchDict: Record<string, Array<[number, number]> | undefined> = {};
 
 	constructor(arr: Array<string> = [], useLevenshtein = true, gramSizeLower = 2, gramSizeUpper = 3) {
 		this.arr = arr;

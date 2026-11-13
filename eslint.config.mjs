@@ -97,7 +97,20 @@ const commonTSRules = {
 	"@typescript-eslint/restrict-template-expressions": "off",
 	"@typescript-eslint/no-non-null-assertion": "off",
 	"@typescript-eslint/prefer-promise-reject-errors": "off",
-	"@typescript-eslint/no-unnecessary-type-parameters": "off"
+	"@typescript-eslint/no-unnecessary-type-parameters": "off",
+	"@typescript-eslint/consistent-type-imports": "error",
+	"@typescript-eslint/no-unused-vars": [
+		"error",
+		{
+			"args": "all",
+			"argsIgnorePattern": "^_",
+			"caughtErrors": "all",
+			"caughtErrorsIgnorePattern": "^_",
+			"destructuredArrayIgnorePattern": "^_",
+			"varsIgnorePattern": "^_",
+			"ignoreRestSiblings": true
+		}
+	]
 };
 
 const commonUnicornRules = {
@@ -147,8 +160,7 @@ export default ts.config(
 		files: ["**/*.ts"],
 		ignores: [
 			"**/*.spec.ts",
-			"setup-vitest.ts",
-			"src/app/modules/jam/model/jam-rest-params.ts" // generated
+			"setup-vitest.ts"
 		],
 		languageOptions: {
 			ecmaVersion: 2020,

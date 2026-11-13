@@ -86,15 +86,19 @@ export class ArtworkListComponent {
 
 	removeArtwork(node: ArtworkImageNode): void {
 		this.dialogs.confirm('Remove Artworks?', `Do you want to delete "${node.artwork.name}"?`, () => {
-			this.jam.artwork.remove({ id: node.artwork.id })
-				.then(item => {
-					this.nodes.update(list => list.filter(n => n !== node));
-					const folderID = this.folderID();
-					this.folderService.waitForQueueResult('Removing Artwork', item, folderID ? [folderID] : []);
-				})
-				.catch((error: unknown) => {
-					this.notify.error(error);
-				});
+			this.deleteArtwork(node);
 		});
+	}
+
+	private deleteArtwork(node: ArtworkImageNode): void {
+		this.jam.artwork.remove({ id: node.artwork.id })
+			.then(item => {
+				this.nodes.update(list => list.filter(n => n !== node));
+				const folderID = this.folderID();
+				this.folderService.waitForQueueResult('Removing Artwork', item, folderID ? [folderID] : []);
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 }

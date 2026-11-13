@@ -15,7 +15,7 @@ export interface PasswordEdit {
 export class DialogPasswordComponent implements DialogOverlay<PasswordEdit> {
 	readonly data = signal<PasswordEdit | undefined>(undefined);
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PasswordEdit>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<PasswordEdit>>): void {
 		this.data.set(options.data);
 	}
 }

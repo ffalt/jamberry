@@ -16,7 +16,7 @@ export interface RateEdit {
 export class DialogRateComponent implements DialogOverlay<RateEdit> {
 	readonly data = signal<RateEdit | undefined>(undefined);
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<RateEdit>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<RateEdit>>): void {
 		this.data.set(options.data);
 	}
 

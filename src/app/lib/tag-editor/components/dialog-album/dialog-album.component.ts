@@ -57,7 +57,7 @@ export class DialogAlbumComponent implements DialogOverlay<AlbumValuesEdit> {
 		return edit.autocomplete;
 	}
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<AlbumValuesEdit>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<AlbumValuesEdit>>): void {
 		this.data = options.data;
 	}
 }

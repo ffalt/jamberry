@@ -74,8 +74,7 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 		this.val = query;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	async autocompleteGetData(query: string): Promise<Array<AutocompleteOption<string>>> {
+	async autocompleteGetData(_query: string): Promise<Array<AutocompleteOption<string>>> {
 		return [];
 	}
 

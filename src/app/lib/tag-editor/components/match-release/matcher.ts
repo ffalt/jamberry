@@ -427,7 +427,7 @@ export class Matcher {
 				return;
 			}
 		}
-		if (!(rg.releases.length > 0)) {
+		if (rg.releases.length <= 0) {
 			return;
 		}
 

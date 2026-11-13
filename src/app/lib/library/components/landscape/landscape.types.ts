@@ -1,4 +1,4 @@
-import { Jam } from '@jam';
+import type { Jam } from '@jam';
 
 export interface LandscapeGenreRenderNode extends Jam.LandscapeGenreNode {
 	kind: 'genre';

@@ -9,7 +9,7 @@ import type { DialogOverlay, DialogOverlayDialogConfig, DialogOverlayRef } from 
 export class DialogConfirmComponent implements DialogOverlay<string> {
 	parentInfo?: string;
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<string>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<string>>): void {
 		this.parentInfo = options.data;
 	}
 }

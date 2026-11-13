@@ -12,7 +12,7 @@ import type { AdminUserServiceEditData } from '@core/services/admin-user/admin-u
 export class DialogUserComponent implements DialogOverlay<AdminUserServiceEditData> {
 	edit?: AdminUserServiceEditData;
 
-	dialogInit(reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<AdminUserServiceEditData>>): void {
+	dialogInit(_reference: DialogOverlayRef, options: Partial<DialogOverlayDialogConfig<AdminUserServiceEditData>>): void {
 		this.edit = options.data;
 	}
 }

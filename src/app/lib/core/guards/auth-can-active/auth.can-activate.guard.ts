@@ -9,7 +9,7 @@ export class AuthCanActivateGuard implements CanActivate {
 	private readonly auth = inject(JamAuthService);
 	private readonly notify = inject(NotifyService);
 
-	async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+	async canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
 		if (this.auth.checked) {
 			return this.auth.isLoggedIn();
 		}
