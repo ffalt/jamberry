@@ -1,7 +1,9 @@
 @if (folder(); as folder) {
 	<div class="folder">
 		<div class="actions">
-			<button class="button-on-control" title="Refresh" i18n-title (click)="refresh()"><app-icon-reload /></button>
+			<button class="button-on-control" title="Reload View" i18n-title (click)="refresh()"><app-icon-reload /></button>
+			<button class="button-on-control" title="Rescan Folder" i18n-title (click)="rescanFolder()"><app-icon-rescan /></button>
+			<button class="button-on-control" title="Refresh Folder Meta" i18n-title (click)="refreshFolderMeta()"><app-icon-broom /></button>
 			<button class="button-on-control" title="Move Folder…" i18n-title (click)="moveFolder()"><app-icon-right-bold /></button>
 			<button class="button-on-control" title="Remove Folder…" i18n-title (click)="removeFolder()"><app-icon-trash /></button>
 		</div>

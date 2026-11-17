@@ -18,8 +18,10 @@ import { LoadingComponent } from '@core/components/loading/loading.component';
 import { InfoNoteComponent } from '@core/components/info-note/info-note.component';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { AdminFolderService } from '@core/services/admin-folder/admin-folder.service';
+import { IconBroomComponent } from '@core/components/icons/icon-broom.component';
 import { IconPictureComponent } from '@core/components/icons/icon-picture.component';
 import { IconReloadComponent } from '@core/components/icons/icon-reload.component';
+import { IconRescanComponent } from '@core/components/icons/icon-rescan.component';
 import { IconRightBoldComponent } from '@core/components/icons/icon-right-bold.component';
 import { IconTrashComponent } from '@core/components/icons/icon-trash.component';
 import { IconUploadCloudComponent } from '@core/components/icons/icon-upload-cloud.component';
@@ -28,7 +30,10 @@ import { IconUploadCloudComponent } from '@core/components/icons/icon-upload-clo
 	selector: 'app-admin-folder',
 	templateUrl: './admin-folder-overview.component.html',
 	styleUrls: ['./admin-folder-overview.component.scss'],
-	imports: [ArtworkListComponent, FormsModule, IconPictureComponent, IconReloadComponent, IconRightBoldComponent, IconTrashComponent, IconUploadCloudComponent, InfoNoteComponent, InlineEditComponent, LoadingComponent, RouterModule]
+	imports: [
+		ArtworkListComponent, FormsModule, InfoNoteComponent, InlineEditComponent, LoadingComponent, RouterModule,
+		IconBroomComponent, IconPictureComponent, IconReloadComponent, IconRescanComponent, IconRightBoldComponent, IconTrashComponent, IconUploadCloudComponent
+	]
 })
 export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent {
 	name: string = '';
@@ -102,6 +107,14 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 					this.notify.error(error);
 				}
 			});
+	}
+
+	rescanFolder(): void {
+		this.refreshFolder(false);
+	}
+
+	refreshFolderMeta(): void {
+		this.refreshFolder(true);
 	}
 
 	registerRefresh(ref: DialogOverlayRef): void {
@@ -186,6 +199,20 @@ export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent
 			},
 			onCancelBtn: async () => Promise.resolve()
 		});
+	}
+
+	private refreshFolder(withMetadata: boolean): void {
+		const folder = this.folder();
+		if (!folder) {
+			return;
+		}
+		this.jam.folder.refresh({ id: folder.id, withMetadata })
+			.then(item => {
+				this.folderService.waitForQueueResult(withMetadata ? 'Refreshing Folder Meta' : 'Rescanning Folder', item, [folder.id], [folder.id]);
+			})
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 
 	private display(folder?: Jam.Folder): void {
