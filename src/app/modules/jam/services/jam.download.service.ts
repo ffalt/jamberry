@@ -11,7 +11,7 @@ export class JamDownloadService {
 	private readonly base = inject(JamBaseService);
 
 	/**
-	Download Archive Binary [Album, Artist, Artwork, Episode, Folder, Playlist, Podcast, Series, Track] // Rights needed: stream
+	Download Archive Binary [Album, Artist, Artwork, Episode, Folder, Playlist, Podcast, Series, Track]; Rights needed: stream
 	*/
 	downloadUrl(params: JamParameters.DownloadDownloadParameters): string {
 		if (!params.id) {
@@ -21,7 +21,7 @@ export class JamDownloadService {
 	}
 
 	/**
-	Download Archive Binary [Album, Artist, Artwork, Episode, Folder, Playlist, Podcast, Series, Track] // Rights needed: stream
+	Download Archive Binary [Album, Artist, Artwork, Episode, Folder, Playlist, Podcast, Series, Track]; Rights needed: stream
 	*/
 	async downloadBinary(params: JamParameters.DownloadDownloadParameters): Promise<{ buffer: ArrayBuffer; contentType: string }> {
 		if (!params.id) {

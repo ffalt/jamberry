@@ -76,7 +76,7 @@ export class AdminRootService {
 	}
 
 	refreshRootMeta(root: Jam.Root): void {
-		this.jam.root.refreshMeta({ id: root.id })
+		this.jam.root.refresh({ id: root.id, withMetadata: true })
 			.then(() => {
 				this.refreshRoot(root.id);
 			})

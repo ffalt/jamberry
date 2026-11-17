@@ -60,8 +60,11 @@ export class JamHttpService {
 		try {
 			return await firstValueFrom(this.client.get<T>(url,
 				{
-					params: options.params, headers: options.headers, reportUploadProgress: options.reportUploadProgress,
-					withCredentials: options.withCredentials, responseType: options.responseType as 'json'
+					params: options.params,
+					headers: options.headers,
+					reportUploadProgress: options.reportUploadProgress,
+					withCredentials: options.withCredentials,
+					responseType: options.responseType as 'json'
 				}
 			));
 		} catch (error: unknown) {
@@ -72,7 +75,12 @@ export class JamHttpService {
 	async post<T>(url: string, body: unknown, options: HTTPOptions): Promise<T> {
 		try {
 			return await firstValueFrom(this.client.post<T>(url, body,
-				{ params: options.params, headers: options.headers, reportUploadProgress: options.reportUploadProgress, withCredentials: options.withCredentials }
+				{
+					params: options.params,
+					headers: options.headers,
+					reportUploadProgress: options.reportUploadProgress,
+					withCredentials: options.withCredentials
+				}
 			));
 		} catch (error: unknown) {
 			handleError(error);

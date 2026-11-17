@@ -622,6 +622,17 @@ export declare namespace JamParameters {
 		orderBy?: JamEnums.FolderOrderFields;
 	}
 
+	export interface FolderRefreshParameters {
+		// Folder Id
+		id: string;
+		/**
+		Also rebuild all metadata (Artists/Albums/...), re-reading the tags of all tracks
+		@TJS-type boolean
+		@default false
+		*/
+		withMetadata?: boolean;
+	}
+
 	export interface FolderRenameParameters {
 		// Folder Id
 		id: string;
@@ -1634,6 +1645,12 @@ export declare namespace JamParameters {
 	export interface RootRefreshParameters {
 		// Root ID to refresh (empty for refreshing all)
 		id?: string;
+		/**
+		Also rebuild all metadata (Artists/Albums/...), re-reading the tags of all tracks
+		@TJS-type boolean
+		@default false
+		*/
+		withMetadata?: boolean;
 	}
 
 	export interface SeriesFilterParameters {
