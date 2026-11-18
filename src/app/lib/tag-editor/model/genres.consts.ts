@@ -190,7 +190,8 @@ export const GenresByNumbers = [
 	'G-Funk',
 	'Dubstep',
 	'Garage Rock',
-	'Psybient'];
+	'Psybient'
+];
 
 export const Genres: Array<string> = [
 	'2 Tone',

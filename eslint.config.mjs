@@ -127,6 +127,7 @@ const commonUnicornRules = {
 	"unicorn/consistent-boolean-name": "off",
 	"unicorn/name-replacements": "off",
 	"unicorn/consistent-compound-words": "off",
+	"unicorn/prefer-options-parameter": "off",
 	"unicorn/prefer-await": "off",
 	"unicorn/prefer-continue": "off",
 	"unicorn/no-non-function-verb-prefix": "off",
@@ -239,6 +240,7 @@ export default ts.config(
 			...commonUnicornRules,
 			...commonStylisticRules,
 
+			'@stylistic/list-style': 'off',
 			'vitest/no-disabled-tests': 'warn',
 			'vitest/no-focused-tests': 'error',
 			'vitest/no-identical-title': 'error',

@@ -14,7 +14,8 @@ export class CacheService {
 			'folder/index',
 			'artist/index',
 			'album/index',
-			'genre/list'].includes(path)) {
+			'genre/list'
+		].includes(path)) {
 			return { needsRefresh: false };
 		}
 		return;

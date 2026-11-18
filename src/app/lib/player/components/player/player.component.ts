@@ -25,8 +25,21 @@ import { IconVolumeUpComponent } from '@core/components/icons/icon-volume-up.com
 	templateUrl: './player.component.html',
 	styleUrls: ['./player.component.scss'],
 	imports: [
-		IconFastBackwardComponent, IconFastForwardComponent, IconInfoComponent, IconLoopComponent, IconPauseComponent, IconPlayComponent, IconQueueComponent,
-		IconSpeedComponent, IconVolumeOffComponent, IconVolumeUpComponent, MediadurationPipe, SliderSpeedComponent, SliderTimeComponent, SliderVolumeComponent, StringTogglePipe
+		MediadurationPipe,
+		StringTogglePipe,
+		SliderSpeedComponent,
+		SliderTimeComponent,
+		SliderVolumeComponent,
+		IconFastBackwardComponent,
+		IconFastForwardComponent,
+		IconInfoComponent,
+		IconLoopComponent,
+		IconPauseComponent,
+		IconPlayComponent,
+		IconQueueComponent,
+		IconSpeedComponent,
+		IconVolumeOffComponent,
+		IconVolumeUpComponent
 	]
 })
 export class PlayerComponent {

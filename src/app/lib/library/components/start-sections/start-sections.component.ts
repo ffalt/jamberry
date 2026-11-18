@@ -24,7 +24,8 @@ export class StartSectionsComponent implements OnInit {
 		this.jam.artist.search({ list: ListType.recent, take: 5 })
 			.then(data => {
 				this.artistRecent.set(data.items.map(obj => ({
-					obj, click: (): void => {
+					obj,
+					click: (): void => {
 						this.navig.toArtist(obj);
 					}
 				})));
@@ -35,7 +36,8 @@ export class StartSectionsComponent implements OnInit {
 		this.jam.artist.search({ list: ListType.faved, take: 5 })
 			.then(data => {
 				this.artistFaved.set(data.items.map(obj => ({
-					obj, click: (): void => {
+					obj,
+					click: (): void => {
 						this.navig.toArtist(obj);
 					}
 				})));
@@ -46,7 +48,8 @@ export class StartSectionsComponent implements OnInit {
 		this.jam.album.search({ list: ListType.faved, take: 5 })
 			.then(data => {
 				this.albumFaved.set(data.items.map(obj => ({
-					obj, click: (): void => {
+					obj,
+					click: (): void => {
 						this.navig.toAlbum(obj);
 					}
 				})));
@@ -57,7 +60,8 @@ export class StartSectionsComponent implements OnInit {
 		this.jam.album.search({ list: ListType.recent, take: 5 })
 			.then(data => {
 				this.albumRecent.set(data.items.map(obj => ({
-					obj, click: (): void => {
+					obj,
+					click: (): void => {
 						this.navig.toAlbum(obj);
 					}
 				})));

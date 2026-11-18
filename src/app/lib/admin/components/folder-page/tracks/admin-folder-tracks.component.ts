@@ -90,8 +90,7 @@ export class AdminFolderTracksComponent extends AdminBaseParentViewIdComponent {
 				const folder = this.folder();
 				this.jam.track.move({ ids, folderID: destination.id })
 					.then(item => {
-						this.folderService.waitForQueueResult('Moving Tracks', item, [],
-							[destination.id, ...(folder?.parentID ? [folder.parentID] : [])], ids);
+						this.folderService.waitForQueueResult('Moving Tracks', item, [], [destination.id, ...(folder?.parentID ? [folder.parentID] : [])], ids);
 					})
 					.catch((error: unknown) => {
 						this.notify.error(error);

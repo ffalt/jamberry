@@ -249,13 +249,13 @@ export class AutocompleteDirective implements OnInit, OnChanges, AutocompleteCon
 	}
 
 	private getOverlayConfig(): OverlayConfig {
-		return new OverlayConfig({
-			hasBackdrop: false,
-			backdropClass: '',
-			panelClass: 'ngx-autocomplete',
-			scrollStrategy: this.overlay.scrollStrategies.block(),
-			positionStrategy: this.getOverlayPosition()
-		});
+		const config = new OverlayConfig();
+		config.hasBackdrop = false;
+		config.backdropClass = '';
+		config.panelClass = 'ngx-autocomplete';
+		config.scrollStrategy = this.overlay.scrollStrategies.block();
+		config.positionStrategy = this.getOverlayPosition();
+		return config;
 	}
 
 	private getOverlayPosition(): PositionStrategy {

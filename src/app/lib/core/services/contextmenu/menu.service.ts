@@ -1,4 +1,4 @@
-import { Overlay, type OverlayRef } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, type OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, type ComponentType } from '@angular/cdk/portal';
 import { inject, Service, type Signal } from '@angular/core';
 import type { ContextMenuComponent } from '@modules/ngx-contextmenu/lib/contextmenu.component';
@@ -17,7 +17,7 @@ export class MenuService {
 	private templateOverlays: Array<OverlayRef> = [];
 
 	openMenuComponent<T>(contextMenuHost: ComponentType<ContextMenuHostComponentInterface<T>>, item: unknown, event: Event, options?: T) {
-		const templateOverlay = this.overlay.create({});
+		const templateOverlay = this.overlay.create(new OverlayConfig());
 		this.templateOverlays.push(templateOverlay);
 		const contextMenuTemplate = templateOverlay.attach(new ComponentPortal(contextMenuHost));
 		const instance = contextMenuTemplate.instance;

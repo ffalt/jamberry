@@ -4,7 +4,8 @@ import { AppService } from '../app/app.service';
 import { LocalstorageService } from '../localstorage/localstorage.service';
 import { UserStorageService } from '../userstorage/userstorage.service';
 
-export const WINDOW = new InjectionToken('window',
+export const WINDOW = new InjectionToken(
+	'window',
 	{ providedIn: 'root', factory: (): typeof globalThis => globalThis }
 );
 

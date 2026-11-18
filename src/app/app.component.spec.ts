@@ -13,7 +13,8 @@ describe('AppComponent', () => {
 	beforeEach(async () =>
 		TestBed.configureTestingModule({
 			imports: [...TEST_IMPORTS, AppComponent],
-			providers: [...TEST_PROVIDERS,
+			providers: [
+				...TEST_PROVIDERS,
 				AuthCanActivateGuard,
 				...provideTheme(themeConfig)
 			],

@@ -726,11 +726,11 @@ export class TagEditor {
 	private createColumnFromFrame(frame: RawTagEditFrame<{ id: string }>): void {
 		const framedef = getFrameDef(frame.id);
 		const sort = DefaultFrameColumns.findIndex(c => TagEditor.matchColumn(frame, c));
-		if (framedef) {
-			this.columns.push(this.frameDef2Column(frame.id, frame.value.id, framedef, sort));
-		} else {
-			this.columns.push(this.frame2Column(frame, sort));
-		}
+		this.columns.push(
+			framedef ?
+				this.frameDef2Column(frame.id, frame.value.id, framedef, sort) :
+				this.frame2Column(frame, sort)
+		);
 	};
 
 	private buildColumns(tracks?: Array<Jam.Track>): void {
@@ -780,7 +780,8 @@ export class TagEditor {
 			tag: Jam.MediaTagRaw | undefined,
 			frames: Array<RawTagEditFrame<any>>,
 			parent: RawTagEditRow,
-			oldRow: RawTagEditRow | undefined): Array<RawTagEditCell<any>> =>
+			oldRow: RawTagEditRow | undefined
+		): Array<RawTagEditCell<any>> =>
 			this.columns.map(col => {
 				const oldCell = oldRow ? oldRow.cells.find(c => c.column.def.id === col.def.id && c.column.def.subid === col.def.subid) : undefined;
 				return {

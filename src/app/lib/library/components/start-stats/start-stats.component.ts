@@ -22,12 +22,24 @@ export class StartStatsComponent implements OnInit {
 					[
 						{ text: 'Artists', link: '/library/artists', value: stats.artistTypes.album },
 						...[
-							{ type: getTypeByAlbumType(AlbumType.album), value: stats.albumTypes.album },
-							{ type: getTypeByAlbumType(AlbumType.compilation), value: stats.albumTypes.compilation }
+							{
+								type: getTypeByAlbumType(AlbumType.album),
+								value: stats.albumTypes.album
+							},
+							{
+								type: getTypeByAlbumType(AlbumType.compilation),
+								value: stats.albumTypes.compilation
+							}
 						].map(t => ({
-							text: t.type?.text, link: `/library/${t.type?.id}`, value: t.value
+							text: t.type?.text,
+							link: `/library/${t.type?.id}`,
+							value: t.value
 						})),
-						{ text: 'Series', link: '/library/series', value: stats.series },
+						{
+							text: 'Series',
+							link: '/library/series',
+							value: stats.series
+						},
 						...[
 							{ type: getTypeByAlbumType(AlbumType.audiobook), value: stats.albumTypes.audiobook },
 							{ type: getTypeByAlbumType(AlbumType.soundtrack), value: stats.albumTypes.soundtrack },
@@ -36,11 +48,14 @@ export class StartStatsComponent implements OnInit {
 							{ type: getTypeByAlbumType(AlbumType.ep), value: stats.albumTypes.ep },
 							{ type: getTypeByAlbumType(AlbumType.single), value: stats.albumTypes.single }
 						].map(t => ({
-							text: t.type?.text, link: `/library/${t.type?.id}`, value: t.value
+							text: t.type?.text,
+							link: `/library/${t.type?.id}`,
+							value: t.value
 						})),
 						{ text: 'Folders', link: '/library/folders', value: stats.folder },
 						{ text: 'Tracks', link: '/library/tracks', value: stats.track }
-					]));
+					]
+				));
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

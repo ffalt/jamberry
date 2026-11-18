@@ -31,8 +31,21 @@ import { IconUploadCloudComponent } from '@core/components/icons/icon-upload-clo
 	templateUrl: './admin-folder-overview.component.html',
 	styleUrls: ['./admin-folder-overview.component.scss'],
 	imports: [
-		ArtworkListComponent, FormsModule, InfoNoteComponent, InlineEditComponent, LoadingComponent, RouterModule,
-		IconBroomComponent, IconPictureComponent, IconReloadComponent, IconRescanComponent, IconRightBoldComponent, IconTrashComponent, IconUploadCloudComponent
+		FormsModule,
+		RouterModule,
+
+		ArtworkListComponent,
+		InfoNoteComponent,
+		InlineEditComponent,
+		LoadingComponent,
+
+		IconBroomComponent,
+		IconPictureComponent,
+		IconReloadComponent,
+		IconRescanComponent,
+		IconRightBoldComponent,
+		IconTrashComponent,
+		IconUploadCloudComponent
 	]
 })
 export class AdminFolderOverviewComponent extends AdminBaseParentViewIdComponent {

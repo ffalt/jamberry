@@ -67,8 +67,7 @@ export class ArtworkListComponent {
 		this.jam.artwork.rename({ id: node.artwork.id, newName: node.name })
 			.then(item => {
 				const folderID = this.folderID();
-				this.folderService.waitForQueueResult('Renaming Artwork', item,
-					folderID ? [folderID] : [], []);
+				this.folderService.waitForQueueResult('Renaming Artwork', item, folderID ? [folderID] : [], []);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

@@ -55,7 +55,8 @@ export class CellEditorTxtComponent implements OnChanges, AfterViewInit, Autocom
 
 		if (cell.frames.length === 0) {
 			cell.frames.push({
-				id: cell.column.def.id, value: {
+				id: cell.column.def.id,
+				value: {
 					id: cell.column.def.subid,
 					text: this.val
 				}

@@ -221,11 +221,7 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 
 	onGenreFocus(genreId: string): void {
 		const current = this.focusedGenreIds();
-		if (current.has(genreId)) {
-			this.focusedGenreIds.set(new Set<string>());
-		} else {
-			this.focusedGenreIds.set(new Set([genreId]));
-		}
+		this.focusedGenreIds.set(current.has(genreId) ? new Set<string>() : new Set([genreId]));
 	}
 
 	onFiltersChange(): void {
@@ -338,7 +334,10 @@ export class LandscapeComponent implements OnInit, AfterViewInit {
 
 	private appendAxisLabel(
 		parent: d3.Selection<SVGGElement, unknown, null, undefined>,
-		px: number, py: number, label: string, anchor?: string
+		px: number,
+		py: number,
+		label: string,
+		anchor?: string
 	): void {
 		const el = parent.append('text')
 			.attr('x', px).attr('y', py).text(label)

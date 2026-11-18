@@ -65,7 +65,8 @@ export class ID3V2RawBuilder {
 
 	addPicture(key: string, pictureType: number, description: string, mimeType?: string, binary?: string): this {
 		const frame: Jam.MediaTagRawFramePic = {
-			id: key, value: {
+			id: key,
+			value: {
 				description,
 				pictureType,
 				bin: binary,

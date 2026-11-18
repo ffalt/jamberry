@@ -65,8 +65,7 @@ export class TracksLoaderComponent {
 				take: this.loadMore().take(),
 				trackIncTag: true,
 				trackIncState: true
-			})
-		);
+			}));
 	}
 
 	searchCmd(): void {
@@ -77,8 +76,7 @@ export class TracksLoaderComponent {
 				take: this.loadMore().take(),
 				trackIncTag: true,
 				trackIncState: true
-			})
-		);
+			}));
 	}
 
 	list(): void {

@@ -43,9 +43,15 @@ export class UserStatsComponent implements OnInit {
 				{ type: getTypeByAlbumType(AlbumType.album), value: detail.albumTypes.album },
 				{ type: getTypeByAlbumType(AlbumType.compilation), value: detail.albumTypes.compilation }
 			].map(t => ({
-				text: t.type?.text, link: t.type?.id, value: t.value
+				text: t.type?.text,
+				link: t.type?.id,
+				value: t.value
 			})),
-			{ text: 'Series', link: 'series', value: detail.series },
+			{
+				text: 'Series',
+				link: 'series',
+				value: detail.series
+			},
 			...[
 				{ type: getTypeByAlbumType(AlbumType.audiobook), value: detail.albumTypes.audiobook },
 				{ type: getTypeByAlbumType(AlbumType.soundtrack), value: detail.albumTypes.soundtrack },
@@ -54,11 +60,12 @@ export class UserStatsComponent implements OnInit {
 				{ type: getTypeByAlbumType(AlbumType.ep), value: detail.albumTypes.ep },
 				{ type: getTypeByAlbumType(AlbumType.single), value: detail.albumTypes.single }
 			].map(t => ({
-				text: t.type?.text, link: t.type?.id, value: t.value
+				text: t.type?.text,
+				link: t.type?.id,
+				value: t.value
 			})),
 			{ text: 'Folders', link: 'folders', value: detail.folder },
 			{ text: 'Tracks', link: 'tracks', value: detail.track }
-		].map(o => ({ ...o, link: `/library/${o.link}${suffix}` }))
-		);
+		].map(o => ({ ...o, link: `/library/${o.link}${suffix}` })));
 	}
 }

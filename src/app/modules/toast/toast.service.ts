@@ -4,7 +4,6 @@ import { type ComponentRef, inject, Injector, Service } from '@angular/core';
 import type { Observable } from 'rxjs';
 
 import { type GlobalConfig, type IndividualConfig, TOAST_CONFIG, ToastPackage, type ToastToken } from './toast-config';
-import { ToastInjector } from './toast-injector';
 import { ToastRef } from './toast-ref';
 import { ToastComponent } from './toast.component';
 
@@ -143,11 +142,11 @@ export class ToastService {
 	}
 
 	private getOverlayConfig(config: GlobalConfig): OverlayConfig {
-		return new OverlayConfig({
-			hasBackdrop: false,
-			panelClass: ['toast-container', config.positionClass],
-			scrollStrategy: this.overlay.scrollStrategies.block()
-		});
+		const overlayConfig = new OverlayConfig();
+		overlayConfig.hasBackdrop = false;
+		overlayConfig.panelClass = ['toast-container', config.positionClass];
+		overlayConfig.scrollStrategy = this.overlay.scrollStrategies.block();
+		return overlayConfig;
 	}
 
 	private createOverlay(config: GlobalConfig): OverlayRef {
@@ -185,7 +184,10 @@ export class ToastService {
 		const toastPackage = new ToastPackage(this.index, config, message, title, toastType, toastRef, () => {
 			this.remove(toastPackage.toastId);
 		});
-		const toastInjector = new ToastInjector(toastPackage, this.injector);
+		const toastInjector = Injector.create({
+			providers: [{ provide: ToastPackage, useValue: toastPackage }],
+			parent: this.injector
+		});
 		const containerPortal = new ComponentPortal(ToastComponent, undefined, toastInjector);
 		const containerRef: ComponentRef<ToastComponent> = overlayRef.attach(containerPortal);
 		toastRef.componentInstance = containerRef.instance;

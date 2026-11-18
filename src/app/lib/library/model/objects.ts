@@ -101,12 +101,16 @@ export class JamAlbumObject extends JamLibraryObject {
 		if (this.album.albumType === AlbumType.series) {
 			return [
 				{
-					label: 'Artist', value: this.album.artistName, click: (): void => {
+					label: 'Artist',
+					value: this.album.artistName,
+					click: (): void => {
 						this.navigToParent();
 					}
 				},
 				{
-					label: 'Series', value: this.album.seriesID ? this.album.series : undefined, click: (): void => {
+					label: 'Series',
+					value: this.album.seriesID ? this.album.series : undefined,
+					click: (): void => {
 						this.library.navig.toSeriesID(this.album.seriesID ?? '', this.album.series ?? '');
 					}
 				},
@@ -115,7 +119,9 @@ export class JamAlbumObject extends JamLibraryObject {
 		}
 		return [
 			{
-				label: 'Artist', value: this.album.artistName, click: (): void => {
+				label: 'Artist',
+				value: this.album.artistName,
+				click: (): void => {
 					this.navigToParent();
 				}
 			},
@@ -298,12 +304,16 @@ export class JamPlaylistObject extends JamLibraryObject {
 			this.playlist.userID === this.library.jam.auth.user?.id ?
 				[
 					{
-						text: 'Edit Playlist', icon: IconEditComponent, click: (): void => {
+						text: 'Edit Playlist',
+						icon: IconEditComponent,
+						click: (): void => {
 							this.library.playlistDialogsService.editPlaylist(this.playlist);
 						}
 					},
 					{
-						text: 'Remove Playlist', icon: IconRemoveComponent, click: (): void => {
+						text: 'Remove Playlist',
+						icon: IconRemoveComponent,
+						click: (): void => {
 							this.library.playlistDialogsService.removePlaylist(this.playlist);
 						}
 					}
@@ -405,12 +415,16 @@ export class JamTrackObject extends JamLibraryObject {
 	getInfos(): Array<HeaderInfo> {
 		return [
 			{
-				label: 'Artist', value: this.track.tag?.artist, click: (): void => {
+				label: 'Artist',
+				value: this.track.tag?.artist,
+				click: (): void => {
 					this.library.navig.toArtistID(this.track.artistID ?? '', this.track.tag?.artist ?? '');
 				}
 			},
 			{
-				label: 'Album', value: this.track.tag?.album, click: (): void => {
+				label: 'Album',
+				value: this.track.tag?.album,
+				click: (): void => {
 					this.library.navig.toAlbumID(this.track.albumID ?? '', this.track.tag?.album ?? '');
 				}
 			},
@@ -525,7 +539,9 @@ export class JamSeriesObject extends JamLibraryObject {
 	getInfos(): Array<HeaderInfo> {
 		return [
 			{
-				label: 'Artist', value: this.series.artist, click: (): void => {
+				label: 'Artist',
+				value: this.series.artist,
+				click: (): void => {
 					this.navigToParent();
 				}
 			},
@@ -567,12 +583,16 @@ export class JamPodcastObject extends JamLibraryObject {
 		const extras = (this.library.jam.auth.user?.roles.podcast) ?
 			[
 				{
-					text: 'Refresh Podcast Feed', icon: IconRescanComponent, click: (): void => {
+					text: 'Refresh Podcast Feed',
+					icon: IconRescanComponent,
+					click: (): void => {
 						this.library.podcastService.checkPodcast(this.podcast);
 					}
 				},
 				{
-					text: 'Remove Podcast', icon: IconRemoveComponent, click: (): void => {
+					text: 'Remove Podcast',
+					icon: IconRemoveComponent,
+					click: (): void => {
 						this.library.podcastService.removePodcast(this.podcast);
 					}
 				}

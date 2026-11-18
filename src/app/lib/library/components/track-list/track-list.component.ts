@@ -25,8 +25,20 @@ import { IconStopwatchComponent } from '@core/components/icons/icon-stopwatch.co
 	templateUrl: './track-list.component.html',
 	styleUrls: ['./track-list.component.scss'],
 	imports: [
-		AgoPipe, BackgroundTextListComponent, ClickKeyEnterDirective, CommonModule, DurationPipe, IconFavComponent, FocusKeyListDirective, FocusKeyListItemDirective,
-		IconCheckmarkComponent, IconClockComponent, IconHashComponent, IconHeadphonesComponent, IconHeartEmptyComponent, IconStopwatchComponent
+		CommonModule,
+		AgoPipe,
+		DurationPipe,
+		ClickKeyEnterDirective,
+		FocusKeyListDirective,
+		FocusKeyListItemDirective,
+		BackgroundTextListComponent,
+		IconFavComponent,
+		IconCheckmarkComponent,
+		IconClockComponent,
+		IconHashComponent,
+		IconHeadphonesComponent,
+		IconHeartEmptyComponent,
+		IconStopwatchComponent
 	]
 })
 export class TrackListComponent {

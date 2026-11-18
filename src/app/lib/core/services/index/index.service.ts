@@ -189,22 +189,34 @@ export class IndexService {
 			case JamObjectType.folder: {
 				return buildIndexFolderIndex(
 					await this.jam.folder.index(query as JamParameters.FolderFilterParameters),
-					!this.app.smallscreen, 'Folders', this.jam);
+					!this.app.smallscreen,
+					'Folders',
+					this.jam
+				);
 			}
 			case JamObjectType.artist: {
 				return buildIndexArtistIndex(
 					await this.jam.artist.index(query as JamParameters.ArtistFilterParameters),
-					!this.app.smallscreen, 'Artists', this.jam);
+					!this.app.smallscreen,
+					'Artists',
+					this.jam
+				);
 			}
 			case JamObjectType.series: {
 				return buildIndexSeriesIndex(
 					await this.jam.series.index(query as JamParameters.SeriesFilterParameters),
-					!this.app.smallscreen, 'Series', this.jam);
+					!this.app.smallscreen,
+					'Series',
+					this.jam
+				);
 			}
 			case JamObjectType.genre: {
 				return buildIndexGenreIndex(
 					await this.jam.genre.index(query as JamParameters.GenreFilterParameters),
-					!this.app.smallscreen, 'Genres', this.jam);
+					!this.app.smallscreen,
+					'Genres',
+					this.jam
+				);
 			}
 			case JamObjectType.album: {
 				const q = query as JamParameters.AlbumFilterParameters;
@@ -212,7 +224,10 @@ export class IndexService {
 				const type = albumType ? getTypeByAlbumType(albumType) : undefined;
 				return buildIndexAlbumIndex(
 					await this.jam.album.index(q),
-					!this.app.smallscreen, type ? type.text : 'Albums', this.jam);
+					!this.app.smallscreen,
+					type ? type.text : 'Albums',
+					this.jam
+				);
 			}
 			default: {
 				return;

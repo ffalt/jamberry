@@ -17,8 +17,13 @@ import { IconHeartFullComponent } from '@core/components/icons/icon-heart-full.c
 	selector: 'app-context-menu-queue-track',
 	templateUrl: './context-menu-queue-track.component.html',
 	imports: [
-		ContextEntryRateComponent, ContextMenuModule,
-		IconDownloadCloudComponent, IconListAddComponent, IconTrackComponent, IconHeartEmptyComponent, IconHeartFullComponent
+		ContextMenuModule,
+		ContextEntryRateComponent,
+		IconDownloadCloudComponent,
+		IconListAddComponent,
+		IconTrackComponent,
+		IconHeartEmptyComponent,
+		IconHeartFullComponent
 	]
 })
 export class ContextMenuQueueTrackComponent implements ContextMenuHostComponentInterface<any> {

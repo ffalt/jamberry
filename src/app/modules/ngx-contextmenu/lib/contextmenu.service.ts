@@ -1,4 +1,4 @@
-import { Overlay, type OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, type OverlayRef, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { type ComponentRef, ElementRef, inject, Injectable } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
@@ -81,11 +81,11 @@ export class ContextMenuService {
 				])
 				.withFlexibleDimensions(false)
 			;
-			const newOverlay = this.overlay.create({
-				positionStrategy,
-				panelClass: 'ngx-contextmenu',
-				scrollStrategy: this.scrollStrategy.close()
-			});
+			const overlayConfig = new OverlayConfig();
+			overlayConfig.positionStrategy = positionStrategy;
+			overlayConfig.panelClass = 'ngx-contextmenu';
+			overlayConfig.scrollStrategy = this.scrollStrategy.close();
+			const newOverlay = this.overlay.create(overlayConfig);
 			this.destroySubMenus(parentContextMenu);
 			this.overlays = [...this.overlays, newOverlay];
 			this.attachContextMenu(newOverlay, context);
@@ -112,11 +112,11 @@ export class ContextMenuService {
 					{ originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center' }
 				])
 				.withFlexibleDimensions(false);
-			this.overlays = [this.overlay.create({
-				positionStrategy,
-				panelClass: 'ngx-contextmenu',
-				scrollStrategy: this.scrollStrategy.close()
-			})];
+			const overlayConfig = new OverlayConfig();
+			overlayConfig.positionStrategy = positionStrategy;
+			overlayConfig.panelClass = 'ngx-contextmenu';
+			overlayConfig.scrollStrategy = this.scrollStrategy.close();
+			this.overlays = [this.overlay.create(overlayConfig)];
 			this.attachContextMenu(this.overlays[0], context);
 		}
 	}

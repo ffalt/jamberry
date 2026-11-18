@@ -29,9 +29,16 @@ export interface ContextMenuObjComponentOptions {
 	selector: 'app-context-menu-obj',
 	templateUrl: './context-menu-obj.component.html',
 	imports: [
-		ContextEntryRateComponent, ContextMenuModule, NgComponentOutlet,
-		IconDownloadCloudComponent, IconListAddComponent, IconPlayComponent, IconPlaylistComponent, IconViewDetailsComponent,
-		IconHeartEmptyComponent, IconHeartFullComponent
+		ContextEntryRateComponent,
+		ContextMenuModule,
+		NgComponentOutlet,
+		IconDownloadCloudComponent,
+		IconListAddComponent,
+		IconPlayComponent,
+		IconPlaylistComponent,
+		IconViewDetailsComponent,
+		IconHeartEmptyComponent,
+		IconHeartFullComponent
 	]
 })
 export class ContextMenuObjComponent implements ContextMenuHostComponentInterface<ContextMenuObjComponentOptions> {

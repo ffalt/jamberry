@@ -64,8 +64,7 @@ export class EpisodesLoaderComponent {
 				take: this.loadMore().take(),
 				episodeIncTag: true,
 				episodeIncState: true
-			})
-		);
+			}));
 	}
 
 	searchCmd(): void {
@@ -76,8 +75,7 @@ export class EpisodesLoaderComponent {
 				take: this.loadMore().take(),
 				episodeIncTag: true,
 				episodeIncState: true
-			})
-		);
+			}));
 	}
 
 	list(): void {

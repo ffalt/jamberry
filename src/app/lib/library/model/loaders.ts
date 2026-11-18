@@ -60,7 +60,9 @@ export class AlbumsLoader extends JamObjsLoader {
 	}> {
 		const artistID = listQuery.albumType === AlbumType.compilation ? MUSICBRAINZ_VARIOUS_ARTISTS_ID : undefined;
 		const list = await this.library.jam.album.search({
-			list: listQuery.listType, skip, take,
+			list: listQuery.listType,
+			skip,
+			take,
 			albumIncState: true,
 			albumTypes: listQuery.albumType ? [listQuery.albumType] : undefined,
 			mbArtistIDs: artistID ? [artistID] : undefined
@@ -80,7 +82,9 @@ export class ArtistsLoader extends JamObjsLoader {
 			query: query.query,
 			genres: query.genre ? [query.genre] : undefined,
 			genreIDs: query.genreID ? [query.genreID] : undefined,
-			skip, take, artistIncState: true
+			skip,
+			take,
+			artistIncState: true
 		});
 		return { list, items: list.items.map(o => new JamArtistObject(o, this.library)) };
 	}
@@ -95,8 +99,11 @@ export class ArtistsLoader extends JamObjsLoader {
 		items: Array<JamLibraryObject>;
 	}> {
 		const list = await this.library.jam.artist.search({
-			list: listQuery.listType, skip, take,
-			artistIncState: true, albumTypes: listQuery.albumType ? [listQuery.albumType] : undefined
+			list: listQuery.listType,
+			skip,
+			take,
+			artistIncState: true,
+			albumTypes: listQuery.albumType ? [listQuery.albumType] : undefined
 		});
 		return { list, items: list.items.map(o => new JamArtistObject(o, this.library)) };
 	}
@@ -110,8 +117,12 @@ export class FoldersLoader extends JamObjsLoader {
 		items: Array<JamLibraryObject>;
 	}> {
 		const list = await this.library.jam.folder.search({
-			query: query.query, genres: query.genre ? [query.genre] : undefined,
-			skip, take, folderIncTag: true, folderIncState: true
+			query: query.query,
+			genres: query.genre ? [query.genre] : undefined,
+			skip,
+			take,
+			folderIncTag: true,
+			folderIncState: true
 		});
 		return { list, items: list.items.map(o => new JamFolderObject(o, this.library)) };
 	}

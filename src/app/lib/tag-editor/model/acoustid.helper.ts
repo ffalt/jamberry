@@ -82,8 +82,7 @@ function processRecording(
 		recording.releasegroups.flatMap(releasegroup => releasegroup.id && releasegroup.releases ?
 			releasegroup.releases.flatMap(release => release.id && release.mediums ?
 				release.mediums.map(medium =>
-					createAcoustIDEntry(acoustid, recording, releasegroup, release, medium, track)
-				) :
+					createAcoustIDEntry(acoustid, recording, releasegroup, release, medium, track)) :
 				[]) :
 			[]) :
 		[];

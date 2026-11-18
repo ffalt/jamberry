@@ -1,7 +1,7 @@
 export class Hotkey {
 	formattedVal?: Array<string>;
 
-	/**
+	/*
 	Creates a new Hotkey for Mousetrap binding
 
 	@param    combo       mousetrap key binding
@@ -10,10 +10,13 @@ export class Hotkey {
 	@param    action      the type of event to listen for (for mousetrap)
 	@param    allowIn     an array of tag names to allow this combo in ('INPUT', 'SELECT', and/or 'TEXTAREA')
 	@param    persistent  if true, the binding is preserved upon route changes
-	*/
+	 */
 	constructor(
-		public combo: string | Array<string>, public callback: (event: KeyboardEvent, combo: string) => KeyboardEvent | boolean,
-		public allowIn?: Array<string>, public description?: string, public action?: string,
+		public combo: string | Array<string>,
+		public callback: (event: KeyboardEvent, combo: string) => KeyboardEvent | boolean,
+		public allowIn?: Array<string>,
+		public description?: string,
+		public action?: string,
 		public persistent?: boolean
 	) {
 		this.combo = (Array.isArray(combo) ? combo : [combo]);

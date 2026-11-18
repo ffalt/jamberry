@@ -54,19 +54,24 @@ export class DialogOverlayService {
 		return containerRef.instance;
 	}
 
-	private createInjector<D>(config: DialogOverlayDialogConfig<D>, dialogRef: DialogOverlayRef): PortalInjector<any> {
-		const injectionTokens = new WeakMap<ProviderToken<any>>([[DialogOverlayRef, dialogRef], [DIALOG_OVERLAY_DIALOG_CONFIG, config]]);
-		return new PortalInjector<any>(this.injector, injectionTokens);
+	private createInjector<D>(config: DialogOverlayDialogConfig<D>, dialogRef: DialogOverlayRef): Injector {
+		return Injector.create({
+			providers: [
+				{ provide: DialogOverlayRef, useValue: dialogRef },
+				{ provide: DIALOG_OVERLAY_DIALOG_CONFIG, useValue: config }
+			],
+			parent: this.injector
+		});
 	}
 
 	private getOverlayConfig(config: DialogOverlayDialogConfig<any>): OverlayConfig {
 		const positionStrategy = this.overlay.position().global().centerHorizontally().centerVertically();
-		return new OverlayConfig({
-			hasBackdrop: config.hasBackdrop,
-			backdropClass: config.backdropClass,
-			panelClass: config.panelClass,
-			scrollStrategy: this.overlay.scrollStrategies.block(),
-			positionStrategy
-		});
+		const overlayConfig = new OverlayConfig();
+		overlayConfig.hasBackdrop = config.hasBackdrop;
+		overlayConfig.backdropClass = config.backdropClass;
+		overlayConfig.panelClass = config.panelClass;
+		overlayConfig.scrollStrategy = this.overlay.scrollStrategies.block();
+		overlayConfig.positionStrategy = positionStrategy;
+		return overlayConfig;
 	}
 }

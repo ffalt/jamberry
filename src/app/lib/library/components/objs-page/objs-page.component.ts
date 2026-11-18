@@ -88,7 +88,9 @@ export class ObjsPageComponent {
 								this.library.playlistDialogsService.newPlaylist();
 							}
 						}
-					], $event);
+					],
+					$event
+				);
 				break;
 			}
 			default:

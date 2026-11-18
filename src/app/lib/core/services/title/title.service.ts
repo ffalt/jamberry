@@ -22,7 +22,8 @@ export class TitleService {
 		this.router.events
 			.pipe(
 				filter(event => event instanceof NavigationEnd),
-				takeUntilDestroyed(this.lifeRef))
+				takeUntilDestroyed(this.lifeRef)
+			)
 			.subscribe(() => {
 				this.titles = [];
 

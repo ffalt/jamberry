@@ -17,7 +17,9 @@ function fillGenres(builder: ID3V24TagBuilder, match: Matching, genres?: Array<s
 
 // eslint-disable-next-line complexity
 function fillCommon(
-	builder: ID3V24TagBuilder, _match: Matching, track: MusicBrainz.ReleaseTrack,
+	builder: ID3V24TagBuilder,
+	_match: Matching,
+	track: MusicBrainz.ReleaseTrack,
 	release: MusicBrainz.Release | undefined,
 	group: MusicBrainz.ReleaseGroup | undefined,
 	media: MusicBrainz.ReleaseMedia | undefined
@@ -49,7 +51,8 @@ function fillCommon(
 		track.recording?.aliases &&
 		track.recording.aliases.length > 0 &&
 		track.recording.aliases[0].sortName &&
-		track.recording.aliases[0].sortName !== track.title) {
+		track.recording.aliases[0].sortName !== track.title
+	) {
 		builder.titleSort(track.recording.aliases[0].sortName);
 	}
 

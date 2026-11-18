@@ -42,8 +42,17 @@ export interface SaveAction {
 		'(window:beforeunload)': 'canDeactivate()'
 	},
 	imports: [
-		CellEditorComponent, ColumnToolComponent, ContextMenuModule, LoadingComponent,
-		IconDiscogsComponent, IconEditComponent, IconFloppyComponent, IconListAddComponent, IconReloadComponent, IconSpinComponent, IconMusicbrainzComponent
+		ContextMenuModule,
+		CellEditorComponent,
+		ColumnToolComponent,
+		LoadingComponent,
+		IconDiscogsComponent,
+		IconEditComponent,
+		IconFloppyComponent,
+		IconListAddComponent,
+		IconReloadComponent,
+		IconSpinComponent,
+		IconMusicbrainzComponent
 	]
 })
 export class TagEditorComponent implements ComponentCanDeactivate {

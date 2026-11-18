@@ -11,8 +11,14 @@ import { AutocompleteDirective } from '@modules/autocomplete/autocomplete.direct
 	selector: 'app-tag-editor-autocomplete',
 	templateUrl: './tag-editor-autocomplete.component.html',
 	styleUrls: ['./tag-editor-autocomplete.component.scss'],
-	imports: [FormsModule, AutocompleteComponent, OptionComponent, OptionHeaderComponent,
-		AutocompleteDirective, AutocompleteContentDirective]
+	imports: [
+		FormsModule,
+		AutocompleteComponent,
+		OptionComponent,
+		OptionHeaderComponent,
+		AutocompleteDirective,
+		AutocompleteContentDirective
+	]
 })
 export class TagEditorAutocompleteComponent implements AutocompleteDataControl<{ text: string }>, OnChanges {
 	readonly standalone = input<boolean>(false);
