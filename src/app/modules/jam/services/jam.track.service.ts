@@ -82,6 +82,13 @@ export class JamTrackService {
 	}
 
 	/**
+	Embed the Lyrics of a Track into the Media File by Track Id; Rights needed: admin
+	*/
+	async lyricsEmbed(parameters: JamParameters.ID): Promise<Jam.AdminChangeQueueInfo> {
+		return this.base.requestPostData<Jam.AdminChangeQueueInfo>('/track/lyrics/embed', parameters);
+	}
+
+	/**
 	Write a Raw Rag to a Track by Track Id; Rights needed: admin
 	*/
 	async rawTagSet(parameters: JamParameters.RawTagUpdateParameters): Promise<Jam.AdminChangeQueueInfo> {
