@@ -58,6 +58,10 @@ jobs:
         run: |
           cd dist && zip -r ./jamberry-release.zip .
 
+      - name: Create Release Checksum
+        run: |
+          cd dist && sha256sum jamberry-release.zip > jamberry-release.zip.sha256
+
       - name: Attest Release Package
         uses: actions/attest-build-provenance@v4.2.2
         with:
@@ -70,4 +74,5 @@ jobs:
           gh release create "${GITHUB_REF_NAME}" \
             --title "${GITHUB_REF_NAME}" \
             --notes-file ./RELEASELOG.md \
-            ./dist/jamberry-release.zip
+            ./dist/jamberry-release.zip \
+            ./dist/jamberry-release.zip.sha256
