@@ -1,19 +1,23 @@
 name: release
 
-permissions:
-  contents: write
-  packages: write
-
 on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      attestations: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v7.0.1
@@ -53,6 +57,11 @@ jobs:
       - name: Create Release Package
         run: |
           cd dist && zip -r ./jamberry-release.zip .
+
+      - name: Attest Release Package
+        uses: actions/attest-build-provenance@v4.2.2
+        with:
+          subject-path: ./dist/jamberry-release.zip
 
       - name: Create Release
         env:
