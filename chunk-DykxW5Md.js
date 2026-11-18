@@ -1,0 +1,1 @@
+import{n as u}from"./chunk-BcJ1hSFV.js";import{O as Cr}from"./chunk-DkSQu22c.js";var f=(()=>{class e{transform(i){return i===void 0?``:u(i)}static{this.ɵfac=function(n){return new(n||e)}}static{this.ɵpipe=Cr({name:`filesize`,type:e,pure:!0})}}return e})();export{f as t};
