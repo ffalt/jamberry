@@ -1,5 +1,68 @@
+@use "_scss/variables";
 @use "_scss/mixins/note";
 
 :host {
 	@include note.note;
+
+	.lyrics-line {
+		min-height: 1.5em;
+	}
+
+	.synced-lyrics {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+
+		&.is-playing {
+			.synced-time {
+				cursor: pointer;
+
+				&:hover {
+					opacity: 1;
+					color: var(--secondary);
+				}
+			}
+		}
+	}
+
+	.synced-line {
+		display: flex;
+		align-items: baseline;
+		padding: 3px 6px;
+		border-radius: variables.$border-radius-padding;
+		min-height: 1.5em;
+		color: var(--on-background);
+		transition: background-color 0.15s ease, color 0.15s ease;
+
+		.synced-time {
+			flex-shrink: 0;
+			font-size: variables.$x-small;
+			min-width: 44px;
+			white-space: nowrap;
+			text-align: right;
+			margin-right: variables.$padding-sm;
+			color: var(--on-background);
+			opacity: 0.6;
+			user-select: none;
+			letter-spacing: 1px;
+			font-variant-numeric: tabular-nums;
+			transition: opacity 0.15s ease, color 0.15s ease;
+		}
+
+		.synced-text {
+			flex-grow: 1;
+		}
+
+		&.active {
+			background-color: var(--background-active);
+			color: var(--on-background-highlight);
+			font-weight: 600;
+
+			.synced-time {
+				opacity: 1;
+				color: var(--secondary);
+				font-weight: 600;
+			}
+		}
+	}
 }
