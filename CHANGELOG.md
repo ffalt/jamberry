@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.22](https://github.com/ffalt/jamberry/compare/v0.6.21...v0.6.22) (2026-11-18)
+
+### Features
+
+* **admin:** add folder rescan and meta refresh actions ([ec361ef](https://github.com/ffalt/jamberry/commit/ec361ef22178e3e1f3ac63ce2ad927460a1381d4))
+* **track:** show synced lyrics with time prefixes, seek on click in the "currently playing" view ([c00cedf](https://github.com/ffalt/jamberry/commit/c00cedf8becd25db0dd043e8be6ef6ef0ef621e2))
+
 ## [0.6.21](https://github.com/ffalt/jamberry/compare/v0.6.20...v0.6.21) (2026-11-13)
 
 ### Bug Fixes
