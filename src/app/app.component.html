@@ -1,10 +1,10 @@
 @if (auth.user) {
 	<app-header class="header" />
 }
-<div #tabContentOutlet [class.player-active]="this.player.currentMedia" class="app-content"></div>
-@if (auth.user) {
+<div #tabContentOutlet [class.player-active]="!!this.player.currentMedia && !nowPlayingActive()" class="app-content"></div>
+@if (auth.user && !nowPlayingActive()) {
 	<app-player class="footer" />
 }
-@if (this.player.currentMedia || !this.queue.isEmpty) {
+@if (!nowPlayingActive() && (this.player.currentMedia || !this.queue.isEmpty)) {
 	<app-mini-player class="mini-player" />
 }

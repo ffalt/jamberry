@@ -23,6 +23,7 @@ import { IconShuffleComponent } from '@core/components/icons/icon-shuffle.compon
 })
 export class QueueComponent {
 	readonly showControls = input<boolean>(true);
+	readonly showTitle = input<boolean>(true);
 	readonly queue = inject(QueueService);
 	readonly entries = toSignal(
 		this.queue.queueChange.pipe(map(() => [...this.queue.entries])),

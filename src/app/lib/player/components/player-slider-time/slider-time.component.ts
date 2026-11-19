@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, signal } from '@angular/core';
 import { JamService } from '@jam';
 import { extractSVGParts } from '@utils/svg-parts';
 import { AppService } from '@core/services/app/app.service';
@@ -23,14 +23,21 @@ export class SliderTimeComponent {
 	readonly svg = signal<{ viewbox: string; path: string } | undefined>(undefined);
 	tabindex = '0';
 	private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly lifeRef = inject(DestroyRef);
 
 	constructor() {
-		this.player.on(PlayerEvents.TIME, () => {
+		const onTime = (): void => {
 			this.updateTimeIndicator();
-		});
-		this.player.on(PlayerEvents.TRACK, () => {
+		};
+		const onTrack = (): void => {
 			this.displayTrack();
 			this.updateTimeIndicator();
+		};
+		this.player.on(PlayerEvents.TIME, onTime);
+		this.player.on(PlayerEvents.TRACK, onTrack);
+		this.lifeRef.onDestroy(() => {
+			this.player.off(PlayerEvents.TIME, onTime);
+			this.player.off(PlayerEvents.TRACK, onTrack);
 		});
 		this.displayTrack();
 		this.updateTimeIndicator();

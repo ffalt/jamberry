@@ -1,7 +1,7 @@
-<app-mini-time-slider [class.hidden]="tabService.playerTab.active()" />
+<app-mini-time-slider />
 <div class="buttons">
 	<div>
-		<button (click)="tabService.clickPlayer()" [class.active]="tabService.playerTab.active()" class="art">
+		<button [routerLink]="['/library/playing']" class="art" title="Now Playing" i18n-title>
 			@if (player.currentMedia) {
 				<div>
 					<app-coverart-image alt="Album Art" i18n-alt [coverArtObj]="player.currentMedia" [size]="50" [fill]="true" />

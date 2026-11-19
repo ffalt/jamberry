@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { HOTKEYS } from '@utils/keys';
 import { MainTabsService } from '../../../main-tabs/services/main-tabs.service';
 import { SliderSpeedComponent } from '../player-slider-speed/slider-speed.component';
@@ -26,6 +27,7 @@ import { IconVolumeUpComponent } from '@core/components/icons/icon-volume-up.com
 	styleUrls: ['./player.component.scss'],
 	imports: [
 		MediadurationPipe,
+		RouterLink,
 		StringTogglePipe,
 		SliderSpeedComponent,
 		SliderTimeComponent,

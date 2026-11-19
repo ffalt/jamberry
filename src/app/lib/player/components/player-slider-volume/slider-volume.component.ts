@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, signal } from '@angular/core';
 import { PlayerService } from '@core/services/player/player.service';
 import { PlayerEvents } from '@core/services/player/player.interface';
 
@@ -17,12 +17,17 @@ export class SliderVolumeComponent {
 	tabindex = '0';
 	private readonly player = inject(PlayerService);
 	private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly lifeRef = inject(DestroyRef);
 	private volume: number = 0;
 
 	constructor() {
-		this.displayVolume(this.player.getVolume());
-		this.player.on(PlayerEvents.VOLUME, (volume: number) => {
+		const onVolume = (volume: number): void => {
 			this.displayVolume(volume);
+		};
+		this.displayVolume(this.player.getVolume());
+		this.player.on(PlayerEvents.VOLUME, onVolume);
+		this.lifeRef.onDestroy(() => {
+			this.player.off(PlayerEvents.VOLUME, onVolume);
 		});
 	}
 

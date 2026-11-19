@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MainTabsService } from '../../../main-tabs/services/main-tabs.service';
 import { MiniSliderTimeComponent } from '../mini-slider-time/mini-slider-time.component';
 import { CoverartImageComponent } from '@core/components/coverart-image/coverart-image.component';
@@ -16,7 +17,7 @@ import { IconQueueComponent } from '@core/components/icons/icon-queue.component'
 	selector: 'app-mini-player',
 	templateUrl: './mini-player.component.html',
 	styleUrls: ['./mini-player.component.scss'],
-	imports: [CoverartImageComponent, IconFastBackwardComponent, IconFastForwardComponent, IconInfoComponent, IconPauseComponent, IconPlayComponent, IconQueueComponent, MiniSliderTimeComponent]
+	imports: [CoverartImageComponent, IconFastBackwardComponent, IconFastForwardComponent, IconInfoComponent, IconPauseComponent, IconPlayComponent, IconQueueComponent, MiniSliderTimeComponent, RouterLink]
 })
 export class MiniPlayerComponent {
 	readonly app = inject(AppService);

@@ -1,17 +1,13 @@
 import { Service, signal } from '@angular/core';
 import type { TabInterface, TabPortalOutlet } from '../../../modules/tab-portal';
-import { TabInfoComponent } from '../components/tab-info/tab-info.component';
 import { TabMainComponent } from '../components/tab-main/tab-main.component';
-import { TabPlayerComponent } from '../components/tab-player/tab-player.component';
 import { TabQueueComponent } from '../components/tab-queue/tab-queue.component';
 
 @Service()
 export class MainTabsService {
-	infoTab: TabInterface = { name: 'info-queue', componentClass: TabInfoComponent, active: signal(false) };
-	playerTab: TabInterface = { name: 'player', componentClass: TabPlayerComponent, active: signal(false) };
 	queueTab: TabInterface = { name: 'queue', componentClass: TabQueueComponent, active: signal(false) };
 	mainTab: TabInterface = { name: 'main', componentClass: TabMainComponent, active: signal(false) };
-	tabs = [this.mainTab, this.playerTab, this.queueTab, this.infoTab];
+	tabs = [this.mainTab, this.queueTab];
 	private tabPortalHost?: TabPortalOutlet;
 
 	get currentTabName(): Readonly<string | undefined> {
@@ -34,14 +30,6 @@ export class MainTabsService {
 
 		this.tabPortalHost.dispose();
 		this.tabPortalHost = undefined;
-	}
-
-	clickInfo(): void {
-		this.switchTo((this.currentTabName === this.infoTab.name ? this.mainTab : this.infoTab).name);
-	}
-
-	clickPlayer(): void {
-		this.switchTo((this.currentTabName === this.playerTab.name ? this.mainTab : this.playerTab).name);
 	}
 
 	clickQueue(): void {

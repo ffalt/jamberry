@@ -403,6 +403,12 @@ export const libaryRoutes: Routes = [
 		data: { name: 'Queue' }
 	},
 	{
+		path: 'playing',
+		loadComponent: async () => import('../player/components/now-playing/now-playing.component').then(m => m.NowPlayingComponent),
+		canActivate: [AuthCanActivateGuard],
+		data: { name: 'Now Playing' }
+	},
+	{
 		path: 'genres/id/:id',
 		loadComponent: async () => import('./components/genre-page/genre-page.component').then(m => m.GenrePageComponent),
 		canActivate: [AuthCanActivateGuard]

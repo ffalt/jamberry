@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, Injector, type OnInit, viewChild, ViewContainerRef } from '@angular/core';
+import { Component, DestroyRef, inject, Injector, type OnInit, signal, viewChild, ViewContainerRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { Hotkey, HotkeysService } from '@modules/hotkeys';
@@ -30,11 +30,13 @@ import { MainTabsService } from './lib/main-tabs/services/main-tabs.service';
 	imports: [HeaderComponent, PlayerComponent, MiniPlayerComponent]
 })
 export class AppComponent implements OnInit {
+	private static readonly nowPlayingRoute = '/library/playing';
 	readonly tabContentOutlet = viewChild.required('tabContentOutlet', { read: ViewContainerRef });
 	readonly player = inject(PlayerService);
 	readonly queue = inject(QueueService);
 	readonly app = inject(AppService);
 	readonly auth = inject(JamAuthService);
+	readonly nowPlayingActive = signal(false);
 	private readonly tabService = inject(MainTabsService);
 	private readonly lifeRef = inject(DestroyRef);
 	private readonly hotkeysService = inject(HotkeysService);
@@ -72,6 +74,7 @@ export class AppComponent implements OnInit {
 		}
 		this.router.events.forEach(() => {
 			this.tabService.switchToMain();
+			this.nowPlayingActive.set(this.router.url.startsWith(AppComponent.nowPlayingRoute));
 		}).catch((error: unknown) => {
 			console.error(error);
 		});

@@ -310,6 +310,14 @@ export class PlayerService {
 		}
 	}
 
+	off<E extends PlayerEvents>(event: E, handler: PlayerEventHandler<E>): void {
+		const list = this.subscribers[event] as Array<PlayerEventHandler<E>> | undefined;
+		const index = list?.indexOf(handler) ?? -1;
+		if (list && index >= 0) {
+			list.splice(index, 1);
+		}
+	}
+
 	startTrack(media: Jam.MediaBase): void {
 		this.queue.clear();
 		this.play(media, true);

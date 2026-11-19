@@ -1,0 +1,168 @@
+@let media = player.currentMedia;
+@let track = player.currentTrack;
+@let episode = player.currentEpisode;
+
+<div class="now-playing">
+	<div aria-hidden="true" class="backdrop" [style.background-image]="backdropUrl()"></div>
+	<div class="corner-actions">
+		<button class="corner-btn" type="button" title="Go back" i18n-title (click)="close()">
+			<app-icon-left-bold aria-hidden="true" />
+		</button>
+		<button class="corner-btn" type="button" [class.active]="fullView" [title]="fullView | stringToggle : 'Leave Full View' : 'Full View'" (click)="toggleFullView()">
+			<app-icon-expand aria-hidden="true" />
+		</button>
+	</div>
+	<div class="scroll">
+		<div class="stage">
+			@if (media) {
+				<div class="art">
+					<app-coverart-image [allowEnlarge]="true" [alt]="media.name" [border]="false" [coverArtObj]="media" [fill]="true" [size]="500" />
+				</div>
+
+				<div class="meta">
+					<div class="headings">
+						@if (track) {
+							<div class="name">
+								<a tabindex="0" title="Track" i18n-title (clickenter)="navig.toTrack(track)">{{ track.tag?.title || track.name }}</a>
+							</div>
+							<div class="sub">
+								<a tabindex="0" title="Artist" i18n-title (clickenter)="navig.toMediaArtist(track)">{{ track.tag?.artist }}</a>
+								@if (track.tag?.album; as album) {
+									<span aria-hidden="true" class="dot">·</span>
+									<a tabindex="0" title="Album" i18n-title (clickenter)="navig.toMediaAlbum(track)">{{ album }}</a>
+								}
+								@if (track.tag?.year; as year) {
+									<span aria-hidden="true" class="dot">·</span>
+									<span class="year">{{ year }}</span>
+								}
+							</div>
+						}
+						@if (episode) {
+							<div class="name">
+								<a tabindex="0" title="Episode" i18n-title (clickenter)="navig.toPodcastEpisode(episode)">{{ episode.tag?.title || episode.name }}</a>
+							</div>
+							<div class="sub">
+								<a tabindex="0" title="Podcast" i18n-title (clickenter)="navig.toPodcastID(episode.podcastID, episode.podcastName)">{{ episode.podcastName }}</a>
+								<span aria-hidden="true" class="dot">·</span>
+								<span class="year">{{ episode.date | date }}</span>
+							</div>
+						}
+					</div>
+					<button class="fav" title="Toggle Favorite" i18n-title type="button" (click)="actions.toggleMediaBaseFav(media)">
+						<app-fav-icon [faved]="media.state?.faved" />
+					</button>
+				</div>
+
+				<div class="progress">
+					<div aria-hidden="true" class="time">{{ player.currentTime | mediaduration }}</div>
+					<div class="bar"><app-time-slider /></div>
+					<div aria-hidden="true" class="time">{{ player.totalTime | mediaduration }}</div>
+				</div>
+			} @else {
+				<div class="nothing">
+					<app-background-text text="Nothing Playing" i18n-text />
+				</div>
+			}
+
+			<div class="transport">
+				<button class="ctrl" type="button" [disabled]="!queue.hasPrevious" title="Previous Track" i18n-title (click)="player.previous()">
+					<app-icon-fast-backward aria-hidden="true" />
+				</button>
+				<button class="ctrl play" type="button" [disabled]="queue.isEmpty" [title]="player.isPlaying | stringToggle : 'Pause' : 'Play'" (click)="togglePlayPause()">
+					@if (player.isPlaying) {
+						<app-icon-pause aria-hidden="true" />
+					} @else {
+						<app-icon-play aria-hidden="true" />
+					}
+				</button>
+				<button class="ctrl" type="button" [disabled]="!queue.hasNext" title="Next Track" i18n-title (click)="player.next()">
+					<app-icon-fast-forward aria-hidden="true" />
+				</button>
+			</div>
+
+			<div class="extras">
+				<div class="toggles">
+					<button class="ctrl small" type="button" [class.active]="player.repeatTrack"
+									[title]="player.repeatTrack | stringToggle : 'Stop repeating current track' : 'Repeat current track'" (click)="toggleRepeat()">
+						<app-icon-loop aria-hidden="true" />
+					</button>
+					<button class="ctrl small" type="button" [disabled]="queue.isEmpty" title="Randomize Order of Tracks" i18n-title (click)="queue.shuffle()">
+						<app-icon-shuffle aria-hidden="true" />
+					</button>
+					<button class="ctrl small" type="button" [class.active]="showSpeed()"
+									[title]="showSpeed() | stringToggle : 'Hide Playback Speed Control' : 'Show Playback Speed Control'" (click)="toggleSpeedControl()">
+						<app-icon-speed aria-hidden="true" />
+					</button>
+				</div>
+				<div class="slider-row">
+					<button class="ctrl small" type="button" [title]="player.isMuted | stringToggle : 'Unmute' : 'Mute'" (click)="player.toggleMute()">
+						@if (player.isMuted) {
+							<app-icon-volume-off aria-hidden="true" />
+						} @else {
+							<app-icon-volume-up aria-hidden="true" />
+						}
+					</button>
+					<app-volume-slider title="Volume" i18n-title />
+				</div>
+				@if (showSpeed()) {
+					<div class="slider-row">
+						<button class="ctrl small" type="button" title="Reset Speed" i18n-title (click)="player.speed(1)">
+							<app-icon-speed aria-hidden="true" />
+						</button>
+						<app-speed-slider />
+					</div>
+				}
+			</div>
+		</div>
+
+		@if (media || !queue.isEmpty) {
+			<div class="panels">
+				<div class="panel-tabs" role="tablist">
+					@for (panel of panels(); track panel.id) {
+						<button type="button" role="tab" [attr.aria-selected]="activePanel() === panel.id" [class.active]="activePanel() === panel.id" (click)="selectPanel(panel.id)">{{ panel.name }}</button>
+					}
+				</div>
+				<div class="panel-content">
+					@switch (activePanel()) {
+						@case ('lyrics') {
+							@if (track) {
+								<app-lyrics [trackID]="track.id" />
+							}
+						}
+						@case ('notes') {
+							@if (episode?.summary; as summary) {
+								<div class="note">{{ summary }}</div>
+							} @else {
+								<app-background-text text="No Episode Notes" i18n-text />
+							}
+						}
+						@case ('chapters') {
+							<app-chapters [episode]="episode" />
+						}
+						@case ('upnext') {
+							@let upcoming = upNext();
+							@if (upcoming.length === 0) {
+								<app-background-text text="Nothing Up Next" i18n-text />
+							} @else {
+								<ul class="up-next">
+									@for (entry of upcoming; track $index) {
+										<li>
+											<button class="entry" type="button" title="Play" i18n-title (click)="playUpNext($index)">
+												<span aria-hidden="true" class="pos">{{ $index + 1 }}</span>
+												<span class="names">
+													<span class="entry-name">{{ entry.tag?.title || entry.name }}</span>
+													<span class="entry-artist">{{ entry.tag?.artist }}</span>
+												</span>
+												<span aria-hidden="true" class="entry-time">{{ entry.duration | duration }}</span>
+											</button>
+										</li>
+									}
+								</ul>
+							}
+						}
+					}
+				</div>
+			</div>
+		}
+	</div>
+</div>

@@ -1,3 +1,4 @@
+@use "_scss/variables";
 @use "_scss/mixins/view";
 
 :host {
@@ -6,8 +7,33 @@
 	.queue {
 		@include view.view-host;
 
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+
+		app-view-header-icon-section {
+			flex: 0 0 auto;
+		}
+
 		.content {
 			@include view.view-content;
+
+			display: flex;
+			flex: 1 1 auto;
+			height: 100%;
+			min-height: 0;
+			overflow: hidden;
+		}
+
+		app-queue {
+			flex: 1 1 auto;
+			min-height: 0;
+		}
+	}
+
+	@media (max-width: variables.$break-pad) {
+		.queue {
+			height: calc(100vh - #{variables.$content-margins});
 		}
 	}
 }

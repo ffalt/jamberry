@@ -1,7 +1,7 @@
 @let list = entries();
 @if (list.length === 0) {
 	<app-background-text text="No Tracks in Queue" i18n-text />
-} @else {
+} @else if (showTitle()) {
 	<div class="title" i18n>Queue</div>
 }
 <div [settabindex]="list.length===0?'':'0'" appFocusKeyList class="tracks-wrapper" role="list">

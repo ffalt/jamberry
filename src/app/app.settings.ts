@@ -6,4 +6,5 @@ export class Settings {
 	notificationSong = false;
 	theme = 'dark';
 	showSidebarRight = true;
+	nowPlayingFullView = false;
 }

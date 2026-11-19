@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, signal } from '@angular/core';
 import { PlayerService } from '@core/services/player/player.service';
 import { PlayerEvents } from '@core/services/player/player.interface';
 
@@ -14,12 +14,17 @@ export class SliderSpeedComponent {
 	private readonly max: number = 3.5;
 	private readonly player = inject(PlayerService);
 	private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly lifeRef = inject(DestroyRef);
 	private speed: number = 1;
 
 	constructor() {
-		this.displaySpeed(this.player.getSpeed());
-		this.player.on(PlayerEvents.SPEED, (speed: number) => {
+		const onSpeed = (speed: number): void => {
 			this.displaySpeed(speed);
+		};
+		this.displaySpeed(this.player.getSpeed());
+		this.player.on(PlayerEvents.SPEED, onSpeed);
+		this.lifeRef.onDestroy(() => {
+			this.player.off(PlayerEvents.SPEED, onSpeed);
 		});
 	}
 
