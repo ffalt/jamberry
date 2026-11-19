@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.23](https://github.com/ffalt/jamberry/compare/v0.6.22...v0.6.23) (2026-11-19)
+
+### Features
+
+* **player:** add now playing view ([755f2cb](https://github.com/ffalt/jamberry/commit/755f2cb541acb0bed09abbe8a9ec1693924d82e9))
+
 ## [0.6.22](https://github.com/ffalt/jamberry/compare/v0.6.21...v0.6.22) (2026-11-18)
 
 ### Features
