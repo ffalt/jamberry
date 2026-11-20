@@ -1,10 +1,10 @@
+@let barVisible = !!auth.user && !nowPlayingActive();
+@let barHasMedia = !!player.currentMedia || !queue.isEmpty;
+
 @if (auth.user) {
 	<app-header class="header" />
 }
-<div #tabContentOutlet [class.player-active]="!!this.player.currentMedia && !nowPlayingActive()" class="app-content"></div>
-@if (auth.user && !nowPlayingActive()) {
-	<app-player class="footer" />
-}
-@if (!nowPlayingActive() && (this.player.currentMedia || !this.queue.isEmpty)) {
-	<app-mini-player class="mini-player" />
+<div #tabContentOutlet [class.player-active]="barVisible && barHasMedia" class="app-content"></div>
+@if (barVisible) {
+	<app-player-bar [class.empty]="!barHasMedia" class="footer" />
 }

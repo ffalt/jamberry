@@ -67,6 +67,10 @@
 			color: var(--on-control);
 			flex: 1;
 			margin: 1px;
+
+			.icon {
+				margin-right: 6px;
+			}
 		}
 	}
 }

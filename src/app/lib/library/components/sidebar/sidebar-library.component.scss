@@ -7,9 +7,5 @@
 
 	@media (max-width: variables.$break-pad) {
 		height: auto;
-
-		app-current-playing {
-			display: none;
-		}
 	}
 }

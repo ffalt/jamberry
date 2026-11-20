@@ -12,8 +12,7 @@ import { QueueService } from '@core/services/queue/queue.service';
 import { AppService } from '@core/services/app/app.service';
 import { SettingsStoreService } from '@core/services/settings-store/settings-store.service';
 import { HeaderComponent } from './lib/header/components/header/header.component';
-import { PlayerComponent } from './lib/player/components/player/player.component';
-import { MiniPlayerComponent } from './lib/player/components/mini-player/mini-player.component';
+import { PlayerBarComponent } from './lib/player/components/player-bar/player-bar.component';
 import { MainTabsService } from './lib/main-tabs/services/main-tabs.service';
 
 @Component({
@@ -27,7 +26,7 @@ import { MainTabsService } from './lib/main-tabs/services/main-tabs.service';
 		'(window:scroll)': 'scrollTrack()',
 		'(window:resize)': 'resize()'
 	},
-	imports: [HeaderComponent, PlayerComponent, MiniPlayerComponent]
+	imports: [HeaderComponent, PlayerBarComponent]
 })
 export class AppComponent implements OnInit {
 	private static readonly nowPlayingRoute = '/library/playing';

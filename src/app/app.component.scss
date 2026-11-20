@@ -1,5 +1,4 @@
 @use "_scss/variables";
-@use "_scss/mixins/button";
 
 :host {
 	background-color: var(--background);
@@ -20,119 +19,8 @@
 		height: 100%;
 	}
 
-	.mini-player {
-		display: none;
-		text-align: center;
-		width: 100%;
-		min-height: variables.$footer-height;
-		height: variables.$footer-height;
-		max-height: variables.$footer-height;
-		position: fixed;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 10;
-		border-top: 1px solid var(--control-border);
-		background-color: var(--control);
-
-		@keyframes dash {
-			0% {
-				stroke-dashoffset: 0;
-			}
-
-			25% {
-				stroke-dashoffset: 100;
-			}
-
-			50% {
-				stroke-dashoffset: 0;
-			}
-
-			75% {
-				stroke-dashoffset: 100;
-			}
-
-			100% {
-				stroke-dashoffset: 0;
-			}
-		}
-
-		@keyframes grow {
-			0% {
-				transform: scaleY(1);
-			}
-
-			15% {
-				transform: scaleY(1.5);
-			}
-
-			30% {
-				transform: scaleY(1);
-			}
-
-			100% {
-				transform: scaleY(1);
-			}
-		}
-
-		svg {
-			vertical-align: middle;
-			padding-bottom: 1px;
-
-			.waveform > rect {
-				fill: var(--on-background);
-			}
-
-			.waveform > rect:nth-child(2) {
-				animation-delay: 250ms;
-			}
-
-			.waveform > rect:nth-child(3) {
-				animation-delay: 500ms;
-			}
-
-			.waveform > rect:nth-child(4) {
-				animation-delay: 750ms;
-			}
-
-			.waveform > rect:nth-child(5) {
-				animation-delay: 1000ms;
-			}
-
-			.waveform > rect:nth-child(6) {
-				animation-delay: 1250ms;
-			}
-
-			.waveform > rect:nth-child(7) {
-				animation-delay: 1500ms;
-			}
-		}
-
-		.playing {
-			svg .waveform > rect {
-				fill: #1ed760;
-				transform-box: fill-box;
-				transform-origin: 50% 50%;
-				animation-name: grow;
-				animation-duration: 1850ms;
-				animation-iteration-count: infinite;
-				animation-timing-function: linear;
-			}
-		}
-
-		button {
-			@include button.button;
-
-			background-color: var(--control);
-			border-color: var(--control);
-			color: var(--on-control);
-			flex: 1;
-		}
-
-		.active {
-			border-color: var(--control-active);
-		}
-
+	.footer {
+		flex: 0 0 auto;
 	}
 
 	@media (max-width: variables.$break-phone) {
@@ -151,7 +39,7 @@
 
 		.app-content {
 			height: auto;
-			min-height: calc(100% - #{variables.$content-margins});
+			min-height: calc(100% - #{variables.$header-height} - #{variables.$footer-height-phone});
 		}
 
 		&.logged-in .app-content {
@@ -159,15 +47,19 @@
 		}
 
 		.app-content.player-active {
-			margin-bottom: variables.$footer-height;
-		}
-
-		.mini-player {
-			display: flex;
+			margin-bottom: variables.$footer-height-phone;
 		}
 
 		.footer {
-			display: none;
+			position: fixed;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 10;
+
+			&.empty {
+				display: none;
+			}
 		}
 	}
 }

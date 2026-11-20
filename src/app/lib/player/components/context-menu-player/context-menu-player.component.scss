@@ -1,0 +1,47 @@
+@use "_scss/variables";
+
+$menu-icon-column: 30px;
+
+.time-row, .slider-row {
+	display: flex;
+	align-items: center;
+	gap: variables.$margin-sm;
+	color: var(--on-control);
+
+	> .icon, > .slider-button {
+		flex: 0 0 $menu-icon-column;
+		min-width: $menu-icon-column;
+		font-size: 15px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.time-row {
+	font-variant-numeric: tabular-nums;
+}
+
+.slider-row {
+	min-width: 200px;
+
+	app-volume-slider, app-speed-slider {
+		flex: 1;
+	}
+
+	.slider-button {
+		padding: 0;
+		border: 0;
+		background-color: transparent;
+		color: var(--on-control);
+		cursor: pointer;
+
+		&:hover {
+			color: var(--on-control-hover);
+		}
+
+		&[aria-pressed="true"] {
+			color: var(--primary);
+		}
+	}
+}

@@ -1,0 +1,110 @@
+@let media = player.currentMedia;
+@let track = player.currentTrack;
+@let episode = player.currentEpisode;
+
+<footer class="bar">
+	<div aria-live="polite" i18n-aria-live class="visually-hidden">
+		@if (track) {
+			<ng-container i18n>Now playing</ng-container>: {{ track.tag?.title || track.name }} - {{ track.tag?.artist }}
+		}
+		@if (episode) {
+			<ng-container i18n>Now playing</ng-container>: {{ episode.tag?.title || episode.name }} - {{ episode.podcastName }}
+		}
+	</div>
+
+	<app-time-slider [compact]="true" class="seek" />
+
+	<div class="bar-row">
+		<div class="now-playing">
+			@if (media) {
+				<a [routerLink]="['/library/playing']" class="art" title="Now Playing" i18n-title>
+					<app-coverart-image [alt]="media.name" [border]="false" [coverArtObj]="media" [fill]="true" [size]="56" />
+				</a>
+			}
+			<div class="texts">
+				@if (track) {
+					<div class="name">
+						<a tabindex="0" title="Track" i18n-title (clickenter)="navig.toTrack(track)">{{ track.tag?.title || track.name }}</a>
+					</div>
+					<div class="sub">
+						@if (track.tag?.artist; as artist) {
+							<span aria-hidden="true" class="lead-dot">·</span>
+							<a tabindex="0" title="Artist" i18n-title (clickenter)="navig.toMediaArtist(track)">{{ artist }}</a>
+						}
+						@if (track.tag?.album; as album) {
+							<span class="album-part">
+								<span aria-hidden="true" class="dot">·</span>
+								<a tabindex="0" title="Album" i18n-title (clickenter)="navig.toMediaAlbum(track)">{{ album }}</a>
+							</span>
+						}
+					</div>
+				}
+				@if (episode) {
+					<div class="name">
+						<a tabindex="0" title="Episode" i18n-title (clickenter)="navig.toPodcastEpisode(episode)">{{ episode.tag?.title || episode.name }}</a>
+					</div>
+					<div class="sub">
+						@if (episode.podcastName; as podcastName) {
+							<span aria-hidden="true" class="lead-dot">·</span>
+							<a tabindex="0" title="Podcast" i18n-title (clickenter)="navig.toPodcastID(episode.podcastID, podcastName)">{{ podcastName }}</a>
+						}
+					</div>
+				}
+				@if (!media) {
+					<div class="name nothing" i18n>Nothing playing</div>
+				}
+			</div>
+		</div>
+
+		<div class="transport">
+			<button (click)="queue.shuffle()" [disabled]="queue.isEmpty" class="ctrl shuffle" type="button" title="Randomize Order of Tracks" i18n-title>
+				<app-icon-shuffle aria-hidden="true" />
+			</button>
+			<button (click)="player.previous()" [disabled]="!queue.hasPrevious" [title]="`Previous Track (${HOTKEYS.previousTrack.shortcut})`" class="ctrl previous" type="button">
+				<app-icon-fast-backward aria-hidden="true" />
+			</button>
+			<button (click)="togglePlayPause()" [disabled]="queue.isEmpty" [title]="player.isPlaying | stringToggle : 'Pause' : 'Play' : HOTKEYS.playPause.shortcut" class="ctrl play" type="button">
+				@if (player.isPlaying) {
+					<app-icon-pause aria-hidden="true" />
+				} @else {
+					<app-icon-play aria-hidden="true" />
+				}
+			</button>
+			<button (click)="player.next()" [disabled]="!queue.hasNext" [title]="`Next Track (${HOTKEYS.nextTrack.shortcut})`" class="ctrl next" type="button">
+				<app-icon-fast-forward aria-hidden="true" />
+			</button>
+			<button (click)="cycleRepeat()" [attr.aria-pressed]="repeatMode() !== 'off'" [class.active]="repeatMode() !== 'off'" [title]="repeatTitle()" class="ctrl repeat" type="button">
+				<app-icon-loop aria-hidden="true" />
+				@if (repeatMode() === 'track') {
+					<span aria-hidden="true" class="badge">1</span>
+				}
+			</button>
+		</div>
+
+		<div class="utils">
+			<div aria-hidden="true" class="time">
+				{{ player.currentTime | mediaduration }}<span class="total"> / {{ player.totalTime | mediaduration }}</span>
+			</div>
+			<button (click)="toggleFav()" [attr.aria-pressed]="faved()" [class.active]="faved()" [disabled]="!media" class="ctrl fav" type="button" title="Toggle Favorite" i18n-title>
+				<app-fav-icon [faved]="faved() ? 1 : undefined" />
+			</button>
+			<div class="volume">
+				<button (click)="player.toggleMute()" [attr.aria-pressed]="player.isMuted" [title]="player.isMuted | stringToggle : 'Unmute' : 'Mute'" class="ctrl" type="button">
+					@if (player.isMuted) {
+						<app-icon-volume-off aria-hidden="true" />
+					} @else {
+						<app-icon-volume-up aria-hidden="true" />
+					}
+				</button>
+				<app-volume-slider title="Volume" i18n-title />
+			</div>
+			<button (click)="tabService.clickQueue()" [attr.aria-pressed]="tabService.queueTab.active()" [class.active]="tabService.queueTab.active()"
+							[title]="tabService.queueTab.active() | stringToggle : 'Hide Play Queue' : 'Show Play Queue'" class="ctrl queue" type="button">
+				<app-icon-queue aria-hidden="true" />
+			</button>
+			<button (click)="openMenu($event)" aria-haspopup="true" class="ctrl more" type="button" title="More Player Options" i18n-title>
+				<app-icon-ellipsis-vert aria-hidden="true" />
+			</button>
+		</div>
+	</div>
+</footer>

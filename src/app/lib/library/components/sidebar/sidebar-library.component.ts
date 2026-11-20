@@ -1,7 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { NotifyService } from '@core/services/notify/notify.service';
 import { type Jam, JamService } from '@jam';
-import { CurrentPlayingComponent } from '../current-playing/current-playing.component';
 import type { SidebarListItem } from '@core/components/sidebar-list-item/sidebar-list-item.component';
 import type { SidebarList } from '@core/components/sidebar-list/sidebar-list.component';
 import { SidebarComponent } from '@core/components/sidebar/sidebar.component';
@@ -23,7 +22,7 @@ import { IconTrackComponent } from '@core/components/icons/icon-track.component'
 	selector: 'app-libary-sidebar',
 	templateUrl: './sidebar-library.component.html',
 	styleUrls: ['./sidebar-library.component.scss'],
-	imports: [CurrentPlayingComponent, SidebarComponent]
+	imports: [SidebarComponent]
 })
 export class SidebarLibraryComponent {
 	readonly stats = signal<Jam.Stats | undefined>(undefined);

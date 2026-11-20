@@ -1,0 +1,64 @@
+<context-menu #playerMenu>
+	<ng-template [passive]="true" [visible]="showCompactControls" contextMenuItem>
+		<div class="time-row">
+			<app-icon-clock aria-hidden="true" />
+			<span>{{ player.currentTime | mediaduration }} / {{ player.totalTime | mediaduration }}</span>
+		</div>
+	</ng-template>
+	<ng-template (execute)="tabService.clickQueue()" [visible]="showCompactControls" contextMenuItem><app-icon-queue />
+		@if (tabService.queueTab.active()) {
+			<ng-container i18n>Hide Play Queue</ng-container>
+		} @else {
+			<ng-container i18n>Show Play Queue</ng-container>
+		}
+	</ng-template>
+	<ng-template (execute)="toggleFav()" [enabled]="hasMedia" [visible]="showCompactControls" contextMenuItem>
+		@if (faved) {
+			<app-icon-heart-full />
+			<ng-container i18n>Remove from Favorites</ng-container>
+		} @else {
+			<app-icon-heart-empty />
+			<ng-container i18n>Add to Favorites</ng-container>
+		}
+	</ng-template>
+	<ng-template (execute)="queue.shuffle()" [enabled]="!queue.isEmpty" [visible]="showTransportExtras" contextMenuItem><app-icon-shuffle />
+		<ng-container i18n>Randomize Order of Tracks</ng-container>
+	</ng-template>
+	<ng-template (execute)="cycleRepeat()" [visible]="showTransportExtras" contextMenuItem><app-icon-loop />
+		@switch (repeatMode) {
+			@case ('track') {
+				<ng-container i18n>Repeating the current track</ng-container>
+			}
+			@case ('queue') {
+				<ng-container i18n>Repeating the queue</ng-container>
+			}
+			@default {
+				<ng-container i18n>Repeat off</ng-container>
+			}
+		}
+	</ng-template>
+	<ng-template [passive]="true" [visible]="showCompactControls" contextMenuItem>
+		<div class="slider-row">
+			<button (click)="player.toggleMute()" [attr.aria-pressed]="player.isMuted" class="slider-button" type="button" title="Mute" i18n-title>
+				@if (player.isMuted) {
+					<app-icon-volume-off aria-hidden="true" />
+				} @else {
+					<app-icon-volume-up aria-hidden="true" />
+				}
+			</button>
+			<app-volume-slider title="Volume" i18n-title />
+		</div>
+	</ng-template>
+	<ng-template [passive]="true" contextMenuItem>
+		<div class="slider-row">
+			<app-icon-speed aria-hidden="true" />
+			<app-speed-slider />
+		</div>
+	</ng-template>
+	<ng-template (execute)="player.speed(1)" contextMenuItem><app-icon-speed />
+		<ng-container i18n>Reset Speed</ng-container>
+	</ng-template>
+	<ng-template (execute)="navig.navigate(['/library/playing'])" contextMenuItem><app-icon-info />
+		<ng-container i18n>Now Playing</ng-container>
+	</ng-template>
+</context-menu>

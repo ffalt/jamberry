@@ -231,6 +231,10 @@
 		background-color: var(--primary);
 		color: var(--on-primary);
 
+		app-icon-play {
+			transform: translateX(0.05em);
+		}
+
 		&:hover:not(:disabled) {
 			background-color: var(--primary-hover);
 			color: var(--on-primary-hover);

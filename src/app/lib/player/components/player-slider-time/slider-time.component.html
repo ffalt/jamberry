@@ -1,5 +1,5 @@
-<div (mousedown)="changePlaybackTime($event)" class="slider">
-	@if (!this.app.settings.showWaveform || !svg()) {
+<div (mousedown)="changePlaybackTime($event)" (mousemove)="trackHover($event)" (mouseleave)="clearHover()" class="slider">
+	@if (compact() || !this.app.settings.showWaveform || !svg()) {
 		<div class="back"></div>
 	}
 	@if (this.app.settings.showWaveform && svg(); as svg) {
@@ -17,4 +17,7 @@
 		</div>
 	}
 	<div [class.line]="!!svg()" [style.width.%]="timePC()" class="scrubber"></div>
+	@if (compact() && hoverTime() !== undefined) {
+		<div [style.left.%]="hoverPC()" class="hover-time">{{ hoverTime() | mediaduration }}</div>
+	}
 </div>
