@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.24](https://github.com/ffalt/jamberry/compare/v0.6.23...v0.6.24) (2026-11-20)
+
+### Features
+
+* **lyrics:** use parsed synced lyrics from API ([3b8f164](https://github.com/ffalt/jamberry/commit/3b8f1646ef5195427d2fd2843b7f8c277c0a0be1))
+* **player:** rework the bottom play bar ([384f6af](https://github.com/ffalt/jamberry/commit/384f6afabcec2862a4b2d8f2c15f64e55bd58ac2))
+
 ## [0.6.23](https://github.com/ffalt/jamberry/compare/v0.6.22...v0.6.23) (2026-11-19)
 
 ### Features
