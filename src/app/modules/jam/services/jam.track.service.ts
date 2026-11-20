@@ -33,10 +33,10 @@ export class JamTrackService {
 	}
 
 	/**
-	Get Lyrics for a Track by Id (External Service or Media File); Rights needed: stream
+	Get Lyrics for a Track by Id (External Service, Lyrics File or Media File); Rights needed: stream
 	*/
-	async lyrics(parameters: JamParameters.ID): Promise<Jam.TrackLyrics> {
-		return this.base.requestData<Jam.TrackLyrics>('/track/lyrics', parameters);
+	async lyrics(parameters: JamParameters.TrackLyricsParameters): Promise<Jam.TrackLyricsList> {
+		return this.base.requestData<Jam.TrackLyricsList>('/track/lyrics', parameters);
 	}
 
 	/**

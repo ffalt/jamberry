@@ -1,10 +1,10 @@
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
-import { JamService } from '@jam';
+import { type Jam, JamService } from '@jam';
 import { LoadingComponent } from '../loading/loading.component';
 import { NotifyService } from '../../services/notify/notify.service';
 import { PlayerService } from '../../services/player/player.service';
 import { MediadurationPipe } from '../../pipes/mediaduration.pipe';
-import { cleanUnsyncedLyrics, parseSyncedLyrics, type SyncedLyricLine } from '@utils/lyrics';
+import { cleanUnsyncedLyrics } from '@utils/lyrics';
 
 @Component({
 	selector: 'app-lyrics',
@@ -15,7 +15,7 @@ import { cleanUnsyncedLyrics, parseSyncedLyrics, type SyncedLyricLine } from '@u
 export class LyricsComponent {
 	readonly trackID = input<string>();
 	readonly lyrics = signal<Array<string> | undefined>(undefined);
-	readonly syncedLyrics = signal<Array<SyncedLyricLine> | undefined>(undefined);
+	readonly syncedLyrics = signal<Array<Jam.TrackLyricsLine> | undefined>(undefined);
 	readonly lyricsSource = signal<string | undefined>(undefined);
 	readonly player = inject(PlayerService);
 
@@ -38,7 +38,7 @@ export class LyricsComponent {
 		}
 		let activeIndex = -1;
 		for (const [i, line] of lines.entries()) {
-			if (currentTime >= line.time) {
+			if (currentTime >= line.timestamp) {
 				activeIndex = i;
 			} else {
 				break;
@@ -59,26 +59,24 @@ export class LyricsComponent {
 	loadLyrics(): void {
 		this.lyrics.set(undefined);
 		this.syncedLyrics.set(undefined);
+		this.lyricsSource.set(undefined);
 		const trackID = this.trackID();
 		if (!trackID) {
 			return;
 		}
-		this.jam.track.lyrics({ id: trackID })
+		this.jam.track.lyrics({ id: trackID, lyricsIncSynced: false })
 			.then(data => {
-				this.lyricsSource.set(data.source);
-				if (data.syncedLyrics) {
-					const parsed = parseSyncedLyrics(data.syncedLyrics);
-					if (parsed.length > 0) {
-						this.syncedLyrics.set(parsed);
-						return;
-					}
+				const entries = data.entries;
+				const synced = entries.find(entry => (entry.syncedLines?.length ?? 0) > 0);
+				if (synced?.syncedLines) {
+					this.lyricsSource.set(synced.source);
+					this.syncedLyrics.set(synced.syncedLines);
+					return;
 				}
-				if (data.lyrics) {
-					const cleaned = cleanUnsyncedLyrics(data.lyrics);
-					this.lyrics.set(cleaned.length > 0 ? cleaned : ['No Lyrics found']);
-				} else {
-					this.lyrics.set(['No Lyrics found']);
-				}
+				const unsynced = entries.find(entry => !!entry.lyrics);
+				this.lyricsSource.set(unsynced?.source);
+				const cleaned = unsynced?.lyrics ? cleanUnsyncedLyrics(unsynced.lyrics) : [];
+				this.lyrics.set(cleaned.length > 0 ? cleaned : ['No Lyrics found']);
 			})
 			.catch((error: unknown) => {
 				this.notify.error(error);

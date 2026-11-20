@@ -1221,6 +1221,27 @@ export declare namespace JamParameters {
 		seriesIncInfo?: boolean;
 	}
 
+	export interface IncludesTrackLyricsParameters {
+		/**
+		include the plain lyrics
+		@TJS-type boolean
+		@default true
+		*/
+		lyricsIncPlain?: boolean;
+		/**
+		include the synced lyrics in LRC format
+		@TJS-type boolean
+		@default true
+		*/
+		lyricsIncSynced?: boolean;
+		/**
+		include the parsed lines of the synced lyrics
+		@TJS-type boolean
+		@default true
+		*/
+		lyricsIncParsedSynced?: boolean;
+	}
+
 	export interface IncludesTrackParameters {
 		/**
 		include media information on track(s)
@@ -2040,6 +2061,8 @@ export declare namespace JamParameters {
 	export type TrackSearchParameters = ListParameters & TrackOrderParameters & TrackFilterParameters & IncludesTrackParameters & PageParameters;
 
 	export type TrackSimilarParameters = IncludesTrackParameters & PageParameters & ID;
+
+	export type TrackLyricsParameters = IncludesTrackLyricsParameters & ID;
 
 	export type TrackHealthParameters = IncludesTrackParameters & TrackFilterParameters & MediaHealthParameters;
 

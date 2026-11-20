@@ -32,7 +32,13 @@ describe('LyricsComponent', () => {
 
 	it('should display synced lyrics with time prefixes and highlight the current line', async () => {
 		vi.spyOn(jam.track, 'lyrics').mockResolvedValue({
-			syncedLyrics: '[00:10.00]Line one\n[00:20.00]Line two\n[00:30.00]Line three'
+			entries: [{
+				syncedLines: [
+					{ timestamp: 10_000, text: 'Line one' },
+					{ timestamp: 20_000, text: 'Line two' },
+					{ timestamp: 30_000, text: 'Line three' }
+				]
+			}]
 		});
 
 		fixture.componentRef.setInput('trackID', 't1');
@@ -40,9 +46,9 @@ describe('LyricsComponent', () => {
 		fixture.detectChanges();
 
 		expect(component.syncedLyrics()).toEqual([
-			{ time: 10_000, text: 'Line one' },
-			{ time: 20_000, text: 'Line two' },
-			{ time: 30_000, text: 'Line three' }
+			{ timestamp: 10_000, text: 'Line one' },
+			{ timestamp: 20_000, text: 'Line two' },
+			{ timestamp: 30_000, text: 'Line three' }
 		]);
 
 		const el = fixture.nativeElement as HTMLElement;
@@ -64,7 +70,12 @@ describe('LyricsComponent', () => {
 
 	it('should seek only when a synced time prefix is clicked and track is currently playing', async () => {
 		vi.spyOn(jam.track, 'lyrics').mockResolvedValue({
-			syncedLyrics: '[00:10.00]Line one\n[00:20.00]Line two'
+			entries: [{
+				syncedLines: [
+					{ timestamp: 10_000, text: 'Line one' },
+					{ timestamp: 20_000, text: 'Line two' }
+				]
+			}]
 		});
 		const seekSpy = vi.spyOn(player, 'seek');
 
@@ -102,7 +113,9 @@ describe('LyricsComponent', () => {
 
 	it('should display unsynced lyrics preserving empty lines in the middle', async () => {
 		vi.spyOn(jam.track, 'lyrics').mockResolvedValue({
-			lyrics: '\n\nVerse 1 line 1\nVerse 1 line 2\n\nVerse 2 line 1\n\n'
+			entries: [{
+				lyrics: '\n\nVerse 1 line 1\nVerse 1 line 2\n\nVerse 2 line 1\n\n'
+			}]
 		});
 
 		fixture.componentRef.setInput('trackID', 't2');

@@ -2613,17 +2613,40 @@ export declare namespace Jam {
 	}
 
 	/*
-	 * Track Lyrics (via External Service or Audio Tag)
+	 * Track Lyrics (via External Service, Lyrics File or Audio Tag)
 	 */
 	export interface TrackLyrics {
 		// Lyrics
 		lyrics?: string;
 		// Synced Lyrics
 		syncedLyrics?: string;
+		// Parsed Synced Lyrics
+		syncedLines?: Array<TrackLyricsLine>;
 		// Language of the the lyrics
 		language?: string;
-		// Audio Tag or External Service
+		// Audio Tag, Lyrics File or External Service
 		source?: string;
+	}
+
+	/*
+	 * Track Lyrics Line (parsed from Synced Lyrics)
+	 */
+	export interface TrackLyricsLine {
+		/**
+		Start of the Line in Milliseconds
+		@TJS-type integer
+		*/
+		timestamp: number;
+		// Text of the Line
+		text: string;
+	}
+
+	/*
+	 * Track Lyrics List
+	 */
+	export interface TrackLyricsList {
+		// List of Lyrics found for the Track
+		entries: Array<TrackLyrics>;
 	}
 
 	/*

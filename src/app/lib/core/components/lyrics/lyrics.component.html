@@ -8,7 +8,7 @@
 							class="synced-line"
 							[class.active]="currentLineIndex() === $index"
 						>
-							<span class="synced-time" (click)="seek(line.time)">{{ line.time | mediaduration }}</span>
+							<span class="synced-time" (click)="seek(line.timestamp)">{{ line.timestamp | mediaduration }}</span>
 							<span class="synced-text" [innerHTML]="line.text.trim() === '' ? '&nbsp;' : line.text"></span>
 						</div>
 					}
