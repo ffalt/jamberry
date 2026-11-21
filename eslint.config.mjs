@@ -7,6 +7,8 @@ import rxjsX from "eslint-plugin-rxjs-x";
 import unicorn from "eslint-plugin-unicorn";
 import stylistic from "@stylistic/eslint-plugin";
 
+const tsconfigRootDir = process.env.INIT_CWD || process.env.PWD || import.meta.dirname;
+
 const commonRules = {
 	"arrow-body-style": ["error", "as-needed"],
 	"arrow-parens": ["error", "as-needed"],
@@ -169,6 +171,7 @@ export default ts.config(
 			globals: globals.browser,
 			parserOptions: {
 				project: ["tsconfig.json"],
+				tsconfigRootDir,
 				createDefaultProgram: true
 			}
 		},
@@ -222,6 +225,7 @@ export default ts.config(
 			globals: vitest.environments.env.globals,
 			parserOptions: {
 				project: ["tsconfig.json"],
+				tsconfigRootDir,
 				createDefaultProgram: true
 			}
 		},
