@@ -1,0 +1,41 @@
+@if (edit?.result; as frames) {
+	@if (invalid()) {
+		<p class="error" role="alert" i18n>Each timestamp must be a whole number between 0 and 4294967295.</p>
+	}
+	@if (frames.length === 0) {
+		<button type="button" class="button-on-background" (click)="addFrame()" i18n>Add lyrics</button>
+	}
+	@for (frame of frames; track frame; let frameIndex = $index) {
+		<section class="lyrics-frame">
+			<div class="frame-header">
+				<div>
+					<strong>{{ frame.value.id || 'Lyrics' }}</strong>
+					<span> ({{ frame.value.language }})</span>
+					@if (frame.value.timestampFormat === 1) {
+						<span i18n> - MPEG frames</span>
+					} @else if (frame.value.timestampFormat === 2) {
+						<span i18n> - milliseconds</span>
+					} @else {
+						<span i18n> - timestamp format {{ frame.value.timestampFormat }}</span>
+					}
+				</div>
+				<button type="button" class="button-on-background" (click)="removeFrame(frameIndex)" i18n>Remove lyrics</button>
+			</div>
+			@for (event of frame.value.events; track $index; let lineIndex = $index) {
+				<div class="lyrics-line">
+					<label>
+						<span class="visually-hidden" i18n>Timestamp for line {{ lineIndex + 1 }}</span>
+						<input type="number" min="0" max="4294967295" step="1" [(ngModel)]="event.timestamp">
+					</label>
+					<label>
+						<span class="visually-hidden" i18n>Text for line {{ lineIndex + 1 }}</span>
+						<input type="text" [(ngModel)]="event.text">
+					</label>
+					<button type="button" class="button-on-background" (click)="removeLine(frame, lineIndex)"
+						[attr.aria-label]="'Remove line ' + (lineIndex + 1)" i18n-aria-label i18n>Remove</button>
+				</div>
+			}
+			<button type="button" class="button-on-background" (click)="addLine(frame)" i18n>Add line</button>
+		</section>
+	}
+}

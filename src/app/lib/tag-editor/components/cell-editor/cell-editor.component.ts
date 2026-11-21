@@ -8,6 +8,7 @@ import { Id3v2ValuePicTypes, type RawTagEditCell, type RawTagEditFrame } from '.
 import { CellEditorTxtComponent } from '../cell-editor-txt/cell-editor-txt.component';
 import { DialogTagImageComponent, type PicEdit } from '../dialog-tag-image/dialog-tag-image.component';
 import { DialogTagLyricsComponent, type LyricsEdit } from '../dialog-tag-lyrics/dialog-tag-lyrics.component';
+import { DialogTagSyncedLyricsComponent, type SyncedLyricsEdit, type SyncedLyricsValue } from '../dialog-tag-synced-lyrics/dialog-tag-synced-lyrics.component';
 import { DialogTagMcdiComponent, type McdiEdit } from '../dialog-tag-mcdi/dialog-tag-mcdi.component';
 import { CellEditorDisplayComponent } from '../cell-editor-display/cell-editor-display.component';
 import { ArrayBufferFromBase64 } from '@utils/base64';
@@ -146,6 +147,10 @@ export class CellEditorComponent extends CellEditor {
 				this.editMusicCDId();
 				break;
 			}
+			case FrameType.SYLT: {
+				this.editSyncedLyrics();
+				break;
+			}
 			// case FrameType.TextList:
 			//   return CellEditorTxtListComponent;
 			// case FrameType.IdBin:
@@ -157,7 +162,6 @@ export class CellEditorComponent extends CellEditor {
 			//   return CellEditorPopmComponent;
 			// case FrameType.PlayCounter:
 			// case FrameType.EventTimingCodes:
-			// case FrameType.SYLT:
 			// case FrameType.ETCO:
 			// case FrameType.PCST:
 			// case FrameType.LINK:
@@ -299,6 +303,46 @@ export class CellEditorComponent extends CellEditor {
 		});
 	}
 
+	private editSyncedLyrics(): void {
+		const cell: RawTagEditCell<SyncedLyricsValue> | undefined = this.cell();
+		if (!cell) {
+			return;
+		}
+		const data: SyncedLyricsEdit = { frames: cell.frames, description: cell.column.def.subid };
+		this.dialogOverlay.open<SyncedLyricsEdit>({
+			childComponent: DialogTagSyncedLyricsComponent,
+			title: 'Tag Synced Lyrics',
+			data,
+			panelClass: 'overlay-panel-synced-lyrics',
+			onOkBtn: async () => {
+				if (!data.validate?.()) {
+					return Promise.reject(new Error('Invalid synced lyrics timestamps'));
+				}
+				let result = data.result ?? [];
+				if (cell.frames.length === 0 && result.length === 1 && result[0].value.events.length === 0) {
+					result = [];
+				}
+				if (JSON.stringify(cell.frames) !== JSON.stringify(result)) {
+					for (const frame of result) {
+						const original = cell.frames.find(item => item.id === frame.id && item.value.id === frame.value.id &&
+							item.value.language === frame.value.language && item.value.contentType === frame.value.contentType);
+						if (JSON.stringify(original?.value.events) !== JSON.stringify(frame.value.events)) {
+							frame.value.events.sort((a, b) => a.timestamp - b.timestamp);
+						}
+					}
+					cell.frames = result;
+					cell.changed = true;
+					cell.parent.changed = true;
+					if (this.cell() === cell) {
+						this.display();
+					}
+				}
+				return Promise.resolve();
+			},
+			onCancelBtn: async () => Promise.resolve()
+		});
+	}
+
 	private display(): void {
 		const cell = this.cell();
 		this.lines.set(cell ? cell.frames.map(f => this.frameToString(f)) : []);
@@ -346,6 +390,10 @@ export class CellEditorComponent extends CellEditor {
 			}
 			case FrameType.MusicCDId: {
 				return CellEditorComponent.musicCDIdFrameToString(frame);
+			}
+			case FrameType.SYLT: {
+				const value = frame.value as { events: Array<{ text: string }> };
+				return `${value.events.length} synced lines`;
 			}
 			default: {
 				return `Not implemented celleditor for: ${cell?.column.def.name}`;

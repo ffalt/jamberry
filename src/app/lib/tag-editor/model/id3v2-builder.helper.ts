@@ -63,6 +63,16 @@ export class ID3V2RawBuilder {
 		return this;
 	}
 
+	syncedLyrics(key: string, events: Array<Jam.TrackLyricsLine>): this {
+		if (events.length > 0) {
+			this.frameValues[key] = [{
+				id: key,
+				value: { id: 'lyrics', language: 'und', timestampFormat: 2, contentType: 1, events }
+			}];
+		}
+		return this;
+	}
+
 	addPicture(key: string, pictureType: number, description: string, mimeType?: string, binary?: string): this {
 		const frame: Jam.MediaTagRawFramePic = {
 			id: key,

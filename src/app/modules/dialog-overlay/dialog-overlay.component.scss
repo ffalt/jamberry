@@ -155,7 +155,8 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 	}
 }
 
-.overlay-panel-large-buttons {
+.overlay-panel-large-buttons,
+.overlay-panel-synced-lyrics {
 	width: 80%;
 	min-width: 80%;
 	height: 80%;
@@ -175,6 +176,18 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 	.overlay-content {
 		display: flex;
 		flex-direction: column;
+	}
+}
+
+.cdk-overlay-pane.overlay-panel-synced-lyrics {
+	overflow: hidden;
+
+	.overlay-content {
+		overflow: hidden;
+	}
+
+	.overlay-body {
+		min-height: 0;
 	}
 }
 

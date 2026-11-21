@@ -18,7 +18,7 @@
 								<span i18n class="label">Moods:</span>&nbsp;<span class="value">{{ match.abdata.moods }}</span>
 							</div>
 						}
-						@if (match.lyrics?.lyrics) {
+						@if (match.lyrics?.lyrics || match.lyrics?.syncedLyrics) {
 							<div>
 								<span i18n class="label">Lyrics:</span>&nbsp;<span i18n class="value">yes</span>
 							</div>

@@ -67,6 +67,7 @@ export const DefaultFrameColumns: Array<{ id: string; subid?: string; width: num
 	{ id: 'TMOO', width: 100 },
 	{ id: 'APIC', width: 100, force: true },
 	{ id: 'USLT', width: 200, force: true },
+	{ id: 'SYLT', width: 200, force: true },
 	{ id: 'TSOP', width: 140 },
 	{ id: 'TSO2', width: 140 },
 	{ id: 'TXXX', subid: 'Artists', width: 140 },

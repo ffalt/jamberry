@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal, viewChild, viewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject, input, signal, viewChild, viewChildren } from '@angular/core';
 import type { ComponentCanDeactivate } from '@core/guards/pending-changes/pending-changes.guard';
 import { DialogOverlayService } from '@modules/dialog-overlay';
 import { CellEditor } from '../cell-editor/cell-editor.class';
@@ -70,16 +70,26 @@ export class TagEditorComponent implements ComponentCanDeactivate {
 	private readonly jam = inject(JamService);
 	private readonly notify = inject(NotifyService);
 	private readonly dialogOverlay = inject(DialogOverlayService);
+	private readonly changeDetector = inject(ChangeDetectorRef);
 
 	get hasOneChanged(): boolean {
 		return this.editor.edits.some(e => e.changed);
 	}
 
 	constructor() {
-		this.editor = new TagEditor(this.jam);
+		this.editor = new TagEditor(this.jam, () => {
+			this.changeDetector.markForCheck();
+		});
 		effect(() => {
 			this.refresh();
 		});
+	}
+
+	findMissingLyrics(): void {
+		this.editor.findMissingLyrics(this.tracks())
+			.catch((error: unknown) => {
+				this.notify.error(error);
+			});
 	}
 
 	canDeactivate(): boolean {

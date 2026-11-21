@@ -2,6 +2,7 @@ import type { Jam, MusicBrainz } from '@jam';
 import type { MatchImageNode } from '../components/match-coverart/match-coverart.component';
 import { ID3V24TagBuilder } from './id3v2-builder.helper';
 import type { Matching } from './release-matching.helper';
+import { parseSyncedLyrics } from '@utils/lyrics';
 
 function fillGenres(builder: ID3V24TagBuilder, match: Matching, genres?: Array<string>): void {
 	if (genres && genres.length > 0) {
@@ -177,7 +178,10 @@ export function toID3v24(match: Matching, genres: Array<string>, images: Array<M
 	fillMood(builder, match);
 	fillAcoustID(builder, match, track);
 	if (match.lyrics) {
-		builder.lyrics(match.lyrics.lyrics);
+		const events = match.lyrics.syncedLyrics ? parseSyncedLyrics(match.lyrics.syncedLyrics) : [];
+		const plainLyrics = match.lyrics.lyrics;
+		builder.lyrics(plainLyrics === '' || plainLyrics === undefined ? events.map(event => event.text).join('\n') : plainLyrics);
+		builder.rawBuilder.syncedLyrics('SYLT', events);
 	}
 
 	// TODO: add more tag frames

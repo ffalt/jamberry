@@ -8,6 +8,7 @@ import { MusicbrainzSearchQuery, QueryBuilderHelper } from './query-builder.help
 import { ReleaseLoaderHelper } from './release-loader.helper';
 import { RunStrategyHelper } from './run-strategy.helper';
 import type { NotifyService } from '@core/services/notify/notify.service';
+import { findLyrics } from '../../model/lyrics-lookup.helper';
 
 export enum RunType {
 	acoustID,
@@ -229,7 +230,7 @@ export class Matcher {
 			return;
 		}
 		this.setRunning('Searching Lyrics');
-		this.loadLyricsOVH(release)
+		this.loadPlainLyrics(release)
 			.then(() => {
 				this.stopRunning();
 			})
@@ -337,15 +338,17 @@ export class Matcher {
 		}
 	}
 
-	private async loadLyricsOVH(release: MatchRelease): Promise<void> {
+	private async loadPlainLyrics(release: MatchRelease): Promise<void> {
 		for (const media of release.media) {
 			for (const track of media.tracks) {
-				if ((track.currentMatch && !track.currentMatch.match.lyrics && track.mbTrack.artistCredit && track.mbTrack.artistCredit.length > 0)) {
+				if ((track.currentMatch && !track.currentMatch.match.lyrics?.lyrics && !track.currentMatch.match.lyrics?.syncedLyrics && track.mbTrack.artistCredit && track.mbTrack.artistCredit.length > 0)) {
 					const artist = track.mbTrack.artistCredit[0].name;
 					const title = track.mbTrack.title;
-					const result = await this.jam.metadata.lyricsovhSearch({ title, artist });
-					track.currentMatch.match.lyrics = result.data;
-					this.updateMatchings();
+					const duration = track.currentMatch.match.track.duration || track.mbTrack.length;
+					track.currentMatch.match.lyrics = await findLyrics(this.jam, { artist, title, album: release.mbRelease.title, duration });
+					if (track.currentMatch.match.lyrics) {
+						this.updateMatchings();
+					}
 				}
 			}
 		}

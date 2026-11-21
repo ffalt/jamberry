@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import type { Jam, LastFM, LyricsOVHResponse, MusicBrainz } from '@jam';
+import type { Jam, LastFM, MusicBrainz } from '@jam';
 import type { AcoustIDEntry } from './acoustid.helper';
 import { findTrackNr, fuzzyMatch, stripExtension } from './utils';
 
@@ -11,7 +11,7 @@ export interface Matching {
 	mbGroup?: MusicBrainz.ReleaseGroup;
 	lastfm?: LastFM.Album;
 	genres?: Array<string>;
-	lyrics?: LyricsOVHResponse;
+	lyrics?: Jam.TrackLyrics;
 	abdata?: ABData;
 	acoustidEntries?: Array<AcoustIDEntry>;
 }

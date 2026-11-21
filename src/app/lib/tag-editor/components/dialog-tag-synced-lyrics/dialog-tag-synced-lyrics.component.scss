@@ -1,0 +1,46 @@
+:host {
+	display: block;
+
+	.error {
+		color: var(--accent);
+	}
+
+	.lyrics-frame {
+		margin-bottom: 1rem;
+	}
+
+	.frame-header,
+	.lyrics-line {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.frame-header {
+		justify-content: space-between;
+	}
+
+	.lyrics-line label:first-child {
+		flex: 0 0 8rem;
+	}
+
+	.lyrics-line label:nth-child(2) {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.lyrics-line input {
+		width: 100%;
+		min-height: 2rem;
+		padding: 0.35rem 0.5rem;
+		border-color: var(--control-box-border);
+		background-color: var(--background-box);
+		color: var(--on-background);
+
+		&:focus-visible {
+			outline: 2px solid var(--secondary);
+			outline-offset: 1px;
+		}
+	}
+}

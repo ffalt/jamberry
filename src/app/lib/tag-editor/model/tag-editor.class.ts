@@ -6,12 +6,15 @@ import { DefaultFrameColumns, FilenameColumnID, type RawTagEditCell, type RawTag
 import { formatFilenameByTag, getPartOfSetID, getTackNrFromFile, type MediaTagRawFramesAccess, rebuildTag } from './tag-editor.utils';
 import { IconDownThinComponent } from '@core/components/icons/icon-down-thin.component';
 import { IconRemoveComponent } from '@core/components/icons/icon-remove.component';
+import { findLyrics } from './lyrics-lookup.helper';
+import { ID3V2RawBuilder } from './id3v2-builder.helper';
+import { parseSyncedLyrics } from '@utils/lyrics';
 
 export class TagEditor {
 	columns: Array<RawTagEditColumn> = [];
 	edits: Array<RawTagEditRow> = [];
 
-	constructor(private readonly jam: JamService) {
+	constructor(private readonly jam: JamService, private readonly onLyricsChange?: () => void) {
 	}
 
 	removeColumnText(column: RawTagEditColumn, text: string): void {
@@ -237,21 +240,44 @@ export class TagEditor {
 	}
 
 	async findMissingLyrics(tracks: Array<Jam.Track> = []): Promise<void> {
-		const lyricsCol = this.findOrAddColumn(tracks, { frameDef: FrameDefs.USLT, id: 'USLT' });
-		const artistCol = this.findOrAddColumn(tracks, { frameDef: FrameDefs.TPE1, id: 'TPE1' });
-		const titleCol = this.findOrAddColumn(tracks, { frameDef: FrameDefs.TIT2, id: 'TIT2' });
+		const editTracks = tracks.length > 0 ? tracks : this.edits.map(edit => edit.track);
+		const lyricsCol = this.findOrAddColumn(editTracks, { frameDef: FrameDefs.USLT, id: 'USLT' });
+		const artistCol = this.findOrAddColumn(editTracks, { frameDef: FrameDefs.TPE1, id: 'TPE1' });
+		const titleCol = this.findOrAddColumn(editTracks, { frameDef: FrameDefs.TIT2, id: 'TIT2' });
+		const albumCol = this.findOrAddColumn(editTracks, { frameDef: FrameDefs.TALB, id: 'TALB' });
+		const syncedCol = this.columns.find(column => column.def.id === 'SYLT') ??
+			this.findOrAddColumn(editTracks, { frameDef: FrameDefs.SYLT, id: 'SYLT' });
 		const lyricsColIndex = this.columns.indexOf(lyricsCol);
 		const artistColIndex = this.columns.indexOf(artistCol);
 		const titleColIndex = this.columns.indexOf(titleCol);
+		const albumColIndex = this.columns.indexOf(albumCol);
+		const syncedColIndex = this.columns.indexOf(syncedCol);
+		this.onLyricsChange?.();
 		for (const edit of this.edits) {
 			const lyrics = this.getCellText(edit.cells[lyricsColIndex]);
-			if (!lyrics) {
+			if (!lyrics || edit.cells.every(cell => cell.column.def.id !== 'SYLT' || cell.frames.length === 0)) {
 				const artist = this.getCellText(edit.cells[artistColIndex]);
 				const title = this.getCellText(edit.cells[titleColIndex]);
 				if (title && artist) {
-					const res = await this.jam.metadata.lyricsovhSearch({ title, artist });
-					if (res.data?.lyrics) {
-						this.updateEditTextCell(edit, lyricsCol, res.data.lyrics);
+					const album = this.getCellText(edit.cells[albumColIndex]);
+					const result = await findLyrics(this.jam, { title, artist, album, duration: edit.track.duration });
+					if (result) {
+						const events = result.syncedLyrics ? parseSyncedLyrics(result.syncedLyrics) : [];
+						const plain = result.lyrics === '' || result.lyrics === undefined ? events.map(event => event.text).join('\n') : result.lyrics;
+						if (plain && !this.getCellText(edit.cells[lyricsColIndex])) {
+							this.updateEditTextCell(edit, lyricsCol, plain);
+						}
+						const cell = edit.cells[syncedColIndex];
+						if (events.length > 0 && edit.cells.every(existing => existing.column.def.id !== 'SYLT' || existing.frames.length === 0)) {
+							const builder = new ID3V2RawBuilder().syncedLyrics('SYLT', events);
+							const frames = (builder.build().SYLT ?? []).map(frame => ({
+								id: frame.id,
+								value: { ...frame.value, id: syncedCol.def.subid ?? frame.value.id }
+							}));
+							edit.cells[syncedColIndex] = { ...cell, frames, changed: true };
+							edit.changed = true;
+						}
+						this.onLyricsChange?.();
 					}
 				}
 			}
@@ -641,7 +667,8 @@ export class TagEditor {
 
 					break;
 				}
-				case 'USLT': {
+				case 'USLT':
+				case 'SYLT': {
 					result.push({
 						icon: IconDownThinComponent,
 						title: 'Search for missing Lyrics',

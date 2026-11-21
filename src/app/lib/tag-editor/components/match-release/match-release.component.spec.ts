@@ -5,13 +5,13 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { JamService, MusicBrainzLookupType } from '@jam';
 import { NotifyService } from '@core/services/notify/notify.service';
 import type { Matching, MatchRelease } from '../../model/release-matching.helper';
-import type { LyricsOVHResponse } from '@modules/jam/model/lyricsovh-rest-data';
 
 const jamServiceMock = {
 	metadata: {
 		musicbrainzSearch: vi.fn(),
 		musicbrainzLookup: vi.fn(),
 		lyricsovhSearch: vi.fn(),
+		lcrlibSearch: vi.fn(),
 		acousticbrainzLookup: vi.fn()
 	}
 };
@@ -39,6 +39,7 @@ describe('MatchReleaseComponent', () => {
 		jamServiceMock.metadata.musicbrainzSearch.mockReset();
 		jamServiceMock.metadata.musicbrainzLookup.mockReset();
 		jamServiceMock.metadata.lyricsovhSearch.mockReset();
+		jamServiceMock.metadata.lcrlibSearch.mockReset();
 		jamServiceMock.metadata.acousticbrainzLookup.mockReset();
 		notifyServiceMock.error.mockReset();
 		fixture = TestBed.createComponent(MatchReleaseComponent);
@@ -52,19 +53,21 @@ describe('MatchReleaseComponent', () => {
 
 	it('shows lyrics found for each track as loading progresses', async () => {
 		const matches = ['First track', 'Second track'].map(name => ({
-			track: { id: name, name },
+			track: { id: name, name, duration: 180_000 },
 			mbTrack: { title: name, artistCredit: [{ name: 'Artist' }] }
 		})) as Array<Matching>;
 		const release = {
+			mbRelease: { title: 'Album' },
 			media: [{ tracks: matches.map(match => ({ mbTrack: match.mbTrack, currentMatch: { match } })) }]
 		} as unknown as MatchRelease;
 		component.matcher.matchings.set(matches);
 		fixture.detectChanges();
-		const first = Promise.withResolvers<{ data: LyricsOVHResponse }>();
-		const second = Promise.withResolvers<{ data: LyricsOVHResponse }>();
-		jamServiceMock.metadata.lyricsovhSearch.mockReturnValueOnce(first.promise).mockReturnValueOnce(second.promise);
+		const first = Promise.withResolvers<{ data: { plainLyrics?: string; syncedLyrics?: string } }>();
+		const second = Promise.withResolvers<{ data: { plainLyrics?: string; syncedLyrics?: string } }>();
+		jamServiceMock.metadata.lcrlibSearch.mockReturnValueOnce(first.promise).mockReturnValueOnce(second.promise);
+		jamServiceMock.metadata.lyricsovhSearch.mockResolvedValue({ data: {} });
 		component.matcher.loadLyrics(release);
-		first.resolve({ data: { lyrics: 'Found lyrics' } });
+		first.resolve({ data: { syncedLyrics: '[00:01.00]Found lyrics' } });
 		await fixture.whenStable();
 
 		const element = fixture.nativeElement as HTMLElement;
