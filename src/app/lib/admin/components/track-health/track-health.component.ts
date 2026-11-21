@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, inject, input, output, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { type Jam, JamService, TrackHealthID } from '@jam';
@@ -38,7 +38,10 @@ export class TrackHealthComponent {
 
 	constructor() {
 		effect(() => {
-			this.display(this.trackHealth());
+			const trackHealth = this.trackHealth();
+			untracked(() => {
+				this.display(trackHealth);
+			});
 		});
 		this.folderService.tracksChange
 			.pipe(takeUntilDestroyed(this.lifeRef))
