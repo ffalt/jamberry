@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.25](https://github.com/ffalt/jamberry/compare/v0.6.24...v0.6.25) (2026-11-21)
+
+### Features
+
+* **admin:** support adding synced lyrics in the the tag editor and release matching ([3134a4b](https://github.com/ffalt/jamberry/commit/3134a4b2f30a25c88e409750a90d6c4a15742152))
+* **lyrics:** add synced lyrics health hint ([16ee002](https://github.com/ffalt/jamberry/commit/16ee0025db4efb4a352668951494598998abc1b0))
+
 ## [0.6.24](https://github.com/ffalt/jamberry/compare/v0.6.23...v0.6.24) (2026-11-20)
 
 ### Features
