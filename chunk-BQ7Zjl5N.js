@@ -1,1 +1,0 @@
-import{ca as yt}from"./chunk-DkSQu22c.js";var i=class{constructor(){this.notifiers={}}notifier(t){return this.notifiers[t]??=new yt,this.notifiers[t]}observed(t){return this.notifiers[t]?.observed??!1}emit(t,r){this.notifiers[t]?.emit(r)}};export{i as t};

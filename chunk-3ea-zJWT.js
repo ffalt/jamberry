@@ -1,1 +1,0 @@
-import{O as Cr}from"./chunk-DkSQu22c.js";var p=(()=>{class r{transform(i,t){return!i||Number.isNaN(t)||t<=0?``:i.length<t?i:`${i.slice(0,t-1).trim()}\u2026`}static{this.ɵfac=function(t){return new(t||r)}}static{this.ɵpipe=Cr({name:`limit`,type:r,pure:!0})}}return r})();export{p as t};

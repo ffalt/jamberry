@@ -1,2 +1,0 @@
-import{Tt as Md,bt as MH,f as AT,ui as p_}from"./chunk-DkSQu22c.js";var d=(()=>{class t{constructor(){this.text=MH()}static{this.ɵfac=function(e){return new(e||t)}}static{this.ɵcmp=AT({type:t,selectors:[[`app-background-text`]],inputs:{text:[1,`text`]},decls:1,vars:1,template:function(e,a){e&1&&p_(0),e&2&&Md(`[`,a.text(),`]
-`)},styles:[`[_nghost-%COMP%]{margin-top:30px;margin-bottom:30px;text-align:center;font-size:1.6em;-webkit-user-select:none;user-select:none;cursor:default;color:var(--%NS%on-background);opacity:.7;display:block}`]})}}return t})();export{d as t};
