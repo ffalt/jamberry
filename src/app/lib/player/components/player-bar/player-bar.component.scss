@@ -1,5 +1,4 @@
 @use "_scss/variables";
-@use "sass:math";
 
 $phone-side-column: 44px;
 
@@ -253,7 +252,9 @@ $phone-side-column: 44px;
 
 	.bar-row {
 		grid-template:
-			"texts texts texts" auto "art transport utils" math.div(1fr, $phone-side-column) 1fr $phone-side-column;
+			"texts texts texts" auto
+			"art transport utils" 1fr
+			#{"/"} $phone-side-column minmax(0, 1fr) $phone-side-column;
 		gap: 0 variables.$margin-xs;
 		padding: 2px variables.$padding-sm 0;
 	}
