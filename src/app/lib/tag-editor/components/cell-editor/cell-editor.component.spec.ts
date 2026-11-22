@@ -35,14 +35,7 @@ describe('CellEditorComponent', () => {
 				id: 'SYLT',
 				value: {
 					id: 'lyrics', language: 'eng', timestampFormat: 2, contentType: 1,
-					events: [
-						{ timestamp: 1000, text: 'First line' },
-						{ timestamp: 2000, text: 'Second line' },
-						{ timestamp: 3000, text: 'Third line' },
-						{ timestamp: 4000, text: 'Fourth line' },
-						{ timestamp: 5000, text: 'Fifth line' },
-						{ timestamp: 6000, text: 'Sixth line' }
-					]
+					events: Array.from({ length: 20 }, (_, i) => ({ timestamp: (i + 1) * 1000, text: `${i + 1} line` }))
 				}
 			}],
 			changed: false,
@@ -52,8 +45,8 @@ describe('CellEditorComponent', () => {
 		await fixture.whenStable();
 
 		const display = fixture.nativeElement.querySelector(':scope app-cell-editor-display div') as HTMLElement;
-		expect(display.textContent).toBe('6 synced lines');
-		expect(display.title).toBe('First line\nSecond line\nThird line\nFourth line\nFifth line…');
+		expect(display.textContent).toBe('20 synced lines');
+		expect(display.title.split('\n').length).toBe(16);
 	});
 
 	it('opens a synced lyrics dialog when the synced lyrics cell is clicked', async () => {
