@@ -2650,6 +2650,34 @@ export declare namespace Jam {
 	}
 
 	/*
+	 * Lyrics Sidecar File of a Track
+	 */
+	export interface TrackLyricsSidecar {
+		// File Name of the Lyrics Sidecar
+		name: string;
+		/**
+		The Sidecar holds synced lyrics
+		@TJS-type boolean
+		*/
+		synced: boolean;
+		// Origin of the Lyrics, taken from the by tag of the file
+		source?: string;
+		/**
+		The Sidecar was written by Jam
+		@TJS-type boolean
+		*/
+		writtenByJam: boolean;
+	}
+
+	/*
+	 * Track Lyrics Sidecar List
+	 */
+	export interface TrackLyricsSidecarList {
+		// List of Lyrics Sidecar Files found for the Track
+		entries: Array<TrackLyricsSidecar>;
+	}
+
+	/*
 	 * Tracks Page
 	 */
 	export interface TrackPage extends Page {

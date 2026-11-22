@@ -1349,6 +1349,20 @@ export declare namespace JamParameters {
 		artist: string;
 	}
 
+	export interface LyricsSearchParameters {
+		// Song Title
+		title: string;
+		// Song Artist
+		artist: string;
+		// Song Album
+		album?: string;
+		/**
+		Song Duration in seconds
+		@TJS-type integer
+		*/
+		duration?: number;
+	}
+
 	export interface MediaHealthParameters {
 		/**
 		check media file integrity
@@ -2097,6 +2111,8 @@ export declare namespace JamParameters {
 	export type ArtworkIdParameters = IncludesFolderParameters & IncludesArtworkChildrenParameters & IncludesArtworkParameters & ID;
 
 	export type ArtworkSearchParameters = ListParameters & ArtworkOrderParameters & ArtworkFilterParameters & IncludesFolderParameters & IncludesArtworkChildrenParameters & IncludesArtworkParameters & PageParameters;
+
+	export type MetadataLyricsSearchParameters = IncludesTrackLyricsParameters & LyricsSearchParameters;
 
 	export type NowPlayingListParameters = IncludesEpisodeParameters & IncludesTrackParameters & IncludesNowPlayingParameters;
 

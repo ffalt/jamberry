@@ -28,6 +28,34 @@ describe('CellEditorComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
+	it('shows a lyrics preview in the synced lyrics tooltip while retaining the line count', async () => {
+		const cell = {
+			column: { def: { id: 'SYLT', impl: FrameType.SYLT } },
+			frames: [{
+				id: 'SYLT',
+				value: {
+					id: 'lyrics', language: 'eng', timestampFormat: 2, contentType: 1,
+					events: [
+						{ timestamp: 1000, text: 'First line' },
+						{ timestamp: 2000, text: 'Second line' },
+						{ timestamp: 3000, text: 'Third line' },
+						{ timestamp: 4000, text: 'Fourth line' },
+						{ timestamp: 5000, text: 'Fifth line' },
+						{ timestamp: 6000, text: 'Sixth line' }
+					]
+				}
+			}],
+			changed: false,
+			parent: { changed: false }
+		} as unknown as RawTagEditCell<unknown>;
+		fixture.componentRef.setInput('cell', cell);
+		await fixture.whenStable();
+
+		const display = fixture.nativeElement.querySelector(':scope app-cell-editor-display div') as HTMLElement;
+		expect(display.textContent).toBe('6 synced lines');
+		expect(display.title).toBe('First line\nSecond line\nThird line\nFourth line\nFifth line…');
+	});
+
 	it('opens a synced lyrics dialog when the synced lyrics cell is clicked', async () => {
 		const cell = {
 			column: { def: { id: 'SYLT', impl: FrameType.SYLT } },

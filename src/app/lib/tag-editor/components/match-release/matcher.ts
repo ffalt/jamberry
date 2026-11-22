@@ -345,7 +345,7 @@ export class Matcher {
 					const artist = track.mbTrack.artistCredit[0].name;
 					const title = track.mbTrack.title;
 					const duration = track.currentMatch.match.track.duration || track.mbTrack.length;
-					track.currentMatch.match.lyrics = await findLyrics(this.jam, { artist, title, album: release.mbRelease.title, duration });
+					track.currentMatch.match.lyrics = await findLyrics(this.jam, { trackId: track.currentMatch.match.track.id, artist, title, album: release.mbRelease.title, duration });
 					if (track.currentMatch.match.lyrics) {
 						this.updateMatchings();
 					}

@@ -41,12 +41,14 @@ describe('TagEditorComponent', () => {
 		component.folder.set({ id: 'folder', name: 'Album', created: 0, level: 0, type: FolderType.album });
 		component.tracks.set([track]);
 		component.editor.build([track]);
-		const response = Promise.withResolvers<Jam.MetadataResult>();
-		vi.spyOn(TestBed.inject(JamService).metadata, 'lcrlibSearch').mockReturnValue(response.promise);
+		const jam = TestBed.inject(JamService);
+		const response = Promise.withResolvers<Jam.TrackLyricsList>();
+		vi.spyOn(jam.track, 'lyricsSidecars').mockResolvedValue({ entries: [] });
+		vi.spyOn(jam.metadata, 'lyricsSearch').mockReturnValue(response.promise);
 		await fixture.whenStable();
 
 		component.findMissingLyrics();
-		response.resolve({ data: { plainLyrics: 'Found lyrics', syncedLyrics: '[00:01.00]Found lyrics' } });
+		response.resolve({ entries: [{ lyrics: 'Found lyrics', syncedLyrics: '[00:01.00]Found lyrics' }] });
 		await vi.waitFor(() => expect(component.editor.edits[0].changed).toBe(true));
 		await fixture.whenStable();
 

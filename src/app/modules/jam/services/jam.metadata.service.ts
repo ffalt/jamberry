@@ -19,6 +19,13 @@ export class JamMetadataService {
 	}
 
 	/**
+	Search Lyrics on all supported External Services by Song Values; Rights needed: stream
+	*/
+	async lyricsSearch(parameters: JamParameters.MetadataLyricsSearchParameters): Promise<Jam.TrackLyricsList> {
+		return this.base.requestData<Jam.TrackLyricsList>('/metadata/lyrics/search', parameters);
+	}
+
+	/**
 	Search Lyrics.ovh data; Rights needed: stream
 	*/
 	async lyricsovhSearch(parameters: JamParameters.LyricsOVHSearchParameters): Promise<Jam.MetadataTrackLyricsResult> {

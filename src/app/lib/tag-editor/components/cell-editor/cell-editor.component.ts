@@ -31,6 +31,7 @@ export class CellEditorComponent extends CellEditor {
 	readonly container = viewChild('cellContainer', { read: ViewContainerRef });
 	readonly cell = input<RawTagEditCell<any>>();
 	readonly lines = signal<Array<string>>([]);
+	readonly tooltips = signal<Array<string>>([]);
 	readonly inactive = signal(true);
 	private readonly lifeRef = inject(DestroyRef);
 	private readonly dialogOverlay = inject(DialogOverlayService);
@@ -345,7 +346,8 @@ export class CellEditorComponent extends CellEditor {
 
 	private display(): void {
 		const cell = this.cell();
-		this.lines.set(cell ? cell.frames.map(f => this.frameToString(f)) : []);
+		this.lines.set(cell ? cell.frames.map(frame => this.frameToString(frame)) : []);
+		this.tooltips.set(cell ? cell.frames.map(frame => this.frameToTooltip(frame)) : []);
 	}
 
 	private frameToString(frame: RawTagEditFrame<any>): string {
@@ -399,5 +401,16 @@ export class CellEditorComponent extends CellEditor {
 				return `Not implemented celleditor for: ${cell?.column.def.name}`;
 			}
 		}
+	}
+
+	private frameToTooltip(frame: RawTagEditFrame<any>): string {
+		const cell = this.cell();
+		if (cell?.column.def.impl !== FrameType.SYLT) {
+			return this.frameToString(frame);
+		}
+		const maxAmount = 15;
+		const value = frame.value as SyncedLyricsValue;
+		const preview = value.events.slice(0, maxAmount).map(event => event.text).join('\n');
+		return value.events.length > maxAmount ? `${preview}\n…` : preview;
 	}
 }

@@ -260,7 +260,7 @@ export class TagEditor {
 				const title = this.getCellText(edit.cells[titleColIndex]);
 				if (title && artist) {
 					const album = this.getCellText(edit.cells[albumColIndex]);
-					const result = await findLyrics(this.jam, { title, artist, album, duration: edit.track.duration });
+					const result = await findLyrics(this.jam, { trackId: edit.track.id, title, artist, album, duration: edit.track.duration });
 					if (result) {
 						const events = result.syncedLyrics ? parseSyncedLyrics(result.syncedLyrics) : [];
 						const plain = result.lyrics === '' || result.lyrics === undefined ? events.map(event => event.text).join('\n') : result.lyrics;
@@ -667,11 +667,10 @@ export class TagEditor {
 
 					break;
 				}
-				case 'USLT':
 				case 'SYLT': {
 					result.push({
 						icon: IconDownThinComponent,
-						title: 'Search for missing Lyrics',
+						title: 'Search for missing lyrics',
 						click: (): void => {
 							this.findMissingLyrics().catch((error: unknown) => {
 								console.error(error);
@@ -690,6 +689,16 @@ export class TagEditor {
 				title: 'Set Filenames by Meta Data',
 				click: (): void => {
 					this.setColumnFilenames(col);
+				}
+			});
+		} else if (impl === FrameType.SYLT) {
+			result.push({
+				icon: IconDownThinComponent,
+				title: 'Search for missing lyrics',
+				click: (): void => {
+					this.findMissingLyrics().catch((error: unknown) => {
+						console.error(error);
+					});
 				}
 			});
 		} else {

@@ -40,6 +40,13 @@ export class JamTrackService {
 	}
 
 	/**
+	Get the Lyrics Sidecar Files of a Track by Id; Rights needed: stream
+	*/
+	async lyricsSidecars(parameters: JamParameters.ID): Promise<Jam.TrackLyricsSidecarList> {
+		return this.base.requestData<Jam.TrackLyricsSidecarList>('/track/lyrics/sidecars', parameters);
+	}
+
+	/**
 	Get Raw Tag (eg. id3/vorbis); Rights needed: stream
 	*/
 	async rawTagGet(parameters: JamParameters.TrackFilterParameters): Promise<Array<Jam.MediaIDTagRaw>> {

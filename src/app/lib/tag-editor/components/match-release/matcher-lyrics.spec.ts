@@ -5,9 +5,10 @@ import type { Matching, MatchRelease } from '../../model/release-matching.helper
 import { Matcher } from './matcher';
 
 function setup() {
-	const metadata = { lcrlibSearch: vi.fn(), lyricsovhSearch: vi.fn() };
+	const metadata = { lyricsSearch: vi.fn() };
+	const trackService = { lyricsSidecars: vi.fn().mockResolvedValue({ entries: [] }), lyrics: vi.fn() };
 	const notify = { error: vi.fn() };
-	const matcher = new Matcher({ metadata } as unknown as JamService, notify as unknown as NotifyService);
+	const matcher = new Matcher({ metadata, track: trackService } as unknown as JamService, notify as unknown as NotifyService);
 	const match = {
 		track: { id: '1', name: 'Song', duration: 170_360 },
 		mbTrack: { title: 'Song', artistCredit: [{ name: 'Artist' }] }
@@ -17,42 +18,32 @@ function setup() {
 		media: [{ tracks: [{ mbTrack: match.mbTrack, currentMatch: { match } }] }]
 	} as unknown as MatchRelease;
 	matcher.prepare([match]);
-	return { matcher, match, release, metadata, notify };
+	return { matcher, match, release, metadata, trackService, notify };
 }
 
 describe('Matcher lyrics lookup', () => {
-	it('loads plain and synced LRCLIB lyrics without querying OVH', async () => {
-		const { matcher, match, release, metadata } = setup();
-		metadata.lcrlibSearch.mockResolvedValue({ data: { id: 123, plainLyrics: 'Plain', syncedLyrics: '[00:01.00]Plain' } });
+	it('loads plain and synced lyrics from external search results', async () => {
+		const { matcher, match, release, metadata, trackService } = setup();
+		metadata.lyricsSearch.mockResolvedValue({ entries: [{ lyrics: 'Plain', syncedLyrics: '[00:01.00]Plain', source: 'Lyrics service' }] });
 
 		matcher.loadLyrics(release);
 		await vi.waitFor(() => expect(matcher.isRunning()).toBe(false));
 
-		expect(metadata.lcrlibSearch).toHaveBeenCalledWith({ title: 'Song', artist: 'Artist', album: 'Album', duration: 170 });
-		expect(match.lyrics).toEqual({ lyrics: 'Plain', syncedLyrics: '[00:01.00]Plain', source: 'https://lrclib.net/api/get/123' });
-		expect(metadata.lyricsovhSearch).not.toHaveBeenCalled();
+		expect(trackService.lyricsSidecars).toHaveBeenCalledWith({ id: '1' });
+		expect(metadata.lyricsSearch).toHaveBeenCalledWith({ title: 'Song', artist: 'Artist', album: 'Album', duration: 170 });
+		expect(match.lyrics).toEqual({ lyrics: 'Plain', syncedLyrics: '[00:01.00]Plain', source: 'Lyrics service' });
 	});
 
-	it('keeps synced-only LRCLIB lyrics without querying OVH', async () => {
-		const { matcher, match, release, metadata } = setup();
-		metadata.lcrlibSearch.mockResolvedValue({ data: { syncedLyrics: '[00:01.00]Line' } });
+	it('uses sidecar lyrics before external search results', async () => {
+		const { matcher, match, release, metadata, trackService } = setup();
+		trackService.lyricsSidecars.mockResolvedValue({ entries: [{ name: 'Song.lrc', synced: true, writtenByJam: false }] });
+		trackService.lyrics.mockResolvedValue({ entries: [{ syncedLyrics: '[00:01.00]Line', source: 'Song.lrc' }] });
 
 		matcher.loadLyrics(release);
 		await vi.waitFor(() => expect(matcher.isRunning()).toBe(false));
 
 		expect(match.lyrics).toMatchObject({ syncedLyrics: '[00:01.00]Line' });
-		expect(metadata.lyricsovhSearch).not.toHaveBeenCalled();
-	});
-
-	it('keeps plain-only LRCLIB lyrics without querying OVH', async () => {
-		const { matcher, match, release, metadata } = setup();
-		metadata.lcrlibSearch.mockResolvedValue({ data: { plainLyrics: 'Plain only', syncedLyrics: JSON.parse('null') } });
-
-		matcher.loadLyrics(release);
-		await vi.waitFor(() => expect(matcher.isRunning()).toBe(false));
-
-		expect(match.lyrics?.lyrics).toBe('Plain only');
-		expect(metadata.lyricsovhSearch).not.toHaveBeenCalled();
+		expect(metadata.lyricsSearch).not.toHaveBeenCalled();
 	});
 
 	it('uses the MusicBrainz duration and omits unavailable album details', async () => {
@@ -61,29 +52,28 @@ describe('Matcher lyrics lookup', () => {
 		if (!match.mbTrack) throw new Error('Missing track');
 		match.mbTrack.length = 180_500;
 		release.mbRelease.title = '';
-		metadata.lcrlibSearch.mockResolvedValue({ data: { plainLyrics: 'Lyrics' } });
+		metadata.lyricsSearch.mockResolvedValue({ entries: [{ lyrics: 'Lyrics' }] });
 
 		matcher.loadLyrics(release);
 		await vi.waitFor(() => expect(matcher.isRunning()).toBe(false));
 
-		expect(metadata.lcrlibSearch).toHaveBeenCalledWith({ title: 'Song', artist: 'Artist', duration: 181 });
+		expect(metadata.lyricsSearch).toHaveBeenCalledWith({ title: 'Song', artist: 'Artist', duration: 181 });
 	});
 
 	it('skips tracks that already have lyrics', async () => {
-		const { matcher, match, release, metadata } = setup();
+		const { matcher, match, release, metadata, trackService } = setup();
 		match.lyrics = { syncedLyrics: '[00:01.00]Existing' };
 
 		matcher.loadLyrics(release);
 		await vi.waitFor(() => expect(matcher.isRunning()).toBe(false));
 
-		expect(metadata.lcrlibSearch).not.toHaveBeenCalled();
-		expect(metadata.lyricsovhSearch).not.toHaveBeenCalled();
+		expect(trackService.lyricsSidecars).not.toHaveBeenCalled();
+		expect(metadata.lyricsSearch).not.toHaveBeenCalled();
 	});
 
-	it('falls back to OVH when LRCLIB has no lyrics and retries empty results later', async () => {
+	it('retries tracks with empty external search results later', async () => {
 		const { matcher, match, release, metadata } = setup();
-		metadata.lcrlibSearch.mockResolvedValue({ data: {} });
-		metadata.lyricsovhSearch.mockResolvedValueOnce({ data: {} }).mockResolvedValueOnce({ data: { lyrics: 'OVH' } });
+		metadata.lyricsSearch.mockResolvedValueOnce({ entries: [] }).mockResolvedValueOnce({ entries: [{ lyrics: 'External' }] });
 
 		matcher.loadLyrics(release);
 		await vi.waitFor(() => expect(matcher.isRunning()).toBe(false));
@@ -91,30 +81,28 @@ describe('Matcher lyrics lookup', () => {
 		matcher.loadLyrics(release);
 		await vi.waitFor(() => expect(matcher.isRunning()).toBe(false));
 
-		expect(match.lyrics?.lyrics).toBe('OVH');
-		expect(metadata.lyricsovhSearch).toHaveBeenCalledTimes(2);
+		expect(match.lyrics?.lyrics).toBe('External');
+		expect(metadata.lyricsSearch).toHaveBeenCalledTimes(2);
 	});
 
-	it('reports LRCLIB failures without treating them as missing lyrics', async () => {
+	it('reports external lyrics search failures', async () => {
 		const { matcher, release, metadata, notify } = setup();
-		const error = new Error('LRCLIB unavailable');
-		metadata.lcrlibSearch.mockRejectedValue(error);
+		const error = new Error('Lyrics search unavailable');
+		metadata.lyricsSearch.mockRejectedValue(error);
 
 		matcher.loadLyrics(release);
 		await vi.waitFor(() => expect(matcher.isRunning()).toBe(false));
 
 		expect(notify.error).toHaveBeenCalledWith(error);
-		expect(metadata.lyricsovhSearch).not.toHaveBeenCalled();
 	});
 
-	it('reports malformed LRCLIB responses instead of falling back', async () => {
+	it('reports malformed external lyrics responses', async () => {
 		const { matcher, release, metadata, notify } = setup();
-		metadata.lcrlibSearch.mockResolvedValue({ data: { plainLyrics: 123 } });
+		metadata.lyricsSearch.mockResolvedValue({ entries: [{ lyrics: 123 }] });
 
 		matcher.loadLyrics(release);
 		await vi.waitFor(() => expect(matcher.isRunning()).toBe(false));
 
-		expect(notify.error).toHaveBeenCalledWith(expect.objectContaining({ message: 'Invalid LRCLIB lyrics' }));
-		expect(metadata.lyricsovhSearch).not.toHaveBeenCalled();
+		expect(notify.error).toHaveBeenCalledWith(expect.objectContaining({ message: 'Invalid lyrics' }));
 	});
 });

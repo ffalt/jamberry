@@ -1,5 +1,5 @@
 @if (inactive()) {
-	<app-cell-editor-display [lines]="lines()" />
+	<app-cell-editor-display [lines]="lines()" [tooltips]="tooltips()" />
 } @else {
 	<ng-container #cellContainer />
 }

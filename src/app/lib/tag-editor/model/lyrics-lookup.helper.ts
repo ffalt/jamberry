@@ -1,52 +1,76 @@
 import type { Jam, JamParameters, JamService } from '@jam';
 
-interface LrclibResult {
-	id?: number;
-	plainLyrics?: string | null;
-	syncedLyrics?: string | null;
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 function isOptionalString(value: unknown): value is string | null | undefined {
-	return typeof value === 'string' || value === undefined || (typeof value === 'object' && !value);
+	return typeof value === 'string' || value === undefined || value === null;
 }
 
-function lrclibLyrics(data: unknown): Jam.TrackLyrics | undefined {
-	if (data === undefined || (typeof data === 'object' && !data)) {
-		return;
+function lyricsEntries(response: unknown): Array<Jam.TrackLyrics> {
+	if (!isRecord(response) || !Array.isArray(response.entries)) {
+		throw new TypeError('Invalid lyrics response');
 	}
-	if (typeof data !== 'object' || Array.isArray(data)) {
-		throw new TypeError('Invalid LRCLIB response');
+	return response.entries.map((entry: unknown) => {
+		if (!isRecord(entry)) {
+			throw new TypeError('Invalid lyrics response');
+		}
+		if (!isOptionalString(entry.lyrics) || !isOptionalString(entry.syncedLyrics)) {
+			throw new Error('Invalid lyrics');
+		}
+		return entry as Jam.TrackLyrics;
+	});
+}
+
+function hasLyrics(lyrics: Jam.TrackLyrics): boolean {
+	return !!lyrics.lyrics || !!lyrics.syncedLyrics || (lyrics.syncedLines?.length ?? 0) > 0;
+}
+
+function hasSyncedLyrics(lyrics: Jam.TrackLyrics): boolean {
+	return !!lyrics.syncedLyrics || (lyrics.syncedLines?.length ?? 0) > 0;
+}
+
+function sidecarLyrics(sidecars: Array<Jam.TrackLyricsSidecar>, lyrics: Array<Jam.TrackLyrics>): Jam.TrackLyrics | undefined {
+	for (const sidecar of sidecars) {
+		const matchingSource = lyrics.find(entry => hasLyrics(entry) &&
+			((sidecar.source !== undefined && entry.source === sidecar.source) || entry.source === sidecar.name));
+		if (matchingSource) {
+			return matchingSource;
+		}
+		const matchingType = lyrics.find(entry => hasLyrics(entry) && (sidecar.synced ? hasSyncedLyrics(entry) : !!entry.lyrics));
+		if (matchingType) {
+			return matchingType;
+		}
 	}
-	const lyrics = data as LrclibResult;
-	if (!isOptionalString(lyrics.plainLyrics) || !isOptionalString(lyrics.syncedLyrics)) {
-		throw new Error('Invalid LRCLIB lyrics');
-	}
-	if (lyrics.plainLyrics || lyrics.syncedLyrics) {
-		return {
-			lyrics: lyrics.plainLyrics ?? undefined,
-			syncedLyrics: lyrics.syncedLyrics ?? undefined,
-			source: typeof lyrics.id === 'number' ? `https://lrclib.net/api/get/${lyrics.id}` : undefined
-		};
-	}
-	return;
+	return undefined;
+}
+
+function lyricsWithContent(lyrics: Array<Jam.TrackLyrics>): Jam.TrackLyrics | undefined {
+	return lyrics.find(entry => hasLyrics(entry));
 }
 
 export async function findLyrics(
 	jam: JamService,
-	{ title, artist, album, duration: durationMs }: { title: string; artist: string; album?: string; duration?: number }
+	{ trackId, title, artist, album, duration: durationMs }: { trackId?: string; title: string; artist: string; album?: string; duration?: number }
 ): Promise<Jam.TrackLyrics | undefined> {
-	const durationSeconds = durationMs === undefined ? undefined : Math.round(durationMs / 1000);
-	const parameters = {
+	if (trackId) {
+		const sidecars = await jam.track.lyricsSidecars({ id: trackId });
+		if (sidecars.entries.length > 0) {
+			const trackLyrics = await jam.track.lyrics({ id: trackId });
+			const lyrics = sidecarLyrics(sidecars.entries, lyricsEntries(trackLyrics));
+			if (lyrics) {
+				return lyrics;
+			}
+		}
+	}
+
+	const parameters: JamParameters.MetadataLyricsSearchParameters = {
 		title,
 		artist,
 		...(album && { album }),
-		duration: durationSeconds
+		duration: durationMs === undefined ? undefined : Math.round(durationMs / 1000)
 	};
-	const result = await jam.metadata.lcrlibSearch(parameters as JamParameters.LrclibSearchParameters);
-	const lyrics = lrclibLyrics(result.data);
-	if (lyrics) {
-		return lyrics;
-	}
-	const fallback = await jam.metadata.lyricsovhSearch({ title, artist });
-	return fallback.data?.lyrics || fallback.data?.syncedLyrics ? fallback.data : undefined;
+	const externalLyrics = await jam.metadata.lyricsSearch(parameters);
+	return lyricsWithContent(lyricsEntries(externalLyrics));
 }

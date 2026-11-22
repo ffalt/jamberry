@@ -10,9 +10,12 @@ const jamServiceMock = {
 	metadata: {
 		musicbrainzSearch: vi.fn(),
 		musicbrainzLookup: vi.fn(),
-		lyricsovhSearch: vi.fn(),
-		lcrlibSearch: vi.fn(),
+		lyricsSearch: vi.fn(),
 		acousticbrainzLookup: vi.fn()
+	},
+	track: {
+		lyricsSidecars: vi.fn(),
+		lyrics: vi.fn()
 	}
 };
 
@@ -38,9 +41,10 @@ describe('MatchReleaseComponent', () => {
 	beforeEach(() => {
 		jamServiceMock.metadata.musicbrainzSearch.mockReset();
 		jamServiceMock.metadata.musicbrainzLookup.mockReset();
-		jamServiceMock.metadata.lyricsovhSearch.mockReset();
-		jamServiceMock.metadata.lcrlibSearch.mockReset();
+		jamServiceMock.metadata.lyricsSearch.mockReset();
 		jamServiceMock.metadata.acousticbrainzLookup.mockReset();
+		jamServiceMock.track.lyricsSidecars.mockReset().mockResolvedValue({ entries: [] });
+		jamServiceMock.track.lyrics.mockReset();
 		notifyServiceMock.error.mockReset();
 		fixture = TestBed.createComponent(MatchReleaseComponent);
 		component = fixture.componentInstance;
@@ -62,12 +66,11 @@ describe('MatchReleaseComponent', () => {
 		} as unknown as MatchRelease;
 		component.matcher.matchings.set(matches);
 		fixture.detectChanges();
-		const first = Promise.withResolvers<{ data: { plainLyrics?: string; syncedLyrics?: string } }>();
-		const second = Promise.withResolvers<{ data: { plainLyrics?: string; syncedLyrics?: string } }>();
-		jamServiceMock.metadata.lcrlibSearch.mockReturnValueOnce(first.promise).mockReturnValueOnce(second.promise);
-		jamServiceMock.metadata.lyricsovhSearch.mockResolvedValue({ data: {} });
+		const first = Promise.withResolvers<{ entries: Array<{ lyrics?: string; syncedLyrics?: string }> }>();
+		const second = Promise.withResolvers<{ entries: Array<{ lyrics?: string; syncedLyrics?: string }> }>();
+		jamServiceMock.metadata.lyricsSearch.mockReturnValueOnce(first.promise).mockReturnValueOnce(second.promise);
 		component.matcher.loadLyrics(release);
-		first.resolve({ data: { syncedLyrics: '[00:01.00]Found lyrics' } });
+		first.resolve({ entries: [{ syncedLyrics: '[00:01.00]Found lyrics' }] });
 		await fixture.whenStable();
 
 		const element = fixture.nativeElement as HTMLElement;
@@ -76,7 +79,7 @@ describe('MatchReleaseComponent', () => {
 		expect(tracks[0].textContent).toContain('Lyrics:');
 		expect(tracks[1].textContent).not.toContain('Lyrics:');
 
-		second.resolve({ data: {} });
+		second.resolve({ entries: [] });
 		await vi.waitFor(() => expect(component.matcher.isRunning()).toBe(false));
 		await fixture.whenStable();
 		expect(tracks[1].textContent).not.toContain('Lyrics:');

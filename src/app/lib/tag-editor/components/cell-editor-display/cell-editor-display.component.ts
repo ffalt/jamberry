@@ -8,4 +8,5 @@ import { Component, input } from '@angular/core';
 })
 export class CellEditorDisplayComponent {
 	readonly lines = input<Array<string>>();
+	readonly tooltips = input<Array<string>>();
 }
