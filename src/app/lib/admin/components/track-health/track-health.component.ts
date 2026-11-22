@@ -177,6 +177,10 @@ export class TrackHealthComponent {
 		return description;
 	}
 
+	private describeFlacErrorHint(hint: Jam.TrackHealthHint): string {
+		return (hint.details ?? []).map(detail => detail.reason).join(', ');
+	}
+
 	private describeID3v1Hint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
 		if (this.solutions().every(sol => sol.name !== 'Remove ID3v1')) {
 			const sol: TrackHealthHintSolution = {
@@ -200,31 +204,6 @@ export class TrackHealthComponent {
 			this.solutions.update(s => [...s, sol]);
 		}
 		return '';
-	}
-
-	private describeSyncedLyricsHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
-		if (this.solutions().every(sol => sol.name !== 'Fetch Synced Lyrics')) {
-			const sol: TrackHealthHintSolution = {
-				name: 'Fetch Synced Lyrics',
-				fixable: true,
-				click: (): void => {
-					if (sol.running) {
-						return;
-					}
-					sol.running = true;
-					this.solutions.update(s => [...s]);
-					this.jam.track.fix({ id: track.id, fixID: hint.id })
-						.then(item => {
-							this.folderService.waitForQueueResult('Fetching Synced Lyrics', item, [], [], [track.id]);
-						})
-						.catch((error: unknown) => {
-							this.notify.error(error);
-						});
-				}
-			};
-			this.solutions.update(s => [...s, sol]);
-		}
-		return 'No synced lyrics in the tag and no .lrc sidecar file';
 	}
 
 	private describeMP3HeaderHint(hint: Jam.TrackHealthHint, track: Jam.Track): string {
@@ -269,11 +248,11 @@ export class TrackHealthComponent {
 			case TrackHealthID.mp3MediaValid: {
 				return this.describeMp3ErrorHint(hint, track);
 			}
+			case TrackHealthID.flacMediaValid: {
+				return this.describeFlacErrorHint(hint);
+			}
 			case TrackHealthID.id3v2NoId3v1: {
 				return this.describeID3v1Hint(hint, track);
-			}
-			case TrackHealthID.lyricsSyncedExists: {
-				return this.describeSyncedLyricsHint(hint, track);
 			}
 			case TrackHealthID.mp3HeaderExists:
 			case TrackHealthID.mp3HeaderValid: {
