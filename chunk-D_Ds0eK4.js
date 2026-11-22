@@ -1,0 +1,1 @@
+import{gr as Tr,rt as u}from"./main-GXPHW3DE.js";var f=(()=>{class e{transform(i){return i===void 0?``:u(i)}static{this.ɵfac=function(n){return new(n||e)}}static{this.ɵpipe=Tr({name:`filesize`,type:e,pure:!0})}}return e})();export{f as t};
