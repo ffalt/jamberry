@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, inject, input, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, signal, untracked } from '@angular/core';
 import { Router } from '@angular/router';
 import { FolderHealthID, type Jam, JamService } from '@jam';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -41,7 +41,10 @@ export class FolderHealthComponent {
 
 	constructor() {
 		effect(() => {
-			this.display(this.folderHealth());
+			const folderHealth = this.folderHealth();
+			untracked(() => {
+				this.display(folderHealth);
+			});
 		});
 	}
 
