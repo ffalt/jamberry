@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.6.27](https://github.com/ffalt/jamberry/compare/v0.6.26...v0.6.27) (2026-11-22)
+
+### Features
+
+* **lyrics:** use sidecars and metadata lyrics search for missing lyrics lookup ([ebddb08](https://github.com/ffalt/jamberry/commit/ebddb084d36bd1af0695edb0cee41975dda1367c))
+
+### Bug Fixes
+
+* **admin:** prevent folder health display update loop ([66bda9b](https://github.com/ffalt/jamberry/commit/66bda9b345100c96016add9590ad0f7290d95f2a))
+
 ## [0.6.26](https://github.com/ffalt/jamberry/compare/v0.6.25...v0.6.26) (2026-11-21)
 
 ### Bug Fixes
